@@ -1,0 +1,13 @@
+# Whitelist: only the patent research is versioned. Obsidian settings (.obsidian/), Welcome.md and any
+# other personal notes in this vault stay out of Git.
+/*
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/Google Patent Research/
+!/patent-crawler/
+
+# crawler: dependencies, logs, secrets
+patent-crawler/node_modules/
+patent-crawler/**/*.log
+.env*

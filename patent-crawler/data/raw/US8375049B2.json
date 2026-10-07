@@ -1,0 +1,1219 @@
+{
+ "id": "US8375049B2",
+ "title": "Query revision using known highly-ranked queries",
+ "abstract": "An information retrieval system includes a query revision architecture providing one or more query revisers, each of which implements a query revision strategy. A query rank reviser suggests known highly-ranked queries as revisions to a first query by initially assigning a rank to all queries, and identifying a set of known highly-ranked queries (KHRQ). Queries with a strong probability of being revised to a KHRQ are identified as nearby queries (NQ). Alternative queries that are KHRQs are provided as candidate revisions for a given query. For alternative queries that are NQs, the corresponding known highly-ranked queries are provided as candidate revisions.",
+ "inventors": [
+  "David R. Bailey",
+  "Alexis J. Battle",
+  "David Ariel Cohn",
+  "Barbara Engelhardt",
+  "P. Pandurang Nayak"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2005-03-29",
+ "filing_date": "2010-09-07",
+ "publication_date": "2013-02-12",
+ "status": "Expired - Fee Related",
+ "expiration": "",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/953",
+  "G06F16/9532",
+  "G06F16/951",
+  "G06F16/30",
+  "G06F16/33",
+  "G06F16/332",
+  "G06F16/3322"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer-implemented method comprising: ranking, using one or more computers, indexed queries based on a respective query rank of each indexed query, the query rank calculated based on a frequency of occurrence of the indexed query and a user satisfaction score of the indexed query, the indexed queries including highly-ranked queries and nearby queries that are queries that have a statistically significant probability of being revised to one of the highly-ranked queries, wherein the user satisfaction score of a particular indexed query is determined from estimates of lengths of clicks on search results, wherein the estimates of the lengths of clicks on search results are based on a duration of time from a selection of a search result for the particular indexed query to a subsequent selection of another search result; calculating a respective revision score for each indexed query as a function of a revision probability of a first query and the respective query rank for the particular indexed query, the revision probability based on at least one of a semantic similarity or syntactic similarity between the first query and the particular indexed query; selecting one of the indexed queries as an alternative query to the first query based on the respective revision score of the selected query; and providing the selected query as a suggested revision for the first query.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1 in which the first query is a query revision of an earlier query.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1 in which the function is a product of the revision probability for the first query with respect to the particular indexed query and the query rank for the particular indexed query.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1 in which the alternative query is a highly-ranked query.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 4, further comprising: calculating the frequency of occurrence of the alternative query; calculating the user satisfaction score for the alternative query; and computing a rank for the alternative query as a function of the frequency of occurrence and the user satisfaction score, in which the alternative query is identified as the highly-ranked query based on the rank.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 5, in which the user satisfaction score is based on an inverse revision frequency.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 6, in which the inverse revision frequency is the inverse of a number of times the alternative query is revised divided by the query occurrence frequency of the alternative query.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 1, further comprising: logging query data generated from user sessions; and using the query data to generate the indexed queries.",
+   "dependent": true
+  },
+  {
+   "text": "9. The method of claim 1, in which the suggested revision is displayed to a user in a location dependent upon a relative strength of a confidence measure associated with the alternative revision.",
+   "dependent": true
+  },
+  {
+   "text": "10. A non-transitory computer storage medium encoded with a computer program, the program comprising instructions that when executed by data processing apparatus cause the data processing apparatus to perform operations comprising: ranking indexed queries based on a respective query rank of each indexed query, the query rank calculated based on a frequency of occurrence of the indexed query and a user satisfaction score of the indexed query, the indexed queries including highly-ranked queries and nearby queries that are queries that have a statistically significant probability of being revised to one of the highly-ranked queries, wherein the user satisfaction score of a particular indexed query is determined from estimates of length of click on search result, wherein the estimates of the lengths of clicks on search results are based on a duration of time from a selection of a search result for the particular indexed query to a subsequent selection of another search result; calculating a respective revision score for each indexed query as a function of a revision probability of a first query and the respective query rank for the particular indexed query, the revision probability based on at least one of a semantic similarity or syntactic similarity between the first query and the particular indexed query; selecting one of the indexed queries as an alternative query to the first query based on the respective revision score of the selected indexed query; and providing the selected query as a suggested revision for the first query.",
+   "dependent": false
+  },
+  {
+   "text": "11. The computer storage medium of claim 10 in which the first query is a query revision of an earlier query.",
+   "dependent": true
+  },
+  {
+   "text": "12. The computer storage medium of claim 10 in which the function is a product of the revision probability for the first query with respect to the particular indexed query and the query rank for the particular indexed query.",
+   "dependent": true
+  },
+  {
+   "text": "13. The computer storage medium of claim 10 in which the alternative query is a highly-ranked query.",
+   "dependent": true
+  },
+  {
+   "text": "14. The computer storage medium of claim 13, in which the operations further comprise: calculating the frequency of occurrence of the alternative query; calculating the user satisfaction score for the alternative query; and computing a rank for the alternative query as a function of the frequency of occurrence and the user satisfaction score, in which the alternative query is identified as the highly-ranked query based on the rank.",
+   "dependent": true
+  },
+  {
+   "text": "15. The computer storage medium of claim 14, in which the user satisfaction score is based on an inverse revision frequency.",
+   "dependent": true
+  },
+  {
+   "text": "16. The computer storage medium of claim 15, in which the inverse revision frequency is the inverse of a number of times the alternative query is revised divided by the query occurrence frequency of the alternative query.",
+   "dependent": true
+  },
+  {
+   "text": "17. The computer storage medium of claim 10, in which the operations further comprise: logging query data generated from user sessions; and using the query data to generate the indexed queries.",
+   "dependent": true
+  },
+  {
+   "text": "18. The computer storage medium of claim 10, in which the suggested revision is displayed to a user in a location dependent upon a relative strength of a confidence measure associated with the alternative revision.",
+   "dependent": true
+  },
+  {
+   "text": "19. A system comprising: memory; one or more processors coupled to the memory and configured to perform operations comprising: ranking indexed queries based on a respective query rank of each indexed query, the query rank calculated based on a frequency of occurrence of the indexed query and a user satisfaction score of the indexed query, the indexed queries including highly-ranked queries and nearby queries that are queries that have a statistically significant probability of being revised to one of the highly-ranked queries, wherein the user satisfaction score of a particular indexed query is determined from estimates of lengths of clicks on search results, wherein the estimates of the lengths of clicks on search results are based on a duration of time from a selection of a search result for the particular indexed query to a subsequent selection of another search result; calculating a respective revision score for each indexed query as a function of a revision probability of a first query and the respective query rank for the particular indexed query, the revision probability based on at least one of a semantic similarity or syntactic similarity between the first query and the particular indexed query; selecting one of the indexed queries as an alternative query to the first query based on the respective revision score of the selected indexed query; and providing the selected query as a suggested revision for the first query.",
+   "dependent": false
+  },
+  {
+   "text": "20. The system of claim 19 in which the first query is a query revision of an earlier query.",
+   "dependent": true
+  },
+  {
+   "text": "21. The system of claim 19 in which the function is a product of the revision probability for the first query with respect to the particular indexed query and the query rank for the particular indexed query.",
+   "dependent": true
+  },
+  {
+   "text": "22. The system of claim 19 in which the alternative query is a highly-ranked query.",
+   "dependent": true
+  },
+  {
+   "text": "23. The system of claim 22, in which the operations further comprise: calculating the frequency of occurrence of the alternative query; calculating the user satisfaction score for the alternative query; and computing a rank for the alternative query as a function of the frequency of occurrence and the user satisfaction score, in which the alternative query is identified as the highly-ranked query based on the rank.",
+   "dependent": true
+  },
+  {
+   "text": "24. The system of claim 23, in which the user satisfaction score is based on an inverse revision frequency.",
+   "dependent": true
+  },
+  {
+   "text": "25. The system of claim 24, in which the inverse revision frequency is the inverse of a number of times the alternative query is revised divided by the query occurrence frequency of the alternative query.",
+   "dependent": true
+  },
+  {
+   "text": "26. The system of claim 19, in which the operations further comprise: logging query data generated from user sessions; and using the query data to generate the indexed queries.",
+   "dependent": true
+  },
+  {
+   "text": "27. The system of claim 19, in which the suggested revision is displayed to a user in a location dependent upon a relative strength of a confidence measure associated with the alternative revision.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## CROSS-REFERENCE\n\n\nThis application claims benefit under 35 U.S.C. §120 from U.S. application Ser. No. 11/285,814, filed Nov. 22, 2005, entitled “Query Revision Using Known Highly-Ranked Queries,” which is a continuation-in-part of each of the following applications: U.S. application Ser. No. 11/094,814, filed on Mar. 29, 2005, entitled “Integration of Multiple Query Revision Models”; U.S. application Ser. No. 11/096,198, filed on Mar. 30, 2005, entitled “Estimating Confidence for Query Revision Models”; and U.S. application Ser. No. 11/095,920, filed on Mar. 30, 2005, entitled “Empirical Validation of Suggested Alternative Queries.” Each of the above-referenced applications are incorporated herein by reference in their entirety.\n\n\n## FIELD OF THE INVENTION\n\n\nThe present invention relates to information retrieval systems generally, and more particularly to systems and methods for revising user queries.\n\n\n## BACKGROUND\n\n\nInformation retrieval systems, as exemplified by Internet search engines, are generally capable of quickly providing documents that are generally relevant to a user's query. Search engines may use a variety of statistical measures of term and document frequency, along with linkages between documents and between terms to determine the relevance of document to a query. A key technical assumption underlying most search engine designs is that a user query accurately represents the user's desired information goal.\n\nIn fact, users typically have difficulty formulating good queries. Often, a single query does not provide desired results, and users frequently enter a number of different queries about the same topic. These multiple queries will typically include variations in the breadth or specificity of the query terms, guessed names of entities, variations in the order of the words, the number of words, and so forth, sometimes forming long chains of queries before reaching the desired result set. Because different users have widely varying abilities to successfully revise their queries, various automated methods of query revision have been proposed.\n\nMost commonly, query refinement is used to automatically generate more precise (i.e., narrower) queries from a more general query. Query refinement is primarily useful when users enter over-broad queries whose top results include a superset of documents related to the user's information needs. For example, a user wanting information on the Mitsubishi Galant automobile might enter the query “Mitsubishi,” which is overly broad, as the results will cover the many different Mitsubishi companies, not merely the automobile company. Thus, refining the query would be desirable (though difficult here because of the lack of additional context to determine the specific information need of the user).\n\nHowever, query refinement is not useful when users enter overly specific queries, where the right revision is to broaden the query, or when the top results are unrelated to the user's information needs. For example, the query “Mitsubishi Galant information” might lead to poor results (in this case, too few results about the Mitsubishi Galant automobile) because of the term “information.” In this case, the right revision is to broaden the query to “Mitsubishi Galant.” Thus, while query refinement works in some situations, there are a large number of situations where a user's information needs are best met by using other query revision techniques.\n\nAnother query revision strategy uses synonym lists or thesauruses to expand the query to capture a user's potential information need. As with query refinement, however, query expansion is not always the appropriate way to revise the query, and the quality of the results is very dependent on the context of the query terms.\n\n\n## SUMMARY\n\n\nAn information retrieval system includes a query revision architecture that provides one or more different query revisers, each of which implements its own query revision strategy. Each query reviser evaluates a user query to determine one or more potential revised queries of the user query. A revision server interacts with the query revisers to obtain the potential revised queries. The revision server also interacts with a search engine in the information retrieval system to obtain for each potential revised query a set of search results. The revision server selects one or more of the revised queries for presentation to the user, along with a subset of search results for each of the selected revised queries. The user is thus able to observe the quality of the search results for the revised queries, and then select one of the revised queries to obtain a full set of search results for the revised query according to one embodiment.\n\nA system and method use session-based user data to more correctly capture a user's potential information need based on analysis of strings of queries other users have formed in the past. To accomplish this, revised queries are provided based on data collected from many individual user sessions. For example, such data may include click data, explicit user data, or hover data. For a description of user feedback using hover data, see U.S. application Ser. No. 10/749,440, filed on Dec. 31, 2003, entitled “Methods and Systems for Assisted Network Browsing,” which is incorporated herein by reference.\n\nIn one embodiment, a query rank reviser suggests one or more known highly-ranked queries as a revision to a first query. Initially, a query rank is assigned to all queries. The query rank reviser creates a table of queries and respective query ranks, identifying the highest ranked queries as known highly-ranked queries (KHRQ). Queries with a strong probability of being revised to a KHRQ are identified as nearby queries (NQ), a pointer from each NQ to the corresponding KHRQ(s) is stored, and the KHRQs and NQs queries are indexed.\n\nFor a given query, the query rank reviser determines a revision probability with respect to the indexed queries. Next, a revision score (RS) is calculated for each indexed query using the revision probability and query rank for the indexed query. Then the indexed queries with the highest revision scores are retrieved as alternative queries. Alternative queries that are KHRQs are provided as candidate revisions and for alternative queries that are NQs, the corresponding known highly-ranked queries are provided as candidate revisions, using the pointers stored in the index.\n\nThe present invention is next described with respect to various figures, diagrams, and technical information. The figures depict various embodiments of the present invention for purposes of illustration only. One skilled in the art will readily recognize from the following discussion that alternative embodiments of the illustrated and described structures, methods, and functions may be employed without departing from the principles of the invention.\n\n\n## DESCRIPTION OF DRAWINGS\n\n\nFIG. 1 is a system diagram of an embodiment of an information retrieval system providing for query revision according to one embodiment of the present invention.\n\nFIG. 2 is an illustration of a sample results page to an original user query according to one embodiment of the present invention.\n\nFIG. 3 is an illustration of a sample revised queries page according to one embodiment of the present invention.\n\nFIG. 4 illustrates a graphed topology of queries according to one embodiment of the present invention.\n\nFIG. 5 illustrates a graphed topology of queries according to another embodiment of the present invention.\n\n\n## DETAILED DESCRIPTION\n\n\nSystem Overview\n\nFIG. 1 a illustrates a system 100 in accordance with one embodiment of the present invention. System 100 comprises a front-end server 102, a search engine 104 and associated content server 106, a revision server 107, and one or more query revisers 108. During operation, a user accesses the system 100 via a conventional client 118 over a network (such as the Internet, not shown) operating on any type of client computing device, for example, executing a browser application or other application adapted to communicate over Internet related protocols (e.g., TCP/IP and HTTP). While only a single client 118 is shown, the system 100 can support a large number of concurrent sessions with many clients. In one implementation, the system 100 operates on high performance server class computers, and the client device 118 can be any type of computing device. The details of the hardware aspects of server and client computers is well known to those of skill in the art and is not further described here.\n\nThe front-end server 102 is responsible for receiving a search query submitted by the client 118. The front-end server 102 provides the query to the search engine 104, which evaluates the query to retrieve a set of search results in accordance with the search query, and returns the results to the front-end server 102. The search engine 104 communicates with one or more of the content servers 106 to select a plurality of documents that are relevant to user's search query. A content server 106 stores a large number of documents indexed (and/or retrieved) from different websites. Alternately, or in addition, the content server 106 stores an index of documents stored on various websites. “Documents” are understood here to be any form of indexable content, including textual documents in any text or graphics format, images, video, audio, multimedia, presentations, web pages (which can include embedded hyperlinks and other metadata, and/or programs, e.g., in Javascript), and so forth. In one embodiment, each indexed document is assigned a page rank according to the document's link structure. The page rank serves as a query-independent measure of the document's importance. An exemplary form of page rank is described in U.S. Pat. No. 6,285,999, which is incorporated herein by reference. The search engine 104 assigns a score to each document based on the document's page rank (and/or other query-independent measures of the document's importance), as well as one or more query-dependent signals of the document's importance (e.g., the location and frequency of the search terms in the document).\n\nThe front-end server 102 also provides the query to the revision server 107. The revision server 107 interfaces with one or more query revisers 108, each of which implements a different query revision strategy or set of strategies. In one embodiment, the query revisers 108 include a query rank reviser 108 a. The revision server 107 provides the query to each reviser 108, and obtains in response from each reviser 108 one or more potential revised queries (called ‘potential’ here, since they have not been adopted at this point by the revision server 107). The system architecture is specifically designed to allow any number of different query revisers 108 to be used, for poor performing query revisers 108 to be removed, and for new query revisers 108 (indicated by generic reviser 108 n) to be added as desired in the future. This gives the system 100 particular flexibility, and also enables it to be customized and adapted for specific subject matter domains (e.g., revisers for use in domains like medicine, law, etc.), enterprises (revisers specific to particular business fields or corporate domains, for internal information retrieval systems), or for different languages (e.g., revisers for specific languages and dialects).\n\nPreferably, each revised query is associated with a confidence measure representing the probability that the revision is a good revision, i.e., that the revised query will produce results more relevant to the user's information needs than the original query. Thus, each potential revised query can be represented by the tuple (Ri, Ci), where R is a potential revised query, and C is the confidence measure associated with the revised query. In one embodiment, these confidence measures are manually estimated beforehand for each revision strategy of each reviser 108. The measures can be derived from analysis of the results of sample queries and revised queries under test. In other embodiments, one or more of the revisers 108 may dynamically generate a confidence measure (e.g., at run time) for one or more of its potential revised queries. The assignment of confidence measures may be performed by other components (e.g., the revision server 107), and may take into account both query-dependent and query-independent data.\n\nThe revision server 107 can select one or more (or all) of the potential revised queries, and provide these to the search engine 104. The search engine 104 processes a revised query in the same manner as normal queries, and provides the results of each submitted revised query to the revision server 107. The revision server 107 evaluates the results of each revised query, including comparing the results for the revised query with the results for the original query. The revision server 107 can then select one or more of the revised queries as being the best revised queries (or at least revised queries that are well-suited for the original query), as described below.\n\nThe revision server 107 receives all of the potential revised queries R, and sorts them by their associated confidence measures C, from highest to lowest confidence. The revision server 107 iterates through the sorted list of potential revised queries, and passes each potential revised query to the search engine 104 to obtain a set of, search results. (Alternatively, the revision server 107 may first select a subset of the potential revised queries, e.g., those with a confidence measure above a threshold level). In some cases the top search results may already have been fetched (e.g., by a reviser 108 or the revision server 107) while executing a revision strategy or in estimating confidence measures, in which case the revision server 107 can use the search results so obtained.\n\nFor each potential revised query, the revision server 107 decides whether to select the potential revised query or discard it. The selection can depend on an evaluation of the top N search results for the revised query, both independently and with respect to the search results of the original query. Generally, a revised query should produce search results that are more likely to accurately reflect the user's information needs than the original query. Typically the top ten results are evaluated, though more or less results can be processed, as desired.\n\nIn one embodiment, a potential revised query is selected if the following conditions hold:\n\ni) The revised query produces at least a minimum number of search results. For example, setting this parameter to 1 will discard all (and only) revisions with no search results. The general range of an acceptable minimum number of results is 1 to 100.\n\nii) The revised query produces a minimum number of “new” results in a revision's top results. A result is “new” when it does not also occur in the top results of the original query or a previously selected revised query. For example, setting this parameter to 2 would require each selected revision to have at least two top results that do not occur in the top results of any previously selected revised query or in the top results of the original query. This constraint ensures that there is a diversity of results in the selected revisions, maximizing the chance that at least one of the revisions will prove to, be useful. For example, as can be seen in FIG. 3, the top three results 304 for each revised query are distinct from the other result sets. This gives the user a broad survey of search results that are highly relevant to the revised queries.\n\niii) A maximum number of revised queries have not yet been selected. In other words, when a maximum number of revised queries have already been selected, then all remaining revised queries are discarded. In one embodiment, the maximum number of revised queries is set at 4. In another embodiment, the maximum number of revised queries is set between 2 and 10.\n\nThe results of the foregoing selection parameters are a set of selected revised queries that will be included on the revised queries page 300. The revision server 107 constructs a link to this page, and provides this link to the front-end server 102, as previously discussed. The revision server 107 determines the order and layout of the revised queries on the revised queries page 300. The revised queries are preferably listed in order of their confidence measures (from highest to lowest).\n\nThe front-end server 102 includes the provided links in a search results page, which is then transmitted to the client 118. The user can then review the search results to the original query, or select the link to the revised queries page, and thereby view the selected revised queries and their associated results.\n\nPresentation of Revised Queries\n\nFIG. 2 illustrates a sample results page 200 provided to a client 118. In this simple implementation, the search results 200 page includes the original query 202 of [sheets] along with the results 204 to this query. A link 206 to a set of revised queries is included at the bottom of the page 200. The user can then click on the link 206, and access the page of revised queries. An example page 300 is shown in FIG. 3. Here, the top three revised queries are presented, as shown by revised query links 302.1, 302.2, and 302.3 for the revised queries of [linens], [bedding], and [bed sheets], respectively. Below each revised query link 302 are the top three search results 304 for that query.\n\nThere are various benefits to providing the revised queries on a separate page 300 from the original results page 200. First, screen area is a limited resource, and thus listing the revised queries by themselves (without a preview of their associated results), while possible, is less desirable because the user does not see revised queries in the context of their results. By placing the revised queries on a separate page 300, the user can see the best revised queries. And their associated top results, enabling the user to choose which revised query appears to best meet their information needs, before selecting the revised query itself. While it would be possible to include both the results of the original query and the revised queries on a single (albeit long) page, this approach would either require the user to scroll down the page to review all of the revised queries, or would clutter the initially visible portion of the page. Instead, in the preferred embodiment illustrated in FIGS. 2 and 3, the user can see results associated with query revisions, click on each revised query link 302, and access the entire set of search results for the selected revised query. In many cases this approach will also be preferable to automatically using the revised queries to obtain search results and automatically presenting them to the user (e.g., without user selection or interaction). In the example query revision described in conjunction with the query rank reviser, the benefits of this method are clear: [Britney Spears] would be a suggested query because of its high query rank, but does not get the user the desired information. Thus, it is helpful to display the results and query to the user for selection. In addition, this approach has the added benefit of indirectly teaching the user how to create better queries, by showing the best potential revisions. In another embodiment, the revision server 107 can force the query revisions to be shown on the original result page 200, for example, in a separate window or within the original result page 200.\n\nThe method of displaying additional information (e.g., search results 304), about query revisions to help users better understand the revisions can also be used on the main results page 200. This is particularly useful when there is a single very high quality revised query (or a small number of very high quality revisions) such as is the case with revisions that correct spellings. Spell corrected revised queries can be shown on the results page 200, along with additional information such as title, URL, and snippet of the top results to help the user in determining whether or not the spell correction suggestion is a good one.\n\nIn another embodiment, revision server 107 uses the confidence measures to determine whether to show query revisions at all, and if so, how prominently to place the revisions or the link thereto. This embodiment is discussed below.\n\nQuery Revising\n\nReferring again to FIG. 1 a, one embodiment of the query rank reviser 108 a is now described. The rank reviser 108 a can use any suitable method to suggest known highly-ranked queries that might better capture the user's information need based on analysis of chains of revisions to queries made by other users in the past. In general, a highly ranked query is one that occurs frequently relative to other queries, but that is revised infrequently relative to its occurrences. That users only infrequently revise such queries indicates that the results provided by such queries adequately match the users' information needs.\n\nIn one embodiment, the highly-ranked queries are identified as follows. Initially, the query rank reviser 108 a assigns a query rank to all queries stored in log files 110. Query rank as used herein is defined using the occurrence frequency of a query (QF) and user satisfaction (US) with the query, e.g., the product of QF and US, i.e., (QR=QF×US). In one embodiment, user satisfaction is measured as inverse revision frequency (IRF). In other words, user satisfaction increases as revision frequency decreases. Revision frequency in one embodiment is defined as the number of times a query is revised divided by the total number of occurrences of the query. Thus, in this embodiment, query rank is defined as query occurrence frequency-inverse revision frequency (QF-IRF); again, reflecting that highly ranked queries occur frequently, but are revised infrequently.\n\nIn another embodiment, user satisfaction is defined by the quality of the query. In one embodiment, a quality score for a query is estimated from user click behavior data estimating the length of clicks on search results. One such method for determining quality scores is the use of interaction profiles, as described in U.S. application Ser. No. 10/878,926, “Systems and Methods for Deriving and Using an Interaction Profile,” filed on Jun. 28, 2004, which is incorporated by reference. The quality score calculation is stored, for example, in log files 110. Quality scores are based on the estimated duration of a first selection of a search result, e.g., a first click on a search result. The duration of a given click is estimated from the times at which a first and subsequent selections occurred on search results, which times may be stored with other user session query data, for example in the log files 110. Scoring includes assigning search results in which the user did not select/click on a search result a score of zero, and proceeds along an S-curve applied to the duration between the first click and a subsequent click, with longer clicks approaching a quality score of 1. In one embodiment, the formula for the curve is 1/(1+e−(x−40s)/10s), wherein x is the duration between clicks, and the inflection points are 20 seconds corresponding to a quality score of 0.1, 40 seconds corresponding to a quality score of 0.5, and 60 seconds corresponding to a quality score 0.9. In, other embodiments, different curves are used in accordance with click durations believed to represent user satisfaction. For example, stretching the curve to the right would do a better job of rewarding clicks with very long durations, at the cost of reduced discrimination between short-duration clicks and no click at all. Clicks on unrelated content, for example banner ads, are excluded from the click analysis. In another embodiment, all result clicks for a query, rather than just the first, are collected. Thus, in this embodiment, query rank is defined as query occurrence frequency (QF) times quality (Q).\n\nQuery occurrence frequency (QF) is defined as the frequency per unit time, for example-frequency per hour according to one embodiment. Thus, as query occurrence frequency and inverse document frequency or quality increase, query rank increases toward 1. In other embodiments, query occurrence frequency may be defined in different ways.\n\nNext, the query rank reviser 108 a creates a table of queries and respective query ranks. From this data, the query rank reviser 108 a identifies a subset of all queries as known highly-ranked queries (KHRQ). A known highly-ranked query is a query known to have a high query rank as described above, and as listed in the table of queries. In another embodiment, known highly-ranked queries are defined as the top X queries, e.g., the top 5,000 queries.\n\nThe query rank reviser 108 a then identifies nearby queries (NQ), which are queries with a strong probability of revision (PR) to a KHRQ, as measured by the similarity between the NQ and a KHRQ. Similarity can be determined based on semantic similarity, syntactic similarity, behavioral similarity, or any combination thereof. In one embodiment, the similarity is behavioral similarity. In another embodiment, similarity includes the semantic similarity between the queries, for example considering factors such as lexical similarity and/or overlap in word clusters for the respective queries. In yet another embodiment, similarity includes the syntactic similarity between the queries, for example considering factors such as edit distance, term overlap, or other technique(s) commonly used in information retrieval. In yet another embodiment, similarity includes both semantic and syntactic similarity. In one embodiment, scoring similarity includes assigning a similarity score between 0 and 1, with more similar queries approaching a score of 1. For example, queries for which a word is misspelled by one character (e.g., [Brittney Spears] versus [Britney Spears]) have a high similarity score (e.g., 0.95), whereas a query that has a small term overlap (e.g., [When Harry Met Sally] versus [Metropolitan Life]) have a low similarity score (e.g., 0.15). In embodiments in which greater than one type of similarity is used, a parameterized combination function, e.g., a weighted sum, is used, such that the parameters maximize the predictive accuracy of the system.\n\nThus, in one embodiment the probability of revision (PR) of a nearby query to a known highly-ranked query is the behavioral similarity (BS) of the NQ to the KHRQ, i.e., number of times the nearby query has been revised (R) to the known highly-ranked query (R(NQ, KHRQ)) over the query occurrence frequency of the nearby query, each of which is determined from the log file 110 data, i.e., PR(NQ, KHRQ)=BS(NQ, KHRQ)=R(NQ, KHRQ)/QF(NQ). As a nearby query may have a record of being revised to multiple KHRQs, this calculation is made separately for each KHRQ. Once PR is determined, queries with statistically significant PR retain their classification as nearby queries, and queries with lower PR are classified as other queries (OQs). All KHRQs and NQs are stored in an index, with a pointer from each NQ to each of its respective KHRQs. The KHRQs and NQs in the index are collectively referred to as, indexed queries (IQs). PR for each indexed query also is stored in the index.\n\nFIG. 4 shows an exemplary graphed topology of known highly-ranked queries (KHQQ), nearby queries (NQ), and other queries (OQ). As shown, queries one link away from a known highly-ranked query usually are classified as a nearby queries. However, queries that are farther from a known highly-ranked query are more likely to be classified as other queries, i.e., are likely to have only a negligible PR(KHRQ). As shown, PR decreases as distance from the KHRQ increases. In one embodiment, the path length between a known highly-ranked query and another query is directly factored into the probability measure.\n\nNext, either as a continuation of the backend processes described above, or at runtime, the query rank reviser 108 a measures the revision probability (RP) of a given query (GQ) to each indexed query (IQ), as measured by the similarity between the GQ and IQ. As discussed above for PR, RP can be determined based on, semantic similarity, syntactic similarity, behavioral similarity, or any combination thereof. Because in some instances RP is calculated in the same manner as PR and in some instances RI uses a different calculation, RP is used herein for evaluating the revision probability of a GQ to a KHRQ, where PR is used for calculating the probability of revision of a NQ to a KHRQ. As a backend process, the RP is calculated for each query as stored in the log files 110. As a front end process, the RP is calculated for a query as entered by a user, for example via client 118.\n\nIn one embodiment, the RP of a given query to a NQ (RP(GQ, NQ)) is the behavioral, semantic, and syntactic similarity of the GQ to the NQ. The RP of a given query to a known highly-ranked query (RP(GQ, KHRQ)) is calculated both directly and indirectly. The direct portion uses the standard RP calculation (RP(GQ, KHRQ)). The indirect portion is calculated as the sum, over all NQs that have a pointer to the KHRQ, of the product of the RP(GQ, NQ) as defined above and the RP of the NQ to the KHRQ (RP(NQ, KHRQ)). Thus, the RP of a GQ to a KHRQ is calculated both directly and indirectly, with respect to the relationship between all NQs for the KHRQ, i.e.,\n\nRP ⁡ ( GQ , KHRQ ) = RP ⁡ ( GQ , KHRQ ) + ∑ NQs ⁢ [ RP ⁡ ( GQ , NQ ) × PR ⁡ ( NQ , KHRQ ) ] . As a result, the less likely the probability of the NQ being revised to the KHRQ, the lower the RP. An example of a situation in which the indirect aspect of RP(GQ, KHRQ) would require the above equation can be seen with reference to FIG. 5. For example, for the RP of GQ 505 to KHRQ 510, the second half of the equation above would be the sum of the calculations for NQ1 515, NQ2 520, NQ3 525, and NQ4 530.\n\nNext, the query rank reviser 108 a calculates a revision score (RS) for each indexed query as the product of the RP for the indexed query (with respect to the given query) and the query rank for the indexed query, i.e., RS(IQ)=(GQ, IQ) x QR(IQ). The indexed queries with the highest revision scores are retrieved as alternative queries (AQ).\n\nIn one embodiment, indexed queries with the top ten revision scores are retrieved. In another embodiment, the indexed queries with the top one hundred revision scores are retrieved. Once the list of alternative queries is retrieved, the alternative queries that are known highly-ranked queries are provided as candidate revisions. For the alternative queries that are nearby queries, the corresponding known highly-ranked queries are provided as candidate revisions, using the pointers stored in the index.\n\nAs described above, each candidate revision can be associated with a confidence measure representing the probability that the revision is a good revision. In the case of the query rank reviser 108 a, the revision score of the alternative query for a candidate revision is used as the confidence measure for that query.\n\nIn addition, queries that have already been revised by this or another reviser 108 can be further revised by the query rank reviser 108 a.\n\nAn example of suggesting known highly-ranked queries using the query rank reviser 108 a follows. A first query entered by a user is [BBQ skewers] 405. In this example, the user is interested in information about barbeque skewers. The query rank reviser 108 a calculates or retrieves the revision probability of the query with respect to indexed queries. For this example, and referring again to FIG. 4, four indexed queries are used as the indexed queries: [Britney Spears] 410, a KHRQ, and one of its NQs, [B Spears] 420, and [Williams-Sonoma] 430, a KHRQ, and one of its NQs, [wooden skewers] 440. For the NQs, the probability of each being revised to its respective KHRQ (PR) also is retrieved from the index. The revision probabilities for the indexed queries 410-440 are:\n\nRP([BBQ skewers], [Britney Spears])=0.11\n\nRP([BBQ skewers], [B Spears])=0.3 (S)×0.8 (PR)=0.24\n\nRP([BBQ skewers], [Williams-Sonoma])=0.05\n\nRP([BBQ skewers], [wooden skewers])=0.95 (S)×0.3 (PR)=0.285\n\nThus, both of the KHRQs have a fairly low revision probability (RP) with respect to [BBQ skewers]. [B Spears] also has a relatively low RP to [BBQ skewers], but has a relatively high PR to [Britney Spears]. [wooden skewers] has a high RP to [BBQ skewers], but a low PR with respect to the KHRQ [Williams-Sonoma].\n\nNext the query rank reviser 108 a finds the revision score (RS) for each indexed query as a function of the revision probabilities from above and the query rank for each indexed query 410-440, i.e., RS(IQ)=S(GQ, IQ) x QR(IQ). The revision scores are calculated as follows:\n\nRS([Britney Spears])=0.11×0.93 QR([Britney Spears])=0.1023\n\nRS([B Spears])=0.24×0.35 QR([B Spears])=0.084\n\nRS([Williams-Sonoma])=0.05×0.75 QR([Williams-Sonoma])=0.0375\n\nRS([wooden skewers])=0.285×0.36 QR([wooden skewers])=0.1026\n\nThus, although [B Spears] is the second most similar to [BBQ skewers], it has a low, query rank, and thus ends up with a low RS. In addition, [Williams-Sonoma] has a high query rank, but a RP so low that it has the lowest RS of the group. The two highest RSs in the indexed queries 410-440 are [Britney Spears], which has a very high query rank and a low RP, and [wooden skewers], which has a low-to-medium query rank, but the highest RP for the group. For this example, we will assume that the top fifty percent of revision scores are retrieved as alternative queries (AQs). Therefore, [Britney Spears] and [wooden skewers] are retrieved as alternative queries.\n\n[Britney Spears], which is a KHRQ, is returned as a candidate revision query. In addition, [Williams-Sonoma], which is the KHRQ for alternative query [wooden skewers], also is returned as a candidate revision query. In addition, because the confidence measure for the candidate revision queries, i.e., the revision score of the associated alternative query, is used in the decision whether to provide the candidate revisions to the user, the user ultimately may see only [Williams-Sonoma]. As a result, the user ends up with a suggested query [Williams-Sonoma] that sells the item for which the user was looking (wooden skewers for barbequing).\n\nGenerating Revision Confidence Measures at Runtime\n\nReferring now to FIG. 1 b, there is shown another embodiment of an information retrieval system in accordance with the present invention. In addition to the previously described elements of FIG. 1 a, there are a session tracker 114 and a reviser confidence estimator 112. As discussed above, a query reviser 108 may provide a confidence measure with one or more of the revised queries that it provides to the revision server 107. The revision server 107 uses the confidence measures to determine which of the possible revised queries to select for inclusion on the revised queries page 300. In one embodiment, confidence measures can be derived at runtime, based at least in part on historical user activity in selecting revised queries with respect to a given original query.\n\nIn the embodiment of FIG. 1 b, the-front-end server 102 provides the session tracker 114 with user click-through behavior, along with the original query and revised query information. The session tracker 114 maintains log files 110 that store each user query in association with which query revision links 302 were accessed by the user, the results associated with each revised query, along with various features of the original query and revised queries for modeling the quality of the revised queries. The stored information can include, for example:\n\nFor the original query:\n\nFor a revised query:\n\nTopic clusters for queries are identified using any suitable topic identification method. One suitable method is described in U.S. application Ser. No. 10/676,571, filed on Sep. 3, 2003, entitled “Method and Apparatus for Characterizing Documents Based on Clusters of Related Words,” which is incorporated by reference.\n\nThe reviser confidence estimator 112 analyzes the log, files 110 using a predictive model, e.g., a multiple, logistic regression model, to generate a set of rules based on the features of the query and the revised queries that can be used to estimate the likelihood of a revised query being a successful revision for a given query. One suitable regression model is described in U.S. application Ser. No. 10/734,584, filed Dec. 15, 2003, entitled “Large Scale Machine Learning Systems and Methods,” which is incorporated by reference. The reviser confidence estimator 112 operates on the assumption that certain behaviors, e.g., a long click by a user on a revised query link 302 indicates that the user is satisfied with the revision as being an accurate representation of the user's original information need. A long click can be deemed to occur when the user stays on the clicked through page for some minimum period of time, for example a minimum of 60 seconds. From the length of the clicks on the revised query links 302, the reviser confidence estimator 112 can train the predictive model to predict the likelihood of a long click given the various features of the revised query and the original query. Revised queries having high predicted likelihoods of a long click are considered to be better (i.e., more successful) revisions for their associated original queries.\n\nIn one embodiment for a predictive model the confidence estimator 112 selects features associated with the revised queries, collects user data, such as click data, from the log files, formulates rules using the features and user data, and adds the rules to the predictive model. In addition, the confidence estimator 112 can formulate additional rules using the user data and selectively add the additional rules to the model.\n\nAt runtime, the revision server 107 provides the reviser confidence estimator 112 with the original query, and each of the revised queries received from the various query revisers 108. The reviser confidence estimator 112 applies the original query and revised queries to the predictive model to obtain the prediction measures, which serve as the previously mentioned confidence measures. Alternatively, each query reviser 108 can directly call the reviser confidence estimator 112 to obtain the prediction measures, and then pass these values back to the revision server 107. Although the depicted embodiment shows the reviser confidence estimator 112 as a separate module, the revision server 107 may provide the confidence estimator functionality instead. In either case, the revision server 107 uses the confidence measures, as described above, to select and order which revised queries will be shown to the user.\n\nIn one embodiment, revision server 107 uses the confidence measures to determine whether to show query revisions at all, and if so, how prominently to place the revisions or the link thereto. To do so, the revision server 107 may use either the initial confidence measures discussed previously or the dynamically generated confidence measures discussed above. For example, if the best confidence measure falls below a threshold value, this can indicate that none of the potential candidate revisions is very good, in which case no modification is made to the original result page 200. On the other hand, if one or more of the revised queries has a very high confidence measure above another threshold value, the revision server 107 can force the query revisions, or the link to the revised query page 300, to be shown very prominently on the original result page 200, for example, near the top of page and in a distinctive font, or in some other prominent position. If the confidence measures are in between the two thresholds, then a link to the revised query page 300 can be placed in a less prominent position, for example at the end of the search results page 200, e.g., as shown for link 206. In one embodiment, whether or where to display to the user is based in part on user dissatisfaction with the original query, based for example on zero or few results, or a low information retrieval scores.\n\nThe steps of the processes described above can be performed in parallel (e.g., getting results for a query revision and calculating a confidence measure for the query revision), and/or interleaved (e.g., receiving multiple query revisions from the query revisers and constructing a sorted list of query revisions on-the-fly, rather than receiving, all the query revisions and then sorting the list of query revisions). In addition, although the embodiments above are described in the context of a client/server search system, the invention can also be implemented as part of a stand-alone machine (e.g., a stand-alone PC). This could be useful, for example, in the context of a desktop search application such as Google Desktop Search.\n\nThe present invention has been described in particular detail with respect to one possible embodiment. Those of skill in the art will appreciate that the invention may be practiced in other embodiments. First, the particular naming of the components, capitalization of terms, the attributes, data structures, or any other programming or structural aspect is not mandatory or significant, and the mechanisms that implement the invention or its features may have different names, formats, or protocols. Further, the system may be implemented via a combination of hardware and software, as described, or entirely in hardware elements. Also, the particular division of functionality between the various system components described herein is merely exemplary, and not mandatory; functions performed by a single system component may instead be performed by multiple components, and functions performed by multiple components may instead be performed by a single component.\n\nSome portions of the above description present the features of the present invention in terms of algorithms and symbolic representations of operations on information. These algorithmic descriptions and representations are the means used by those skilled in the data processing arts to most effectively convey the. substance of their work to others skilled in the art. These operations, while described functionally or logically, are understood to be implemented by computer programs. Furthermore, it has also proven convenient at times to refer to these arrangements. of operations as modules or by functional names, without loss of generality.\n\nUnless specifically stated otherwise as apparent from the above discussion, it is appreciated that throughout the description the described actions and processes are those of a computer system, or similar electronic computing device, that manipulates and transforms data represented as physical (electronic) quantities within the computer system memories or registers or other such information storage, transmission, or display devices. A detailed description of the underlying hardware of such computer systems is not provided herein as this information is commonly known to those of skill in the art of computer engineering.\n\nCertain aspects of the present invention include process steps and instructions described herein in the form of an algorithm. It should be noted that the process steps and instructions of the present invention could be embodied in software, firmware, or hardware, and when embodied in software, could be downloaded to reside on and be operated from different platforms used by real time network operating systems.\n\nCertain aspects of the present invention have been described with respect to individual or singular examples; however it is understood that the operation of the present invention is not limited in this regard. Accordingly, references to a singular element or component should be interpreted to refer to plural such components as well. Likewise, references to “a,” “an,” or “the” should be interpreted to include reference to pluralities, unless expressly stated otherwise. Finally, use of the term “plurality” is meant to refer to two or more entities, items of data, or the like, as appropriate for the portion of the invention under discussion, and does cover an infinite or otherwise excessive number items.\n\nThe present invention also relates to an apparatus for performing the operations herein. This apparatus may be specially constructed for the required purposes, or it may comprise a general-purpose computer selectively activated or reconfigured by a computer program stored on a computer readable medium that can be accessed by the computer. Such a computer program may be in a computer readable storage medium, such as, but not limited to, any type of disk including floppy disks, optical disks, CD-ROMs, magnetic-optical disks, read-only memories (ROMs), random access memories (RAMs), EPROMs, EEPROMs, magnetic or optical cards, or any type of media suitable for storing electronic instructions, and each coupled to a computer system bus. Those of skill in the art of integrated circuit design and video codecs appreciate that the invention can be readily fabricated in various types of integrated circuits based on the above functional and structural descriptions, including application specific integrated circuits (ASICs). In addition, the present invention may be incorporated into various types of video coding devices.\n\nThe algorithms and operations presented herein are not inherently related to any particular computer or other apparatus. Various general-purpose systems may also be used with programs in accordance with the teachings herein, or it may prove convenient to construct more specialized apparatus to perform the required method steps. The required structure for a variety of these systems will be apparent to those of skill in the art, along with equivalent variations. In addition, the present invention is not described with reference to any particular programming language. It is appreciated that a variety of programming languages may be used to implement the teachings of the present invention as described herein, and any references to specific languages are provided for disclosure of enablement and best mode of the present invention.\n\nFinally, it should be noted that the language used in the specification has been principally selected for readability and instructional purposes, and may not have been selected to delineate or circumscribe the inventive subject matter. Accordingly, the disclosure of the present invention is intended to be illustrative, but not limiting, of the scope of the invention.",
+ "cited_by": [
+  {
+   "id": "US10503792B1",
+   "title": "Cache optimization via topics in web search engines",
+   "assignee": "Georgetown University"
+  },
+  {
+   "id": "US10909127B2",
+   "title": "Method and server for ranking documents on a SERP",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "US11151167B2",
+   "title": "Cache optimization via topics in web search engines",
+   "assignee": "Georgetown University"
+  },
+  {
+   "id": "US20250231971A1",
+   "title": "Method and apparatus for an ai-assisted virtual consultant",
+   "assignee": "PwC Product Sales LLC"
+  },
+  {
+   "id": "WO2003049939A1",
+   "title": "Cleaning article containing hydrophilic polymers",
+   "assignee": "Regenesis, Llc"
+  },
+  {
+   "id": "US7831476B2",
+   "title": "Listing recommendation in a network-based commerce system",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US7617205B2",
+   "title": "Estimating confidence for query revision models",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8521725B1",
+   "title": "Systems and methods for improved searching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9223868B2",
+   "title": "Deriving and using interaction profiles",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7606793B2",
+   "title": "System and method for scoping searches using index keys",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7870147B2",
+   "title": "Query revision using known highly-ranked queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8200687B2",
+   "title": "System to generate related search queries",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US8095419B1",
+   "title": "Search score for the determination of search quality",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8429184B2",
+   "title": "Generation of refinement terms for search queries",
+   "assignee": "Collarity Inc."
+  },
+  {
+   "id": "US8903810B2",
+   "title": "Techniques for ranking search results",
+   "assignee": "Collarity, Inc."
+  },
+  {
+   "id": "KR100776697B1",
+   "title": "Intelligent product search method and system based on customer purchase behavior analysis",
+   "assignee": "주식회사 인터파크지마켓"
+  },
+  {
+   "id": "EP1826692A3",
+   "title": "Query correction using indexed content on a desktop indexer program.",
+   "assignee": "Copernic Technologies, Inc."
+  },
+  {
+   "id": "US7814112B2",
+   "title": "Determining relevancy and desirability of terms",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US8442972B2",
+   "title": "Negative associations for search results ranking and refinement",
+   "assignee": "Collarity, Inc."
+  },
+  {
+   "id": "US9519715B2",
+   "title": "Personalized search",
+   "assignee": "Excalibur Ip, Llc"
+  },
+  {
+   "id": "KR100837334B1",
+   "title": "Method and apparatus for preventing abuse of search log",
+   "assignee": "엔에이치엔(주)"
+  },
+  {
+   "id": "WO2008092039A1",
+   "title": "Blending mobile search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080215416A1",
+   "title": "Searchable interactive internet advertisements",
+   "assignee": "Collarity, Inc."
+  },
+  {
+   "id": "US20080201434A1",
+   "title": "Context-Sensitive Searches and Functionality for Instant Messaging Applications",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080250008A1",
+   "title": "Query Specialization",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "WO2008146456A1",
+   "title": "Information search support method and information search support device",
+   "assignee": "Panasonic Corporation"
+  },
+  {
+   "id": "US8849831B2",
+   "title": "System and method for efficient indexing of messages in a law enforcement data network",
+   "assignee": "Datamaxx Applied Technologies, Inc."
+  },
+  {
+   "id": "US8051040B2",
+   "title": "Electronic publication system",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US20080312940A1",
+   "title": "Imputing Intellectual Property Owned by Subsidiaries During Automated Identification of Owned Intellectual Property",
+   "assignee": "Mdb Capital Group, Llc"
+  },
+  {
+   "id": "US20080312981A1",
+   "title": "Automated Identification of Competitors",
+   "assignee": "Mdb Capital Group, Llc"
+  },
+  {
+   "id": "US8280892B2",
+   "title": "Selecting tags for a document by analyzing paragraphs of the document",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US9081852B2",
+   "title": "Recommending terms to specify ontology space",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US9348912B2",
+   "title": "Document length as a static relevance feature for ranking search results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "KR100932842B1",
+   "title": "Quality ranking method and system of search ranking",
+   "assignee": "엔에이치엔(주)"
+  },
+  {
+   "id": "US20090171929A1",
+   "title": "Toward optimized query suggeston: user interfaces and algorithms",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20090192784A1",
+   "title": "Systems and methods for analyzing electronic documents to discover noncompliance with established norms",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "EP2090992A3",
+   "title": "Determining words related to a given set of words",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US8280886B2",
+   "title": "Determining candidate terms related to terms of a query",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "CA2716345A1",
+   "title": "Systems and methods of identifying chunks within multiple documents",
+   "assignee": "Tigerlogic Corporation"
+  },
+  {
+   "id": "US8924374B2",
+   "title": "Systems and methods of semantically annotating documents of different structures",
+   "assignee": "Tigerlogic Corporation"
+  },
+  {
+   "id": "US7937395B2",
+   "title": "Systems and methods of displaying and re-using document chunks in a document development application",
+   "assignee": "Tigerlogic Corporation"
+  },
+  {
+   "id": "US8359533B2",
+   "title": "Systems and methods of performing a text replacement within multiple documents",
+   "assignee": "Tigerlogic Corporation"
+  },
+  {
+   "id": "US8145632B2",
+   "title": "Systems and methods of identifying chunks within multiple documents",
+   "assignee": "Tigerlogic Corporation"
+  },
+  {
+   "id": "US8001140B2",
+   "title": "Systems and methods of refining a search query based on user-specified search keywords",
+   "assignee": "Tigerlogic Corporation"
+  },
+  {
+   "id": "US8078630B2",
+   "title": "Systems and methods of displaying document chunks in response to a search request",
+   "assignee": "Tigerlogic Corporation"
+  },
+  {
+   "id": "US7933896B2",
+   "title": "Systems and methods of searching a document for relevant chunks in response to a search request",
+   "assignee": "Tigerlogic Corporation"
+  },
+  {
+   "id": "US9129036B2",
+   "title": "Systems and methods of identifying chunks within inter-related documents",
+   "assignee": "Tigerlogic Corporation"
+  },
+  {
+   "id": "US8001162B2",
+   "title": "Systems and methods of pipelining multiple document node streams through a query processor",
+   "assignee": "Tigerlogic Corporation"
+  },
+  {
+   "id": "US8924421B2",
+   "title": "Systems and methods of refining chunks identified within multiple documents",
+   "assignee": "Tigerlogic Corporation"
+  },
+  {
+   "id": "US8126880B2",
+   "title": "Systems and methods of adaptively screening matching chunks within documents",
+   "assignee": "Tigerlogic Corporation"
+  },
+  {
+   "id": "US20090228296A1",
+   "title": "Optimization of social distribution networks",
+   "assignee": "Collarity, Inc."
+  },
+  {
+   "id": "US20090248595A1",
+   "title": "Name verification using machine learning",
+   "assignee": "Yumao Lu"
+  },
+  {
+   "id": "US9798806B2",
+   "title": "Information retrieval using dynamic guided navigation",
+   "assignee": "Excalibur Ip, Llc"
+  },
+  {
+   "id": "US8812493B2",
+   "title": "Search results ranking using editing distance and document information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "AU2009238519C1",
+   "title": "Systems and methods of identifying chunks from multiple syndicated content providers",
+   "assignee": "Tigerlogic Corporation"
+  },
+  {
+   "id": "US9128945B1",
+   "title": "Query augmentation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8803882B2",
+   "title": "Identifying on a graphical depiction candidate points and top-moving queries",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8438178B2",
+   "title": "Interactions among online digital identities",
+   "assignee": "Collarity Inc."
+  },
+  {
+   "id": "US20100100563A1",
+   "title": "Method of computing a cooperative answer to a zero-result query through a high latency api",
+   "assignee": "Francisco Corella"
+  },
+  {
+   "id": "US20100114928A1",
+   "title": "Diverse query recommendations using weighted set cover methodology",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9053197B2",
+   "title": "Suggesting websites",
+   "assignee": "Red Hat, Inc."
+  },
+  {
+   "id": "US8458171B2",
+   "title": "Identifying query aspects",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9213768B1",
+   "title": "Assumption mechanism for queries",
+   "assignee": "Wolfram Alpha Llc"
+  },
+  {
+   "id": "US8601015B1",
+   "title": "Dynamic example generation for queries",
+   "assignee": "Wolfram Alpha Llc"
+  },
+  {
+   "id": "US20150006563A1",
+   "title": "Transitive Synonym Creation",
+   "assignee": "Kendra J. Carattini"
+  },
+  {
+   "id": "US8392440B1",
+   "title": "Online de-compounding of query terms",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8538982B2",
+   "title": "Framework for selecting and presenting answer boxes relevant to user input as query suggestions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8380570B2",
+   "title": "Index-based technique friendly CTR prediction and advertisement selection",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20110145283A1",
+   "title": "Intelligent mechanism for identifying ontological hypertext and pre-fetching and presenting the target information",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8875038B2",
+   "title": "Anchoring for content synchronization",
+   "assignee": "Collarity, Inc."
+  },
+  {
+   "id": "US8301639B1",
+   "title": "Location based query suggestion",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN102141990B",
+   "title": "Searching method and device",
+   "assignee": "阿里巴巴集团控股有限公司"
+  },
+  {
+   "id": "US20110238686A1",
+   "title": "Caching data obtained via data service interfaces",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8738635B2",
+   "title": "Detection of junk in search result ranking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20110295897A1",
+   "title": "Query correction probability based on query-correction pairs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8583674B2",
+   "title": "Media item recommendation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20110314011A1",
+   "title": "Automatically generating training data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20150248698A1",
+   "title": "Distributing content items",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8631030B1",
+   "title": "Query suggestions with high diversity",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8548981B1",
+   "title": "Providing relevance- and diversity-influenced advertisements including filtering",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8751520B1",
+   "title": "Query suggestions with high utility",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9390139B1",
+   "title": "Presentation of content items in view of commerciality",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9152634B1",
+   "title": "Balancing content blocks associated with queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "JP5406794B2",
+   "title": "Search query recommendation device and search query recommendation program",
+   "assignee": "日本電信電話株式会社"
+  },
+  {
+   "id": "US20120011112A1",
+   "title": "Ranking specialization for a search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8442987B2",
+   "title": "Method and system for providing contents based on past queries",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20120059838A1",
+   "title": "Providing entity-specific content in response to a search query",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8346792B1",
+   "title": "Query generation using structural similarity between documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9251185B2",
+   "title": "Classifying results of search queries",
+   "assignee": "Girish Kumar"
+  },
+  {
+   "id": "US20120246133A1",
+   "title": "Online spelling correction/phrase completion system",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9507861B2",
+   "title": "Enhanced query rewriting through click log analysis",
+   "assignee": "Microsoft Technolgy Licensing, LLC"
+  },
+  {
+   "id": "US8732151B2",
+   "title": "Enhanced query rewriting through statistical machine translation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "CN102750280A",
+   "title": "Computer processing method and system for search",
+   "assignee": "国际商业机器公司"
+  },
+  {
+   "id": "US20130041878A1",
+   "title": "Autosuggesting an equivalent query",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9734252B2",
+   "title": "Method and system for analyzing data using a query answering system",
+   "assignee": "Wolfram Alpha Llc"
+  },
+  {
+   "id": "US8612414B2",
+   "title": "Grouped search query refinements",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9495462B2",
+   "title": "Re-ranking search results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US10311096B2",
+   "title": "Online image analysis",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US9092504B2",
+   "title": "Clustered information processing and searching with structured-unstructured database bridge",
+   "assignee": "Vivek Ventures, LLC"
+  },
+  {
+   "id": "US8868565B1",
+   "title": "Calibrating click duration according to context",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20140181096A1",
+   "title": "Entity name disambiguation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9135307B1",
+   "title": "Selectively generating alternative queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9116957B1",
+   "title": "Substitute term scoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10198497B2",
+   "title": "Search term clustering",
+   "assignee": "[24]7.ai, Inc."
+  },
+  {
+   "id": "US10496649B1",
+   "title": "Personalized suggestions based on past queries",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US20160085868A1",
+   "title": "Digital search filter that presents results focused only on the most relevant solutions",
+   "assignee": "Ronald P. Young"
+  },
+  {
+   "id": "EP2887237B1",
+   "title": "Generating recommended search queries on online social networks",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US9367629B2",
+   "title": "Grouping recommended search queries on online social networks",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US9984127B2",
+   "title": "Using typestyles to prioritize and rank search results",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9477782B2",
+   "title": "User interface mechanisms for query refinement",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9965547B2",
+   "title": "System and methods for automating trademark and service mark searches",
+   "assignee": "Camelot Uk Bidco Limited"
+  },
+  {
+   "id": "WO2015171952A1",
+   "title": "Methods and systems to identify query recommendations",
+   "assignee": "Chu-Cheng Hsieh"
+  },
+  {
+   "id": "CN105446982A",
+   "title": "Data storage system management method and device",
+   "assignee": "国际商业机器公司"
+  },
+  {
+   "id": "US9785715B1",
+   "title": "Systems, media, and methods for automated response to queries made by interactive electronic chat",
+   "assignee": "Conversable, Inc."
+  },
+  {
+   "id": "US11334800B2",
+   "title": "Altering input search terms",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US11468050B2",
+   "title": "Learning user synonyms from sequenced query sessions",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US11593370B2",
+   "title": "Systems and methods for dynamic query prediction and optimization",
+   "assignee": "The Travelers Indemnity Company"
+  },
+  {
+   "id": "EP3905061A1",
+   "title": "Artificial intelligence for content discovery",
+   "assignee": "Mirriad Advertising PLC"
+  },
+  {
+   "id": "US20220253470A1",
+   "title": "Model-based document search",
+   "assignee": "SparkCognition, Inc."
+  },
+  {
+   "id": "JP2024088517A",
+   "title": "Information processing device, information processing method, and information processing program",
+   "assignee": "Ｌｉｎｅヤフー株式会社"
+  },
+  {
+   "id": "US12229195B2",
+   "title": "Method and apparatus for knowledge representation and reasoning in accounting",
+   "assignee": "PwC Product Sales LLC"
+  },
+  {
+   "id": "US20240420391A1",
+   "title": "Intelligent dashboard search engine",
+   "assignee": "The Toronto-Dominion Bank"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5826260A",
+   "title": "Information retrieval system and method for displaying and ordering information based on query element contribution",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5897627A",
+   "title": "Method of determining statistically meaningful rules",
+   "assignee": "Motorola, Inc."
+  },
+  {
+   "id": "US6006221A",
+   "title": "Multilingual document retrieval system and method using semantic vector matching",
+   "assignee": "Syracuse University"
+  },
+  {
+   "id": "US6006222A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6014665A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6078916A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6088692A",
+   "title": "Natural language method and system for searching for and ranking relevant documents from a computer database",
+   "assignee": "University Of Central Florida"
+  },
+  {
+   "id": "US6169986B1",
+   "title": "System and method for refining search queries",
+   "assignee": "Amazon.Com, Inc."
+  },
+  {
+   "id": "US6182068B1",
+   "title": "Personalized search methods",
+   "assignee": "Ask Jeeves, Inc."
+  },
+  {
+   "id": "US6243076B1",
+   "title": "System and method for controlling host system interface with point-of-interest data",
+   "assignee": "Synthetic Environments, Inc."
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "WO2001080070A2",
+   "title": "Search engine with search task model and interactive search task-refinement process",
+   "assignee": "Koninklijke Philips Electronics N.V."
+  },
+  {
+   "id": "US6311175B1",
+   "title": "System and method for generating performance models of complex information technology systems",
+   "assignee": "Perot Systems Corp."
+  },
+  {
+   "id": "WO2001082134A1",
+   "title": "Method and system for collecting related queries",
+   "assignee": "Lycos, Inc."
+  },
+  {
+   "id": "US20020002438A1",
+   "title": "Information service system, server and in-vehicle unit for use in information service system, and record medium on which program readable by in-vehicle unit or computer is recorded",
+   "assignee": "Hiroshi Ohmura"
+  },
+  {
+   "id": "US20020016736A1",
+   "title": "System and method for determining suitable breaks for inserting content",
+   "assignee": "Cannon George Dewey"
+  },
+  {
+   "id": "US6397211B1",
+   "title": "System and method for identifying useless documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6411950B1",
+   "title": "Dynamic query expansion",
+   "assignee": "Compaq Information Technologies Group, Lp"
+  },
+  {
+   "id": "US20020083067A1",
+   "title": "Enterprise web mining system and method",
+   "assignee": "Pablo Tamayo"
+  },
+  {
+   "id": "US6463430B1",
+   "title": "Devices and methods for generating and managing a database",
+   "assignee": "Mohomine, Inc."
+  },
+  {
+   "id": "US20030014399A1",
+   "title": "Method for organizing records of database search activity by topical relevance",
+   "assignee": "Hansen Mark H."
+  },
+  {
+   "id": "US6519585B1",
+   "title": "System and method for facilitating presentation of subject categorizations for use in an on-line search query engine",
+   "assignee": "Infospace, Inc."
+  },
+  {
+   "id": "US6523020B1",
+   "title": "Lightweight rule induction",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6546388B1",
+   "title": "Metadata search results ranking system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6546389B1",
+   "title": "Method and system for building a decision-tree classifier from privacy-preserving data",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030093408A1",
+   "title": "Index selection in a database system",
+   "assignee": "Brown Douglas P."
+  },
+  {
+   "id": "US20030135413A1",
+   "title": "Advertisement system and a control program therefor",
+   "assignee": "Takashi Nishi"
+  },
+  {
+   "id": "US20030144994A1",
+   "title": "Clustering web queries",
+   "assignee": "Ji-Rong Wen"
+  },
+  {
+   "id": "US20030172075A1",
+   "title": "Task/domain segmentation in applying feedback to command control",
+   "assignee": "Richard Reisman"
+  },
+  {
+   "id": "US20030210666A1",
+   "title": "Relcocation of application-specific functionality during seamless network layer-level handoffs",
+   "assignee": "Nokia Corporation"
+  },
+  {
+   "id": "US20030212666A1",
+   "title": "Adaptive probabilistic query expansion",
+   "assignee": "Sankar Basu"
+  },
+  {
+   "id": "US6651054B1",
+   "title": "Method, system, and program for merging query search results",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030217052A1",
+   "title": "Search engine method and apparatus",
+   "assignee": "Celebros Ltd."
+  },
+  {
+   "id": "US20030220912A1",
+   "title": "Method and apparatus for categorizing and presenting documents of a distributed database",
+   "assignee": "Fain Daniel C."
+  },
+  {
+   "id": "US6671711B1",
+   "title": "System and method for predicting web user flow by determining association strength of hypermedia links",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6675159B1",
+   "title": "Concept-based search and retrieval system",
+   "assignee": "Science Applic Int Corp"
+  },
+  {
+   "id": "US6714929B1",
+   "title": "Weighted preference data search system and method",
+   "assignee": "Auguri Corporation"
+  },
+  {
+   "id": "US6718363B1",
+   "title": "Page aggregation for web sites",
+   "assignee": "Verizon Laboratories, Inc."
+  },
+  {
+   "id": "US20040068486A1",
+   "title": "System and method for improving answer relevance in meta-search engines",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20040083211A1",
+   "title": "Method and system for facilitating the refinement of data queries",
+   "assignee": "Bradford Roger Burrowes"
+  },
+  {
+   "id": "US6732088B1",
+   "title": "Collaborative searching by query induction",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6738764B2",
+   "title": "Apparatus and method for adaptively ranking search results",
+   "assignee": "Verity, Inc."
+  },
+  {
+   "id": "US6751611B2",
+   "title": "Method and system for creating improved search queries",
+   "assignee": "Paul Jeffrey Krupin"
+  },
+  {
+   "id": "US6772150B1",
+   "title": "Search query refinement using related search phrases",
+   "assignee": "Amazon.Com, Inc."
+  },
+  {
+   "id": "US6782390B2",
+   "title": "Execution of multiple models using data segmentation",
+   "assignee": "Unica Technologies, Inc."
+  },
+  {
+   "id": "US20040186827A1",
+   "title": "Systems and methods for interactive search query refinement",
+   "assignee": "Anick Peter G."
+  },
+  {
+   "id": "US20040199498A1",
+   "title": "Systems and methods for generating concept units from search queries",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20040199419A1",
+   "title": "Promoting strategic documents by bias ranking of search results on a web browser",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040236721A1",
+   "title": "Method and apparatus for distributing information to users",
+   "assignee": "Jordan Pollack"
+  },
+  {
+   "id": "US20040254920A1",
+   "title": "Systems and methods that employ a distributional analysis on a query log to improve search results",
+   "assignee": "Brill Eric D."
+  },
+  {
+   "id": "US20050027691A1",
+   "title": "System and method for providing a user interface with search query broadening",
+   "assignee": "Sergey Brin"
+  },
+  {
+   "id": "US6856957B1",
+   "title": "Query expansion and weighting based on results of automatic speech recognition",
+   "assignee": "Nuance Communications"
+  },
+  {
+   "id": "US20050044224A1",
+   "title": "Dynamic indicator for context sensitive real-time communications",
+   "assignee": "Gyuchang Jun"
+  },
+  {
+   "id": "US20050055341A1",
+   "title": "System and method for providing search query refinements",
+   "assignee": "Paul Haahr"
+  },
+  {
+   "id": "US20050071337A1",
+   "title": "Encryption of query execution details in a database management system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050097092A1",
+   "title": "Method and apparatus for query and analysis",
+   "assignee": "Ripfire, Inc., A Corporation Of The State Of Delaware"
+  },
+  {
+   "id": "US20050125215A1",
+   "title": "Synonymous collocation extraction using translation information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050144158A1",
+   "title": "Computer network search engine",
+   "assignee": "Capper Liesl J."
+  },
+  {
+   "id": "US20050149499A1",
+   "title": "Systems and methods for improving search quality",
+   "assignee": "Google Inc., A Delaware Corporation"
+  },
+  {
+   "id": "US20050198068A1",
+   "title": "Keyword recommendation for internet search engines",
+   "assignee": "Shouvick Mukherjee"
+  },
+  {
+   "id": "US20050210024A1",
+   "title": "Search system using user behavior data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050216457A1",
+   "title": "Systems and methods for collecting user annotations",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050216454A1",
+   "title": "Inverse search systems and methods",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050256848A1",
+   "title": "System and method for user rank search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6981040B1",
+   "title": "Automatic, personalized online information and product services",
+   "assignee": "Utopy, Inc."
+  },
+  {
+   "id": "US20060018551A1",
+   "title": "Phrase identification in an information retrieval system",
+   "assignee": "Patterson Anna L"
+  },
+  {
+   "id": "US20060023005A1",
+   "title": "Compact front-operable image forming apparatus",
+   "assignee": "Ricoh Company, Ltd."
+  },
+  {
+   "id": "US20060026013A1",
+   "title": "Search systems and methods using in-line contextual queries",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20060031214A1",
+   "title": "Method and system for adaptive categorial presentation of search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060041560A1",
+   "title": "Distributing content indices",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US20060074883A1",
+   "title": "Systems, methods, and interfaces for providing personalized search and information access",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7031961B2",
+   "title": "System and method for searching and recommending objects from a categorically organized information repository",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US7065524B1",
+   "title": "Identification and correction of confounders in a statistical analysis",
+   "assignee": "Pharsight Corporation"
+  },
+  {
+   "id": "US20060218475A1",
+   "title": "Differential dynamic content delivery with indications of interest from non-participants",
+   "assignee": "Bodin William K"
+  },
+  {
+   "id": "US20060230022A1",
+   "title": "Integration of multiple query revision models",
+   "assignee": "Bailey David R"
+  },
+  {
+   "id": "US20070100804A1",
+   "title": "Automatic identification of related search keywords",
+   "assignee": "William Cava"
+  },
+  {
+   "id": "US20070106937A1",
+   "title": "Systems and methods for improved spell checking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7222127B1",
+   "title": "Large scale machine learning systems and methods",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7293017B2",
+   "title": "Presentation-level content filtering for a search result",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7383258B2",
+   "title": "Method and apparatus for characterizing documents based on clusters of related words",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US7516118B1",
+   "title": "Methods and systems for assisted network browsing",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7617205B2",
+   "title": "Estimating confidence for query revision models",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7636714B1",
+   "title": "Determining query term synonyms within query context",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7870147B2",
+   "title": "Query revision using known highly-ranked queries",
+   "assignee": "Google Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US7870147B2",
+   "title": "Query revision using known highly-ranked queries"
+  },
+  {
+   "id": "CN101176058B",
+   "title": "Integration of multiple query revision models"
+  },
+  {
+   "id": "US9069841B1",
+   "title": "Estimating confidence for query revision models"
+  },
+  {
+   "id": "US7636714B1",
+   "title": "Determining query term synonyms within query context"
+  },
+  {
+   "id": "US8346754B2",
+   "title": "Generating succinct titles for web URLs"
+  },
+  {
+   "id": "US7685112B2",
+   "title": "Method and apparatus for retrieving and indexing hidden pages"
+  },
+  {
+   "id": "US9009146B1",
+   "title": "Ranking search results based on similar queries"
+  },
+  {
+   "id": "US20060230005A1",
+   "title": "Empirical validation of suggested alternative queries"
+  },
+  {
+   "id": "CA2571867A1",
+   "title": "Results based personalization of advertisements in a search engine"
+  },
+  {
+   "id": "AU2011247862B2",
+   "title": "Integration of multiple query revision models"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8375049B2/en"
+}

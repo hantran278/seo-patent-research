@@ -1,0 +1,427 @@
+{
+ "id": "US8595225B1",
+ "title": "Systems and methods for correlating document topicality and popularity",
+ "abstract": "A system receives location identifiers associated with documents visited by one or more users. The system retrieves the documents using the received location identifiers and maps the retrieved documents to one or more topics. The system determines a popularity value associated with the retrieved documents and correlates the popularity value with the one or more topics to determine a per-topic popularity for the retrieved documents.",
+ "inventors": [
+  "Amit Singhal",
+  "Urs Hoelzle"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2004-09-30",
+ "filing_date": "2004-09-30",
+ "publication_date": "2013-11-26",
+ "status": "Expired - Fee Related",
+ "expiration": "2025-05-17",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/953",
+  "G06F16/9536",
+  "G06F16/951",
+  "G06F16/9538"
+ ],
+ "claims": [
+  {
+   "text": "1. A method comprising: determining, by one or more server devices, a first popularity score for each document, of a plurality of documents; associating, by the one or more server devices, a first subset of documents, of the plurality of documents, with a first topic; associating, by the one or more server devices, a second subset of documents, of the plurality of documents, with a second topic that is different than the first topic; assigning, by the one or more server devices, to each document in the first subset, a second popularity score specific to the first topic, the second popularity score, assigned to each document in the first subset, being based on the first popularity score of the document in the first subset relative to the first popularity scores of other documents in the first subset, but not relative to the first popularity scores of the documents in the second subset; assigning, by the one or more server devices, to each document in the second subset, a third popularity score specific to the second topic, the third popularity score, assigned to each document in the second subset, being based on the first popularity score of the document in the second subset relative to the first popularity scores of other documents in the second subset, but not relative to the first popularity scores of the documents in the first subset; receiving, by the one or more server devices, a search query; identifying, by the one or more server devices, that the search query is associated with the first topic based on one or more search results being identified as relating to the first topic and associated with the search query; determining, by the one or more server devices, that a particular document is associated with the first topic; identifying, by the one or more server devices, a set of documents based on the search query, the set of documents including the particular document; performing a first ranking, by the one or more server devices, for each document, in the set of documents, based on a relevance of each document, in the set of documents, to the search query; performing a second ranking of the particular document, with respect to other documents in the set of documents, based on the second popularity score; and providing for presentation, by the one or more server devices, the set of documents in an order that is based on the second ranking.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, where the determining the first popularity score for each document, of the plurality of documents, comprises: using at least one of user navigational patterns to each document, of the plurality of documents, or user navigational patterns from each document, of the plurality of documents, to determine the first popularity score.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, where the associating the first subset of documents with the first topic and the associating the second subset of documents with the second topic comprises: using a directory of documents organized by category to associate the documents in the first subset with the first topic and to associate the documents in the second subset with the second topic.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, further comprising: receiving location identifiers corresponding to the documents in the first subset and corresponding to the documents in the second subset.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 4, further comprising: retrieving the documents in the first subset and the second subset, using the received location identifiers, to associate the documents in the first subset with the first topic and to associate the documents in the second subset with the second topic.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 1, where the determining the first popularity score for each document, of the plurality of documents, comprises: associating the first popularity score with each document based on a number of times each document has been accessed.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 1, where the determining the first popularity score for each document, of the plurality of documents, comprises: associating the first popularity score with each document based on a number of times each document has been accessed by a user of a specific user group.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 1, further comprising: combining the second popularity scores and the third popularity scores across the first topic and the second topic to assign query-specific popularity score to the documents in the first subset and the second subset.",
+   "dependent": true
+  },
+  {
+   "text": "9. The method of claim 1, where the second popularity scores and the third popularity scores are different than the first popularity score determined for each document of the plurality of documents.",
+   "dependent": true
+  },
+  {
+   "text": "10. The method of claim 1, where the assigning, to each document in the first subset, the second popularity score specific to the first topic comprises: ranking the documents in the first subset, associated with the first topic, relative to one another, but not relative to the documents in the second subset, based on their respective first popularity scores; and assigning the second popularity score specific to the first topic to each document in the first subset based on the ranking of the documents in the first subset relative to one another.",
+   "dependent": true
+  },
+  {
+   "text": "11. The method of claim 1, where the assigning, to each document in the second subset, the third popularity score specific to the second topic comprises: ranking the documents in the second subset, associated with the second topic, relative to one another, but not relative to the documents in the first subset, based on their respective first popularity scores; and assigning the third popularity score specific to the second topic to each document in the second subset based on the ranking of the documents in the second subset relative to one another.",
+   "dependent": true
+  },
+  {
+   "text": "12. A non-transitory computer-readable memory device storing instructions executable by at least one processor, the non-transitory computer-readable memory device comprising: one or more instructions to associate respective documents, of a plurality of documents, with one or more of at least two different topics; one or more instructions to rank a first subset, of the plurality of documents associated with a first topic of the at least two different topics, relative to one another, but not relative to other documents not associated with the first topic, based on first popularity scores associated with the first subset; one or more instructions to rank a second subset, of the plurality of documents associated with a second topic of the at least two different topics, relative to one another, but not relative to other documents not associated with the second topic, based on second popularity scores associated with the second subset; one or more instructions to assign third popularity scores, specific to the first topic, to each document in the first subset based on the ranking of the documents in the first subset relative to one another; one or more instructions to receive a search query; one or more instructions to identify that the search query is associated with the first topic based on one or more search results being identified as relating to the first topic and associated with the search query; one or more instructions to determine that a particular document is associated with the first topic; one or more instructions to identify a set of documents based on the search query, the set of documents including the particular document; one or more instructions to perform a first ranking for each document, in the set of documents, based on a relevance of each document, in the set of documents, to the search query; one or more instructions to perform a second ranking of the particular document, with respect to other documents in the set of documents, based on the ranking of the particular document with respect to other documents in the first subset; and one or more instructions to provide, for presentation, the set of documents in an order that is based on the second ranking.",
+   "dependent": false
+  },
+  {
+   "text": "13. The non-transitory computer-readable memory device of claim 12, where a first document in the first subset is also in the second subset.",
+   "dependent": true
+  },
+  {
+   "text": "14. The non-transitory computer-readable memory device of claim 13, where the first document is separately ranked among the first subset of documents based on the first popularity score, and among the second subset of documents based on the second popularity score.",
+   "dependent": true
+  },
+  {
+   "text": "15. A method comprising: determining, by one or more server devices, popularity scores associated with a plurality of documents; associating, by the one or more server devices, a first subset of the plurality of documents with a first topic; assigning, by the one or more server devices, a first topic-specific popularity score to each document in the first subset based on a ranking of the first subset of the plurality of documents relative to one another, but not relative to other documents of the plurality of documents not associated with the first topic, using respective ones of the popularity scores associated with the documents in the first subset, the first topic-specific popularity scores being different than the popularity scores; identifying, by the one or more server devices, that a received search query is associated with the first topic based on one or more search results being identified as relating to the first topic and associated with the received search query; determining, by the one or more server devices, that a particular document is associated with the first topic; identifying, by the one or more server devices, a set of documents based on the received search query, the set of documents including the particular document; performing a first ranking, by the one or more server devices, of each document, in the set of documents, based on a relevance of each document, in the set of documents, to the received search query; performing a second ranking of the particular document, with respect to other documents in the set of documents, based on the first topic-specific popularity score; and providing for presentation, by the one or more server devices, the set of documents in an order that is based on the second ranking.",
+   "dependent": false
+  },
+  {
+   "text": "16. The method of claim 15, where the popularity scores, associated with the plurality of documents, are each based on a number of visits associated with a respective document with which each popularity score is associated.",
+   "dependent": true
+  },
+  {
+   "text": "17. A system comprising: one or more devices to: determine popularity scores associated with a plurality of documents; associate a first subset of the plurality of documents with a first topic; associate a second subset of the plurality of documents with a second topic that is different than the first topic; assign a first topic-specific popularity score to each document in the first subset based on a ranking of the documents in the first subset relative to one another, but not relative to other documents, of the plurality of documents, not associated with the first topic, using respective ones of the popularity scores associated with the documents in the first subset, the first topic-specific popularity scores being different than the popularity scores; assign a second topic-specific popularity score to each document in the second subset based on a ranking of the documents in the second subset relative to one another, but not relative to other documents, of the plurality of documents, not associated with the second topic, using respective ones of the popularity scores associated with the documents in the second subset, the second topic-specific popularity scores being different than the popularity scores; identify that a received search query is associated with the first topic based on one or more search results being identified as relating to the first topic and associated with the received search query; determine that a particular document is associated with the first topic; identify a set of documents based on the received search query, the set of documents including the particular document; perform a first ranking for each document, in the set of documents, based on a relevance of each document, in the set of documents, to the received search query; perform a second ranking of the particular document, with respect to other documents in the set of documents, based on the first topic-specific popularity score; and provide, for presentation, the set of documents in an order that is based on the second ranking.",
+   "dependent": false
+  },
+  {
+   "text": "18. A system comprising: one or more memory devices to store instructions; and one or more processors to execute the instructions, to: determine a first popularity score for each document of a plurality of documents; associate a first subset of documents, of the plurality of documents, with a first topic; assign, to each document in the first subset but not to documents that are not in the first subset, a second popularity score specific to the first topic, the second popularity score, assigned to each document in the first subset, being based on the first popularity score of the document in the first subset relative to the first popularity scores of other documents in the first subset; identify that a received search query is associated with the first topic based on one or more search results being identified as relating to the first topic and associated with the received search query; determine that a particular document is associated with the first topic; identify a set of documents based on the received search query, the set of documents including the particular document; perform a first ranking for each document, in the set of documents, based on a relevance of each document, in the set of documents, to the received search query; perform a second ranking of the particular document, with respect to other documents in the set of documents, based on the second popularity score; and provide, for presentation, the set of documents in an order that is based on the second ranking.",
+   "dependent": false
+  },
+  {
+   "text": "19. The system of claim 18, where when determining the first popularity score for each document of the plurality of documents, the one or more processors are to: use at least one of user navigational patterns to each document, of the plurality of documents, or user navigational patterns from each document, of the plurality of documents, to determine the first popularity score.",
+   "dependent": true
+  },
+  {
+   "text": "20. The system of claim 18, where when associating the documents in the first subset with the first topic, the one more processors are to: use a directory of documents organized by category to associate the documents in the first subset with the first topic.",
+   "dependent": true
+  },
+  {
+   "text": "21. A non-transitory computer-readable memory device storing instructions executable by at least one processor, the non-transitory computer-readable memory device comprising: one or more instructions to determine a first popularity score for each document, of a plurality of documents; one or more instructions to associate a first subset of documents, of the plurality of documents, with a first topic; one or more instructions to assign, to each document in the first subset but not to documents that are not in the first subset, a second popularity score specific to the first topic, the second popularity score, assigned to each document in the first subset, being based on the first popularity score of the document in the first subset relative to the first popularity scores of other documents in the first subset; one or more instructions to identify that a received search query is associated with the first topic based on one or more search results being identified as relating to the first topic and associated with the received search query; one or more instructions to identify a set of documents based on the received search query, the set of documents including a particular document associated with the first topic; one or more instructions to perform a first ranking for each document, in the set of documents, based on a relevance of each document, in the set of documents, to the received search query; one or more instructions to perform a second ranking of the particular document, with respect to other documents in the set of documents, based on the second popularity score; and one or more instructions to provide, for presentation, the set of documents in an order that is based on the second ranking.",
+   "dependent": false
+  },
+  {
+   "text": "22. The non-transitory computer-readable memory device of claim 21, where the one or more instructions to determine the first popularity score for each document, of the plurality of documents, include: one or more instructions to use at least one of user navigational patterns to each document, of the plurality of documents, or user navigational patterns from each document, of the plurality of documents, to determine the first popularity score.",
+   "dependent": true
+  },
+  {
+   "text": "23. The non-transitory computer-readable memory device of claim 21, where the one or more instructions to associate the documents in the first subset with the first topic include: one or more instructions to use a directory of documents organized by category to associate the documents in the first subset with the first topic.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## BACKGROUND OF THE INVENTION\n\n\n1. Field of the Invention\n\nThe present invention relates generally to information storage and searching systems and, more particularly, to systems and methods for correlating the topicality and popularity of multiple stored documents.\n\n2. Description of Related Art\n\nExisting information searching systems use search queries to search through aggregated data to retrieve specific information that corresponds to the received search queries. Such information searching systems may search information stored locally, or in distributed locations. The World Wide Web (“web”) is one example of information stored in distributed locations. The web contains a vast amount of information and locating a desired portion of that information, however, can be challenging. This problem is compounded because the amount of information on the web, and the number of new users inexperienced at web searching, are growing rapidly.\n\nSearch engines attempt to return hyperlinks to web documents in which a user is interested. Generally, search engines base their determination of the user's interest on search terms (called a search query) entered by the user. The goal of the search engine is to provide links to high quality, relevant results to the user based on the search query. Typically, the search engine accomplishes this by matching the terms in the search query to a corpus of pre-stored web documents. Web documents that contain the user's search terms are “hits” and are returned to the user. The search engine oftentimes ranks the documents using a ranking function based on the documents' perceived relevance to the user's search terms.\n\n\n## SUMMARY OF THE INVENTION\n\n\nAccording to one aspect consistent with the principles of the invention a method of ranking documents is provided. The method may include determining a popularity score associated with documents of multiple documents. The method may further include determining one or more topics associated the documents of the multiple documents. The method may also include ranking, using the popularity score, the documents within the one or more determined topics.\n\nAccording to another aspect, a method of correlating topicality and popularity data of multiple documents is provided. The method may include receiving identifiers associated with documents visited by one or more users and retrieving the documents based on the received identifiers. The method may further include mapping the retrieved documents to one or more topics and determining a popularity value associated with the retrieved documents. The method may also include correlating the popularity value with the one or more topics to determine a per-topic popularity for the retrieved documents.\n\nAccording to a further aspect, a method of ordering documents is provided. The method may include determining a popularity score associated documents of a plurality of documents. The method may further include associating one or more topics with the documents of the plurality of documents. The method may also include using the popularity score associated with the documents to order each document among the one or more topics associated with each document.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nThe accompanying drawings, which are incorporated in and constitute a part of this specification, illustrate an embodiment of the invention and, together with the description, explain the invention. In the drawings,\n\nFIG. 1 is a diagram of an overview of an exemplary implementation of the invention;\n\nFIG. 2 is a diagram of an exemplary network in which systems and methods consistent with the principles of the invention may be implemented;\n\nFIG. 3 is an exemplary diagram of a client and/or server of FIG. 2 in an implementation consistent with the principles of the invention;\n\nFIGS. 4A and 4B are flowcharts of exemplary client processing according to an implementation consistent with the principles of the invention;\n\nFIG. 5 is a diagram of an exemplary search document according to an implementation consistent with the principles of the invention;\n\nFIG. 6 is a diagram of an exemplary search result document according to an implementation consistent with the principles of the invention;\n\nFIGS. 7A and 7B are flowcharts of exemplary server processing according to an implementation consistent with the principles of the invention; and\n\nFIG. 8 is a diagram of documents correlated using topicality and popularity information according to an implementation consistent with the principles of the invention.\n\n\n## DETAILED DESCRIPTION\n\n\nThe following detailed description of the invention refers to the accompanying drawings. The same reference numbers in different drawings may identify the same or similar elements. Also, the following detailed description does not limit the invention.\n\nA “document,” as the term is used herein is to be broadly interpreted to include any machine-readable and machine-storable work product. A document may include an e-mail, a web site, a file, a combination of files, one or more files with embedded links to other files, a news group posting, a blog, a web advertisement, etc. In the context of the Internet, a common document is a web page. Web pages often include textual information and may include embedded information (such as meta information, images, hyperlinks, etc.) and/or embedded instructions (such as JAVASCRIPT, etc.).\n\n\n## EXEMPLARY OVERVIEW\n\n\nFIG. 1 illustrates an overview of one exemplary implementation of the invention in which documents of multiple documents are correlated with one another using topicality and popularity data associated with each of the documents to derive per-topic popularity information. Each document of the multiple documents may be assigned a popularity score indicating the popularity of the document relative to other documents of the multiple documents. Each document of the multiple documents may further be mapped to one or more corresponding topics. Each of the documents may be correlated based on the topicality and popularity information associated with each document.\n\nAs shown in FIG. 1, documents visited by one or more users, and associated with corresponding document locations 105, may be assigned popularity scores 110 and mapped to one or more topics 115. Additionally, documents received by one or more users as a result of one or more searches, and associated with corresponding document locations 120, may be assigned popularity scores 110 and mapped to one or more topics 115. The popularity scores may be assigned based on a number of different criteria. In one implementation, for example, a popularity score assigned to each document may be based on the number of “visits” or “hits” associated with each document. Thus, a document that has been visited by users more often than another document may have a higher popularity score. Each of the documents may additionally be mapped to one or more topics using various techniques. In one exemplary technique, a directory section in which each document is listed may be used to map a topic to each document. For example, if a document is listed in a travel directory of a search service (e.g., Google), then the document may be mapped to the topic of travel. Other techniques for mapping documents to one or more topics may be used, as described further below.\n\nFurthermore, user-provided search terms 125 may also be mapped to one or more topics 115. Search terms 125 of one or more search queries may be mapped to one or more topics 115 using various techniques, as described further below.\n\nThe mapped topic(s) 115 and the assigned popularity score 110 for each document, corresponding to the locations 105 or 120, may be used to correlate 130 all of the documents. The compiled popularity and topic data may be correlated to produce per-topic popularity information 135. For example, document A, corresponding to the location identifier www.address1.com, may be assigned a popularity score of 10 and mapped to TOPIC 1, while document B, corresponding to the location identifier www.address2.com, may be assigned a popularity score of 6 and mapped to TOPIC 2.\n\n\n## Exemplary Network Configuration\n\n\nFIG. 2 is an exemplary diagram of a network 200 in which systems and methods consistent with the principles of the invention may be implemented. Network 200 may include multiple clients 210 connected to multiple servers 220 and 230 via a network 240. Network 240 may include a local area network (LAN), a wide area network (WAN), a telephone network, such as the Public Switched Telephone Network (PSTN), an intranet, the Internet, a memory device, another type of network, or a combination of networks. Two clients 210 and two servers 220 and 230 have been illustrated as connected to network 240 for simplicity. In practice, there may be more or fewer clients and servers. Also, in some instances, a client may perform the functions of a server and a server may perform the functions of a client.\n\nClients 210 may include client entities. An entity may be defined as a device, such as a wireless telephone, a personal computer, a personal digital assistant (PDA), a laptop, or another type of computation or communication device, a thread or process running on one of these devices, and/or an object executable by one of these devices. Servers 220 and 230 may include server entities that gather, process, search, and/or maintain documents in a manner consistent with the principles of the invention. Clients 210 and servers 220 and 230 may connect to network 240 via wired, wireless, and/or optical connections.\n\nIn an implementation consistent with the principles of the invention, server 220 may include a search engine 225 usable by users at clients 210. Server 220 may implement a data aggregation service by crawling a corpus of documents (e.g., web pages) hosted on other servers (not shown) and storing information associated with these documents in a repository of crawled documents. The data aggregation service may be implemented in other ways, such as by agreement with the operator(s) of the other servers to distribute their hosted documents via the data aggregation service.\n\nTopicality/popularity data server 230 may accumulate topicality and popularity information related to documents visited by users at clients 210. When a document is visited (i.e., a document is retrieved from a server and displayed at client 210), each client sends a location identifier associated with the visited document to server 230. Additionally, any search query used by client 210 to retrieve the visited document may be sent to server 230. Server 230 may determine one or more topics associated with each visited document. Server 230 may additionally determine a popularity score associated with each visited document. In one implementation, for example, the popularity score may be determined based on a number of times a respective document has been accessed (i.e., visited). Server 230 may correlate the topicality and popularity information for each visited document to determine a per-topic popularity, as further described below.\n\nWhile servers 220 and 230 are shown as separate entities, it may be possible for one or more of servers 220 and 230 to perform one or more of the functions of another one or more of servers 220 and 230. For example, it may be possible that two or more of servers 220 and 230 are implemented as a single server. It may also be possible for a single one of servers 220 or 230 to be implemented as two or more separate (and possibly distributed) devices.\n\n\n## Exemplary Client/Server Architecture\n\n\nFIG. 3 is an exemplary diagram of a client or server entity (hereinafter called “client/server entity”), which may correspond to one or more of clients 210 and servers 220 and 230, according to an implementation consistent with the principles of the invention. The client/server entity may include a bus 310, a processing unit 320, an optional main memory 330, a read only memory (ROM) 340, a storage device 350, one or more input devices 360, one or more output devices 370, and a communication interface 380. Bus 310 may include one or more conductors that permit communication among the components of the client/server entity.\n\nProcessing unit 320 may include any type of software, firmware or hardware implemented processing device, such as, a microprocessor, a field programmable gate array (FPGA), combinational logic, etc. Main memory 330 may include a random access memory (RAM) or another type of dynamic storage device that stores information and instructions for execution by processing unit 320, if processing unit 320 includes a microprocessor. ROM 340 may include a conventional ROM device or another type of static storage device that stores static information and/or instructions for use by processing unit 320. Storage device 350 may include a magnetic and/or optical recording medium and its corresponding drive.\n\nInput device(s) 360 may include one or more conventional mechanisms that permit an operator to input information to the client/server entity, such as a keyboard, a mouse, a pen, voice recognition and/or biometric mechanisms, etc. Output device(s) 370 may include one or more conventional mechanisms that output information to the operator, including a display, a printer, a speaker, etc. Communication interface 380 may include any transceiver-like mechanism that enables the client/server entity to communicate with other devices and/or systems. For example, communication interface 380 may include mechanisms for communicating with another device or system via a network, such as network 240.\n\nAs will be described in detail below, the client/server entity, consistent with the principles of the invention, may perform certain searching-related operations. The client/server entity may, in some implementations, perform these operations in response to processing unit 320 executing software instructions contained in a computer-readable medium, such as memory 330. A computer-readable medium may be defined as one or more physical or logical memory devices.\n\nThe software instructions may be read into memory 330 from another computer-readable medium, such as data storage device 350, or from another device via communication interface 380. The software instructions contained in memory 330 may cause processing unit 320 to perform processes that will be described later. Alternatively, hardwired circuitry may be used in place of, or in combination with, software instructions to implement processes consistent with the principles of the invention. Thus, implementations consistent with the principles of the invention are not limited to any specific combination of hardware circuitry and software.\n\n\n## Exemplary Client Processing\n\n\nFIGS. 4A and 4B are flowcharts of exemplary client processing according to an implementation consistent with the principles of the invention. As one skilled in the art will appreciate, the processing exemplified by FIGS. 4A and 4B can be implemented in software and stored on a computer-readable memory, such as main memory 330, ROM 340 or storage device 350 of a client 210. In other implementations, the processing exemplified by FIGS. 4A and 4B can be implemented in hardwired circuitry, such as combinational logic, within processing unit 320 of a client 210.\n\nProcessing may begin with the receipt of location identifiers associated with documents selected by a user of a client 210 (act 405) (FIG. 4A). A user may provide, via a user interface, document location identifiers to client 210 for the purpose of retrieving those documents from a remote data source, such as a server connected to network 240. In one implementation consistent with principles of the invention, the location identifiers received by client 210 may include uniform resource locators (URLs), such as those used in the world-wide web (WWW). Client 210 may then send the location identifiers to, for example, server 230 (act 410). Client 210 may send the location identifiers via network 240 using existing messaging techniques. In other implementations, client 210 may instead send the location identifiers to server 220 in the case where server 220 correlates the topicality and popularity of documents (as described below with respect to FIGS. 7A and 7B).\n\nClient 210 may receive one or more search queries (act 415). Client 210 may receive the search queries from a user via an input interface, or may retrieve previously stored search queries from memory. FIG. 5 illustrates one exemplary input interface 500 that permits a user to enter a search query. Client 210 may then send the one or more search queries to, for example, server 220 (act 420) so that server 220 can perform a search of aggregated data using the one or more search queries.\n\nClient 210 may receive search results from server 220 (act 425). The search results may include a list of identifiers identifying a location of each search result document and, possibly, a portion of text associated with each search result document. The search results may be provided to a user of client 210 via, for example, a graphical user interface. In some implementations, the location identifiers may include URLs associated with each of the search result documents. FIG. 6 illustrates search results 600, in accordance with one exemplary implementation, that include a list of URLs returned by server 220 as a result of a search query received from a user of a client 210.\n\nClient 210 may receive location identifiers associated with documents selected from the received search results by a user of a client 210 (act 430)(FIG. 4B). A user may provide document location identifiers, from a set of search results provided to the user, to client 210 for the purpose of retrieving those documents from a remote data source connected to network 240. In one implementation consistent with principles of the invention, the location identifiers received by client 210 may include uniform resource locators (URLs), such as those used in the World-Wide Web (WWW). To provide the document location identifiers, for example, a user may select (e.g., “left-click” if using a “mouse” interface) a search result from the search results 600 of FIG. 6.\n\nClient 210 may then send the location identifiers associated with documents selected from the received search results by the user to topicality/popularity server 230 (act 435). Client 210 may send the location identifiers via network 240 using existing messaging techniques. Server 230 may then use the sent location identifiers and search queries as described below with respect to FIGS. 7A and 7B.\n\n\n## Exemplary Server Processing\n\n\nFIGS. 7A and 7B are flowcharts of exemplary server processing according to an implementation consistent with the principles of the invention. As one skilled in the art will appreciate, the processing exemplified by FIGS. 7A and 7B can be implemented in software and stored on a computer-readable memory, such as main memory 330, ROM 340 or storage device 350 of server 230. In other implementations, the processing exemplified by FIGS. 7A and 7B can be implemented in hardwired circuitry, such as combinational logic, within processing unit 320 of server 230.\n\nProcessing may begin with the receipt, at server 230, of location identifiers associated with documents visited by a user of a client 210 (act 705) (FIG. 7A). The location identifiers may have been used by the user to retrieve corresponding documents from a remote data source. In one implementation consistent with principles of the invention, the location identifiers received by server 230 may include uniform resource locators (URLs), such as those used in the World-Wide Web (WWW). Server 230 may receive the location identifiers from the client 210 using existing messaging techniques.\n\nOptionally, one or more search queries, and corresponding search results, may be received, at server 230, from a client 210 (act 710). Each of the received search queries may, optionally, be mapped to one or more topics (act 715). Each search query may be mapped to one or more topics using various techniques. In one exemplary implementation, one or more portions of the textual content of the documents returned as a result of a search performed using the search query may be designated as a topic associated with the search query.\n\nLocation identifiers associated with visited search result documents may also, optionally, be received at server 230 from a client 210 (act 720). These location identifiers may correspond to documents selected by a user at client 210 from a list of search results provided by, for example, server 220. Each visited document may be mapped to one or more topics (act 725) (FIG. 7B). Each visited document may be mapped to one or more topics using various techniques. In one exemplary technique, a pre-defined directory of documents organized by category may be used to map a topic to each document. For example, if a document is listed in a travel directory of a search service (e.g., Google), then the document may be mapped to the topic of travel. In another exemplary implementation, the topic (or concept) mapping technique described in co-pending U.S. application Ser. No. 10/879,521, entitled “Systems and Methods for Inferring Concepts for Association with Content,” the disclosure of which is incorporated by reference herein in its entirety, may be employed. FIG. 8 illustrates visited documents 805-1 through 805-p mapped to “TOPIC 1” and visited documents 810-1 through 810-q mapped to “TOPIC 2.” In some implementations, related topics may be clustered into a larger topic to create hierarchical topics.\n\nA popularity score associated with each visited document may be determined (act 730). In one implementation, the popularity score may be related to a number of “hits” or “visits” to the document. For example, a document E that has been visited 100 times by various users may be assigned a popularity score that is higher than a document F that has been visited only 10 times by various users. As shown in FIG. 8, each visited document 805-1 through 805-p and 810-1 through 810-q has been assigned a popularity score. In other implementations, “navigational” patterns to/from a document may be used in determining a popularity score for the document. For example, if it is determined that users visiting an initial document are often sent to a final document, then the initial document may likely be just “funneling” traffic to the final document, and the initial document may be of limited value to users. Additionally, if users visiting a first document only access a first document for a short period of time (e.g., less than 20 seconds) and then “jump” to a second document, then the second document may possibly be of limited value to users. Popularity scores may be appropriately associated with documents based on these types of user navigational patterns.\n\nThe popularity scores and one or more topics associated with each of the visited documents may be correlated to determine a per-topic popularity for each document (act 735). For example, all documents of a first set of documents mapped to a first topic may be ranked among one another according to their popularity scores, and all documents of a second set of documents mapped to a second topic may be ranked among one another according to their popularity scores. FIG. 8 illustrates the determination of per-topic popularity 800 among documents 805-1 through 805-p and 810-1 through 810-q. As shown in FIG. 8, document 805-1, with a popularity score of x, is ranked above documents 805-1 and 805-p that have popularity scores of x−5 and x−20, respectively. Also as shown in FIG. 8, document 810-1, with a popularity score of y, is ranked above documents 810-2 and 810-q that have popularity scores of y−10 and y−40, respectively.\n\nThe determined per-topic popularity may then be utilized in a number of ways (act 740). For example, topic-specific quality scores may be assigned to documents based on the documents' popularity relative to other documents associated with a topic. The topic-specific quality scores may be used as a ranking signal. As another example, “personalized” document rankings may be provided to specific user groups based on that group's navigation patterns through various documents. As a further example, a document may be “boosted” within the results of a search using a topic associated with a corresponding search query. The popularity score of the document within the topic may be used as a ranking signal in raising, or lowering, the ranking of the document within the returned search results. As an additional example, documents returned as a result of an executed search query, where the search query has been mapped to one or more topics, may be ranked using the popularity of each of the documents with respect to the one or more topics to which the search query is mapped. In one implementation, the popularity scores of the search result documents may be combined to assign a query specific popularity score to the search result documents.\n\n\n## CONCLUSION\n\n\nThe foregoing description of preferred embodiments of the present invention provides illustration and description, but is not intended to be exhaustive or to limit the invention to the precise form disclosed. Modifications and variations are possible in light of the above teachings or may be acquired from practice of the invention. For example, while a series of acts have been described with regard to FIGS. 4A, 4B, 7A and 7B, the order of the acts may be modified in other implementations consistent with the principles of the invention. Additionally, while aspects of the invention has been described with respect to searching information stored in the world-wide web, one skilled in the art will recognize that the sorting and displaying of search results in multiple dimensions, consistent with the principles of the invention, may be employed in any other type of information searching system. Also, non-dependent acts may be performed in parallel.\n\nIt will also be apparent to one of ordinary skill in the art that aspects of the invention, as described above, may be implemented in many different forms of software, firmware, and hardware in the implementations illustrated in the figures. The actual software code or specialized control hardware used to implement aspects consistent with the principles of the invention is not limiting of the present invention. Thus, the operation and behavior of the aspects of the invention were described without reference to the specific software code—it being understood that one of ordinary skill in the art would be able to design software and control hardware to implement the aspects based on the description herein.\n\nFurther, certain portions of the invention have been described as “logic” that performs one or more functions. This logic may include hardware, such as an application specific integrated circuit or a field programmable gate array, software, or a combination of hardware and software.\n\nNo element, act, or instruction used in the present application should be construed as critical or essential to the invention unless explicitly described as such. Also, as used herein, the article “a” is intended to include one or more items. Where only one item is intended, the term “one” or similar language is used. Further, the phrase “based on” is intended to mean “based, at least in part, on” unless explicitly stated otherwise.",
+ "cited_by": [
+  {
+   "id": "US20130173609A1",
+   "title": "Systems and methods for sorting search results",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US9037577B1",
+   "title": "Filtering posts",
+   "assignee": "Microstrategy Incorporated"
+  },
+  {
+   "id": "US10235470B2",
+   "title": "User retrieval enhancement",
+   "assignee": "Here Global B.V."
+  },
+  {
+   "id": "US20220147716A1",
+   "title": "Dynamic word correlated topic machine learning model",
+   "assignee": "Spotify Ab"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US4536857A",
+   "title": "Device for the serial merging of two ordered lists in order to form a single ordered list",
+   "assignee": "U.S. Philips Corporation"
+  },
+  {
+   "id": "US4833610A",
+   "title": "Morphological/phonetic method for ranking word similarities",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5446891A",
+   "title": "System for adjusting hypertext links with weighed user goals and activities",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5642502A",
+   "title": "Method and system for searching for relevant documents from a text database collection, using statistical ranking, relevancy feedback and small pieces of text",
+   "assignee": "University Of Central Florida"
+  },
+  {
+   "id": "US5696962A",
+   "title": "Method for computerized information retrieval using shallow linguistic analysis",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5761665A",
+   "title": "Method of automatic database field identification for postal coding",
+   "assignee": "Pitney Bowes Inc."
+  },
+  {
+   "id": "US5778362A",
+   "title": "Method and system for revealing information structures in collections of data items",
+   "assignee": "Kdl Technologies Limted"
+  },
+  {
+   "id": "US5983221A",
+   "title": "Method and apparatus for improved document searching",
+   "assignee": "Wordstream, Inc."
+  },
+  {
+   "id": "US6070157A",
+   "title": "Method for providing more informative results in response to a search of electronic documents",
+   "assignee": "At&T Corporation"
+  },
+  {
+   "id": "US6070176A",
+   "title": "Method and apparatus for graphically representing portions of the world wide web",
+   "assignee": "Intel Corporation"
+  },
+  {
+   "id": "US6125361A",
+   "title": "Feature diffusion across hyperlinks",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6182072B1",
+   "title": "Method and apparatus for generating a tour of world wide web sites",
+   "assignee": "Webtv Networks, Inc."
+  },
+  {
+   "id": "US6236987B1",
+   "title": "Dynamic content organization in information retrieval systems",
+   "assignee": "Damon Horowitz"
+  },
+  {
+   "id": "US6480837B1",
+   "title": "Method, system, and program for ordering search results using a popularity weighting",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6502091B1",
+   "title": "Apparatus and method for discovering context groups and document categories by mining usage logs",
+   "assignee": "Hewlett-Packard Company"
+  },
+  {
+   "id": "US20030130993A1",
+   "title": "Document categorization engine",
+   "assignee": "Quiver, Inc."
+  },
+  {
+   "id": "US6598054B2",
+   "title": "System and method for clustering data objects in a collection",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20030195877A1",
+   "title": "Search query processing to provide category-ranked presentation of search results",
+   "assignee": "Ford James L."
+  },
+  {
+   "id": "US6647383B1",
+   "title": "System and method for providing interactive dialogue and iterative search functions to find information",
+   "assignee": "Lucent Technologies Inc."
+  },
+  {
+   "id": "US6714929B1",
+   "title": "Weighted preference data search system and method",
+   "assignee": "Auguri Corporation"
+  },
+  {
+   "id": "US6718324B2",
+   "title": "Metadata search results ranking system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040068514A1",
+   "title": "System and method for biotechnology information access and data analysis",
+   "assignee": "Parvathi Chundi"
+  },
+  {
+   "id": "US20050027699A1",
+   "title": "Listings optimization using a plurality of data sources",
+   "assignee": "Amr Awadallah"
+  },
+  {
+   "id": "US6873982B1",
+   "title": "Ordering of database search results based on user feedback",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050086260A1",
+   "title": "Backward and forward non-normalized link weight analysis method, system, and computer program product",
+   "assignee": "Telenor Asa"
+  },
+  {
+   "id": "US20050144162A1",
+   "title": "Advanced search, file system, and intelligent assistant agent",
+   "assignee": "Ping Liang"
+  },
+  {
+   "id": "US20050198268A1",
+   "title": "Network traffic monitoring for search popularity analysis",
+   "assignee": "Rohit Chandra"
+  },
+  {
+   "id": "US20060167864A1",
+   "title": "Search engine system for locating web pages with product offerings",
+   "assignee": "Bailey David R"
+  },
+  {
+   "id": "US7213198B1",
+   "title": "Link based clustering of hyperlinked documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070192306A1",
+   "title": "Searching digital information and databases",
+   "assignee": "Yannis Papakonstantinou"
+  },
+  {
+   "id": "US20090006390A1",
+   "title": "Compiling Information Obtained By Combinatorial Searching",
+   "assignee": "At&T Intellectual Property I, L.P."
+  },
+  {
+   "id": "US7505964B2",
+   "title": "Methods and systems for improving a search ranking using related queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20100070448A1",
+   "title": "System and method for knowledge retrieval, management, delivery and presentation",
+   "assignee": "Nosa Omoigui"
+  },
+  {
+   "id": "US7801889B2",
+   "title": "Search system for providing information of keyword input frequency by category and method thereof",
+   "assignee": "Nhn Corporation"
+  },
+  {
+   "id": "US7836076B2",
+   "title": "Distributing content indices",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US20110087658A1",
+   "title": "Ranking Search Results Based on the Frequency of Access on the Search Results by Users of a Social-Networking System",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US20110179023A1",
+   "title": "Methods and Apparatus for Employing Usage Statistics in Document Retrieval",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7996397B2",
+   "title": "Using network traffic logs for search enhancement",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8051066B2",
+   "title": "Expression-based web logger for usage and navigational behavior tracking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8065299B2",
+   "title": "Methods and systems for providing a response to a query",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US8073867B2",
+   "title": "Analyzing a query log for use in managing category-specific electronic content",
+   "assignee": "Aol Inc."
+  },
+  {
+   "id": "US8117209B1",
+   "title": "Ranking documents based on user behavior and/or feature data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8131755B2",
+   "title": "System and method for retrieving and organizing information from disparate computer network information sources",
+   "assignee": "SAP America, Inc."
+  },
+  {
+   "id": "US8214358B2",
+   "title": "Systems and methods for adaptive scheduling of references to documents",
+   "assignee": "Yahoo! Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US8515952B2",
+   "title": "Systems and methods for determining document freshness"
+  },
+  {
+   "id": "US8108383B2",
+   "title": "Enhanced search results"
+  },
+  {
+   "id": "JP5572596B2",
+   "title": "Personalize the ordering of place content in search results"
+  },
+  {
+   "id": "US8762326B1",
+   "title": "Personalized hot topics"
+  },
+  {
+   "id": "US8346770B2",
+   "title": "Systems and methods for clustering search results"
+  },
+  {
+   "id": "US8019749B2",
+   "title": "System, method, and user interface for organizing and searching information"
+  },
+  {
+   "id": "US8386480B2",
+   "title": "Systems and methods for providing search results"
+  },
+  {
+   "id": "US8977630B1",
+   "title": "Personalizing search results"
+  },
+  {
+   "id": "US8832058B1",
+   "title": "Systems and methods for syndicating and hosting customized news content"
+  },
+  {
+   "id": "US8577868B1",
+   "title": "Bookmarks"
+  },
+  {
+   "id": "US9569504B1",
+   "title": "Deriving and using document and site quality signals from search query streams"
+  },
+  {
+   "id": "US10078702B1",
+   "title": "Personalizing aggregated news content"
+  },
+  {
+   "id": "CA2664906A1",
+   "title": "Bookmarks and ranking"
+  },
+  {
+   "id": "JP2007520788A",
+   "title": "Assigning geographic location identifiers to web pages"
+  },
+  {
+   "id": "US7730074B1",
+   "title": "Accelerated large scale optimization"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8595225B1/en"
+}

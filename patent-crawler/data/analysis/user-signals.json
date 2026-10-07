@@ -1,0 +1,165 @@
+{
+"US8661029B1": {
+  "relevance": "cao",
+  "mech": "- Patent cốt lõi của **Navboost** (Hyung-Jin Kim — người được nhắc tới trong vụ kiện DOJ).\n- Với mỗi cặp **query – tài liệu**, Google đếm các lượt xem sau khi người dùng click kết quả, chia thành **lượt xem dài** (long click — ở lại đủ lâu) và **lượt xem ngắn** (short click — quay lại SERP nhanh).\n- Mức liên quan = tỷ lệ lượt xem dài / tổng lượt xem (có thể dùng nhiều ngưỡng thời gian, trọng số theo thời lượng).\n- Chỉ số này đưa vào ranking engine để xếp hạng tài liệu cho các lần tìm kiếm sau **với cùng query**.\n- Mô tả còn đề cập: xử lý click không đáng tin, lượt click cuối cùng trong phiên (last click) được coi là dấu hiệu hài lòng.",
+  "seo": "- Không phải CTR đơn thuần, mà là **tỷ lệ người dùng ở lại và không quay lại tìm tiếp**.\n- Dữ liệu tính **theo từng query**: một trang có thể tốt cho query A nhưng kém cho query B → cần khớp ý định từng query.\n- Trang 'clickbait' (title hấp dẫn nhưng nội dung không đáp ứng) được click nhiều nhưng toàn short click → bị đẩy xuống.\n- Trở thành **lượt click cuối cùng của phiên** (người dùng tìm xong, không cần tìm tiếp) là tín hiệu mạnh nhất.",
+  "audit": [
+    "Với top 20 query mang traffic: mở trang đích và tự hỏi 'người gõ query này có cần quay lại Google không?' — nội dung đã trả lời trọn vẹn chưa",
+    "GA4: engagement rate và thời gian tương tác của traffic organic theo trang đích; tìm trang có tỷ lệ phiên không tương tác cao",
+    "So title/meta với nội dung thực tế: có hứa hẹn quá mức (clickbait) không",
+    "Kiểm tra màn hình đầu tiên: câu trả lời/giá trị chính có hiện ngay không, hay bị che bởi intro dài, quảng cáo, pop-up",
+    "Với query có nhiều ý định: trang có dẫn hướng đủ các ý định chính không"
+  ],
+  "leak": "Leak có module Navboost (`QualityNavboostCrapsCrapsData`) với `goodClicks`, `badClicks`, `lastLongestClicks`, `unsquashedClicks`, `impressions` — khớp gần như hoàn toàn với patent. Vụ kiện DOJ xác nhận Navboost dùng 13 tháng dữ liệu click và là một trong những tín hiệu quan trọng nhất."
+},
+"US8938463B1": {
+  "relevance": "cao",
+  "mech": "- Vấn đề: kết quả ở vị trí cao được click nhiều **chỉ vì ở vị trí cao** (presentation bias), không phải vì tốt hơn.\n- Google huấn luyện mô hình dự đoán **CTR kỳ vọng** dựa trên đặc trưng trình bày (vị trí, có rich snippet không, có hình ảnh không…) và đặc trưng liên quan.\n- Khi tính điểm chất lượng từ click, Google **trừ đi phần click do vị trí/trình bày** → chỉ giữ phần click 'vượt kỳ vọng'.",
+  "seo": "- Được click nhiều ở vị trí 1 là bình thường; điều có giá trị là **CTR cao hơn mức kỳ vọng của vị trí đó**.\n- Ở vị trí 5–8 mà có CTR ngang vị trí 3 là tín hiệu mạnh để được đẩy lên.\n- Rich result (sao đánh giá, FAQ, hình ảnh) tăng CTR nhưng Google có thể tính cả yếu tố trình bày này vào kỳ vọng.",
+  "audit": [
+    "GSC: xuất query + vị trí + CTR; so với đường CTR trung bình theo vị trí của chính site → tìm query có CTR thấp hơn kỳ vọng (cần sửa title/snippet) và cao hơn kỳ vọng (ứng viên được đẩy lên)",
+    "Tối ưu title/meta cho các trang ở vị trí 4–10 có impression cao"
+  ],
+  "leak": "Leak lưu `impressions` cùng với số click trong dữ liệu Navboost — cần thiết để tính CTR so với kỳ vọng theo vị trí."
+},
+"US8694511B1": {
+  "relevance": "trung bình",
+  "mech": "- Mỗi click được **gán trọng số theo thời gian xem** và gắn với **quốc gia + ngôn ngữ** của người dùng.\n- Google gộp click theo (quốc gia, ngôn ngữ) và theo (chỉ ngôn ngữ); dữ liệu chỉ theo ngôn ngữ bị **giảm trọng số** khi ngôn ngữ query trùng ngôn ngữ giao diện.\n- Kết quả: tín hiệu click được **địa phương hoá** — click của người Việt ở Việt Nam quan trọng nhất cho kết quả tại Việt Nam.",
+  "seo": "- Dữ liệu hành vi được tính **theo thị trường**: site tốt ở thị trường khác chưa chắc được hưởng lợi tại Việt Nam.\n- Site đa ngôn ngữ/đa quốc gia cần nội dung phù hợp từng thị trường.",
+  "audit": [
+    "GSC → Quốc gia: kiểm tra traffic và CTR theo từng quốc gia mục tiêu",
+    "Site đa quốc gia: kiểm tra hreflang và nội dung bản địa hoá (tiền tệ, đơn vị, ví dụ địa phương)"
+  ],
+  "leak": ""
+},
+"US9092510B1": {
+  "relevance": "cao",
+  "mech": "- Google tính **xu hướng click theo thời gian** (click trend) cho tài liệu và cho các tài liệu khác cùng query, với click gần đây có trọng số cao hơn.\n- Nếu tốc độ tăng click của tài liệu **nhanh hơn** các tài liệu khác → tăng mức liên quan; nếu giảm → giảm.\n- Mô tả còn đề cập: dữ liệu click cũ có thể bị 'hết hạn' khi nội dung thay đổi.",
+  "seo": "- Tín hiệu click **mang tính động**: trang đang được ưa chuộng dần lên được đẩy hạng; trang mất sức hút bị giảm dần.\n- Giải thích hiện tượng thứ hạng trôi dần xuống khi nội dung cũ đi trong khi đối thủ cập nhật.",
+  "audit": [
+    "GSC: so sánh click/CTR theo quý của trang chủ lực — trang có CTR giảm dần là ứng viên cần làm mới",
+    "Lập lịch cập nhật nội dung cho trang có chủ đề thay đổi theo thời gian (giá, năm, số liệu)"
+  ],
+  "leak": ""
+},
+"US9002817B2": {
+  "relevance": "trung bình",
+  "mech": "- Khi trộn kết quả từ nhiều kho (web, video, tin tức, hình ảnh…), Google dùng **dữ liệu click lịch sử**: nếu người dùng hay click kết quả từ kho A cho query này → tăng điểm kết quả từ kho A.\n- Quyết định loại kết quả nào (video, hình, tin) được chèn vào SERP và ở vị trí nào.",
+  "seo": "- Định dạng nội dung phải khớp **định dạng người dùng muốn** cho query: query hay được click video thì SERP ưu tiên video.\n- Nhìn SERP hiện tại để biết Google đang ưu tiên định dạng gì.",
+  "audit": [
+    "Với query mục tiêu: ghi nhận các loại kết quả trên SERP (video, hình ảnh, tin tức, PAA, local pack) → quyết định định dạng nội dung cần có",
+    "Nếu SERP có video: cân nhắc làm video + gắn vào trang (schema VideoObject)"
+  ],
+  "leak": ""
+},
+"US8615514B1": {
+  "relevance": "cao",
+  "mech": "- Lấy mọi cặp **trang–query** của một website kèm dữ liệu phản hồi người dùng.\n- Chia các cặp vào nhóm theo **điểm liên quan nội dung (IR score)** — tức trang khớp query nhiều hay ít.\n- Xem **phân phối** phản hồi người dùng giữa các nhóm và độ lệch (skew) của phân phối → suy ra **chất lượng của website** → dùng làm tín hiệu xếp hạng mọi trang của site.\n- Ý tưởng: site tốt được người dùng ưa chuộng **kể cả khi trang không khớp từ khoá hoàn hảo**; site kém chỉ được click khi khớp từ khoá chính xác.",
+  "seo": "- Hành vi người dùng được tổng hợp lên **cấp site**: site có thương hiệu/uy tín được click vượt mức 'đáng lẽ' → điểm site tăng.\n- Site sống nhờ khớp từ khoá (exact-match, nội dung tối ưu từ khoá) nhưng người dùng không ưu tiên → điểm site thấp.",
+  "audit": [
+    "GSC: so CTR của site với CTR kỳ vọng theo vị trí trên toàn bộ query — site có CTR thấp hơn kỳ vọng một cách hệ thống là dấu hiệu người dùng không ưu tiên thương hiệu",
+    "Kiểm tra độ nhận diện thương hiệu trên SERP: favicon, tên site, sitelinks, đánh giá"
+  ],
+  "leak": ""
+},
+"US9697259B1": {
+  "relevance": "trung bình",
+  "mech": "- Dữ liệu click được lưu **theo từng quốc gia**. Khi người dùng ở một vị trí tìm kiếm, Google chọn các quốc gia **có đặc điểm chung** với vị trí đó (cùng ngôn ngữ, gần địa lý…), kết hợp dữ liệu click của các quốc gia này để xếp hạng.\n- Giúp thị trường nhỏ (ít dữ liệu) mượn dữ liệu từ thị trường tương tự.",
+  "seo": "- Hành vi người dùng ở các thị trường tương đồng có thể ảnh hưởng tới xếp hạng tại Việt Nam và ngược lại.",
+  "audit": [],
+  "leak": ""
+},
+"US9218397B1": {
+  "relevance": "trung bình",
+  "mech": "- (Mark Pearson, Simon Tong) Google **đưa một kết quả từ vị trí thấp (ít được nhìn thấy) lên vị trí dễ thấy** để thử nghiệm — có thể chọn ngẫu nhiên hoặc lấy từ kết quả của một query liên quan mà người dùng đã gõ (query viết lại).\n- Mục đích: thu thập dữ liệu click cho kết quả mới/ít dữ liệu (exploration).",
+  "seo": "- Trang mới hoặc ở trang 2 **thỉnh thoảng được đưa lên top để thử** → nếu hành vi người dùng tốt, có thể được giữ lại.\n- Giải thích hiện tượng trang mới 'nhảy top' vài ngày rồi rơi (honeymoon period).",
+  "audit": [
+    "Theo dõi trang mới xuất bản: nếu có giai đoạn lên top ngắn rồi rơi, phân tích hành vi người dùng giai đoạn đó (GA4) để cải thiện"
+  ],
+  "leak": ""
+},
+"US9767478B2": {
+  "relevance": "trung bình",
+  "mech": "- Thuộc bộ patent 'Information retrieval based on historical data'. Claim chính: nếu **số link trỏ tới tài liệu giảm** theo thời gian (kỳ sau ít hơn kỳ trước) và trọng số link giảm → tài liệu bị coi là **'cũ' (stale)**.\n- Các phần khác: điểm tài liệu dựa trên mức quảng cáo, chất lượng nhà quảng cáo, traffic do quảng cáo tạo ra.",
+  "seo": "- **Mất backlink theo thời gian** là tín hiệu tài liệu lỗi thời.\n- Trang có quá nhiều quảng cáo / quảng cáo kém chất lượng có thể bị điểm thấp.",
+  "audit": [
+    "Theo dõi xu hướng referring domain của trang chủ lực (Ahrefs → lost links) — giảm liên tục là dấu hiệu cần cập nhật/tái quảng bá",
+    "Kiểm tra mật độ và chất lượng quảng cáo trên trang"
+  ],
+  "leak": ""
+},
+"US8832083B1": {
+  "relevance": "thấp",
+  "mech": "- Kết hợp dữ liệu phản hồi người dùng từ **hai hệ thống xếp hạng** (ví dụ web search và video search): dữ liệu phụ được gán trọng số tuỳ vào lượng dữ liệu chính có đủ ngưỡng hay không, rồi gộp để điều chỉnh thứ hạng.",
+  "seo": "- Hành vi người dùng trên YouTube/Google Video có thể ảnh hưởng xếp hạng video trên web search.",
+  "audit": [],
+  "leak": ""
+},
+"US8396865B1": {
+  "relevance": "thấp",
+  "mech": "- Khi tài liệu web và tài liệu ở kho khác (ví dụ Google Shopping) cùng nói về **một sản phẩm cụ thể** (có mã định danh), độ phổ biến của tài liệu kia cho query tương tự được dùng để điều chỉnh thứ hạng tài liệu web.",
+  "seo": "- Với e-commerce: mã định danh sản phẩm (GTIN, MPN) giúp Google liên kết trang với dữ liệu sản phẩm ở kho khác.",
+  "audit": [
+    "Trang sản phẩm: có GTIN/MPN/SKU trong schema Product không"
+  ],
+  "leak": ""
+},
+"US7756887B1": {
+  "relevance": "thấp",
+  "mech": "- Theo dõi **thời gian con trỏ chuột dừng (hover)** trên từng kết quả mà không click; gửi về server để điều chỉnh độ liên quan và nội dung khung one-box.",
+  "seo": "- Google từng thử nghiệm nhiều tín hiệu tương tác trên SERP ngoài click. Không có bằng chứng dùng rộng rãi hiện nay.",
+  "audit": [],
+  "leak": ""
+},
+"US8874570B1": {
+  "relevance": "trung bình",
+  "mech": "- Tìm các URL mà **cùng một người dùng truy cập trong cùng khoảng thời gian** với nội dung ban đầu (co-visitation), tính trọng số theo tần suất, độ nhất quán, độ độc đáo.\n- Tạo 'search boost vector' để **tăng hạng** các URL liên quan này khi trả kết quả (dùng cho cá nhân hoá/cộng đồng người dùng).",
+  "seo": "- Được truy cập cùng các site uy tín trong ngành (người dùng hay đọc cả hai) giúp củng cố liên hệ chủ đề.",
+  "audit": [],
+  "leak": "Leak có `chromeInTotal` và các dữ liệu lượt xem từ Chrome ở cấp site — cho thấy dữ liệu duyệt web ngoài SERP cũng được thu thập."
+},
+"US8359309B1": {
+  "relevance": "thấp",
+  "mech": "- Tính **CTR theo từng kho dữ liệu** (web, hình ảnh, tin tức…) cho một query, trong nhóm người dùng cùng ngôn ngữ ở nhiều quốc gia; so sánh mức liên quan tương đối giữa các kho → quyết định kho nào được ưu tiên hiển thị.",
+  "seo": "- Tương tự US9002817: định dạng kết quả trên SERP được quyết định bởi dữ liệu click.",
+  "audit": [],
+  "leak": ""
+},
+"US8423541B1": {
+  "relevance": "thấp",
+  "mech": "- Khi người dùng **lưu** (bookmark/star) một kết quả tìm kiếm, kết quả đó được dùng làm chỉ báo chất lượng cho các lần tìm kiếm liên quan sau.",
+  "seo": "- Tín hiệu 'lưu lại' là dạng phản hồi tích cực mạnh; nội dung đáng lưu (tham khảo lâu dài, checklist, công cụ) có lợi.",
+  "audit": [],
+  "leak": ""
+},
+"US8001118B2": {
+  "relevance": "trung bình",
+  "mech": "- (Dean, Bharat, Henzinger…) Sắp xếp tài liệu theo **thống kê sử dụng**: tần suất truy cập trong một khoảng thời gian và **số người truy cập duy nhất**.\n- Dữ liệu có thể lấy từ toolbar/trình duyệt, log proxy…",
+  "seo": "- Lượng truy cập thật (từ mọi nguồn, không chỉ Google) có thể là tín hiệu xếp hạng.\n- Traffic từ social, email, direct góp phần xây tín hiệu phổ biến.",
+  "audit": [
+    "GA4: tỷ lệ traffic organic so với tổng — site phụ thuộc gần như hoàn toàn vào Google là rủi ro; phát triển kênh direct/social/email"
+  ],
+  "leak": "Khớp với `chromeInTotal` (lượt xem từ Chrome ở cấp site) trong leak."
+},
+"US7454417B2": {
+  "relevance": "trung bình",
+  "mech": "- (Simon Tong, Mark Pearson) Xác định **nhóm dân cư** (population) của người dùng — theo địa lý, ngôn ngữ, sở thích, loại người dùng.\n- Tính **tín hiệu nhóm** cho mỗi tài liệu: hành vi của nhóm đó với tài liệu (click, thời gian) → dùng để xếp hạng cho người dùng thuộc nhóm.",
+  "seo": "- Kết quả có thể khác nhau giữa các nhóm người dùng; nội dung nhắm đúng đối tượng (ví dụ người Việt ở TP.HCM) có lợi cho nhóm đó.",
+  "audit": [],
+  "leak": ""
+},
+"US8959103B1": {
+  "relevance": "thấp",
+  "mech": "- Dùng click/skip để kiểm chứng **quy tắc đảo thứ tự từ** trong query: nếu người dùng hay click kết quả chứa các từ theo thứ tự khác, quy tắc đảo thứ tự được xác nhận hữu ích.",
+  "seo": "- Google học cách hiểu query từ click → các biến thể thứ tự từ ('giày nam nike' vs 'nike giày nam') thường được hiểu như nhau.",
+  "audit": [],
+  "leak": ""
+},
+"US8965882B1": {
+  "relevance": "thấp",
+  "mech": "- Dùng click/skip để kiểm chứng **quy tắc đồng nghĩa**: nếu người dùng click kết quả chỉ chứa từ đồng nghĩa (không chứa từ gốc), quy tắc đồng nghĩa được xác nhận.",
+  "seo": "- Không cần nhồi mọi biến thể từ khoá: Google học đồng nghĩa từ hành vi người dùng.",
+  "audit": [],
+  "leak": ""
+}
+}

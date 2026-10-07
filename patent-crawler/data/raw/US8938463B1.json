@@ -1,0 +1,1605 @@
+{
+ "id": "US8938463B1",
+ "title": "Modifying search result ranking based on implicit user feedback and a model of presentation bias",
+ "abstract": "The present disclosure includes systems and techniques relating to ranking search results of a search query. In general, the subject matter described in this specification can be embodied in a computer-implemented method that includes: receiving multiple features, including a first feature indicative of presentation bias that affects document result selection for search results presented in a user interface of a document search service; obtaining, based on the multiple features, information regarding document result selections for searches performed using the document search service; generating a prior model using the information, the prior model representing a background probability of document result selection given values of the multiple features; and outputting the prior model to a ranking engine for ranking of search results to reduce influence of the presentation bias.",
+ "inventors": [
+  "Hyung-Jin Kim",
+  "Adrian D. Corduneanu"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2007-03-12",
+ "filing_date": "2007-03-12",
+ "publication_date": "2015-01-20",
+ "status": "Active",
+ "expiration": "2029-06-25",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/953",
+  "G06F16/9535"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer-implemented method comprising: obtaining information regarding selections of search results provided in response to a plurality of search queries, the obtained information for one or more of the selected search results comprising one or more presentation bias features of a presentation of the search result and one or more relevancy features of the search result, wherein at least one of the presentation bias features is a rank of the search result in the search results; training a model using the obtained information, wherein the model is trained to predict a click through rate based on input comprising the one or more presentation bias features and the one or more relevancy features; and providing the model for use with a search engine, wherein the search engine is configured to provide presentation bias and relevancy features of given search results as input to the model and to use predictive outputs of the model to reduce presentation bias in a presentation of the given search results by determining a quality score for each of the given search results and factoring out independent effects of presentation bias from the quality scores using the predictive outputs of the model, wherein the predictive outputs used to reduce the presentation bias in the presentation of the given search results include a predicted click through rate predicted based on the presentation bias and relevancy features of the given search results and the model.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1 wherein the model is a linear model or a regression model.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1 wherein the one or more presentation bias features include a position of another search result in the graphical user interface, a title of the search result, a length of the title, a snippet for the search result, bolded text within the snippet, or whether one or more advertisements were presented with the search result.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1 wherein the one or more relevancy features include an information retrieval score of the search result, an information retrieval score of another search result returned along with the search result, a language of the query, or a count of words in the query.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 1 wherein training the model comprises: training a first model using the obtained presentation bias features to predict a click through rate based on input comprising the one or more presentation bias features; and training a second model using the obtained relevancy features to predict a click through rate based on input comprising the one or more relevancy features.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 5 wherein providing the model for use with the search engine comprises providing the first and second models for use with the search engine, wherein the search engine is configured to use predictive outputs of the first and second models to adjust respective ranking scores of the given search results obtained as the search results for the given query to reduce presentation bias in a presentation of the given search results, and wherein the search engine is configured to provide the presentation bias and relevance features of the given search results as input to the first and second models.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 5 wherein the predicted click through rate for the particular second search result is a ratio of the respective predictive outputs of the first and second models.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 1 wherein the search engine is further configured to use comparisons of the predictive outputs of the model with an implicit user feedback model to adjust respective ranking scores of the given search results.",
+   "dependent": true
+  },
+  {
+   "text": "9. The method of claim 8 wherein the implicit user feedback model is a click fraction.",
+   "dependent": true
+  },
+  {
+   "text": "10. A system comprising: data processing apparatus programmed to perform operations comprising: obtaining information regarding selections of search results provided in response to a plurality of search queries, the obtained information for one or more of the selected search results comprising one or more presentation bias features of a presentation of the search result and one or more relevancy features of the search result, wherein at least one of the presentation bias features is a rank of the search result in the search results; training a model using the obtained information, wherein the model is trained to predict a click through rate based on input comprising the one or more presentation bias features and the one or more relevancy features; and providing the model for use with a search engine, wherein the search engine is configured to provide presentation bias and relevancy features of given search results as input to the model and to use predictive outputs of the model to reduce presentation bias in a presentation of the given search results by determining a quality score for each of the given search results and factoring out independent effects of presentation bias from the quality scores using the predictive outputs of the model, wherein the predictive outputs used to reduce the presentation bias in the presentation of the given search results include a predicted click through rate predicted based on the presentation bias and relevancy features of the given search results and the model.",
+   "dependent": false
+  },
+  {
+   "text": "11. The system of claim 10 wherein the model is a linear model or a regression model.",
+   "dependent": true
+  },
+  {
+   "text": "12. The system of claim 10 wherein the one or more presentation bias features include a position of another search result in the graphical user interface, a title of the search result, a length of the title, a snippet for the search result, bolded text within the snippet, or whether one or more advertisements were presented with the search result.",
+   "dependent": true
+  },
+  {
+   "text": "13. The system of claim 10 wherein the one or more relevancy features include an information retrieval score of the search result, an information retrieval score of another search result returned along with the search result, a language of the query, or a count of words in the query.",
+   "dependent": true
+  },
+  {
+   "text": "14. The system of claim 10 wherein training the model comprises: training a first model using the obtained presentation bias features to predict a click through rate based on input comprising the one or more presentation bias features; and training a second model using the obtained relevancy features to predict a click through rate based on input comprising the one or more relevancy features.",
+   "dependent": true
+  },
+  {
+   "text": "15. The system of claim 14 wherein providing the model for use with the search engine comprises providing the first and second models for use with the search engine, wherein the search engine is configured to use predictive outputs of the first and second models to adjust respective ranking scores of the given search results obtained as the search results for the given query to reduce presentation bias in a presentation of the given search results, and wherein the search engine is configured to provide the presentation bias and relevance features of the given search results as input to the first and second models.",
+   "dependent": true
+  },
+  {
+   "text": "16. The system of claim 15 wherein the search engine is further configured to use ratios of the predictive outputs of the first and second models to adjust the respective ranking scores of the given search results.",
+   "dependent": true
+  },
+  {
+   "text": "17. The system of claim 10 wherein the search engine is further configured to use comparisons of the predictive outputs of the model with an implicit user feedback model to adjust respective ranking scores of the given search results.",
+   "dependent": true
+  },
+  {
+   "text": "18. The system of claim 17 wherein the implicit user feedback model is a click fraction, and the search engine is configured to use a comparison of the predicted click through rate and the click fraction to adjust the respective ranking scores of the given search results, the comparison including at least one of a ratio of the predicted click through rate and the click fraction or a value difference between the predicted click through rate and the click fraction.",
+   "dependent": true
+  },
+  {
+   "text": "19. A machine-readable storage device having instructions stored thereon that, when executed by data processing apparatus, cause the data processing apparatus to perform operations comprising: obtaining information regarding selections of search results provided in response to a plurality of search queries, the obtained information for one or more of the selected search results comprising one or more presentation bias features of a presentation of the search result and one or more relevancy features of the search result, wherein at least one of the presentation bias features is a rank of the search result in the search results; training a model using the obtained information, wherein the model is trained to predict a click through rate based on input comprising the one or more presentation bias features and the one or more relevancy features; and providing the model for use with a search engine, wherein the search engine is configured to provide presentation bias and relevancy features of given search results as input to the model and to use predictive outputs of the model to reduce presentation bias in a presentation of the given search results by determining a quality score for each of the given search results and factoring out independent effects of presentation bias from the quality scores using the predictive outputs of the model, wherein the predictive outputs used to reduce the presentation bias in the presentation of the given search results include a predicted click through rate predicted based on the presentation bias and relevancy features of the given search results and the model.",
+   "dependent": false
+  },
+  {
+   "text": "20. The machine-readable storage of claim 19 wherein the model is a linear model or a regression model.",
+   "dependent": true
+  },
+  {
+   "text": "21. The machine-readable storage of claim 19 wherein the one or more presentation bias features include a position of another search result in the graphical user interface, a title of the search result, a length of the title, a snippet for the search result, bolded text within the snippet, or whether one or more advertisements were presented with the search result.",
+   "dependent": true
+  },
+  {
+   "text": "22. The machine-readable storage of claim 19 wherein the one or more relevancy features include an information retrieval score of the search result, an information retrieval score of another search result returned along with the search result, a language of the query, or a count of words in the query.",
+   "dependent": true
+  },
+  {
+   "text": "23. The machine-readable storage of claim 19 wherein training the model comprises: training a first model using the obtained presentation bias features to predict a click through rate based on input comprising the one or more presentation bias features; and training a second model using the obtained relevancy features to predict a click through rate based on input comprising the one or more relevancy features.",
+   "dependent": true
+  },
+  {
+   "text": "24. The machine-readable storage of claim 23 wherein providing the model for use with the search engine comprises providing the first and second models for use with the search engine, wherein the search engine is configured to use predictive outputs of the first and second models to adjust respective ranking scores of the given search results obtained as the search results for the given query to reduce presentation bias in a presentation of the given search results, and wherein the search engine is configured to provide the presentation bias and relevance features of the given search results as input to the first and second models.",
+   "dependent": true
+  },
+  {
+   "text": "25. The machine-readable storage of claim 24 wherein the search engine is further configured to use ratios of the predictive outputs of the first and second models to adjust the respective ranking scores of the given search results.",
+   "dependent": true
+  },
+  {
+   "text": "26. The machine-readable storage of claim 19 wherein the search engine is further configured to use comparisons of the predictive outputs of the model with an implicit user feedback model to adjust respective ranking scores of the given search results.",
+   "dependent": true
+  },
+  {
+   "text": "27. The machine-readable storage of claim 26 wherein the implicit user feedback model is a click fraction, and the search engine is configured to use a comparison of the predicted click through rate and the click fraction to adjust the respective ranking scores of the given search results, the comparison including at least one of a ratio of the predicted click through rate and the click fraction or a value difference between the predicted click through rate and the click fraction.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## BACKGROUND\n\n\nThe present disclosure relates to ranking of search results.\n\nInternet search engines aim to identify documents or other items that are relevant to a user's needs and to present the documents or items in a manner that is most useful to the user. Such activity often involves a fair amount of mind-reading—inferring from various clues what the user wants. Certain clues may be user specific. For example, knowledge that a user is making a request from a mobile device, and knowledge of the location of the device, can result in much better search results for such a user.\n\nClues about a user's needs may also be more general. For example, search results can have an elevated importance, or inferred relevance, if a number of other search results link to them. If the linking results are themselves highly relevant, then the linked-to results may have a particularly high relevance. Such an approach to determining relevance, generally associated with the GOOGLE® PageRank technology, is premised on the assumption that, if authors of web pages felt that another web site was relevant enough to be linked to, then web searchers would also find the site to be particularly relevant. In short, the web authors “vote up” the relevance of the sites.\n\nOther various inputs may be used instead of, or in addition to, such techniques for determining and ranking search results. For example, user reactions to particular search results or search result lists may be gauged, so that results on which users often click will receive a higher ranking. The general assumption under such an approach is that searching users are often the best judges of relevance, so that if they select a particular search result, it is likely to be relevant, or at least more relevant than the presented alternatives.\n\n\n## SUMMARY\n\n\nSystems, methods, and apparatus including computer program products for ranking search results of a search query are described. In general, particular inputs may be generated or analyzed to affect the presentation of search results. For example, such inputs may increase the relevance that a system will assign to a particular result in a particular situation, thus boosting the score or other indicator of relevance for the result (and perhaps the relevance of the result in the context of a particular query). Such an approach may benefit a user by providing them with search results that are more likely to match their needs. As a result, users can learn more using the internet, can find more relevant information more quickly, and will thus achieve more in their work or elsewhere, and will be more likely to use such a system again. A provider of such services may also benefit, by providing more useful services to users, and by thereby inducing more traffic to their search services. Such additional traffic may provide an operator with additional revenue, such as in the form of advertising that accompanies the searching and the delivery of search results.\n\nThe subject matter described in this specification can be embodied in a computer-implemented method that includes receiving multiple features, including a first feature indicative of presentation bias that affects document result selection for search results presented in a user interface of a document search service; obtaining, based on the multiple features, information regarding document result selections for searches performed using the document search service, the information spanning multiple different queries; generating a prior model using the information spanning the multiple different queries, the prior model representing a query-independent probability of document result selection given values of the multiple features; and outputting the prior model to a ranking engine for ranking of search results to reduce influence of the presentation bias.\n\nThe receiving can include receiving the first feature including a position of a document result in the user interface of the document search service within a context of a search query for which the document result is returned. The document result can be a first document result, and the receiving can include receiving a second feature including a relevance score of a second document result within the context of the search query for which the first document result and the second document result are returned. Moreover, the receiving can include receiving a third feature comprising the relevance score of the first document result within the context of the search query for which the first document result and the second document result are returned.\n\nThe receiving can include receiving a second feature indicative of relevance for a second document result returned along with a first document result within a context of a search query, and the obtaining can include collecting the information regarding document result selections, including selection of the first document result, for multiple combinations of values for the multiple features. The receiving can include receiving a first set of features including the first feature and a second set of features including the second feature, the generating can include creating a first user selection model based on the first set of features and creating a second user selection model based on the second set of features, and the outputting can include outputting the first user selection model and the second user selection model. The receiving can include receiving the second set of features being a proper subset of the first set of features. In addition, the obtaining can include identifying, based on frequency of document result selection, a reduced set of document result selection records from one or more logs of user selections for the document search service; and collecting the information regarding document result selections from the reduced set of document result selection records.\n\nThe subject matter described in this specification can be embodied in a computer-implemented method that includes obtaining, in accordance with a first implicit user feedback model, a first signal for a document result of a search query for which the document result is returned, wherein the first signal corresponds to an aspect of document relevance; obtaining, in accordance with a second implicit user feedback model, a second signal for the document result, wherein the second signal corresponds to an aspect of search result presentation; combining the first signal and the second signal to form a relevance signal for the document result; and outputting the relevance signal to a ranking engine for ranking of search results including the document result.\n\nThe obtaining the first signal can include obtaining, in accordance with the first implicit user feedback model, a measure of relevance for the document result within a context of the search query for which the document result is returned; and the obtaining the second signal can include obtaining, in accordance with the second implicit user feedback model, a measure of presentation bias for the document result independent of the context of the search query for which the document result is returned. The operations can further include identifying an additional document result of the search query that is not included in the first implicit user feedback model; obtaining, in accordance with a third implicit user feedback model, an additional signal for the additional document result, wherein the additional signal corresponds to an aspect of document relevance independent of the context of the search query; and outputting the additional signal to the ranking engine for ranking of the search results including the additional document result.\n\nThe obtaining the first signal can include obtaining, in accordance with the first implicit user feedback model, a measure of relevance for the document result independent of a context of the search query for which the document result is returned; and the obtaining the second signal can include obtaining, in accordance with the second implicit user feedback model, a measure of presentation bias for the document result independent of the context of the search query for which the document result is returned.\n\nThe subject matter described in this specification can be embodied in a computer-implemented method that includes receiving multiple features, including a first feature indicative of presentation bias that affects document result selection for search results presented in a user interface of a document search service, and a second feature indicative of relevance for a second document result returned along with a first document result within a context of a search query; obtaining, based on the multiple features, information regarding document result selections for searches performed using the document search service, including selection of the first document result; generating a prior model using the information, the prior model representing a probability of document result selection given values of the multiple features; and outputting the prior model to a ranking engine for ranking of search results to reduce influence of the presentation bias.\n\nThe receiving can include receiving a first set of features including the first feature and a second set of features including the second feature, the generating can include creating a first user selection model based on the first set of features and creating a second user selection model based on the second set of features, and the outputting can include outputting the first user selection model and the second user selection model. The receiving can include receiving the second set of features being a proper subset of the first set of features. The obtaining can include identifying, based on frequency of document result selection, a reduced set of document result selection records from one or more logs of user selections for the document search service; and collecting the information regarding document result selections from the reduced set of document result selection records.\n\nThe subject matter described in this specification can also be embodied in various systems, apparatus and corresponding computer program products (encoded on a computer-readable medium and operable to cause data processing apparatus to perform method operations). For example, a system can include a tracking component and a rank modifier engine structured to perform the operations described. Moreover, a system can include various means for performing the operations described, as detailed below, and equivalents thereof.\n\nParticular embodiments of the described subject matter can be implemented to realize one or more of the following advantages. A ranking sub-system can include a rank modifier engine that uses implicit user feedback to cause re-ranking of search results in order to improve the final ranking presented to a user of an information retrieval system. User selections of search results (click data) can be tracked and transformed into a background probability of user selection in light of one or more presentation bias features, and this background probability can be used to adjust future search result rankings to reduce the influence of presentation bias on implicit user feedback. A prior model can be designed to assist in separating the effects of result quality and presentation bias on user selections, and the prior model can be used to normalize the output of a separate implicit user feedback model in view of the effects of presentation bias. Moreover, a prior model can be used to estimate what the implicit feedback should be for results that are too infrequent, or too recent to have sufficient historical records of implicit feedback applicable to them.\n\nThe details of one or more implementations are set forth in the accompanying drawings and the description below. Other features, aspects, and advantages will become apparent from the description, the drawings, and the claims.\n\n\n## DESCRIPTION OF THE DRAWINGS\n\n\nFIG. 1 shows an example information retrieval system in which the relevance of results obtained for submitted search queries can be improved.\n\nFIG. 2 shows example components of an information retrieval system.\n\nFIG. 3 shows another example information retrieval system.\n\nFIG. 4A shows an example user interface of a document search service for presenting a ranking.\n\nFIG. 4B shows an example process of building a prior model for use in factoring out presentation bias and enhancing the quality of signals from document result selections.\n\nFIG. 4C shows example features and an example process of building a prior model.\n\nFIG. 4D shows another example process of building a prior model.\n\nFIG. 4E shows an example process of building a prior model used to predict a measure of implicit user feedback for a result having no previously recorded user selections.\n\nFIG. 4F shows an example process of using implicit user feedback models to form a relevance signal for a document result, within the context of a search query, for ranking purposes.\n\nFIG. 5 is a schematic diagram of an example computer system.\n\nLike reference numbers and designations in the various drawings indicate like elements.\n\n\n## DETAILED DESCRIPTION\n\n\nFIG. 1 shows an example system 1000 for improving the relevance of results obtained from submitting search queries as can be implemented in an internet, intranet, or other client/server environment. The system 1000 is an example of an information retrieval system in which the systems, components and techniques described below can be implemented. Although several components are illustrated, there may be fewer or more components in the system 1000. Moreover, the components can be distributed on one or more computing devices connected by one or more networks or other suitable communication mediums.\n\nA user 1002 (1002 a, 1002 b, 1002 c) can interact with the system 1000 through a client device 1004 (1004 a, 1004 b, 1004 c) or other device. For example, the client device 1004 can be a computer terminal within a local area network (LAN) or wide area network (WAN). The client device 1004 can include a random access memory (RAM) 1006 (or other memory and/or a storage device) and a processor 1008. The processor 1008 is structured to process instructions within the system 1000. In some implementations, the processor 1008 is a single-threaded processor. In other implementations, the processor 1008 is a multi-threaded processor. The processor 1008 can include multiple processing cores and is structured to process instructions stored in the RAM 1006 (or other memory and/or a storage device included with the client device 1004) to display graphical information for a user interface.\n\nA user 1002 a can connect to a search engine 1030 within a server system 1014 to submit a query 1015. When the user 1002 a submits the query 1015 through an input device attached to a client device 1004 a, a client-side query signal 1010 a is sent into a network 1012 and is forwarded to the server system 1014 as a server-side query signal 1010 b. Server system 1014 can be one or more server devices in one or more locations. A server device 1014 includes a memory device 1016, which can include the search engine 1030 loaded therein. A processor 1018 is structured to process instructions within the system 1014. These instructions can implement one or more components of the search engine 1030. The processor 1018 can be a single-threaded processor or a multi-threaded processor, and can include multiple processing cores. The processor 1018 can process instructions stored in the memory 1016 related to the search engine 1030 and can send information to the client device 1004, through the network 1012, to create a graphical presentation in a user interface of the client device 1004 (e.g., a search results web page displayed in a web browser).\n\nThe server-side query signal 1010 b is received by the search engine 1030. The search engine 1030 uses the information within the user query 1015 (e.g. query terms) to find relevant documents. The search engine 1030 can include an indexing engine 1020 that actively searches a corpus (e.g., web pages on the Internet) to index the documents found in that corpus, and the index information for the documents in the corpus can be stored in an index database 1022. This index database 1022 can be accessed to identify documents related to the user query 1015. Note that, an electronic document (which for brevity will simply be referred to as a document) does not necessarily correspond to a file. A document can be stored in a portion of a file that holds other documents, in a single file dedicated to the document in question, or in multiple coordinated files.\n\nThe search engine 1030 can include a ranking engine 1052 to rank the documents related to the user query 1015. The ranking of the documents can be performed using traditional techniques for determining an information retrieval (IR) score for indexed documents in view of a given query. The relevance of a particular document with respect to a particular search term or to other provided information may be determined by any appropriate technique. For example, the general level of back-links to a document that contains matches for a search term may be used to infer a document's relevance. In particular, if a document is linked to (e.g., is the target of a hyperlink) by many other relevant documents (e.g., documents that also contain matches for the search terms), it can be inferred that the target document is particularly relevant. This inference can be made because the authors of the pointing documents presumably point, for the most part, to other documents that are relevant to their audience.\n\nIf the pointing documents are in turn the targets of links from other relevant documents, they can be considered more relevant, and the first document can be considered particularly relevant because it is the target of relevant (or even highly relevant) documents. Such a technique may be the determinant of a document's relevance or one of multiple determinants. The technique is exemplified in the GOGGLE® PageRank system, which treats a link from one web page to another as an indication of quality for the latter page, so that the page with the most such quality indicators is rated higher than others. Appropriate techniques can also be used to identify and eliminate attempts to cast false votes so as to artificially drive up the relevance of a page.\n\nTo further improve such traditional document ranking techniques, the ranking engine 1052 can receive an additional signal from a rank modifier engine 1056 to assist in determining an appropriate ranking for the documents. The rank modifier engine 1056 provides one or more prior models, or one or more measures of relevance for the documents based on one or more prior models, which can be used by the ranking engine 1052 to improve the search results' ranking provided to the user 1002. In general, a prior model represents a background probability of document result selection given the values of multiple selected features, as described further below. The rank modifier engine 1056 can perform one or more of the operations described below to generate the one or more prior models, or the one or more measures of relevance based on one or more prior models.\n\nThe search engine 1030 can forward the final, ranked result list within a server-side search results signal 1028 a through the network 1012. Exiting the network 1012, a client-side search results signal 1028 b can be received by the client device 1004 a where the results can be stored within the RAM 1006 and/or used by the processor 1008 to display the results on an output device for the user 1002 a.\n\nFIG. 2 shows example components of an information retrieval system. These components can include an indexing engine 2010, a scoring engine 2020, a ranking engine 2030, and a rank modifier engine 2070. The indexing engine 2010 can function as described above for the indexing engine 1020. In addition, the scoring engine 2020 can generate scores for document results based on many different features, including content-based features that link a query to document results, and query-independent features that generally indicate the quality of document results. The content-based features can include aspects of document format, such as query matches to title or anchor text in an HTML (Hyper Text Markup Language) page. The query-independent features can include aspects of document cross-referencing, such as the PageRank of the document or the domain. Moreover, the particular functions used by the scoring engine 2020 can be tuned, to adjust the various feature contributions to the final IR score, using automatic or semi-automatic processes.\n\nThe ranking engine 2030 can produce a ranking of document results 2040 for display to a user based on IR scores received from the scoring engine 2020 and one or more signals from the rank modifier engine 2070. A tracking component 2050 can be used to record information regarding individual user selections of the results presented in the ranking 2040. For example, the tracking component 2050 can be embedded JavaScript code included in a web page ranking 2040 that identifies user selections (clicks) of individual document results and also identifies when the user returns to the results page, thus indicating the amount of time the user spent viewing the selected document result. In other implementations, the tracking component 2050 can be a proxy system through which user selections of the document results are routed, or the tracking component can include pre-installed software at the client (e.g., a toolbar plug-in to the client's operating system). Other implementations are also possible, such as by using a feature of a web browser that allows a tag/directive to be included in a page, which requests the browser to connect back to the server with message(s) regarding link(s) clicked by the user.\n\nThe recorded information can be stored in result selection log(s) 2060. The recorded information can include log entries that indicate, for each user selection, the query (Q), the document (D), the time (T) on the document, the language (L) employed by the user, and the country (C) where the user is likely located (e.g., based on the server used to access the IR system). Other information can also be recorded regarding user interactions with a presented ranking, including negative information, such as the fact that a document result was presented to a user, but was not clicked, position(s) of click(s) in the user interface, IR scores of clicked results, IR scores of all results shown before the clicked result, the titles and snippets shown to the user before the clicked result, the user's cookie, cookie age, IP (Internet Protocol) address, user agent of the browser, etc. Sill further information can be recorded, such as described below during discussion of the various features that can be used to build a prior model. Moreover, similar information (e.g., IR scores, position, etc.) can be recorded for an entire session, or multiple sessions of a user, including potentially recording such information for every click that occurs both before and after a current click.\n\nThe information stored in the result selection log(s) 2060 can be used by the rank modifier engine 2070 in generating the one or more signals to the ranking engine 2030. In general, a wide range of information can be collected and used to modify or tune the click signal from the user to make the signal, and the future search results provided, a better fit for the user's needs. Thus, user interactions with the rankings presented to the users of the information retrieval system can be used to improve future rankings.\n\nThe components shown in FIG. 2 can be combined in various manners and implemented in various system configurations. For example, the scoring engine 2020 and the ranking engine 2030 can be merged into a single ranking engine, such as the ranking engine 1052 of FIG. 1. The rank modifier engine 2070 and the ranking engine 2030 can also be merged, and in general, a ranking engine includes any software component that generates a ranking of document results after a query. Moreover, a ranking engine can be included in a client system in addition to (or rather than) in a server system.\n\nFIG. 3 shows another example information retrieval system. In this system, a server system 3050 includes an indexing engine 3060 and a scoring/ranking engine 3070. A client system 3000 includes a user interface for presenting a ranking 3010, a tracking component 3020, result selection log(s) 3030 and a ranking/rank modifier engine 3040. For example, the client system 3000 can include a company's enterprise network and personal computers, in which a browser plug-in incorporates the ranking/rank modifier engine 3040. When an employee in the company initiates a search on the server system 3050, the scoring/ranking engine 3070 can return the search results along with either an initial ranking or the actual IR scores for the results. The browser plug-in can then re-rank the results locally based on tracked page selections for the company-specific user base.\n\nFIG. 4A shows an example user interface 4000 of a document search service, such as described above, for presenting a ranking. Individual selections of document results 4010 can be tracked within the context of a search query for which the document results 4010 are returned. For example, in the context of this example web based information retrieval system, user's click data on web page search results 4010 can be gathered and stored in log(s), which can be kept for all user queries. When a user clicks on a search result, the click can be tracked via JavaScript code embedded in the search results page, an embedded browser tag, etc. This code can track when and on what a user clicks in the main search results page, and can track when the user returns to that main page.\n\nPost-click behavior can also be tracked via pre-installed software at the client (e.g., a toolbar plug-in to the client's operating system). Provided the user opts into fully sharing their browsing behavior, the toolbar software can track all the pages that the user visits, both before and after the search results page is delivered.\n\nThe information gathered for each click can include: (1) the query (Q) the user entered, (2) the document result (D) the user clicked on, (3) the time (T) on the document, (4) the interface language (L) (which can be given by the user), (5) the country (C) of the user (which can be identified by the host that they use, such as www-google-co-uk to indicate the United Kingdom), and (6) additional aspects of the user and session. The time (T) can be measured as the time between the initial click through to the document result until the time the user comes back to the main page and clicks on another document result. Moreover, an assessment can be made about the time (T) regarding whether this time indicates a longer view of the document result or a shorter view of the document result, since longer views are generally indicative of quality for the clicked through result. This assessment about the time (T) can further be made in conjunction with various weighting techniques.\n\nDocument views resulting from the selections can be weighted based on viewing length information to produce weighted views of the document result. Thus, rather than simply distinguishing long clicks from short clicks, a wider range of click through viewing times can be included in the assessment of result quality, where longer viewing times in the range are given more weight than shorter viewing times. This weighting can be either continuous or discontinuous.\n\nA continuous function can be applied to the document views resulting from the selections. Thus, the weight given to a particular click through time can fall within a continuous range of values, as defined by the specified function. Alternatively, a discontinuous function can be applied to the document views resulting from the selections. For example, there can be three viewing time categories, each having a corresponding weight. Note that such functions can be explicitly defined, or merely implicit in the software implementation.\n\nIn the case of discontinuous weighting, the individual selections of the document result can be classified into viewing time categories, and weights can be assigned to the individual selections based on results of the classifying. For example, a short click can be considered indicative of a poor page and thus given a low weight (e.g., −0.1 per click), a medium click can be considered indicative of a potentially good page and thus given a slightly higher weight (e.g., 0.5 per click), a long click can be considered indicative of a good page and thus given a much higher weight (e.g., 1.0 per click), and a last click (where the user doesn't return to the main page) can be considered as likely indicative of a good page and thus given a fairly high weight (e.g., 0.9). Note that the click weighting can also be adjusted based on previous click information. For example, if another click preceded the last click, the last click can be considered as less indicative of a good page and given only a moderate weight (e.g., 0.3 per click).\n\nThe various time frames used to classify short, medium and long clicks, and the weights to apply, can be determined for a given search engine by comparing historical data from user selection logs with human generated explicit feedback on the quality of search results for various given queries, and the weighting process can be tuned accordingly. Furthermore, these time frames and weights can be adjusted based on one or more viewing length differentiators, as is described further below.\n\nThe weighted views of the document result can be combined to determine a number to be used in determining a measure of relevance. For example, the weighted clicks described above can be summed together for a given query-document pair. Note that safeguards against spammers (users who generate fraudulent clicks in an attempt to boost certain search results) can be taken to help ensure that the user selection data is meaningful, even when very little data is available for a given (rare) query. These safeguards can include employing a user model that describes how a user should behave over time, and if a user doesn't conform to this model, their click data can be disregarded. The safeguards can be designed to accomplish two main objectives: (1) ensure democracy in the votes (e.g., one single vote per cookie and/or IP for a given query-URL (Universal Resource Locator) pair), and (2) entirely remove the information coming from cookies or IP addresses that do not look natural in their browsing behavior (e.g., abnormal distribution of click positions, click durations, clicks_per_minute/hour/day, etc.). Suspicious clicks can be removed, and the click signals for queries that appear to be spammed need not be used (e.g., queries for which the clicks feature a distribution of user agents, cookie ages, etc. that do not look normal).\n\nA measure of relevance for the document result can be determined within the context of the search query for which the document result is returned. This measure of relevance can be calculated as a fraction, which can be directly applied to IR scores of the search results, thereby boosting the documents in the resulting ranking that have implicit user feedback indicating document quality. For example, a traditional click fraction, which takes into consideration the other results for the given query, has been defined as follows: BASE=[#WC(Q,D)]/[#WC(Q)+S0] where #WC(Q,D) is the sum of weighted clicks for a query-URL pair, #WC(Q) is the sum of weighted clicks for the query (summed over all results for the query), and S0 is a smoothing factor.\n\nThe click fraction can also employ per-language and per-country fractions (with smoothing there between): LANG=[#WC(Q,D,L)+S1·BASE]/[#WC(Q,L)+S1] COUNTRY=[#WC(Q,D,L,C)+S2·LANG]/[#WC(Q,L,C)+S2] where LANG incorporates language specific click data, plus BASE, and COUNTRY incorporates country (and language) specific click data, plus LANG. In this manner, if there is less data for the more specific click fractions, the overall fraction falls back to the next higher level for which more data is available.\n\nFurthermore, it should be noted that different smoothing factors S0, S1 and S2 can be used, or one or more of these can be the same smoothing factor. The smoothing factors used can be determined based on how much traffic is received within the context of the click fraction. For example, for a given country-language tuple, the smoothing factor can be raised concordant with the amount of traffic received (e.g., a larger smoothing factor can be used for US-English queries if a good deal more of such queries are received). In addition, the smoothing factor can be increased for query sources that have historically generated more spamming activity (e.g., queries from Russia).\n\nIn addition, as mentioned above, one or more viewing length differentiators (e.g., query category and user type) can be identified for use in the weighting. A viewing length differentiator can include a factor governed by a determined category of the search query, a factor governed by a determined type of a user generating the individual selections, or a combination of them. The document views can be weighted based on the viewing length information in conjunction with the viewing length differentiator(s), such as the determined category of the search query and the determined type of the user. Thus, in the discontinuous weighting case (and the continuous weighting case), the threshold(s) (or formula) for what constitutes a good click can be evaluated on query and user specific bases. For example, the query categories can include “navigational” and “informational”, where a navigational query is one for which a specific target page or site is likely desired (e.g., a query such as “BMW”), and an informational query is one for which many possible pages are equally useful (e.g., a query such as “George Washington's Birthday”). Note that such categories may also be broken down into sub-categories as well, such as informational-quick and informational-slow: a person may only need a small amount of time on a page to gather the information they seek when the query is “George Washington's Birthday”, but that same user may need a good deal more time to assess a result when the query is “Hilbert transform tutorial”.\n\nThe query categories can be identified by analyzing the IR scores or the historical implicit feedback provided by the click fractions. For example, significant skew in either of these (meaning only one or a few documents are highly favored over others) can indicate a query is navigational. In contrast, more dispersed click patterns for a query can indicate the query is informational. In general, a certain category of query can be identified (e.g., navigational), a set of such queries can be located and pulled from the historical click data, and a regression analysis can be performed to identify one or more features that are indicative of that query type (e.g., mean staytime for navigational queries versus other query categories; the term “staytime” refers to time spent viewing a document result, also known as document dwell time).\n\nTraditional clustering techniques can also be used to identify the query categories. This can involve using generalized clustering algorithms to analyze historic queries based on features such as the broad nature of the query (e.g., informational or navigational), length of the query, and mean document staytime for the query. These types of features can be measured for historical queries, and the threshold(s) can be adjusted accordingly. For example, K means clustering can be performed on the average duration times for the observed queries, and the threshold(s) can be adjusted based on the resulting clusters.\n\nUser types can also be determined by analyzing click patterns. For example, computer savvy users often click faster than less experienced users, and thus users can be assigned different weighting functions based on their click behavior. These different weighting functions can even be fully user specific (a user group with one member). For example, the average click duration and/or click frequency for each individual user can be determined, and the threshold(s) for each individual user can be adjusted accordingly. Users can also be clustered into groups (e.g., using a K means clustering algorithm) based on various click behavior patterns.\n\nMoreover, the weighting can be adjusted based on the determined type of the user both in terms of how click duration is translated into good clicks versus not-so-good clicks, and in terms of how much weight to give to the good clicks from a particular user group versus another user group. Some user's implicit feedback may be more valuable than other users due to the details of a user's review process. For example, a user that almost always clicks on the highest ranked result can have his good clicks assigned lower weights than a user who more often clicks results lower in the ranking first (since the second user is likely more discriminating in his assessment of what constitutes a good result). In addition, a user can be classified based on his or her query stream. Users that issue many queries on (or related to) a given topic (e.g., queries related to law) can be presumed to have a high degree of expertise with respect to the given topic, and their click data can be weighted accordingly for other queries by them on (or related to) the given topic.\n\nNonetheless, despite all the above techniques for developing a robust implicit user feedback model, presentation (or display) bias can unduly influence the effectiveness of implicit user feedback. Presentation bias includes various aspects of presentation, such as an attractive title or snippet provided with the document result, and where the document result appears in the presented ranking (position). Note that users tend to click results with good snippets, or that are higher in the ranking, regardless of the real relevance of the document to the query as compared with the other results.\n\nAs shown in FIG. 4A, many other factors, independent of quality, affect the likelihood of a result being clicked. For example, the presented rank (the position) of the document results 4010 is highly correlated with click rate in the sense that the top result will receive many more clicks than the last result, even if their positions are swapped. The user interface 4000 presents the search results for the query using multiple pages, and an interface element 4020 allows the user to view additional pages of search results as desired. Thus, many of the document results for a typical search may never be viewed at all by the user.\n\nIn general, the presentation of the results in the page can have a big impact on the observed click rates, and various aspects of presentation are often independent of the quality of a given result. The bolding 4030 of the results (both in the title and the snippet), length of titles 4040, indenting 4050, presence of ads 4060 (or similar objects that appear above the first result for a given query) can affect the observed click rates. Thus, in order to accurately predict the quality of a result based on click signals, the effects of presentation bias should be factored out. Note that the presented rank (the position) of a document result is really a mixed feature since clicks based on position are influenced by both the presentation bias aspect and the result quality aspect, and thus in some implementations, position can be treated as a quality feature (limiting the bias features to those features that are unconnected with result quality, e.g., bolding, length of title, length of snippet, presence of ads, etc.).\n\nFIG. 4B shows an example process of building a prior model for use in factoring out presentation bias and enhancing the quality of signals from document result selections. Multiple features can be received 4110, including a first feature indicative of presentation bias that affects document result selection for search results presented in a user interface of a document search service. For example, the first feature can be the position of the document result in the user interface within the context of the search query for which the document result is returned, and a second feature can be the language (L) of the search query. In general, the set of features used can include features that are correlated with click rate and that are independent of the query (Q) and the search result (D). However, in some implementations, the specific query (Q) or the general type of query (e.g., as defined by query clustering) can be used as a feature in the prior model. In any event, the selection of features, which are predictive of click through, can be guided by standard information gain feature selection techniques.\n\nBased on the multiple features, information regarding document result selections for searches performed using the document search service can be obtained 4120, where the information spans multiple different queries. This information can be used to generate 4130 a prior model, where the prior model represents a probability of document result selection (e.g., a query-independent probability of selection) given values of the multiple features. For example, FIG. 4C shows example features and an example process of building a prior model.\n\nOne or more user selection log(s) 4300 include click through data, such as described above. These user selection log(s) 4300 can be understood conceptually as a set of queries, including a first query 4310 through query N, where many user searches, and document result selections, have been observed within the context of each query. A query 4310 includes a document result 4320 that was selected by a user, and the document result 4320 can have an associated relevance feature 4322 (e.g., the IR score of the document) and an associated display bias feature 4324 (e.g., the position of the document).\n\nIn addition, another document result 4330, which was returned along with first document result 4320 within the context of the query 4310, has its own associated relevance feature and display bias feature. These features of the document result 4330, presented along with the document result 4320, can be considered features of the document result 4320. Thus, for example, even if the document result 4330 was never selected, the IR score of the document result 4330 can be saved as a feature of the document result 4320, which was selected, in a single log entry including the IR score of the result 4320, the position of result 4320, and the IR score of the result 4330 returned along with result 4320. Note that being “returned along with” does not indicate the two documents were necessarily displayed in the same page of the user interface, but only that the two documents were included in the search results for the given query.\n\nThus, given a set of selected features, user selections can be collected 4350 from the user selection log(s) 4300 across queries (e.g., independent of query) for multiple combinations of values of the selected features, where those features can include a feature related to another document returned along with a selected document within the context of a query. This collecting can involve accumulating counts observed in the log(s) 4300, including separately accumulating short, medium and long clicks, as well as the event of a result being shown, but another result being clicked.\n\nA query-independent selection probability can be determined 4360 given the selected features. For example, in the case of the features being position and language, the number of long, short and medium clicks at position 1 on an English language search site can be extracted from the log(s) 4300, as well as the number of times other results have been clicked while a result at position 1 on the English language search site has been shown. These numbers can be found for every combination of position and language to determine the query-independent selection probability. In general, a mapping can be computed (based on the log(s) 4300) between the selected feature values and a predicted click through rate to produce a prior model for the selected features.\n\nIf the number of feature value combinations is too large (e.g., due to limitations on data storage or processing resources), the features can be split into two groups. The first group can include a reduced set of more important features, and the second group can contain the rest (i.e., two disjoint groups forming the full set of features). The first group can be used for accumulating click counts based on all possible combinations of feature values in the first group. With the click counts collected, the prior model can be trained on the values of the second group of features. Note that the prior model can be a standard linear or logistic regression, or other model types. In general though, the prior model can essentially represent the statistics of historical click data, indicating what percentage of people clicked on a result given presentation of the result and the set of features. Moreover, splitting the features into two groups can allow the use of a larger number of parameters in the model (for every combination of feature values in group one), but not so many parameters that the model cannot be trained.\n\nReferring again to FIG. 4B, the prior model can be output 4140 to a ranking engine for ranking of search results to reduce influence of the presentation bias. The prior model can be saved to a computer-readable medium for use by the ranking engine, or otherwise made available to the ranking engine. Subsequent to this, and given a search event (query+a set of results), the features of the prior model can be evaluated, the combination of feature values for a given result can be looked up in the prior model to find a click through rate predicted by the prior model, and this predicted click through rate can be compared with the click through rate given by a separate implicit user feedback model (e.g., the traditional click fraction described above) to reduce the influence of the presentation bias represented by the prior model.\n\nFor example, for the position prior model described above, the ranking score of a search result can be multiplied by a number smaller than one if the traditional click fraction is smaller than the click fraction predicted by the prior model, or by a number greater than one otherwise. Thus, the prior model can be used to clean the signal of an implicit user feedback model that gives a measure of relevance for a document result within the context of the search query for which the document result is returned, thereby reducing the affects of presentation bias. In general, various uses can be made of, or transforms applied to the output signal of the prior model before application to search result ranking for a new search. For example, the following formulas can be used: Boost=C(a/p), where p is the predicted click fraction, a is the actual click fraction, and C is a tuned parameter; Boost=max(min(1+Z,m0),m1), where\n\nZ=(a−p)^k1 if a≧p,\n\nZ=−1*abs((a−p)^k2) if a<p,\n\np is the predicted click fraction, a is the actual click fraction, and m0, m1, k1 and k2 are tuned parameters; Boost=max(min(1+Z,m0),m1), where\n\nZ=C[1/(1+e^(−k(a−p)))]−½,\n\np is the predicted click fraction, a is the actual click fraction, and m0, m1, k and C are tuned parameters.\n\nIn any event, the manner in which the output signal of the prior model is used can be adjusted based on the specific implementation and historical data combined with human generated relevance ratings (e.g., employed in a tuning process to select an appropriate boosting transform for a given implementation). Moreover, the prior model can be used to modify and improve the ranking of search results generated for a given query, and the modified ranking can be presented to a user (e.g., on a display device in a web browser user interface).\n\nFIG. 4D shows another example process of building a prior model. In this example, the prior model is composed of two prior models whose signals are combined to form a display bias signal that is largely uncorrelated with the quality of the document result. A first set of features and a second set of features are received 4410, where the first set of features includes a feature that is indicative of presentation bias for a first document result, and the second set of features includes a feature that is indicative of relevance for a second document result returned along with the first document result within the context of a search query.\n\nFor example, the second set of features can include position, IR score, IR score of the top result, IR score of the previous result(s), IR score of the next result(s), country, language, and number of words in the query; and the first set of features can include the above features, plus the number of bold terms in the title of the current result, the number of bold terms in the title of the previous result(s), the number of bold terms in the title of next result(s), the number of bold terms in the snippet of the current result, the number of bold terms in the snippet of the previous result(s), the number of bold terms in the snippet of the next result(s), the length of the title of the current result, the length of the title of the previous result(s), the length of the title of next result(s), the length of the snippet of the current result, the length of the snippet of the previous result(s), the length of the snippet of the next result(s), a Boolean indicator of whether any pornographic terms were shown (e.g., in the current result, the previous result(s) and the next result(s)), a Boolean indicator of whether an ad was shown, and a Boolean indicator of whether a special result was shown.\n\nTwo prior models can be created 4420 using the two sets of features: a first user selection model based on the first set of features and a second user selection model based on the second set of features, using the techniques described above. Thus, the second user selection model can be built on features that are highly correlated with the quality of the result, and the first user selection model can be built on those features and presentation bias features. Any difference between these two models then is likely to be due only to presentation bias.\n\nBoth the first and second user selection models can be output 4430 to a ranking engine for ranking of search results. For example, for every search event, the ratio of the click fraction predicted by the second prior model over the click fraction predicted by the first prior model can be computed (based on the observed feature values) for every document result, and the ranking score of each document result can be multiplied by its corresponding ratio, or by a monotonic function of this ratio. The basic rationale embodied by this approach is that, if a result is expected to have a higher click rate due to presentation bias, this result's click evidence should be discounted; and if the result is expected to have a lower click rate due to presentation bias, this result's click evidence should be over-counted.\n\nIt should be appreciated that many different prior models can be generated using the techniques described above. The various features that can be used to generate prior models can include all those described above, plus any of the additional features detailed in the following table:\n\nName Description Effect on Click Fractions Position The order in which Results in higher positions results are presented. can get higher click through rates. Page The page in which the Results in higher pages can result is presented. get higher click through rates. Porn Terms Terms in the title, Results with more porn terms (attractive snippet and URL that (attractive terms) can get terms) are sexually suggestive higher click through rates. (note that porn term can also be defined more broadly to include any term that increases the click-through rate of any result in which it appears, independent of the actual query or url). Bold Terms Terms in the title, Results with more bolded snippet and URL that terms can get higher click are bolded. through rates. Position of Position of bold terms Bold terms have different Bold Terms in the title, snippet and impact if they appear at the URL. beginning of the sentence, or at the end. Lengths of Number of terms in the Results with longer titles, Title, Snippet title and snippet or snippets and URLs can get and URL length of the URL higher click through rates. Quality of The quality (e.g., IR Results that have high quality Previous score) of the results in results in previous positions Results previous positions. can get lower click through rates. Quality The quality (e.g., IR Results that have high quality of Next score) of the results in results in the next positions Results the next positions. can get lower click through rates. Features of Various features of the Users' attraction to previous Previous previous pages (e.g., pages can affect click through Pages bolding and length of rate for a result. titles and snippets, IR scores). Features of Various features of the Users' attraction to next pages Next Pages next pages (e.g., can affect click through rate bolding and length of for a result. titles and snippets, IR scores). Ads Advertisements Better quality ads can lower presented. the click through rate for all results. Onebox Special result shown These extra results can lower prior to the normal the click through rate on the search results (e.g., normal search results, maps, book search, especially if they are very etc.) topical. Query Length The number of terms in The number of terms in the the query. query can impact the click through rate of a result (e.g., good results may be lacking for longer queries). Query Type Clustering of queries, Various query clusters can either through explicit affect the click through rate. labeling of cluster types or through automatic clustering techniques. Query The specific set of Specific queries can have term(s) used for the different click through rates. search. Rank- Aspect of presentation Variations in format and independent that is orthogonal to appearance that indicate an format and rank itself aspect of a result separate appearance of (e.g., Indentation of from result quality (e.g., presentation results, which can Indentation) can raise or (e.g., indicate a page deeper lower the click through rate Indentation) within the network for a result. domain of the previous result). Other format Aspect of presentation Variations in format and and appear- that may be connected appearance that indicate an ance of with the rank itself aspect of a result that may be presen- (e.g., background color connected with result quality tation (e.g., of certain results). (e.g., some top results may color of appear on a light blue presentation) background) can raise or lower the click through rate for a result. Other UI Any arbitrary number Any aspect of presentation Features of methods to place that causes a result to stand results in a result list. out amongst a list of results can affect the click through rate for the result. Features Search boxes that Results served on custom of custom appear on external search engines are affected by search sites. many potential display bias engines features. The layout of the page, the color of the links, flash ads on the page, number of links that are present on the page besides the search results, etc.\n\nIn addition, multiple different types of prior models can be built and used in conjunction with each other. FIG. 4E shows an example process of building a prior model used to predict a measure of implicit user feedback for a result having no previously recorded user selections. A reduced set of document result selection records can be identified 4510 based on frequency of document result selection. For example, the log(s) 4300 can be randomly split into two halves, and the results that have click evidence in the first half, but do not have any click evidence in the second half, can be extracted. Thus, the reduced set of document result selection records corresponds to the set of documents that are less frequently selected according to the log(s).\n\nInformation regarding document result selections can be collected 4520 from this reduced set, and a prior model can be built on this information using the techniques described above. For example, a prior model can be built on the extracted results and features such as position, country, language and IR score. If a result for a new search does not appear at all in the regular implicit user feedback model (e.g., the traditional click fraction is undefined for the result because the result has not been selected before) this result can be assigned a click fraction as predicted by this additional prior model for ranking purposes.\n\nFIG. 4F shows an example process of using implicit user feedback models to form a relevance signal for a document result, within the context of a search query, for ranking purposes. A first signal can be obtained 4610, in accordance with a first implicit user feedback model, for a document result of a search query for which the document result is returned, where the first signal corresponds to an aspect of document relevance. For example, the first signal can include a measure of relevance for the document result within a context of the search query for which the document result is returned (e.g., the first signal can be the traditional click fraction). Alternatively, the first signal can include a measure of relevance for the document result independent of a context of the search query for which the document result is returned (e.g., the first signal can be the output of the second user selection model described above in connection with FIG. 4D).\n\nA second signal can be obtained 4620, in accordance with a second implicit user feedback model, for the document result, where the second signal corresponds to an aspect of search result presentation. For example, the second signal can include a measure of presentation bias for the document result independent of the context of the search query for which the document result is returned (e.g., the second signal can be the output of a prior model built using the techniques described above in connection with FIGS. 4A-4C, such as the first user selection model described above in connection with FIG. 4D). The first signal and the second signal can be combined 4630 to form a relevance signal for the document result, the relevance signal being generally independent of presentation. The relevance signal can be output 4640 to a ranking engine for ranking of search results including the document result.\n\nFurthermore, an additional document result of the search query can be identified 4650 that is not included in the first implicit user feedback model (e.g., a document result for which the traditional click fraction is not defined). An additional signal can be obtained 4670, in accordance with a third implicit user feedback model, for the additional document result, where the additional signal corresponds to an aspect of document relevance independent of the context of the search query (e.g., the additional signal can be the output of the prior model described above in connection with FIG. 4E). The additional signal can also be output 4680 to the ranking engine for ranking of the search results including the additional document result.\n\nFIG. 5 is a schematic diagram of an example computer system 6050. The system 6050 can be used for practicing operations described above. The system 6050 can include a processor 6018, a memory 6016, a storage device 6052, and input/output devices 6054. Each of the components 6018, 6016, 6052, and 6054 are interconnected using a system bus 6056. The processor 6018 is capable of processing instructions within the system 6050. These instructions can implement one or more aspects of the systems, components and techniques described above. In some implementations, the processor 6018 is a single-threaded processor. In other implementations, the processor 6018 is a multi-threaded processor. The processor 6018 can include multiple processing cores and is capable of processing instructions stored in the memory 6016 or on the storage device 6052 to display graphical information for a user interface on the input/output device 6054.\n\nThe memory 6016 is a computer readable medium such as volatile or non volatile that stores information within the system 6050. The memory 6016 can store processes related to the functionality of the search engine 1030, for example. The storage device 6052 is capable of providing persistent storage for the system 6050. The storage device 6052 can include a floppy disk device, a hard disk device, an optical disk device, or a tape device, or other suitable persistent storage mediums. The storage device 6052 can store the various databases described above. The input/output device 6054 provides input/output operations for the system 6050. The input/output device 6054 can include a keyboard, a pointing device, and a display unit for displaying graphical user interfaces.\n\nThe computer system shown in FIG. 5 is but one example. In general, embodiments of the subject matter and the functional operations described in this specification can be implemented in digital electronic circuitry, or in computer software, firmware, or hardware, including the structures disclosed in this specification and their structural equivalents, or in combinations of one or more of them. Embodiments of the subject matter described in this specification can be implemented as one or more computer program products, i.e., one or more modules of computer program instructions encoded on a computer readable medium for execution by, or to control the operation of, data processing apparatus. The computer readable medium can be a machine-readable storage device, a machine-readable storage substrate, a memory device, or a combination of one or more of them. The term “data processing apparatus” encompasses all apparatus, devices, and machines for processing data, including by way of example a programmable processor, a computer, or multiple processors or computers. The apparatus can include, in addition to hardware, code that creates an execution environment for the computer program in question, e.g., code that constitutes processor firmware, a protocol stack, a database management system, an operating system, or a combination of one or more of them.\n\nA computer program (also known as a program, software, software application, script, or code) can be written in any form of programming language, including compiled or interpreted languages, and it can be deployed in any form, including as a stand alone program or as a module, component, subroutine, or other unit suitable for use in a computing environment. A computer program does not necessarily correspond to a file in a file system. A program can be stored in a portion of a file that holds other programs or data (e.g., one or more scripts stored in a markup language document), in a single file dedicated to the program in question, or in multiple coordinated files (e.g., files that store one or more modules, sub programs, or portions of code). A computer program can be deployed to be executed on one computer or on multiple computers that are located at one site or distributed across multiple sites and interconnected by a communication network.\n\nThe processes and logic flows described in this specification can be performed by one or more programmable processors executing one or more computer programs to perform functions by operating on input data and generating output. The processes and logic flows can also be performed by, and apparatus can also be implemented as, special purpose logic circuitry, e.g., an FPGA (field programmable gate array) or an ASIC (application specific integrated circuit).\n\nProcessors suitable for the execution of a computer program include, by way of example, both general and special purpose microprocessors, and any one or more processors of any kind of digital computer. Generally, a processor will receive instructions and data from a read only memory or a random access memory or both. The essential elements of a computer are a processor for performing instructions and one or more memory devices for storing instructions and data. Generally, a computer will also include, or be operatively coupled to receive data from or transfer data to, or both, one or more mass storage devices for storing data, e.g., magnetic, magneto optical disks, or optical disks. However, a computer need not have such devices. Moreover, a computer can be embedded in another device, e.g., a mobile telephone, a personal digital assistant (PDA), a mobile audio player, a Global Positioning System (GPS) receiver, to name just a few. Computer readable media suitable for storing computer program instructions and data include all forms of non volatile memory, media and memory devices, including by way of example semiconductor memory devices, e.g., EPROM, EEPROM, and flash memory devices; magnetic disks, e.g., internal hard disks or removable disks; magneto optical disks; and CD ROM and DVD-ROM disks. The processor and the memory can be supplemented by, or incorporated in, special purpose logic circuitry.\n\nTo provide for interaction with a user, embodiments of the subject matter described in this specification can be implemented on a computer having a display device, e.g., a CRT (cathode ray tube) or LCD (liquid crystal display) monitor, for displaying information to the user and a keyboard and a pointing device, e.g., a mouse or a trackball, by which the user can provide input to the computer. Other kinds of devices can be used to provide for interaction with a user as well; for example, feedback provided to the user can be any form of sensory feedback, e.g., visual feedback, auditory feedback, or tactile feedback; and input from the user can be received in any form, including acoustic, speech, or tactile input.\n\nEmbodiments of the invention can be implemented in a computing system that includes a back-end component, e.g., as a data server, or that includes a middleware component, e.g., an application server, or that includes a front-end component, e.g., a client computer having a graphical user interface or a Web browser through which a user can interact with an implementation of the invention, or any combination of one or more such back-end, middleware, or front-end components. The components of the system can be interconnected by any form or medium of digital data communication, e.g., a communication network. Examples of communication networks include a local area network (“LAN”) and a wide area network (“WAN”), e.g., the Internet.\n\nThe computing system can include clients and servers. A client and server are generally remote from each other and typically interact through a communication network. The relationship of client and server arises by virtue of computer programs running on the respective computers and having a client-server relationship to each other.\n\nWhile this specification contains many specifics, these should not be construed as limitations on the scope of the invention or of what may be claimed, but rather as descriptions of features specific to particular embodiments of the invention. Certain features that are described in this specification in the context of separate embodiments can also be implemented in combination in a single embodiment. Conversely, various features that are described in the context of a single embodiment can also be implemented in multiple embodiments separately or in any suitable subcombination. Moreover, although features may be described above as acting in certain combinations and even initially claimed as such, one or more features from a claimed combination can in some cases be excised from the combination, and the claimed combination may be directed to a subcombination or variation of a subcombination.\n\nSimilarly, while operations are depicted in the drawings in a particular order, this should not be understood as requiring that such operations be performed in the particular order shown or in sequential order, or that all illustrated operations be performed, to achieve desirable results. In certain circumstances, multitasking and parallel processing may be advantageous. Moreover, the separation of various system components in the embodiments described above should not be understood as requiring such separation in all embodiments, and it should be understood that the described program components and systems can generally be integrated together in a single software product or packaged into multiple software products.\n\nThus, particular embodiments of the invention have been described. Other embodiments are within the scope of the following claims. For example, the actions recited in the claims can be performed in a different order and still achieve desirable results. Moreover, the server environment, which is configured to provide electronic search service and employ the ranking systems and techniques described, need not be implemented using traditional back-end or middleware components. The server environment can be implemented using a program installed on a personal computing apparatus and used for electronic search of local files, or the server environment can be implemented using a search appliance (such as GOOGLE® in a Box, provided by Google Inc. of Mountain View, Calif.) installed in an enterprise network.\n\nOther implicit user feedback models can be used in place of the traditional click fraction model described. For example, an implicit user feedback model employing a large-scale logistic regression model that uses the actual query and url as features can be used. The new prior models can be used to denormalize any query-specific click model.\n\nIn addition, the prior model(s) can be applied in varying manners. For example, a prior model can be applied at run time as an adjustment to the ranking boost given to a document in accordance with the implicit user feedback model since the set of features used for the prior model can be available for direct input at run time. Alternatively, the prior model can be applied at model building time, where features are fetched from the log(s), which can result in improved response time during searches. In addition, when the model is applied at building time, the implicit feedback can be adjusted per each click record before aggregating the feedback from multiple clicks into a signal. This adjustment can be for instance a weighting of the clicks according to how much they were affected by display bias before the clicks are aggregated. At run time, the signal is typically only adjusted after the clicks were already aggregated, which can result in some loss of precision.",
+ "cited_by": [
+  {
+   "id": "US20110184883A1",
+   "title": "Methods and systems for simulating a search to generate an optimized scoring function",
+   "assignee": "Rami El-Charif"
+  },
+  {
+   "id": "US20130067364A1",
+   "title": "Presenting search result items having varied prominence",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20130110615A1",
+   "title": "System and method for controlling advertisement based on user benefit",
+   "assignee": "Nhn Business Platform Corporation"
+  },
+  {
+   "id": "US20140006444A1",
+   "title": "Other user content-based collaborative filtering",
+   "assignee": "France Telecom"
+  },
+  {
+   "id": "US20140351247A1",
+   "title": "Method and server for searching information",
+   "assignee": "Tencent Technology (Shenzhen) Company Limited"
+  },
+  {
+   "id": "US20150169562A1",
+   "title": "Associating resources with entities",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20150234920A1",
+   "title": "Query selection and results merging",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9183499B1",
+   "title": "Evaluating quality based on neighbor features",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20160034463A1",
+   "title": "Identifying User Biases for Search Results on Online Social Networks",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US9390143B2",
+   "title": "Recent interest based relevance scoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9449093B2",
+   "title": "System and method for improved search experience through implicit user interaction",
+   "assignee": "Sri International"
+  },
+  {
+   "id": "US20160292258A1",
+   "title": "Method and apparatus for filtering out low-frequency click, computer program, and computer readable medium",
+   "assignee": "Beijing Qihoo Technology Company Limited"
+  },
+  {
+   "id": "RU2632135C2",
+   "title": "System and method for refining search results",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "US9811566B1",
+   "title": "Modifying search result ranking based on implicit user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9846836B2",
+   "title": "Modeling interestingness with deep neural networks",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "CN107679985A",
+   "title": "Feature of risk screening, description message forming method, device and electronic equipment",
+   "assignee": "阿里巴巴集团控股有限公司"
+  },
+  {
+   "id": "US9892112B1",
+   "title": "Machine learning to determine analogy outcomes",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20180060325A1",
+   "title": "Rank query results for relevance utilizing external context",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US20180121428A1",
+   "title": "Returning search results utilizing topical user click data when search queries are dissimilar",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20190034961A1",
+   "title": "Method for targeting electronic advertising by data encoding and prediction for sequential data machine learning models",
+   "assignee": "Accelerize Inc"
+  },
+  {
+   "id": "US10217058B2",
+   "title": "Predicting interesting things and concepts in content",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "RU2680746C2",
+   "title": "Method and device for developing web page quality model",
+   "assignee": "Гуанчжоу Шэньма Мобайл Информэйшн Текнолоджи Ко., Лтд."
+  },
+  {
+   "id": "CN109446431A",
+   "title": "For the method, apparatus of information recommendation, medium and calculate equipment",
+   "assignee": "网易传媒科技（北京）有限公司"
+  },
+  {
+   "id": "US10275406B2",
+   "title": "System and method for ranking search results based on usefulness parameter",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "US10331718B2",
+   "title": "Analogy outcome determination",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10503768B2",
+   "title": "Analogic pattern determination",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10558687B2",
+   "title": "Returning search results utilizing topical user click data when search queries are dissimilar",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10585930B2",
+   "title": "Determining a relevancy of a content summary",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "CN111352978A",
+   "title": "Method and device for determining control quantity of observed quantity of product",
+   "assignee": "百度在线网络技术（北京）有限公司"
+  },
+  {
+   "id": "US10719566B1",
+   "title": "Determining normalized ratings for content items from a group of users offsetting user bias in ratings of content items received from users of the group",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US10735365B2",
+   "title": "Conversation attendant and assistant platform",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10783068B2",
+   "title": "Generating representative unstructured data to test artificial intelligence services for bias",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10803070B2",
+   "title": "Selecting a content summary based on relevancy",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "CN112100444A",
+   "title": "Search result ordering method and system based on machine learning",
+   "assignee": "四川长虹电器股份有限公司"
+  },
+  {
+   "id": "US10878338B2",
+   "title": "Machine learning of analogic patterns",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10997184B2",
+   "title": "System and method for ranking search results",
+   "assignee": "Coveo Solutions, Inc."
+  },
+  {
+   "id": "US11005790B2",
+   "title": "Enabling attention by leveraging a user-effective communication channel",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "CN113127614A",
+   "title": "Providing QA training data and training QA model based on implicit relevance feedback",
+   "assignee": "微软技术许可有限责任公司"
+  },
+  {
+   "id": "CN113343130A",
+   "title": "Model training method, information display method and device",
+   "assignee": "北京三快在线科技有限公司"
+  },
+  {
+   "id": "US20210342740A1",
+   "title": "Selectively transmitting electronic notifications using machine learning techniques based on entity selection history",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US11257002B2",
+   "title": "Dynamic accuracy-based deployment and monitoring of machine learning models in provider networks",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US11366872B1",
+   "title": "Digital navigation menus with dynamic content placement",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US20220237199A1",
+   "title": "Browsing methods, computer program products, servers and systems",
+   "assignee": "Skyscanner Limited"
+  },
+  {
+   "id": "US11574207B2",
+   "title": "Proximal factorization machine interface engine",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "WO2023138428A1",
+   "title": "Search result sorting method, search system and computer-readable storage medium",
+   "assignee": "中兴通讯股份有限公司"
+  },
+  {
+   "id": "US11822561B1",
+   "title": "System and method for optimizing evidence of use analyses",
+   "assignee": "Ipcapital Group, Inc"
+  },
+  {
+   "id": "US11841912B2",
+   "title": "System for applying natural language processing and inputs of a group of users to infer commonly desired search results",
+   "assignee": "Twittle Search Limited Liability Company"
+  },
+  {
+   "id": "US11875125B2",
+   "title": "System and method for designing artificial intelligence (AI) based hierarchical multi-conversation system",
+   "assignee": "Hcl Technologies Limited"
+  },
+  {
+   "id": "US11977958B2",
+   "title": "Network-accessible machine learning model training and hosting system",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "EP4207035A4",
+   "title": "SORTING METHOD, APPARATUS AND DEVICE, AND COMPUTER STORAGE MEDIUM",
+   "assignee": "Beijing Wodong Tianjun Information Technology Co., Ltd."
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5265065A",
+   "title": "Method and apparatus for information retrieval from a database by replacing domain specific stemmed phases in a natural language to create a search query",
+   "assignee": "West Publishing Company"
+  },
+  {
+   "id": "US5488725A",
+   "title": "System of document representation retrieval by successive iterated probability sampling",
+   "assignee": "West Publishing Company"
+  },
+  {
+   "id": "US5696962A",
+   "title": "Method for computerized information retrieval using shallow linguistic analysis",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6006222A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6014665A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6026388A",
+   "title": "User interface and other enhancements for natural language information retrieval system and method",
+   "assignee": "Textwise, Llc"
+  },
+  {
+   "id": "US6067565A",
+   "title": "Technique for prefetching a web page of potential future interest in lieu of continuing a current information download",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6078917A",
+   "title": "System for searching internet using automatic relevance feedback",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6078916A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6088692A",
+   "title": "Natural language method and system for searching for and ranking relevant documents from a computer database",
+   "assignee": "University Of Central Florida"
+  },
+  {
+   "id": "WO2000077689A1",
+   "title": "A process for improving search engine efficiency using user feedback",
+   "assignee": "Triogo, Inc."
+  },
+  {
+   "id": "US6182068B1",
+   "title": "Personalized search methods",
+   "assignee": "Ask Jeeves, Inc."
+  },
+  {
+   "id": "US6185559B1",
+   "title": "Method and apparatus for dynamically counting large itemsets",
+   "assignee": "Hitachi America, Ltd."
+  },
+  {
+   "id": "WO2001016807A1",
+   "title": "An internet search system for tracking and ranking selected records from a previous search",
+   "assignee": "Mindcrossing, Inc."
+  },
+  {
+   "id": "US20010000356A1",
+   "title": "Method and apparatus for generating query responses in a computer-based document retrieval system",
+   "assignee": "Woods William A."
+  },
+  {
+   "id": "US6249252B1",
+   "title": "Wireless location using multiple location estimators",
+   "assignee": "Tracbeam Llc"
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "WO2001067297A1",
+   "title": "System and method for computer searching",
+   "assignee": "Tzunami Inc."
+  },
+  {
+   "id": "US6321228B1",
+   "title": "Internet search system for retrieving selected results from a previous search",
+   "assignee": "Powercast Media, Inc."
+  },
+  {
+   "id": "US6327590B1",
+   "title": "System and method for collaborative ranking of search results employing user and group profiles derived from document collection content analysis",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6341283B1",
+   "title": "Apparatus for data decomposition and method and storage medium therefor",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US6353849B1",
+   "title": "System and server for providing customized web information based on attributes of the requestor",
+   "assignee": "Intel Corporation"
+  },
+  {
+   "id": "US20020034292A1",
+   "title": "System and a method to match demand and supply based on geographical location derived from a positioning system",
+   "assignee": "Tuoriniemi Veijo M."
+  },
+  {
+   "id": "US6363378B1",
+   "title": "Ranking of query feedback terms in an information retrieval system",
+   "assignee": "Oracle Corporation"
+  },
+  {
+   "id": "US6370526B1",
+   "title": "Self-adaptive method and system for providing a user-preferred ranking order of object sets",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20020042791A1",
+   "title": "Methods and apparatus for using a modified index to provide search results in response to an ambiguous search query",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020049752A1",
+   "title": "Identifying the items most relevant to a current query based on items selected in connection with similar queries",
+   "assignee": "Dwayne Bowman"
+  },
+  {
+   "id": "US6421675B1",
+   "title": "Search engine",
+   "assignee": "S. L. I. Systems, Inc."
+  },
+  {
+   "id": "US20020103790A1",
+   "title": "Utility for cross platform database query",
+   "assignee": "Wang Shirley S."
+  },
+  {
+   "id": "US20020123988A1",
+   "title": "Methods and apparatus for employing usage statistics in document retrieval",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020133481A1",
+   "title": "Methods and apparatus for providing search results in response to an ambiguous search query",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020165849A1",
+   "title": "Automatic advertiser notification for a system for providing place and price protection in a search result list generated by a computer network search engine",
+   "assignee": "Singh Narinder Pal"
+  },
+  {
+   "id": "US6480843B2",
+   "title": "Supporting web-query expansion efficiently using multi-granularity indexing and query processing",
+   "assignee": "Nec Usa, Inc."
+  },
+  {
+   "id": "US6490575B1",
+   "title": "Distributed network search engine",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030009399A1",
+   "title": "Method and system to identify discrete trends in time series",
+   "assignee": "Boerner Sean T."
+  },
+  {
+   "id": "US20030018707A1",
+   "title": "Server-side filter for corrupt web-browser cookies",
+   "assignee": "Flocken Philip Andrew"
+  },
+  {
+   "id": "US20030028529A1",
+   "title": "Search engine account monitoring",
+   "assignee": "Cheung Dominic Dough-Ming"
+  },
+  {
+   "id": "US20030037074A1",
+   "title": "System and method for aggregating ranking results from various sources to improve the results of web searching",
+   "assignee": "Ibm Corporation"
+  },
+  {
+   "id": "US6526440B1",
+   "title": "Ranking search results by reranking the results based on local inter-connectivity",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030078914A1",
+   "title": "Search results using editor feedback",
+   "assignee": "Witbrock Michael J."
+  },
+  {
+   "id": "US6560590B1",
+   "title": "Method and apparatus for multiple tiered matching of natural language queries to positions in a text corpus",
+   "assignee": "Kana Software, Inc."
+  },
+  {
+   "id": "US6567103B1",
+   "title": "Graphical search results system and method",
+   "assignee": "Verity, Inc."
+  },
+  {
+   "id": "US20030120654A1",
+   "title": "Metadata search results ranking system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6587848B1",
+   "title": "Methods and apparatus for performing an affinity based similarity search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030135490A1",
+   "title": "Enhanced popularity ranking",
+   "assignee": "Barrett Michael E."
+  },
+  {
+   "id": "US20030149704A1",
+   "title": "Similarity-based search method by relevance feedback",
+   "assignee": "Hitachi, Inc."
+  },
+  {
+   "id": "US6615209B1",
+   "title": "Detecting query-specific duplicate documents",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030167252A1",
+   "title": "Topic identification and use thereof in information retrieval systems",
+   "assignee": "Pliant Technologies, Inc."
+  },
+  {
+   "id": "US6623529B1",
+   "title": "Multilingual electronic document translation, management, and delivery system",
+   "assignee": "David Lakritz"
+  },
+  {
+   "id": "US20030195877A1",
+   "title": "Search query processing to provide category-ranked presentation of search results",
+   "assignee": "Ford James L."
+  },
+  {
+   "id": "US20030204495A1",
+   "title": "Data gathering",
+   "assignee": "Lehnert Bernd R."
+  },
+  {
+   "id": "US20030220913A1",
+   "title": "Techniques for personalized and adaptive search services",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6658423B1",
+   "title": "Detecting duplicate and near-duplicate files",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030229640A1",
+   "title": "Parallel database query processing for non-uniform data sources via buffered access",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6671681B1",
+   "title": "System and technique for suggesting alternate query expressions based on prior user selections and their query strings",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040006456A1",
+   "title": "Multi-language document search and retrieval system",
+   "assignee": "Wayne Loofbourrow"
+  },
+  {
+   "id": "US20040006740A1",
+   "title": "Information access",
+   "assignee": "Uwe Krohn"
+  },
+  {
+   "id": "US6678681B1",
+   "title": "Information extraction from a database",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040034632A1",
+   "title": "Automatic query refinement",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6701309B1",
+   "title": "Method and system for collecting related queries",
+   "assignee": "Lycos, Inc."
+  },
+  {
+   "id": "US20040059708A1",
+   "title": "Methods and apparatus for serving relevant advertisements",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20040083205A1",
+   "title": "Continuous knowledgebase access improvement systems and methods",
+   "assignee": "Steve Yeager"
+  },
+  {
+   "id": "US20040093325A1",
+   "title": "System and method for location influenced network search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6738764B2",
+   "title": "Apparatus and method for adaptively ranking search results",
+   "assignee": "Verity, Inc."
+  },
+  {
+   "id": "US6754873B1",
+   "title": "Techniques for finding related hyperlinked documents using link-based analysis",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040122811A1",
+   "title": "Method for searching media",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20040119740A1",
+   "title": "Methods and apparatus for displaying and replying to electronic messages",
+   "assignee": "Google, Inc., A Corporation Of The State Of California"
+  },
+  {
+   "id": "WO2004059514A1",
+   "title": "Systems and methods for enabling a user to find information of interest to the user",
+   "assignee": "American Type Culture Collection"
+  },
+  {
+   "id": "US20040153472A1",
+   "title": "Human resource networking system and method thereof",
+   "assignee": "Rieffanaugh Neal King"
+  },
+  {
+   "id": "US20040158560A1",
+   "title": "Systems and methods for query expansion",
+   "assignee": "Ji-Rong Wen"
+  },
+  {
+   "id": "US6792416B2",
+   "title": "Managing results of federated searches across heterogeneous datastores with a federated result set cursor object",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6795820B2",
+   "title": "Metasearch technique that ranks documents obtained from multiple collections",
+   "assignee": "Nextpage, Inc."
+  },
+  {
+   "id": "US20040186996A1",
+   "title": "Unique digital signature",
+   "assignee": "Gibbs Benjamin K."
+  },
+  {
+   "id": "US20040199419A1",
+   "title": "Promoting strategic documents by bias ranking of search results on a web browser",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040215607A1",
+   "title": "Method and system fo blending search engine results from disparate sources into one search result",
+   "assignee": "Travis Robert L."
+  },
+  {
+   "id": "US20050015366A1",
+   "title": "Disambiguation of search phrases using interpretation clusters",
+   "assignee": "Carrasco John Joseph M."
+  },
+  {
+   "id": "US20050027691A1",
+   "title": "System and method for providing a user interface with search query broadening",
+   "assignee": "Sergey Brin"
+  },
+  {
+   "id": "US6853993B2",
+   "title": "System and methods for predicting correct spellings of terms in multiple-term search queries",
+   "assignee": "A9.Com, Inc."
+  },
+  {
+   "id": "US20050033803A1",
+   "title": "Server architecture and methods for persistently storing and serving event data",
+   "assignee": "Vleet Taylor N. Van"
+  },
+  {
+   "id": "US20050050014A1",
+   "title": "Method, device and software for querying and presenting search results",
+   "assignee": "Gosse David B."
+  },
+  {
+   "id": "US20050055342A1",
+   "title": "Method for estimating coverage of Web search engines",
+   "assignee": "Bharat Krishna Asur"
+  },
+  {
+   "id": "US20050055345A1",
+   "title": "Similarity search engine for use with relational databases",
+   "assignee": "Infoglide Software Corporation"
+  },
+  {
+   "id": "US20050060311A1",
+   "title": "Methods and systems for improving a search ranking using related queries",
+   "assignee": "Simon Tong"
+  },
+  {
+   "id": "US20050060310A1",
+   "title": "Methods and systems for improving a search ranking using population information",
+   "assignee": "Simon Tong"
+  },
+  {
+   "id": "US20050060290A1",
+   "title": "Automatic query routing and rank configuration for search queries in an information retrieval system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050071741A1",
+   "title": "Information retrieval based on historical data",
+   "assignee": "Anurag Acharya"
+  },
+  {
+   "id": "US6877002B2",
+   "title": "Fuzzy database retrieval",
+   "assignee": "America Online, Inc."
+  },
+  {
+   "id": "US6882999B2",
+   "title": "URL mapping methods and systems",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050102282A1",
+   "title": "Method for personalized search",
+   "assignee": "Greg Linden"
+  },
+  {
+   "id": "US6901402B1",
+   "title": "System for improving the performance of information retrieval-type tasks by identifying the relations of constituents",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050125376A1",
+   "title": "Methods and systems for providing a response to a query",
+   "assignee": "Andy Curtis"
+  },
+  {
+   "id": "US20050160083A1",
+   "title": "User-specific vertical search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050192946A1",
+   "title": "Lateral search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050198026A1",
+   "title": "Code, system, and method for generating concepts",
+   "assignee": "Dehlinger Peter J."
+  },
+  {
+   "id": "US6944611B2",
+   "title": "Method and apparatus for digital media management, retrieval, and collaboration",
+   "assignee": "Emotion, Inc."
+  },
+  {
+   "id": "US6944612B2",
+   "title": "Structured contextual clustering method and system in a federated search engine",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20050222998A1",
+   "title": "Apparatus and computerised method for determining constituent words of a compound word",
+   "assignee": "Oce-Technologies B.V."
+  },
+  {
+   "id": "US20050222987A1",
+   "title": "Automated detection of associations between search criteria and item categories based on collective analysis of user activity data",
+   "assignee": "Vadon Eric R"
+  },
+  {
+   "id": "US6954750B2",
+   "title": "Method and system for facilitating the refinement of data queries",
+   "assignee": "Content Analyst Company, Llc"
+  },
+  {
+   "id": "US20050240576A1",
+   "title": "Named URL entry",
+   "assignee": "John Piscitello"
+  },
+  {
+   "id": "US20050240580A1",
+   "title": "Personalization of placed content ordering in search results",
+   "assignee": "Zamir Oren E"
+  },
+  {
+   "id": "US20050256848A1",
+   "title": "System and method for user rank search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6990453B2",
+   "title": "System and methods for recognizing sound and music signals in high noise and distortion",
+   "assignee": "Landmark Digital Services Llc"
+  },
+  {
+   "id": "US20060047643A1",
+   "title": "Method and system for a personalized search engine",
+   "assignee": "Chirag Chaman"
+  },
+  {
+   "id": "US7016939B1",
+   "title": "Intelligent SPAM detection system using statistical analysis",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US20060069667A1",
+   "title": "Content evaluation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7028027B1",
+   "title": "Associating documents with classifications and ranking documents based on classification weights",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20060089926A1",
+   "title": "Method for re-ranking documents retrieved from a document database",
+   "assignee": "Harris Corporation, Corporation Of The State Of Delaware"
+  },
+  {
+   "id": "US20060095421A1",
+   "title": "Method, apparatus, and program for searching for data",
+   "assignee": "Canon Kabushiki Kaisha"
+  },
+  {
+   "id": "US20060106793A1",
+   "title": "Internet and computer information retrieval and mining with intelligent conceptual filtering, visualization and automation",
+   "assignee": "Ping Liang"
+  },
+  {
+   "id": "US7072886B2",
+   "title": "Method and business process to maintain privacy in distributed recommendation systems",
+   "assignee": "Nokia Corporation"
+  },
+  {
+   "id": "US7085761B2",
+   "title": "Program for changing search results rank, recording medium for recording such a program, and content search processing method",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US20060173830A1",
+   "title": "Information retrieval",
+   "assignee": "Barry Smyth"
+  },
+  {
+   "id": "US20060195443A1",
+   "title": "Information prioritisation system and method",
+   "assignee": "Franklin Gary L"
+  },
+  {
+   "id": "US20060200476A1",
+   "title": "Creating, storing and viewing process models",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060200556A1",
+   "title": "Method and apparatus for identifying, extracting, capturing, and leveraging expertise and knowledge",
+   "assignee": "Scott Brave"
+  },
+  {
+   "id": "US7113939B2",
+   "title": "Architecture to enable search gateways as part of federated search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7117206B1",
+   "title": "Method for ranking hyperlinked pages using content and connectivity analysis",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US20060230040A1",
+   "title": "Methods and systems for providing a response to a query",
+   "assignee": "Andy Curtis"
+  },
+  {
+   "id": "US7136849B2",
+   "title": "Method systems and computer program products for indicating links to external URLs",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7146361B2",
+   "title": "System, method and computer program product for performing unstructured information management and automatic text analysis, including a search operator functioning as a Weighted AND (WAND)",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20060293950A1",
+   "title": "Automatic ad placement",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070005588A1",
+   "title": "Determining relevance using queries as surrogate content",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070005575A1",
+   "title": "Prioritizing search results by client search satisfaction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070038659A1",
+   "title": "Scalable user clustering based on set similarity",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20070061211A1",
+   "title": "Preventing mobile communication facility click fraud",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US20070081197A1",
+   "title": "System and method for semantic knowledge retrieval, management, capture, sharing, discovery, delivery and presentation",
+   "assignee": "Nosa Omoigui"
+  },
+  {
+   "id": "US20070106659A1",
+   "title": "Search engine that applies feedback from users to improve search results",
+   "assignee": "Yunshan Lu"
+  },
+  {
+   "id": "US20070112730A1",
+   "title": "Sampling Internet user traffic to improve search results",
+   "assignee": "Antonino Gulli"
+  },
+  {
+   "id": "US7222127B1",
+   "title": "Large scale machine learning systems and methods",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070130370A1",
+   "title": "Portable search engine",
+   "assignee": "Emeka Akaezuwa"
+  },
+  {
+   "id": "US20070156677A1",
+   "title": "Database access system",
+   "assignee": "Alberti Anemometer Llc"
+  },
+  {
+   "id": "US7243102B1",
+   "title": "Machine directed improvement of ranking algorithms",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070192190A1",
+   "title": "Method and system for scoring quality of traffic to network sites",
+   "assignee": "Authenticlick"
+  },
+  {
+   "id": "US7266765B2",
+   "title": "Detection and processing of annotated anchors",
+   "assignee": "Fuji Xerox Co., Ltd."
+  },
+  {
+   "id": "US20070208730A1",
+   "title": "Mining web search user behavior to enhance web search relevance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070214131A1",
+   "title": "Re-ranking search results based on query log",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070233653A1",
+   "title": "Selecting directly bid upon advertisements for display",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070255689A1",
+   "title": "System and method for indexing web content using click-through features",
+   "assignee": "Gordon Sun"
+  },
+  {
+   "id": "US7293016B1",
+   "title": "Index partitioning based on document relevance for document indexes",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070260597A1",
+   "title": "Dynamic search engine results employing user behavior",
+   "assignee": "Mark Cramer"
+  },
+  {
+   "id": "US20070266439A1",
+   "title": "Privacy management and transaction system",
+   "assignee": "Harold Kraft"
+  },
+  {
+   "id": "US20070266021A1",
+   "title": "Methods and systems for selecting and presenting content based on dynamically identifying microgenres associated with the content",
+   "assignee": "Murali Aravamudan"
+  },
+  {
+   "id": "US20070288450A1",
+   "title": "Query language determination using query terms and interface language",
+   "assignee": "Datta Ruchira S"
+  },
+  {
+   "id": "US20080010143A1",
+   "title": "Secure and extensible pay per action online advertising",
+   "assignee": "Rob Kniaz"
+  },
+  {
+   "id": "US20080027913A1",
+   "title": "System and method of information retrieval engine evaluation using human judgment input",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20080052273A1",
+   "title": "Apparatus and method for term context modeling for information retrieval",
+   "assignee": "Fuji Xerox Co., Ltd."
+  },
+  {
+   "id": "US20080052219A1",
+   "title": "System for and method of expressive auctions of user events",
+   "assignee": "Combinenet, Inc."
+  },
+  {
+   "id": "US20080059453A1",
+   "title": "System and method for enhancing the result of a query",
+   "assignee": "Raphael Laderman"
+  },
+  {
+   "id": "US20080077570A1",
+   "title": "Full Text Query and Search Systems and Method of Use",
+   "assignee": "Infovell, Inc."
+  },
+  {
+   "id": "US20080082518A1",
+   "title": "Strategy for Providing Query Results Based on Analysis of User Intent",
+   "assignee": "Loftesness David E"
+  },
+  {
+   "id": "US20080091650A1",
+   "title": "Augmented Search With Error Detection and Replacement",
+   "assignee": "Marcus Felipe Fontoura"
+  },
+  {
+   "id": "US20080114729A1",
+   "title": "Computer-implemented interactive, virtual bookshelf system and method",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080114750A1",
+   "title": "Retrieval and ranking of items utilizing similarity",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080114624A1",
+   "title": "Click-fraud protector",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7379951B2",
+   "title": "Support for real-time queries concerning current state, data and history of a process",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7382358B2",
+   "title": "System and method for continuous stroke word-based text input",
+   "assignee": "Forword Input, Inc."
+  },
+  {
+   "id": "US20080140699A1",
+   "title": "System and method for generating substitutable queries",
+   "assignee": "Rosie Jones"
+  },
+  {
+   "id": "US7395222B1",
+   "title": "Method and system for identifying expertise",
+   "assignee": "Sotos John G"
+  },
+  {
+   "id": "US20080162475A1",
+   "title": "Click-fraud detection method",
+   "assignee": "Meggs Anthony F"
+  },
+  {
+   "id": "US20080183660A1",
+   "title": "Content identification expansion",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080189269A1",
+   "title": "Relevance-weighted navigation in information access, search and retrieval",
+   "assignee": "Fast Search & Transfer Asa"
+  },
+  {
+   "id": "US20080208825A1",
+   "title": "Methods and systems for providing a response to a query",
+   "assignee": "Andy Curtis"
+  },
+  {
+   "id": "US7426507B1",
+   "title": "Automatic taxonomy generation in search results using phrases",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20080228442A1",
+   "title": "Statistical data inspector",
+   "assignee": "Lisa Ellen Lippincott"
+  },
+  {
+   "id": "US20080256050A1",
+   "title": "System and method for modeling user selection feedback in a search result page",
+   "assignee": "Ruofei Zhang"
+  },
+  {
+   "id": "US7451487B2",
+   "title": "Fraudulent message detection",
+   "assignee": "Sonicwall, Inc."
+  },
+  {
+   "id": "US20080313168A1",
+   "title": "Ranking documents based on a series of document graphs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080313247A1",
+   "title": "Page Ranking Based on a Behavioral WEB Graph",
+   "assignee": "Brian Galvin"
+  },
+  {
+   "id": "US20090012969A1",
+   "title": "Systems and processes for evaluating webpages",
+   "assignee": "Rail Peter D"
+  },
+  {
+   "id": "US20090055392A1",
+   "title": "Ordering of search results based on language and/or country of the search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7516146B2",
+   "title": "Fast adaptive document filtering",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7526470B1",
+   "title": "System and method for measuring and improving search result relevance based on user satisfaction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7533130B2",
+   "title": "User behavior reporting based on pre-aggregated activity data",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7533092B2",
+   "title": "Link-based spam detection",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20090157643A1",
+   "title": "Semi-supervised part-of-speech tagging",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7552112B2",
+   "title": "Discovering associative intent queries from search web logs",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20090182723A1",
+   "title": "Ranking search results using author extraction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7565363B2",
+   "title": "Search engine with user activity memory",
+   "assignee": "Anwar Mohammed S"
+  },
+  {
+   "id": "US7574530B2",
+   "title": "Method and system for web resource location classification and detection",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7584181B2",
+   "title": "Implicit links search enhancement system and method for search engines using implicit links generated by mining user access patterns",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7610282B1",
+   "title": "Rank-adjusted content items",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090287656A1",
+   "title": "Network search engine utilizing client browser favorites",
+   "assignee": "Bennett James D"
+  },
+  {
+   "id": "US7636714B1",
+   "title": "Determining query term synonyms within query context",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7657626B1",
+   "title": "Click fraud detection",
+   "assignee": "Enquisite, Inc."
+  },
+  {
+   "id": "US7680775B2",
+   "title": "Methods and systems for generating query and result-based relevance indexes",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US7693818B2",
+   "title": "UserRank: ranking linked nodes leveraging user logs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100106706A1",
+   "title": "Method and apparatus for identifying related searches in a database search system",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7716225B1",
+   "title": "Ranking documents based on user behavior and/or feature data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20100131563A1",
+   "title": "System and methods for automatic clustering of ranked and categorized search objects",
+   "assignee": "Hongfeng Yin"
+  },
+  {
+   "id": "US7747612B2",
+   "title": "Indication of exclusive items in a result set",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7756887B1",
+   "title": "System and method for modulating search relevancy using pointer activity monitoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20100205541A1",
+   "title": "social network driven indexing system for instantly clustering people with concurrent focus on same topic into on-topic chat rooms and/or for generating on-topic search results tailored to user preferences regarding topic",
+   "assignee": "Jeffrey A. Rapaport"
+  },
+  {
+   "id": "US7783632B2",
+   "title": "Using popularity data for ranking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100228738A1",
+   "title": "Adaptive document sampling for information extraction",
+   "assignee": "Mehta Rupesh R"
+  },
+  {
+   "id": "US7801885B1",
+   "title": "Search engine system and method with user feedback on search results",
+   "assignee": "Neal Akash Verma"
+  },
+  {
+   "id": "US20100241472A1",
+   "title": "Illness specific diagnostic system",
+   "assignee": "David Antonio Hernandez"
+  },
+  {
+   "id": "US7809716B2",
+   "title": "Method and apparatus for establishing relationship between documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7818320B2",
+   "title": "Enhanced search results based on user feedback relating to search result abstracts",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7836058B2",
+   "title": "Web searching",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7844589B2",
+   "title": "Method and apparatus for performing a search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7849089B2",
+   "title": "Method and system for adapting search results to personal information needs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7853557B2",
+   "title": "Method and computer for responding to a query according to the language used",
+   "assignee": "Siebel Systems, Inc."
+  },
+  {
+   "id": "US7877404B2",
+   "title": "Query classification based on query click logs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7895177B2",
+   "title": "Enabling searching of user ratings and reviews using user profile location, and social networks",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7925498B1",
+   "title": "Identifying a synonym with N-gram agreement for a query phrase",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7953740B1",
+   "title": "Detection of behavior-based associations between search strings and items",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US7974974B2",
+   "title": "Techniques to perform relative ranking for search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7987185B1",
+   "title": "Ranking custom search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8001136B1",
+   "title": "Longest-common-subsequence detection for common synonyms",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8019650B2",
+   "title": "Method and system for producing item comparisons",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US8024330B1",
+   "title": "Collaborative incident alert system for mobile devices",
+   "assignee": "Hector Franco"
+  },
+  {
+   "id": "US8027439B2",
+   "title": "Self-calibrating fraud detection",
+   "assignee": "Fair Isaac Corporation"
+  },
+  {
+   "id": "US8037043B2",
+   "title": "Information retrieval system",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8037042B2",
+   "title": "Automated analysis of user search behavior",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8037086B1",
+   "title": "Identifying common co-occurring elements in lists",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8051061B2",
+   "title": "Cross-lingual query suggestion",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8060497B1",
+   "title": "Framework for evaluating web search scoring functions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8065296B1",
+   "title": "Systems and methods for determining a quality of provided items",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8069182B2",
+   "title": "Relevancy-based domain classification",
+   "assignee": "Working Research, Inc."
+  },
+  {
+   "id": "US20110295844A1",
+   "title": "Enhancing freshness of search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8073772B2",
+   "title": "Systems and methods for processing transactions using multiple budgets",
+   "assignee": "American Express Travel Related Services Company, Inc."
+  },
+  {
+   "id": "US8073263B2",
+   "title": "Multi-classifier selection and monitoring for MMR-based image recognition",
+   "assignee": "Ricoh Co., Ltd."
+  },
+  {
+   "id": "US8086599B1",
+   "title": "Method and apparatus for automatically identifying compunds",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8090717B1",
+   "title": "Methods and apparatus for ranking documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8156111B2",
+   "title": "Identifying and expanding implicitly temporally qualified queries",
+   "assignee": "Yahoo! Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US11816114B1",
+   "title": "Modifying search result ranking based on implicit user feedback"
+  },
+  {
+   "id": "US8694511B1",
+   "title": "Modifying search result ranking based on populations"
+  },
+  {
+   "id": "US9092510B1",
+   "title": "Modifying search result ranking based on a temporal element of user feedback"
+  },
+  {
+   "id": "US8972391B1",
+   "title": "Recent interest based relevance scoring"
+  },
+  {
+   "id": "US8321278B2",
+   "title": "Targeted advertisements based on user profiles and page profile"
+  },
+  {
+   "id": "US8359309B1",
+   "title": "Modifying search result ranking based on corpus search statistics"
+  },
+  {
+   "id": "US8738596B1",
+   "title": "Refining search results"
+  },
+  {
+   "id": "CN101454780B",
+   "title": "Method for Generating Website Profile Based on Monitoring User Behavior"
+  },
+  {
+   "id": "US8615514B1",
+   "title": "Evaluating website properties by partitioning user feedback"
+  },
+  {
+   "id": "US8874555B1",
+   "title": "Modifying scoring data based on historical changes"
+  },
+  {
+   "id": "US8868548B2",
+   "title": "Determining user intent from query patterns"
+  },
+  {
+   "id": "JP4831795B2",
+   "title": "Integration of multiple query modification models"
+  },
+  {
+   "id": "US8412727B1",
+   "title": "Generating query refinements from user preference data"
+  },
+  {
+   "id": "US20050222989A1",
+   "title": "Results based personalization of advertisements in a search engine"
+  },
+  {
+   "id": "US8645367B1",
+   "title": "Predicting data for document attributes based on aggregated data for repeated URL patterns"
+  },
+  {
+   "id": "US8924379B1",
+   "title": "Temporal-based score adjustments"
+  },
+  {
+   "id": "US20090287645A1",
+   "title": "Search results with most clicked next objects"
+  },
+  {
+   "id": "WO2009006150A1",
+   "title": "Using previous user search query to target advertisements"
+  },
+  {
+   "id": "US8959093B1",
+   "title": "Ranking search results based on anchors"
+  },
+  {
+   "id": "US9623119B1",
+   "title": "Accentuating search results"
+  },
+  {
+   "id": "AU2012202738B2",
+   "title": "Results based personalization of advertisements in a search engine"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8938463B1/en"
+}

@@ -1,0 +1,205 @@
+{
+"US7536408B2": {
+  "relevance": "cao",
+  "mech": "- Patent gốc của **phrase-based indexing** (Anna Patterson). Thay vì index từng từ đơn, Google index theo **cụm từ (phrase)** có nghĩa.\n- **Cụm từ liên quan (related phrases)**: cụm gk được coi là liên quan tới gj nếu **information gain** — tỷ lệ giữa tần suất đồng xuất hiện **thực tế** và tần suất **kỳ vọng** (ngẫu nhiên) — vượt ngưỡng. Ví dụ 'Tổng thống Mỹ' → 'Nhà Trắng', 'Nhà Trắng', 'Quốc hội', 'Washington'.\n- Khi index một tài liệu, với mỗi phrase có mặt, Google ghi lại **những related phrase nào cũng có mặt** trong tài liệu (dạng bit vector) → dùng để chấm điểm mức liên quan.\n- Trang chứa **nhiều related phrase** của query phrase được coi là nói sâu về chủ đề đó; trang chỉ lặp query phrase mà thiếu related phrase kém liên quan hơn.",
+  "seo": "- Đây là **cơ sở kỹ thuật của semantic SEO / 'LSI keyword'**: Google đánh giá chủ đề qua **mạng các cụm từ liên quan thường đi cùng nhau**, không qua mật độ từ khoá.\n- Nội dung chuyên sâu tự nhiên chứa các cụm liên quan (thuật ngữ, entity, khái niệm) mà top kết quả cũng có.\n- **Quá nhiều** related phrase bất thường lại là dấu hiệu spam (xem [[US7603345B2 - Phát hiện tài liệu spam trong hệ thống index theo cụm từ]]).",
+  "audit": [
+    "Với từ khoá chính: trích các cụm từ (2–4 từ) xuất hiện phổ biến trong top 10 nhưng hiếm ở web chung → danh sách 'related phrases'",
+    "So sánh trang của bạn có bao nhiêu % related phrase này (quá thấp = nông; quá cao bất thường + văn phong gượng = nhồi)",
+    "Rà nội dung chỉ lặp từ khoá chính mà thiếu thuật ngữ/khái niệm đi kèm của chủ đề"
+  ],
+  "leak": "Leak có các thuộc tính về phrase/term trong tài liệu và điểm liên quan chủ đề; hệ thống xếp hạng Mustang dùng dữ liệu hit (vị trí từ/cụm từ). _(Cần đối chiếu tên cụ thể.)_"
+},
+"US7580921B2": {
+  "relevance": "cao",
+  "mech": "- Cách Google **xác định phrase hợp lệ**: thu thập cụm từ ứng viên từ tài liệu, phân loại 'good phrase' (xuất hiện đủ thường xuyên/nổi bật — trong anchor, title, định dạng đặc biệt) và 'bad phrase'.\n- Chỉ giữ lại good phrase **có khả năng dự đoán** sự xuất hiện của good phrase khác (information gain vượt ngưỡng) → loại bỏ cụm vô nghĩa.\n- Đồng thời xác định **phrase mở rộng** (phrase dài hơn bắt đầu bằng phrase ngắn: 'tổng thống' → 'tổng thống Mỹ').",
+  "seo": "- Cụm từ được **đặt trong anchor, title, heading, in đậm** được Google coi trọng khi xác định phrase có nghĩa.\n- Dùng cụm từ chuẩn của ngành (người dùng thực sự dùng) thay vì tự đặt cụm lạ.",
+  "audit": [
+    "Kiểm tra heading và title dùng cụm từ chuẩn ngành (khớp cách người dùng tìm), không dùng cụm tự chế"
+  ],
+  "leak": ""
+},
+"US7567959B2": {
+  "relevance": "thấp",
+  "mech": "- Index phrase được chia thành **index chính** (lưu các tài liệu liên quan nhất cho mỗi phrase, sắp theo điểm liên quan) và **index phụ** (phần còn lại, sắp theo mã tài liệu).",
+  "seo": "- Kiến trúc hạ tầng; gợi ý rằng mỗi phrase chỉ có một số lượng tài liệu 'hàng đầu' được ưu tiên truy xuất nhanh.",
+  "audit": [],
+  "leak": ""
+},
+"US7599914B2": {
+  "relevance": "trung bình",
+  "mech": "- Khi query chứa **phrase chưa hoàn chỉnh** mà trong kho tài liệu chỉ dự đoán được các phrase mở rộng của nó, Google **thay bằng phrase mở rộng** (ví dụ 'Bill Clinton' là mở rộng hợp lý của 'Clinton' trong ngữ cảnh chính trị).\n- Tài liệu được xếp hạng theo sự hiện diện của query phrase, related phrase và phrase mở rộng.",
+  "seo": "- Google tự mở rộng query ngắn → trang nên dùng **dạng đầy đủ** của cụm từ/tên (không chỉ dạng rút gọn).",
+  "audit": [
+    "Dùng tên/cụm từ đầy đủ ít nhất một lần (tên sản phẩm đầy đủ, tên người đầy đủ)"
+  ],
+  "leak": ""
+},
+"US7584175B2": {
+  "relevance": "trung bình",
+  "mech": "- Tạo **snippet/mô tả** cho tài liệu: với mỗi câu, đếm số lần xuất hiện của query phrase, related phrase và phrase mở rộng; chọn các câu có điểm cao nhất làm mô tả.",
+  "seo": "- Câu chứa **cả từ khoá và các cụm liên quan** có khả năng được chọn làm snippet → viết đoạn mở đầu/tóm tắt giàu ngữ cảnh.",
+  "audit": [
+    "Đoạn đầu của trang chứa từ khoá chính cùng 2–3 cụm liên quan quan trọng trong câu tự nhiên"
+  ],
+  "leak": ""
+},
+"US7426507B1": {
+  "relevance": "thấp",
+  "mech": "- Tự động **gom cụm kết quả tìm kiếm** theo related phrase của query: mỗi cụm mang tên một related phrase, hiển thị các tài liệu chứa phrase đó.",
+  "seo": "- Related phrase đại diện cho **các chủ đề con** của query → dùng làm gợi ý cấu trúc heading/cụm bài.",
+  "audit": [],
+  "leak": ""
+},
+"US9384224B2": {
+  "relevance": "trung bình",
+  "mech": "- Index lưu **nhiều phiên bản** của tài liệu, mỗi phiên bản có khoảng ngày hiệu lực và dữ liệu phrase riêng.\n- Khi tài liệu thay đổi, phiên bản mới được index với ID theo ngày; phiên bản cũ được đóng khoảng hiệu lực.",
+  "seo": "- Google **lưu lịch sử nội dung** của trang → thay đổi nội dung được ghi nhận theo thời gian (liên quan freshness và việc phát hiện thay đổi chủ đề trang).",
+  "audit": [
+    "Khi cập nhật trang lớn: giữ trọng tâm chủ đề nhất quán với phiên bản trước để tránh mất tín hiệu đã tích luỹ"
+  ],
+  "leak": "Leak có các trường liên quan phiên bản/ngày thay đổi đáng kể của tài liệu (ví dụ ngày cập nhật quan trọng cuối cùng) — khớp ý tưởng lưu nhiều phiên bản."
+},
+"US9037573B2": {
+  "relevance": "thấp",
+  "mech": "- **Cá nhân hoá** theo phrase: theo dõi các tài liệu người dùng đã xem, lấy phrase trong đó làm hồ sơ quan tâm; khi người dùng tìm kiếm, ưu tiên tài liệu chứa related phrase khớp hồ sơ.",
+  "seo": "- Kết quả có thể thay đổi theo lịch sử đọc của người dùng.",
+  "audit": [],
+  "leak": ""
+},
+"US8631027B2": {
+  "relevance": "thấp",
+  "mech": "- Cho phép người dùng (ví dụ quản trị một tập tài liệu giới hạn) **thay thế 'top phrase'** của tập tài liệu; hệ thống cập nhật dữ liệu phrase theo thay đổi này.",
+  "seo": "- Ít liên quan trực tiếp.",
+  "audit": [],
+  "leak": ""
+},
+"US8166045B1": {
+  "relevance": "trung bình",
+  "mech": "- Trích phrase hợp lệ bằng cách chấm điểm từng lần xuất hiện của cụm ứng viên dựa trên **vị trí trong tài liệu** và **đặc điểm cấu trúc** (có trong title, heading, anchor, danh sách…), mức độ xuất hiện độc lập hay cùng cụm khác; chấm cả **cụm con**.",
+  "seo": "- **Vị trí và định dạng** (title, heading, danh sách, anchor) làm tăng trọng số của cụm từ trong tài liệu.",
+  "audit": [
+    "Cụm từ chủ đề quan trọng xuất hiện ở vị trí có trọng số: title, H1/H2, đoạn đầu, danh sách, anchor nội bộ"
+  ],
+  "leak": ""
+},
+"US9223877B1": {
+  "relevance": "thấp",
+  "mech": "- Phrase posting list được gán vào **các tầng (tier)** theo chi phí truy xuất; phrase tốn kém/phổ biến được đặt ở tầng hiệu năng cao hơn.",
+  "seo": "- Hạ tầng index, không có hàm ý SEO trực tiếp.",
+  "audit": [],
+  "leak": ""
+},
+"US8060501B1": {
+  "relevance": "trung bình",
+  "mech": "- Tìm **cấu trúc ngữ nghĩa ngầm** trong HTML, như danh sách (list), bảng, heading.\n- Khoảng cách giữa hai từ được tính **theo cấu trúc**, không theo số ký tự: hai từ cùng nằm trong các mục của một danh sách, hoặc từ trong heading với nội dung dưới heading, được coi là **gần nhau** dù cách xa về vị trí.\n- Khoảng cách này dùng để tính điểm liên quan (proximity) với query nhiều từ.",
+  "seo": "- **Cấu trúc HTML rõ ràng** (heading bao quát nội dung bên dưới, danh sách đúng thẻ) giúp Google hiểu các từ liên quan dù không đứng cạnh nhau.\n- Heading có vai trò 'phủ nghĩa' cho đoạn bên dưới.",
+  "audit": [
+    "Dùng thẻ heading theo đúng thứ bậc (H2 → H3), mỗi heading mô tả nội dung bên dưới",
+    "Danh sách dùng thẻ ul/ol thật, không dùng xuống dòng + ký tự '-'"
+  ],
+  "leak": ""
+},
+"US8463772B1": {
+  "relevance": "thấp",
+  "mech": "- Từ log query: tính khoảng cách điển hình giữa vị trí người tìm và vị trí kết quả được chọn cho mỗi query → **hệ số quan trọng của khoảng cách** cho query/khu vực; dùng để tính giá trị gần/xa cho kết quả local.",
+  "seo": "- Thuộc Local SEO: mức ảnh hưởng của khoảng cách khác nhau theo loại query (cà phê: rất gần; bệnh viện chuyên khoa: chấp nhận xa hơn).",
+  "audit": [],
+  "leak": ""
+},
+"US8626787B1": {
+  "relevance": "thấp",
+  "mech": "- Xác định stopword trong query có ý nghĩa hay không: so tài liệu tìm được khi có và khi bỏ stopword; nếu khác nhau về khái niệm (ví dụ 'The Who', 'to be or not to be') thì giữ lại.",
+  "seo": "- Stopword trong tên riêng/cụm cố định được giữ nguyên → không cần lo bỏ stopword khỏi cụm từ khoá tự nhiên.",
+  "audit": [],
+  "leak": ""
+},
+"US10152535B1": {
+  "relevance": "thấp",
+  "mech": "- Tách query ≥ 3 từ thành các **cách nhóm cụm từ** khác nhau (phrasification), chấm điểm từng cách dựa trên xác suất các cụm có trong bảng phrase hợp lệ → chọn cách hiểu query tốt nhất.",
+  "seo": "- Google hiểu query theo cụm ('giày chạy bộ | nam | giá rẻ') → trang nên chứa đúng các cụm có nghĩa này.",
+  "audit": [],
+  "leak": ""
+},
+"US8402036B2": {
+  "relevance": "trung bình",
+  "mech": "- Tạo snippet cho entity (sản phẩm, nhà hàng) từ **cụm từ cảm xúc** trong review: xác định các cụm khen/chê về entity, chọn một số cụm để ghép thành snippet.",
+  "seo": "- Review có **nhận xét cụ thể theo khía cạnh** ('phục vụ nhanh', 'giá hơi cao') có thể được trích hiển thị → khuyến khích review chi tiết.",
+  "audit": [
+    "Trang có review: hiển thị review dạng văn bản (không chỉ sao), khuyến khích khách nêu khía cạnh cụ thể"
+  ],
+  "leak": ""
+},
+"US9053156B1": {
+  "relevance": "thấp",
+  "mech": "- Ánh xạ query vào **chủ đề** theo xác suất P(chủ đề | query), rồi chọn kết quả theo P(kết quả | chủ đề) — hữu ích cho video/media ít văn bản.",
+  "seo": "- Với video: metadata rõ chủ đề giúp được ánh xạ đúng.",
+  "audit": [],
+  "leak": ""
+},
+"US7996379B1": {
+  "relevance": "trung bình",
+  "mech": "- Với tập kết quả ban đầu, Google dựng **đồ thị quan hệ từ** trong mỗi tài liệu (cặp từ liên quan cục bộ), so sánh giữa các tài liệu để suy ra quan hệ giữa tài liệu, rồi **tính lại điểm** — tài liệu có mạng quan hệ từ giống các tài liệu liên quan khác được điểm cao.",
+  "seo": "- Trang có 'mạng khái niệm' tương đồng với nhóm trang tốt nhất cho query được củng cố → thêm bằng chứng cho việc bám sát **ngữ cảnh chủ đề chung** của top kết quả.",
+  "audit": [],
+  "leak": ""
+},
+"US8688720B1": {
+  "relevance": "trung bình",
+  "mech": "- (Georges Harik, Noam Shazeer — **PHIL**) Mỗi tài liệu được biểu diễn bằng một **vector các cụm khái niệm** (cluster các từ liên quan về khái niệm) được mô hình xác suất suy ra từ các từ trong tài liệu.\n- Vector này dùng cho nhiều việc: so khớp quảng cáo (AdSense), phân loại chủ đề, tìm tài liệu tương tự.",
+  "seo": "- Tiền thân của **embedding chủ đề**: Google hiểu trang theo **khái niệm**, không chỉ từ khoá. Đây là nền tảng của AdSense contextual và các vector chủ đề (site/page embeddings) ngày nay.",
+  "audit": [
+    "Kiểm tra trang tập trung vào một nhóm khái niệm rõ ràng; tránh trộn nhiều chủ đề không liên quan trên cùng trang"
+  ],
+  "leak": "Khớp với `siteEmbeddings` / page embeddings và `siteFocusScore` trong leak — biểu diễn chủ đề dạng vector."
+},
+"US8024372B2": {
+  "relevance": "trung bình",
+  "mech": "- Mô tả cách **huấn luyện mô hình PHIL**: node khái niệm (cluster) nối với node từ bằng link có trọng số; khi khái niệm 'kích hoạt', các từ liên quan xuất hiện với xác suất theo trọng số. Mô hình học từ tập tài liệu lớn.",
+  "seo": "- Cùng ý nghĩa với US8688720: chủ đề được suy ra từ **tổ hợp từ** — một từ đơn lẻ không đủ, cần các từ đi kèm để kích hoạt đúng khái niệm.",
+  "audit": [],
+  "leak": ""
+},
+"US8892422B1": {
+  "relevance": "thấp",
+  "mech": "- Xác định chuỗi từ có phải cụm từ không bằng **độ nhất quán đồng xuất hiện theo vị trí** của các cặp từ và tính trung tâm của từng từ trong chuỗi; xác định ranh giới cụm.",
+  "seo": "- Cách Google nhận diện cụm từ tự nhiên trong văn bản.",
+  "audit": [],
+  "leak": ""
+},
+"US8447760B1": {
+  "relevance": "trung bình",
+  "mech": "- Tìm tài liệu liên quan tới một tài liệu bằng **hành vi**: xác suất người dùng xem tài liệu B trong một khoảng thời gian sau khi tài liệu A được hiển thị trên SERP.",
+  "seo": "- Quan hệ giữa các trang được học từ **hành trình người dùng** → nội dung liên quan (bài tiếp theo trong hành trình) nên được liên kết nội bộ.",
+  "audit": [
+    "Với trang chủ lực: xác định câu hỏi tiếp theo người dùng thường có → đặt link nội bộ tới bài trả lời câu hỏi đó"
+  ],
+  "leak": ""
+},
+"US8090736B1": {
+  "relevance": "thấp",
+  "mech": "- Xếp hạng tài liệu dựa trên **quan hệ tổ chức do người dùng tạo**: cùng nhãn phân cấp, cùng thư mục, cùng thư mục bookmark → coi như link giữa tài liệu.",
+  "seo": "- Cấu trúc thư mục/phân loại nhất quán thể hiện quan hệ giữa các trang.",
+  "audit": [],
+  "leak": ""
+},
+"US7673253B1": {
+  "relevance": "trung bình",
+  "mech": "- Suy ra **khái niệm** của một tài liệu **gián tiếp** — không từ nội dung chính nó mà từ **các trang link tới nó**, đặc biệt trang nguồn **thường được dùng để truy cập** tài liệu (có traffic qua link), và từ trang đích của quảng cáo trên tài liệu.",
+  "seo": "- Chủ đề trang được định nghĩa một phần bởi **ngữ cảnh của các trang link tới** → backlink từ trang cùng chủ đề củng cố chủ đề của bạn.",
+  "audit": [
+    "Kiểm tra chủ đề của các trang nguồn backlink có khớp chủ đề trang đích không"
+  ],
+  "leak": ""
+},
+"US8595225B1": {
+  "relevance": "cao",
+  "mech": "- (Amit Singhal, Urs Hölzle) Tính **độ phổ biến** của tài liệu (từ lượt truy cập), gán tài liệu vào **chủ đề**, rồi tính **độ phổ biến theo chủ đề** — so sánh chỉ với các tài liệu **cùng chủ đề**.\n- Kết quả: tài liệu phổ biến nhất trong một chủ đề ngách được đánh giá cao trong chủ đề đó, dù tổng traffic nhỏ hơn site đa chủ đề.",
+  "seo": "- Site **dẫn đầu trong một chủ đề ngách** có thể thắng site lớn đa chủ đề → cơ sở cho chiến lược **niche authority**.\n- Độ phổ biến được đánh giá **trong ngữ cảnh chủ đề**, không tuyệt đối.",
+  "audit": [
+    "Xác định chủ đề ngách cốt lõi; so sánh traffic/độ phổ biến của site với các site cùng ngách (không so với site tổng hợp lớn)",
+    "Tập trung nguồn lực để trở thành site phổ biến nhất trong 1–2 chủ đề thay vì dàn trải"
+  ],
+  "leak": "Khớp khái niệm `siteFocusScore` (mức tập trung chủ đề) trong leak."
+}
+}

@@ -1,0 +1,800 @@
+{
+ "id": "US7260573B1",
+ "title": "Personalizing anchor text scores in a search engine",
+ "abstract": "A search engine identifies a list of documents from a set of documents in a database in response to a set of query terms. For each document in the list, the search engine determines an information retrieval score based on its content and the query terms, and also identifies a set of source documents that have links to the document and that also have anchor text satisfying a predefined requirement with respect to the query terms. The search engine calculates a personalized page importance score for each of the identified source documents according to a set of user-specific parameters and accumulates the personalized page importance scores to produce a personalized anchor text score for the document. The personalized anchor text score is then combined with the document's information retrieval score to generate a personalized ranking for the document. The documents are ordered according to their respective personalized rankings.",
+ "inventors": [
+  "Glen Jeh",
+  "Taher H. Haveliwala",
+  "Sepandar D. Kamvar"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2004-05-17",
+ "filing_date": "2004-05-17",
+ "publication_date": "2007-08-21",
+ "status": "Expired - Lifetime",
+ "expiration": "2025-11-11",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/951",
+  "G06F16/30",
+  "G06F16/31",
+  "Y10S707/00",
+  "Y10S707/912",
+  "Y10S707/917",
+  "Y10S707/99931",
+  "Y10S707/99933",
+  "Y10S707/99937"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer-implemented method of determining a personalized ranking of a document that satisfies a set of query terms, comprising: determining an information retrieval score for the document based on its content and the set of query terms; identifying a set of source documents that have links to the document and that have anchor text satisfying a predefined requirement with respect to the set of query terms; calculating personalized page importance scores of the identified source documents according to a set of user-specific parameters; accumulating a personalized anchor text score for the document as a function of the personalized page importance scores of the identified source documents; and generating a personalized ranking for the document based on its information retrieval score and personalized anchor text score.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, wherein the personalized page importance scores are personalized link analysis scores.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, wherein the predefined requirement comprises a requirement that each of the identified source documents have anchor text that satisfies a search query corresponding to the set of query terms.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, wherein the predefined requirement comprises a requirement that each of the identified source documents have anchor text that contains at least one of the query terms in the set of query terms.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 1, wherein the personalized page importance score of an identified source document is a function of personalized page importance scores of another set of documents having links to the identified document.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 1, wherein the personalized page importance score of the identified source document is independent from the set of query terms.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 1, wherein the set of user-specific parameters include a set of URL keywords, and wherein calculating the personalized page importance score of an identified source document includes determining if a URL of the identified source document matches a URL keyword in the set of URL keywords, and assigning a personalized page importance score to the identified source document in accordance with that determination.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 1, wherein the set of user-specific parameters include a set of URL keywords and includes a numeric value associated with each URL keyword in the set, and wherein calculating the personalized page importance score of an identified source document includes determining which URL keywords, if any, in the set of URL keywords match a URL of the identified source document, and when at least on the URL keywords is determined to match the URL of the identified source document, assigning a personalized page importance score to the identified source document in accordance with the numeric value associated with at least one of the matching URL keywords.",
+   "dependent": true
+  },
+  {
+   "text": "9. The method of claim 1, including calculating a personalized page importance score for the document, and generating the personalized ranking for the document based on its information retrieval score, its personalized anchor text score, and its personalized page importance score.",
+   "dependent": true
+  },
+  {
+   "text": "10. The method of claim 1, wherein the set of user-specific parameters include information concerning websites favored by a user.",
+   "dependent": true
+  },
+  {
+   "text": "11. The method of claim 1, wherein the set of user-specific parameters include information suitable for identifying websites likely to be favored by a user.",
+   "dependent": true
+  },
+  {
+   "text": "12. The method of claim 1, wherein accumulating a personalized anchor text score for the document includes summing the product of an anchor text-based weight of each of the identified source documents multiplied by its respective personalized page importance score.",
+   "dependent": true
+  },
+  {
+   "text": "13. The method of claim 12, wherein the anchor text-based weight of an identified source document is equal to a first value when its anchor text satisfies a predefined requirement with respect to the set of query terms, and is equal to a second value when the anchor text does not satisfy the predefined requirement with respect to the set of query terms.",
+   "dependent": true
+  },
+  {
+   "text": "14. The method of claim 12, wherein the anchor text-based weight of an identified source document is equal to a first value when its anchor text contains at least one of the set of query terms, and is equal to a second value when the anchor text contains none of the query terms.",
+   "dependent": true
+  },
+  {
+   "text": "15. The method of claim 1, wherein determining an information retrieval score for the document includes calculating a personalized information retrieval score for the document according to the set of user-specific parameters.",
+   "dependent": true
+  },
+  {
+   "text": "16. A method for generating, in response to a set of query terms and a set of user-specific parameters, a list of documents that satisfy the set of query terms, comprising: identifying a list of documents from a set of documents in a database, each document satisfying the set of query terms; for each document in the list, determining an information retrieval score for the document based on its content; identifying source documents that have links to the document and that have anchor text satisfying a predefined requirement with respect to the set of query terms; calculating personalized page importance scores of the identified source documents according to a set of user-specific parameters; accumulating a personalized anchor text score for the document as a function of the personalized page importance scores of the identified source documents; and generating a personalized ranking for the document based on its information retrieval score and personalized anchor text score; and ordering the list of documents according to their respective personalized rankings.",
+   "dependent": false
+  },
+  {
+   "text": "17. The method of claim 16, wherein the personalized page importance scores are personalized link analysis scores.",
+   "dependent": true
+  },
+  {
+   "text": "18. The method of claim 16, the predefined requirement comprises a requirement that each of the identified source documents have anchor text that satisfies a search query corresponding to the set of query terms.",
+   "dependent": true
+  },
+  {
+   "text": "19. The method of claim 16, wherein the predefined requirement comprises a requirement that each of the identified source documents have anchor text that contains at least one of the query terms in the set of query terms.",
+   "dependent": true
+  },
+  {
+   "text": "20. The method of claim 16, wherein the personalized page importance score of an identified source document is a function of personalized page importance scores of another set of documents having links to the identified document.",
+   "dependent": true
+  },
+  {
+   "text": "21. The method of claim 16, wherein the personalized page importance score of the identified source document is independent from the set of query terms.",
+   "dependent": true
+  },
+  {
+   "text": "22. The method of claim 16, wherein the set of user-specific parameters include a set of URL keywords, and wherein calculating the personalized page importance score of an identified source document includes determining if a URL of the identified source document matches a URL keyword in the set of URL keywords, and assigning a personalized page importance score to the identified source document in accordance with that determination.",
+   "dependent": true
+  },
+  {
+   "text": "23. The method of claim 16, wherein the set of user-specific parameters include a set of URL keywords and includes a numeric value associated with each URL keyword in the set, and wherein calculating the personalized page importance score of an identified source document includes determining which URL keywords, if any, in the set of URL keywords match a URL of the identified source document, and when at least on the URL keywords is determined to match the URL of the identified source document, assigning a personalized page importance score to the identified source document in accordance with the numeric value associated with at least one of the matching URL keywords.",
+   "dependent": true
+  },
+  {
+   "text": "24. The method of claim 16, including calculating a personalized page importance score for each document in the list, and generating the personalized ranking for the document based on its information retrieval score, its personalized anchor text score, and its personalized page importance score.",
+   "dependent": true
+  },
+  {
+   "text": "25. The method of claim 16, wherein the set of user-specific parameters include information concerning websites favored by a user.",
+   "dependent": true
+  },
+  {
+   "text": "26. The method of claim 16, wherein the set of user-specific parameters include information suitable for identifying websites likely to be favored by a user.",
+   "dependent": true
+  },
+  {
+   "text": "27. The method of claim 16, wherein accumulating a personalized anchor text score for the document includes summing the product of an anchor text-based weight of each of the identified source documents multiplied by its respective personalized page importance score.",
+   "dependent": true
+  },
+  {
+   "text": "28. The method of claim 27, wherein the anchor text-based weight of an identified source document is equal to a first value when its anchor text satisfies a predefined requirement with respect to the set of query terms, and is equal to a second value when the anchor text does not satisfy the predefined requirement with respect to the set of query terms.",
+   "dependent": true
+  },
+  {
+   "text": "29. The method of claim 27, wherein the anchor text-based weight of an identified source document is equal to a first value when its anchor text contains at least one of the set of query terms, and is equal to a second value when the anchor text contains none of the query terms.",
+   "dependent": true
+  },
+  {
+   "text": "30. The method of claim 16, wherein determining an information retrieval score for the document includes calculating a personalized information retrieval score for the document according to the set of user-specific parameters.",
+   "dependent": true
+  },
+  {
+   "text": "31. A search engine system, comprising: one or more central processing units for executing programs; and a server executable by the one or more central processing units, the server comprising: instructions for identifying a list of documents from a set of documents in a database, each document satisfying the set of query terms; for each document in the list, instructions for ranking each document in the list of documents, including: instructions for determining an information retrieval score for the document based on its content and the set of query terms; instructions for identifying a set of source documents that have links to the document and that have anchor text satisfying a predefined requirement with respect to the set of query terms; instructions for calculating personalized page importance scores of the identified source documents according to a set of user-specific parameters; instructions for accumulating a personalized anchor text score for the document as a function of the personalized page importance scores of the identified source documents; and instructions for generating a personalized ranking for the document based on its information retrieval score and personalized anchor text score; and instructions for ordering the list of documents according to their respective personalized rankings.",
+   "dependent": false
+  },
+  {
+   "text": "32. The system of claim 31, wherein the personalized page importance scores are personalized link analysis scores.",
+   "dependent": true
+  },
+  {
+   "text": "33. The system of claim 31, wherein the set of user-specific parameters include a set of URL keywords, and wherein the instructions for calculating the personalized page importance score of an identified source document include instructions for determining if a URL of the identified source document matches a URL keyword in the set of URL keywords, and assigning a personalized page importance score to the identified source document in accordance with that determination.",
+   "dependent": true
+  },
+  {
+   "text": "34. The system of claim 31, wherein the set of user-specific parameters include a set of URL keywords and includes a numeric value associated with each URL keyword in the set, and wherein the instructions for calculating the personalized page importance score of an identified source document include instructions for determining which URL keywords, if any, in the set of URL keywords match a URL of the identified source document, and when at least on the URL keywords is determined to match the URL of the identified source document, assigning a personalized page importance score to the identified source document in accordance with the numeric value associated with at least one of the matching URL keywords.",
+   "dependent": true
+  },
+  {
+   "text": "35. The system of claim 31, including instructions for calculating a personalized page importance score for each document in the list, and instructions for generating the personalized ranking for the document based on its information retrieval score, its personalized anchor text score, and its personalized page importance score.",
+   "dependent": true
+  },
+  {
+   "text": "36. The system of claim 31, wherein the instructions for accumulating a personalized anchor text score for the document include instructions for summing the product of an anchor text-based weight of each of the identified source documents multiplied by its respective personalized page importance score.",
+   "dependent": true
+  },
+  {
+   "text": "37. The system of claim 31, wherein the anchor text-based weight of an identified source document is equal to a first value when its anchor text satisfies a predefined requirement with respect to the set of query terms, and is equal to a second value when the anchor text does not satisfy the predefined requirement with respect to the set of query terms.",
+   "dependent": true
+  },
+  {
+   "text": "38. The system of claim 31, wherein the instructions for determining an information retrieval score for the document include instructions for calculating a personalized information retrieval score for the document according to the set of user-specific parameters.",
+   "dependent": true
+  },
+  {
+   "text": "39. A computer readable storage medium storing computer-executable instructions for use in conjunction with a computer system, for determining a personalized ranking of a document that satisfies a set of query terms, comprising: instructions for determining an information retrieval score for the document based on its content and the set of query terms; instructions for identifying a set of source documents that have links to the document and that have anchor text satisfying a predefined requirement with respect to the set of query terms; instructions for calculating personalized page importance scores of the identified source documents according to a set of user-specific parameters; instructions for accumulating a personalized anchor text score for the document as a function of the personalized page importance scores of the identified source documents; and instructions for generating a personalized ranking for the document based on its information retrieval score and personalized anchor text score.",
+   "dependent": false
+  },
+  {
+   "text": "40. The computer readable storage medium of claim 39, wherein the personalized page importance scores are personalized link analysis scores.",
+   "dependent": true
+  },
+  {
+   "text": "41. The computer readable storage medium of claim 39, wherein the predefined requirement comprises a requirement that each of the identified source documents have anchor text that satisfies a search query corresponding to the set of query terms.",
+   "dependent": true
+  },
+  {
+   "text": "42. The computer readable storage medium of claim 39, wherein the predefined requirement comprises a requirement that each of the identified source documents have anchor text that contains at least one of the query terms in the set of query terms.",
+   "dependent": true
+  },
+  {
+   "text": "43. The computer readable storage medium of claim 39, wherein the personalized page importance score of an identified source document is a function of personalized page importance scores of another set of documents having links to the identified document.",
+   "dependent": true
+  },
+  {
+   "text": "44. The computer readable storage medium of claim 39, wherein the personalized page importance score of an identified source document is independent from the set of query terms.",
+   "dependent": true
+  },
+  {
+   "text": "45. The computer readable storage medium of claim 39, wherein the set of user-specific parameters include a set of URL keywords, and wherein the instructions for calculating the personalized page importance score of an identified source document includes instructions for determining if a URL of the identified source document matches a URL keyword in the set of URL keywords, and instructions for assigning a personalized page importance score to the identified source document in accordance with that determination.",
+   "dependent": true
+  },
+  {
+   "text": "46. The computer readable storage medium of claim 39, wherein the set of user-specific parameters include a set of URL keywords and includes a numeric value associated with each URL keyword in the set, and wherein the instructions for calculating the personalized page importance score of an identified source document include instructions for determining which URL keywords, if any, in the set of URL keywords match a URL of the identified source document, and when at least on the URL keywords is determined to match the URL of the identified source document, assigning a personalized page importance score to the identified source document in accordance with the numeric value associated with at least one of the matching URL keywords.",
+   "dependent": true
+  },
+  {
+   "text": "47. The computer readable storage medium of claim 39, including instructions for calculating a personalized page importance score for each document in the list, and instructions for generating the personalized ranking for the document based on its information retrieval score, its personalized anchor text score, and its personalized page importance score.",
+   "dependent": true
+  },
+  {
+   "text": "48. The computer readable storage medium of claim 39, wherein the instructions for accumulating a personalized anchor text score for the document include instructions for summing the product of an anchor text-based weight of each of the identified source documents multiplied by its respective personalized page importance score.",
+   "dependent": true
+  },
+  {
+   "text": "49. The computer readable storage medium of claim 39, wherein the anchor text-based weight of an identified source document is equal to a first value when its anchor text satisfies a predefined requirement with respect to the set of query terms, and is equal to a second value when the anchor text does not satisfy the predefined requirement with respect to the set of query terms.",
+   "dependent": true
+  },
+  {
+   "text": "50. The computer readable storage medium of claim 39, wherein the instructions for determining an information retrieval score for the document include instructions for calculating a personalized information retrieval score for the document according to the set of user-specific parameters.",
+   "dependent": true
+  },
+  {
+   "text": "51. A computer readable storage medium, for use in conjunction with a computer system, for generating a list of documents that satisfy the set of query terms, comprising: instructions for identifying a list of documents from a set of documents in a database, each document satisfying the set of query terms; for each document in the list, instructions for ranking each document in the list of documents, including: instructions for determining an information retrieval score for the document based on its content and the set of query terms; instructions for identifying a set of source documents that have links to the document and that have anchor text satisfying a predefined requirement with respect to the set of query terms; instructions for calculating personalized page importance scores of the identified source documents according to a set of user-specific parameters; instructions for accumulating a personalized anchor text score for the document as a function of the personalized page importance scores of the identified source documents; and instructions for generating a personalized ranking for the document based on its information retrieval score and personalized anchor text score; and instructions for ordering the list of documents according to their respective personalized rankings.",
+   "dependent": false
+  }
+ ],
+ "description": "\n## CROSS-REFERENCE TO RELATED APPLICATIONS\n\n\nThis application is related to patent application Ser. No. 10/646,331, filed Aug. 22, 2003, “Improved Methods For Ranking Nodes In Large Directed Graphs,” which is hereby incorporated by reference.\n\n\n## FIELD OF THE INVENTION\n\n\nThe present invention relates generally to the field of search engines for locating documents in a computer network system, and in particular, to a system and method of personalizing search results produced by a search engine in accordance with user-specific parameters.\n\n\n## BACKGROUND OF THE INVENTION\n\n\nSearch engines provide a powerful tool for locating documents in a large database of documents, such as the documents on the World Wide Web (WWW) or the documents stored on the computers of an Intranet. The documents are located in response to a search query submitted by a user. A typical search query includes only two to three terms. As the number of documents accessible via the Internet grows, the number of documents that match the search query may also increase. However, not every document matching the search query is equally important from the user's perspective. As a result, a user might be overwhelmed by the enormous number of documents retrieved by a search engine, if the search engine did not order the search results based on their relevance to the user's query.\n\nOne approach to improving the relevance of search results to a search query is to use the link structure of the documents in the database, such as the links between documents on the WWW, to compute global “importance” scores for the documents in the database. These scores are used to affect the order of search results when they are presented to the user. This approach is sometimes referred to as the PageRank algorithm. A more detailed description of the PageRank algorithm can be found in the article “The Anatomy of a Large-Scale Hypertextual Search Engine” by S. Brin and L. Page, 7th International World Wide Web Conference, Brisbane, Australia and U.S. Pat. No. 6,285,999, both of which are hereby incorporated by reference as background information.\n\nAn important assumption of the PageRank algorithm is that there is a “random surfer” who starts his web surfing at a randomly selected web page and keeps clicking on the links embedded in the web pages, never clicking on the “back” button. Occasionally, the random surfer re-starts his surfing by randomly picking another web page. The probability that the random surfer visits (i.e., views or downloads) a web page is a function of its PageRank. A web page may have a high PageRank if there are many other web pages pointing to it, or if some of the web pages pointing to it have a high PageRank. For example, www.espn.com is a famous website reporting sports-related news. It is conceivable that there are many web pages over the Internet having links to www.espn.com. In contrast, www.gostanford.com is a website that only reports news about the sports teams of Stanford University. For the purposes of this explanation, we will assume that www.espn.com is more frequently visited by WWW users than www.gostanford.com, and we will further assume that www.espn.com has a higher PageRank than www.gostanford.com.\n\nFor each link in the link structure (representing links between the documents in the database), there is a pair of source and destination web pages. Source pages are also sometimes called “referring” pages. Further, many links in source web pages are associated with text that describes the destination web page of the link. Such text, commonly referred to as anchor text, often provides a more concise and accurate description than the destination web page itself and therefore can be used in determining the relevance of the destination web page to a particular query. FIG. 1 provides two examples of the link structure between different web pages. Each of the source web pages 110-1 and 120-1 has an embedded link pointing to one of the two destination web pages 110-2 and 120-2, respectively. An anchor text “Sports News” is associated with each link, characterizing the key feature of the corresponding destination page. When a user submits a query for “sports news” to a search engine (such as the Google search engine) that considers a web page's PageRank and anchor text, the engine may return both web pages 110-2 and 120-2. If so, the www.espn.com web page 120-2 would likely be displayed higher in the search results than the www.gostanford.com web page 110-2 because page 120-2 has a higher PageRank than page 110-2. It is noted that the Google search engine, as of late 2003, determines the position of a document in a set of search results as a function of the PageRanks of the documents in the search results, the query terms, the documents in the search results, and the anchor text of links to those documents. For purposes of this discussion, we have assumed that large differences in the PageRanks of two documents often determine their relative position in a set of search results.\n\nWhen using a conventional search engine, the ordering of documents in a set of search results may be less than optimal for a user with specific personal preferences. In particular, documents of highest interest to the user may be positioned lower in the search results than one or more other documents. It would be desirable to have a system and method of making the order of documents in a set of search results more attuned to a user's personal preferences, and it would be desirable for such a system to be computationally feasible.\n\n\n## SUMMARY\n\n\nIn a method of personalizing the search results produced by a search engine, in accordance with a set of user-specific parameters, a search engine produces a set of search results in response to a query. The search results identify a set of documents, each of which is assigned an information retrieval score based on its content and the query terms. In some embodiments, the information retrieval score is a query dependent score that does not take into account the user-specific parameters. For a document in the identified set of documents, the method identifies a set of source documents having links to the document. The anchor text of each of the identified source documents is examined to determine if the anchor text satisfies a predefined requirement with respect to the query terms. After identifying the source documents whose anchor text satisfies the predefined requirement, a personalized page importance score is computed for each of the identified source documents according to the set of user-specific parameters.\n\nA personalized anchor text score is generated for the document by accumulating the personalized page importance scores of the identified source documents. The personalized anchor text score of a document is combined with the document's information retrieval score to produce a personalized ranking for the document. The personalized ranking can be used in ordering the document in the search results.\n\nIn one embodiment, the personalized page importance score of a document is a personalized link analysis score (a personalized PageRank is sometimes used for this score), which is based on an analysis of the linkages between documents that are directly or indirectly linked to this document. In some embodiments, the user-specific parameters includes a list of use favored websites, or includes URL keywords suitable for identifying user favored websites. The user-specific parameters may be provided by the user, collected from a third-party having such information, or derived by analysis of the user's previous search queries and the documents selected by the user from the search results of the user's previous search queries.\n\nIn another aspect, a search engine system is configured to personalize the search results produced by a search engine, in accordance with a set of user-specific parameters, using the methodologies summarized above.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nThe aforementioned features and advantages of the invention as well as additional features and advantages thereof will be more clearly understood hereinafter as a result of a detailed description of preferred embodiments of the invention when taken in conjunction with the drawings.\n\nFIG. 1 provides two examples of the link structure between different web pages, the two source web pages of the two examples having the same anchor text.\n\nFIG. 2 is a simplified diagram illustrating a search engine system that utilizes user specific information to produce personalized search results.\n\nFIG. 3 is a conceptual diagram of a method for ordering search results in accordance with a user profile.\n\nFIG. 4 is a flowchart of a method of determining a personalized ranking for a document in a set of search results.\n\nFIG. 5 is a flowchart of a method of ordering a set of search results in accordance with a user profile.\n\nFIG. 6 is a block diagram of a search engine configured to generate personalized search results.\n\nLike reference numerals refer to corresponding parts throughout the several views of the drawings.\n\n\n## DESCRIPTION OF EMBODIMENTS\n\n\nReferring to FIG. 1, assume that a user named Adam is looking for a website covering Stanford's sports teams. For the purposes of this explanation, we will assume that Adam would prefer that the search engine return www.gostanford.com 110-2 ahead of www.espn.com 120-2. To achieve this goal, one approach would be to allow a user like Adam to instruct the search engine to personalize the rankings of search results by providing appropriate user information such as the user's background information or a plurality of favorite websites. For example, Adam may register with the search engine that he prefers web pages whose URL includes the term “Stanford” over other web pages.\n\nIn FIG. 1, source page 110-1 (www.stanford.edu/ben/index.html) has a URL that includes “stanford”, while source page 120-1 (www.geocity.com/cindy/index.html) does not. If Adam enters a search query of “sports news”, the query terms will be found in the anchor text of both of these source pages 110-1, 120-1. Furthermore, based on Adam's registered search preferences, source page 110-1 should receive a higher score than source page 120-1. Described below are embodiments of search engine systems and methods for ranking and ordering search results in accordance with a user's preferences. Using these systems and methods, the web page www.gostandford.com 110-2 may be ranked higher and ordered before web age www.espn.com 120-2, depending on a variety of factors that are taken into account by the search result ranking function of the search engine.\n\nFIG. 2 is a simplified diagram illustrating a search engine system 200. The search engine system 200 is implemented in a client-server network environment, which comprises one or more client computers 201 and one or more server computers 210. Prior to any searches being performed on behalf of users, a network crawler 220 (sometimes called a web crawler) locates and downloads documents from a document database or network 219 (e.g., the Internet or an Intranet). In some embodiments, these documents are processed by a content indexer to produce a set of indexes and databases are generated\n\nThe documents downloaded by the network crawler 220 are stored in the server and analyzed by different components of the server 210. For instance, when a document arrives at the server 210, a content indexer 213 generates inverted content index entries for the document, which are stored in or added to the inverted content index 208. A page importance ranker 215 computes the document's page importance score. In some embodiments, the page importance score is the document's PageRank, which is a score generated using a specific link analysis methodology that propagates rank through links. A document's PageRank is based on the PageRanks of the documents that have links to the document. The resulting page importance scores are stored in a database 209. In other embodiments, the page importance scores could be replaced by another set of scores, such as scores produced using another link analysis methodology or scores produced using yet another page importance determination methodology.\n\nAn anchor text indexer 217 is responsible for generating an inverted anchor text index 211 from the links in each document received by the server 210, including the text surrounding the links. The links and corresponding text are extracted from each document and stored in records identifying the source document, the target document associated with a link, and the anchor text associated with the link. When a sufficient number of such records have been accumulated, an inverted anchor text index 211 is generated, mapping anchor text terms to the documents that are the target of the corresponding links. In some embodiments, the inverted anchor text index 211 is merged with or incorporated in the inverted content index 208. More information about anchor text indexing is provided in U.S. patent application Ser. No. 10/614,113, filed Jul. 3, 2003, “Anchor Text Indexing in a Web Crawler System”, which is hereby incorporated by reference.\n\nA user of the system 200 first submits a search query 203 through a client 201. A search query typically includes a set of query terms, which identify terms to be included in documents that satisfy the search query. The search query is processed by a query processor 205 on the server side. Based on the search query, the query processor 205 generates search results 207, typically a list of documents that satisfy the search query 203, and returns the search results to client 201.\n\nWithin server 201, the query processor 205 communicates with various databases to identify documents that satisfy the search query and to determine how to order the search results. In some embodiments these includes the inverted content index 208, the page importance scores database 209 and the inverted anchor text index 211. For example, the database that stores the inverted content index 208 first returns a set of documents identifiers, which identify documents that contain the query terms of the search query. Optionally, the query processor 205 may submit the same query to the database storing the inverted anchor text index 211 to find another set of documents that satisfy the search query. It is possible that a document may appear in both sets of documents. Finally, the two sets of documents are submitted to the page importance scores database 209 and ordered in accordance with their respective page importance scores. In some systems, the ordering of documents is query dependent, taking into account the documents' query independent page importance scores (one example of which is PageRank) as well as the position(s) in which the query terms are found in the documents within the search result.\n\nThe search engine system 200 further includes a user information database 206, with personalization information for its users. The personalization information for each respective user is herein called a user profile. The term user profile is used here without limitation on the particular data structures and methodology used to store the personalization information.\n\nIn some embodiments, in addition to submitting a search query 203 to the server 210, a user can also submit user information 204 to the server 210. The user information 204 may be in the form of a user profile or a set of user-specific parameters characterizing a user's background and preferences. In one embodiment, user information 204 is submitted to the server together with the search query 302. In another embodiment, user information is submitted to the server separately. In yet another embodiment, the user information 204, is derived by the server 210 at least in part from search queries previously submitted by the user and by the documents in the search results that the user chooses to view or use. In some embodiments, when the server 210 receives (or derives) user information 204, it stores such information in a user information database 206 and associates the user information with a unique user ID. In other embodiments, the server 210 receives the user information 204 with each search query and does not retain such user information for use when processing subsequent search queries.\n\nIn some embodiments, the user information is used to compute personalized page importance scores for at least a subset of the documents retrieved by the network crawler 220. The Page Importance Ranker 215 generates a system page importance score for each document, as well as a set of user-specific (personalized) page importance scores for at least a subset of the retrieved documents. The Page Importance Ranker 215 utilizes the user-specific parameters to compute a personalized page importance score for at least a subset of the documents retrieved by the server 210 from the network or document database 219. In one embodiment, the Page Importance Ranker 215 accomplishes this task using an efficient link analysis calculation method taught in greater detail in the co-pending application Ser. No. 10/646,331, filed Aug. 22, 2003, which is hereby incorporated by reference. Conceptually, when computing personalized page importance scores, the Page Importance Ranker 215 boosts the page importance scores of documents that are deemed to match the user-specific parameters, which in turn boosts the downstream documents linked to those documents. From another viewpoint, the Page Importance Ranker 215 boosts the page importance scores of documents of each host whose URL matches one or more of the user-specific parameters.\n\nIn some embodiments, a document is be deemed to match (or not match) user-specific parameters solely based on the URL of the document. In other embodiments, a document is deemed to match the user-specified parameters based not only on the URL of the document, but also based on the content of the document, and/or based on the anchor text content of links to the document. When a document is deemed to match the user-specific parameters in a user profile (e.g., if the URL of the document includes any of URL keywords in the user profile), the document is assigned a personalized page importance score specified by a parameter in the user profile. For example, the user profile may specify for each URL keyword a particular page importance score adjustment that is to be applied to matching documents. When a document matches more than one URL keyword, the largest such page importance score adjustment is applied to the document. In other embodiments, the user profile may specify the adjustment or assignment of personalized page importance scores in other ways.\n\nNote that the personalized page importance score of a document is only a function of the document, the user-specific parameters, and the link structure through which the document is related to other documents. In other words, the personalized page importance score of a document is a ranking factor that is independent of any individual search query submitted by the user to the search engine. However, it should be noted that in some embodiments the server 210 is configured to generate at least some of the user-specific parameters based on previous search queries submitted by the user, and thus a user's search queries may indirectly affect a document's personalized page importance score. For example, if a user has submitted many queries related to the standard aptitude test (SAT), the server 210 may update his user information and incorporate this information into the set of user-specific parameters.\n\nIn some embodiments, due to storage and computational limitations, the number of documents for which personalized page importance scores are stored by the server 210 is limited. For instance, the server 210 may store up to N personalized page importance scores for each user, and furthermore will store personalized page importance scores only for those documents where the personalized page importance scores differs form the system (non-personalized) page importance scores. In another example, the server 210 may store up to N personalized page importance score adjustment values, each for documents whose address or URL has a prefix indicating a respective web host. When the server 210 is processing a search query from a user for which it has a user profile that includes a stored set personalized page importance scores, it retrieves page importance scores from both the page importance scores database 209 and the user information database 206. Where a page importance score for a particular document is found in both databases 215, 206, the page importance score from the user information database 206 is used (or, in some embodiments, the adjustment value from the user information database is applied to the system page importance score). Alternately, the server 210 first retrieves page importance scores from the user information database 206, and then retrieves page importance scores from the page importance scores database 209 only for those documents for which a personalized page importance score (for the user who submitted the search query being processed) is not found in the user information database 206.\n\nIn some embodiments, a personalized page importance score is determined for a respective document at runtime, while the server 210 is processing a search query. In particular, the personalized page importance score is generated by determining the set of documents that have links referring to the respective document, determining personalized page importance scores for the referring documents based on the user profile of the user, and then computing a personalized page importance score for the respective document as a function of the personalized page importance scores of the referring documents. This methodology may be extended to the “grandparent” documents that refer to the referring documents. While the personalized page importance scores produced by this runtime methodology may differ from those produced by a Page Importance Ranker using a full network link analysis, it avoids or largely reduces the persistent storage of personalized page importance scores.\n\nIn the remainder of this document, when a document's page importance score is retrieved or otherwise determined, the source of the page importance score will be understood to be either a page importance scores database 209, or a personalized page importance score associated with the user whose search query is being processed.\n\nThe personalized page importance scores of source documents having links to a destination document can be used in many different ways. For example, the personalized page importance scores can be used in a method for generating a personalized and query-dependent ranking for the destination document. Such ranking can be used for ordering the destination document in the search results or for other further analysis.\n\nFIG. 3 is a conceptual representation of one embodiment of a method for personalizing the ordering of documents in a set of search results. In this embodiment, the system page importance score for each document is the document's PageRank, and each document's personalized page importance score is a personalized link analysis score. A search query 203 is processed using a set of indexes and databases 208, 209, 211 (FIG. 2) to produce an initial set of search results 302. These search results include a list of documents D1, D2, etc., and a set of parameters for each respective document, including an Information Retrieval (IR) score, the address or URL of the respective document, the respective document's PageRank (PR), and a list of source pages that refer to the respective document. The Information Retrieval score of a document is a query dependent score assigned to the document based on the prominence of the query terms in the document or in the anchor text of links to the document.\n\nIn some embodiments, the source pages listed for a respective document are limited to those that satisfy a predefined requirement with respect to the search query. For instance, in one embodiment the predefined requirement is that the anchor text of the link to the respective document contain at least one query term of the search query. In another embodiment, the predefined requirement is that the anchor text of the link to the respective document satisfy the entire search query, which may be a Boolean expression containing multiple query terms. In yet other embodiments, all source documents are included, without respect to whether the anchor text of the links to the respective document contain any of the query terms. However, limiting the source documents to those whose links have anchor text that includes at least one query term is preferred because this ensures that only source documents with anchor text relevant to the search query are used to personalize the ordering of the documents within the search results.\n\nNext, source document information 304 is extracted from the initial search results. The source document information 304 and the user profile 306 of the user who submitted the search query are used by a Personalized Anchor Text (AT) Score Generator 310 to generate personalized link analysis (LA) scores 312 for the source pages that correspond to each respective document (D1, D2, etc.) in the initial search results. In some embodiments, the personalized LA score for a source document is its personalized page importance score (e.g., personalized PageRank), while in other embodiments, the personalized LA score for a source document is a function of its personalized page importance score. The computation of personalized page importance scores is discussed above.\n\nAn accumulator 320 sums or otherwise combines the personalized LA scores for the source documents that link to each respective, thereby producing an anchor text (AT) score for each respective document in the initial search results. A search result ranking function 324 is then used to combine, for each respective document, the AT score and the IR score of the document to produce a set of final personalized ranking scores or values 326. The documents are then ordered (326) in accordance with the personalized document rankings to produce a final, ordered set of search results 330.\n\nFIG. 4 is a flowchart illustrating the major steps of such a method according to one embodiment of the present invention. Given a candidate document with its content known, the first step 410 of the method is to determine an information retrieval (IR) score based on the document's content and the query terms in the search query. If the user information is also employed in determining the IR score of the document, the IR score will be user-dependent or personalized on the user. Otherwise, the IR score is usually user-independent.\n\nAt step 420, based on the link structure associating various documents, the computer program identifies a set of source documents, each of which having a link to the candidate document and certain anchor text associated with its link. In one embodiment, the anchor text in a source document needs to match at least one query term in order for the source document to contribute to determining the candidate document's personalized ranking. For example, assuming that there are three source documents D1, D2, and D3 having links to a candidate document D0, if D1's anchor text matches one query term T1, D2's anchor text matches another query term T2, but D3's anchor text does not match any query term, then only D1 and D2's personalized page importance scores are considered when determining D0's personalized ranking. In another embodiment, the requirement that anchor text contain at least one query term is dropped and therefore any source document having a link to D0, including D3, can make a contribution to D0's personalized ranking based on its personalized page importance score.\n\nAt step 430, the computer program calculates a personalized link analysis (LA) score for each of the source documents identified at step 420. In one embodiment, this LA score is the same as the personalized page importance score of the document that is determined by the Page Importance Ranker 215 (FIG. 2) on the basis of a set of user-specific parameters. Therefore, in the example shown in FIG. 1, web page 110-1 should have a higher personalized page importance score or LA score than web page 120-1 based on a set of user-specific parameters provided by the user.\n\nOnce all the source documents' LA scores are known, the computer program accumulates them together to produce a personalized anchor text (AT) score for the candidate document (step 450). As discussed above, this personalized AT score is different from the conventional usage of anchor text, which is based solely on the textual content of the anchor text associated with a link to a candidate document. Besides the textual content of each anchor text, the personalized AT score is also a function of the personalized page importance score of a source document that includes the anchor text. In one embodiment, assuming that there is a set of N source documents having links to a candidate document and the ith source document's personalized page importance score is psi, then the candidate document's personalized AT score can be defined as\n\nA ⁢ ⁢ T = ∑ i ⁢ ⁢ ε ⁢ ⁢ N ⁢ p ⁢ ⁢ s i · a ⁢ ⁢ t i where ati is the ith source document's anchor text weight. In some embodiments, a source document's anchor text weight ati has two possible values, 1 if the anchor text contains at least one query term or 0 if the anchor text contains no query term. In this case, the candidate document's personalized AT score can be computed as\n\nA ⁢ ⁢ T = ∑ i ⁢ ⁢ ε ⁢ ⁢ N ⁢ p ⁢ ⁢ s i .\n\nMore generally, the anchor text weight of ati an identified source document i is equal to a first value when its anchor text satisfies a predefined requirement with respect to the set of query terms, and is equal to a second value when the anchor text does not satisfy the predefined requirement with respect to the set of query terms.\n\nAt step 460, the method combines the IR score and personalized AT score together to generate a personalized ranking for the candidate document. In some embodiments, the method computes a predefined function of the IR score, the page importance score (PS) and the personalized AT score of the candidate document to generate the personalized ranking: Personalized Ranking=F1(IR score,PS,AT score) where F1 is the predefined function. As noted above, the page importance score for the candidate document may be either a system (not personalized) page importance score (e.g., the PageRank), or it may be a personalized page importance score. The personalized rankings for a set of candidate documents can be used by a search engine to order search results or for other further analysis.\n\nIn some embodiments, the IR score for a candidate document is also personalized using a personalized IR score generator 622 (FIG. 6). In particular, the IR score is personalized by adding to each search query a set of terms obtained from the user profile. The added terms (herein called the user profile terms) are treated as optional terms, not required for satisfying the query, but which contribute to the IR score of the document if the terms are found within the content of a document that satisfies the search query. For instance, the IR score of a document will be increased if any of the user profile terms are located in the title of the document, in the URL of the document, or in the first K words of the document, where K is a predefined value. The resulting IR value is herein called a personalized IR value, and in such embodiments the personalized ranking function is applied to personalized IR value, along with the page importance score and AT score of the document to produce a personalized ranking value.\n\nFIG. 5 is a flowchart of a method that may be implemented using one or more computer programs executed by the server 210 of FIG. 2. The method orders a set of candidate documents based on their personalized anchor text scores in accordance with the present invention. At step 510, the computer program identifies a list of documents that satisfy a set of query terms. Such identification process can be solely dependent upon the textual content of each document as well as the relevance between the textual content and the query terms. Once the list of documents are available, the computer program performs the steps 410-460 described above for each document in the list of documents. If a document has no qualifying source documents (step 420), the personalized AT score for the document is assigned a default value (e.g., zero). In the end (steps 580, 590), the documents in the list are ordered based on their respective personalized rankings that are both user-dependent and query-dependent.\n\nReferring to FIG. 6, an embodiment of a search engine 600 that implements the methods described above includes one or more processing units (CPU's) 602, one or more network or other communications interfaces 610, memory 612, and one or more communication buses 614 for interconnecting these components. The personalized search engine 600 may optionally include a user interface 604 comprising a display device 606 and a keyboard 608. Memory 612 may include high speed random access memory and may also include non-volatile memory, such as one or more magnetic disk storage devices. Memory 612 may include mass storage that is remotely located from the CPU's 602. The memory 612 preferably stores:\n\nThe query processor 205 includes a search result ranking function 324 for ordering the documents in a set of search results, and a personalized score generator 622 for generating personalized scores for each document in the search results. The personalized score generator 622 includes a personalized anchor text (AT) score generator 310, as discussed above. In some embodiments, the personalized score generator 622 also includes a personalized information retrieval (IR) score generator 622, also discussed above.\n\nThe search engine 600 also includes the network crawler 220, content indexer 213, Page Importance Ranker 215 and anchor text indexer 217, all discussed above.\n\nThe software modules of the search engine include instructions for performing the steps of the methods described above, for processing search queries and producing search results that are ordered in accordance with user-specific parameters.\n\nFIG. 6 depicts the internal structure of a search engine 600 in one embodiment. It should be understood that in some other embodiments the personalized search engine 600 may be implemented using multiple servers so as to improve its throughput and reliability. For instance, the network crawler 220, the indexers 213, 217, the Page Importance Ranker 215 and the resulting databases 208, 209, 211 may be implemented on distinct servers that communicate with and work in conjunction with other ones of the servers in the search engine 600.\n\nThe foregoing description, for purpose of explanation, has been described with reference to specific embodiments. However, the illustrative discussions above are not intended to be exhaustive or to limit the invention to the precise forms disclosed. Many modifications and variations are possible in view of the above teachings. The embodiments were chosen and described in order to best explain the principles of the invention and its practical applications, to thereby enable others skilled in the art to best utilize the invention and various embodiments with various modifications as are suited to the particular use contemplated.",
+ "cited_by": [
+  {
+   "id": "US20050038774A1",
+   "title": "System and method for committing to a set",
+   "assignee": "Lillibridge Mark David"
+  },
+  {
+   "id": "US20050038698A1",
+   "title": "Targeted advertisement with local consumer profile",
+   "assignee": "Lukose Rajan M."
+  },
+  {
+   "id": "US20050038699A1",
+   "title": "System and method for targeted advertising via commitment",
+   "assignee": "Lillibridge Mark David"
+  },
+  {
+   "id": "US20050086583A1",
+   "title": "Proxy server using a statistical model",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060041472A1",
+   "title": "Systems and methods of interfacing an advertisement with a message presentation client",
+   "assignee": "Lukose Rajan M"
+  },
+  {
+   "id": "US20060074903A1",
+   "title": "System and method for ranking search results using click distance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060095430A1",
+   "title": "Web page ranking with hierarchical considerations",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060248059A1",
+   "title": "Systems and methods for personalized search",
+   "assignee": "Palo Alto Research Center Inc."
+  },
+  {
+   "id": "US20060271353A1",
+   "title": "System and method for natural language processing and using ontological searches",
+   "assignee": "Berkan Riza C"
+  },
+  {
+   "id": "US20070005588A1",
+   "title": "Determining relevance using queries as surrogate content",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070088603A1",
+   "title": "Method and system for targeted data delivery using weight-based scoring",
+   "assignee": "Jouppi Norman P"
+  },
+  {
+   "id": "US20070143279A1",
+   "title": "Identifying important news reports from news home pages",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070143282A1",
+   "title": "Anchor text summarization for corroboration",
+   "assignee": "Betz Jonathan T"
+  },
+  {
+   "id": "US20070250498A1",
+   "title": "Determining related terms based on link annotations of documents belonging to search result sets",
+   "assignee": "Jan Pedersen"
+  },
+  {
+   "id": "US20070299869A1",
+   "title": "Web page performance scoring",
+   "assignee": "Clary Robert D"
+  },
+  {
+   "id": "US20080071739A1",
+   "title": "Using anchor text to provide context",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080104113A1",
+   "title": "Uniform resource locator scoring for targeted web crawling",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080250060A1",
+   "title": "Method for assigning one or more categorized scores to each document over a data network",
+   "assignee": "Dan Grois"
+  },
+  {
+   "id": "US20080256064A1",
+   "title": "Pay per relevance (PPR) method, server and system thereof",
+   "assignee": "Dan Grois"
+  },
+  {
+   "id": "US20090030800A1",
+   "title": "Method and System for Searching a Data Network by Using a Virtual Assistant and for Advertising by using the same",
+   "assignee": "Dan Grois"
+  },
+  {
+   "id": "US20090077062A1",
+   "title": "System and Method of a Knowledge Management and Networking Environment",
+   "assignee": "Nova Spivack"
+  },
+  {
+   "id": "US20090094224A1",
+   "title": "Collaborative search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090100018A1",
+   "title": "System and method for capturing, integrating, discovering, and using geo-temporal data",
+   "assignee": "Jonathan Roberts"
+  },
+  {
+   "id": "US20090106232A1",
+   "title": "Boosting a ranker for improved ranking accuracy",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7584223B1",
+   "title": "Verifying information in a database",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US20090234830A1",
+   "title": "System and method for automatic detection of needy queries",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20090248677A1",
+   "title": "Methods for generating a personalized list of documents associated with a search query",
+   "assignee": "Amiram Grynberg"
+  },
+  {
+   "id": "US7599917B2",
+   "title": "Ranking search results using biased click distance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100049761A1",
+   "title": "Search engine method and system utilizing multiple contexts",
+   "assignee": "Bijal Mehta"
+  },
+  {
+   "id": "US20100073374A1",
+   "title": "Calculating a webpage importance from a web browsing graph",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100076910A1",
+   "title": "Calculating web page importance based on web behavior model",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7716198B2",
+   "title": "Ranking search results using feature extraction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100131563A1",
+   "title": "System and methods for automatic clustering of ranked and categorized search objects",
+   "assignee": "Hongfeng Yin"
+  },
+  {
+   "id": "US7739277B2",
+   "title": "System and method for incorporating anchor text into ranking search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100191744A1",
+   "title": "Ranking functions using document usage statistics",
+   "assignee": "Dmitriy Meyerzon"
+  },
+  {
+   "id": "US7792833B2",
+   "title": "Ranking search results using language types",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100268700A1",
+   "title": "Search and search optimization using a pattern of a location identifier",
+   "assignee": "Evri, Inc."
+  },
+  {
+   "id": "US7827181B2",
+   "title": "Click distance determination",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7840569B2",
+   "title": "Enterprise relevancy ranking using a neural network",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100318533A1",
+   "title": "Enriched document representations using aggregated anchor text",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7890857B1",
+   "title": "Method and system for utilizing sizing directives for media",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US7894448B1",
+   "title": "Proving that a user profile satisfies selection criteria for targeted data delivery",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US7945585B1",
+   "title": "Method and system for improving targeted data delivery",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US7945545B1",
+   "title": "Method and system for utilizing user information to provide a network address",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US7975150B1",
+   "title": "Method and system for protecting queryable data",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US8015117B1",
+   "title": "Method and system for anonymous reporting",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US20110238644A1",
+   "title": "Using Anchor Text With Hyperlink Structures for Web Searches",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "WO2011129993A1",
+   "title": "Relevance-based open source intelligence (osint) collection",
+   "assignee": "Raytheon Company"
+  },
+  {
+   "id": "CN102567417A",
+   "title": "Analysis equipment and method for determining reliability of anchor text of hyperlink",
+   "assignee": "百度在线网络技术（北京）有限公司"
+  },
+  {
+   "id": "US8280906B1",
+   "title": "Method and system for retaining offers for delivering targeted data in a system for targeted data delivery",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US8296181B1",
+   "title": "Method and system for offsetting printing costs in a system for targeted data delivery",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US20130151236A1",
+   "title": "Computer implemented semantic search methodology, system and computer program product for determining information density in text",
+   "assignee": "Igor Iofinov"
+  },
+  {
+   "id": "US8650175B2",
+   "title": "User interface for facts query engine with snippets from information sources that include query terms and answer terms",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8682891B2",
+   "title": "Automatic object reference identification and linking in a browseable fact repository",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8682913B1",
+   "title": "Corroborating facts extracted from multiple sources",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8719260B2",
+   "title": "Identifying the unifying subject of a set of facts",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20140136528A1",
+   "title": "Providing Content Recommendation to Users on a Site",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8738635B2",
+   "title": "Detection of junk in search result ranking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8751498B2",
+   "title": "Finding and disambiguating references to entities on web pages",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8812435B1",
+   "title": "Learning objects and facts from documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8812493B2",
+   "title": "Search results ranking using editing distance and document information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8818982B1",
+   "title": "Deriving and using document and site quality signals from search query streams",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8825471B2",
+   "title": "Unsupervised extraction of facts",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8825644B1",
+   "title": "Adjusting a ranking of search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8843486B2",
+   "title": "System and method for scoping searches using index keys",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8868590B1",
+   "title": "Method and system utilizing a personalized user model to develop a search request",
+   "assignee": "Sri International"
+  },
+  {
+   "id": "US8924838B2",
+   "title": "Harvesting data from page",
+   "assignee": "Vcvc Iii Llc."
+  },
+  {
+   "id": "US8965979B2",
+   "title": "Methods and systems for semantically managing offers and requests over a network",
+   "assignee": "Vcvc Iii Llc."
+  },
+  {
+   "id": "US8996470B1",
+   "title": "System for ensuring the internal consistency of a fact repository",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9020967B2",
+   "title": "Semantically representing a target entity using a semantic object",
+   "assignee": "Vcvc Iii Llc"
+  },
+  {
+   "id": "US9037567B2",
+   "title": "Generating user-customized search results and building a semantics-enhanced search engine",
+   "assignee": "Vcvc Iii Llc"
+  },
+  {
+   "id": "US9189479B2",
+   "title": "Semantic web portal and platform",
+   "assignee": "Vcvc Iii Llc"
+  },
+  {
+   "id": "US9286387B1",
+   "title": "Double iterative flavored rank",
+   "assignee": "Wal-Mart Stores, Inc."
+  },
+  {
+   "id": "US9305099B1",
+   "title": "Ranking documents based on user behavior and/or feature data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9329985B1",
+   "title": "Using emulation to disassociate verification from stimulus in functional test",
+   "assignee": "Xoom Corporation"
+  },
+  {
+   "id": "US9348912B2",
+   "title": "Document length as a static relevance feature for ranking search results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9495462B2",
+   "title": "Re-ranking search results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9613149B2",
+   "title": "Automatic mapping of a location identifier pattern of an object to a semantic type using object metadata",
+   "assignee": "Vcvc Iii Llc"
+  },
+  {
+   "id": "US9892132B2",
+   "title": "Determining geographic locations for place names in a fact repository",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10628847B2",
+   "title": "Search-enhanced semantic advertising",
+   "assignee": "Fiver Llc"
+  },
+  {
+   "id": "CN114547336A",
+   "title": "Text data processing method, device, equipment and storage medium",
+   "assignee": "连连宝(杭州)信息技术有限公司"
+  },
+  {
+   "id": "US11477302B2",
+   "title": "Computer-implemented system and method for distributed activity detection",
+   "assignee": "Palo Alto Research Center Incorporated"
+  },
+  {
+   "id": "US12499169B2",
+   "title": "Computer-implemented system and method for providing website navigation recommendations",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US12505478B2",
+   "title": "System and method for a real-time egocentric collaborative filter on large datasets",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US12511551B2",
+   "title": "Computer-implemented system and method for predicting activity outcome",
+   "assignee": "Xerox Corporation"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5920859A",
+   "title": "Hypertext document retrieval system and method",
+   "assignee": "Idd Enterprises, L.P."
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US20020169770A1",
+   "title": "Apparatus and method that categorize a collection of documents into a hierarchy of categories that are defined by the collection of documents",
+   "assignee": "Kim Brian Seong-Gon"
+  },
+  {
+   "id": "US6636848B1",
+   "title": "Information search using knowledge agents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030208482A1",
+   "title": "Systems and methods of retrieving relevant information",
+   "assignee": "Kim Brian S."
+  },
+  {
+   "id": "US20040215606A1",
+   "title": "Method and apparatus for machine learning a document relevance function",
+   "assignee": "David Cossock"
+  },
+  {
+   "id": "US20050071741A1",
+   "title": "Information retrieval based on historical data",
+   "assignee": "Anurag Acharya"
+  },
+  {
+   "id": "US20050114324A1",
+   "title": "System and method for improved searching on the internet or similar networks and especially improved MetaNews and/or improved automatically generated newspapers",
+   "assignee": "Yaron Mayer"
+  },
+  {
+   "id": "US20050165781A1",
+   "title": "Method, system, and program for handling anchor text",
+   "assignee": "Reiner Kraft"
+  },
+  {
+   "id": "US20050240580A1",
+   "title": "Personalization of placed content ordering in search results",
+   "assignee": "Zamir Oren E"
+  }
+ ],
+ "similar": [
+  {
+   "id": "JP5632124B2",
+   "title": "Rating method, search result sorting method, rating system, and search result sorting system"
+  },
+  {
+   "id": "US6871202B2",
+   "title": "Method and apparatus for ranking web page search results"
+  },
+  {
+   "id": "JP5114380B2",
+   "title": "Reranking and enhancing the relevance of search results"
+  },
+  {
+   "id": "CA2540679C",
+   "title": "Personalization of web search"
+  },
+  {
+   "id": "US8027974B2",
+   "title": "Method and system for URL autocompletion using ranked results"
+  },
+  {
+   "id": "KR101171405B1",
+   "title": "Personalization of placed content ordering in search results"
+  },
+  {
+   "id": "US7979427B2",
+   "title": "Method and system for updating a search engine"
+  },
+  {
+   "id": "US7020679B2",
+   "title": "Two-level internet search service system"
+  },
+  {
+   "id": "US20030120654A1",
+   "title": "Metadata search results ranking system"
+  },
+  {
+   "id": "US20080313178A1",
+   "title": "Determining searchable criteria of network resources based on commonality of content"
+  },
+  {
+   "id": "US20090119289A1",
+   "title": "Method and System for Autocompletion Using Ranked Results"
+  },
+  {
+   "id": "US20070016574A1",
+   "title": "Merging of results in distributed information retrieval"
+  },
+  {
+   "id": "JP5084858B2",
+   "title": "Summary creation device, summary creation method and program"
+  },
+  {
+   "id": "WO2006115698A2",
+   "title": "Page-biased search"
+  },
+  {
+   "id": "US20040024748A1",
+   "title": "Optimization of server selection using euclidean analysis of search terms"
+  },
+  {
+   "id": "US8874570B1",
+   "title": "Search boost vector based on co-visitation information"
+  },
+  {
+   "id": "US8495483B1",
+   "title": "Using text surrounding hypertext links when indexing and generating page summaries"
+  },
+  {
+   "id": "HK1117925A",
+   "title": "Reranking and increasing the relevance of the results of searches"
+  },
+  {
+   "id": "HK1150208A",
+   "title": "Reranking and increasing the relevance of the results of searches"
+  },
+  {
+   "id": "HK1150208B",
+   "title": "Reranking and increasing the relevance of the results of searches"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US7260573B1/en"
+}

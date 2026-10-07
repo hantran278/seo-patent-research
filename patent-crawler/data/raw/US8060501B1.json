@@ -1,0 +1,1419 @@
+{
+ "id": "US8060501B1",
+ "title": "Document ranking based on semantic distance between terms in a document",
+ "abstract": "Techniques are disclosed that locate implicitly defined semantic structures in a document, such as, for example, implicitly defined lists in an HTML document. The semantic structures can be used in the calculation of distance values between terms in the documents. The distance values may be used, for example, in the generation of ranking scores that indicate a relevance level of the document to a search query.",
+ "inventors": [
+  "Georges R Harik",
+  "Monika H Henzinger"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2004-03-31",
+ "filing_date": "2010-03-23",
+ "publication_date": "2011-11-15",
+ "status": "Expired - Fee Related",
+ "expiration": "",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/951",
+  "G06F16/30",
+  "G06F16/34"
+ ],
+ "claims": [
+  {
+   "text": "1. A method comprising: receiving, by one or more processors, a document that includes first, second, third, and fourth terms; identifying, by the one or more processors, that a list is present within the document, where the list includes a plurality of items; determining, by the one or more processors, that the first and second terms appear in the list; determining, by the one or more processors, in response to determining that the first and second terms appear in the list, a distance value between the first and second terms within the list, where the distance value is determined based on at least one of a plurality of rules that is associated with particular locations, in the list, of the first and second terms, where determining the distance value includes: determining, by the one or more processors, that the first term appears in one of the plurality of items of the list and the second term appears in a different one of the plurality of items of the list, and generating, by the one or more processors, the distance value based on the first term appearing in the one of the plurality of items of the list and the second term appearing in the different one of the plurality of items of the list, where the distance value, relative to a particular distance value of the third and fourth terms of the list, indicates that the first and second terms are farther apart from each other than the third and fourth terms, where the third and fourth terms appear in a same one of the plurality of items of the list; generating, by the one or more processors, a ranking score for the document based on the distance value; and ordering, by the one or more processors, the document with respect to at least one other document based on the ranking score for the document.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, where the document includes fifth and sixth terms and the method further comprises: determining that the fifth and sixth terms appear in the document outside of any list; and generating another distance value between the fifth and sixth terms without using the plurality of rules.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 2, where the other distance value is determined based on a number of terms between the fifth and sixth terms.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, where the the method further comprises: determining that both of the third and fourth terms appear in the same one of the plurality of items of the list, and generating the particular distance value between the third and fourth terms using another one of the plurality of rules.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 1, further comprising: determining that a fifth term appears in one of the plurality of items of the list and a sixth term appears in a header of the list, and generating another distance value based on the fifth term appearing in the one of the plurality of items of the list and the sixth term appearing in the header of the list, where the another distance value, relative to a particular distance value of the fifth and sixth terms, indicates that the fifth and sixth terms are equally distant to seventh and eighth terms, where the seventh term appears in a different one of the plurality of items of the list and the eighth term appears in the header of the list.",
+   "dependent": true
+  },
+  {
+   "text": "6. A method comprising: receiving, by one or more processors, a document that includes first, second, third, and fourth terms; identifying, by the one or more processors, that a list is present within the document, where the list includes a plurality of items; determining, by the one or more processors, that the first and second terms appear in the list; determining, by the one or more processors, in response to determining that the first and second terms appear in the list, a distance value between the first and second terms within the list, where the distance value is determined based on at least one of a plurality of rules that is associated with particular locations, in the list, of the first and second terms, where determining the distance value includes: determining, by the one or more processors, that the first term appears in one of the plurality of items of the list and the second term appears in a different one of the plurality of items of the list, and generating, by the one or more processors, the distance value based on the first term appearing in the one of the plurality of items of the list and the second term appearing in the different one of the plurality of items of the list, where the distance value, relative to a particular distance value of the third and fourth terms, indicates that the first and second terms are farther apart from each other than the third and fourth terms, where the third term appears in one of the plurality of items of the list and the fourth term appears in a header of the list; generating, by the one or more processors, a ranking score for the document based on the distance value; and ordering, by the one or more processors, the document with respect to at least one other document based on the ranking score for the document.",
+   "dependent": false
+  },
+  {
+   "text": "7. The method of claim 6, where identifying that the list is present within the document further comprises: identifying a list that is explicitly defined, within the document, by at least one predefined list identifier.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 7, where the at least one predefined list identifier includes hyper-text markup language tags.",
+   "dependent": true
+  },
+  {
+   "text": "9. The method of claim 1, where identifying that the list is present within the document further comprises: identifying a list that is implicitly defined within the document.",
+   "dependent": true
+  },
+  {
+   "text": "10. The method of claim 9, where identifying the list that is implicitly defined within the document comprises: parsing the document into a tree structure based on a markup language used to create the document; identifying repeating sets of markup language elements in the tree structure; and annotating the document to indicate the presence of the implicit list.",
+   "dependent": true
+  },
+  {
+   "text": "11. A system comprising: one or more processors to: receive a document that includes first, second, third, and fourth terms, identify that a list is present within the document, where the list includes a plurality of items, determine that first and second terms appear in the list, determine, in response to determining that the first and second terms appear in the list, a distance value between the first and second terms in the list, where the distance value is determined based on at least one of a plurality of rules that is associated with particular locations, in the list, of the first and second terms, where, when determining the distance value, the one or more processors are to: determine that the first term appears in one of the plurality of items of the list and the second term appears in a different one of the plurality of items of the list, and generate a first distance value based on the first term appearing in the one of the plurality of items of the list and the second term appearing in the different one of the plurality of items of the list, where the first distance value, relative to a particular distance value of the third and fourth terms, indicates that the first and second terms are farther apart from each other than third and fourth terms, when the third term appears in one of the plurality of items of the list and the fourth term appears in a title of the at least one list, or generate a second distance value based on the first term appearing in the one of the plurality of items of the list and the second term appearing in the different one of the plurality of items of the list, where the second distance value, relative to a particular distance value of the third and fourth terms, indicates that the first and second terms are farther apart from each other than the third and fourth terms, when the third and fourth terms appear in a same one of the plurality of items of the list; generate a ranking score for the document based on the first or second distance value, and order the document with respect to at least one other document based on the ranking score for the document.",
+   "dependent": false
+  },
+  {
+   "text": "12. The system of claim 11, where the document includes fifth and sixth terms, and the one or more processors are further to: determine that the fifth term appears in one of the plurality of items of the list and the sixth term appears in the title of the list, and generate another distance value between the fifth and sixth terms using another one of the plurality of rules.",
+   "dependent": true
+  },
+  {
+   "text": "13. The system of claim 11, where, when generating a ranking score for the document based on the distance value, the one or more processors are further to: generate the ranking score for the document based on the distance value and an inverse document frequency when one of the first or second terms is identified in a list of uncommon words.",
+   "dependent": true
+  },
+  {
+   "text": "14. The system of claim 11, where, when generating a ranking score for the document based on the distance value, the one or more processors are further to: generate the ranking score for the document based on the distance value and a predetermined quality of a web site or domain associated with the document.",
+   "dependent": true
+  },
+  {
+   "text": "15. The system of claim 11, where, when identifying that the list is present within the document, the one or more processors are further to: analyze a corpus of documents to identify whether any lists are present within the corpus of documents, where the corpus of documents includes the document, and annotate the document with list information when the list is identified as present within the document.",
+   "dependent": true
+  },
+  {
+   "text": "16. The system of claim 15, where, when determining that the first and second terms appear in the list, the one or more processors are further to: compare the first and second terms to the annotated list information to determine that the first and second terms appear in the list.",
+   "dependent": true
+  },
+  {
+   "text": "17. A non-transitory computer-readable medium that stores instructions executable by at least one processor for performing a method, the computer-readable medium comprising: instructions to receive a document that includes first, second, third, and fourth terms; instructions to identify that an implicit list is present within the document, where the list includes a plurality of items; instructions to determine that the first and second search terms appear in the list; instructions to determine, in response to determining that the first and second terms appear in the list, a distance value between the first and second terms in the list, where the distance value is determined based on at least one of a plurality of rules that is associated with particular locations, in the list, of the first and second terms, where the instructions to determine the distance value include, instructions to determine that the first term appears in one of the plurality of items of the list and the second term appears in a different one of the plurality of items of the list, and instructions to generate a first distance value based on the first term appearing in the one of the plurality of items of the list and the second term appearing in the different one of the plurality of items of the list, where the first distance value, relative to a particular distance value of the third and fourth terms, indicates that the first and second terms are farther apart from each other than third and fourth terms, when the third term appears in one of the plurality of items of the list and the fourth term appears in a header of the at least one list, or instructions to generate a second distance value based on the first term appearing in the one of the plurality of items of the list and the second term appearing in the different one of the plurality of items of the list, where the second distance value, relative to a particular distance value of the third and fourth terms, indicates that the first and second terms are farther apart from each other than the third and fourth terms, when the third and fourth terms appear in a same one of the plurality of items of the list; instructions to generate, with the one or more processors, a ranking score for the document based on the first or second distance value; and instructions to order the document with respect to at least one other document based on the ranking score for the document.",
+   "dependent": false
+  },
+  {
+   "text": "18. The computer-readable medium of claim 17, where the method further comprises: instructions to determine that the third and fourth terms appear in the same one of the plurality of items of the list, and instructions to generate the particular distance value between the third and fourth terms using another one of the plurality of rules.",
+   "dependent": true
+  },
+  {
+   "text": "19. The computer-readable medium of claim 17, where the method further comprises: instructions to determine that a fifth term appears in one of the plurality of items of the list and a sixth term appears in a header of the list, and instructions to generate another distance value based on the fifth term appearing in the one of the plurality of items of the list and the sixth terms appearing in the header of the list, where the another distance value, relative to a particular distance value of the fifth and sixth terms, indicates that fifth and sixth terms are equally distant to seventh and eighth terms, where the seventh term appears in a different one of the plurality of items of the list and the eighth term appears in a header of the list.",
+   "dependent": true
+  },
+  {
+   "text": "20. The method of claim 6, further comprising: determining that a fifth term appears in one of the plurality of items of the list and a sixth term appears in a header of the list, and generating another distance value based on the fifth term appearing in the one of the plurality of items of the list and the sixth term appearing in the header of the list, where the distance value, relative to a particular distance value of the fifth and sixth terms, indicates that the fifth and sixth terms are equally distant to seventh and eighth terms, where the seventh term appears in a different one of the plurality of items of the list and the eighth term appears in the header of the list.",
+   "dependent": true
+  },
+  {
+   "text": "21. A method comprising: receiving, by one or more processors, a document that includes first, second, third, and fourth terms; identifying, by the one or more processors, that a semantic structure is present within the document, where the semantic structure includes a plurality of items; determining, by the one or more processors, that the first and second terms appear in the semantic structure; determining, by the one or more processors, in response to determining that the first and second terms appear in the semantic structure, a distance value between the first and second terms within the semantic structure, where the distance value is determined based on at least one of a plurality of rules that is associated with particular locations, in the semantic structure, of the first and second terms, where determining the distance value includes: determining, by the one or more processors, that the first term appears in one of the plurality of items of the semantic structure and the second term appears in a different one of the plurality of items of the semantic structure, and generating, by the one or more processors, the distance value based on the first term appearing in the one of the plurality of items of the semantic structure and the second term appearing in the different one of the plurality of items of the semantic structure, where the distance value, relative to a particular distance value of the third and fourth terms of the semantic structure, indicates that the first and second terms are farther apart from each other than the third and fourth terms, where the third and fourth terms appear in a same one of the plurality of items of the semantic structure; and generating, by the one or more processors, a ranking score for the document based on the distance value.",
+   "dependent": false
+  }
+ ],
+ "description": "\n## RELATED APPLICATIONS\n\n\nThis application is a continuation of U.S. patent application Ser. No. 10/813,573, filed Mar. 31, 2004, now U.S. Pat. No. 7,716,216, issued May 11, 2010, which is incorporated herein by reference.\n\n\n## BACKGROUND OF THE INVENTION\n\n\nA. Field of the Invention\n\nThe present invention relates generally to information retrieval and, more particularly, to automated techniques for ranking documents in response to a search query.\n\nB. Description of Related Art\n\nThe World Wide Web (“web”) contains a vast amount of information. Search engines assist users in locating desired portions of this information by cataloging web pages. Typically, in response to a user's request, the search engine returns references to documents relevant to the request.\n\nSearch engines may base their determination of the user's interest on search terms (called a search query) entered by the user. The goal of the search engine is to identify links to high quality relevant results based on the search query. Typically, the search engine accomplishes this by matching the terms in the search query to a corpus of pre-stored web documents. Web documents that contain the user's search terms are considered “hits” and are returned to the user.\n\nIt may be desirable to rank the hits returned by the search engine based on some measure of the quality and relevancy of the hits. A basic technique for sorting the search engine hits relies on the degree with which the search query matches the hits. For example, documents that contain every term of the search query or that contain multiple occurrences of the terms in the search query may be deemed more relevant than other documents and therefore may be more highly ranked by the search engine. Other factors, such as the closeness of terms (also referred to as distance between the terms) in the document may also be considered. Closeness of terms in this context may be measured simply by counting the number of words in the document occurring between the search terms. In documents such as web pages, however, which may contain complex formatting information, “closeness” of terms in the underlying HTML file may not correlate with the “closeness” of the terms when the document is visually displayed. Accordingly, the performance of search engines that rank documents based on the closeness of the search terms in the underlying documents can suffer.\n\nFor search engines, returning relevant and high quality documents in response to a search query is of paramount importance. Accordingly, it would be desirable to improve search engine ranking techniques that consider closeness of terms in a search query in the underlying document.\n\n\n## SUMMARY OF THE INVENTION\n\n\nOne aspect of the invention includes a method of calculating a distance value between terms in a document. The method may include locating implicitly defined semantic structures in the document and calculating the distance values in the document based on the implicitly defined semantic structures.\n\nAnother aspect consistent with the invention is a method for ranking documents relative to a search query. The method may include determining semantically based distance values between terms that occur in the search query and that are present in the documents, and ranking the documents for relevancy to the search query based on the determined distance values.\n\nYet another aspect of the invention is a device that includes a memory and a processor coupled to the memory. The processor may determine semantically based distance values between terms that occur in a search query and that are present in documents. The processor may also rank the documents for relevancy to the search query based on the determined distance values.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nThe accompanying drawings, which are incorporated in and constitute a part of this specification, illustrate an embodiment of the invention and, together with the description, explain the invention. In the drawings,\n\nFIG. 1 is a diagram of an exemplary overview illustrating the concept of semantic distance relative to visual distance;\n\nFIG. 2 is an exemplary diagram of a network;\n\nFIG. 3 is an exemplary diagram of a client or server;\n\nFIG. 4 is a block diagram illustrating an implementation of the ranking component shown in FIG. 2;\n\nFIG. 5A illustrates the HTML code for a list;\n\nFIG. 5B illustrates an exemplary rendered version of the HTML code shown in FIG. 5A;\n\nFIG. 6 is a flow chart illustrating an implementation for detecting implicit lists in a document;\n\nFIG. 7 is a diagram illustrating an exemplary tree structure;\n\nFIG. 8 is a flow chart illustrating operations according to an exemplary implementation for determining ranking scores for documents;\n\nFIG. 9 illustrates concepts that may be used to augment a word count between terms when generating a distance metric; and\n\nFIG. 10 is a diagram illustrating an exemplary implementation of a ranking component implemented in the context of an Internet search engine.\n\n\n## DETAILED DESCRIPTION\n\n\nThe following detailed description of the invention refers to the accompanying drawings. The detailed description does not limit the invention.\n\n\n## Overview\n\n\nAs described herein, a relevance component uses a measured “distance” between pairs of search query terms when determining relevance of documents to the search query. The distance may be measured based on how close together terms are semantically rather than visually. In other words, even if terms are visually far apart in the rendered document, the measured distance may still indicate that the words are relatively close if the semantic structure of the document indicates that the words are semantically close.\n\nFIG. 1 is a diagram of an exemplary overview illustrating the concept of semantic distance relative to visual distance. FIG. 1 illustrates an exemplary document, such as a web page, including a list of facts about the planet Saturn. Semantically, each row of the list is probably equally relevant to every other row and to the title of the list, “Saturn Facts,” despite the fact that the various items are spaced at different visual distances from each other and from the title of the list. Thus, from a semantic standpoint, the item “Mass is 95 times that of Earth” should be considered to be equally distant from the title of the list (“Saturn Facts”) as the item “One Orbit of Sun is 10,759.2 Days.”\n\n\n## Exemplary Network Overview\n\n\nFIG. 2 is an exemplary diagram of a network 200 in which concepts consistent with the principles of the invention may be implemented. Network 200 may include multiple clients 210 connected to a server 220 via a network 240. Network 240 may include a local area network (LAN), a wide area network (WAN), a telephone network, such as the Public Switched Telephone Network (PSTN), an intranet, the Internet, or a combination of networks. Two clients 210 and one server 220 have been illustrated as connected to network 240 for simplicity. In practice, there may be more clients and/or servers. Also, in some instances, a client may perform the functions of a server and a server may perform the functions of a client.\n\nClients 210 may include devices such as a wireless telephone, a personal computer, a personal digital assistant (PDA), a lap top, or another type of computation or communication device, a thread or process running on one of these devices, and/or an object executable by one of these devices. Server 220 may include server devices that process, search, and/or maintain documents in a manner consistent with the principles of the invention. Clients 210 and server 220 may connect to network 240 via wired, wireless, or optical connections.\n\nIn one implementation, server 220 may implement a search engine (not shown) usable by clients 210. In general, in response to a client request, the search engine returns documents, such as web pages, to the client. These web pages may be sorted and displayed in an order influenced by ranking scores calculated based on a distance between terms in the web page. In the implementation shown, ranking component 225 may generate the ranking scores used to sort the web pages.\n\nA document, as the term is used herein, is to be broadly interpreted to include any machine-readable and machine-storable work product. A document may be an e-mail, a blog, a file, a combination of files, one or more files with embedded links to other files, a news group posting, etc. In the context of the Internet, a common document is a web page. Web pages often include content and may include embedded information (such as meta information, hyperlinks, etc.) and/or embedded instructions (such as Javascript, etc.).\n\n\n## Exemplary Client/Server Architecture\n\n\nFIG. 3 is an exemplary diagram of a client 210 or server 220. Client/server 210/220 may include a bus 310, a processor 320, a main memory 330, a read only memory (ROM) 340, a storage device 350, input devices 360, output devices 370, and a communication interface 380. Bus 310 may include conductors that permit communication among the components of client/server 210/220.\n\nProcessor 320 may include conventional processors or microprocessors that interpret and execute instructions. Main memory 330 may include a random access memory (RAM) or another type of dynamic storage device that stores information and instructions for execution by processor 320. ROM 340 may include a conventional ROM device or another type of static storage device that stores static information and instructions for use by processor 320. Storage device 350 may include a magnetic and/or optical recording medium and its corresponding drive.\n\nInput devices 360 may include one or more conventional mechanisms that permit a user to input information to client/server 210/220, such as a keyboard, a mouse, a pen, voice recognition and/or biometric mechanisms, etc. Output devices 370 may include one or more conventional mechanisms that output information to the user, including a display, a printer, a speaker, etc. Communication interface 380 may include any transceiver-like mechanism that enables client/server 210/220 to communicate with other devices and/or systems. For example, communication interface 380 may include mechanisms for communicating with another device or system via a network, such as network 240.\n\nAs will be described in detail below, server 220, consistent with the principles of the invention, may implement ranking component 225. Ranking component 225 may be stored in a computer-readable medium, such as memory 330. A computer-readable medium may be defined as one or more physical or logical memory devices and/or carrier waves.\n\nThe software instructions defining ranking component 225 may be read into memory 330 from another computer-readable medium, such as data storage device 350, or from another device via communication interface 380. The software instructions contained in memory 330 may cause processor 320 to perform processes that will be described later. Alternatively, hardwired circuitry or other logic may be used in place of, or in combination with, software instructions to implement processes consistent with the present invention. Thus, implementations consistent with the principles of the invention are not limited to any specific combination of hardware circuitry and software.\n\n\n## Ranking Component 225\n\n\nFIG. 4 is a block diagram illustrating an implementation of ranking component 225 in additional detail. Ranking component 225 may include a page analyzer component 410, a distance component 420, and a relevance component 430. Page analyzer component 410 may generally analyze documents, such as HTML-based (Hyper-Text Markup Language) web pages, to detect lists, including implicit lists, within the documents. Distance component 420 may implement a distance function that calculates distance metrics between pairs of terms in the document. The distance metrics may be semantically based distances, such that, for example, terms that are in different items of a list, terms that are structurally separated, or terms that are separated by many words are considered far apart. The distances determined by distance component 420 may be used by a relevance component 430 in determining the relevance of the document to the search query.\n\nStructures other than lists may be detected by page analyzer component 410. For example, titles and headings may also be detected.\n\nAs previously mentioned, page analyzer component 410 may analyze documents to detect lists. When the documents are HTML documents, the lists can be determined based on HTML tags. Some lists may be explicitly defined by the HTML tags. For example, the HTML “” and “” tag are used to delimit the start and stop of an explicitly defined unordered list. An unordered list may be defined as a collection of items (typically related somehow) that are in no particular order. The “” tag is another HTML tag that explicitly defines a list. More specifically, “” and “” delimit the start and stop of an ordered list.\n\nHTML lists, in addition to being defined explicitly with the and tags, may be defined implicitly. Web authors frequently use HTML tags other than and to create lists. To create different layouts, they may, for example, use nested tables (using the “” and “” tags) or other HTML tags, such as the “” tags, “” tags, and “” tags to create lists. Other tags, in addition to these listed tags may be used to define an implicit list. Unlike and , however, these tags not formally defined for the creation of lists. Rather, they are used by web authors in an ad-hoc manner to create lists.\n\nFIGS. 5A and 5B are diagrams illustrating an exemplary implicit list defined using the (line break) tag and the (bold font) tag. FIG. 5A illustrates the HTML code 520 of the list and FIG. 5B illustrates an exemplary rendered version 500 of the list. As shown, rendered version 500 of the list includes a number of items 510-514. Each item, as shown in HTML code 520, is defined using the tag to cause the first word in the list to be a bold font and ends with a tag to create a line break.\n\nPage analyzer component 410 may decompose a document, such as the HTML code 520, to analyze the structure of the document. In one implementation, page analyzer component 410 decomposes the document into a tree structure using the HTML markup (e.g., HTML tags) information. Implicit lists may be determined based on the repetition of the HTML tags in the tree structure.\n\n\n## Operation of Page Analyzer Component 410\n\n\nFIG. 6 is a flow chart illustrating exemplary operations of page analyzer component 410 for detecting semantic structures in a document, such as HTML code 520, in additional detail. The document may be initially parsed into a tree structure (act 601).\n\nFIG. 7 is a diagram illustrating an exemplary tree structure 700 created from HTML code 520. Tree structure 700 may display the hierarchical tag markup structure of HTML code 520. As shown, tree structure 700 includes DIV tag 710, which is an HTML tag used to divide a document into sections and specify alignments for the sections. In this example, DIV tag 710 specifies center alignment (see FIG. 5A). Below DIV tag 710 are a number of tags, including the font tag 712, which includes the beginning font tag and the ending font tag . Font tag 712 specifies the font size for the text “Saturn Facts.” Tree structure 700 includes a first line break tag 713 (). Tree structure 700 next includes bold tag 714 (). Bold tag 714 and line break tag 713 are repeated for each item in HTML code 520 to thus create an implicit list. Visually, the combination of the bold font and the line breaks make clear to the reader that this text is a list of items.\n\nThe repetition of commands in tree structure 700 may be analyzed to detect implicit lists (act 602). In one implementation, the analysis may be performed by looking for sets of two or more text formatting commands that are repeated. The potential text formatting commands may include the HTML tags , , and , or that include table related HTML tags. One of ordinary skill in the art will recognize that other text formatting commands, in addition these commands, could be used to create implicit lists and could be included in the potential text formatting commands. Additionally, other techniques, or variations on the technique of looking for sets of two or more text formatting commands, may be used to detect implicit lists. Additionally, special rules can be used to handle the first or last element of a list. For example, in tree structure 700, the first tag 713 may be missing. The special rules may be designed to handle these situations and still identify the list.\n\nIn the example shown in FIG. 7, each set of tags 713 and tags 714 may be recognized as a set of repeating tags in act 602 that defines an item of an implicit list. Tree structure 700 of HTML code 520, or the document itself, may be annotated to indicate the presence of this implicit list (act 603). Other lists, such as explicit lists specified with or tags may also be annotated.\n\nIn addition to lists, page analyzer component 410 may use tree structure 700 to detect headings and titles (act 602). Headings and titles can be detected in tree structure 700 as text associated with nodes that are above other nodes in the tree structure. In other words, text below a header/title node in the tree structure can be considered to belong to that heading/title.\n\nAs discussed above, page analyzer component 410 locates visual structures that are semantically meaningful, such as implicitly defined lists in HTML documents, headings, and titles. One of ordinary skill in the art will recognize that semantically meaningful structures other than these structures may also be located by page analyzer 410.\n\n\n## Operation of Ranking Component 225\n\n\nFIG. 8 is a flow chart illustrating operations according to an exemplary implementation for determining ranking scores for documents. In one implementation, the ranking scores may be generated in the context of a search engine that is returning documents to a user that are relevant to a search query.\n\nIn other implementations, ranking component 225 may more generally be used to generate a ranking score for any document relative to a sequence of terms.\n\nTo begin, ranking component 225 may receive a document and a list of terms, such as a search query, that are to be used to rank the document (act 801). The document may be analyzed to locate semantically meaningful structures such as lists (implicit lists or explicit lists) or the text associated with headings/titles (act 802). As previously mentioned, this analysis may be performed by page analyzer component 410 and output as annotation information associated with the document. In some implementations, this analysis to locate semantically meaningful structures can be performed ahead of time on a corpus of documents. In this situation, act 802 may simply involve looking up the pre-calculated annotation information for the document.\n\nDistance metrics may next be generated for pairs of terms in the search query (act 803). The distance metrics may be generated by, for example, distance component 420. The distance metrics may generally be based on how far apart terms are, such as that measured by the number of words (“word count”) between terms, in the document. The distance metrics may be further augmented by the concept of semantic closeness, determined based on structures within the document.\n\nFIG. 9 illustrates concepts that may be used to augment the word count between terms when generating a distance metric. As shown, a list 900 includes a header 905 and three list items: item A 910, item B 912, and item C 914. Each item 910, 912, and 914 may include multiple words that describe the particular list item. Assume that both terms of a pair of terms are located in list 900. The following rules may be used to generate the distance metric between the terms: (1) if both terms appear in the same list item, the terms are considered close to one another; (2) if one term appears in a list item and the other term appears in header 905, this pair of terms may be considered to be approximately equally distant to another pair of terms that appear in header 905 and in another of the list items; (3) pairs of terms appearing in different list items may be considered to be farther apart than the pairs of terms falling under (1) and (2). As an example of the application of these rules, consider a pair of terms in which one term is the last word in item A 910 and the other term is the first word in item B 912. Although these terms may be very close from a word count standpoint, the distance metric may indicate that they are farther apart than pairs of terms falling under (1) or (2).\n\nFor headings and titles, a term in the title of a document may be considered to be close to every other term in document regardless of the word count between the terms. Similarly, a term occurring in a heading may be considered to be very close to other terms that are below the heading in the tree structure.\n\nBased on the distance metrics calculated for the pairs of terms in the search query, a ranking score may be calculated for the document (act 804). Relevance component 430 may, for example, calculate the ranking score for the document. In general, documents that include search terms that are relatively close to one another, as given by the distance metrics, may be given higher ranking scores (i.e., these documents are considered to be more relevant to the search query). In some applications, other factors could be used in generating the final ranking scores. For example, the inverse document frequency (IDF) may be used to give more weight to less common words. As another example, different measurements of document quality, such as those based on the interconnecting link-structure of a corpus of documents or those based on a predetermined quality of certain web sites or domains, may be factored into the final ranking score for a document.\n\n\n## Exemplary Implementation\n\n\nFIG. 10 is a diagram illustrating an exemplary implementation of ranking component 225 implemented in the context of an Internet search engine. A number of users 1005 may connect to a search engine 1010 over a network 1015, such as the Internet. Search engine 1010 may be a traditional search engine that returns a ranked set of documents related to a user query. Search engine 1010 may be a general search engine, such as one based on all documents from a large collection, such as documents on the web, or a more specialized search engine, such as a news search engine. In other implementations, search engine 1010 may be implemented over a specialized corpus of documents, such as a corporate document database made available over a corporate network 1015.\n\nIn operation, search engine 1010 may receive a user query. The search engine may generate an initial set of documents that match the search query (i.e., documents that contain the terms of the search query) by comparing the search terms to document database 1020. The search engine may then submit the initial set of documents to ranking component 225 for processing. Ranking component 225, as described above, may generate ranking scores for the documents. Search engine 1010 may sort the set of documents based on the ranking scores. Search engine 1010 may then return some or all of the sorted documents (or references to the sorted documents) to the user.\n\n\n## Conclusion\n\n\nTechniques for locating semantically meaningful structures in a document were described above. In one implementation, implicitly defined lists in an HTML document were located and used to augment a distance value defined for terms in the document. The augmented distance values may then be used in generating ranking scores for the documents.\n\nIt will be apparent to one of ordinary skill in the art that aspects of the invention, as described above, may be implemented in many different forms of software, firmware, and hardware in the implementations illustrated in the figures. The actual software code or specialized control hardware used to implement aspects consistent with the present invention is not limiting of the present invention. Thus, the operation and behavior of the aspects were described without reference to the specific software code—it being understood that a person of ordinary skill in the art would be able to design software and control hardware to implement the aspects based on the description herein.\n\nThe foregoing description of preferred embodiments of the present invention provides illustration and description, but is not intended to be exhaustive or to limit the invention to the precise form disclosed. Modifications and variations are possible in light of the above teachings or may be acquired from practice of the invention. For example, although many of the operations described above were described in a particular order, many of the operations are amenable to being performed simultaneously or in different orders to still achieve the same or equivalent results.\n\nNo element, act, or instruction used in the present application should be construed as critical or essential to the invention unless explicitly described as such. Also, as used herein, the article “a” is intended to potentially allow for one or more items. Further, the phrase “based on” is intended to mean “based, at least in part, on” unless explicitly stated otherwise. The scope of the invention is defined by the claims and their equivalents.",
+ "cited_by": [
+  {
+   "id": "US20070288498A1",
+   "title": "Interface for managing search term importance relationships",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8892548B2",
+   "title": "Ordering search-engine results",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8990224B1",
+   "title": "Detecting document text that is hard to read",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "WO2019086996A1",
+   "title": "Ranking of documents based on their semantic richness",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10885081B2",
+   "title": "Systems and methods for contextual ranking of search results",
+   "assignee": "Optum Technology, Inc."
+  },
+  {
+   "id": "US8645137B2",
+   "title": "Fast, language-independent method for user authentication by voice",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US7716216B1",
+   "title": "Document ranking based on semantic distance between terms in a document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9378203B2",
+   "title": "Methods and apparatus for providing information of interest to one or more users",
+   "assignee": "Primal Fusion Inc."
+  },
+  {
+   "id": "US9104779B2",
+   "title": "Systems and methods for analyzing and synthesizing complex knowledge representations",
+   "assignee": "Primal Fusion Inc."
+  },
+  {
+   "id": "US8849860B2",
+   "title": "Systems and methods for applying statistical inference techniques to knowledge representations",
+   "assignee": "Primal Fusion Inc."
+  },
+  {
+   "id": "US10002325B2",
+   "title": "Knowledge representation systems and methods incorporating inference rules",
+   "assignee": "Primal Fusion Inc."
+  },
+  {
+   "id": "US9177248B2",
+   "title": "Knowledge representation systems and methods incorporating customization",
+   "assignee": "Primal Fusion Inc."
+  },
+  {
+   "id": "US7849090B2",
+   "title": "System, method and computer program for faceted classification synthesis",
+   "assignee": "Primal Fusion Inc."
+  },
+  {
+   "id": "US8677377B2",
+   "title": "Method and apparatus for building an intelligent automated assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9318108B2",
+   "title": "Intelligent automated assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9075864B2",
+   "title": "Method and system for semantic searching using syntactic and semantic analysis",
+   "assignee": "Abbyy Infopoisk Llc"
+  },
+  {
+   "id": "US9098489B2",
+   "title": "Method and system for semantic searching",
+   "assignee": "Abbyy Infopoisk Llc"
+  },
+  {
+   "id": "US9892111B2",
+   "title": "Method and device to estimate similarity between documents having multiple segments",
+   "assignee": "Abbyy Production Llc"
+  },
+  {
+   "id": "US9495358B2",
+   "title": "Cross-language text clustering",
+   "assignee": "Abbyy Infopoisk Llc"
+  },
+  {
+   "id": "US9189482B2",
+   "title": "Similar document search",
+   "assignee": "Abbyy Infopoisk Llc"
+  },
+  {
+   "id": "US9069750B2",
+   "title": "Method and system for semantic searching of natural language texts",
+   "assignee": "Abbyy Infopoisk Llc"
+  },
+  {
+   "id": "US7945864B2",
+   "title": "Operation assisting apparatus and operation assisting method",
+   "assignee": "Panasonic Corporation"
+  },
+  {
+   "id": "US8977255B2",
+   "title": "Method and system for operating a multi-function portable electronic device using voice-activation",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10002189B2",
+   "title": "Method and apparatus for searching using an active ontology",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9330720B2",
+   "title": "Methods and apparatus for altering audio output signals",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US7974974B2",
+   "title": "Techniques to perform relative ranking for search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8996376B2",
+   "title": "Intelligent text-to-speech conversion",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9361365B2",
+   "title": "Methods and apparatus for searching of content using semantic synthesis",
+   "assignee": "Primal Fusion Inc."
+  },
+  {
+   "id": "US8676732B2",
+   "title": "Methods and apparatus for providing information of interest to one or more users",
+   "assignee": "Primal Fusion Inc."
+  },
+  {
+   "id": "CA2723179C",
+   "title": "Method, system, and computer program for user-driven dynamic generation of semantic networks and media synthesis",
+   "assignee": "Primal Fusion Inc."
+  },
+  {
+   "id": "US10496753B2",
+   "title": "Automatically adapting user interfaces for hands-free interaction",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US20100030549A1",
+   "title": "Mobile device having human language translation capability with positional feedback",
+   "assignee": "Lee Michael M"
+  },
+  {
+   "id": "WO2010019209A1",
+   "title": "Method and system for classifying text",
+   "assignee": "Collective Media, Inc."
+  },
+  {
+   "id": "EP2329406A1",
+   "title": "Systems and methods for semantic concept definition and semantic concept relationship synthesis utilizing existing domain definitions",
+   "assignee": "Primal Fusion Inc."
+  },
+  {
+   "id": "US8676904B2",
+   "title": "Electronic devices with voice command and contextual data processing capabilities",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "WO2010056723A1",
+   "title": "Method and system for semantic distance measurement",
+   "assignee": "Collective Media, Inc."
+  },
+  {
+   "id": "WO2010088238A1",
+   "title": "Method and system for behavioral classification",
+   "assignee": "Collective Media, Inc."
+  },
+  {
+   "id": "US9858925B2",
+   "title": "Using context information to facilitate processing of commands in a virtual assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10241644B2",
+   "title": "Actionable reminder entries",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10241752B2",
+   "title": "Interface for a virtual digital assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10706373B2",
+   "title": "Performing actions associated with task items that represent tasks to perform",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9431006B2",
+   "title": "Methods and apparatuses for automatic speech recognition",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "EP2452280A1",
+   "title": "Method and system for tracking interaction and view information for online advertising",
+   "assignee": "Collective Media, Inc."
+  },
+  {
+   "id": "US20110060644A1",
+   "title": "Synthesizing messaging using context provided by consumers",
+   "assignee": "Peter Sweeney"
+  },
+  {
+   "id": "US9292855B2",
+   "title": "Synthesizing messaging using context provided by consumers",
+   "assignee": "Primal Fusion Inc."
+  },
+  {
+   "id": "US20110060645A1",
+   "title": "Synthesizing messaging using context provided by consumers",
+   "assignee": "Peter Sweeney"
+  },
+  {
+   "id": "US20110106797A1",
+   "title": "Document relevancy operator",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US9262520B2",
+   "title": "System, method and computer program for creating and manipulating data structures using an interactive graphical interface",
+   "assignee": "Primal Fusion Inc."
+  },
+  {
+   "id": "US10705794B2",
+   "title": "Automatically adapting user interfaces for hands-free interaction",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10553209B2",
+   "title": "Systems and methods for hands-free notification summaries",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10276170B2",
+   "title": "Intelligent automated assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10679605B2",
+   "title": "Hands-free list-reading by intelligent automated assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "DE202011111062U1",
+   "title": "Device and system for a digital conversation management platform",
+   "assignee": "Newvaluexchange Ltd."
+  },
+  {
+   "id": "US8682667B2",
+   "title": "User profiling for selecting user specific voice input processing information",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US8650195B2",
+   "title": "Region based information retrieval system",
+   "assignee": "Palle M Pedersen"
+  },
+  {
+   "id": "US10474647B2",
+   "title": "Methods and devices for customizing knowledge representation systems",
+   "assignee": "Primal Fusion Inc."
+  },
+  {
+   "id": "US9235806B2",
+   "title": "Methods and devices for customizing knowledge representation systems",
+   "assignee": "Primal Fusion Inc."
+  },
+  {
+   "id": "US11294977B2",
+   "title": "Techniques for presenting content to a user based on the user's preferences",
+   "assignee": "Primal Fusion Inc."
+  },
+  {
+   "id": "US9262612B2",
+   "title": "Device access using voice authentication",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10057736B2",
+   "title": "Active transport based notifications",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US20120324367A1",
+   "title": "System and method for obtaining preferences with a user interface",
+   "assignee": "Primal Fusion Inc."
+  },
+  {
+   "id": "US8965882B1",
+   "title": "Click or skip evaluation of synonym rules",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8994660B2",
+   "title": "Text correction processing",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US8909627B1",
+   "title": "Fake skip evaluation of synonym rules",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9152698B1",
+   "title": "Substitute term identification based on over-represented terms identification",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8965875B1",
+   "title": "Removing substitution rules based on user interactions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9141672B1",
+   "title": "Click or skip evaluation of query term optionalization rule",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10134385B2",
+   "title": "Systems and methods for name pronunciation",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9483461B2",
+   "title": "Handling speech synthesis of content for multiple languages",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9280610B2",
+   "title": "Crowd sourcing information to fulfill user requests",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US8775442B2",
+   "title": "Semantic search using a single-source semantic model",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10417037B2",
+   "title": "Systems and methods for integrating third party services with a digital assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US8959103B1",
+   "title": "Click or skip evaluation of reordering rules",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9721563B2",
+   "title": "Name recognition system",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9495129B2",
+   "title": "Device, method, and user interface for voice-activated navigation and browsing of a document",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9547647B2",
+   "title": "Voice-based media searching",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9146966B1",
+   "title": "Click or skip evaluation of proximity rules",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "EP4560630A3",
+   "title": "Voice trigger for a digital assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10652394B2",
+   "title": "System and method for processing voicemail",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10748529B1",
+   "title": "Voice activated device for use with a voice-based digital assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9727641B2",
+   "title": "Generating a summary based on readability",
+   "assignee": "Entit Software Llc"
+  },
+  {
+   "id": "US9582608B2",
+   "title": "Unified ranking with entropy-weighted information for phrase-based semantic auto-completion",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "WO2014197336A1",
+   "title": "System and method for detecting errors in interactions with a voice-based digital assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "WO2014197334A2",
+   "title": "System and method for user-specified pronunciation of words for speech synthesis and recognition",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "WO2014197335A1",
+   "title": "Interpreting and acting upon commands that involve sharing information with remote devices",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "EP3008641A1",
+   "title": "Device, method, and graphical user interface for enabling conversation persistence across two or more instances of a digital assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10176167B2",
+   "title": "System and method for inferring user intent from speech inputs",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10791216B2",
+   "title": "Auto-activating smart responses based on activities from remote devices",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9519859B2",
+   "title": "Deep structured semantic model produced using click-through data",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US10296160B2",
+   "title": "Method for extracting salient dialog usage from live data",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9754020B1",
+   "title": "Method and device for measuring word pair relevancy",
+   "assignee": "National Security Agency"
+  },
+  {
+   "id": "US10242090B1",
+   "title": "Method and device for measuring relevancy of a document to a keyword(s)",
+   "assignee": "The United States Of America As Represented By The Director, National Security Agency"
+  },
+  {
+   "id": "US9477654B2",
+   "title": "Convolutional latent semantic models and their applications",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9535960B2",
+   "title": "Context-sensitive search using a deep learning model",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9715875B2",
+   "title": "Reducing the need for manual start/end-pointing and trigger phrases",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10170123B2",
+   "title": "Intelligent assistant for home automation",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9430463B2",
+   "title": "Exemplar-based natural language processing",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10078631B2",
+   "title": "Entropy-guided text prediction using combined word and character n-gram language models",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9760559B2",
+   "title": "Predictive text input",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9842101B2",
+   "title": "Predictive conversion of language input",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9966065B2",
+   "title": "Multi-command single utterance input method",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9785630B2",
+   "title": "Text prediction using combined word N-gram and unigram language models",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9633004B2",
+   "title": "Better resolution when referencing to concepts",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9338493B2",
+   "title": "Intelligent automated assistant for TV user interactions",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10659851B2",
+   "title": "Real-time digital assistant knowledge updates",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10089580B2",
+   "title": "Generating and using a knowledge-enhanced model",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US10446141B2",
+   "title": "Automatic speech recognition based on user feedback",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9818400B2",
+   "title": "Method and apparatus for discovering trending terms in speech requests",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10789041B2",
+   "title": "Dynamic thresholds for always listening speech trigger",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9886432B2",
+   "title": "Parsimonious handling of word inflection via categorical stem + suffix N-gram language models",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9646609B2",
+   "title": "Caching apparatus for serving phonetic pronunciations",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10074360B2",
+   "title": "Providing an indication of the suitability of speech recognition",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9668121B2",
+   "title": "Social reminders",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10127911B2",
+   "title": "Speaker identification and unsupervised speaker adaptation techniques",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10552013B2",
+   "title": "Data detection",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9865280B2",
+   "title": "Structured dictation using intelligent automated assistants",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10152299B2",
+   "title": "Reducing response latency of intelligent automated assistants",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9886953B2",
+   "title": "Virtual assistant activation",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9721566B2",
+   "title": "Competing devices responding to voice triggers",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10567477B2",
+   "title": "Virtual assistant continuity",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9899019B2",
+   "title": "Systems and methods for structured stem and suffix language models",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9842105B2",
+   "title": "Parsimonious continuous-space phrase representations for natural language processing",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10460227B2",
+   "title": "Virtual assistant in a communication session",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10083688B2",
+   "title": "Device voice control for selecting a displayed affordance",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10127220B2",
+   "title": "Language identification from short strings",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9578173B2",
+   "title": "Virtual assistant aided communication with 3rd party service in a communication session",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10101822B2",
+   "title": "Language input correction",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11025565B2",
+   "title": "Personalized prediction of responses for instant messaging",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10186254B2",
+   "title": "Context-based endpoint detection",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10255907B2",
+   "title": "Automatic accent detection using acoustic models",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US20160378747A1",
+   "title": "Virtual assistant for media playback",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10747498B2",
+   "title": "Zero latency digital assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10671428B2",
+   "title": "Distributed personal assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9697820B2",
+   "title": "Unit-selection text-to-speech synthesis using concatenation-sensitive neural networks",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11010550B2",
+   "title": "Unified language modeling framework for word prediction, auto-completion and auto-correction",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10366158B2",
+   "title": "Efficient word encoding for recurrent neural network language models",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11587559B2",
+   "title": "Intelligent device identification",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10691473B2",
+   "title": "Intelligent automated assistant in a messaging environment",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10049668B2",
+   "title": "Applying neural network language models to weighted finite state transducers for automatic speech recognition",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10223066B2",
+   "title": "Proactive assistance based on dialog communication between devices",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10446143B2",
+   "title": "Identification of voice inputs providing credentials",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10909450B2",
+   "title": "Multiple-action computational model training and operation",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9934775B2",
+   "title": "Unit-selection text-to-speech synthesis based on predicted concatenation parameters",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9972304B2",
+   "title": "Privacy preserving distributed evaluation framework for embedded personalized systems",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10249300B2",
+   "title": "Intelligent list reading",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11227589B2",
+   "title": "Intelligent list reading",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10049663B2",
+   "title": "Intelligent automated assistant for media exploration",
+   "assignee": "Apple, Inc."
+  },
+  {
+   "id": "DK179588B1",
+   "title": "Intelligent automated assistant in a home environment",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10509862B2",
+   "title": "Dynamic phrase expansion of language input",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10192552B2",
+   "title": "Digital assistant providing whispered speech",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10067938B2",
+   "title": "Multilingual word prediction",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10586535B2",
+   "title": "Intelligent digital assistant in a multi-tasking environment",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10490187B2",
+   "title": "Digital assistant providing automated status report",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "DK201670540A1",
+   "title": "Application integration with a digital assistant",
+   "assignee": "Apple Inc"
+  },
+  {
+   "id": "DK179049B1",
+   "title": "Data driven natural language event detection and classification",
+   "assignee": "Apple Inc"
+  },
+  {
+   "id": "DK179415B1",
+   "title": "Intelligent device arbitration and control",
+   "assignee": "Apple Inc"
+  },
+  {
+   "id": "DK179343B1",
+   "title": "Intelligent task discovery",
+   "assignee": "Apple Inc"
+  },
+  {
+   "id": "US10474753B2",
+   "title": "Language identification using recurrent neural networks",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "RU2639655C1",
+   "title": "System for creating documents based on text analysis on natural language",
+   "assignee": "Общество с ограниченной ответственностью \"Аби Продакшн\""
+  },
+  {
+   "id": "US10043516B2",
+   "title": "Intelligent automated assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11281993B2",
+   "title": "Model and ensemble compression for metric learning",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10593346B2",
+   "title": "Rank-reduced token representation for automatic speech recognition",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11204787B2",
+   "title": "Application integration with a digital assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "DK201770383A1",
+   "title": "User interface for correcting recognition errors",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10417266B2",
+   "title": "Context-aware ranking of intelligent response suggestions",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "DK201770439A1",
+   "title": "Offline personal assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10395654B2",
+   "title": "Text normalization based on a data-driven learning network",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10726832B2",
+   "title": "Maintaining privacy of personal information",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "DK179745B1",
+   "title": "SYNCHRONIZATION AND TASK DELEGATION OF A DIGITAL ASSISTANT",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "DK201770428A1",
+   "title": "Low-latency intelligent automated assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "DK179496B1",
+   "title": "USER-SPECIFIC Acoustic Models",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11301477B2",
+   "title": "Feedback analysis of a digital assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "DK201770432A1",
+   "title": "Hierarchical belief states for digital assistants",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "DK201770431A1",
+   "title": "Optimizing dialogue policy decisions for digital assistants using implicit feedback",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "DK179549B1",
+   "title": "Far-field extension for digital assistant services",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10311144B2",
+   "title": "Emoji word sense disambiguation",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10403278B2",
+   "title": "Methods and systems for phonetic matching in digital assistant services",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US20180336892A1",
+   "title": "Detecting a trigger of a digital assistant",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10303715B2",
+   "title": "Intelligent automated assistant for media exploration",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10657328B2",
+   "title": "Multi-task recurrent neural network architecture for efficient morphology handling in neural language modeling",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10445429B2",
+   "title": "Natural language understanding using vocabularies with compressed serialized tries",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10755051B2",
+   "title": "Rule-based natural language processing",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10636424B2",
+   "title": "Multi-turn canned dialog",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11250204B2",
+   "title": "Context-aware knowledge base system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "MY201295A",
+   "title": "A computer-implemented method for self-learning text relevance and determining text relevancy",
+   "assignee": "Mimos Berhad"
+  },
+  {
+   "id": "US10733982B2",
+   "title": "Multi-directional dialog",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10733375B2",
+   "title": "Knowledge-based framework for improving natural language understanding",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10789959B2",
+   "title": "Training speaker recognition models for digital assistants",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10592604B2",
+   "title": "Inverse text normalization for automatic speech recognition",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10818288B2",
+   "title": "Natural assistant interaction",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10909331B2",
+   "title": "Implicit identification of translation payload with neural machine translation",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11145294B2",
+   "title": "Intelligent automated assistant for delivering content from user experiences",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10928918B2",
+   "title": "Raise to speak",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10984780B2",
+   "title": "Global semantic word embeddings using bi-directional recurrent neural networks",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "DK201870355A1",
+   "title": "Virtual assistant operation in multi-device environments",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "DK179822B1",
+   "title": "Voice interaction at a primary device to access call functionality of a companion device",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10892996B2",
+   "title": "Variable latency device coordination",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11386266B2",
+   "title": "Text correction",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "DK180639B1",
+   "title": "DISABILITY OF ATTENTION-ATTENTIVE VIRTUAL ASSISTANT",
+   "assignee": "Apple Inc"
+  },
+  {
+   "id": "US11076039B2",
+   "title": "Accelerated task performance",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11010561B2",
+   "title": "Sentiment prediction from textual data",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11462215B2",
+   "title": "Multi-modal inputs for voice commands",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US10839159B2",
+   "title": "Named entity normalization in a spoken dialog system",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11170166B2",
+   "title": "Neural typographical error modeling via generative adversarial networks",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11475898B2",
+   "title": "Low-latency multi-speaker speech recognition",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11638059B2",
+   "title": "Content playback on multiple devices",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11348573B2",
+   "title": "Multimodality in digital assistant systems",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "EP3959623A4",
+   "title": "Systems and methods for ranking electronic documents based on query token densities",
+   "assignee": "RELX Inc."
+  },
+  {
+   "id": "US11423908B2",
+   "title": "Interpreting spoken requests",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11475884B2",
+   "title": "Reducing digital assistant latency when a language is incorrectly determined",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "DK201970509A1",
+   "title": "Spoken notifications",
+   "assignee": "Apple Inc"
+  },
+  {
+   "id": "US11307752B2",
+   "title": "User configurable task triggers",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11140099B2",
+   "title": "Providing message response suggestions",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11496600B2",
+   "title": "Remote execution of machine-learned models",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11289073B2",
+   "title": "Device text to speech",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "DK201970510A1",
+   "title": "Voice identification in digital assistant systems",
+   "assignee": "Apple Inc"
+  },
+  {
+   "id": "DK180129B1",
+   "title": "USER ACTIVITY SHORTCUT SUGGESTIONS",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11360641B2",
+   "title": "Increasing the relevance of new available information",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "RU2722587C9",
+   "title": "Method of generating and breaking up a message text in information binary application layer packets",
+   "assignee": "Акционерное общество \"Калужский научно-исследовательский институт телемеханических устройств\""
+  },
+  {
+   "id": "WO2021056255A1",
+   "title": "Text detection using global geometry estimators",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11409800B1",
+   "title": "Generating search queries for database searching",
+   "assignee": "Bank Of America Corporation"
+  },
+  {
+   "id": "US12112118B2",
+   "title": "Methods for extending vector-based document embedding models and systems thereof",
+   "assignee": "Julia M Rosedale"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5321833A",
+   "title": "Adaptive ranking system for information retrieval",
+   "assignee": "Gte Laboratories Incorporated"
+  },
+  {
+   "id": "US5444823A",
+   "title": "Intelligent search engine for associated on-line documentation having questionless case-based knowledge base",
+   "assignee": "Compaq Computer Corporation"
+  },
+  {
+   "id": "US5724571A",
+   "title": "Method and apparatus for generating query responses in a computer-based document retrieval system",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US6012053A",
+   "title": "Computer system with user-controlled relevance ranking of search results",
+   "assignee": "Lycos, Inc."
+  },
+  {
+   "id": "US6212517B1",
+   "title": "Keyword extracting system and text retrieval system using the same",
+   "assignee": "Matsushita Electric Industrial Co., Ltd."
+  },
+  {
+   "id": "US20020169764A1",
+   "title": "Domain specific knowledge-based metasearch system and methods of using",
+   "assignee": "Robert Kincaid"
+  },
+  {
+   "id": "US20030066025A1",
+   "title": "Method and system for information retrieval",
+   "assignee": "Garner Harold R."
+  },
+  {
+   "id": "US6549895B1",
+   "title": "Method and apparatus for analyzing data retrieval using index scanning",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6564210B1",
+   "title": "System and method for searching databases employing user profiles",
+   "assignee": "Virtual Self Ltd."
+  },
+  {
+   "id": "US6633868B1",
+   "title": "System and method for context-based document retrieval",
+   "assignee": "Shermann Loyall Min"
+  },
+  {
+   "id": "US6675159B1",
+   "title": "Concept-based search and retrieval system",
+   "assignee": "Science Applic Int Corp"
+  },
+  {
+   "id": "US6711585B1",
+   "title": "System and method for implementing a knowledge management system",
+   "assignee": "Kanisa Inc."
+  },
+  {
+   "id": "US6792576B1",
+   "title": "System and method of automatic wrapper grammar generation",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20040210570A1",
+   "title": "Index structure of metadata, method for providing indices of metadata, and metadata searching method and apparatus using the indices of metadata",
+   "assignee": "Samsung Electronics Co., Ltd."
+  },
+  {
+   "id": "US20050198070A1",
+   "title": "Method and system for compression indexing and efficient proximity search of text data",
+   "assignee": "Marpex Inc."
+  },
+  {
+   "id": "US7003513B2",
+   "title": "Method and system of weighted context feedback for result improvement in information retrieval",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7428530B2",
+   "title": "Dispersing search engine results by using page category information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20040111400A1",
+   "title": "Method for automatic wrapper generation",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US7716216B1",
+   "title": "Document ranking based on semantic distance between terms in a document",
+   "assignee": "Google Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US8606778B1",
+   "title": "Document ranking based on semantic distance between terms in a document"
+  },
+  {
+   "id": "US8341150B1",
+   "title": "Filtering search results using annotations"
+  },
+  {
+   "id": "US8452766B1",
+   "title": "Detecting query-specific duplicate documents"
+  },
+  {
+   "id": "US7657507B2",
+   "title": "Pseudo-anchor text extraction for vertical search"
+  },
+  {
+   "id": "US7630973B2",
+   "title": "Method for identifying related pages in a hyperlinked database"
+  },
+  {
+   "id": "US8260785B2",
+   "title": "Automatic object reference identification and linking in a browseable fact repository"
+  },
+  {
+   "id": "US8037065B1",
+   "title": "Information extraction from a database"
+  },
+  {
+   "id": "US8140449B1",
+   "title": "Detecting novel document content"
+  },
+  {
+   "id": "US8156102B2",
+   "title": "Inferring search category synonyms"
+  },
+  {
+   "id": "CN100394427C",
+   "title": "network searching system and method"
+  },
+  {
+   "id": "US20030172066A1",
+   "title": "System and method for detecting duplicate and similar documents"
+  },
+  {
+   "id": "US8312012B1",
+   "title": "Automatic determination of whether a document includes an image gallery"
+  },
+  {
+   "id": "US8626492B1",
+   "title": "Semantic unit recognition"
+  },
+  {
+   "id": "US20090144240A1",
+   "title": "Method and systems for using community bookmark data to supplement internet search results"
+  },
+  {
+   "id": "US20120179667A1",
+   "title": "Searching through content which is accessible through web-based forms"
+  },
+  {
+   "id": "US20150172299A1",
+   "title": "Indexing and retrieval of blogs"
+  },
+  {
+   "id": "US9977816B1",
+   "title": "Link-based ranking of objects that do not include explicitly defined links"
+  },
+  {
+   "id": "CN102722498A",
+   "title": "Search engine and implementation method thereof"
+  },
+  {
+   "id": "US6941293B1",
+   "title": "Methods and apparatus for determining equivalent descriptions for an information need"
+  },
+  {
+   "id": "CN102722501A",
+   "title": "Search engine and realization method thereof"
+  },
+  {
+   "id": "US20030018617A1",
+   "title": "Information retrieval using enhanced document vectors"
+  },
+  {
+   "id": "KR20110094563A",
+   "title": "Related Word Search Method and Search System Using Link-Keyword Relationship of Web Documents"
+  },
+  {
+   "id": "CN116910054A",
+   "title": "Data processing methods, devices, electronic equipment and computer-readable storage media"
+  },
+  {
+   "id": "KR101127795B1",
+   "title": "Method and system for searching by proximity of index term"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8060501B1/en"
+}

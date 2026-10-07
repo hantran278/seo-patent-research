@@ -1,0 +1,1228 @@
+{
+ "id": "US9116976B1",
+ "title": "Ranking documents based on large data sets",
+ "abstract": "A system ranks documents based, at least in part, on a ranking model. The ranking model may be generated to predict the likelihood that a document will be selected. The system may receive a search query and identify documents relating to the search query. The system may then rank the documents based, at least in part, on the ranking model and form search results for the search query from the ranked documents.",
+ "inventors": [
+  "Jeremy Bem",
+  "Georges R. Harik",
+  "Joshua L. Levenberg",
+  "Noam Shazeer",
+  "Simon Tong"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2003-11-14",
+ "filing_date": "2010-05-11",
+ "publication_date": "2015-08-25",
+ "status": "Expired - Fee Related",
+ "expiration": "",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/30",
+  "G06F16/33",
+  "G06F16/3331",
+  "G06F16/334",
+  "G06F16/3346",
+  "G06F17/30687",
+  "G06F16/20",
+  "G06F16/24",
+  "G06F16/245",
+  "G06F16/2457",
+  "G06F16/24575",
+  "G06F16/24578",
+  "G06F16/35",
+  "G06F16/355",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/953",
+  "G06F16/9535",
+  "G06N20/00",
+  "G06N7/00",
+  "G06N7/01",
+  "G06F16/951",
+  "G06F17/30864",
+  "Y10S707/00",
+  "Y10S707/99931",
+  "Y10S707/99933",
+  "Y10S707/99935",
+  "Y10S707/99941",
+  "Y10S707/99943"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer-implemented method of ranking search results based on a likelihood of user selection, the method comprising: receiving a search query from a user; obtaining a plurality of search results that satisfy the search query, wherein each search result identifies a respective document of a plurality of documents; identifying a respective condition for each document of the plurality of documents, wherein each condition comprises one or more features of the user, the search query, and the document; obtaining a ranking model that produces a score for a particular document given a particular condition for the particular document, the score representing a likelihood that the user will select the particular document when identified by a search result provided in response to the search query, the ranking model being trained on training instances that each identify a first document selected by a particular user when the first document was identified in search results provided to the particular user in response to a particular search query; using the ranking model to compute a respective score for each document of the plurality of documents; and ranking the plurality of search results according to the respective computed score for each document of the plurality of documents.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, wherein each training instance identifies a condition comprising one or more features of the particular user and one or more features of the particular search query.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, wherein each training instance identifies one or more second documents that the particular user did not select when the one or more second documents were identified by the search results provided to the particular user in response to the particular search query.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, wherein each training instance includes data representing a position of the selected first document in an order of the search results provided to the particular user in response to the particular query.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 1, wherein each training instance includes data representing a previously computed score for the selected first document.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 1, wherein each training instance comprises data representing a number of documents ranked above the selected first document in the search results provided to the particular user in response to the particular search query.",
+   "dependent": true
+  },
+  {
+   "text": "7. A computer program product, encoded on one or more non-transitory computer storage media, comprising instructions that when executed by one or more computers cause the one or more computers to perform operations comprising: receiving a search query from a user; obtaining a plurality of search results that satisfy the search query, wherein each search result identifies respective document of a plurality of documents; identifying a respective condition for each document of the plurality of documents, wherein each condition comprises one or more features of the user, the search query, and the document; obtaining a ranking model that produces a score for a particular document given a particular condition for the particular document, the score representing a likelihood that the user will select the particular document when identified by a search result provided in response to the search query, the ranking model being trained on training instances that each identify a first document selected by a particular user when the first document was identified in search results provided to the particular user in response to a particular search query; using the ranking model to compute a respective score for each document of the plurality of documents; and ranking the plurality of search results according to the respective computed score for each document of the plurality of documents.",
+   "dependent": false
+  },
+  {
+   "text": "8. The computer program product of claim 7, wherein each training instance identifies a condition comprising one or more features of the particular user and one or more features of the particular search query.",
+   "dependent": true
+  },
+  {
+   "text": "9. The computer program product of claim 7, wherein each training instance identifies one or more second documents that the particular user did not select when the one or more second documents were identified by the search results provided to the particular user in response to the particular search query.",
+   "dependent": true
+  },
+  {
+   "text": "10. The computer program product of claim 7, wherein each training instance includes data representing a position of the selected first document in an order of the search results provided to the particular user in response to the particular query.",
+   "dependent": true
+  },
+  {
+   "text": "11. The computer program product claim 7, wherein each training instance includes data representing a previously computed score for the selected first document.",
+   "dependent": true
+  },
+  {
+   "text": "12. The computer program product of claim 7, wherein each training instance comprises data representing a number of documents ranked above the selected first document in the search results provided to the particular user in response to the particular search query.",
+   "dependent": true
+  },
+  {
+   "text": "13. A system comprising: one or more computers and one or more storage devices storing instructions that are operable, when executed by the one or more computers, to cause the one or more computers to perform operations comprising: receiving a search query from a user; obtaining a plurality of search results that satisfy the search query, wherein each search result identifies a respective document of a plurality of documents; identifying a respective condition for each document of the plurality of documents, wherein each condition comprises one or more features of the user, the search query, and the document; obtaining a ranking model that produces a score for a particular document given a particular condition for the particular document, the score representing a likelihood that the user will select the particular document when identified by a search result provided in response to the search query, the ranking model being trained on training instances that each identify a first document selected by a particular user when the first document was identified in search results provided to the particular user in response to a particular search query; using the ranking model to compute a respective score for each document of the plurality of documents; and ranking the plurality of search results according to the respective computed score for each document of the plurality of documents.",
+   "dependent": false
+  },
+  {
+   "text": "14. The system of claim 13, wherein each training instance identifies a condition comprising one or more features of the particular user and one or more features of the particular search query.",
+   "dependent": true
+  },
+  {
+   "text": "15. The system of claim 13, wherein each training instance identifies one or more second documents that the particular user did not select when the one or more second documents were identified by the search results provided to the particular user in response to the particular search query.",
+   "dependent": true
+  },
+  {
+   "text": "16. The system of claim 13, wherein each training instance includes data representing a position of the selected first document in an order of the search results provided to the particular user in response to the particular query.",
+   "dependent": true
+  },
+  {
+   "text": "17. The system claim 13, wherein each training instance includes data representing a previously computed score for the selected first document.",
+   "dependent": true
+  },
+  {
+   "text": "18. The system of claim 13, wherein each training instance comprises data representing a number of documents ranked above the selected first document in the search results provided to the particular user in response to the particular search query.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## RELATED APPLICATIONS\n\n\nThis application is a continuation of U.S. patent application Ser. No. 11/736,872, filed Apr. 18, 2007, which is a continuation of U.S. patent application Ser. No. 10/706,991, filed Nov. 14, 2003, now U.S. Pat. No. 7,231,399, the disclosures of which are incorporated herein by reference.\n\n\n## BACKGROUND OF THE INVENTION\n\n\n1. Field of the Invention\n\nThe present invention relates generally to information retrieval and, more particularly, to systems and methods for creating a ranking function from large data sets and using the ranking function to rank documents.\n\n2. Description of Related Art\n\nThe World Wide Web (“web”) contains a vast amount of information. Locating a desired portion of the information, however, can be challenging. This problem is compounded because the amount of information on the web and the number of new users inexperienced at web searching are growing rapidly.\n\nSearch engines attempt to return hyperlinks to web documents in which a user is interested. Generally, search engines base their determination of the user's interest on search terms (called a search query) entered by the user. The goal of the search engine is to provide links to high quality, relevant results to the user based on the search query. Typically, the search engine accomplishes this by matching the terms in the search query to a corpus of pre-stored web documents. Web documents that contain the user's search terms are “hits” and are returned to the user. The search engine oftentimes ranks the documents using a ranking function based on the documents' perceived relevance to the user's search terms. Determining a document's relevance can be a tricky problem.\n\nAccordingly, there is a need for systems and methods that improve the determination of a document's relevance.\n\n\n## SUMMARY OF THE INVENTION\n\n\nSystems and methods, consistent with the principles of the invention, create a ranking function based, at least in part, on prior information retrieval data, such as query data, user information, and document information, and use the ranking function to rank (or score) documents.\n\nIn accordance with one aspect consistent with the principles of the invention, a method for ranking documents is provided. The method may include creating a ranking model that predicts a likelihood that a document will be selected and training the ranking model using a data set that includes tens of millions of instances. The method may also include identifying documents relating to a search query, scoring the documents based, at least in part, on the ranking model, and forming search results for the search query from the scored documents.\n\nAccording to another aspect, a system for ranking documents is provided. The system may include a repository and a server. The repository may store information corresponding to multiple prior searches. The server may receive a search query from a user, identify documents corresponding to the search query, and rank the identified documents based, at least in part, on a ranking model that includes rules that maximize a likelihood of the repository.\n\nAccording to yet another aspect, a method for generating a model is provided. The method may include selecting candidate conditions from training data, estimating weights for the candidate conditions, and forming new rules from the candidate conditions and corresponding ones of the weights. The method may also include comparing a likelihood of the training data between a model with the new rules and the model without the new rules and selectively adding the new rules to the model based, at least in part, on results of the comparing.\n\nAccording to a further aspect, a method for ranking documents is provided. The method may include receiving a search query, identifying documents relating to the search query, and determining prior probabilities of selecting each of the documents. The method may also include determining a score for each of the documents based, at least in part, on the prior probability of selecting the document and generating search results for the search query from the scored documents.\n\nAccording to another aspect, a system for generating a model is provided. The system may include a repository and multiple devices. The repository may store training data that includes instances and features, where each of the features corresponds to one or more of the instances. At least one of the devices may create a feature-to-instance index that maps features to instances to which the features correspond, select a candidate condition, request information associated with the candidate condition from other ones of the devices, receive the requested information from the other devices, estimate a weight for the candidate condition based, at least in part, on the requested information, form a new rule from the candidate condition and the weight, and selectively add the new rule to the model.\n\nAccording to yet another aspect, a system for generating a model is provided. The system includes a repository and multiple devices. The repository may store multiple instances. At least one of the devices may analyze a subset of the instances to identify matching candidate conditions, analyze the candidate conditions to collect statistics regarding predicted probabilities from the matching instances, gather statistics regarding one of the candidate conditions from other ones of the devices, determine a weight associated with the one candidate condition based on at least one of the collected statistics and the gathered statistics, form a rule from the one candidate condition and the weight, and selectively add the rule to the model.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nThe accompanying drawings, which are incorporated in and constitute a part of this specification, illustrate an embodiment of the invention and, together with the description, explain the invention. In the drawings,\n\nFIG. 1 is a diagram of an exemplary information retrieval network in which systems and methods consistent with the principles of the invention may be implemented;\n\nFIG. 2 is a diagram of an exemplary model generation system according to an implementation consistent with the principles of the invention;\n\nFIG. 3 is an exemplary diagram of a device according to an implementation consistent with the principles of the invention;\n\nFIG. 4 is a flowchart of exemplary processing for generating a ranking model according to an implementation consistent with the principles of the invention; and\n\nFIG. 5 is a flowchart of exemplary processing for ranking documents according to an implementation consistent with the principles of the invention.\n\n\n## DETAILED DESCRIPTION\n\n\nThe following detailed description of the invention refers to the accompanying drawings. The same reference numbers in different drawings may identify the same or similar elements. Also, the following detailed description does not limit the invention.\n\nSystems and methods consistent with the principles of the invention may generate a ranking model based, at least in part, on prior information retrieval data, such as data relating to users, queries previously provided by these users, documents retrieved based on these queries, and documents that were selected and not selected in relation to these queries. The systems and methods may use this ranking model as part of a ranking function to rank documents.\n\n\n## Exemplary Information Retrieval Network\n\n\nFIG. 1 is an exemplary diagram of a network 100 in which systems and methods consistent with the principles of the invention may be implemented. Network 100 may include multiple clients 110 connected to multiple servers 120-140 via a network 150. Network 150 may include a local area network (LAN), a wide area network (WAN), a telephone network, such as the Public Switched Telephone Network (PSTN), an intranet, the Internet, a memory device, another type of network, or a combination of networks. Two clients 110 and three servers 120-140 have been illustrated as connected to network 150 for simplicity. In practice, there may be more or fewer clients and servers. Also, in some instances, a client may perform the functions of a server and a server may perform the functions of a client.\n\nClients 110 may include client entities. An entity may be defined as a device, such as a wireless telephone, a personal computer, a personal digital assistant (PDA), a lap top, or another type of computation or communication device, a thread or process running on one of these devices, and/or an object executable by one of these device. Servers 120-140 may include server entities that gather, process, search, and/or maintain documents in a manner consistent with the principles of the invention. Clients 110 and servers 120-140 may connect to network 150 via wired, wireless, and/or optical connections.\n\nIn an implementation consistent with the principles of the invention, server 120 may optionally include a search engine 125 usable by clients 110. Server 120 may crawl documents (e.g., web pages) and store information associated with these documents in a repository of crawled documents. Servers 130 and 140 may store or maintain documents that may be crawled by server 120. While servers 120-140 are shown as separate entities, it may be possible for one or more of servers 120-140 to perform one or more of the functions of another one or more of servers 120-140. For example, it may be possible that two or more of servers 120-140 are implemented as a single server. It may also be possible that a single one of servers 120-140 is implemented as multiple, possibly distributed, devices.\n\n\n## Exemplary Model Generation System\n\n\nFIG. 2 is an exemplary diagram of a model generation system 200 consistent with the principles of the invention. System 200 may include one or more devices 210 and a repository 220. Repository 220 may include one or more logical or physical memory devices that may store a large data set (e.g., tens of millions of instances and millions of features) that may be used, as described in more detail below, to create and train a ranking model. The data may include information retrieval data, such as query data, user information, and document information, that may be used to create a model that may be used to rank a particular document. The query data may include search terms previously provided by users to retrieve documents. The user information may include Internet Protocol (IP) addresses, cookie information, query languages; and/or geographical information associated with the users. The document information may include information relating to the documents presented to the users and the documents that were selected and not selected by the users. In other exemplary implementations, other types of data may alternatively or additionally be stored by repository 220.\n\nDevice(s) 210 may include any type of computing device capable of accessing repository 220 via any type of connection mechanism. According to one implementation consistent with the principles of the invention, system 200 may include multiple devices 210. According to another implementation, system 200 may include a single device 210. Device(s) 210 may correspond to one or more of servers 120-140.\n\nFIG. 3 is an exemplary diagram of a device 300 according to an implementation consistent with the principles of the invention. Device 300 may correspond to one or more of clients 110, servers 120-140, and device(s) 210. Device 300 may include a bus 310, a processor 320, a main memory 330, a read only memory (ROM) 340, a storage device 350, one or more input devices 360, one or more output devices 370, and a communication interface 380. Bus 310 may include one or more conductors that permit communication among the components of device 300.\n\nProcessor 320 may include any type of conventional processor or microprocessor that interprets and executes instructions. Main memory 330 may include a random access memory (RAM) or another type of dynamic storage device that stores information and instructions for execution by processor 320. ROM 340 may include a conventional ROM device or another type of static storage device that stores static information and instructions for use by processor 320. Storage device 350 may include a magnetic and/or optical recording medium and its corresponding drive.\n\nInput device(s) 360 may include one or more conventional mechanisms that permit an operator to input information to device 300, such as a keyboard, a mouse, a pen, voice recognition and/or biometric mechanisms, etc. Output device(s) 370 may include one or more conventional mechanisms that output information to the operator, including a display, a printer, a speaker, etc. Communication interface 380 may include any transceiver-like mechanism that enables device 300 to communicate with other devices and/or systems.\n\nAs will be described in detail below, device 300, consistent with the principles of the invention, may perform certain data-related operations. Device 300 may perform these operations in response to processor 320 executing software instructions contained in a computer-readable medium, such as memory 330. A computer-readable medium may be defined as one or more physical or logical memory devices and/or carrier waves.\n\nThe software instructions may be read into memory 330 from another computer-readable medium, such as data storage device 350, or from another device via communication interface 380. The software instructions contained in memory 330 causes processor 320 to perform processes that will be described later. Alternatively, hardwired circuitry may be used in place of or in combination with software instructions to implement processes consistent with the principles of the invention. Thus, implementations consistent with the principles of the invention are not limited to any specific combination of hardware circuitry and software.\n\n\n## Exemplary Model Generation Processing\n\n\nFor purposes of the discussion to follow, the set of data in repository 220 (FIG. 2) may include multiple elements, called instances. It may be possible for repository 220 to store more than 50 million instances. Each instance may include a triple of data: (u, q, d), where u refers to user information, q refers to query data provided by the user, and d refers to document information relating to documents retrieved as a result of the query data and which documents the user selected and did not select.\n\nSeveral features may be extracted for any given (u, q, d). These features might include one or more of the following: the country in which user u is located, the time of day that user u provided query q, the language of the country in which user u is located, each of the previous three queries that user u provided, the language of query q, the exact string of query q, the word(s) in query q, the number of words in query q, each of the words in document d, each of the words in the Uniform Resource Locator (URL) of document d, the top level domain in the URL of document d, each of the prefixes of the URL of document d, each of the words in the title of document d, each of the words in the links pointing to document d, each of the words in the title of the documents shown above and below document d for query q, the number of times a word in query q matches a word in document d, the number of times user u has previously accessed document d, and other information. In one implementation, repository 220 may store more than 5 million distinct features.\n\nTo facilitate fast identification of correspondence between features and instances, a feature-to-instance index may be generated that links features to the instances in which they are included. For example, for a given feature f, the set of instances that contain that feature may be listed. The list of instances for a feature f is called the “hitlist for feature f.” Thereafter, given a set of features f0, . . . , fn, the set of instances that contain those features can be determined by intersecting the hitlist for each of the features f0, . . . , fn.\n\nOther information may also be determined for a given (u, q, d). This information may include, for example, the position that document d was provided within search results presented to user u for query q, the number of documents above document d that were selected by user u for query q, and a score (“old score”) that was assigned to document d for query q. The old score may have been assigned by search engine 125 or by another search engine.\n\nA ranking model may be created from this data. The model uses the data in repository 220 as a way of evaluating how good the model is. The model may include rules that maximize the log likelihood of the data in repository 220. The general idea of the model is that given a new (u, q, d), the model may predict whether user u will select a particular document d for query q. As will be described in more detail below, this information may be used to rank document d for query q and user u.\n\nFIG. 4 is a flowchart of exemplary processing for generating a ranking model according to an implementation consistent with the principles of the invention. This processing may be performed by a single device 210 or a combination of multiple devices 210.\n\nTo facilitate generation of the ranking model, a prior probability of selection may be determined. As described above, the following information may be determined for any given instance (u, q, d): the position that document d occupied within the search results presented to user u for query q; the old score that was assigned to document d for query q; and the number of documents above document d that were selected by user u for query q. Based on this information, a function may be created that maps from these three values to a probability of selection:\n\nP(select|position, old score, number of selections above).\n\nThis “prior” probability of selection may provide the initial probability of document selection without considering any of the features. It uses the position, the old score, and the number of selections of documents above this document.\n\nA set of instances based on the same or a different set of instances may be used as “training data” D. For each instance (u, q, d) in the training data D, its features (f0, f1, . . . , fn) may be extracted. For example, f0 may be the feature corresponding to “the word ‘tree’ appears in the query.” In this implementation, the feature f0 may include a boolean value, such that if “tree” appears in query q then the value of f0 is one, otherwise the value of f0 is zero. In other implementations, the features may include discrete values. It may be assumed that many of the features will have values of zero. Accordingly, a sparse representation for the features of each instance may be used. In this case, each instance may store only features that have non-zero values.\n\nTherefore, for each instance (u, q, d), the following information is available: its set of features, whether document d was selected by user u for query q, and its prior probability of selection. A “condition” C is a conjunction of features and possibly their complements. For example, a condition that includes two features is: “tree” is in query q and the domain of document d is “trees.com,” and a condition that includes a feature and a complement of a feature is: “football” is in query q and the user did not provide the query from “www.google.co.uk.” For any instance (u, q, d), the value of its features may determine the set of conditions C that apply. A “rule” is a condition C and a weight w, represented as (C, w). The ranking model M may include a set of rules and a prior probability of selection. To generate the model M, the set of conditions C1, . . . , Cn and the values of the weights w1, . . . , wn need to be determined.\n\nBased on this information, a function may be created that maps conditions to a probability of selection:\n\nP(select|C1, . . . Cn, position, old score, number of selections above).\n\nThe posterior probability of a selection given a set of conditions, P(select|C1, . . . , Cn, position, old score, number of selections above), may be determined using the function: Log {P(select=false|C 1 , . . . , C n, position, old score, number of selections above)/P(select=true|C 1 , . . . C n, position, old score, number of selections above)}=Sumi {−w i I(C i)}+Log{P(select=false|position, old score, number of selections above)/P(select=true|position, old score, number of selections above)}, where I(Ci)=0 if Ci=false, and I(Ci)=1 if Ci=true.\n\nTo generate the model M, processing may start with an empty model M that includes the prior probability of selection. A candidate condition C may be selected (act 410). In one implementation, candidate conditions may be selected from the training data D. For example, for each instance in the training data D, combinations of features that are present in that instance (or complements of these features) may be chosen as candidate conditions. In another implementation, random sets of conditions may be selected as candidate conditions. In yet another implementation, single feature conditions may be considered for candidate conditions. In a further implementation, existing conditions in the model M may be augmented by adding extra features and these augmented conditions may be considered as candidate conditions. In yet other implementations, candidate conditions may be selected in other ways.\n\nA weight w for condition C may then be estimated (act 420). The weight w may be estimated by attempting to maximize the log likelihood of the training data D given the model M augmented with rule (C, w)—that is, find the weight that maximizes Log P(D|M, (C, w)), where “M, (C, w)” denotes the model M with rule (C, w) added if condition C is not already part of the model M, and w is the weight for condition C.\n\nThe likelihood of the training data D may be compared between the current model with the new rule (C, w) and the current model without the new rule (i.e., P(D|M, (C,w)) vs. P(D|M)) (acts 430 and 440). If P(D|M, (C,w)) is sufficiently greater than P(D|M), then the new rule (C, w) is added to the model M (act 450). A penalty or “Cost” for each condition C may be used to aid in the determination of whether P(D|M, (C,w)) is sufficiently greater than P(D|M). For example, if condition C includes many features, or if the features of condition C are quite rare (e.g., “does the word ‘mahogany’ appear in the query”), then the cost of condition C could be high. The rule (C,w) may then be added to the model M if: Log{P(D|M,(C,w))}−Log{P(D|M)}>Cost(C). If P(D|M, (C,w)) is not sufficiently greater than P(D|M), then the new rule (C, w) is discarded (i.e., not added to the model M), possibly by changing its weight to zero (act 460). In either event, processing may then return to act 410, where the next candidate condition is selected. Processing may continue for a predetermined number of iterations or until all candidate conditions have been considered.\n\n\n## Exemplary Process for Ranking Documents\n\n\nFIG. 5 is a flowchart of exemplary processing for ranking documents according to an implementation consistent with the principles of the invention. Processing may begin with a user providing one or more search terms as a search query for searching a document corpus. In one implementation, the document corpus is the Internet and the vehicle for searching this corpus is a search engine, such as search engine 125 (FIG. 1). The user may provide the search query to search engine 125 via web browser software on a client, such as client 110 (FIG. 1).\n\nSearch engine 125 may receive the search query and act upon it to identify documents (e.g., web pages) related to the search query (acts 510 and 520). A number of techniques exist for identifying documents related to a search query. One such technique might include identifying documents that contain the one or more search terms as a phrase. Another technique might include identifying documents that contain the one or more search terms, but not necessarily together. Other techniques might include identifying documents that contain less than all of the one or more search terms, or synonyms of the one or more search terms. Yet other techniques are known to those skilled in the art.\n\nSearch engine 125 may then score the documents based on the ranking model described above (act 530). With regard to each document, search engine 125 may identify a new instance (u, q, d) that corresponds to this user search, where u refers to the user, q refers to the search query provided by the user, and d refers to the document under consideration. Search engine 125 may extract the features from the new instance and determine which rules of the ranking model apply. Search engine 125 may then combine the weight of each rule with the prior probability of selection for (u, q, d) to determine the final posterior probability of the user u selecting this document d for query q. Search engine 125 may use the final posterior probability as the score for the document. Alternatively, search engine 125 might use the final posterior probability as one of multiple factors in determining the score of the document.\n\nSearch engine 125 may sort the documents based on their scores (act 540). Search engine 125 may then formulate search results based on the sorted documents (act 550). In an implementation consistent with the principles of the invention, the search results may include references to the documents, such as links to the documents and possibly a textual description of the links. In another implementation, the search results may include the documents themselves. In yet other implementations, the search results may take other forms.\n\nSearch engine 125 may provide the search results as a HyperText Markup Language (HTML) document, similar to search results provided by conventional search engines. Alternatively, search engine 125 may provide the search results according to a protocol agreed upon by search engine 125 and client 110 (e.g., Extensible Markup Language (XML)).\n\nSearch engine 125 may further provide information concerning the user, the query provided by the user, and the documents provided to the user to help improve the ranking model. For example, server 120 may store this information in repository 220 or provide it to one of devices 210 to be used as training data for training the model.\n\n\n## Even Larger Data Sets\n\n\nWhen the data set within repository 220 becomes very large (e.g., substantially more than a few million instances), multiple devices 210 may be configured as a distributed system. For example, devices 210 may be capable of communicating with each other and with repository 220, as illustrated in FIG. 2.\n\nAccording to one exemplary implementation of the distributed system, each device 210 may be responsible for a subset of the instances within repository 220. Each device 210 may possibly store its subset of instances in local memory. Each device 210 may also build its own feature-to-instance index for its subset of instances. As described previously, the feature-to-instance index may facilitate fast identification of correspondence between features and instances by linking features to the instances in which they are included.\n\nOne or more devices 210 (or possibly all) may identify candidate conditions to be tested. Suppose that a device 210 “DV” has a candidate condition C that it wants to test (e.g., for which it wants to determine a weight). Device DV may send out a “stats” request to other devices 210 asking for statistics for condition C. For example, device DV may broadcast the stats request that includes (or identifies) the condition C for which device DV desires statistics.\n\nThe other devices 210 may receive condition C and use their own feature-to-instance index to find their instances that satisfy condition C. For example, the receiving devices 210 may identify the features making up condition C. Assume, for example, that condition C includes a combination of features fi and fj. The receiving devices 210 may then determine the set of instances that contain those features by intersecting the hitlist for features fi and fj.\n\nThe receiving device 210 may then compute statistics about predicted probabilities for those instances. Each receiving device 210 may then send the statistics for the set of matching instances back to device DV. Device DV may use the statistics to estimate a weight for condition C. Device DV may, as described above, determine whether to add the rule containing condition C to the model. If device DV decides to add the rule containing condition C to the model, it may send an “update” request to all of the other devices 210 informing them of the new rule (i.e., the new condition and its weight).\n\nAccording to another exemplary implementation of the distributed system, multiple devices 210 may be used to further increase throughput and capacity. That is, this implementation can handle more total instances and test more conditions per second. It does this by first generating a collection of conditions to test, and then optimizing them in a batch. It is desirable, however, to be able to update the model everywhere immediately when a new rule is added since correlated conditions cannot be considered in isolation without introducing unacceptable weight oscillations that prevent convergence. Therefore, implementations consistent with the principles of the invention may rapidly feed back the effects of accepted rules into the statistics used to decide the weight of future rules.\n\nAs before, the model generation process may be divided into iterations. Rules may be tested or have their weights optimized once per iteration. Each iteration may be broken into two phases: a candidate rule generation phase and a rule testing and optimization phase. The rule testing and optimization phase may determine the weights for conditions generated in the candidate rule generation phase, and accept rules into the model if their benefit (difference in log likelihood) exceeds their cost.\n\nAs described previously, there are several possible ways of generating candidate conditions in the candidate rule generation phase. For example, candidate conditions might include all conditions with one feature, all conditions with two features that co-occur in some instance, and all extensions of existing rules by one feature (where the combination is in some instance). It may be beneficial to consider only those conditions that match some minimum number of instances. There are a couple of strategies for accomplishing this: identify conditions that appear multiple times in some fraction of the instances (divided among all of devices 210 and then summed), or identify conditions that appear multiple times on one device 210 and then gather the results together to remove duplicates. As a further optimization, extensions of only those rules added in the last iteration may be determined and added to the candidate rules generated in previous iterations.\n\nThe conditions to be tested may be distributed to every device 210. Each device 210 may analyze its share of the instances to identify candidate conditions that match each instance. For example, devices 210 may determine matching conditions for each instance by looking up the features in the instance in a tree data structure. Devices 210 may record information concerning the matching conditions and instances as (condition, instance number) pairs. Each device 210 may sort the (condition, instance number) pairs and use them to iterate through the conditions to collect statistics about predicted probabilities from the matching instances.\n\nFor each condition, devices 210 may send the statistics associated with the condition to a device 210 designated to handle that condition (e.g., a device 210 selected, for instance, based on a hash of the condition). When all of the statistics for a given condition have been aggregated on a single device 210, that device 210 may determine the optimal weight of the rule and determine whether the rule should be added to the model M, as described above. The result may be broadcast to all devices 210 (or to those devices that sent statistics). The output of this phase is new weights for all existing rules (possibly zero if the rule is discarded) and a list of new rules.\n\n\n## CONCLUSION\n\n\nSystems and methods consistent with the principles of the invention may rank search results based on a ranking model that may be generated based, at least in part, on prior information retrieval data, such as data relating to users, queries previously provided by these users, documents retrieved based on these queries, and which of these documents were selected and not selected in relation to these queries.\n\nThe foregoing description of preferred embodiments of the present invention provides illustration and description, but is not intended to be exhaustive onto limit the invention to the precise form disclosed. Modifications and variations are possible in light of the above teachings or may be acquired from practice of the invention. For example, while series of acts have been described with regard to FIGS. 4 and 5, the order of the acts may be modified in other implementations consistent with the principles of the invention. Also, non-dependent acts may be performed in parallel. Further, the acts may be modified in other ways. For example, in another exemplary implementation, acts 420-430 of FIG. 4 may be performed in a loop for a number of iterations to settle on a good weight. In the context of multiple devices 210, this may mean that device DV sends out multiple stats requests for a particular condition.\n\nIt will also be apparent to one of ordinary skill in the art that aspects of the invention, as described above, may be implemented in many different forms of software, firmware, and hardware in the implementations illustrated in the figures. The actual software code or specialized control hardware used to implement aspects consistent with the present invention is not limiting of the present invention. Thus, the operation and behavior of the aspects were described without reference to the specific software code—it being understood that one of ordinary skill in the art would be able to design software and control hardware to implement the aspects based on the description herein.",
+ "cited_by": [
+  {
+   "id": "US20170091319A1",
+   "title": "Bayesian visual interactive search",
+   "assignee": "Sentient Technologies (Barbados) Limited"
+  },
+  {
+   "id": "US10503765B2",
+   "title": "Visual interactive search",
+   "assignee": "Evolv Technology Solutions, Inc."
+  },
+  {
+   "id": "US10606883B2",
+   "title": "Selection of initial document collection for visual interactive search",
+   "assignee": "Evolv Technology Solutions, Inc."
+  },
+  {
+   "id": "US10755144B2",
+   "title": "Automated and unsupervised generation of real-world training data",
+   "assignee": "Cognizant Technology Solutions U.S. Corporation"
+  },
+  {
+   "id": "US10755142B2",
+   "title": "Automated and unsupervised generation of real-world training data",
+   "assignee": "Cognizant Technology Solutions U.S. Corporation"
+  },
+  {
+   "id": "US10909459B2",
+   "title": "Content embedding using deep metric learning algorithms",
+   "assignee": "Cognizant Technology Solutions U.S. Corporation"
+  },
+  {
+   "id": "US11995559B2",
+   "title": "Enhancing evolutionary optimization in uncertain environments by allocating evaluations via multi-armed bandit algorithms",
+   "assignee": "Cognizant Technology Solutions U.S. Corporation"
+  },
+  {
+   "id": "AU2002321795A1",
+   "title": "System and method for automated tracking and analysis of document usage",
+   "assignee": "Quigo Technologies Inc."
+  },
+  {
+   "id": "WO2003017023A2",
+   "title": "System and method for extracting content for submission to a search engine",
+   "assignee": "Quigo Technologies, Inc."
+  },
+  {
+   "id": "US6731936B2",
+   "title": "Method and system for a handoff in a broadcast communication system",
+   "assignee": "Qualcomm Incorporated"
+  },
+  {
+   "id": "US6980820B2",
+   "title": "Method and system for signaling in broadcast communication system",
+   "assignee": "Qualcomm Inc."
+  },
+  {
+   "id": "US7730063B2",
+   "title": "Personalized medicine service",
+   "assignee": "Asset Trust, Inc."
+  },
+  {
+   "id": "AU2003245016A1",
+   "title": "System and method for automated mapping of keywords and key phrases to documents",
+   "assignee": "Quigo Technologies Inc."
+  },
+  {
+   "id": "US7912485B2",
+   "title": "Method and system for signaling in broadcast communication system",
+   "assignee": "Qualcomm Incorporated"
+  },
+  {
+   "id": "US7505964B2",
+   "title": "Methods and systems for improving a search ranking using related queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7617205B2",
+   "title": "Estimating confidence for query revision models",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7231399B1",
+   "title": "Ranking documents based on large data sets",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060184473A1",
+   "title": "Entity centric computer system",
+   "assignee": "Eder Jeff S"
+  },
+  {
+   "id": "US20050267872A1",
+   "title": "System and method for automated mapping of items to documents",
+   "assignee": "Yaron Galai"
+  },
+  {
+   "id": "US7716225B1",
+   "title": "Ranking documents based on user behavior and/or feature data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9223868B2",
+   "title": "Deriving and using interaction profiles",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8570880B2",
+   "title": "Method and apparatus for receiving broadcast in a wireless multiple-access communications system",
+   "assignee": "Qualcomm Incorporated"
+  },
+  {
+   "id": "US20060036598A1",
+   "title": "Computerized method for ranking linked information items in distributed sources",
+   "assignee": "Jie Wu"
+  },
+  {
+   "id": "US7493320B2",
+   "title": "Method, system, and computer program product for ranking of documents using link analysis, with remedies for sinks",
+   "assignee": "Telenor Asa"
+  },
+  {
+   "id": "US7606793B2",
+   "title": "System and method for scoping searches using index keys",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7739277B2",
+   "title": "System and method for incorporating anchor text into ranking search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7761448B2",
+   "title": "System and method for ranking search results using click distance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7827181B2",
+   "title": "Click distance determination",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060200460A1",
+   "title": "System and method for ranking search results using file types",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7792833B2",
+   "title": "Ranking search results using language types",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7870147B2",
+   "title": "Query revision using known highly-ranked queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7962462B1",
+   "title": "Deriving and using document and site quality signals from search query streams",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7596556B2",
+   "title": "Determination of useful convergence of static rank",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7730074B1",
+   "title": "Accelerated large scale optimization",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7630964B2",
+   "title": "Determining relevance of documents to a query based on identifier distance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7769751B1",
+   "title": "Method and apparatus for classifying documents based on user inputs",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7647314B2",
+   "title": "System and method for indexing web content using click-through features",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7516131B2",
+   "title": "Method and apparatus for ranking-based information processing",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8032545B2",
+   "title": "Systems and methods for refining identification of clinical study candidates",
+   "assignee": "General Electric Company"
+  },
+  {
+   "id": "US20100036797A1",
+   "title": "Semantic search engine",
+   "assignee": "The Regents Of The University Of California"
+  },
+  {
+   "id": "US8661029B1",
+   "title": "Modifying search result ranking based on implicit user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9110975B1",
+   "title": "Search result inputs using variant generalized queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080177588A1",
+   "title": "Systems and methods for selecting aesthetic settings for use in displaying advertisements over a network",
+   "assignee": "Quigo Technologies, Inc."
+  },
+  {
+   "id": "US8938463B1",
+   "title": "Modifying search result ranking based on implicit user feedback and a model of presentation bias",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8694374B1",
+   "title": "Detecting click spam",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080243830A1",
+   "title": "User suggested ordering to influence search result ranking",
+   "assignee": "Fatdoor, Inc."
+  },
+  {
+   "id": "US9092510B1",
+   "title": "Modifying search result ranking based on a temporal element of user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8359309B1",
+   "title": "Modifying search result ranking based on corpus search statistics",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9349134B1",
+   "title": "Detecting illegitimate network traffic",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090037399A1",
+   "title": "System and Method for Determining Semantically Related Terms",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8694511B1",
+   "title": "Modifying search result ranking based on populations",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8019700B2",
+   "title": "Detecting an intrusive landing page",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8909655B1",
+   "title": "Time based ranking",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090100018A1",
+   "title": "System and method for capturing, integrating, discovering, and using geo-temporal data",
+   "assignee": "Jonathan Roberts"
+  },
+  {
+   "id": "US7840569B2",
+   "title": "Enterprise relevancy ranking using a neural network",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9348912B2",
+   "title": "Document length as a static relevance feature for ranking search results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US20090171960A1",
+   "title": "Method and system for context-aware data prioritization",
+   "assignee": "Ziv Katzir"
+  },
+  {
+   "id": "US8412571B2",
+   "title": "Systems and methods for selling and displaying advertisements over a network",
+   "assignee": "Advertising.Com Llc"
+  },
+  {
+   "id": "US20090240549A1",
+   "title": "Recommendation system for a task brokerage system",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20090240539A1",
+   "title": "Machine learning system for a task brokerage system",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8726146B2",
+   "title": "Systems and methods for video content association",
+   "assignee": "Advertising.Com Llc"
+  },
+  {
+   "id": "US8812493B2",
+   "title": "Search results ranking using editing distance and document information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20090276414A1",
+   "title": "Ranking model adaptation for searching",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8364693B2",
+   "title": "Searching, sorting, and displaying video clips and sound files by relevance",
+   "assignee": "News Distribution Network, Inc."
+  },
+  {
+   "id": "US20100042610A1",
+   "title": "Rank documents based on popularity of key metadata",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8195669B2",
+   "title": "Optimizing ranking of documents using continuous conditional random fields",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100082697A1",
+   "title": "Data model enrichment and classification using multi-model approach",
+   "assignee": "Narain Gupta"
+  },
+  {
+   "id": "US8396865B1",
+   "title": "Sharing search engine relevance data between corpora",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8255412B2",
+   "title": "Boosting algorithm for ranking model adaptation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8065199B2",
+   "title": "Method, medium, and system for adjusting product ranking scores based on an adjustment factor",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US9009146B1",
+   "title": "Ranking search results based on similar queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8447760B1",
+   "title": "Generating a related set of documents for an initial set of documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8498974B1",
+   "title": "Refining search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8972391B1",
+   "title": "Recent interest based relevance scoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8874555B1",
+   "title": "Modifying scoring data based on historical changes",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8296292B2",
+   "title": "Internal ranking model representation schema",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8515975B1",
+   "title": "Search entity transition matrix and applications of the transition matrix",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8311792B1",
+   "title": "System and method for ranking a posting",
+   "assignee": "Intuit Inc."
+  },
+  {
+   "id": "US8615514B1",
+   "title": "Evaluating website properties by partitioning user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8924379B1",
+   "title": "Temporal-based score adjustments",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8959093B1",
+   "title": "Ranking search results based on anchors",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8838587B1",
+   "title": "Propagating query classifications",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8738635B2",
+   "title": "Detection of junk in search result ranking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8949249B2",
+   "title": "Techniques to find percentiles in a distributed computing environment",
+   "assignee": "Sas Institute, Inc."
+  },
+  {
+   "id": "US9623119B1",
+   "title": "Accentuating search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "JP5584914B2",
+   "title": "Distributed computing system",
+   "assignee": "株式会社日立製作所"
+  },
+  {
+   "id": "US8832083B1",
+   "title": "Combining user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8392290B2",
+   "title": "Seller conversion factor to ranking score for presented item listings",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US9002867B1",
+   "title": "Modifying ranking data based on document changes",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8612368B2",
+   "title": "Systems and methods for processing machine learning algorithms in a MapReduce environment",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9483484B1",
+   "title": "Techniques for deduplicated data access statistics management",
+   "assignee": "Veritas Technologies Llc"
+  },
+  {
+   "id": "US8706550B1",
+   "title": "External-signal influence on content item performance",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9015174B2",
+   "title": "Likefarm determination",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9495462B2",
+   "title": "Re-ranking search results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US20140136508A1",
+   "title": "Computer-Implemented System And Method For Providing Website Navigation Recommendations",
+   "assignee": "Palo Alto Research Center Incorporated"
+  },
+  {
+   "id": "RU2557473C2",
+   "title": "Data preparation system for information analysis system",
+   "assignee": "Федеральное государственное бюджетное образовательное учреждение высшего профессионального образования \"Российский государственный гуманитарный университет\" (РГГУ)"
+  },
+  {
+   "id": "US9183499B1",
+   "title": "Evaluating quality based on neighbor features",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9275331B2",
+   "title": "Document classification system with user-defined rules",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "JP6474107B2",
+   "title": "Video monitoring system, video processing apparatus, video processing method, and video processing program",
+   "assignee": "日本電気株式会社"
+  },
+  {
+   "id": "US10255319B2",
+   "title": "Searchable index",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US11094015B2",
+   "title": "Data access and processing system",
+   "assignee": "BMLL Technologies, Ltd."
+  },
+  {
+   "id": "JP6379290B2",
+   "title": "Rule definition and application to data",
+   "assignee": "アビニシオ テクノロジー エルエルシー"
+  },
+  {
+   "id": "US10325212B1",
+   "title": "Predictive intelligent softbots on the cloud",
+   "assignee": "InsideView Technologies, Inc."
+  },
+  {
+   "id": "US9443192B1",
+   "title": "Universal artificial intelligence engine for autonomous computing devices and software applications",
+   "assignee": "Jasmin Cosic"
+  },
+  {
+   "id": "JP6558188B2",
+   "title": "Distributed processing system, learning model creation method, data processing method, learning model creation program, and data processing program",
+   "assignee": "富士通株式会社"
+  },
+  {
+   "id": "EP3188039A1",
+   "title": "Recommendations based on predictive model",
+   "assignee": "Dassault Systèmes"
+  },
+  {
+   "id": "US11436656B2",
+   "title": "System and method for a real-time egocentric collaborative filter on large datasets",
+   "assignee": "Palo Alto Research Center Incorporated"
+  },
+  {
+   "id": "CN105912500B",
+   "title": "Machine learning model generation method and device",
+   "assignee": "百度在线网络技术（北京）有限公司"
+  },
+  {
+   "id": "US20170308609A1",
+   "title": "Multi-result ranking exploration",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "WO2017214656A1",
+   "title": "Graphical representation of a dynamic knee score for a knee surgery",
+   "assignee": "360 Knee Systems Pty Ltd"
+  },
+  {
+   "id": "US11093834B2",
+   "title": "Computer-implemented system and method for predicting activity outcome based on user attention",
+   "assignee": "Palo Alto Research Center Incorporated"
+  },
+  {
+   "id": "US10885478B2",
+   "title": "Computer-implemented system and method for providing contextually relevant task recommendations to qualified users",
+   "assignee": "Palo Alto Research Center Incorporated"
+  },
+  {
+   "id": "US11477302B2",
+   "title": "Computer-implemented system and method for distributed activity detection",
+   "assignee": "Palo Alto Research Center Incorporated"
+  },
+  {
+   "id": "US9864933B1",
+   "title": "Artificially intelligent systems, devices, and methods for learning and/or using visual surrounding for autonomous object operation",
+   "assignee": "Jasmin Cosic"
+  },
+  {
+   "id": "US10452974B1",
+   "title": "Artificially intelligent systems, devices, and methods for learning and/or using a device's circumstances for autonomous device operation",
+   "assignee": "Jasmin Cosic"
+  },
+  {
+   "id": "CN108090040B",
+   "title": "A text information classification method and system",
+   "assignee": "北京国双科技有限公司"
+  },
+  {
+   "id": "US10607134B1",
+   "title": "Artificially intelligent systems, devices, and methods for learning and/or using an avatar's circumstances for autonomous avatar operation",
+   "assignee": "Jasmin Cosic"
+  },
+  {
+   "id": "CN108241892B",
+   "title": "Data modeling method and device",
+   "assignee": "北京国双科技有限公司"
+  },
+  {
+   "id": "US10496153B2",
+   "title": "Method and system for binding chassis and components",
+   "assignee": "EMC IP Holding Company LLC"
+  },
+  {
+   "id": "US10102449B1",
+   "title": "Devices, systems, and methods for use in automation",
+   "assignee": "Jasmin Cosic"
+  },
+  {
+   "id": "US10474934B1",
+   "title": "Machine learning for computing enabled systems and/or devices",
+   "assignee": "Jasmin Cosic"
+  },
+  {
+   "id": "US10402731B1",
+   "title": "Machine learning for computer generated objects and/or applications",
+   "assignee": "Jasmin Cosic"
+  },
+  {
+   "id": "US11075925B2",
+   "title": "System and method to enable component inventory and compliance in the platform",
+   "assignee": "EMC IP Holding Company LLC"
+  },
+  {
+   "id": "US10693722B2",
+   "title": "Agentless method to bring solution and cluster awareness into infrastructure and support management portals",
+   "assignee": "Dell Products L.P."
+  },
+  {
+   "id": "US10754708B2",
+   "title": "Orchestrator and console agnostic method to deploy infrastructure through self-describing deployment templates",
+   "assignee": "EMC IP Holding Company LLC"
+  },
+  {
+   "id": "US10514907B2",
+   "title": "System and method for out-of-the-box solution-level management via logical architecture awareness",
+   "assignee": "EMC IP Holding Company LLC"
+  },
+  {
+   "id": "US11086738B2",
+   "title": "System and method to automate solution level contextual support",
+   "assignee": "EMC IP Holding Company LLC"
+  },
+  {
+   "id": "US10795756B2",
+   "title": "System and method to predictively service and support the solution",
+   "assignee": "EMC IP Holding Company LLC"
+  },
+  {
+   "id": "US10249170B1",
+   "title": "Auto alert for server in rack due to abusive usage",
+   "assignee": "Dell Products L.P."
+  },
+  {
+   "id": "CN109242025B",
+   "title": "Model iterative correction method, device and system",
+   "assignee": "北京旷视科技有限公司"
+  },
+  {
+   "id": "US11029875B2",
+   "title": "System and method for data storage in distributed system across multiple fault domains",
+   "assignee": "Dell Products L.P."
+  },
+  {
+   "id": "US10623265B1",
+   "title": "System and method for logical configuration of distributed systems",
+   "assignee": "EMC IP Holding Company LLC"
+  },
+  {
+   "id": "US10628170B1",
+   "title": "System and method for device deployment",
+   "assignee": "Dell Products L.P."
+  },
+  {
+   "id": "US11599422B2",
+   "title": "System and method for device independent backup in distributed system",
+   "assignee": "EMC IP Holding Company LLC"
+  },
+  {
+   "id": "US10909009B2",
+   "title": "System and method to create a highly available quorum for clustered solutions",
+   "assignee": "Dell Products L.P."
+  },
+  {
+   "id": "US10977113B2",
+   "title": "System and method for fault identification, logging, and remediation",
+   "assignee": "Dell Products L.P."
+  },
+  {
+   "id": "US10862761B2",
+   "title": "System and method for management of distributed systems",
+   "assignee": "EMC IP Holding Company LLC"
+  },
+  {
+   "id": "US11366814B2",
+   "title": "Systems and methods for federated search with dynamic selection and distributed relevance",
+   "assignee": "Elsevier, Inc."
+  },
+  {
+   "id": "US11797876B1",
+   "title": "Unified optimization for convolutional neural network model inference on integrated graphics processing units",
+   "assignee": "Amazon Technologies, Inc"
+  },
+  {
+   "id": "US11301557B2",
+   "title": "System and method for data processing device management",
+   "assignee": "Dell Products L.P."
+  },
+  {
+   "id": "US11429866B2",
+   "title": "Electronic query engine for an image processing model database",
+   "assignee": "Bank Of America Corporation"
+  },
+  {
+   "id": "US11481633B2",
+   "title": "Electronic system for management of image processing models",
+   "assignee": "Bank Of America Corporation"
+  },
+  {
+   "id": "US11151415B2",
+   "title": "Parameter archival electronic storage system for image processing models",
+   "assignee": "Bank Of America Corporation"
+  },
+  {
+   "id": "US20210357955A1",
+   "title": "User search category predictor",
+   "assignee": "Mercari, Inc."
+  },
+  {
+   "id": "CN113392317B",
+   "title": "A label configuration method, device, equipment and storage medium",
+   "assignee": "腾讯科技（深圳）有限公司"
+  },
+  {
+   "id": "US12406194B1",
+   "title": "Devices, systems, and methods for machine consciousness",
+   "assignee": "Jasmin Cosic"
+  },
+  {
+   "id": "US12561614B2",
+   "title": "Smart sampling of noisy labels using artificial intelligence",
+   "assignee": "Bank Of America Corporation"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5488725A",
+   "title": "System of document representation retrieval by successive iterated probability sampling",
+   "assignee": "West Publishing Company"
+  },
+  {
+   "id": "US5897627A",
+   "title": "Method of determining statistically meaningful rules",
+   "assignee": "Motorola, Inc."
+  },
+  {
+   "id": "US5950186A",
+   "title": "Database system index selection using cost evaluation of a workload for multiple candidate index configurations",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US5974412A",
+   "title": "Intelligent query system for automatically indexing information in a database and automatically categorizing users",
+   "assignee": "Sapient Health Network"
+  },
+  {
+   "id": "US6006222A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6014665A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6078916A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6088692A",
+   "title": "Natural language method and system for searching for and ranking relevant documents from a computer database",
+   "assignee": "University Of Central Florida"
+  },
+  {
+   "id": "US6144944A",
+   "title": "Computer system for efficiently selecting and providing information",
+   "assignee": "Imgis, Inc."
+  },
+  {
+   "id": "US6182068B1",
+   "title": "Personalized search methods",
+   "assignee": "Ask Jeeves, Inc."
+  },
+  {
+   "id": "US6266668B1",
+   "title": "System and method for dynamic data-mining and on-line communication of customized information",
+   "assignee": "Dryken Technologies, Inc."
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US6311175B1",
+   "title": "System and method for generating performance models of complex information technology systems",
+   "assignee": "Perot Systems Corp."
+  },
+  {
+   "id": "US6397211B1",
+   "title": "System and method for identifying useless documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6405188B1",
+   "title": "Information retrieval system",
+   "assignee": "Genuity Inc."
+  },
+  {
+   "id": "US20020083067A1",
+   "title": "Enterprise web mining system and method",
+   "assignee": "Pablo Tamayo"
+  },
+  {
+   "id": "US6463430B1",
+   "title": "Devices and methods for generating and managing a database",
+   "assignee": "Mohomine, Inc."
+  },
+  {
+   "id": "US20020161763A1",
+   "title": "Method for classifying data using clustering and classification algorithm supervised",
+   "assignee": "Nong Ye"
+  },
+  {
+   "id": "US20020184181A1",
+   "title": "Method for building classifier models for event classes via phased rule induction",
+   "assignee": "Ramesh Agarwal"
+  },
+  {
+   "id": "US20030033292A1",
+   "title": "System and method for enabling multi-element bidding for influencinga position on a search result list generated by a computer network search engine",
+   "assignee": "Ted Meisel"
+  },
+  {
+   "id": "US6523020B1",
+   "title": "Lightweight rule induction",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6546388B1",
+   "title": "Metadata search results ranking system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6546389B1",
+   "title": "Method and system for building a decision-tree classifier from privacy-preserving data",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030135490A1",
+   "title": "Enhanced popularity ranking",
+   "assignee": "Barrett Michael E."
+  },
+  {
+   "id": "US20030195877A1",
+   "title": "Search query processing to provide category-ranked presentation of search results",
+   "assignee": "Ford James L."
+  },
+  {
+   "id": "US20030197837A1",
+   "title": "Optical system and display device using the same",
+   "assignee": "Lg Electronics Inc."
+  },
+  {
+   "id": "US6651054B1",
+   "title": "Method, system, and program for merging query search results",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030217052A1",
+   "title": "Search engine method and apparatus",
+   "assignee": "Celebros Ltd."
+  },
+  {
+   "id": "US6671683B2",
+   "title": "Apparatus for retrieving similar documents and apparatus for extracting relevant keywords",
+   "assignee": "Matsushita Electric Industrial Co., Ltd."
+  },
+  {
+   "id": "US6714929B1",
+   "title": "Weighted preference data search system and method",
+   "assignee": "Auguri Corporation"
+  },
+  {
+   "id": "US20040088308A1",
+   "title": "Information analysing apparatus",
+   "assignee": "Canon Kabushiki Kaisha"
+  },
+  {
+   "id": "US6738764B2",
+   "title": "Apparatus and method for adaptively ranking search results",
+   "assignee": "Verity, Inc."
+  },
+  {
+   "id": "US6751611B2",
+   "title": "Method and system for creating improved search queries",
+   "assignee": "Paul Jeffrey Krupin"
+  },
+  {
+   "id": "US6782390B2",
+   "title": "Execution of multiple models using data segmentation",
+   "assignee": "Unica Technologies, Inc."
+  },
+  {
+   "id": "US6801909B2",
+   "title": "System and method for obtaining user preferences and providing user recommendations for unseen physical and information goods and services",
+   "assignee": "Triplehop Technologies, Inc."
+  },
+  {
+   "id": "US6804659B1",
+   "title": "Content based web advertising",
+   "assignee": "Ricoh Company Ltd."
+  },
+  {
+   "id": "US20050060281A1",
+   "title": "Rule-based content management system",
+   "assignee": "Tim Bucher"
+  },
+  {
+   "id": "US20050071741A1",
+   "title": "Information retrieval based on historical data",
+   "assignee": "Anurag Acharya"
+  },
+  {
+   "id": "US20050100209A1",
+   "title": "Self-optimizing classifier",
+   "assignee": "Lockheed Martin Corporation"
+  },
+  {
+   "id": "US20050198268A1",
+   "title": "Network traffic monitoring for search popularity analysis",
+   "assignee": "Rohit Chandra"
+  },
+  {
+   "id": "US6947930B2",
+   "title": "Systems and methods for interactive search query refinement",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US7007074B2",
+   "title": "Targeted advertisements using time-dependent key search terms",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7065524B1",
+   "title": "Identification and correction of confounders in a statistical analysis",
+   "assignee": "Pharsight Corporation"
+  },
+  {
+   "id": "US7080063B2",
+   "title": "Probabilistic model generation",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US7089194B1",
+   "title": "Method and apparatus for providing reduced cost online service and adaptive targeting of advertisements",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7100111B2",
+   "title": "Method and system for optimum placement of advertisements on a webpage",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US7222127B1",
+   "title": "Large scale machine learning systems and methods",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7269546B2",
+   "title": "System and method of finding documents related to other documents and of finding related words in response to a query to refine a search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7380205B2",
+   "title": "Maintenance of XML documents",
+   "assignee": "Sap Ag"
+  },
+  {
+   "id": "US7716225B1",
+   "title": "Ranking documents based on user behavior and/or feature data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7783632B2",
+   "title": "Using popularity data for ranking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7808753B2",
+   "title": "System and method for monitoring negative bias in integrated circuits",
+   "assignee": "Taiwan Semiconductor Manufacturing Co., Ltd."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US10055461B1",
+   "title": "Ranking documents based on large data sets"
+  },
+  {
+   "id": "US6795820B2",
+   "title": "Metasearch technique that ranks documents obtained from multiple collections"
+  },
+  {
+   "id": "US6871202B2",
+   "title": "Method and apparatus for ranking web page search results"
+  },
+  {
+   "id": "US6701309B1",
+   "title": "Method and system for collecting related queries"
+  },
+  {
+   "id": "US8645345B2",
+   "title": "Search engine and method with improved relevancy, scope, and timeliness"
+  },
+  {
+   "id": "JP3225912B2",
+   "title": "Information retrieval apparatus, method and recording medium"
+  },
+  {
+   "id": "JP5114380B2",
+   "title": "Reranking and enhancing the relevance of search results"
+  },
+  {
+   "id": "US9020936B2",
+   "title": "Using categorical metadata to rank search results"
+  },
+  {
+   "id": "US7206778B2",
+   "title": "Text search ordered along one or more dimensions"
+  },
+  {
+   "id": "US6112203A",
+   "title": "Method for ranking documents in a hyperlinked environment using connectivity and selective content analysis"
+  },
+  {
+   "id": "US8554759B1",
+   "title": "Selection of documents to place in search index"
+  },
+  {
+   "id": "US8862565B1",
+   "title": "Techniques for web site integration"
+  },
+  {
+   "id": "US7171409B2",
+   "title": "Computerized information search and indexing method, software and device"
+  },
+  {
+   "id": "US20020165860A1",
+   "title": "Selective retrieval metasearch engine"
+  },
+  {
+   "id": "US8521725B1",
+   "title": "Systems and methods for improved searching"
+  },
+  {
+   "id": "US7792833B2",
+   "title": "Ranking search results using language types"
+  },
+  {
+   "id": "US20100228715A1",
+   "title": "Personalization of Web Search Results Using Term, Category, and Link-Based User Profiles"
+  },
+  {
+   "id": "US20040249808A1",
+   "title": "Query expansion using query logs"
+  },
+  {
+   "id": "US20080027918A1",
+   "title": "Method of generating a distributed text index for parallel query processing"
+  },
+  {
+   "id": "US9569504B1",
+   "title": "Deriving and using document and site quality signals from search query streams"
+  },
+  {
+   "id": "US7296016B1",
+   "title": "Systems and methods for performing point-of-view searching"
+  },
+  {
+   "id": "CA2713932A1",
+   "title": "Automated boolean expression generation for computerized search and indexing"
+  },
+  {
+   "id": "US7962468B2",
+   "title": "System and method for providing image labeling game using CBIR"
+  },
+  {
+   "id": "KR20020089677A",
+   "title": "Method for classifying a document automatically and system for the performing the same"
+  },
+  {
+   "id": "KR20030082109A",
+   "title": "Method and System for Providing Information and Retrieving Index Word using AND Operator"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US9116976B1/en"
+}

@@ -1,0 +1,3597 @@
+{
+ "id": "US8224827B2",
+ "title": "Document ranking based on document classification",
+ "abstract": "A system may determine an extent to which a document is selected when the document is included in a set of search results, generate a score for the document based, at least in part, on the extent to which the document is selected when the document is included in a set of search results; and rank the document with regard to at least one other document based, at least in part, on the score.",
+ "inventors": [
+  "Jeffrey Dean",
+  "Paul Haahr",
+  "Monika Henzinger",
+  "Steve Lawrence",
+  "Karl Pfleger",
+  "Olcan Sercinoglu",
+  "Simon Tong"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2003-09-30",
+ "filing_date": "2011-09-26",
+ "publication_date": "2012-07-17",
+ "status": "Expired - Fee Related",
+ "expiration": "",
+ "cpc": [
+  "G06Q30/00",
+  "G06Q30/02",
+  "G06Q30/0241",
+  "G06Q30/0242",
+  "G06Q30/0246",
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/951",
+  "Y10S707/00",
+  "Y10S707/99931",
+  "Y10S707/99933"
+ ],
+ "claims": [
+  {
+   "text": "1. A method performed by one or more devices, the method comprising: determining, by at least one of the one or more devices, a first average amount of time that a first set of users spent accessing a document during a first time period; determining, by at least one of the one or more devices, a second average amount of time that a second set of users spent accessing the same document during a second time period, the second time period occurring after the first time period; comparing, by at least one of the one or more devices, the first average amount of time to the second average amount of time determining, by at least one of the one or more devices and based on the comparing, that the first average amount of time is different from the second average amount of time classifying, by at least one of the one or more devices, the document as stale or fresh based on determining that the first average amount of time is different from the second average amount of time, the classifying including: classifying the document as stale when the first average amount of time is greater than the second average amount of time, and classifying the document as fresh when the first average amount of time is less than the second average amount of time generating, by at least one of the one or more devices, a score for the document based on classifying the document as stale or fresh; and ranking, by at least one of the one or more devices, the document with regard to at least one other document based on the generated score.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, further comprising: determining a quantity of times that the document is selected out of a plurality of documents, and where generating the score includes generating the score further based on the determined quantity of times that the document is selected out of the plurality of documents.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, further comprising: lowering a ranking of the document, with regard to the at least one other document, when the document is classified as stale.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, further comprising: increasing a ranking of the document, with regard to the at least one other document, when the document is classified as fresh.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 1, where the generated score is a first score, the method further comprising: generating a second score, for the document, that is based on a relevance of the document to a search query; and combining the first and second scores to generate an overall score, where ranking the document includes ranking the document with regard to the at least one other document based on the overall score.",
+   "dependent": true
+  },
+  {
+   "text": "6. A system, comprising: one or more devices to: determine a first average amount of time that a first set of users spent accessing a document during a first time period; determine a second average amount of time that a second set of users spent accessing the same document during a second time period, the second time period occurring after the first time period; compare the first average amount of time to the second average amount of time; determine, based on the comparing, that the first average amount of time is different from the second average amount of time classify the document as stale or fresh based on determining that the first average amount of time is different from the second average amount of time, when classifying the document, at least one of the one or more devices further being to: classify the document as stale when the first average amount of time is greater than the second average amount of time, and classify the document as fresh when the first average amount of time is less than the second average amount of time generate a score for the document based on classifying the document as stale or fresh; and rank the document with regard to at least one other document based on the generated score.",
+   "dependent": false
+  },
+  {
+   "text": "7. The system of claim 6, where the one or more devices are further to: determine a quantity of times that the document is selected out of a plurality of documents, and where when generating the score, the one or more devices are to generate the score further based on the determined quantity of times that the document is selected out of the plurality of documents.",
+   "dependent": true
+  },
+  {
+   "text": "8. The system of claim 6, where the one or more devices are further to: lower a ranking of the document, with regard to the at least one other document, when the document is classified as stale.",
+   "dependent": true
+  },
+  {
+   "text": "9. The system of claim 6, where the one or more devices are further to: increase a ranking of the document, with regard to the at least one other document, when the document is classified as fresh.",
+   "dependent": true
+  },
+  {
+   "text": "10. The system of claim 6, where the generated score is a first score, where the one or more devices are further to: generate a second score, for the document, that is based on a relevance of the document to a search query; and combine the first and second scores to generate an overall score, where when ranking the document, the one or more devices are to rank the document with regard to the at least one other document based on the overall score.",
+   "dependent": true
+  },
+  {
+   "text": "11. A computer-readable memory device, comprising: a plurality of computer-executable instructions, which, when executed by one or more processors, cause the one or more processors to: determine a first average amount of time that a first set of users spent accessing a document during a first time period; determine a second average amount of time that a second set of users spent accessing the same document during a second time period, the second time period occurring after the first time period; compare the first average amount of time to the second average amount of time determine, based on the comparing, that the first average amount of time is different from the second average amount of time classify the document as stale or fresh based on determining that the first average amount of time is different from the second average amount of time, when classifying the document, the one or more devices further being to: classify the document as stale when determining that the first average amount of time is greater than the second average amount of time, and classify the document as fresh when determining that the first average amount of time is less than the second average amount of time generate a score for the document based on classifying the document as stale or fresh; and rank the document with regard to at least one other document based on the generated score.",
+   "dependent": false
+  },
+  {
+   "text": "12. The computer-readable memory device of claim 11, where the plurality of computer-executable instructions further cause the one or more processors to: determine a quantity of times that the document is selected out of a plurality of documents, and where the computer-executable instructions, which cause the one or more processors to generate the score, further cause the one or more processors to generate the score further based on the determined quantity of times that the document is selected out of the plurality of documents.",
+   "dependent": true
+  },
+  {
+   "text": "13. The computer-readable memory device of claim 11, where the plurality computer-executable instructions further cause the one or more processors to: lower a ranking of the document, with regard to the at least one other document, when the document is classified as stale.",
+   "dependent": true
+  },
+  {
+   "text": "14. The computer-readable memory device of claim 11, where the plurality of computer-executable instructions further cause the one or more processors to: increase a ranking of the document, with regard to the at least one other document, when the document is classified as fresh.",
+   "dependent": true
+  },
+  {
+   "text": "15. The computer-readable memory device of claim 11, where the generated score is a first score, where the plurality computer-executable instructions further cause the one or more processors to: generate a second score, for the document, that is based on a relevance of the document to a search query; and combine the first and second scores to generate an overall score, where the plurality of computer-executable instructions, which cause the one or more processors to rank the document, further cause the one or more processors to rank the document with regard to the at least one other document based on the overall score.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## RELATED APPLICATION\n\n\nThis application is a divisional of U.S. patent application Ser. No. 11/562,617, filed Nov. 22, 2006 which is a divisional of U.S. patent application Ser. No. 10/748,664, filed Dec. 31, 2003, now U.S. Pat. No. 7,346,839, which claims priority under 35 U.S.C. §119 based on U.S. Provisional Application No. 60/507,617, filed Sep. 30, 2003, the disclosures of which are incorporated herein by reference.\n\n\n## BACKGROUND OF THE INVENTION\n\n\n1. Field of the Invention\n\nThe present invention relates generally to information retrieval systems and, more particularly, to systems and methods for generating search results based, at least in part, on historical data associated with relevant documents.\n\n2. Description of Related Art\n\nThe World Wide Web (“web”) contains a vast amount of information. Search engines assist users in locating desired portions of this information by cataloging web documents. Typically, in response to a user's request, a search engine returns links to documents relevant to the request.\n\nSearch engines may base their determination of the user's interest on search terms (called a search query) provided by the user. The goal of a search engine is to identify links to high quality relevant results based on the search query. Typically, the search engine accomplishes this by matching the terms in the search query to a corpus of pre-stored web documents. Web documents that contain the user's search terms are considered “hits” and are returned to the user.\n\nIdeally, a search engine, in response to a given user's search query, will provide the user with the most relevant results. One category of search engines identifies relevant documents based on a comparison of the search query terms to the words contained in the documents. Another category of search engines identifies relevant documents using factors other than, or in addition to, the presence of the search query terms in the documents. One such search engine uses information associated with links to or from the documents to determine the relative importance of the documents.\n\nBoth categories of search engines strive to provide high quality results for a search query. There are several factors that may affect the quality of the results generated by a search engine. For example, some web site producers use spamming techniques to artificially inflate their rank. Also, “stale” documents (i.e., those documents that have not been updated for a period of time and, thus, contain stale data) may be ranked higher than “fresher” documents (i.e., those documents that have been more recently updated and, thus, contain more recent data). In some particular contexts, the higher ranking stale documents degrade the search results.\n\nThus, there remains a need to improve the quality of results generated by search engines.\n\n\n## SUMMARY OF THE INVENTION\n\n\nSystems and methods consistent with the principles of the invention may score documents based, at least in part, on history data associated with the documents. This scoring may be used to improve search results generated in connection with a search query.\n\nAccording to one aspect, a method may include determining an extent to which a document is selected when the document is included in a set of search results; generating a score for the document based, at least in part, on the extent to which the document is selected when the document is included in a set of search results; and ranking the document with regard to at least one other document based, at least in part, on the score.\n\nAccording to another aspect, a system may include means for determining an amount of time one or more users spent accessing a document; means for generating a score for the document based, at least in part, on the amount of time the one or more users spent accessing the document; and means for ranking the document with regard to at least one other document based, at least in part, on the score.\n\nAccording to yet another aspect, a method may include determining a set of search terms relating to a particular topic or news item; identifying a first document that is associated with the set of search terms and a second document that is not associated with the set of search terms; generating a first score for the first document and a second score for the second document, where the first score is higher than the second score; and ranking the first document with regard to at least one other document based, at least in part, on the first score.\n\nAccording to a further aspect, a method may include receiving a search query; performing a search based, at least in part, on the search query to identify a group of search result documents; determining a staleness of a search result document in the group of search result documents; determining whether a stale document is preferred for the search query; generating a score for the search result document based, at least in part, on the staleness of the search result document and whether a stale document is preferred for the search query; and ranking the search result document with regard to at least one other one of the search result documents based, at least in part, on the score.\n\nAccording to another aspect, a method may include determining an extent that a document moves positions in search result rankings; determining a score for the document based, at least in part, on the extent to which the document moves in search result rankings; and ranking the document with regard to at least one other document based, at least in part, on the score.\n\nAccording to yet another aspect, a method may include determining an extent that a rank of a document changes over time; determining or adjusting a score for the document based, at least in part, on the extent that the rank of the document changes over time; and ranking the document with regard to at least one other document based, at least in part, on the score.\n\nAccording to a further aspect, a system may include means for identifying a document that appears as a search result document for a group of discordant search queries; means for determining a score for the document; means for negatively adjusting the score for the document; and means for ranking the document with regard to at least one other document based, at least in part, on the negatively-adjusted score.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nThe accompanying drawings, which are incorporated in and constitute a part of this specification, illustrate an embodiment of the invention and, together with the description, explain the invention. In the drawings,\n\nFIG. 1 is a diagram of an exemplary network in which systems and methods consistent with the principles of the invention may be implemented;\n\nFIG. 2 is an exemplary diagram of a client and/or server of FIG. 1 according to an implementation consistent with the principles of the invention;\n\nFIG. 3 is an exemplary functional block diagram of the search engine of FIG. 1 according to an implementation consistent with the principles of the invention; and\n\nFIG. 4 is a flowchart of exemplary processing for scoring documents according to an implementation consistent with the principles of the invention.\n\n\n## DETAILED DESCRIPTION\n\n\nThe following detailed description of the invention refers to the accompanying drawings. The same reference numbers in different drawings may identify the same or similar elements. Also, the following detailed description does not limit the invention.\n\nSystems and methods consistent with the principles of the invention may score documents using, for example, history data associated with the documents. The systems and methods may use these scores to provide high quality search results.\n\nA “document,” as the term is used herein, is to be broadly interpreted to include any machine-readable and machine-storable work product. A document may include an e-mail, a web site, a file, a combination of files, one or more files with embedded links to other files, a news group posting, a blog, a web advertisement, etc. In the context of the Internet, a common document is a web page. Web pages often include textual information and may include embedded information (such as meta information, images, hyperlinks, etc.) and/or embedded instructions (such as Javascript, etc.). A page may correspond to a document or a portion of a document. Therefore, the words “page” and “document” may be used interchangeably in some cases. In other cases, a page may refer to a portion of a document, such as a sub-document. It may also be possible for a page to correspond to more than a single document.\n\nIn the description to follow, documents may be described as having links to other documents and/or links from other documents. For example, when a document includes a link to another document, the link may be referred to as a “forward link.” When a document includes a link from another document, the link may be referred to as a “back link.” When the term “link” is used, it may refer to either a back link or a forward link.\n\n\n## Exemplary Network Configuration\n\n\nFIG. 1 is an exemplary diagram of a network 100 in which systems and methods consistent with the principles of the invention may be implemented. Network 100 may include multiple clients 110 connected to multiple servers 120-140 via a network 150. Network 150 may include a local area network (LAN), a wide area network (WAN), a telephone network, such as the Public Switched Telephone Network (PSTN), an intranet, the Internet, a memory device, another type of network, or a combination of networks. Two clients 110 and three servers 120-140 have been illustrated as connected to network 150 for simplicity. In practice, there may be more or fewer clients and servers. Also, in some instances, a client may perform the functions of a server and a server may perform the functions of a client.\n\nClients 110 may include client entities. An entity may be defined as a device, such as a wireless telephone, a personal computer, a personal digital assistant (PDA), a lap top, or another type of computation or communication device, a thread or process running on one of these devices, and/or an object executable by one of these device. Servers 120-140 may include server entities that gather, process, search, and/or maintain documents in a manner consistent with the principles of the invention. Clients 110 and servers 120-140 may connect to network 150 via wired, wireless, and/or optical connections.\n\nIn an implementation consistent with the principles of the invention, server 120 may include a search engine 125 usable by clients 110. Server 120 may crawl a corpus of documents (e.g., web pages), index the documents, and store information associated with the documents in a repository of crawled documents. Servers 130 and 140 may store or maintain documents that may be crawled by server 120. While servers 120-140 are shown as separate entities, it may be possible for one or more of servers 120-140 to perform one or more of the functions of another one or more of servers 120-140. For example, it may be possible that two or more of servers 120-140 are implemented as a single server. It may also be possible for a single one of servers 120-140 to be implemented as two or more separate (and possibly distributed) devices.\n\n\n## Exemplary Client/Server Architecture\n\n\nFIG. 2 is an exemplary diagram of a client or server entity (hereinafter called “client/server entity”), which may correspond to one or more of clients 110 and servers 120-140, according to an implementation consistent with the principles of the invention. The client/server entity may include a bus 210, a processor 220, a main memory 230, a read only memory (ROM) 240, a storage device 250, one or more input devices 260, one or more output devices 270, and a communication interface 280. Bus 210 may include one or more conductors that permit communication among the components of the client/server entity.\n\nProcessor 220 may include one or more conventional processors or microprocessors that interpret and execute instructions. Main memory 230 may include a random access memory (RAM) or another type of dynamic storage device that stores information and instructions for execution by processor 220. ROM 240 may include a conventional ROM device or another type of static storage device that stores static information and instructions for use by processor 220. Storage device 250 may include a magnetic and/or optical recording medium and its corresponding drive.\n\nInput device(s) 260 may include one or more conventional mechanisms that permit an operator to input information to the client/server entity, such as a keyboard, a mouse, a pen, voice recognition and/or biometric mechanisms, etc. Output device(s) 270 may include one or more conventional mechanisms that output information to the operator, including a display, a printer, a speaker, etc. Communication interface 280 may include any transceiver-like mechanism that enables the client/server entity to communicate with other devices and/or systems. For example, communication interface 280 may include mechanisms for communicating with another device or system via a network, such as network 150.\n\nAs will be described in detail below, the client/server entity, consistent with the principles of the invention, perform certain searching-related operations. The client/server entity may perform these operations in response to processor 220 executing software instructions contained in a computer-readable medium, such as memory 230. A computer-readable medium may be defined as one or more physical or logical memory devices and/or carrier waves.\n\nThe software instructions may be read into memory 230 from another computer-readable medium, such as data storage device 250, or from another device via communication interface 280. The software instructions contained in memory 230 may cause processor 220 to perform processes that will be described later. Alternatively, hardwired circuitry may be used in place of or in combination with software instructions to implement processes consistent with the principles of the invention. Thus, implementations consistent with the principles of the invention are not limited to any specific combination of hardware circuitry and software.\n\n\n## Exemplary Search Engine\n\n\nFIG. 3 is an exemplary functional block diagram of search engine 125 according to an implementation consistent with the principles of the invention. Search engine 125 may include document locator 310, history component 320, and ranking component 330. As shown in FIG. 3, one or more of document locator 310 and history component 320 may connect to a document corpus 340. Document corpus 340 may include information associated with documents that were previously crawled, indexed, and stored, for example, in a database accessible by search engine 125. History data, as will be described in more detail below, may be associated with each of the documents in document corpus 340. The history data may be stored in document corpus 340 or elsewhere.\n\nDocument locator 310 may identify a set of documents whose contents match a user search query. Document locator 310 may initially locate documents from document corpus 340 by comparing the terms in the user's search query to the documents in the corpus. In general, processes for indexing documents and searching the indexed collection to return a set of documents containing the searched terms are well known in the art. Accordingly, this functionality of document locator 310 will not be described further herein.\n\nHistory component 320 may gather history data associated with the documents in document corpus 340. In implementations consistent with the principles of the invention, the history data may include data relating to: document inception dates; document content updates/changes; query analysis; link-based criteria; anchor text (e.g., the text in which a hyperlink is embedded, typically underlined or otherwise highlighted in a document); traffic; user behavior; domain-related information; ranking history; user maintained/generated data (e.g., bookmarks); unique words, bigrams, and phrases in anchor text; linkage of independent peers; and/or document topics. These different types of history data are described in additional detail below. In other implementations, the history data may include additional or different kinds of data.\n\nRanking component 330 may assign a ranking score (also called simply a “score” herein) to one or more documents in document corpus 340. Ranking component 330 may assign the ranking scores prior to, independent of, or in connection with a search query. When the documents are associated with a search query (e.g., identified as relevant to the search query), search engine 125 may sort the documents based on the ranking score and return the sorted set of documents to the client that submitted the search query. Consistent with aspects of the invention, the ranking score is a value that attempts to quantify the quality of the documents. In implementations consistent with the principles of the invention, the score is based, at least in part, on the history data from history component 320.\n\n\n## Exemplary History Data\n\n\nDocument Inception Date\n\nAccording to an implementation consistent with the principles of the invention, a document's inception date may be used to generate (or alter) a score associated with that document. The term “date” is used broadly here and may, thus, include time and date measurements. As described below, there are several techniques that can be used to determine a document's inception date. Some of these techniques are “biased” in the sense that they can be influenced by third parties desiring to improve the score associated with a document. Other techniques are not biased. Any of these techniques, combinations of these techniques, or yet other techniques may be used to determine a document's inception date.\n\nAccording to one implementation, the inception date of a document may be determined from the date that search engine 125 first learns of or indexes the document. Search engine 125 may discover the document through crawling, submission of the document (or a representation/summary thereof) to search engine 125 from an “outside” source, a combination of crawl or submission-based indexing techniques, or in other ways. Alternatively, the inception date of a document may be determined from the date that search engine 125 first discovers a link to the document.\n\nAccording to another implementation, the date that a domain with which a document is registered may be used as an indication of the inception date of the document. According to yet another implementation, the first time that a document is referenced in another document, such as a news article, newsgroup, mailing list, or a combination of one or more such documents, may be used to infer an inception date of the document. According to a further implementation, the date that a document includes at least a threshold number of pages may be used as an indication of the inception date of the document. According to another implementation, the inception date of a document may be equal to a time stamp associated with the document by the server hosting the document. Other techniques, not specifically mentioned herein, or combinations of techniques could be used to determine or infer a document's inception date.\n\nSearch engine 125 may use the inception date of a document for scoring of the document. For example, it may be assumed that a document with a fairly recent inception date will not have a significant number of links from other documents (i.e., back links). For existing link-based scoring techniques that score based on the number of links to/from a document, this recent document may be scored lower than an older document that has a larger number of links (e.g., back links). When the inception date of the documents are considered, however, the scores of the documents may be modified (either positively or negatively) based on the documents' inception dates.\n\nConsider the example of a document with an inception date of yesterday that is referenced by 10 back links This document may be scored higher by search engine 125 than a document with an inception date of 10 years ago that is referenced by 100 back links because the rate of link growth for the former is relatively higher than the latter. While a spiky rate of growth in the number of back links may be a factor used by search engine 125 to score documents, it may also signal an attempt to spam search engine 125. Accordingly, in this situation, search engine 125 may actually lower the score of a document(s) to reduce the effect of spamming.\n\nThus, according to an implementation consistent with the principles of the invention, search engine 125 may use the inception date of a document to determine a rate at which links to the document are created (e.g., as an average per unit time based on the number of links created since the inception date or some window in that period). This rate can then be used to score the document, for example, giving more weight to documents to which links are generated more often.\n\nIn one implementation, search engine 125 may modify the link-based score of a document as follows: H=L/log(F+2), where H may refer to the history-adjusted link score, L may refer to the link score given to the document, which can be derived using any known link scoring technique (e.g., the scoring technique described in U.S. Pat. No. 6,285,999) that assigns a score to a document based on links to/from the document, and F may refer to elapsed time measured from the inception date associated with the document (or a window within this period).\n\nFor some queries, older documents may be more favorable than newer ones. As a result, it may be beneficial to adjust the score of a document based on the difference (in age) from the average age of the result set. In other words, search engine 125 may determine the age of each of the documents in a result set (e.g., using their inception dates), determine the average age of the documents, and modify the scores of the documents (either positively or negatively) based on a difference between the documents' age and the average age.\n\nIn summary, search engine 125 may generate (or alter) a score associated with a document based, at least in part, on information relating to the inception date of the document.\n\nContent Updates/Changes\n\nAccording to an implementation consistent with the principles of the invention, information relating to a manner in which a document's content changes over time may be used to generate (or alter) a score associated with that document. For example, a document whose content is edited often may be scored differently than a document whose content remains static over time. Also, a document having a relatively large amount of its content updated over time might be scored differently than a document having a relatively small amount of its content updated over time.\n\nIn one implementation, search engine 125 may generate a content update score (U) as follows: U=f(UF,UA), where f may refer to a function, such as a sum or weighted sum, UF may refer to an update frequency score that represents how often a document (or page) is updated, and UA may refer to an update amount score that represents how much the document (or page) has changed over time. UF may be determined in a number of ways, including as an average time between updates, the number of updates in a given time period, etc.\n\nUA may also be determined as a function of one or more factors, such as the number of “new” or unique pages associated with a document over a period of time. Another factor might include the ratio of the number of new or unique pages associated with a document over a period of time versus the total number of pages associated with that document. Yet another factor may include the amount that the document is updated over one or more periods of time (e.g., n % of a document's visible content may change over a period t (e.g., last m months)), which might be an average value. A further factor might include the amount that the document (or page) has changed in one or more periods of time (e.g., within the last x days).\n\nAccording to one exemplary implementation, UA may be determined as a function of differently weighted portions of document content. For instance, content deemed to be unimportant if updated/changed, such as Javascript, comments, advertisements, navigational elements, boilerplate material, or date/time tags, may be given relatively little weight or even ignored altogether when determining UA. On the other hand, content deemed to be important if updated/changed (e.g., more often, more recently, more extensively, etc.), such as the title or anchor text associated with the forward links, could be given more weight than changes to other content when determining UA.\n\nUF and UA may be used in other ways to influence the score assigned to a document. For example, the rate of change in a current time period can be compared to the rate of change in another (e.g., previous) time period to determine whether there is an acceleration or deceleration trend. Documents for which there is an increase in the rate of change might be scored higher than those documents for which there is a steady rate of change, even if that rate of change is relatively high. The amount of change may also be a factor in this scoring. For example, documents for which there is an increase in the rate of change when that amount of change is greater than some threshold might be scored higher than those documents for which there is a steady rate of change or an amount of change is less than the threshold.\n\nIn some situations, data storage resources may be insufficient to store the documents when monitoring the documents for content changes. In this case, search engine 125 may store representations of the documents and monitor these representations for changes. For example, search engine 125 may store “signatures” of documents instead of the (entire) documents themselves to detect changes to document content. In this case, search engine 125 may store a term vector for a document (or page) and monitor it for relatively large changes. According to another implementation, search engine 125 may store and monitor a relatively small portion (e.g., a few terms) of the documents that are determined to be important or the most frequently occurring (excluding “stop words”).\n\nAccording to yet another implementation, search engine 125 may store a summary or other representation of a document and monitor this information for changes. According to a further implementation, search engine 125 may generate a similarity hash (which may be used to detect near-duplication of a document) for the document and monitor it for changes. A change in a similarity hash may be considered to indicate a relatively large change in its associated document. In other implementations, yet other techniques may be used to monitor documents for changes. In situations where adequate data storage resources exist, the full documents may be stored and used to determine changes rather than some representation of the documents.\n\nFor some queries, documents with content that has not recently changed may be more favorable than documents with content that has recently changed. As a result, it may be beneficial to adjust the score of a document based on the difference from the average date-of-change of the result set. In other words, search engine 125 may determine a date when the content of each of the documents in a result set last changed, determine the average date of change for the documents, and modify the scores of the documents (either positively or negatively) based on a difference between the documents' date-of-change and the average date-of-change.\n\nIn summary, search engine 125 may generate (or alter) a score associated with a document based, at least in part, on information relating to a manner in which the document's content changes over time. For very large documents that include content belonging to multiple individuals or organizations, the score may correspond to each of the sub-documents (i.e., that content belonging to or updated by a single individual or organization).\n\nQuery Analysis\n\nAccording to an implementation consistent with the principles of the invention, one or more query-based factors may be used to generate (or alter) a score associated with a document. For example, one query-based factor may relate to the extent to which a document is selected over time when the document is included in a set of search results. In this case, search engine 125 might score documents selected relatively more often/increasingly by users higher than other documents.\n\nAnother query-based factor may relate to the occurrence of certain search terms appearing in queries over time. A particular set of search terms may increasingly appear in queries over a period of time. For example, terms relating to a “hot” topic that is gaining/has gained popularity or a breaking news event would conceivably appear frequently over a period of time. In this case, search engine 125 may score documents associated with these search terms (or queries) higher than documents not associated with these terms.\n\nA further query-based factor may relate to a change over time in the number of search results generated by similar queries. A significant increase in the number of search results generated by similar queries, for example, might indicate a hot topic or breaking news and cause search engine 125 to increase the scores of documents related to such queries.\n\nAnother query-based factor may relate to queries that remain relatively constant over time but lead to results that change over time. For example, a query relating to “world series champion” leads to search results that change over time (e.g., documents relating to a particular team dominate search results in a given year or time of year). This change can be monitored and used to score documents accordingly.\n\nYet another query-based factor might relate to the “staleness” of documents returned as search results. The staleness of a document may be based on factors, such as document creation date, anchor growth, traffic, content change, forward/back link growth, etc. For some queries, recent documents are very important (e.g., if searching for Frequently Asked Questions (FAQ) files, the most recent version would be highly desirable). Search engine 125 may learn which queries recent changes are most important for by analyzing which documents in search results are selected by users. More specifically, search engine 125 may consider how often users favor a more recent document that is ranked lower than an older document in the search results. Additionally, if over time a particular document is included in mostly topical queries (e.g., “World Series Champions”) versus more specific queries (e.g., “New York Yankees”), then this query-based factor—by itself or with others mentioned herein—may be used to lower a score for a document that appears to be stale.\n\nIn some situations, a stale document may be considered more favorable than more recent documents. As a result, search engine 125 may consider the extent to which a document is selected over time when generating a score for the document. For example, if for a given query, users over time tend to select a lower ranked, relatively stale, document over a higher ranked, relatively recent document, this may be used by search engine 125 as an indication to adjust a score of the stale document.\n\nYet another query-based factor may relate to the extent to which a document appears in results for different queries. In other words, the entropy of queries for one or more documents may be monitored and used as a basis for scoring. For example, if a particular document appears as a hit for a discordant set of queries, this may (though not necessarily) be considered a signal that the document is spam, in which case search engine 125 may score the document relatively lower.\n\nIn summary, search engine 125 may generate (or alter) a score associated with a document based, at least in part, on one or more query-based factors.\n\nLink-Based Criteria\n\nAccording to an implementation consistent with the principles of the invention, one or more link-based factors may be used to generate (or alter) a score associated with a document. In one implementation, the link-based factors may relate to the dates that new links appear to a document and that existing links disappear. The appearance date of a link may be the first date that search engine 125 finds the link or the date of the document that contains the link (e.g., the date that the document was found with the link or the date that it was last updated). The disappearance date of a link may be the first date that the document containing the link either dropped the link or disappeared itself.\n\nThese dates may be determined by search engine 125 during a crawl or index update operation. Using this date as a reference, search engine 125 may then monitor the time-varying behavior of links to the document, such as when links appear or disappear, the rate at which links appear or disappear over time, how many links appear or disappear during a given time period, whether there is trend toward appearance of new links versus disappearance of existing links to the document, etc.\n\nUsing the time-varying behavior of links to (and/or from) a document, search engine 125 may score the document accordingly. For example, a downward trend in the number or rate of new links (e.g., based on a comparison of the number or rate of new links in a recent time period versus an older time period) over time could signal to search engine 125 that a document is stale, in which case search engine 125 may decrease the document's score. Conversely, an upward trend may signal a “fresh” document (e.g., a document whose content is fresh—recently created or updated) that might be considered more relevant, depending on the particular situation and implementation.\n\nBy analyzing the change in the number or rate of increase/decrease of back links to a document (or page) over time, search engine 125 may derive a valuable signal of how fresh the document is. For example, if such analysis is reflected by a curve that is dropping off, this may signal that the document may be stale (e.g., no longer updated, diminished in importance, superceded by another document, etc.).\n\nAccording to one implementation, the analysis may depend on the number of new links to a document. For example, search engine 125 may monitor the number of new links to a document in the last n days compared to the number of new links since the document was first found. Alternatively, search engine 125 may determine the oldest age of the most recent y % of links compared to the age of the first link found.\n\nFor the purpose of illustration, consider y=10 and two documents (web sites in this example) that were both first found 100 days ago. For the first site, 10% of the links were found less than 10 days ago, while for the second site 0% of the links were found less than 10 days ago (in other words, they were all found earlier). In this case, the metric results in 0.1 for site A and 0 for site B. The metric may be scaled appropriately. In another exemplary implementation, the metric may be modified by performing a relatively more detailed analysis of the distribution of link dates. For example, models may be built that predict if a particular distribution signifies a particular type of site (e.g., a site that is no longer updated, increasing or decreasing in popularity, superceded, etc.).\n\nAccording to another implementation, the analysis may depend on weights assigned to the links. In this case, each link may be weighted by a function that increases with the freshness of the link. The freshness of a link may be determined by the date of appearance/change of the link, the date of appearance/change of anchor text associated with the link, date of appearance/change of the document containing the link. The date of appearance/change of the document containing a link may be a better indicator of the freshness of the link based on the theory that a good link may go unchanged when a document gets updated if it is still relevant and good. In order to not update every link's freshness from a minor edit of a tiny unrelated part of a document, each updated document may be tested for significant changes (e.g., changes to a large portion of the document or changes to many different portions of the document) and a link's freshness may be updated (or not updated) accordingly.\n\nLinks may be weighted in other ways. For example, links may be weighted based on how much the documents containing the links are trusted (e.g., government documents can be given high trust). Links may also, or alternatively, be weighted based on how authoritative the documents containing the links are (e.g., authoritative documents may be determined in a manner similar to that described in U.S. Pat. No. 6,285,999). Links may also, or alternatively, be weighted based on the freshness of the documents containing the links using some other features to establish freshness (e.g., a document that is updated frequently (e.g., the Yahoo home page) suddenly drops a link to a document).\n\nSearch engine 125 may raise or lower the score of a document to which there are links as a function of the sum of the weights of the links pointing to it. This technique may be employed recursively. For example, assume that a document S is 2 years olds. Document S may be considered fresh if n % of the links to S are fresh or if the documents containing forward links to S are considered fresh. The latter can be checked by using the creation date of the document and applying this technique recursively.\n\nAccording to yet another technique, the analysis may depend on an age distribution associated with the links pointing to a document. In other words, the dates that the links to a document were created may be determined and input to a function that determines the age distribution. It may be assumed that the age distribution of a stale document will be very different from the age distribution of a fresh document. Search engine 125 may then score documents based, at least in part, on the age distributions associated with the documents.\n\nThe dates that links appear can also be used to detect “spam,” where owners of documents or their colleagues create links to their own document for the purpose of boosting the score assigned by a search engine. A typical, “legitimate” document attracts back links slowly. A large spike in the quantity of back links may signal a topical phenomenon (e.g., the CDC web site may develop many links quickly after an outbreak, such as SARS), or signal attempts to spam a search engine (to obtain a higher ranking and, thus, better placement in search results) by exchanging links, purchasing links, or gaining links from documents without editorial discretion on making links. Examples of documents that give links without editorial discretion include guest books, referrer logs, and “free for all” pages that let anyone add a link to a document.\n\nAccording to a further implementation, the analysis may depend on the date that links disappear. The disappearance of many links can mean that the document to which these links point is stale (e.g., no longer being updated or has been superseded by another document). For example, search engine 125 may monitor the date at which one or more links to a document disappear, the number of links that disappear in a given window of time, or some other time-varying decrease in the number of links (or links/updates to the documents containing such links) to a document to identify documents that may be considered stale. Once a document has been determined to be stale, the links contained in that document may be discounted or ignored by search engine 125 when determining scores for documents pointed to by the links.\n\nAccording to another implementation, the analysis may depend, not only on the age of the links to a document, but also on the dynamic-ness of the links. As such, search engine 125 may weight documents that have a different featured link each day, despite having a very fresh link, differently (e.g., lower) than documents that are consistently updated and consistently link to a given target document. In one exemplary implementation, search engine 125 may generate a score for a document based on the scores of the documents with links to the document for all versions of the documents within a window of time. Another version of this may factor a discount/decay into the integration based on the major update times of the document.\n\nIn summary, search engine 125 may generate (or alter) a score associated with a document based, at least in part, on one or more link-based factors.\n\nAnchor Text\n\nAccording to an implementation consistent with the principles of the invention, information relating to a manner in which anchor text changes over time may be used to generate (or alter) a score associated with a document. For example, changes over time in anchor text associated with links to a document may be used as an indication that there has been an update or even a change of focus in the document.\n\nAlternatively, if the content of a document changes such that it differs significantly from the anchor text associated with its back links, then the domain associated with the document may have changed significantly (completely) from a previous incarnation. This may occur when a domain expires and a different party purchases the domain. Because anchor text is often considered to be part of the document to which its associated link points, the domain may show up in search results for queries that are no longer on topic. This is an undesirable result.\n\nOne way to address this problem is to estimate the date that a domain changed its focus. This may be done by determining a date when the text of a document changes significantly or when the text of the anchor text changes significantly. All links and/or anchor text prior to that date may then be ignored or discounted.\n\nThe freshness of anchor text may also be used as a factor in scoring documents. The freshness of an anchor text may be determined, for example, by the date of appearance/change of the anchor text, the date of appearance/change of the link associated with the anchor text, and/or the date of appearance/change of the document to which the associated link points. The date of appearance/change of the document pointed to by the link may be a good indicator of the freshness of the anchor text based on the theory that good anchor text may go unchanged when a document gets updated if it is still relevant and good. In order to not update an anchor text's freshness from a minor edit of a tiny unrelated part of a document, each updated document may be tested for significant changes (e.g., changes to a large portion of the document or changes to many different portions of the document) and an anchor text's freshness may be updated (or not updated) accordingly.\n\nIn summary, search engine 125 may generate (or alter) a score associated with a document based, at least in part, on information relating to a manner in which anchor text changes over time.\n\nTraffic\n\nAccording to an implementation consistent with the principles of the invention, information relating to traffic associated with a document over time may be used to generate (or alter) a score associated with the document. For example, search engine 125 may monitor the time-varying characteristics of traffic to, or other “use” of, a document by one or more users. A large reduction in traffic may indicate that a document may be stale (e.g., no longer be updated or may be superseded by another document).\n\nIn one implementation, search engine 125 may compare the average traffic for a document over the last j days (e.g., where j=30) to the average traffic during the month where the document received the most traffic, optionally adjusted for seasonal changes, or during the last k days (e.g., where k=365). Optionally, search engine 125 may identify repeating traffic patterns or perhaps a change in traffic patterns over time. It may be discovered that there are periods when a document is more or less popular (i.e., has more or less traffic), such as during the summer months, on weekends, or during some other seasonal time period. By identifying repeating traffic patterns or changes in traffic patterns, search engine 125 may appropriately adjust its scoring of the document during and outside of these periods.\n\nAdditionally, or alternatively, search engine 125 may monitor time-varying characteristics relating to “advertising traffic” for a particular document. For example, search engine 125 may monitor one or a combination of the following factors: (1) the extent to and rate at which advertisements are presented or updated by a given document over time; (2) the quality of the advertisers (e.g., a document whose advertisements refer/link to documents known to search engine 125 over time to have relatively high traffic and trust, such as amazon.com, may be given relatively more weight than those documents whose advertisements refer to low traffic/untrustworthy documents, such as a pornographic site); and (3) the extent to which the advertisements generate user traffic to the documents to which they relate (e.g., their click-through rate). Search engine 125 may use these time-varying characteristics relating to advertising traffic to score the document.\n\nIn summary, search engine 125 may generate (or alter) a score associated with a document based, at least in part, on information relating to traffic associated with the document over time.\n\nUser Behavior\n\nAccording to an implementation consistent with the principles of the invention, information corresponding to individual or aggregate user behavior relating to a document over time may be used to generate (or alter) a score associated with the document. For example, search engine 125 may monitor the number of times that a document is selected from a set of search results and/or the amount of time one or more users spend accessing the document. Search engine 125 may then score the document based, at least in part, on this information.\n\nIf a document is returned for a certain query and over time, or within a given time window, users spend either more or less time on average on the document given the same or similar query, then this may be used as an indication that the document is fresh or stale, respectively. For example, assume that the query “Riverview swimming schedule” returns a document with the title “Riverview Swimming Schedule.” Assume further that users used to spend 30 seconds accessing it, but now every user that selects the document only spends a few seconds accessing it. Search engine 125 may use this information to determine that the document is stale (i.e., contains an outdated swimming schedule) and score the document accordingly.\n\nIn summary, search engine 125 may generate (or alter) a score associated with a document based, at least in part, on information corresponding to individual or aggregate user behavior relating to the document over time.\n\nDomain-Related Information\n\nAccording to an implementation consistent with the principles of the invention, information relating to a domain associated with a document may be used to generate (or alter) a score associated with the document. For example, search engine 125 may monitor information relating to how a document is hosted within a computer network (e.g., the Internet, an intranet or other network or database of documents) and use this information to score the document.\n\nIndividuals who attempt to deceive (spam) search engines often use throwaway or “doorway” domains and attempt to obtain as much traffic as possible before being caught. Information regarding the legitimacy of the domains may be used by search engine 125 when scoring the documents associated with these domains.\n\nCertain signals may be used to distinguish between illegitimate and legitimate domains. For example, domains can be renewed up to a period of 10 years. Valuable (legitimate) domains are often paid for several years in advance, while doorway (illegitimate) domains rarely are used for more than a year. Therefore, the date when a domain expires in the future can be used as a factor in predicting the legitimacy of a domain and, thus, the documents associated therewith.\n\nAlso, or alternatively, the domain name server (DNS) record for a domain may be monitored to predict whether a domain is legitimate. The DNS record contains details of who registered the domain, administrative and technical addresses, and the addresses of name servers (i.e., servers that resolve the domain name into an IP address). By analyzing this data over time for a domain, illegitimate domains may be identified. For instance, search engine 125 may monitor whether physically correct address information exists over a period of time, whether contact information for the domain changes relatively often, whether there is a relatively high number of changes between different name servers and hosting companies, etc. In one implementation, a list of known-bad contact information, name servers, and/or IP addresses may be identified, stored, and used in predicting the legitimacy of a domain and, thus, the documents associated therewith.\n\nAlso, or alternatively, the age, or other information, regarding a name server associated with a domain may be used to predict the legitimacy of the domain. A “good” name server may have a mix of different domains from different registrars and have a history of hosting those domains, while a “bad” name server might host mainly pornography or doorway domains, domains with commercial words (a common indicator of spam), or primarily bulk domains from a single registrar, or might be brand new. The newness of a name server might not automatically be a negative factor in determining the legitimacy of the associated domain, but in combination with other factors, such as ones described herein, it could be.\n\nIn summary, search engine 125 may generate (or alter) a score associated with a document based, at least in part, on information relating to a legitimacy of a domain associated with the document.\n\nRanking History\n\nAccording to an implementation consistent with the principles of the invention, information relating to prior rankings of a document may be used to generate (or alter) a score associated with the document. For example, search engine 125 may monitor the time-varying ranking of a document in response to search queries provided to search engine 125. Search engine 125 may determine that a document that jumps in rankings across many queries might be a topical document or it could signal an attempt to spam search engine 125.\n\nThus, the quantity or rate that a document moves in rankings over a period of time might be used to influence future scores assigned to that document. In one implementation, for each set of search results, a document may be weighted according to its position in the top N search results. For N=30, one example function might be [((N+1)−SLOT)/N]4. In this case, a top result may receive a score of 1.0, down to a score near 0 for the Nth result.\n\nA query set (e.g., of commercial queries) can be repeated, and documents that gained more than M % in the rankings may be flagged or the percentage growth in ranking may be used as a signal in determining scores for the documents. For example, search engine 125 may determine that a query is likely commercial if the average (median) score of the top results is relatively high and there is a significant amount of change in the top results from month to month. Search engine 125 may also monitor churn as an indication of a commercial query. For commercial queries, the likelihood of spam is higher, so search engine 125 may treat documents associated therewith accordingly.\n\nIn addition to history of positions (or rankings) of documents for a given query, search engine 125 may monitor (on a page, host, document, and/or domain basis) one or more other factors, such as the number of queries for which, and the rate at which (increasing/decreasing), a document is selected as a search result over time; seasonality, burstiness, and other patterns over time that a document is selected as a search result; and/or changes in scores over time for a URL-query pair.\n\nIn addition, or alternatively, search engine 125 may monitor a number of document (e.g., URL) independent query-based criteria over time. For example, search engine 125 may monitor the average score among a top set of results generated in response to a given query or set of queries and adjust the score of that set of results and/or other results generated in response to the given query or set of queries. Moreover, search engine 125 may monitor the number of results generated for a particular query or set of queries over time. If search engine 125 determines that the number of results increases or that there is a change in the rate of increase (e.g., such an increase may be an indication of a “hot topic” or other phenomenon), search engine 125 may score those results higher in the future.\n\nIn addition, or alternatively, search engine 125 may monitor the ranks of documents over time to detect sudden spikes in the ranks of the documents. A spike may indicate either a topical phenomenon (e.g., a hot topic) or an attempt to spam search engine 125 by, for example, trading or purchasing links. Search engine 125 may take measures to prevent spam attempts by, for example, employing hysteresis to allow a rank to grow at a certain rate. In another implementation, the rank for a given document may be allowed a certain maximum threshold of growth over a predefined window of time. As a further measure to differentiate a document related to a topical phenomenon from a spam document, search engine 125 may consider mentions of the document in news articles, discussion groups, etc. on the theory that spam documents will not be mentioned, for example, in the news. Any or a combination of these techniques may be used to curtail spamming attempts.\n\nIt may be possible for search engine 125 to make exceptions for documents that are determined to be authoritative in some respect, such as government documents, web directories (e.g., Yahoo), and documents that have shown a relatively steady and high rank over time. For example, if an unusual spike in the number or rate of increase of links to an authoritative document occurs, then search engine 125 may consider such a document not to be spam and, thus, allow a relatively high or even no threshold for (growth of) its rank (over time).\n\nIn addition, or alternatively, search engine 125 may consider significant drops in ranks of documents as an indication that these documents are “out of favor” or outdated. For example, if the rank of a document over time drops significantly, then search engine 125 may consider the document as outdated and score the document accordingly.\n\nIn summary, search engine 125 may generate (or alter) a score associated with a document based, at least in part, on information relating to prior rankings of the document.\n\nUser Maintained/Generated Data\n\nAccording to an implementation consistent with the principles of the invention, user maintained or generated data may be used to generate (or alter) a score associated with a document. For example, search engine 125 may monitor data maintained or generated by a user, such as “bookmarks,” “favorites,” or other types of data that may provide some indication of documents favored by, or of interest to, the user. Search engine 125 may obtain this data either directly (e.g., via a browser assistant) or indirectly (e.g., via a browser). Search engine 125 may then analyze over time a number of bookmarks/favorites to which a document is associated to determine the importance of the document.\n\nSearch engine 125 may also analyze upward and downward trends to add or remove the document (or more specifically, a path to the document) from the bookmarks/favorites lists, the rate at which the document is added to or removed from the bookmarks/favorites lists, and/or whether the document is added to, deleted from, or accessed through the bookmarks/favorites lists. If a number of users are adding a particular document to their bookmarks/favorites lists or often accessing the document through such lists over time, this may be considered an indication that the document is relatively important. On the other hand, if a number of users are decreasingly accessing a document indicated in their bookmarks/favorites list or are increasingly deleting/replacing the path to such document from their lists, this may be taken as an indication that the document is outdated, unpopular, etc. Search engine 125 may then score the documents accordingly.\n\nIn an alternative implementation, other types of user data that may indicate an increase or decrease in user interest in a particular document over time may be used by search engine 125 to score the document. For example, the “temp” or cache files associated with users could be monitored by search engine 125 to identify whether there is an increase or decrease in a document being added over time. Similarly, cookies associated with a particular document might be monitored by search engine 125 to determine whether there is an upward or downward trend in interest in the document.\n\nIn summary, search engine 125 may generate (or alter) a score associated with a document based, at least in part, on user maintained or generated data.\n\nUnique Words, Bigrams, Phrases in Anchor Text\n\nAccording to an implementation consistent with the principles of the invention, information regarding unique words, bigrams, and phrases in anchor text may be used to generate (or alter) a score associated with a document. For example, search engine 125 may monitor web (or link) graphs and their behavior over time and use this information for scoring, spam detection, or other purposes. Naturally developed web graphs typically involve independent decisions. Synthetically generated web graphs, which are usually indicative of an intent to spam, are based on coordinated decisions, causing the profile of growth in anchor words/bigrams/phrases to likely be relatively spiky.\n\nOne reason for such spikiness may be the addition of a large number of identical anchors from many documents. Another possibility may be the addition of deliberately different anchors from a lot of documents. Search engine 125 may monitor the anchors and factor them into scoring a document to which their associated links point. For example, search engine 125 may cap the impact of suspect anchors on the score of the associated document. Alternatively, search engine 125 may use a continuous scale for the likelihood of synthetic generation and derive a multiplicative factor to scale the score for the document.\n\nIn summary, search engine 125 may generate (or alter) a score associated with a document based, at least in part, on information regarding unique words, bigrams, and phrases in anchor text associated with one or more links pointing to the document.\n\nLinkage of Independent Peers\n\nAccording to an implementation consistent with the principles of the invention, information regarding linkage of independent peers (e.g., unrelated documents) may be used to generate (or alter) a score associated with a document.\n\nA sudden growth in the number of apparently independent peers, incoming and/or outgoing, with a large number of links to individual documents may indicate a potentially synthetic web graph, which is an indicator of an attempt to spam. This indication may be strengthened if the growth corresponds to anchor text that is unusually coherent or discordant. This information can be used to demote the impact of such links, when used with a link-based scoring technique, either as a binary decision item (e.g., demote the score by a fixed amount) or a multiplicative factor.\n\nIn summary, search engine 125 may generate (or alter) a score associated with a document based, at least in part, on information regarding linkage of independent peers.\n\nDocument Topics\n\nAccording to an implementation consistent with the principles of the invention, information regarding document topics may be used to generate (or alter) a score associated with a document. For example, search engine 125 may perform topic extraction (e.g., through categorization, URL analysis, content analysis, clustering, summarization, a set of unique low frequency words, or some other type of topic extraction). Search engine 125 may then monitor the topic(s) of a document over time and use this information for scoring purposes.\n\nA significant change over time in the set of topics associated with a document may indicate that the document has changed owners and previous document indicators, such as score, anchor text, etc., are no longer reliable. Similarly, a spike in the number of topics could indicate spam. For example, if a particular document is associated with a set of one or more topics over what may be considered a “stable” period of time and then a (sudden) spike occurs in the number of topics associated with the document, this may be an indication that the document has been taken over as a “doorway” document. Another indication may include the disappearance of the original topics associated with the document. If one or more of these situations are detected, then search engine 125 may reduce the relative score of such documents and/or the links, anchor text, or other data associated the document.\n\nIn summary, search engine 125 may generate (or alter) a score associated with a document based, at least in part, on changes in one or more topics associated with the document.\n\n\n## Exemplary Processing\n\n\nFIG. 4 is a flowchart of exemplary processing for scoring documents according to an implementation consistent with the principles of the invention. Processing may begin with server 120 identifying documents (act 410). The documents may include, for example, one or more documents associated with a search query, such as documents identified as relevant to the search query. Alternatively, the documents may include one or more documents in a corpus or repository of documents that are independent of any search query (e.g., documents that are identified by crawling a network and stored in a repository).\n\nSearch engine 125 may obtain history data associated with the identified documents (act 420). As described above, the history data may take different forms. For example, the history data may include data relating to document inception dates; document content updates/changes; query analysis; link-based criteria; anchor text; traffic; user behavior; domain-related information; ranking history; user maintained/generated data (e.g., bookmarks and/or favorites); unique words, bigrams, and phrases in anchor text; linkage of independent peers; and/or document topics. Search engine 125 may obtain one, or a combination, of these kinds of history data.\n\nSearch engine 125 may then score the identified documents based, at least in part, on the history data (act 430). When the identified documents are associated with a search query, search engine 125 may also generate relevancy scores for the documents based, for example, on how relevant they are to the search query. Search engine 125 may then combine the history scores with the relevancy scores to obtain overall scores for the documents. Instead of combining the scores, search engine 125 may alter the relevancy scores for the documents based on the history data, thereby raising or lowering the scores or, in some cases, leaving the scores the same. Alternatively, search engine 125 may score the documents based on the history data without generating relevancy scores. In any event, search engine 125 may score the documents using one, or a combination, of the types of history data.\n\nWhen the identified documents are associated with a search query, search engine 125 may also form search results from the scored documents. For example, search engine 125 may sort the documents based on their scores. Search engine 125 may then form references to the documents, where a reference might include a title of the document (which may contain a hypertext link that will direct the user, when selected, to the actual document) and a snippet (i.e., a text excerpt) from the document. In other implementations, the references are formed differently. Search engine 125 may present references corresponding to a number of the top-scoring documents (e.g., a predetermined number of the documents, documents with scores above a threshold, all documents, etc.) to a user who submitted the search query.\n\n\n## Conclusion\n\n\nSystems and methods consistent with the principles of the invention may use history data to score documents and form high quality search results.\n\nThe foregoing description of preferred embodiments of the present invention provides illustration and description, but is not intended to be exhaustive or to limit the invention to the precise form disclosed. Modifications and variations are possible in light of the above teachings or may be acquired from practice of the invention. For example, while a series of acts has been described with regard to FIG. 4, the order of the acts may be modified in other implementations consistent with the principles of the invention. Also, non-dependent acts may be performed in parallel.\n\nFurther, it has generally been described that server 120 performs most, if not all, of the acts described with regard to the processing of FIG. 4. In another implementation consistent with the principles of the invention, one or more, or all, of the acts may be performed by another entity, such as another server 130 and/or 140 or client 110.\n\nIt will also be apparent to one of ordinary skill in the art that aspects of the invention, as described above, may be implemented in many different forms of software, firmware, and hardware in the implementations illustrated in the figures. The actual software code or specialized control hardware used to implement aspects consistent with the principles of the invention is not limiting of the present invention. Thus, the operation and behavior of the aspects were described without reference to the specific software code—it being understood that one of ordinary skill in the art would be able to design software and control hardware to implement the aspects based on the description herein.",
+ "cited_by": [
+  {
+   "id": "US8498974B1",
+   "title": "Refining search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8548995B1",
+   "title": "Ranking of documents based on analysis of related documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8615514B1",
+   "title": "Evaluating website properties by partitioning user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8661029B1",
+   "title": "Modifying search result ranking based on implicit user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8694511B1",
+   "title": "Modifying search result ranking based on populations",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8694374B1",
+   "title": "Detecting click spam",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8832083B1",
+   "title": "Combining user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8874555B1",
+   "title": "Modifying scoring data based on historical changes",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8898152B1",
+   "title": "Sharing search engine relevance data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8909655B1",
+   "title": "Time based ranking",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8924379B1",
+   "title": "Temporal-based score adjustments",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8938463B1",
+   "title": "Modifying search result ranking based on implicit user feedback and a model of presentation bias",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8959093B1",
+   "title": "Ranking search results based on anchors",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8972394B1",
+   "title": "Generating a related set of documents for an initial set of documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8972391B1",
+   "title": "Recent interest based relevance scoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9002867B1",
+   "title": "Modifying ranking data based on document changes",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9009146B1",
+   "title": "Ranking search results based on similar queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9092510B1",
+   "title": "Modifying search result ranking based on a temporal element of user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9183499B1",
+   "title": "Evaluating quality based on neighbor features",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9623119B1",
+   "title": "Accentuating search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9767478B2",
+   "title": "Document scoring based on traffic associated with a document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20180060325A1",
+   "title": "Rank query results for relevance utilizing external context",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US6883135B1",
+   "title": "Proxy server using a statistical model",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7398271B1",
+   "title": "Using network traffic logs for search enhancement",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7209906B2",
+   "title": "System and method for implementing a metrics engine for tracking relationships over time",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8590013B2",
+   "title": "Method of managing and communicating data pertaining to software applications for processor-based devices comprising wireless communication circuitry",
+   "assignee": "C. S. Lee Crawford"
+  },
+  {
+   "id": "US7743045B2",
+   "title": "Detecting spam related and biased contexts for programmable search engines",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7693830B2",
+   "title": "Programmable search engine",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070038614A1",
+   "title": "Generating and presenting advertisements based on context data for programmable search engines",
+   "assignee": "Guha Ramanathan V"
+  },
+  {
+   "id": "US7716199B2",
+   "title": "Aggregating context data for programmable search engines",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7130844B2",
+   "title": "System and method for examining, calculating the age of an document collection as a measure of time since creation, visualizing, identifying selectively reference those document collections representing current activity",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7725452B1",
+   "title": "Scheduler for search engine crawler",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8042112B1",
+   "title": "Scheduler for search engine crawler",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7505964B2",
+   "title": "Methods and systems for improving a search ranking using related queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7693827B2",
+   "title": "Personalization of placed content ordering in search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7797316B2",
+   "title": "Systems and methods for determining document freshness",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7231399B1",
+   "title": "Ranking documents based on large data sets",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8521725B1",
+   "title": "Systems and methods for improved searching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8676790B1",
+   "title": "Methods and systems for improving search rankings using advertising data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7302645B1",
+   "title": "Methods and systems for identifying manipulated articles",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7548968B1",
+   "title": "Policing internet domains",
+   "assignee": "Markmonitor Inc."
+  },
+  {
+   "id": "US8655727B2",
+   "title": "Method and system for generating and placing keyword-targeted advertisements",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US20050149388A1",
+   "title": "Method and system for placing advertisements based on selection of links that are not prominently displayed",
+   "assignee": "Scholl Nathaniel B."
+  },
+  {
+   "id": "US7676553B1",
+   "title": "Incremental web crawler using chunks",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7461089B2",
+   "title": "Method and system for creating profiling indices",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8010459B2",
+   "title": "Methods and systems for rating associated members in a social network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8577893B1",
+   "title": "Ranking based on reference contexts",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9104689B2",
+   "title": "Method for synchronizing documents for disconnected operation",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7584221B2",
+   "title": "Field weighting in text searching",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7536382B2",
+   "title": "Query rewriting with entity detection",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7539674B2",
+   "title": "Systems and methods for adaptive scheduling of references to documents",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050234877A1",
+   "title": "System and method for searching using a temporal dimension",
+   "assignee": "Yu Philip S"
+  },
+  {
+   "id": "US20060010029A1",
+   "title": "System & method for online advertising",
+   "assignee": "Gross John N"
+  },
+  {
+   "id": "US20050246358A1",
+   "title": "System & method of identifying and predicting innovation dissemination",
+   "assignee": "Gross John N"
+  },
+  {
+   "id": "US20050246391A1",
+   "title": "System & method for monitoring web pages",
+   "assignee": "Gross John N"
+  },
+  {
+   "id": "US20050256848A1",
+   "title": "System and method for user rank search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7260573B1",
+   "title": "Personalizing anchor text scores in a search engine",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8019875B1",
+   "title": "Systems and methods for indicating a user state in a social network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "JP4254623B2",
+   "title": "Topic analysis method, apparatus thereof, and program",
+   "assignee": "日本電気株式会社"
+  },
+  {
+   "id": "US7716225B1",
+   "title": "Ranking documents based on user behavior and/or feature data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7565445B2",
+   "title": "Systems and methods for categorizing network traffic content",
+   "assignee": "Fortinet, Inc."
+  },
+  {
+   "id": "US8832132B1",
+   "title": "Personalizing search queries based on user membership in social network communities",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8621215B1",
+   "title": "Methods and systems for creating monetary accounts for members in a social network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7783639B1",
+   "title": "Determining quality of linked documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8620915B1",
+   "title": "Systems and methods for promoting personalized search results based on personal information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8078607B2",
+   "title": "Generating website profiles based on queries from webistes and user activities on the search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060020583A1",
+   "title": "System and method for searching and retrieving documents by their descriptions",
+   "assignee": "Baranov Alexey V"
+  },
+  {
+   "id": "US7711679B2",
+   "title": "Phrase-based detection of duplicate documents in an information retrieval system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7702618B1",
+   "title": "Information retrieval system for archiving multiple document versions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7580921B2",
+   "title": "Phrase identification in an information retrieval system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7567959B2",
+   "title": "Multiple index based information retrieval system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8015019B1",
+   "title": "Methods and systems for providing a document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7752200B2",
+   "title": "Method and system for identifying keywords for use in placing keyword-targeted advertisements",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "JP2006065395A",
+   "title": "Hyperlink generation device, hyperlink generation method, and hyperlink generation program",
+   "assignee": "Fujitsu Ltd"
+  },
+  {
+   "id": "US7987172B1",
+   "title": "Minimizing visibility of stale content in web searching including revising web crawl intervals of documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7606793B2",
+   "title": "System and method for scoping searches using index keys",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8065296B1",
+   "title": "Systems and methods for determining a quality of provided items",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7827181B2",
+   "title": "Click distance determination",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7761448B2",
+   "title": "System and method for ranking search results using click distance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7739277B2",
+   "title": "System and method for incorporating anchor text into ranking search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8056128B1",
+   "title": "Systems and methods for detecting potential communications fraud",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060069675A1",
+   "title": "Search tools and techniques",
+   "assignee": "Ogilvie John W"
+  },
+  {
+   "id": "US11283885B2",
+   "title": "System and method for location based matching and promotion",
+   "assignee": "Verizon Patent And Licensing Inc."
+  },
+  {
+   "id": "JP2006146873A",
+   "title": "Data search method, apparatus and program",
+   "assignee": "Canon Inc"
+  },
+  {
+   "id": "US20060095841A1",
+   "title": "Methods and apparatus for document management",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7533092B2",
+   "title": "Link-based spam detection",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9015263B2",
+   "title": "Domain name searching with reputation rating",
+   "assignee": "Go Daddy Operating Company, LLC"
+  },
+  {
+   "id": "US20080022013A1",
+   "title": "Publishing domain name related reputation in whois records",
+   "assignee": "The Go Daddy Group, Inc."
+  },
+  {
+   "id": "US7797413B2",
+   "title": "Digital identity registration",
+   "assignee": "The Go Daddy Group, Inc."
+  },
+  {
+   "id": "US20080028100A1",
+   "title": "Tracking domain name related reputation",
+   "assignee": "The Go Daddy Group, Inc."
+  },
+  {
+   "id": "US7970858B2",
+   "title": "Presenting search engine results based on domain name related reputation",
+   "assignee": "The Go Daddy Group, Inc."
+  },
+  {
+   "id": "US8904040B2",
+   "title": "Digital identity validation",
+   "assignee": "Go Daddy Operating Company, LLC"
+  },
+  {
+   "id": "US8117339B2",
+   "title": "Tracking domain name related reputation",
+   "assignee": "Go Daddy Operating Company, LLC"
+  },
+  {
+   "id": "US20080028443A1",
+   "title": "Domain name related reputation and secure certificates",
+   "assignee": "The Go Daddy Group, Inc."
+  },
+  {
+   "id": "US20060095459A1",
+   "title": "Publishing domain name related reputation in whois records",
+   "assignee": "Warren Adelman"
+  },
+  {
+   "id": "US20060095404A1",
+   "title": "Presenting search engine results based on domain name related reputation",
+   "assignee": "The Go Daddy Group, Inc"
+  },
+  {
+   "id": "US20060200487A1",
+   "title": "Domain name related reputation and secure certificates",
+   "assignee": "The Go Daddy Group, Inc."
+  },
+  {
+   "id": "US7716206B2",
+   "title": "Communication networks and methods and computer program products for performing searches thereon while maintaining user privacy",
+   "assignee": "At&T Intellectual Property I, L.P."
+  },
+  {
+   "id": "CN101443751A",
+   "title": "Method and apparatus for applying a crawler",
+   "assignee": "特鲁维奥公司"
+  },
+  {
+   "id": "WO2006055983A2",
+   "title": "Method and apparatus for a ranking engine",
+   "assignee": "Truveo, Inc."
+  },
+  {
+   "id": "US7584194B2",
+   "title": "Method and apparatus for an application crawler",
+   "assignee": "Truveo, Inc."
+  },
+  {
+   "id": "US20060112089A1",
+   "title": "Methods and apparatus for assessing web page decay",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7827029B2",
+   "title": "Systems and methods for user-interest sensitive note-taking",
+   "assignee": "Palo Alto Research Center Incorporated"
+  },
+  {
+   "id": "US7801723B2",
+   "title": "Systems and methods for user-interest sensitive condensation",
+   "assignee": "Palo Alto Research Center Incorporated"
+  },
+  {
+   "id": "US8874570B1",
+   "title": "Search boost vector based on co-visitation information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060122957A1",
+   "title": "Method and system to detect e-mail spam using concept categorization of linked content",
+   "assignee": "Johnny Chen"
+  },
+  {
+   "id": "US7716198B2",
+   "title": "Ranking search results using feature extraction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7401077B2",
+   "title": "Systems and methods for using and constructing user-interest sensitive indicators of search results",
+   "assignee": "Palo Alto Research Center Incorporated"
+  },
+  {
+   "id": "JP4344339B2",
+   "title": "Information evaluation device, content search device, information evaluation method, content search method, program thereof, and recording medium",
+   "assignee": "日本電信電話株式会社"
+  },
+  {
+   "id": "US20060149710A1",
+   "title": "Associating features with entities, such as categories of web page documents, and/or weighting such features",
+   "assignee": "Ross Koningstein"
+  },
+  {
+   "id": "US8538970B1",
+   "title": "Personalizing search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10402457B1",
+   "title": "Methods and systems for correlating connections between users and links between articles",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US8060405B1",
+   "title": "Methods and systems for correlating connections between users and links between articles",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8230422B2",
+   "title": "Assist thread for injecting cache memory in a microprocessor",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20060161520A1",
+   "title": "System and method for generating alternative search terms",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050125451A1",
+   "title": "Search engine and domain name search integration",
+   "assignee": "The Go Daddy Group, Inc."
+  },
+  {
+   "id": "US7792833B2",
+   "title": "Ranking search results using language types",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7657520B2",
+   "title": "Providing history and transaction volume information of a content source to users",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20060200460A1",
+   "title": "System and method for ranking search results using file types",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8538810B2",
+   "title": "Methods and systems for member-created advertisement in a member network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8412780B2",
+   "title": "Methods and systems for providing current email addresses and contact information for members within a social network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9256685B2",
+   "title": "Systems and methods for modifying search results based on a user's history",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060224583A1",
+   "title": "Systems and methods for analyzing a user's web history",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20060224608A1",
+   "title": "Systems and methods for combining sets of favorites",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20060235842A1",
+   "title": "Web page ranking for page query across public and private",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "CA2605252A1",
+   "title": "System and method for efficiently tracking and dating content in very large dynamic document spaces",
+   "assignee": "Collage Analytics Llc"
+  },
+  {
+   "id": "US8732175B2",
+   "title": "Interestingness ranking of media objects",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7660792B2",
+   "title": "System and method for spam identification",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7403767B2",
+   "title": "Cellular telephone network with record keeping for missed calls",
+   "assignee": "Siemens Aktiengesellschaft"
+  },
+  {
+   "id": "US7765481B2",
+   "title": "Indicating website reputations during an electronic commerce transaction",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US7822620B2",
+   "title": "Determining website reputations using automatic testing",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US8438499B2",
+   "title": "Indicating website reputations during user interactions",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US7562304B2",
+   "title": "Indicating website reputations during website manipulation of user information",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US9384345B2",
+   "title": "Providing alternative web content based on website reputation assessment",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US8566726B2",
+   "title": "Indicating website reputations based on website handling of personal information",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US20060253423A1",
+   "title": "Information retrieval system and method",
+   "assignee": "Mclane Mark"
+  },
+  {
+   "id": "US7630976B2",
+   "title": "Method and system for adapting search results to personal information needs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7962462B1",
+   "title": "Deriving and using document and site quality signals from search query streams",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "JP2006350954A",
+   "title": "Telephone pole management system",
+   "assignee": "Chugoku Electric Power Co Inc:The"
+  },
+  {
+   "id": "US7788132B2",
+   "title": "Reviewing the suitability of Websites for participation in an advertising network",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US8244722B1",
+   "title": "Ranking documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8195654B1",
+   "title": "Prediction of human ratings or rankings of information retrieval quality",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070022385A1",
+   "title": "Software module, method and system for managing information items by bookmarking information items through activation of said items",
+   "assignee": "Mikhail Denissov"
+  },
+  {
+   "id": "US7599917B2",
+   "title": "Ranking search results using biased click distance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7774335B1",
+   "title": "Method and system for determining interest levels of online content navigation paths",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "KR100644159B1",
+   "title": "Search controller control method and device",
+   "assignee": "엔에이치엔(주)"
+  },
+  {
+   "id": "US8099674B2",
+   "title": "Computer systems and methods for automatically viewing multidimensional databases",
+   "assignee": "Tableau Software Llc"
+  },
+  {
+   "id": "US8244720B2",
+   "title": "Ranking blog documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070239724A1",
+   "title": "Mobile search services related to direct identifiers",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US20070100650A1",
+   "title": "Action functionality for mobile content search results",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US20070192318A1",
+   "title": "Creation of a mobile search suggestion dictionary",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US8027879B2",
+   "title": "Exclusivity bidding for mobile sponsored content",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US20070100652A1",
+   "title": "Mobile pay per call",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US8156128B2",
+   "title": "Contextual mobile content placement on a mobile communication facility",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US20070100651A1",
+   "title": "Mobile payment facilitation",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US7752209B2",
+   "title": "Presenting sponsored content on a mobile communication facility",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US20070100653A1",
+   "title": "Mobile website analyzer",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US8238888B2",
+   "title": "Methods and systems for mobile coupon placement",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US20110313853A1",
+   "title": "System for targeting advertising content to a plurality of mobile communication facilities",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US8832100B2",
+   "title": "User transaction history influenced search results",
+   "assignee": "Millennial Media, Inc."
+  },
+  {
+   "id": "US20070061242A1",
+   "title": "Implicit searching for mobile content",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US20070073719A1",
+   "title": "Physical navigation of a mobile search application",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US8311888B2",
+   "title": "Revenue models associated with syndication of a behavioral profile using a monetization platform",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8660891B2",
+   "title": "Interactive mobile advertisement banners",
+   "assignee": "Millennial Media"
+  },
+  {
+   "id": "US10038756B2",
+   "title": "Managing sponsored content based on device characteristics",
+   "assignee": "Millenial Media LLC"
+  },
+  {
+   "id": "US7912458B2",
+   "title": "Interaction analysis and prioritization of mobile content",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US9703892B2",
+   "title": "Predictive text completion for a mobile communication facility",
+   "assignee": "Millennial Media Llc"
+  },
+  {
+   "id": "US20080270220A1",
+   "title": "Embedding a nonsponsored mobile content within a sponsored mobile content",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US8819659B2",
+   "title": "Mobile search service instant activation",
+   "assignee": "Millennial Media, Inc."
+  },
+  {
+   "id": "US8103545B2",
+   "title": "Managing payment for sponsored content presented to mobile communication facilities",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8615719B2",
+   "title": "Managing sponsored content for delivery to mobile communication facilities",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US20070100805A1",
+   "title": "Mobile content cross-inventory yield optimization",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US7603360B2",
+   "title": "Location influenced search results",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US9058406B2",
+   "title": "Management of multiple advertising inventories using a monetization platform",
+   "assignee": "Millennial Media, Inc."
+  },
+  {
+   "id": "US7660581B2",
+   "title": "Managing sponsored content based on usage history",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8195133B2",
+   "title": "Mobile dynamic advertisement creation and placement",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8989718B2",
+   "title": "Idle screen advertising",
+   "assignee": "Millennial Media, Inc."
+  },
+  {
+   "id": "US20080214155A1",
+   "title": "Integrating subscription content into mobile search results",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US20070100806A1",
+   "title": "Client libraries for mobile content",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US20090029687A1",
+   "title": "Combining mobile and transcoded content in a mobile search result",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US8812526B2",
+   "title": "Mobile content cross-inventory yield optimization",
+   "assignee": "Millennial Media, Inc."
+  },
+  {
+   "id": "US7577665B2",
+   "title": "User characteristic influenced search results",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US7676394B2",
+   "title": "Dynamic bidding and expected value",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US9201979B2",
+   "title": "Syndication of a behavioral profile associated with an availability condition using a monetization platform",
+   "assignee": "Millennial Media, Inc."
+  },
+  {
+   "id": "US8209344B2",
+   "title": "Embedding sponsored content in mobile applications",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US20070073717A1",
+   "title": "Mobile comparison shopping",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US20070073722A1",
+   "title": "Calculation and presentation of mobile content expected value",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US20080214204A1",
+   "title": "Similarity based location mapping of mobile comm facility users",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US10592930B2",
+   "title": "Syndication of a behavioral profile using a monetization platform",
+   "assignee": "Millenial Media, LLC"
+  },
+  {
+   "id": "US20070288427A1",
+   "title": "Mobile pay-per-call campaign creation",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US20070168354A1",
+   "title": "Combined algorithmic and editorial-reviewed mobile content search results",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US20070061247A1",
+   "title": "Expected value and prioritization of mobile content",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US20070061245A1",
+   "title": "Location based presentation of mobile content",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US7860871B2",
+   "title": "User history influenced search results",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8666376B2",
+   "title": "Location based mobile shopping affinity program",
+   "assignee": "Millennial Media"
+  },
+  {
+   "id": "US7702318B2",
+   "title": "Presentation of sponsored content based on mobile transaction event",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US20070060114A1",
+   "title": "Predictive text completion for a mobile communication facility",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US20080215623A1",
+   "title": "Mobile communication facility usage and social network creation",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US8688671B2",
+   "title": "Managing sponsored content based on geographic region",
+   "assignee": "Millennial Media"
+  },
+  {
+   "id": "US20080214154A1",
+   "title": "Associating mobile and non mobile web content",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US7769764B2",
+   "title": "Mobile advertisement syndication",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8805339B2",
+   "title": "Categorization of a mobile user profile based on browse and viewing behavior",
+   "assignee": "Millennial Media, Inc."
+  },
+  {
+   "id": "US20070060173A1",
+   "title": "Managing sponsored content based on transaction history",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US10911894B2",
+   "title": "Use of dynamic content generation parameters based on previous performance of those parameters",
+   "assignee": "Verizon Media Inc."
+  },
+  {
+   "id": "US8229914B2",
+   "title": "Mobile content spidering and compatibility determination",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US20070061246A1",
+   "title": "Mobile campaign creation",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US8503995B2",
+   "title": "Mobile dynamic advertisement creation and placement",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8364521B2",
+   "title": "Rendering targeted advertisement on mobile communication facilities",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US20080214151A1",
+   "title": "Methods and systems for mobile coupon placement",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US8302030B2",
+   "title": "Management of multiple advertising inventories using a monetization platform",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US20080214153A1",
+   "title": "Mobile User Profile Creation based on User Browse Behaviors",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US8131271B2",
+   "title": "Categorization of a mobile user profile based on browse behavior",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US20070060109A1",
+   "title": "Managing sponsored content based on user characteristics",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US7548915B2",
+   "title": "Contextual mobile content placement on a mobile communication facility",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US20070073718A1",
+   "title": "Mobile search service instant activation",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US9076175B2",
+   "title": "Mobile comparison shopping",
+   "assignee": "Millennial Media, Inc."
+  },
+  {
+   "id": "US20080214152A1",
+   "title": "Methods and systems of mobile dynamic content presentation",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US8364540B2",
+   "title": "Contextual targeting of content using a monetization platform",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US9471925B2",
+   "title": "Increasing mobile interactivity",
+   "assignee": "Millennial Media Llc"
+  },
+  {
+   "id": "US8290810B2",
+   "title": "Realtime surveying within mobile sponsored content",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US7925786B2",
+   "title": "Hosting of network-based services",
+   "assignee": "Microsoft Corp."
+  },
+  {
+   "id": "US7987251B2",
+   "title": "Validation of domain name control",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7499919B2",
+   "title": "Ranking functions using document usage statistics",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070078939A1",
+   "title": "Method and apparatus for identifying and classifying network documents as spam",
+   "assignee": "Technorati, Inc."
+  },
+  {
+   "id": "JP4241705B2",
+   "title": "Information management apparatus and program",
+   "assignee": "ブラザー工業株式会社"
+  },
+  {
+   "id": "US7933897B2",
+   "title": "Entity display priority in a distributed geographic information system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8095419B1",
+   "title": "Search score for the determination of search quality",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7613690B2",
+   "title": "Real time query trends with multi-document summarization",
+   "assignee": "Aol Llc"
+  },
+  {
+   "id": "US8266162B2",
+   "title": "Automatic identification of related search keywords",
+   "assignee": "Lycos, Inc."
+  },
+  {
+   "id": "US7783632B2",
+   "title": "Using popularity data for ranking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8175585B2",
+   "title": "System for targeting advertising content to a plurality of mobile communication facilities",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8509750B2",
+   "title": "System for targeting advertising content to a plurality of mobile communication facilities",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US10324899B2",
+   "title": "Methods for characterizing content item groups",
+   "assignee": "Nokia Technologies Oy"
+  },
+  {
+   "id": "US8571999B2",
+   "title": "Method of conducting operations for a social network application including activity list generation",
+   "assignee": "C. S. Lee Crawford"
+  },
+  {
+   "id": "US20100285818A1",
+   "title": "Location based service for directing ads to subscribers",
+   "assignee": "Crawford C S Lee"
+  },
+  {
+   "id": "US8645376B2",
+   "title": "Method and system for managing recent data in a mobile device linked to an on-demand service",
+   "assignee": "Salesforce.Com, Inc."
+  },
+  {
+   "id": "US9135304B2",
+   "title": "Methods and systems for optimizing text searches over structured data in a multi-tenant environment",
+   "assignee": "Salesforce.Com, Inc."
+  },
+  {
+   "id": "US8095565B2",
+   "title": "Metadata driven user interface",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "IL172551A0",
+   "title": "Method for assigning one or more categorized scores to each document over a data network",
+   "assignee": "Grois Dan"
+  },
+  {
+   "id": "US7971137B2",
+   "title": "Detecting and rejecting annoying documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080010252A1",
+   "title": "Bookmarks and ranking",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US8117196B2",
+   "title": "Search tool providing optional use of human search guides",
+   "assignee": "Chacha Search, Inc."
+  },
+  {
+   "id": "US8266130B2",
+   "title": "Search tool providing optional use of human search guides",
+   "assignee": "Chacha Search, Inc."
+  },
+  {
+   "id": "US7962466B2",
+   "title": "Automated tool for human assisted mining and capturing of precise results",
+   "assignee": "Chacha Search, Inc"
+  },
+  {
+   "id": "US8065286B2",
+   "title": "Scalable search system using human searchers",
+   "assignee": "Chacha Search, Inc."
+  },
+  {
+   "id": "US20070174258A1",
+   "title": "Targeted mobile device advertisements",
+   "assignee": "Jones Scott A"
+  },
+  {
+   "id": "US7814099B2",
+   "title": "Method for ranking and sorting electronic documents in a search result list based on relevance",
+   "assignee": "Louis S. Wang"
+  },
+  {
+   "id": "US7584183B2",
+   "title": "Method for node classification and scoring by combining parallel iterative scoring calculation",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8429177B2",
+   "title": "Using exceptional changes in webgraph snapshots over time for internet entity marking",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7844603B2",
+   "title": "Sharing user distributed search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "KR100804671B1",
+   "title": "Local terminal search system and method for removing response delay",
+   "assignee": "엔에이치엔(주)"
+  },
+  {
+   "id": "US7493403B2",
+   "title": "Domain name ownership validation",
+   "assignee": "Markmonitor Inc."
+  },
+  {
+   "id": "US8117195B1",
+   "title": "Providing blog posts relevant to search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9135238B2",
+   "title": "Disambiguation of named entities",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7933890B2",
+   "title": "Propagating useful information among related web pages, such as web pages of a website",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7647314B2",
+   "title": "System and method for indexing web content using click-through features",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7624104B2",
+   "title": "User-sensitive pagerank",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "CN100524307C",
+   "title": "Method and device for establishing coupled relation between documents",
+   "assignee": "国际商业机器公司"
+  },
+  {
+   "id": "US7716236B2",
+   "title": "Temporal search query personalization",
+   "assignee": "Aol Inc."
+  },
+  {
+   "id": "US20080016072A1",
+   "title": "Enterprise-Based Tag System",
+   "assignee": "Bea Systems, Inc."
+  },
+  {
+   "id": "US20080016053A1",
+   "title": "Administration Console to Select Rank Factors",
+   "assignee": "Bea Systems, Inc."
+  },
+  {
+   "id": "US7873641B2",
+   "title": "Using tags in an enterprise search system",
+   "assignee": "Bea Systems, Inc."
+  },
+  {
+   "id": "US20080016071A1",
+   "title": "Using Connections Between Users, Tags and Documents to Rank Documents in an Enterprise Search System",
+   "assignee": "Bea Systems, Inc."
+  },
+  {
+   "id": "US20080016052A1",
+   "title": "Using Connections Between Users and Documents to Rank Documents in an Enterprise Search System",
+   "assignee": "Bea Systems, Inc."
+  },
+  {
+   "id": "US20080016061A1",
+   "title": "Using a Core Data Structure to Calculate Document Ranks",
+   "assignee": "Bea Systems, Inc."
+  },
+  {
+   "id": "WO2008010847A2",
+   "title": "Improved enterprise search system",
+   "assignee": "Bea Systems, Inc."
+  },
+  {
+   "id": "WO2008010729A1",
+   "title": "A method of determining reputation for community search engines",
+   "assignee": "Eurekster, Inc"
+  },
+  {
+   "id": "US8965874B1",
+   "title": "Dynamic aggregation of users",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8606834B2",
+   "title": "Managing supplied data",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US7831472B2",
+   "title": "Methods and system for search engine revenue maximization in internet advertising",
+   "assignee": "Yufik Yan M"
+  },
+  {
+   "id": "US20080126331A1",
+   "title": "System and method for ranking reference documents",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20080071797A1",
+   "title": "System and method to calculate average link growth on search engines for a keyword",
+   "assignee": "Thornton Nathaniel L"
+  },
+  {
+   "id": "US7577643B2",
+   "title": "Key phrase extraction from query logs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8548991B1",
+   "title": "Personalized browsing activity displays",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9037581B1",
+   "title": "Personalized search result ranking",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9740778B2",
+   "title": "Ranking domains using domain maturity",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8745183B2",
+   "title": "System and method for adaptively refreshing a web page",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "EP2076856A4",
+   "title": "MOBILE CONTENT RESEARCH RESULTS OF ALGORITHMIC AND COMBINED EDITORIAL REVIEW",
+   "assignee": "Jumptap Inc"
+  },
+  {
+   "id": "US7937403B2",
+   "title": "Time-based analysis of related keyword searching",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9110975B1",
+   "title": "Search result inputs using variant generalized queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080126430A1",
+   "title": "Intermediary document for critical change control",
+   "assignee": "Garrett Andrew J"
+  },
+  {
+   "id": "US8983970B1",
+   "title": "Ranking content using content and content authors",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8577866B1",
+   "title": "Classifying content",
+   "assignee": "Googe Inc."
+  },
+  {
+   "id": "JP5137397B2",
+   "title": "Data management apparatus, data processing method, and computer program",
+   "assignee": "キヤノン株式会社"
+  },
+  {
+   "id": "US8280871B2",
+   "title": "Identifying offensive content using user click data",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8046358B2",
+   "title": "Context-based information retrieval",
+   "assignee": "Ge Healthcare"
+  },
+  {
+   "id": "JP4861865B2",
+   "title": "Access result feedback program, recording medium, access result feedback method, access result feedback device, and terminal device",
+   "assignee": "富士通株式会社"
+  },
+  {
+   "id": "JP4781466B2",
+   "title": "Document importance calculation program",
+   "assignee": "富士通株式会社"
+  },
+  {
+   "id": "JP4894580B2",
+   "title": "Seasonal analysis system, seasonality analysis method, and seasonality analysis program",
+   "assignee": "日本電気株式会社"
+  },
+  {
+   "id": "US8176055B1",
+   "title": "Content entity management",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8788320B1",
+   "title": "Release advertisement system",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US7693813B1",
+   "title": "Index server architecture using tiered and sharded phrase posting lists",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080244428A1",
+   "title": "Visually Emphasizing Query Results Based on Relevance Feedback",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8166021B1",
+   "title": "Query phrasification",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8166045B1",
+   "title": "Phrase extraction using subphrase scoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7925655B1",
+   "title": "Query scheduling using hierarchical tiers of index servers",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8086594B1",
+   "title": "Bifurcated document relevance scoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7702614B1",
+   "title": "Index updating using segment swapping",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7672937B2",
+   "title": "Temporal targeting of advertisements",
+   "assignee": "Yahoo, Inc."
+  },
+  {
+   "id": "IL182518A0",
+   "title": "Pay per relevance (ppr) advertising method and system",
+   "assignee": "Grois Dan"
+  },
+  {
+   "id": "US7676520B2",
+   "title": "Calculating importance of documents factoring historical importance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7788254B2",
+   "title": "Web page analysis using multiple graphs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080275877A1",
+   "title": "Method and system for variable keyword processing based on content dates on a web page",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20080275846A1",
+   "title": "Filtering search results using contact lists",
+   "assignee": "Sony Ericsson Mobile Communications Ab"
+  },
+  {
+   "id": "US8706696B2",
+   "title": "Method and system for on-demand communities",
+   "assignee": "Salesforce.Com, Inc."
+  },
+  {
+   "id": "US20090248623A1",
+   "title": "Accessing digital identity related reputation data",
+   "assignee": "The Go Daddy Group, Inc."
+  },
+  {
+   "id": "US8359309B1",
+   "title": "Modifying search result ranking based on corpus search statistics",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8046372B1",
+   "title": "Duplicate entry detection system and method",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US7908279B1",
+   "title": "Filtering invalid tokens from a document using high IDF token filtering",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US7814107B1",
+   "title": "Generating similarity scores for matching non-identical data strings",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US7644075B2",
+   "title": "Keyword usage score based on frequency impulse and frequency weight",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8244737B2",
+   "title": "Ranking documents based on a series of document graphs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20090006358A1",
+   "title": "Search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8290986B2",
+   "title": "Determining quality measures for web objects based on searcher behavior",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20090006341A1",
+   "title": "Method of website ranking promotion using creation of mass blog posting links",
+   "assignee": "Bruce Chapman"
+  },
+  {
+   "id": "US20090013068A1",
+   "title": "Systems and processes for evaluating webpages",
+   "assignee": "Eaglestone Robert J"
+  },
+  {
+   "id": "US20090013033A1",
+   "title": "Identifying excessively reciprocal links among web entities",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7991790B2",
+   "title": "System and method for storing documents accessed by multiple users in an on-demand service",
+   "assignee": "Salesforce.Com, Inc."
+  },
+  {
+   "id": "US7966341B2",
+   "title": "Estimating the date relevance of a query from query logs",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "CN102016825A",
+   "title": "Rank social network objects",
+   "assignee": "谷歌公司"
+  },
+  {
+   "id": "WO2009023982A1",
+   "title": "Multi-community content sharing in online social networks",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN101836392A",
+   "title": "Dynamically Naming Communities in Online Social Networks",
+   "assignee": "谷歌公司"
+  },
+  {
+   "id": "WO2009030248A1",
+   "title": "Detecting correlations between data representing information",
+   "assignee": "Iqser Ip Ag"
+  },
+  {
+   "id": "US8117223B2",
+   "title": "Integrating external related phrase information into a phrase-based indexing information retrieval system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN100514337C",
+   "title": "Association information generating system of key words and generation method thereof",
+   "assignee": "腾讯科技（深圳）有限公司"
+  },
+  {
+   "id": "JP2009070156A",
+   "title": "Information search system and information search method",
+   "assignee": "Ntt Docomo Inc"
+  },
+  {
+   "id": "KR20090030966A",
+   "title": "Method and device for organizing menu list ranking in portable terminal",
+   "assignee": "삼성전자주식회사"
+  },
+  {
+   "id": "US20090089311A1",
+   "title": "System and method for inclusion of history in a search results page",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9348912B2",
+   "title": "Document length as a static relevance feature for ranking search results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US20090106221A1",
+   "title": "Ranking and Providing Search Results Based In Part On A Number Of Click-Through Features",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7840569B2",
+   "title": "Enterprise relevancy ranking using a neural network",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8078613B2",
+   "title": "Method for removing network effects from search engine results",
+   "assignee": "Red Hat, Inc."
+  },
+  {
+   "id": "US9946722B2",
+   "title": "Generating file usage information",
+   "assignee": "Red Hat, Inc."
+  },
+  {
+   "id": "US7895225B1",
+   "title": "Identifying potential duplicates of a document in a document corpus",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "JP2009145953A",
+   "title": "DATA SEARCH DEVICE, DATA SEARCH METHOD, COMPUTER PROGRAM, AND RECORDING MEDIUM",
+   "assignee": "Sharp Corp"
+  },
+  {
+   "id": "US8176017B2",
+   "title": "Live volume access",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9239882B2",
+   "title": "System and method for categorizing answers such as URLs",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US9501453B2",
+   "title": "Method and system for a flexible-data column user interface",
+   "assignee": "Salesforce.Com Inc."
+  },
+  {
+   "id": "JP2009157422A",
+   "title": "Handling restriction information management system and program",
+   "assignee": "Fuji Xerox Co Ltd"
+  },
+  {
+   "id": "US8578260B2",
+   "title": "Apparatus and method for reformatting a report for access by a user in a network appliance",
+   "assignee": "Business Objects Software Limited"
+  },
+  {
+   "id": "US20090182614A1",
+   "title": "System And Method For Serving Advertisements According To Network Traffic",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8745056B1",
+   "title": "Spam detection for user-generated multimedia items based on concept clustering",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8752184B1",
+   "title": "Spam detection for user-generated multimedia items based on keyword stuffing",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7860755B2",
+   "title": "Rating e-commerce transactions",
+   "assignee": "The Go Daddy Group, Inc."
+  },
+  {
+   "id": "US7653577B2",
+   "title": "Validating e-commerce transactions",
+   "assignee": "The Go Daddy Group, Inc."
+  },
+  {
+   "id": "US9529974B2",
+   "title": "System and method for detecting, collecting, analyzing, and communicating event-related information",
+   "assignee": "Georgetown University"
+  },
+  {
+   "id": "US9746985B1",
+   "title": "System and method for detecting, collecting, analyzing, and communicating event-related information",
+   "assignee": "Georgetown University"
+  },
+  {
+   "id": "US9489495B2",
+   "title": "System and method for detecting, collecting, analyzing, and communicating event-related information",
+   "assignee": "Georgetown University"
+  },
+  {
+   "id": "US8881040B2",
+   "title": "System and method for detecting, collecting, analyzing, and communicating event-related information",
+   "assignee": "Georgetown University"
+  },
+  {
+   "id": "US8224832B2",
+   "title": "Computerized document examination for changes",
+   "assignee": "Kemp Richard Douglas"
+  },
+  {
+   "id": "US8171020B1",
+   "title": "Spam detection for user-generated multimedia items based on appearance in popular queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8812493B2",
+   "title": "Search results ranking using editing distance and document information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9128945B1",
+   "title": "Query augmentation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "WO2009155375A2",
+   "title": "System and method for aggregating and summarizing product/topic sentiment",
+   "assignee": "Wize, Inc."
+  },
+  {
+   "id": "US20100010982A1",
+   "title": "Web content characterization based on semantic folksonomies associated with user generated content",
+   "assignee": "Broder Andrei Z"
+  },
+  {
+   "id": "US8538942B2",
+   "title": "Method and system for sharing documents between on-demand services",
+   "assignee": "Salesforce.Com, Inc."
+  },
+  {
+   "id": "US8370329B2",
+   "title": "Automatic search query suggestions with search result suggestions from user history",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100082649A1",
+   "title": "Automatic search suggestions from server-side user history",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "KR101086530B1",
+   "title": "Method and system for determining web document origin, method and system for providing web document history information therefor",
+   "assignee": "엔에이치엔(주)"
+  },
+  {
+   "id": "US20100169492A1",
+   "title": "Generating domain names relevant to social website trending topics",
+   "assignee": "The Go Daddy Group, Inc."
+  },
+  {
+   "id": "US10158823B2",
+   "title": "Methods and techniques for adaptive search",
+   "assignee": "Tivo Solutions Inc."
+  },
+  {
+   "id": "US9152300B2",
+   "title": "Methods and techniques for adaptive search",
+   "assignee": "Tivo Inc."
+  },
+  {
+   "id": "US8239397B2",
+   "title": "System and method for managing user attention by detecting hot and cold topics in social indexes",
+   "assignee": "Palo Alto Research Center Incorporated"
+  },
+  {
+   "id": "JP2010176354A",
+   "title": "Information processor and information processing program",
+   "assignee": "Fuji Xerox Co Ltd"
+  },
+  {
+   "id": "US8001462B1",
+   "title": "Updating search engine document index based on calculated age of changed portions in a document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9836538B2",
+   "title": "Domain-based ranking in document search",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "CN101499098B",
+   "title": "Web page assessed value confirming and employing method and system",
+   "assignee": "阿里巴巴集团控股有限公司"
+  },
+  {
+   "id": "US8224839B2",
+   "title": "Search query extension",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "CN101887437B",
+   "title": "A kind of Search Results generation method and information search system",
+   "assignee": "阿里巴巴集团控股有限公司"
+  },
+  {
+   "id": "US8719298B2",
+   "title": "Click-through prediction for news queries",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US10353967B2",
+   "title": "Assigning relevance weights based on temporal dynamics",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US20100332550A1",
+   "title": "Platform For Configurable Logging Instrumentation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100332531A1",
+   "title": "Batched Transfer of Arbitrarily Distributed Data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9870572B2",
+   "title": "System and method of providing information based on street address",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US20150261858A1",
+   "title": "System and method of providing information based on street address",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN102483749B",
+   "title": "Method, system, and apparatus for delivering query results from an electronic document collection",
+   "assignee": "基金Ip有限公司"
+  },
+  {
+   "id": "US8082247B2",
+   "title": "Best-bet recommendations",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20110029516A1",
+   "title": "Web-Used Pattern Insight Platform",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "GB2472250A",
+   "title": "Method for determining document relevance",
+   "assignee": "Stephen Timothy Morris"
+  },
+  {
+   "id": "JP5014386B2",
+   "title": "Content search device",
+   "assignee": "ヤフー株式会社"
+  },
+  {
+   "id": "JP5002631B2",
+   "title": "Word information collection device, word information collection method, and word information collection program",
+   "assignee": "ヤフー株式会社"
+  },
+  {
+   "id": "US8595194B2",
+   "title": "Forward decay temporal data analysis",
+   "assignee": "At&T Intellectual Property I, L.P."
+  },
+  {
+   "id": "US20110078017A1",
+   "title": "Systems and methods for rating an originator of an online publication",
+   "assignee": "Selina Lam"
+  },
+  {
+   "id": "US9043319B1",
+   "title": "Generating real-time search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8515975B1",
+   "title": "Search entity transition matrix and applications of the transition matrix",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20110145823A1",
+   "title": "Task management engine",
+   "assignee": "The Go Daddy Group, Inc."
+  },
+  {
+   "id": "US20110145822A1",
+   "title": "Generating and recommending task solutions",
+   "assignee": "The Go Daddy Group, Inc."
+  },
+  {
+   "id": "US8311792B1",
+   "title": "System and method for ranking a posting",
+   "assignee": "Intuit Inc."
+  },
+  {
+   "id": "BR112012014783A2",
+   "title": "information search appliance and system, and number decision method, for deciding the number of search results per page on an information search appliance",
+   "assignee": "Rakuten Inc"
+  },
+  {
+   "id": "US20110178868A1",
+   "title": "Enhancing search result pages using content licensed from content providers",
+   "assignee": "Priyank Shanker Garg"
+  },
+  {
+   "id": "WO2011095667A1",
+   "title": "List display on the basis of list activities and related applications",
+   "assignee": "Ebay, Inc."
+  },
+  {
+   "id": "US8700642B2",
+   "title": "Software agent for monitoring content relevance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8650195B2",
+   "title": "Region based information retrieval system",
+   "assignee": "Palle M Pedersen"
+  },
+  {
+   "id": "US8260789B2",
+   "title": "System and method for authority value obtained by defining ranking functions related to weight and confidence value",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "CN101883180A",
+   "title": "Method, mobile terminal and system for shielding mobile terminal from accessing wireless network information",
+   "assignee": "中兴通讯股份有限公司"
+  },
+  {
+   "id": "US9116990B2",
+   "title": "Enhancing freshness of search results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8738635B2",
+   "title": "Detection of junk in search result ranking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8738377B2",
+   "title": "Predicting and learning carrier phrases for speech input",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8595207B2",
+   "title": "Methods and systems for dynamically suggesting answers to questions submitted to a portal of an online service",
+   "assignee": "Salesforce.Com"
+  },
+  {
+   "id": "AU2010202901B2",
+   "title": "A system, method and computer program for preparing data for analysis",
+   "assignee": "Patent Analytics Holding Pty Ltd"
+  },
+  {
+   "id": "US9020922B2",
+   "title": "Search engine optimization at scale",
+   "assignee": "Brightedge Technologies, Inc."
+  },
+  {
+   "id": "US20120047044A1",
+   "title": "Method to Develop Search Engine Optimized Content Through a Web-Based Software Platform",
+   "assignee": "Stephen James Lazuka"
+  },
+  {
+   "id": "US8332408B1",
+   "title": "Date-based web page annotation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8762326B1",
+   "title": "Personalized hot topics",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8346792B1",
+   "title": "Query generation using structural similarity between documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8861896B2",
+   "title": "Method and system for image-based identification",
+   "assignee": "Sap Se"
+  },
+  {
+   "id": "US9348925B2",
+   "title": "Locally significant search queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "EP2646971A4",
+   "title": "PERSONAL CONTENT DATA STREAM BASED ON USER SUBJECT PROFILES",
+   "assignee": "Google Inc"
+  },
+  {
+   "id": "JP5673051B2",
+   "title": "Document feature amount calculation apparatus, document feature amount calculation method, and document feature amount calculation program",
+   "assignee": "日本電気株式会社"
+  },
+  {
+   "id": "US8793706B2",
+   "title": "Metadata-based eventing supporting operations on data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8370365B1",
+   "title": "Tools for predicting improvement in website search engine rankings based upon website linking relationships",
+   "assignee": "Go Daddy Operating Company, LLC"
+  },
+  {
+   "id": "US8972412B1",
+   "title": "Predicting improvement in website search engine rankings based upon website linking relationships",
+   "assignee": "Go Daddy Operating Company, LLC"
+  },
+  {
+   "id": "US9646110B2",
+   "title": "Managing information assets using feedback re-enforced search and navigation",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10162892B2",
+   "title": "Identifying information assets within an enterprise using a semantic graph created using feedback re-enforced search and navigation",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "WO2012129102A2",
+   "title": "Detection and analysis of backlink activity",
+   "assignee": "Brightedge Technologies, Inc."
+  },
+  {
+   "id": "US8732151B2",
+   "title": "Enhanced query rewriting through statistical machine translation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9916363B2",
+   "title": "Method and apparatus for flexible diversification of recommendation results",
+   "assignee": "Nokia Technologies Oy"
+  },
+  {
+   "id": "US8775431B2",
+   "title": "Systems and methods for hot topic identification and metadata",
+   "assignee": "Disney Enterprises, Inc."
+  },
+  {
+   "id": "US8819000B1",
+   "title": "Query modification",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20120304072A1",
+   "title": "Sentiment-based content aggregation and presentation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US10068022B2",
+   "title": "Identifying topical entities",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10223451B2",
+   "title": "Ranking search results based upon content creation trends",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "EP2724257A4",
+   "title": "System and method for filtering documents",
+   "assignee": "Rogers Communications Inc"
+  },
+  {
+   "id": "US9384193B2",
+   "title": "Use and enforcement of provenance and lineage constraints",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9286334B2",
+   "title": "Versioning of metadata, including presentation of provenance and lineage for versioned metadata",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8510285B1",
+   "title": "Using pre-search triggers",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "JP5506104B2",
+   "title": "Information processing apparatus, information processing method, and information processing program",
+   "assignee": "楽天株式会社"
+  },
+  {
+   "id": "KR101510647B1",
+   "title": "Method and apparatus for providing web trend analysis based on issue template extraction",
+   "assignee": "한국전자통신연구원"
+  },
+  {
+   "id": "US10776431B2",
+   "title": "System and method for recommending content based on search history and trending topics",
+   "assignee": "Oath Inc."
+  },
+  {
+   "id": "US8694507B2",
+   "title": "Tenantization of search result ranking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "WO2013070977A1",
+   "title": "Metasearch infrastructure with incremental updates",
+   "assignee": "Room 77, Inc."
+  },
+  {
+   "id": "US9436758B1",
+   "title": "Methods and systems for partitioning documents having customer feedback and support content",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8868536B1",
+   "title": "Real time map spam detection",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9201964B2",
+   "title": "Identifying related entities",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9418065B2",
+   "title": "Tracking changes related to a collection of documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9495462B2",
+   "title": "Re-ranking search results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "JP5929356B2",
+   "title": "Information processing apparatus and information processing program",
+   "assignee": "富士ゼロックス株式会社"
+  },
+  {
+   "id": "US9189526B1",
+   "title": "Freshness based ranking",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN103049511B",
+   "title": "The display packing of a kind of microblogging concern list, content of microblog and client thereof",
+   "assignee": "温州大学"
+  },
+  {
+   "id": "US9081831B2",
+   "title": "Methods and systems for presenting document-specific snippets",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN103377191B",
+   "title": "Method and device for providing relevant information of images",
+   "assignee": "阿里巴巴集团控股有限公司"
+  },
+  {
+   "id": "US20130282707A1",
+   "title": "Two-step combiner for search result scores",
+   "assignee": "Discovery Engine Corporation"
+  },
+  {
+   "id": "US9916396B2",
+   "title": "Methods and systems for content-based search",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US8924375B1",
+   "title": "Item attention tracking system and method",
+   "assignee": "Symantec Corporation"
+  },
+  {
+   "id": "US8954438B1",
+   "title": "Structured metadata extraction",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8984012B2",
+   "title": "Self-tuning alterations framework",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9471606B1",
+   "title": "Obtaining information to provide to users",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9195717B2",
+   "title": "Image result provisioning based on document classification",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9436687B2",
+   "title": "Acquiring structured user data using composer interface having input fields corresponding to acquired structured data",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US9110852B1",
+   "title": "Methods and systems for extracting information from text",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8793258B2",
+   "title": "Predicting sharing on a social network",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US9390174B2",
+   "title": "Search result ranking and presentation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8938438B2",
+   "title": "Optimizing search engine ranking by recommending content including frequently searched questions",
+   "assignee": "Go Daddy Operating Company, LLC"
+  },
+  {
+   "id": "US8898113B2",
+   "title": "Managing replicated data",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9558233B1",
+   "title": "Determining a quality measure for a resource",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9256682B1",
+   "title": "Providing search results based on sorted properties",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8949228B2",
+   "title": "Identification of new sources for topics",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20140236964A1",
+   "title": "Systems And Methods For Ranking A Plurality Of Documents Based On User Activity",
+   "assignee": "Lexisnexis, A Division Of Reed Elsevier Inc."
+  },
+  {
+   "id": "US9218819B1",
+   "title": "Customizing actions based on contextual data and voice-based inputs",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US11429651B2",
+   "title": "Document provenance scoring based on changes between document versions",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10055462B2",
+   "title": "Providing search results using augmented search queries",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10108700B2",
+   "title": "Question answering to populate knowledge base",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US9477759B2",
+   "title": "Question answering using entity references in unstructured data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9501506B1",
+   "title": "Indexing system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "ES2518015B1",
+   "title": "METHOD, MOBILE DEVICE, SYSTEM AND COMPUTER PRODUCT FOR THE DETECTION AND MEASUREMENT OF A USER'S CARE LEVEL",
+   "assignee": "Crambo, S.A."
+  },
+  {
+   "id": "US9251146B2",
+   "title": "Altering relevancy of a document and/or a search query",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10846462B2",
+   "title": "Web page output selection",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US9483568B1",
+   "title": "Indexing system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "RU2592390C2",
+   "title": "System, method and device for evaluation of browsing sessions",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "US20150046219A1",
+   "title": "Avatar-based automated lead scoring system",
+   "assignee": "Mark J. Shavlik"
+  },
+  {
+   "id": "US9946804B2",
+   "title": "Displaying historical data associated with data values within business intelligence reports",
+   "assignee": "Business Objects Software Ltd"
+  },
+  {
+   "id": "US20150058073A1",
+   "title": "Crowdsourced innovation exchange",
+   "assignee": "Dmitrii Gorbunov"
+  },
+  {
+   "id": "US9723053B1",
+   "title": "Pre-fetching a cacheable network resource based on a time-to-live value",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "WO2015038881A1",
+   "title": "A method and system for generating comparable visual maps for browsing activity analysis",
+   "assignee": "ClickTale, Ltd."
+  },
+  {
+   "id": "US10902004B2",
+   "title": "Processing user-submitted updates based on user reliability scores",
+   "assignee": "Salesforce.Com, Inc."
+  },
+  {
+   "id": "US11017426B1",
+   "title": "Content performance analytics",
+   "assignee": "BloomReach Inc."
+  },
+  {
+   "id": "US20150186463A1",
+   "title": "Identifying changes to query results system and method",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "CN104753805B",
+   "title": "Distributed flow control method, server and system",
+   "assignee": "腾讯科技（深圳）有限公司"
+  },
+  {
+   "id": "US9984165B2",
+   "title": "Increasing search result validity",
+   "assignee": "Amadeus S.A.S."
+  },
+  {
+   "id": "US9582536B2",
+   "title": "Long-term validity of pre-computed request results",
+   "assignee": "Amadeus S.A.S."
+  },
+  {
+   "id": "US9471689B2",
+   "title": "Managing documents in question answering systems",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9875242B2",
+   "title": "Dynamic current results for second device",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US9692804B2",
+   "title": "Method of and system for determining creation time of a web resource",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "US9934319B2",
+   "title": "Method of and system for determining creation time of a web resource",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "CA2954652A1",
+   "title": "Combination therapy for cancer",
+   "assignee": "Celgene Corporation"
+  },
+  {
+   "id": "US10601749B1",
+   "title": "Trends in a messaging platform",
+   "assignee": "Twitter, Inc."
+  },
+  {
+   "id": "US10592539B1",
+   "title": "Trends in a messaging platform",
+   "assignee": "Twitter, Inc."
+  },
+  {
+   "id": "US10810249B2",
+   "title": "Content source driven recommendation for given context of content delivery and display system",
+   "assignee": "Piksel, Inc."
+  },
+  {
+   "id": "US9703840B2",
+   "title": "Handling information source ingestion in a question answering system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10572925B1",
+   "title": "Universal relevance service framework",
+   "assignee": "Groupon, Inc."
+  },
+  {
+   "id": "US10459927B1",
+   "title": "Enforcing diversity in ranked relevance results returned from a universal relevance service framework",
+   "assignee": "Groupon, Inc."
+  },
+  {
+   "id": "US11216843B1",
+   "title": "Ranked relevance results using multi-feature scoring returned from a universal relevance service framework",
+   "assignee": "Groupon, Inc."
+  },
+  {
+   "id": "US10210214B2",
+   "title": "Scalable trend detection in a personalized search context",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9501851B2",
+   "title": "Time-series analysis system",
+   "assignee": "Palantir Technologies Inc."
+  },
+  {
+   "id": "US9767172B2",
+   "title": "Data aggregation and analysis system",
+   "assignee": "Palantir Technologies Inc."
+  },
+  {
+   "id": "US9690862B2",
+   "title": "Realtime ingestion via multi-corpus knowledge base with weighting",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10042514B2",
+   "title": "Typeahead features",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9940409B2",
+   "title": "Contextual search tool",
+   "assignee": "Bank Of America Corporation"
+  },
+  {
+   "id": "RU2580432C1",
+   "title": "Method for processing a request from a potential unauthorised user to access resource and server used therein",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "RU2610280C2",
+   "title": "Method for user authorization in a network and server used therein",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "US9922117B2",
+   "title": "Contextual search input from advisors",
+   "assignee": "Bank Of America Corporation"
+  },
+  {
+   "id": "US9785304B2",
+   "title": "Linking customer profiles with household profiles",
+   "assignee": "Bank Of America Corporation"
+  },
+  {
+   "id": "US9160680B1",
+   "title": "System and method for dynamic network resource categorization re-assignment",
+   "assignee": "Kaspersky Lab Zao"
+  },
+  {
+   "id": "CN104778202B",
+   "title": "The analysis method and system of event evolutionary process based on keyword",
+   "assignee": "北京航空航天大学"
+  },
+  {
+   "id": "US9836435B2",
+   "title": "Embedded content suitability scoring",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "CN104731914A",
+   "title": "Method for detecting user abnormal behavior based on behavior similarity",
+   "assignee": "浪潮集团有限公司"
+  },
+  {
+   "id": "US9984330B2",
+   "title": "Predictive trending of digital entities",
+   "assignee": "Microsoft Technology Licensing, Llc."
+  },
+  {
+   "id": "US11803918B2",
+   "title": "System and method for identifying experts on arbitrary topics in an enterprise social network",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "RU2632131C2",
+   "title": "Method and device for creating recommended list of content",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "RU2632100C2",
+   "title": "Method and server of recommended set of elements creation",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "RU2629638C2",
+   "title": "Method and server of creating recommended set of elements for user",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "US11442945B1",
+   "title": "Dynamic freshness for relevance rankings",
+   "assignee": "Groupon, Inc."
+  },
+  {
+   "id": "CA3014072A1",
+   "title": "Change fingerprinting for database tables, text files, and data feeds",
+   "assignee": "Acxiom Corporation"
+  },
+  {
+   "id": "RU2632144C1",
+   "title": "Computer method for creating content recommendation interface",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "RU2632132C1",
+   "title": "Method and device for creating contents recommendations in recommendations system",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "RU2636702C1",
+   "title": "Method and device for selecting network resource as source of content in recommendations system",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "USD882600S1",
+   "title": "Display screen with graphical user interface",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "CN107622090B",
+   "title": "Object acquisition method, device and system",
+   "assignee": "上海艾融软件股份有限公司"
+  },
+  {
+   "id": "US10853375B1",
+   "title": "Leveraging historical data to improve the relevancy of search results",
+   "assignee": "Roblox Corporation"
+  },
+  {
+   "id": "CN109446402B",
+   "title": "Searching method and device",
+   "assignee": "阿里巴巴集团控股有限公司"
+  },
+  {
+   "id": "US11163759B2",
+   "title": "Predicting entities for database query results",
+   "assignee": "Salesforce.Com, Inc."
+  },
+  {
+   "id": "CN110569335B",
+   "title": "Triple verification method and device based on artificial intelligence and storage medium",
+   "assignee": "百度在线网络技术（北京）有限公司"
+  },
+  {
+   "id": "US11514095B2",
+   "title": "Tiered retrieval of secured documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10796022B2",
+   "title": "Weighted source data secured on blockchains",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US10671371B2",
+   "title": "Alerting an offline user of a predicted computer file update",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US11017221B2",
+   "title": "Classifying digital documents in multi-document transactions based on embedded dates",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10885081B2",
+   "title": "Systems and methods for contextual ranking of search results",
+   "assignee": "Optum Technology, Inc."
+  },
+  {
+   "id": "GB201811003D0",
+   "title": "Multiple cooling circuit systems and methods for using them",
+   "assignee": "Bp Plc"
+  },
+  {
+   "id": "RU2720952C2",
+   "title": "Method and system for generating digital content recommendation",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "RU2720899C2",
+   "title": "Method and system for determining user-specific content proportions for recommendation",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "RU2714594C1",
+   "title": "Method and system for determining parameter relevance for content items",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "US11294974B1",
+   "title": "Golden embeddings",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "RU2725659C2",
+   "title": "Method and system for evaluating data on user-element interactions",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "RU2731335C2",
+   "title": "Method and system for generating recommendations of digital content",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "US11003889B2",
+   "title": "Classifying digital documents in multi-document transactions based on signatory role analysis",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "GB201905733D0",
+   "title": "Dielectric thermal managment fluids and methods for using them",
+   "assignee": "Bp Plc"
+  },
+  {
+   "id": "US11677703B2",
+   "title": "Systems and methods for automatically identifying spam in social media comments based on context",
+   "assignee": "Rovi Guides, Inc."
+  },
+  {
+   "id": "US11258741B2",
+   "title": "Systems and methods for automatically identifying spam in social media comments",
+   "assignee": "Rovi Guides, Inc."
+  },
+  {
+   "id": "RU2757406C1",
+   "title": "Method and system for providing a level of service when advertising content element",
+   "assignee": "Общество С Ограниченной Ответственностью «Яндекс»"
+  },
+  {
+   "id": "KR102426056B1",
+   "title": "Method, system, and computer program for dedecting multimodal abusing pattern to select document",
+   "assignee": "네이버 주식회사"
+  },
+  {
+   "id": "JP2021077256A",
+   "title": "Document processing device, document review system, document processing device control method, document review service providing method, and control program",
+   "assignee": "株式会社Ｆｒｏｎｔｅｏ"
+  },
+  {
+   "id": "JP7262871B2",
+   "title": "Search Needs Evaluation Program, Search Needs Evaluation Device and Search Needs Evaluation Method, Evaluation Program, Evaluation Device and Evaluation Method",
+   "assignee": "データ・サイエンティスト株式会社"
+  },
+  {
+   "id": "CN112783837B",
+   "title": "API document searching method",
+   "assignee": "北京首汽智行科技有限公司"
+  },
+  {
+   "id": "US12126728B2",
+   "title": "Anti-replay protection based on hashing encrypted temporal key in a secure peer-to-peer data network",
+   "assignee": "Whitestar Communications, Inc."
+  },
+  {
+   "id": "US20240078107A1",
+   "title": "Performing quality-based action(s) regarding engineer-generated documentation associated with code and/or application programming interface",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "CN114090935B",
+   "title": "Data acquisition method and device",
+   "assignee": "马上消费金融股份有限公司"
+  },
+  {
+   "id": "JP7741764B2",
+   "title": "Work support device, work support system",
+   "assignee": "株式会社日立製作所"
+  },
+  {
+   "id": "US11914906B2",
+   "title": "Pre-processing print jobs",
+   "assignee": "Kyocera Document Solutions Inc."
+  },
+  {
+   "id": "US12197483B1",
+   "title": "Enterprise-level classification of data-items in an enterprise repository and prevention of leakage of personally identifiable information (PII)",
+   "assignee": "Varonis Systems, Inc."
+  },
+  {
+   "id": "US20250150511A1",
+   "title": "Article provisioning",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US12423312B1",
+   "title": "Adaptive data scoring using multi-metric interaction analysis",
+   "assignee": "Intuit Inc."
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5918014A",
+   "title": "Automated collaborative filtering in world wide web advertising",
+   "assignee": "Athenium, L.L.C."
+  },
+  {
+   "id": "US5999957A",
+   "title": "Lossless transform coding system for digital signals",
+   "assignee": "Nec Corporation"
+  },
+  {
+   "id": "US6014665A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6078916A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "JP2001005705A",
+   "title": "Document information management system",
+   "assignee": "Hitachi Ltd"
+  },
+  {
+   "id": "US6182068B1",
+   "title": "Personalized search methods",
+   "assignee": "Ask Jeeves, Inc."
+  },
+  {
+   "id": "US6185558B1",
+   "title": "Identifying the items most relevant to a current query based on items selected in connection with similar queries",
+   "assignee": "Amazon.Com, Inc."
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "JP2002024065A",
+   "title": "Document management system, document management method, and recording medium storing program for implementing the method",
+   "assignee": "Ricoh Co Ltd"
+  },
+  {
+   "id": "US20020032772A1",
+   "title": "Method for searching and analysing information in data networks",
+   "assignee": "Bjorn Olstad"
+  },
+  {
+   "id": "US20020049452A1",
+   "title": "Clot retrieval device",
+   "assignee": "Kurz Daniel R."
+  },
+  {
+   "id": "US20020073065A1",
+   "title": "Document retrieval method and system and computer readable storage medium",
+   "assignee": "Yasuhiko Inaba"
+  },
+  {
+   "id": "US6421675B1",
+   "title": "Search engine",
+   "assignee": "S. L. I. Systems, Inc."
+  },
+  {
+   "id": "US20020123988A1",
+   "title": "Methods and apparatus for employing usage statistics in document retrieval",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020198875A1",
+   "title": "System and method for optimizing search results",
+   "assignee": "Masters Graham S."
+  },
+  {
+   "id": "JP2003501729A",
+   "title": "Method and system for influencing positions on a search result list generated by a computer network search engine",
+   "assignee": "オーバーチュア サービシズ インコーポレイテッド"
+  },
+  {
+   "id": "JP2003046764A",
+   "title": "Page space transmission system and method therefor",
+   "assignee": "Matsushita Graphic Communication Systems Inc"
+  },
+  {
+   "id": "US6546388B1",
+   "title": "Metadata search results ranking system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030105744A1",
+   "title": "Method and system for updating a search engine",
+   "assignee": "Mckeeth Jim"
+  },
+  {
+   "id": "US20030135490A1",
+   "title": "Enhanced popularity ranking",
+   "assignee": "Barrett Michael E."
+  },
+  {
+   "id": "US6631372B1",
+   "title": "Search engine using sales and revenue to weight search results",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20030191737A1",
+   "title": "Indexing system and method",
+   "assignee": "Steele Robert James"
+  },
+  {
+   "id": "US6654742B1",
+   "title": "Method and system for document collection final search result by arithmetical operations between search results sorted by multiple ranking metrics",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040044962A1",
+   "title": "Relevant search rankings using high refresh-rate distributed crawling",
+   "assignee": "Green Jacob William"
+  },
+  {
+   "id": "US20040153962A1",
+   "title": "System and method for identifying useful content in a knowledge repository",
+   "assignee": "Mehdi Bazoon"
+  },
+  {
+   "id": "US6789076B1",
+   "title": "System, method and program for augmenting information retrieval in a client/server network using client-side searching",
+   "assignee": "International Business Machines Corp."
+  },
+  {
+   "id": "US20040243557A1",
+   "title": "System, method and computer program product for performing unstructured information management and automatic text analysis, including a search operator functioning as a weighted and (WAND)",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040249871A1",
+   "title": "System and method for automatically removing documents from a knowledge repository",
+   "assignee": "Mehdi Bazoon"
+  },
+  {
+   "id": "US20040260688A1",
+   "title": "Method for implementing search engine",
+   "assignee": "Gross John N."
+  },
+  {
+   "id": "US20050071741A1",
+   "title": "Information retrieval based on historical data",
+   "assignee": "Anurag Acharya"
+  },
+  {
+   "id": "US20050102282A1",
+   "title": "Method for personalized search",
+   "assignee": "Greg Linden"
+  },
+  {
+   "id": "US20050144193A1",
+   "title": "Systems and methods for determining document freshness",
+   "assignee": "Monika Henzinger"
+  },
+  {
+   "id": "US6944609B2",
+   "title": "Search results using editor feedback",
+   "assignee": "Lycos, Inc."
+  },
+  {
+   "id": "US20050222981A1",
+   "title": "Systems and methods for weighting a search query result",
+   "assignee": "Lawrence Stephen R"
+  },
+  {
+   "id": "US20050234877A1",
+   "title": "System and method for searching using a temporal dimension",
+   "assignee": "Yu Philip S"
+  },
+  {
+   "id": "US20050256848A1",
+   "title": "System and method for user rank search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20060004711A1",
+   "title": "System and method for ranking search results based on tracked user preferences",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6993586B2",
+   "title": "User intention modeling for web navigation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060036588A1",
+   "title": "Searching by using spatial document and spatial keyword document indexes",
+   "assignee": "Metacarta, Inc."
+  },
+  {
+   "id": "US7003513B2",
+   "title": "Method and system of weighted context feedback for result improvement in information retrieval",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20060047643A1",
+   "title": "Method and system for a personalized search engine",
+   "assignee": "Chirag Chaman"
+  },
+  {
+   "id": "US20060195443A1",
+   "title": "Information prioritisation system and method",
+   "assignee": "Franklin Gary L"
+  },
+  {
+   "id": "US7130849B2",
+   "title": "Similarity-based search method by relevance feedback",
+   "assignee": "Hitachi, Ltd."
+  },
+  {
+   "id": "US20060248055A1",
+   "title": "Analysis and comparison of portfolios by classification",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060253427A1",
+   "title": "Suggesting and refining user input based on original user input",
+   "assignee": "Jun Wu"
+  },
+  {
+   "id": "US7519586B2",
+   "title": "Method of searching",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7568148B1",
+   "title": "Methods and apparatus for clustering news content",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US5594897A",
+   "title": "Method for retrieving high relevance, high quality objects from an overall source",
+   "assignee": "Gwg Associates"
+  },
+  {
+   "id": "US5465353A",
+   "title": "Image matching and retrieval by multi-access redundant hashing",
+   "assignee": "Ricoh Company, Ltd."
+  },
+  {
+   "id": "GB9408894D0",
+   "title": "Electronic circuit",
+   "assignee": "Secr Defence"
+  },
+  {
+   "id": "US5758257A",
+   "title": "System and method for scheduling broadcast of and access to video programs and other data using customer profiles",
+   "assignee": "Herz; Frederick"
+  },
+  {
+   "id": "US5873076A",
+   "title": "Architecture for processing search queries, retrieving documents identified thereby, and method for using same",
+   "assignee": "Infonautics Corporation"
+  },
+  {
+   "id": "US5742816A",
+   "title": "Method and apparatus for identifying textual documents and multi-mediafiles corresponding to a search topic",
+   "assignee": "Infonautics Corporation"
+  },
+  {
+   "id": "US6457004B1",
+   "title": "Document retrieval assisting method, system and service using closely displayed areas for titles and topics",
+   "assignee": "Hitachi, Ltd."
+  },
+  {
+   "id": "US6092091A",
+   "title": "Device and method for filtering information, device and method for monitoring updated document information and information storage medium used in same devices",
+   "assignee": "Kabushiki Kaisha Toshiba"
+  },
+  {
+   "id": "JPH10247201A",
+   "title": "Information guidance system with information evaluation value",
+   "assignee": "Nippon Telegr & Teleph Corp"
+  },
+  {
+   "id": "US7636732B1",
+   "title": "Adaptive meta-tagging of websites",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US5893111A",
+   "title": "Ad taking pagination information system",
+   "assignee": "Sharon, Jr.; Paul A."
+  },
+  {
+   "id": "US5956722A",
+   "title": "Method for effective indexing of partially dynamic documents",
+   "assignee": "At&T Corp."
+  },
+  {
+   "id": "US6389436B1",
+   "title": "Enhanced hypertext categorization using hyperlinks",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6067565A",
+   "title": "Technique for prefetching a web page of potential future interest in lieu of continuing a current information download",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6163778A",
+   "title": "Probabilistic web link viability marker and web page ratings",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US6182133B1",
+   "title": "Method and apparatus for display of information prefetching and cache status having variable visual indication based on a period of time since prefetching",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6457028B1",
+   "title": "Method and apparatus for finding related collections of linked documents using co-citation analysis",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6990437B1",
+   "title": "Systems and method for determining performance metrics for constructing information systems",
+   "assignee": "Abu El Ata Nabil A"
+  },
+  {
+   "id": "US6638314B1",
+   "title": "Method of web crawling utilizing crawl numbers",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6421375B1",
+   "title": "Method and apparatus for transmitting control signals in a data communication system having a fully digital communication channel",
+   "assignee": "Conexant Systems, Inc"
+  },
+  {
+   "id": "US7765179B2",
+   "title": "Method and apparatus for resolving domain names of persistent web resources",
+   "assignee": "Alcatel-Lucent Usa Inc."
+  },
+  {
+   "id": "US6615242B1",
+   "title": "Automatic uniform resource locator-based message filter",
+   "assignee": "At&T Corp."
+  },
+  {
+   "id": "US6598054B2",
+   "title": "System and method for clustering data objects in a collection",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6510406B1",
+   "title": "Inverse inference engine for high performance web search",
+   "assignee": "Mathsoft, Inc."
+  },
+  {
+   "id": "US6907566B1",
+   "title": "Method and system for optimum placement of advertisements on a webpage",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US7752251B1",
+   "title": "Method, apparatus and system for hosting information exchange groups on a wide area network",
+   "assignee": "Brian Mark Shuster"
+  },
+  {
+   "id": "CA2372867A1",
+   "title": "System and method for database retrieval, indexing and statistical analysis",
+   "assignee": "Carlos Cardona"
+  },
+  {
+   "id": "JP2000339316A",
+   "title": "Search-linked information collection method and apparatus, and recording medium storing the method",
+   "assignee": "Nippon Telegr & Teleph Corp"
+  },
+  {
+   "id": "US7110993B2",
+   "title": "System and method for influencing a position on a search result list generated by a computer network search engine",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US6665665B1",
+   "title": "Compressed document surrogates",
+   "assignee": "Verizon Laboratories Inc."
+  },
+  {
+   "id": "US6321228B1",
+   "title": "Internet search system for retrieving selected results from a previous search",
+   "assignee": "Powercast Media, Inc."
+  },
+  {
+   "id": "US6839680B1",
+   "title": "Internet profiling",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "AU1797401A",
+   "title": "Targeting electronic advertising placement in accordance with an analysis of user inclination and affinity",
+   "assignee": "Avenue, A, Inc."
+  },
+  {
+   "id": "US6751612B1",
+   "title": "User query generate search results that rank set of servers where ranking is based on comparing content on each server with user query, frequency at which content on each server is altered using web crawler in a search engine",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "EP1107128A1",
+   "title": "Apparatus and method for checking the validity of links in a computer network",
+   "assignee": "Hyundai Electronics Industries Co., Ltd."
+  },
+  {
+   "id": "EP1252735B1",
+   "title": "System and method for estimating prevalence of digital content on the world-wide-web",
+   "assignee": "Jupiter Media Metrix, Inc."
+  },
+  {
+   "id": "US6883135B1",
+   "title": "Proxy server using a statistical model",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7567958B1",
+   "title": "Filtering system for providing personalized information in the absence of negative data",
+   "assignee": "Aol, Llc"
+  },
+  {
+   "id": "US20010030773A1",
+   "title": "Digital photograph system",
+   "assignee": "Satoshi Matsuura"
+  },
+  {
+   "id": "JP3562572B2",
+   "title": "Detect and track new items and new classes in database documents",
+   "assignee": "インターナショナル・ビジネス・マシーンズ・コーポレーション"
+  },
+  {
+   "id": "JP2001326635A",
+   "title": "Internet billing system",
+   "assignee": "Matsushita Electric Ind Co Ltd"
+  },
+  {
+   "id": "WO2001090921A2",
+   "title": "System and method for automatically classifying text",
+   "assignee": "Kanisa, Inc."
+  },
+  {
+   "id": "JP2002007801A",
+   "title": "On-line shopping system, method and server for providing credit information, and recording medium of program therefor",
+   "assignee": "Nec Corp"
+  },
+  {
+   "id": "US20020022999A1",
+   "title": "Method and apparatus for providing audio advertisements in a computer network",
+   "assignee": "Shuster Brian Mark"
+  },
+  {
+   "id": "US7080073B1",
+   "title": "Method and apparatus for focused crawling",
+   "assignee": "Firstrain, Inc."
+  },
+  {
+   "id": "US7146416B1",
+   "title": "Web site activity monitoring system with tracking by categories and terms",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "AUPR033800A0",
+   "title": "A document categorisation system",
+   "assignee": "Telstra R & D Management Pty Ltd"
+  },
+  {
+   "id": "US6684205B1",
+   "title": "Clustering hypertext with applications to web searching",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "FR2816734B1",
+   "title": "METHOD FOR SEARCHING, SELECTING AND MAPPING WEB PAGES",
+   "assignee": "Linkkit"
+  },
+  {
+   "id": "US8862656B2",
+   "title": "Performance outcomes benchmarking",
+   "assignee": "Chironet, Llc"
+  },
+  {
+   "id": "US7130889B2",
+   "title": "Method of printing information by a network kiosk",
+   "assignee": "Ncr Corporation"
+  },
+  {
+   "id": "US20020078045A1",
+   "title": "System, method, and program for ranking search results using user category weighting",
+   "assignee": "Rabindranath Dutta"
+  },
+  {
+   "id": "JP2002183216A",
+   "title": "Time series information storage / reproduction device",
+   "assignee": "Fuji Electric Co Ltd"
+  },
+  {
+   "id": "US7356530B2",
+   "title": "Systems and methods of retrieving relevant information",
+   "assignee": "Looksmart, Ltd."
+  },
+  {
+   "id": "US7359944B2",
+   "title": "Method of providing digital electronic book",
+   "assignee": "Lg Electronics Inc."
+  },
+  {
+   "id": "JP2002245070A",
+   "title": "Data display method and apparatus, and medium storing processing program therefor",
+   "assignee": "Hitachi Ltd"
+  },
+  {
+   "id": "US20030018659A1",
+   "title": "Category-based selections in an information access environment",
+   "assignee": "Lingomotors, Inc."
+  },
+  {
+   "id": "US20020188635A1",
+   "title": "System and method for incorporation of print-ready advertisement in digital newspaper editions",
+   "assignee": "Larson Stephen C."
+  },
+  {
+   "id": "US20020161838A1",
+   "title": "Method and apparatus for targeting information",
+   "assignee": "Pickover Cilfford A."
+  },
+  {
+   "id": "US7194483B1",
+   "title": "Method, system, and computer program product for concept-based multi-dimensional analysis of unstructured information",
+   "assignee": "Intelligenxia, Inc."
+  },
+  {
+   "id": "JP4489994B2",
+   "title": "Topic extraction apparatus, method, program, and recording medium for recording the program",
+   "assignee": "富士通株式会社"
+  },
+  {
+   "id": "US7035772B2",
+   "title": "Method and apparatus for calculating data integrity metrics for web server activity log analysis",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "JP4025517B2",
+   "title": "Document search system and server",
+   "assignee": "株式会社日立製作所"
+  },
+  {
+   "id": "US7299270B2",
+   "title": "Inferring relations between internet objects that are not connected directly",
+   "assignee": "Lycos, Inc."
+  },
+  {
+   "id": "US7146409B1",
+   "title": "System and method for efficient control and capture of dynamic database content",
+   "assignee": "Brightplanet Corporation"
+  },
+  {
+   "id": "US7076483B2",
+   "title": "Ranking nodes in a graph",
+   "assignee": "Xyleme Sa"
+  },
+  {
+   "id": "US20040205454A1",
+   "title": "System, method and computer program product for creating a description for a document of a remote network data source for later identification of the document and identifying the document utilizing a description",
+   "assignee": "Simon Gansky"
+  },
+  {
+   "id": "US20030046098A1",
+   "title": "Apparatus and method that modifies the ranking of the search results by the number of votes cast by end-users and advertisers",
+   "assignee": "Seong-Gon Kim"
+  },
+  {
+   "id": "JP4283466B2",
+   "title": "Document arrangement method based on link relationship",
+   "assignee": "富士通株式会社"
+  },
+  {
+   "id": "JP2003122699A",
+   "title": "Information processing system and its peripherals",
+   "assignee": "Toshiba Corp"
+  },
+  {
+   "id": "US20030101126A1",
+   "title": "Position bidding in a pay for placement database search system",
+   "assignee": "Cheung Dominic Dough-Ming"
+  },
+  {
+   "id": "US20030101166A1",
+   "title": "Information analyzing method and system",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US7209906B2",
+   "title": "System and method for implementing a metrics engine for tracking relationships over time",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20110066510A1",
+   "title": "Methods for valuing and placing advertising",
+   "assignee": "Galip Talegon"
+  },
+  {
+   "id": "US20030135460A1",
+   "title": "Methods for valuing and placing advertising",
+   "assignee": "Galip Talegon"
+  },
+  {
+   "id": "US20040205569A1",
+   "title": "Method and system to manage outdated web page links in a computing system",
+   "assignee": "Mccarty Jon S."
+  },
+  {
+   "id": "US7343365B2",
+   "title": "Computer system architecture for automatic context associations",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7188107B2",
+   "title": "System and method for classification of documents",
+   "assignee": "Infoglide Software Corporation"
+  },
+  {
+   "id": "US7203909B1",
+   "title": "System and methods for constructing personalized context-sensitive portal pages or views by analyzing patterns of users' information access activities",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7085832B2",
+   "title": "Method and apparatus for enabling an internet web server to keep an accurate count of page hits",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7599911B2",
+   "title": "Method and apparatus for search ranking using human input and automated ranking",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8375286B2",
+   "title": "Systems and methods for displaying statistical information on a web page",
+   "assignee": "Ancestry.com Operations, Inc."
+  },
+  {
+   "id": "US20040059625A1",
+   "title": "Method for providing feedback to advertising on interactive channels",
+   "assignee": "Ncr Corporation"
+  },
+  {
+   "id": "US7158983B2",
+   "title": "Text analysis technique",
+   "assignee": "Battelle Memorial Institute"
+  },
+  {
+   "id": "US20040064447A1",
+   "title": "System and method for management of synonymic searching",
+   "assignee": "Simske Steven J."
+  },
+  {
+   "id": "US6886010B2",
+   "title": "Method for data and text mining and literature-based discovery",
+   "assignee": "The United States Of America As Represented By The Secretary Of The Navy"
+  },
+  {
+   "id": "US7130844B2",
+   "title": "System and method for examining, calculating the age of an document collection as a measure of time since creation, visualizing, identifying selectively reference those document collections representing current activity",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040098405A1",
+   "title": "System and Method for Automated Link Analysis",
+   "assignee": "Michael Zrubek"
+  },
+  {
+   "id": "US7792827B2",
+   "title": "Temporal link analysis of linked entities",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040193698A1",
+   "title": "Method for finding convergence of ranking of web page",
+   "assignee": "Sadasivuni Lakshminarayana"
+  },
+  {
+   "id": "US20040225644A1",
+   "title": "Method and apparatus for search engine World Wide Web crawling",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7283997B1",
+   "title": "System and method for ranking the relevance of documents retrieved by a query",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US7308643B1",
+   "title": "Anchor tag indexing in a web crawler system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20050060290A1",
+   "title": "Automatic query routing and rank configuration for search queries in an information retrieval system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7739281B2",
+   "title": "Systems and methods for ranking documents based upon structurally interrelated information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7685296B2",
+   "title": "Systems and methods for client-based web crawling",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7853485B2",
+   "title": "Methods and systems for utilizing content, dynamic patterns, and/or relational information for data analysis",
+   "assignee": "Nec Laboratories America, Inc."
+  },
+  {
+   "id": "US9177124B2",
+   "title": "Flexible authentication framework",
+   "assignee": "Oracle International Corporation"
+  }
+ ],
+ "similar": [
+  {
+   "id": "US8639690B2",
+   "title": "Document scoring based on query analysis"
+  },
+  {
+   "id": "AU2007200526B2",
+   "title": "Document scoring based on query analysis"
+  },
+  {
+   "id": "EP1775665A2",
+   "title": "Document scoring based on link-based criteria"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8224827B2/en"
+}

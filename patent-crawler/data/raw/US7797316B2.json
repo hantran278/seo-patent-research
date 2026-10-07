@@ -1,0 +1,501 @@
+{
+ "id": "US7797316B2",
+ "title": "Systems and methods for determining document freshness",
+ "abstract": "A system determines a freshness of a first document. The system determines whether a freshness attribute is associated with the first document. The system identifies, based on the determination, a set of second documents that each contain a link to the first document. The system assigns a freshness score to the first document based on a freshness attribute associated with each document of the set of second documents or the freshness attribute associated with the first document.",
+ "inventors": [
+  "Monika Henzinger"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2003-09-30",
+ "filing_date": "2004-06-30",
+ "publication_date": "2010-09-14",
+ "status": "Active",
+ "expiration": "2026-09-29",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/951"
+ ],
+ "claims": [
+  {
+   "text": "1. A method, performed by one or more server devices, of determining the freshness of a first document, comprising: identifying, by a processor of the one or more server devices, a set of second documents that each contains a link to the first document; determining, by a processor of the one or more server devices, a freshness attribute associated with each document of the set of second documents, where the freshness attribute indicates when each document was last modified; assigning, by a processor of the one or more server devices, a freshness score to the first document based on the freshness attribute associated with each document of the set of second documents; and ranking, by a processor of the one or more server devices, the first document with respect to at least one other document based on the freshness score assigned to the first document.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, where the freshness attribute comprises a HTTP “last-modified-since” attribute.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, further comprising: identifying times at which each of the links to the first document existed; where assigning the freshness score to the first document is further based on the identified times.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, further comprising: executing a search of a corpus of documents to return results associated with the plurality of documents, where the plurality of documents include the first document.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 1, assigning a freshness score to the first document further comprises: assigning a low freshness score to the first document if a majority of documents of the set of second documents have associated freshness attributes that indicate that the corresponding documents are not fresh.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 1, where assigning a freshness score to the first document further comprises: assigning a high freshness score to the first document if a majority of documents of the set of second documents have associated freshness attributes that indicate that the corresponding documents are fresh.",
+   "dependent": true
+  },
+  {
+   "text": "7. A system comprising: one or more server devices comprising: a search engine to: perform a search of a corpus of documents to return a plurality of documents, where the plurality of documents includes a first document, identify a set of second documents that each contains, or previously contained, a link to the first document, determine a freshness attribute associated with each document of the set of second documents, where the freshness attribute indicates when each document was last modified, assign a freshness score to the first document based on the freshness attribute associated with each document of the set of second documents, and rank the first document among the plurality of documents based, at least in part, on the assigned freshness score.",
+   "dependent": false
+  },
+  {
+   "text": "8. The system of claim 7, where the search engine is further to: identify times at which each of the links to the first document existed; where assigning the freshness score to the first document is further based on the identified times.",
+   "dependent": true
+  },
+  {
+   "text": "9. The system of claim 7, where the search engine is further to: assign a first freshness score to the first document if a majority of documents of the set of second documents correspond to documents that have freshness values that are less than a threshold; and assign a second freshness score to the first document if a majority of documents of the set of second documents correspond to documents that have freshness values that are greater than or equal to the threshold, where the first freshness score is less than the second freshness score.",
+   "dependent": true
+  },
+  {
+   "text": "10. A computer-readable memory device containing instructions for controlling at least one processor to perform a method of determining the freshness of a first document, the method comprising: identifying a set of second documents that each contain, or previously contained, a link to the first document; assigning a freshness score to the first document based on a freshness attribute associated with each document of the set of second documents, where the freshness attribute indicates when each document was last modified; and using the assigned freshness score as a basis for ranking the first document among a plurality of other documents.",
+   "dependent": false
+  },
+  {
+   "text": "11. The computer-readable memory device of claim 10, where the method further comprises: identifying times at which each of the links to the first document existed; where assigning the freshness score to the first document is further based on the identified times.",
+   "dependent": true
+  },
+  {
+   "text": "12. The computer-readable memory device of claim 10, where the method further comprises: assigning a first freshness score to the first document if a majority of documents of the set of second documents correspond to documents that have freshness values that are less than a threshold; and assigning a second freshness score to the first document if a majority of documents of the set of second documents correspond to documents that have freshness values that are greater than or equal to the threshold, where the first freshness score is less than the second freshness score.",
+   "dependent": true
+  },
+  {
+   "text": "13. A method, performed by one or more server devices, of determining the freshness of a first document, comprising: determining, by a processor of the one or more server devices, whether a freshness attribute is associated with the first document; identifying, by a processor of the one or more server devices and based on the determination, a set of second documents that each contains, or previously contained, a link to the first document; assigning, by a processor of the one or more server devices, a freshness score to the first document based on a freshness attribute associated with each document of the set of second documents or the freshness attribute associated with the first document, where the freshness attribute indicates when each document was last modified; and using, by a processor of the one or more server devices, the assigned freshness score as a basis for ranking the first document among a plurality of documents returned as results of an executed search.",
+   "dependent": false
+  },
+  {
+   "text": "14. The method of claim 13, further comprising: identifying times at which each of the links to the first document existed; where assigning the freshness score to the first document is further based on the identified times.",
+   "dependent": true
+  },
+  {
+   "text": "15. The method of claim 13, where assigning a freshness score to the first document is further based on the freshness attribute associated with the first document.",
+   "dependent": true
+  },
+  {
+   "text": "16. The method of claim 13, where the set of second documents that each contains, or previously contained, a link to the first document are identified if a freshness attribute is not associated with the first document.",
+   "dependent": true
+  },
+  {
+   "text": "17. The method of claim 16, where the freshness attribute comprises a HTTP “last-modified-since” attribute.",
+   "dependent": true
+  },
+  {
+   "text": "18. The method of claim 13, further comprising: executing a search of a corpus of documents to return results comprising the plurality of documents, where the plurality of documents include the first document.",
+   "dependent": true
+  },
+  {
+   "text": "19. The method of claim 13, where assigning a freshness score to the first document further comprises: assigning a low freshness score to the first document if a majority of documents of the set of second documents have associated freshness attributes that indicate that the corresponding documents are not fresh.",
+   "dependent": true
+  },
+  {
+   "text": "20. The method of claim 13, where assigning a freshness score to the first document further comprises: assigning a high freshness score to the first document if a majority of documents of the set of second documents have associated freshness attributes that indicate that the corresponding documents are fresh.",
+   "dependent": true
+  },
+  {
+   "text": "21. A system comprising: one or more server devices comprising: a search engine to: perform a search of a corpus of documents to return a plurality of documents, where the plurality of documents includes a first document, determine whether a measure of freshness associated with the first document can be determined, identify, when the measure of freshness associated with the first document cannot be determined, a set of second documents that each contains a link to the first document, determine a measure of freshness associated with each document of the set of second documents, assign a freshness score to the first document based on the measure of freshness associated with each document of the set of second documents or the measure of freshness associated with the first document, where the measure of freshness indicates when each document was last modified, and rank the first document among the plurality of documents based, at least in part, on the assigned freshness score.",
+   "dependent": false
+  },
+  {
+   "text": "22. The system of claim 21, where the search engine is further configured to: identify times at which each of the links to the first document existed; where assigning the freshness score to the first document is further based on the identified times.",
+   "dependent": true
+  },
+  {
+   "text": "23. The system of claim 21, where the search engine is further to: assign a first freshness score to the first document if a majority of documents of the set of second documents correspond to documents that have freshness values that are less than a threshold; and assign a second freshness score to the first document if a majority of documents of the set of second documents correspond to documents that have freshness values that are greater than or equal to the threshold, where the first freshness score is less than the second freshness score.",
+   "dependent": true
+  },
+  {
+   "text": "24. A computer-readable memory device containing instructions for controlling at least one processor to perform a method of determining the freshness of a first document, the method comprising: determining whether a measure of freshness associated with the first document can be determined; identifying, if the measure of freshness associated with the first document cannot be determined, a set of second documents that each contains, or previously contained, a link to the first document; determining a freshness attribute associated with each document of the set of second documents, where the freshness attribute indicates when each document of the set of second documents was last modified; assigning a freshness score to the first document based on the freshness attribute associated with each document of the set of second documents; and ranking the first document with respect to at least one other document based on the freshness score assigned to the first document.",
+   "dependent": false
+  },
+  {
+   "text": "25. The computer-readable memory device of claim 24, where the method further comprises: assigning a first freshness score to the first document if a majority of documents of the set of second documents correspond to documents that have freshness values that are less than a threshold; and assigning a second freshness score to the first document if a majority of documents of the set of second documents correspond to documents that have freshness values that are greater than or equal to the threshold, where the first freshness score is less than the second freshness score.",
+   "dependent": true
+  },
+  {
+   "text": "26. The computer-readable memory device of claim 24, where the method further comprises: executing a search of a corpus of documents to return results comprising a plurality of documents, where the plurality of documents include the first document; and using the assigned freshness score as one basis for ranking the first document among the plurality of documents returned as the results of the executed search.",
+   "dependent": true
+  },
+  {
+   "text": "27. A method, performed by one or more server devices, of assigning a freshness score to a first document, comprising: identifying, by a processor of the one or more server devices, a set of second documents that each contains, or previously contained, a link to the first document; determining, by a processor of the one or more server devices, a measure of freshness associated with each document of the set of second documents; assigning, by a processor of the one or more server devices, a first freshness score to the first document if a majority of documents of the set of second documents correspond to documents that have freshness values that are less than a threshold; assigning, by a processor of the one or more server devices, a second freshness score to the first document if a majority of documents of the set of second documents correspond to documents that have freshness values that are greater than or equal to the threshold, where the first freshness score is different than the second freshness score; and ranking, by a processor of the one or more server devices, the first document with respect to at least one other document based on the freshness score assigned to the first document.",
+   "dependent": false
+  },
+  {
+   "text": "28. The method of claim 27, where the freshness of a document indicates when the document was last modified.",
+   "dependent": true
+  },
+  {
+   "text": "29. The method of claim 28, where the freshness is based on a HTTP “last-modified-since” attribute.",
+   "dependent": true
+  },
+  {
+   "text": "30. The method of claim 27, further comprising: performing a search of a corpus of documents to return results comprising the plurality of documents, where the plurality of documents include the first document.",
+   "dependent": true
+  },
+  {
+   "text": "31. The method of claim 30, further comprising: ranking the first document among the plurality of documents based, at least in part, on the assigned first or second freshness score.",
+   "dependent": true
+  },
+  {
+   "text": "32. A system, implemented within one or more computer devices, for determining a freshness of a first document, comprising: means for identifying a set of second documents that each contains, or previously contained, a link to the first document; means for determining a freshness attribute associated with each document of the set of second documents; means for determining a freshness score of the first document based on the freshness attribute associated with each document of the set of second documents, where the freshness attribute indicates when each document was last modified; and means for ranking the first document with respect to at least one other document based on the determined freshness score.",
+   "dependent": false
+  },
+  {
+   "text": "33. The system of claim 32, further comprising: means for identifying times at which each of the links to the first document existed; where the means for determining the freshness score of the first document is further based on the identified times.",
+   "dependent": true
+  },
+  {
+   "text": "34. The system of claim 32, further comprising: means for assigning a first freshness score to the first document if a majority of documents of the set of second documents correspond to documents that have freshness values that are less than a threshold; and means for assigning a second freshness score to the first document if a majority of documents of the set of second documents correspond to documents that have freshness values that are greater than or equal to the threshold, where the first freshness score is less than the second freshness score.",
+   "dependent": true
+  },
+  {
+   "text": "35. A method, performed by one or more server devices, of determining the freshness of a first document, comprising: identifying, by a processor of the one or more server devices, a set of second documents that each contains, or once contained, a link to the first document; determining, by a processor of the one or more server devices, times at which each of the links to the first document existed; assigning, by a processor of the one or more server devices, a freshness score to the first document based on the determined times; and ranking, by a processor of the one or more server devices, the first document with respect to at least one other document based on the freshness score assigned to the first document.",
+   "dependent": false
+  },
+  {
+   "text": "36. The method of claim 35, where assigning a freshness score to the first document further comprises: assigning a first freshness score to the first document if a first number of links that currently point to the first document is smaller than a second number of links that pointed to the first document at some time in the past.",
+   "dependent": true
+  },
+  {
+   "text": "37. The method of claim 35, where assigning a freshness score to the first document further comprises: assigning a second freshness score to the first document if a first number of links that pointed to the first document at some time in the past is smaller than a second number of links that currently point to the first document.",
+   "dependent": true
+  },
+  {
+   "text": "38. The method of claim 35, where assigning a freshness score to the first document further comprises: assigning a low freshness score to the first document if a ratio of a first number of recent links to the first document to a second number of old inks to the first document is larger than a specified threshold value.",
+   "dependent": true
+  },
+  {
+   "text": "39. The method of claim 35, where assigning a freshness score to the first document further comprises: assigning a high freshness score to the first document if a ratio of a first number of recent links to the first document to a second number of old links to the first document is smaller than a specified threshold value.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## RELATED APPLICATION\n\n\nThe present application is a continuation-in-part of U.S. application Ser. No. 10/748,664, entitled “Information Retrieval Based on Historical Data” and filed Dec. 31, 2003 now U.S. Pat. No. 7,346,839, which claims priority under 35 U.S.C. §119 based on U.S. Provisional Application No. 60/507,617, filed Sep. 30, 2003, the disclosure of which is incorporated by reference herein in its entirety.\n\n\n## BACKGROUND\n\n\n1. Field of the Invention\n\nSystems and methods consistent with the principles of the invention relate generally to information searching and, more particularly, to determining the freshness of retrieved documents and possibly using this freshness to score the retrieved documents.\n\n2. Description of Related Art\n\nExisting information searching systems use search queries to search through aggregated data to retrieve specific information that corresponds to the received search queries. Such information searching systems may search information stored locally, or in distributed locations. The World Wide Web (“web”) is one example of information stored in distributed locations. The web contains a vast amount of information, but locating a desired portion of that information can be challenging. This problem is compounded because the amount of information on the web and the number of new users inexperienced at web searching are growing rapidly.\n\nSearch engines attempt to return hyperlinks to web documents in which a user is interested. Generally, search engines base their determination of the user's interest on search terms (called a search query) entered by the user. The goal of the search engine is to provide links to high quality, relevant results to the user based on the search query. Typically, the search engine accomplishes this by matching the terms in the search query to a corpus of pre-stored web documents. Web documents that contain the user's search terms are “hits” and are returned to the user.\n\nFrequently, web documents that are returned as “hits” to the user include out-of-date documents. If the freshness of web documents were reliably known, then the known freshness could be used in the ranking of the search results to avoid returning out-of-date web documents in the top results. Currently, however, a reliable freshness attribute for web documents does not exist. HTTP supports a “last-modified-since” attribute that indicates the day a last modification was made to a corresponding web document. This attribute, however, is optional in HTTP and is not used by all web documents. Additionally, the data indicated in the HTTP “last-modified-since” attribute may not be correct.\n\n\n## SUMMARY OF THE INVENTION\n\n\nAccording to one aspect consistent with the principles of the invention, a method of determining the freshness of a first document is provided. The method may include identifying a set of second documents that each contains a link to the first document and determining a freshness attribute associated with each document of the set of second documents. The method may further include assigning a freshness score to the first document based on the freshness attribute associated with each document of the set of second documents.\n\nAccording to another aspect, a method of determining the freshness of a first document is provided. The method may include determining whether a freshness attribute is associated with the first document and identifying, based on the determination, a set of second documents that each contain a link to the first document. The method may further include assigning a freshness score to the first document based on a freshness attribute associated with each document of the set of second documents or the freshness attribute associated with the first document.\n\nAccording to a further aspect, a method of assigning a freshness score to a first document is provided. The method may include identifying a set of second documents that each contains a link to the first document and determining a freshness associated with each document of the set of second documents. The method may also include assigning a first freshness score to the first document if more documents of the set of second documents correspond to documents that are not fresh. The method may further include assigning a second freshness score to the first document if more documents of the set of second documents correspond to documents that are fresh, where the first freshness score is different than the second freshness score.\n\nAccording to yet another aspect, a method of determining the freshness of a first document is provided. The method may include identifying a set of second documents that each contains a link to the first document and determining times at which each of the links to the first document existed. The method may also include assigning a freshness score to the first document based on the determined times.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nThe accompanying drawings, which are incorporated in and constitute a part of this specification, illustrate an embodiment of the invention and, together with the description, explain the invention. In the drawings,\n\nFIG. 1 is a diagram of an overview of an exemplary aspect of the invention;\n\nFIG. 2 is a diagram of an exemplary network in which systems and methods consistent with the principles of the invention may be implemented;\n\nFIG. 3 is an exemplary diagram of a client and/or server of FIG. 2 in an implementation consistent with the principles of the invention; and\n\nFIGS. 4A and 4B are flowcharts of exemplary processing for determining the freshness of one or more documents according to an implementation consistent with the principles of the invention.\n\n\n## DETAILED DESCRIPTION\n\n\nThe following detailed description of the invention refers to the accompanying drawings. The same reference numbers in different drawings may identify the same or similar elements. Also, the following detailed description does not limit the invention.\n\nA “document,” as the term is used herein, is to be broadly interpreted to include any machine-readable and machine-storable work product. A document may include an e-mail, a web site, a file, a combination of files, one or more files with embedded links to other files, a news group posting, a blog, a web advertisement, etc. In the context of the Internet, a common document is a web page. Web pages often include textual information and may include embedded information (such as meta information, images, hyperlinks, etc.) and/or embedded instructions (such as Javascript, etc.). A “link” as the term is used here, is to be broadly interpreted to include any reference to or from a document.\n\n\n## Exemplary Overview\n\n\nFIG. 1 illustrates an overview of determining the freshness of a document according to an exemplary aspect of the invention. As shown in FIG. 1, a freshness score of a document p 105 may be based on freshness attributes 115 associated with each linking document 110 of a set of documents 100 that each have a link 120 pointing to document p 105. Set of documents 100 may include at least a portion of documents from a group of documents that each include at least one link 120 to document p 105. Each linking document 110 may have associated with it a freshness attribute 115 that provides some indication of when the respective linking document 110 was last modified, or updated. In some implementations consistent with principles of the invention, the freshness attribute may include an HTTP “last-modified-since” attribute. Other freshness attributes, however, may be used. Each linking document 110 may further include a link 120 that points to document p 105. Each link 120 may include, for example, a hypertext link. Each link 120 may exist during a time period and may, thus, have associated with it a creation time and a removal time.\n\nA freshness score (Fr), that, in some implementations, may be used in ranking document p 105 when document p 105 is returned at a result of an executed document search, may be assigned to document p 105 based on the freshness attributes 115 associated with each linking document 110 of the set of documents 100, and/or based on times at which each link 120, pointing to document p 105, existed.\n\n\n## Exemplary Network Configuration\n\n\nFIG. 2 is an exemplary diagram of a network 200 in which systems and methods consistent with the principles of the invention may be implemented. Network 200 may include multiple clients 210 connected to multiple servers 220 and 215 via a network 230. Network 230 may include a local area network (LAN), a wide area network (WAN), a telephone network, such as the Public Switched Telephone Network (PSTN), an intranet, the Internet, a memory device, another type of network, or a combination of networks. Two clients 210 and two servers 220 and 215 have been illustrated as connected to network 230 for simplicity. In practice, there may be more or fewer clients and servers. Also, in some instances, a client may perform the functions of a server and a server may perform the functions of a client.\n\nClients 210 may include client entities. An entity may be defined as a device, such as a wireless telephone, a personal computer, a personal digital assistant (PDA), a laptop, or another type of computation or communication device, a thread or process running on one of these devices, and/or an object executable by one of these devices. Servers 220 and 215 may include server entities that gather, process, search, and/or maintain documents in a manner consistent with the principles of the invention. Clients 210 and servers 220 and 215 may connect to network 230 via wired, wireless, and/or optical connections.\n\nIn an implementation consistent with the principles of the invention, server 220 may include a search engine 225 usable by users at clients 210. Server 220 may implement a data aggregation service by crawling a corpus of documents (e.g., web pages) hosted on data server(s) 215 and store information associated with these documents in a repository of crawled documents. The data aggregation service may be implemented in other ways, such as by agreement with the operator(s) of data server(s) 215 to distribute their hosted documents via the data aggregation service. Search engine 225 may execute a search, received from a user, on the corpus of documents hosted on data server(s) 215. Server 220 may assign freshness scores to documents retrieved as a result of the executed search based on freshness attributes associated with each linking document of a set of documents that includes a link to the documents retrieved as a result of the executed search.\n\nServer(s) 215 may store or maintain documents that may be crawled by server 220. Such documents may include data related to published news stories, products, images, user groups, geographic areas, or any other type of data. For example, server(s) 215 may store or maintain news stories from any type of news source, such as, for example, the Washington Post, the New York Times, Time magazine, or Newsweek. As another example, server(s) 215 may store or maintain data related to specific product data, such as product data provided by one or more product manufacturers. As yet another example, server(s) 215 may store or maintain data related to other types of web documents, such as pages of web sites.\n\nWhile servers 220 and 215 are shown as separate entities, it may be possible for one or more of servers 220 and 215 to perform one or more of the functions of another one or more of servers 220 and 215. For example, it may be possible that two or more of servers 220 and 215 are implemented as a single server. It may also be possible for a single one of servers 220 or 215 to be implemented as two or more separate (and possibly distributed) devices.\n\n\n## Exemplary Client/Server Architecture\n\n\nFIG. 3 is an exemplary diagram of a client or server entity (hereinafter called “client/server entity”), which may correspond to one or more of clients 210 and servers 220 and 215, according to an implementation consistent with the principles of the invention. The client/server entity may include a bus 310, a processing unit 320, an optional main memory 330, a read only memory (ROM) 340, a storage device 350, an input device 360, an output device 370, and a communication interface 380. Bus 310 may include a path that permits communication among the components of the client/server entity.\n\nProcessing unit 320 may include any type of software, firmware or hardware implemented processing device, such as, a microprocessor, a field programmable gate array (FPGA), combinational logic, etc. Main memory 330 may include a random access memory (RAM) or another type of dynamic storage device that stores information and instructions for execution by processing unit 320, if processing unit 320 includes a microprocessor. ROM 340 may include a conventional ROM device or another type of static storage device that stores static information and/or instructions for use by processing unit 320. Storage device 350 may include a magnetic and/or optical recording medium and its corresponding drive.\n\nInput device 360 may include a conventional mechanism that permits an operator to input information to the client/server entity, such as a keyboard, a mouse, a pen, voice recognition and/or biometric mechanisms, etc. Output device 370 may include a conventional mechanism that outputs information to the operator, including a display, a printer, a speaker, etc. Communication interface 380 may include any transceiver-like mechanism that enables the client/server entity to communicate with other devices and/or systems. For example, communication interface 380 may include mechanisms for communicating with another device or system via a network, such as network 230.\n\nAs will be described in detail below, the client/server entity, consistent with the principles of the invention, may perform certain searching-related operations. The client/server entity may, in some implementations, perform these operations in response to processing unit 320 executing software instructions contained in a computer-readable medium, such as memory 330. A computer-readable medium may be defined as one or more physical or logical memory devices and/or carrier waves.\n\nThe software instructions may be read into memory 330 from another computer-readable medium, such as data storage device 350, or from another device via communication interface 380. The software instructions contained in memory 330 may cause processing unit 320 to perform processes that will be described later. Alternatively, hardwired circuitry may be used in place of, or in combination with, software instructions to implement processes consistent with the principles of the invention. Thus, implementations consistent with principles of the invention are not limited to any specific combination of hardware circuitry and software.\n\n\n## Exemplary Processing\n\n\nFIGS. 4A and 4B are flowcharts of exemplary processing for determining the freshness of one or more documents according to an implementation consistent with the principles of the invention. As one skilled in the art will appreciate, the processing exemplified by FIGS. 4A and 4B can be implemented in software and stored on a computer-readable memory, such as main memory 330, ROM 340 or storage device 350 of server 220. In other implementations, the processing exemplified by FIGS. 4A and 4B can be implemented in hardwired circuitry, such as combinational logic, within processing unit 320 of server 220.\n\nProcessing may begin with performance of a search through a corpus of documents (act 405). Search engine 225 of server 220 may use one or more search queries to perform the search. The documents returned as a result of the search may be analyzed to identify any associated freshness attributes (act 410). In one implementation, search engine 225 may identify a HTTP “last-modified-since” attribute as a freshness attribute for each document. For each document p returned as a result of the search, it may be determined whether an associated freshness attribute (e.g., a HTTP “last-modified-since” attribute) has been identified (act 415). If document p does have a freshness attribute associated with it, then the freshness attribute may be used as a basis for assigning a freshness score to document p (act 420)(FIG. 4B). In some implementations, for example, the freshness attribute may be used directly as a freshness score for document p.\n\nIf document p does not have a freshness attribute associated with it, or, optionally, even if document p does have a freshness attribute associated with it, then a freshness attribute associated with each document (e.g., linking document 110) of a set of documents that each currently contains, or previously contained, links to document p may be determined (act 425)(FIG. 4A). The set of documents that currently contain, or previously contained, links to document p may be selected randomly, or selected based on any appropriate criteria, from a group of documents containing a link to document p. A certain portion of the documents of the set of documents containing links to document p may include out-of-date documents (i.e., “not fresh”), while another portion of the documents of the set of documents containing links to document p may include “fresh” documents (i.e., documents that have been updated or modified within a configurable period of time relative to a current time). Optionally, times at which each link (i.e., link 120), associated with each document of the set of documents containing links to document p, existed may be determined (act 430)(FIG. 4B). A certain portion of the documents of the set of documents may have had a link to document p during a time period T, where T can be any specified length of time (e.g., the past two years). For each link to document p, the creation time and removal time of the link can be determined.\n\nA freshness score (Fr) may be assigned to document p based on the freshness attribute of each linking document 110 pointing to document p and/or based on the times at which each link, pointing to document p, existed (act 435). For example, if the number of “not fresh” documents of the set of documents containing links to document p is greater than the number of “fresh” documents of the set of documents containing links to document p (i.e., as determined by freshness attribute(s) associated with each document of the set of documents), then document p can be considered “not fresh,” and a corresponding “low” freshness score Fr may be assigned to document p. As an illustrative example, if each document of a set of 100 documents containing a link to document p each has a freshness attribute, such as, for example, a HTTP “last-modified-since” attribute, that indicates that 80 of the documents have been not been recently modified or updated (i.e., modified or updated within a configurable period of time relative to a current time) and, thus, are not fresh, then a “low” freshness score Fr can be assigned to document p.\n\nAs another example, if the number of “fresh” documents of the set of documents containing links to document p is greater than the number of “not fresh” documents of the set of documents containing links to document p (i.e., as determined by freshness attribute(s) associated with each document of the set of documents), then documents can be considered “fresh,” and a corresponding “high” freshness score Fr may be assigned to document p. To illustrate, if each document of set of 100 documents containing a link to document p has a freshness attribute, such as, for example, a HTTP “last-modified-since” attribute, that indicates that 70 of the documents have been recently modified or updated and, thus, are fresh, then a “high” freshness score Fr can be assigned to document p.\n\nAs a further example, if the number of links that currently point to document p is smaller than the number of links that pointed to document p at some time t in the past (e.g., one year ago), then document p can be considered to be “not fresh” and a corresponding “low” freshness score Fr may be assigned to document p. As another example, if the number of links that pointed to document p at some time t in the past is smaller than the number of links that currently point to document p, then document p can be considered “fresh” and a corresponding “high” freshness score Fr may be assigned to document p.\n\nAs yet another example, if a ratio of a number of recent, or “new,” links to document p to a number of not recent, or “old,” links to document p is larger than a threshold value Th, then document p can be considered “not fresh” and a corresponding “low” freshness score Fr may be assigned to document p. If the ratio of the number of “new” links to document p to the number of “old” links to document p is smaller than a threshold value Th, then document p can be considered “fresh” and a corresponding “high” freshness score Fr may be assigned to document p. Acts 415-435 may be performed for each document p returned as a result of the performed search to assign a freshness score Fr to each document p.\n\nThe freshness scores assigned to each of the documents returned as a result of the performed search may be one factor of a set of factors used to rank the results of the search (act 440).\n\n\n## CONCLUSION\n\n\nThe foregoing description of preferred embodiments of the present invention provides illustration and description, but is not intended to be exhaustive or to limit the invention to the precise form disclosed. Modifications and variations are possible in light of the above teachings or may be acquired from practice of the invention. For example, while a series of acts has been described with regard to FIGS. 4A and 4B, the order of the acts may be modified in other implementations consistent with the principles of the invention. Also, non-dependent acts may be performed in parallel.\n\nIt will also be apparent to one of ordinary skill in the art that aspects of the invention, as described above, may be implemented in many different forms of software, firmware, and hardware in the implementations illustrated in the figures. The actual software code or specialized control hardware used to implement aspects consistent with the principles of the invention is not limiting of the present invention. Thus, the operation and behavior of the aspects of the invention were described without reference to the specific software code—it being understood that one of ordinary skill in the art would be able to design software and control hardware to implement the aspects based on the description herein. Further, certain portions of the invention have been described as “logic” that performs one or more functions. This logic may include hardware, such as an application specific integrated circuit or a field programmable gate array, software, or a combination of hardware and software.\n\nNo element, act, or instruction used in the present application should be construed as critical or essential to the invention unless explicitly described as such. Also, as used herein, the article “a” is intended to include one or more items. Where only one item is intended, the term “one” or similar language is used. Further, the phrase “based on” is intended to mean “based, at least in part, on” unless explicitly stated otherwise.",
+ "cited_by": [
+  {
+   "id": "US20080104256A1",
+   "title": "System and method for adaptively refreshing a web page",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20110022605A1",
+   "title": "Document scoring based on link-based criteria",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8515952B2",
+   "title": "Systems and methods for determining document freshness",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8762373B1",
+   "title": "Personalized search result ranking",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20150356179A1",
+   "title": "System, method and device for scoring browsing sessions",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "US7693827B2",
+   "title": "Personalization of placed content ordering in search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8620915B1",
+   "title": "Systems and methods for promoting personalized search results based on personal information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8078607B2",
+   "title": "Generating website profiles based on queries from webistes and user activities on the search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8874570B1",
+   "title": "Search boost vector based on co-visitation information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060123478A1",
+   "title": "Phishing detection, prevention, and notification",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7634810B2",
+   "title": "Phishing detection, prevention, and notification",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060224608A1",
+   "title": "Systems and methods for combining sets of favorites",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US9256685B2",
+   "title": "Systems and methods for modifying search results based on a user's history",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060224583A1",
+   "title": "Systems and methods for analyzing a user's web history",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "CA2605252A1",
+   "title": "System and method for efficiently tracking and dating content in very large dynamic document spaces",
+   "assignee": "Collage Analytics Llc"
+  },
+  {
+   "id": "US7962462B1",
+   "title": "Deriving and using document and site quality signals from search query streams",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7734610B2",
+   "title": "Decentralised web annotation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8229910B2",
+   "title": "Apparatus, system, and method for an inline display of related blog postings",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8001462B1",
+   "title": "Updating search engine document index based on calculated age of changed portions in a document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "WO2011044662A1",
+   "title": "System and method for grouping multiple streams of data",
+   "assignee": "2167959 Ontario Inc."
+  },
+  {
+   "id": "US8751511B2",
+   "title": "Ranking of search results based on microblog data",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9116990B2",
+   "title": "Enhancing freshness of search results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8332408B1",
+   "title": "Date-based web page annotation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9345534B2",
+   "title": "Vessel sealing instrument",
+   "assignee": "Covidien Lp"
+  },
+  {
+   "id": "JP2013175132A",
+   "title": "Document management server device, document management device, document management system, and document management program",
+   "assignee": "Fuji Xerox Co Ltd"
+  },
+  {
+   "id": "US9436687B2",
+   "title": "Acquiring structured user data using composer interface having input fields corresponding to acquired structured data",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US11481415B1",
+   "title": "Corpus temporal analysis and maintenance",
+   "assignee": "International Business Machines Corporation"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US6163778A",
+   "title": "Probabilistic web link viability marker and web page ratings",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "EP1107128A1",
+   "title": "Apparatus and method for checking the validity of links in a computer network",
+   "assignee": "Hyundai Electronics Industries Co., Ltd."
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US20020073065A1",
+   "title": "Document retrieval method and system and computer readable storage medium",
+   "assignee": "Yasuhiko Inaba"
+  },
+  {
+   "id": "US20020078045A1",
+   "title": "System, method, and program for ranking search results using user category weighting",
+   "assignee": "Rabindranath Dutta"
+  },
+  {
+   "id": "US6421675B1",
+   "title": "Search engine",
+   "assignee": "S. L. I. Systems, Inc."
+  },
+  {
+   "id": "US20020123988A1",
+   "title": "Methods and apparatus for employing usage statistics in document retrieval",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020198875A1",
+   "title": "System and method for optimizing search results",
+   "assignee": "Masters Graham S."
+  },
+  {
+   "id": "US20030050909A1",
+   "title": "Ranking nodes in a graph",
+   "assignee": "Mihai Preda"
+  },
+  {
+   "id": "US20030105744A1",
+   "title": "Method and system for updating a search engine",
+   "assignee": "Mckeeth Jim"
+  },
+  {
+   "id": "US20030135490A1",
+   "title": "Enhanced popularity ranking",
+   "assignee": "Barrett Michael E."
+  },
+  {
+   "id": "US20030158749A1",
+   "title": "Performance outcomes benchmarking",
+   "assignee": "Vladislav Olchanski"
+  },
+  {
+   "id": "US20040059997A1",
+   "title": "Systems and methods for displaying statistical information on a web page",
+   "assignee": "Myfamily.Com, Inc."
+  },
+  {
+   "id": "US20040098405A1",
+   "title": "System and Method for Automated Link Analysis",
+   "assignee": "Michael Zrubek"
+  },
+  {
+   "id": "US20040243557A1",
+   "title": "System, method and computer program product for performing unstructured information management and automatic text analysis, including a search operator functioning as a weighted and (WAND)",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050144193A1",
+   "title": "Systems and methods for determining document freshness",
+   "assignee": "Monika Henzinger"
+  },
+  {
+   "id": "US20060036588A1",
+   "title": "Searching by using spatial document and spatial keyword document indexes",
+   "assignee": "Metacarta, Inc."
+  },
+  {
+   "id": "US7080073B1",
+   "title": "Method and apparatus for focused crawling",
+   "assignee": "Firstrain, Inc."
+  },
+  {
+   "id": "US7093012B2",
+   "title": "System and method for enhancing crawling by extracting requests for webpages in an information flow",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US7146409B1",
+   "title": "System and method for efficient control and capture of dynamic database content",
+   "assignee": "Brightplanet Corporation"
+  },
+  {
+   "id": "US20070094255A1",
+   "title": "Document scoring based on link-based criteria",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7568148B1",
+   "title": "Methods and apparatus for clustering news content",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7853485B2",
+   "title": "Methods and systems for utilizing content, dynamic patterns, and/or relational information for data analysis",
+   "assignee": "Nec Laboratories America, Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US8082244B2",
+   "title": "Systems and methods for determining document freshness"
+  },
+  {
+   "id": "US9639579B2",
+   "title": "Determination of a desired repository for retrieving search results"
+  },
+  {
+   "id": "US10152520B1",
+   "title": "Ranking documents based on user behavior and/or feature data"
+  },
+  {
+   "id": "US9569504B1",
+   "title": "Deriving and using document and site quality signals from search query streams"
+  },
+  {
+   "id": "US8346757B1",
+   "title": "Determining query terms of little significance"
+  },
+  {
+   "id": "US7460735B1",
+   "title": "Systems and methods for using image duplicates to assign labels to images"
+  },
+  {
+   "id": "US8977630B1",
+   "title": "Personalizing search results"
+  },
+  {
+   "id": "US8762373B1",
+   "title": "Personalized search result ranking"
+  },
+  {
+   "id": "US20050222977A1",
+   "title": "Query rewriting with entity detection"
+  },
+  {
+   "id": "US10140297B2",
+   "title": "Supplementing search results with information of interest"
+  },
+  {
+   "id": "US20060149800A1",
+   "title": "Authoritative document identification"
+  },
+  {
+   "id": "US20150172299A1",
+   "title": "Indexing and retrieval of blogs"
+  },
+  {
+   "id": "US8122013B1",
+   "title": "Title based local search ranking"
+  },
+  {
+   "id": "US8595225B1",
+   "title": "Systems and methods for correlating document topicality and popularity"
+  },
+  {
+   "id": "US7730074B1",
+   "title": "Accelerated large scale optimization"
+  },
+  {
+   "id": "EP1775666A2",
+   "title": "Document scoring based on traffic associated with a document"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US7797316B2/en"
+}

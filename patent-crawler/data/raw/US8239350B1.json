@@ -1,0 +1,1239 @@
+{
+ "id": "US8239350B1",
+ "title": "Date ambiguity resolution",
+ "abstract": "A system and method for resolving ambiguities in date values associated with an attribute in a memory of the computer system. If a first text string conforms to one or more date formats, a confidence value is assigned for each of the date formats for the first text string based on the amount of specificity with which the first text string conforms to each date format. Similarly, if a second text string conforms to one or more date formats, a confidence value is assigned for each of the date formats for the second text string based on the amount of specificity with which the second text string conforms to each date format. The date format with the highest confidence value for the first text string and the date format with the highest confidence value for the second text string are merged to obtain a date value for the attribute.",
+ "inventors": [
+  "David Vespe",
+  "Andrew W. Hogue"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2007-05-08",
+ "filing_date": "2007-05-08",
+ "publication_date": "2012-08-07",
+ "status": "Active",
+ "expiration": "2028-12-04",
+ "cpc": [
+  "G06F40/00",
+  "G06F40/10",
+  "G06F40/12",
+  "G06F40/126"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer-implemented method for resolving ambiguities in date values associated with an attribute of an entity, the method comprising: at a computer system including one or more processors and memory storing one or more programs, the one or more processors executing the one or more programs to perform the operations of: obtaining a first text string associated with an attribute of an entity, wherein the first text string is extracted from a first web document; determining that the first text string conforms to one or more date formats; assigning a first confidence value for each of the date formats for the first text string based on a first number of unknown variables that remain when interpreting the first text string using each of the date formats; obtaining a second text string associated with the attribute of the entity, wherein the second text string is extracted from a second web document; determining that the second text string conforms to one or more of the date formats; assigning a second confidence value for each of the date formats for the second text string based on a second number of unknown variables that remain when interpreting the second text string using each of the date formats; determining a first date string expressed in a date format with a highest first confidence value for the first text string; determining a second date string expressed in a date format with a highest second confidence value for the second text string; and merging a first subset of the first date string and a second subset of the second date string to obtain a date value for the attribute.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, further comprising: determining whether the obtained date value is consistent with rules related to the attribute.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, further comprising: determining whether the first text string is consistent with rules related to the attribute.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, further comprising: applying a date format for the obtained date value to all text strings that conform to one or more date formats from at least one domain from which the obtained date value was obtained.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 1, wherein the first text string is interpreted as a range of time.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 1, wherein the merging of the date formats retains components of the date format for the first text string and components of the date format for the second text string that do not conflict.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 1, wherein the merging of the date formats retains component; of the date format for the first text string and components of the date format for the second text string that are common to both formats.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 1, wherein the merging of the date formats retains components of the date format for the first text string and components of the date format for the second text string that are not ambiguous.",
+   "dependent": true
+  },
+  {
+   "text": "9. The method of claim 1, wherein a respective text string is obtained from a respective date source, and wherein the method further comprises: repeating the operations of claim 1 until a threshold number of date sources with identical date formats for the attribute are obtained.",
+   "dependent": true
+  },
+  {
+   "text": "10. The method of claim 1, wherein the attribute is a date of birth.",
+   "dependent": true
+  },
+  {
+   "text": "11. The method of claim 1, wherein the steps are repeated for multiple attributes of one entity.",
+   "dependent": true
+  },
+  {
+   "text": "12. The method of claim 1, wherein one of the date formats is a United States date format.",
+   "dependent": true
+  },
+  {
+   "text": "13. The method of claim 1, wherein one of the date formats is a European date format.",
+   "dependent": true
+  },
+  {
+   "text": "14. The method of claim 1, wherein the confidence value for a respective date format is further based on an amount of specificity of the respective date format, the amount of specificity of the respective date format being selected from the group consisting of: a number of unknown variables in the respective date format; a precision of the respective date format.",
+   "dependent": true
+  },
+  {
+   "text": "15. The method of claim 1, further comprising: determining a threshold number of date formats to be merged to obtain a date value.",
+   "dependent": true
+  },
+  {
+   "text": "16. A computer system for resolving ambiguities in date values associated with an attribute of an entity, the computer system comprising: one or more processors; memory; and one or more programs stored in the memory, the one or more programs comprising instructions to: obtain a first text string associated with an attribute of an entity, wherein the first text string is extracted from a first web document; determine if that the first text string conforms to one or more date formats; assign a first confidence value for each of the date formats for the first text string based on a first number of unknown variables that remain when interpreting the first text string using each of the date formats; obtain a second text string associated with the attribute of the entity, wherein the second text string is extracted from a second web document; determine if that the second text string conforms to one or more date formats; assign a second confidence value for each of the date formats for the second text string based on a second number of unknown variables that remain when interpreting the second text string using each of the date formats; determine a first date string expressed in a date format with a highest first confidence value for the first text string; determine a second date string expressed in a date format with a highest second confidence value for the second text string; and merge a first subset of the first date string and a second subset of the second date string to obtain a date value for the attribute.",
+   "dependent": false
+  },
+  {
+   "text": "17. The system of claim 16, further comprising instructions to: determine whether the obtained date value is consistent with rules related to the attribute.",
+   "dependent": true
+  },
+  {
+   "text": "18. The system of claim 16, further comprising instructions to: determine whether the first text string is consistent with rules related to the attribute.",
+   "dependent": true
+  },
+  {
+   "text": "19. The computer system of claim 16, wherein the confidence value for a respective date format is further based on an amount of specificity of the respective date format, the amount of specificity of the respective date format being selected from the group consisting of: a number of unknown variables of in the respective date format; a precision of the respective date format.",
+   "dependent": true
+  },
+  {
+   "text": "20. The system of claim 16, further comprising instructions to: apply a date format for the obtained date value to all text strings that conform to one or more date formats from at least one domain from which the obtained date value was obtained.",
+   "dependent": true
+  },
+  {
+   "text": "21. The system of claim 16, wherein the first text string is interpreted as a range of time.",
+   "dependent": true
+  },
+  {
+   "text": "22. The system of claim 16, wherein the merging of the date formats retains components of the date format for the first text string and components of the date format for the second text string that do not conflict.",
+   "dependent": true
+  },
+  {
+   "text": "23. The system of claim 16, wherein the merging of the date formats retains components of the date format for the first text string and components of the date format for the second text string that are common to both formats.",
+   "dependent": true
+  },
+  {
+   "text": "24. The system of claim 16, wherein the merging of the date formats retains components of the date format for the first text string and components of the date format for the second text string that are not ambiguous.",
+   "dependent": true
+  },
+  {
+   "text": "25. The system of claim 16, wherein a respective text string is obtained from a respective date source, and wherein the system further comprises instructions to: repeat the instructions of claim 14 until a threshold number of date sources with identical date formats for the attribute are obtained.",
+   "dependent": true
+  },
+  {
+   "text": "26. The system of claim 16, wherein the attribute is a date of birth.",
+   "dependent": true
+  },
+  {
+   "text": "27. The system of claim 16, wherein the instructions are repeated for multiple attributes of one entity.",
+   "dependent": true
+  },
+  {
+   "text": "28. The system of claim 16, wherein one of the date formats is a United States date format.",
+   "dependent": true
+  },
+  {
+   "text": "29. The system of claim 16, wherein one of the date formats is a European date format.",
+   "dependent": true
+  },
+  {
+   "text": "30. The system of claim 16, further comprising instructions to: determine a threshold number of date formats to be merged to obtain a date value.",
+   "dependent": true
+  },
+  {
+   "text": "31. A computer program product comprising a computer-readable storage medium, for resolving ambiguities in date values associated with an attribute of an entity, the computer-readable storage medium comprising: program code for obtaining a first text string associated with an attribute of an entity, wherein the first text string is extracted from a first web document; program code for determining that the first text string conforms to one or more date formats; program code for assigning a first confidence value for each of the date formats for the first text string based on a first number of unknown variables that remain when interpreting the first text string using each of the date formats; program code for obtaining a second text string associated with the attribute of the entity, wherein the second text string is extracted from a second web document; program code for determining if that the second text string conforms to one or more of the date formats; program code for assigning a second confidence value for each of the date formats for the second text string based on a second number of unknown variables that remain when interpreting the second text string using each of the date formats; program code determining a first date string expressed in a date format with a highest first confidence value for the first text string; program code determining a second date string expressed in a date format with a highest second confidence value for the second text string; and program code for merging a first subset of the first date string and a second subset of the second date string to obtain a date value for the attribute.",
+   "dependent": false
+  },
+  {
+   "text": "32. The computer program product of claim 31, the computer-readable storage medium further comprising: program code for determining whether the obtained date value is consistent with rules related to the attribute.",
+   "dependent": true
+  },
+  {
+   "text": "33. The computer program product of claim 31, the computer-readable storage medium further comprising: program code for determining whether the first text string is consistent with rules related to the attribute.",
+   "dependent": true
+  },
+  {
+   "text": "34. The computer program product of claim 19, the computer-readable storage medium further comprising: program code for determining a threshold number of date formats to be merged to obtain a date value.",
+   "dependent": true
+  },
+  {
+   "text": "35. The computer program product of claim 31, wherein the confidence value for a respective date format is further based on an amount of specificity of the respective date format, the amount of specificity of the respective date format being selected from the group consisting of: a number of unknown variables ef-in the respective date format; a precision of the respective date format.",
+   "dependent": true
+  },
+  {
+   "text": "36. The computer program product of claim 31, the computer-readable storage medium further comprising: program code for applying a date format for the obtained date value to all text strings that conform to one or more date formats from at least one domain from which the obtained date value was obtained.",
+   "dependent": true
+  },
+  {
+   "text": "37. The computer program product of claim 31, wherein the first text string is interpreted as a range of time.",
+   "dependent": true
+  },
+  {
+   "text": "38. The computer program product of claim 31, wherein the merging of the date formats retains components of the date format for the first text string and components of the date format for the second text string that do not conflict.",
+   "dependent": true
+  },
+  {
+   "text": "39. The computer program product of claim 31, wherein the merging of the date formats retains components of the date format for the first text string and components of the date format for the second text string that are common to both formats.",
+   "dependent": true
+  },
+  {
+   "text": "40. The computer program product of claim 31, wherein the merging of the date formats retains components of the date format for the first text string and components of the date format for the second text string that are not ambiguous.",
+   "dependent": true
+  },
+  {
+   "text": "41. The computer program product of claim 31, wherein a respective text string is obtained from a respective date source, and wherein the computer program product further comprises: program code for repeating the program codes of claim 31 until a threshold number of date sources with identical date formats for the attribute are obtained.",
+   "dependent": true
+  },
+  {
+   "text": "42. The computer program product of claim 31, wherein the attribute is a date of birth.",
+   "dependent": true
+  },
+  {
+   "text": "43. The computer program product of claim 31, wherein the program codes are repeated for multiple attributes of one entity.",
+   "dependent": true
+  },
+  {
+   "text": "44. The computer program product of claim 31, wherein one of the date formats is a United States date format.",
+   "dependent": true
+  },
+  {
+   "text": "45. The computer program product of claim 31, wherein one of the date formats is a European date format.",
+   "dependent": true
+  },
+  {
+   "text": "46. A computer-implemented method for resolving ambiguities in date values associated with an attribute of an entity, the method comprising: identifying a plurality of web documents associated with an attribute of an entity; for each web document in the plurality of web documents, obtaining, from the web document, one or more text strings associated with the attribute of the entity; identifying one or more date formats for at least one of the one or more text strings; and assigning confidence values to each of the one or more date formats for the at least one of the one or more text strings based on a number of unknown variables that remain when interpreting the at least one of the one or more text strings using each of the one or more date formats; determining date strings expressed in date formats with highest confidence values for the at least one of the one or more text strings; and merging subsets of the date strings to obtain a date value for the attribute.",
+   "dependent": false
+  },
+  {
+   "text": "47. The method of claim 46, wherein the confidence value for a respective date format is further based on an amount of specificity of the respective date format, the amount of specificity of the respective date format being selected from the group consisting of: a number of unknown variables in the respective date format; a precision of the respective date format.",
+   "dependent": true
+  },
+  {
+   "text": "48. The method of claim 46, further comprising: applying a date format for the obtained date value to all text strings that conform to one or more date formats from at least one domain from which the obtained date value was obtained.",
+   "dependent": true
+  },
+  {
+   "text": "49. The method of claim 46, wherein the merging of the date formats retains components of the date format for the first text string and components of the date format for the second text string that do not conflict.",
+   "dependent": true
+  },
+  {
+   "text": "50. The method of claim 46, wherein the merging of the date formats retains components of the date format for the first text string and components of the date format for the second text string that are common to both formats.",
+   "dependent": true
+  },
+  {
+   "text": "51. The method of claim 46, wherein the merging of the date formats retains components of the date format for the first text string and components of the date format for the second text string that are not ambiguous.",
+   "dependent": true
+  },
+  {
+   "text": "52. The method of claim 46, wherein a respective text string is obtained from a respective date source, and wherein the method further comprises: repeating the operations of claim 24 until a threshold number of date sources with identical date formats for the attribute are obtained.",
+   "dependent": true
+  },
+  {
+   "text": "53. A computer system for resolving ambiguities in date values associated with an attribute of an entity, the computer system comprising: one or more processors; memory; and one or more programs stored in the memory, the one or more programs comprising instructions to: identify a plurality of web documents associated with an attribute of an entity; for each web document in the plurality of web documents, obtain, from the web document, at least two text strings associated with the attribute of the entity; identify one or more date formats for at least two text strings; and assign confidence values to each of the one or more date formats for the at least two text strings based on a number of unknown variables that remain when interpreting the at least one of the one or more at least two text strings using each of the one or more date formats; determine date strings expressed in date formats with highest confidence values for the at least two text strings; and merge subsets of the date strings to obtain a date value for the attribute.",
+   "dependent": false
+  },
+  {
+   "text": "54. The system of claim 53, wherein the confidence value for a respective date format is further based on an amount of specificity of the respective date format, the amount of specificity of the respective date format being selected from the group consisting of: a number of unknown variables in the respective date format; a precision of the respective date format.",
+   "dependent": true
+  },
+  {
+   "text": "55. The system of claim 53, further comprising instructions to: apply a date format for the obtained date value to all text strings that conform to one or more date formats from at least one domain from which the obtained date value was obtained.",
+   "dependent": true
+  },
+  {
+   "text": "56. The system of claim 53, wherein the merging of the date formats retains components of the date format for the first text string and components of the date format for the second text string that do not conflict.",
+   "dependent": true
+  },
+  {
+   "text": "57. The system of claim 53, wherein the merging of the date formats retains components of the date format for the first text string and components of the date format for the second text string that are common to both formats.",
+   "dependent": true
+  },
+  {
+   "text": "58. The system of claim 53, wherein the merging of the date formats retains components of the date format for the first text string and components of the date format for the second text string that are not ambiguous.",
+   "dependent": true
+  },
+  {
+   "text": "59. The system of claim 53, wherein a respective text string is obtained from a respective date source, and wherein the system further comprises instructions to: repeat the instructions of claim 53 until a threshold number of date sources with identical date formats for the attribute are obtained.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## TECHNICAL FIELD\n\n\nThe disclosed embodiments relate generally to extracting data from a collection of documents. More particularly, the disclosed embodiments relate to resolving ambiguities in dates that have been extracted from documents such as web pages.\n\n\n## BACKGROUND\n\n\nDates extracted from conflicting or unreliable sources have a variety of formats and usually contain a number of incorrect values or typographical errors. It is useful to have a way to increase the confidence of the collected information, to clarify ambiguous information, and to increase the accuracy in the date values.\n\nWhat is needed is a method for resolving ambiguities and errors in date values associated with a topic so that date values related to that topic can be reliably determined.\n\n\n## SUMMARY\n\n\nIn accordance with one aspect of the invention, a method may perform obtaining a first text string associated with an attribute; determining if the first text string conforms to one or more date formats; assigning a confidence value for each of the date formats for the first text string based on an amount of specificity with which the first text string conforms to each date format; obtaining a second text string associated with the attribute; determining if the second text string conforms to one or more of the date formats; assigning a confidence value for each of the date formats for the second text string based on an amount of specificity with which the second text string conforms to each date format; and merging a date format with a highest confidence value for the first text string and a date format with a highest confidence value for the second text string to obtain a date value for the attribute.\n\nIn one embodiment of the invention, a system may include a date formatter, having as input at least a first text string and a second text string, the date formatter to determine if the first text string conforms to one or more date formats and to determine if the second text string conforms to one or more date formats; a confidence assignor to assign a confidence value for each of the date formats based on an amount of specificity with which each text string conforms to each date format; and a merger to merge a date format with a highest confidence value for the first text string and a date format with a highest confidence value for the second text string to obtain a date value for the attribute.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nFIG. 1 shows a network, in accordance with a preferred embodiment of the invention.\n\nFIGS. 2( a)-2(d) are block diagrams illustrating a data structure for facts within a repository of FIG. 1 in accordance with preferred embodiments of the invention.\n\nFIG. 2( e) is a block diagram illustrating an alternate data structure for facts and objects in accordance with preferred embodiments of the invention.\n\nFIG. 3( a) is a data flow diagram illustrating a date resolution janitor, according to one embodiment of the present invention.\n\nFIG. 3( b) is a data flow diagram illustrating a date resolution janitor, according to one embodiment of the present invention.\n\nFIG. 4 is a flow chart illustrating a method for resolving ambiguities in date values, according to one embodiment of the present invention.\n\nFIGS. 5( a)-5(b) are examples illustrating a method for resolving ambiguities in date values, according to one embodiment of the present invention.\n\nFIGS. 5( c)-5(e) are examples illustrating a method for resolving ambiguities in date values, according to one embodiment of the present invention.\n\n\n## DESCRIPTION OF EMBODIMENTS\n\n\nEmbodiments of the present invention are now described with reference to the figures where like reference numbers indicate identical or functionally similar elements.\n\nFIG. 1 shows a system architecture 100 adapted to support one embodiment of the invention. FIG. 1 shows components used to add facts into, and retrieve facts from a repository 115. The system architecture 100 includes a network 104, through which any text string of document hosts 102 communicate with a data processing system 106, along with any text string of object requesters 152, 154.\n\nDocument hosts 102 store documents and provide access to documents. A document is comprised of any machine-readable data including any combination of text, graphics, multimedia content, etc. A document may be encoded in a markup language, such as Hypertext Markup Language (HTML), e.g., a web page, in an interpreted language (e.g., JavaScript) or in any other computer readable or executable format. A document can include one or more hyperlinks to other documents. A typical document will include one or more facts within its content. A document stored in a document host 102 may be located and/or identified by a Uniform Resource Locator (URL), or Web address, or any other appropriate form of identification and/or location. A document host 102 is implemented by a computer system, and typically includes a server adapted to communicate over the network 104 via networking protocols (e.g., TCP/IP), as well as application and presentation protocols (e.g., HTTP, HTML, SOAP, D-HTML, Java). The documents stored by a host 102 are typically held in a file directory, a database, or other data repository. A host 102 can be implemented in any computing device (e.g., from a PDA or personal computer, a workstation, mini-computer, or mainframe, to a cluster or grid of computers), as well as in any processor architecture or operating system.\n\nFIG. 1 shows components used to manage facts in a fact repository 115. Data processing system 106 includes one or more importers 108, one or more janitors 110, a build engine 112, a service engine 114, and a fact repository 115 (also called simply a “repository”). Each of the foregoing are implemented, in one embodiment, as software modules (or programs) executed by processor 116. Importers 108 operate to process documents received from the document hosts, read the data content of documents, and extract facts (as operationally and programmatically defined within the data processing system 106) from such documents. The importers 108 also determine the subject or subjects with which the facts are associated, and extract such facts into individual items of data, for storage in the fact repository 115. In one embodiment, there are different types of importers 108 for different types of documents, for example, dependent on the format or document type.\n\nJanitors 110 operate to process facts extracted by importer 108. This processing can include but is not limited to, data cleansing, object merging, and fact induction. In one embodiment, there are a number of different janitors 110 that perform different types of data management operations on the facts. For example, one janitor 110 may traverse some set of facts in the repository 115 to find duplicate facts (that is, facts that convey the same factual information) and merge them. Another janitor 110 may also normalize facts into standard formats. Another janitor 110 may also remove unwanted facts from repository 115, such as facts related to pornographic content. Other types of janitors 110 may be implemented, depending on the types of data management functions desired, such as translation, compression, spelling or grammar correction, and the like.\n\nVarious janitors 110 act on facts to normalize attribute names, and values and delete duplicate and near-duplicate facts so an object does not have redundant information. For example, we might find on one page that Britney Spears' birthday is “12/2/1981” while on another page that her date of birth is “December 2, 1981.” Birthday and Date of Birth might both be rewritten as Birthdate by one janitor and then another janitor might notice that 12/2/1981 and December 2, 1981 are different forms of the same date. It would choose the preferred form, remove the other fact and combine the source lists for the two facts. As a result when you look at the source pages for this fact, on some you'll find an exact match of the fact and on others text that is considered to be synonymous with the fact.\n\nBuild engine 112 builds and manages the repository 115. Service engine 114 is an interface for querying the repository 115. Service engine 114's main function is to process queries, score matching objects, and return them to the caller but it is also used by janitor 110.\n\nRepository 115 stores factual information extracted from a plurality of documents that are located on document hosts 102. A document from which a particular fact may be extracted is a source document (or “source”) of that particular fact. In other words, a source of a fact includes that fact (or a synonymous fact) within its contents.\n\nRepository 115 contains one or more facts. In one embodiment, each fact is associated with exactly one object. One implementation for this association includes in each fact an object ID that uniquely identifies the object of the association. In this manner, any text string of facts may be associated with an individual object, by including the object ID for that object in the facts. In one embodiment, objects themselves are not physically stored in the repository 115, but rather are defined by the set or group of facts with the same associated object ID, as described below. Further details about facts in repository 115 are described below, in relation to FIGS. 2( a)-2(d).\n\nIt should be appreciated that in practice at least some of the components of the data processing system 106 will be distributed over multiple computers, communicating over a network. For example, repository 115 may be deployed over multiple servers. As another example, the janitors 110 may be located on any text string of different computers. For convenience of explanation, however, the components of the data processing system 106 are discussed as though they were implemented on a single computer.\n\nIn another embodiment, some or all of document hosts 102 are located on data processing system 106 instead of being coupled to data processing system 106 by a network. For example, importer 108 may import facts from a database that is a part of or associated with data processing system 106.\n\nFIG. 1 also includes components to access repository 115 on behalf of one or more object requesters 152, 154. Object requesters are entities that request objects from repository 115. Object requesters 152, 154 may be understood as clients of the system 106, and can be implemented in any computer device or architecture. As shown in FIG. 1, a first object requester 152 is located remotely from system 106, while a second object requester 154 is located in data processing system 106. For example, in a computer system hosting a blog, the blog may include a reference to an object whose facts are in repository 115. An object requester 152, such as a browser displaying the blog will access data processing system 106 so that the information of the facts associated with the object can be displayed as part of the blog web page. As a second example, janitor 110 or other entity considered to be part of data processing system 106 can function as object requester 154, requesting the facts of objects from repository 115.\n\nFIG. 1 shows that data processing system 106 includes a memory 107 and one or more processors 116. Memory 107 includes importers 108, janitors 110, build engine 112, service engine 114, and requester 154, each of which are preferably implemented as instructions stored in memory 107 and executable by processor 116. Memory 107 also includes repository 115. Repository 115 can be stored in a memory of one or more computer systems or in a type of memory such as a disk. FIG. 1 also includes a computer readable medium 118 containing, for example, at least one of importers 108, janitors 110, build engine 112, service engine 114, requester 154, and at least some portions of repository 115. FIG. 1 also includes one or more input/output devices 120 that allow data to be input and output to and from data processing system 106. It will be understood that data processing system 106 preferably also includes standard software components such as operating systems and the like and further preferably includes standard hardware components not shown in the figure for clarity of example.\n\nFIG. 2( a) shows an example format of a data structure for facts within repository 115, according to some embodiments of the invention. As described above, the repository 115 includes facts 204. Each fact 204 includes a unique identifier for that fact, such as a fact ID 210. Each fact 204 includes at least an attribute 212 and a value 214. For example, a fact associated with an object representing George Washington may include an attribute of “date of birth” and a value of “February 22, 1732.” In one embodiment, all facts are stored as alphanumeric characters since they are extracted from web pages. In another embodiment, facts also can store binary data values. Other embodiments, however, may store fact values as mixed types, or in encoded formats.\n\nAs described above, each fact is associated with an object ID 209 that identifies the object that the fact describes. Thus, each fact that is associated with a same entity (such as George Washington), will have the same object ID 209. In one embodiment, objects are not stored as separate data entities in memory. In this embodiment, the facts associated with an object contain the same object ID, but no physical object exists. In another embodiment, objects are stored as data entities in memory, and include references (for example, pointers or IDs) to the facts associated with the object. The logical data structure of a fact can take various forms; in general, a fact is represented by a tuple that includes a fact ID, an attribute, a value, and an object ID. The storage implementation of a fact can be in any underlying physical data structure.\n\nFIG. 2( b) shows an example of facts having respective fact IDs of 10, 20, and 30 in repository 115. Facts 10 and 20 are associated with an object identified by object ID “1.” Fact 10 has an attribute of “Name” and a value of “China.” Fact 20 has an attribute of “Category” and a value of “Country.” Thus, the object identified by object ID “1” has a name fact 205 with a value of “China” and a category fact 206 with a value of “Country.” Fact 30 208 has an attribute of “Property” and a value of “Bill Clinton was the 42nd President of the United States from 1993 to 2001.” Thus, the object identified by object ID “2” has a property fact with a fact ID of 30 and a value of “Bill Clinton was the 42nd President of the United States from 1993 to 2001.” In the illustrated embodiment, each fact has one attribute and one value. The text string of facts associated with an object is not limited; thus while only two facts are shown for the “China” object, in practice there may be dozens, even hundreds of facts associated with a given object. Also, the value fields of a fact need not be limited in size or content. For example, a fact about the economy of “China” with an attribute of “Economy” would have a value including several paragraphs of text, text strings, perhaps even tables of figures. This content can be formatted, for example, in a markup language. For example, a fact having an attribute “original html” might have a value of the original html text taken from the source web page.\n\nAlso, while the illustration of FIG. 2( b) shows the explicit coding of object ID, fact ID, attribute, and value, in practice the content of the fact can be implicitly coded as well (e.g., the first field being the object ID, the second field being the fact ID, the third field being the attribute, and the fourth field being the value). Other fields include but are not limited to: the language used to state the fact (English, etc.), how important the fact is, the source of the fact, a confidence value for the fact, and so on.\n\nFIG. 2( c) shows an example object reference table 210 that is used in some embodiments. Not all embodiments include an object reference table. The object reference table 210 functions to efficiently maintain the associations between object IDs and fact IDs. In the absence of an object reference table 210, it is also possible to find all facts for a given object ID by querying the repository to find all facts with a particular object ID. While FIGS. 2( b) and 2(c) illustrate the object reference table 210 with explicit coding of object and fact IDs, the table also may contain just the ID values themselves in column or pair-wise arrangements.\n\nFIG. 2( d) shows an example of a data structure for facts within repository 115, according to some embodiments of the invention showing an extended format of facts. In this example, the fields include an object reference link 216 to another object. The object reference link 216 can be an object ID of another object in the repository 115, or a reference to the location (e.g., table row) for the object in the object reference table 210. The object reference link 216 allows facts to have as values other objects. For example, for an object “United States,” there may be a fact with the attribute of “president” and the value of “George W. Bush,” with “George W. Bush” being an object having its own facts in repository 115. In some embodiments, the value field 214 stores the name of the linked object and the link 216 stores the object identifier of the linked object. Thus, this “president” fact would include the value 214 of “George W. Bush”, and object reference link 216 that contains the object ID for the for “George W. Bush” object. In some other embodiments, facts 204 do not include a link field 216 because the value 214 of a fact 204 may store a link to another object.\n\nEach fact 204 also may include one or more metrics 218. A metric provides an indication of the some quality of the fact. In some embodiments, the metrics include a confidence level and an importance level. The confidence level indicates the likelihood that the fact is correct. The importance level indicates the relevance of the fact to the object, compared to other facts for the same object. The importance level may optionally be viewed as a measure of how vital a fact is to an understanding of the entity or concept represented by the object.\n\nEach fact 204 includes a list of one or more sources 220 that include the fact and from which the fact was extracted. Each source may be identified by a Uniform Resource Locator (URL), or Web address, or any other appropriate form of identification and/or location, such as a unique document identifier.\n\nThe facts illustrated in FIG. 2( d) include an agent field 222 that identifies the importer 108 that extracted the fact. For example, the importer 108 may be a specialized importer that extracts facts from a specific source (e.g., the pages of a particular web site, or family of web sites) or type of source (e.g., web pages that present factual information in tabular form), or an importer 108 that extracts facts from free text in documents throughout the Web, and so forth.\n\nSome embodiments include one or more specialized facts, such as a name fact 207 and a property fact 208. A name fact 207 is a fact that conveys a name for the entity or concept represented by the object ID. A name fact 207 includes an attribute 224 of “name” and a value, which is the name of the object. For example, for an object representing the country Spain, a name fact would have the value “Spain.” A name fact 207, being a special instance of a general fact 204, includes the same fields as any other fact 204; it has an attribute, a value, a fact ID, metrics, sources, etc. The attribute 224 of a name fact 207 indicates that the fact is a name fact, and the value is the actual name. The name may be a string of characters. An object ID may have one or more associated name facts, as many entities or concepts can have more than one name. For example, an object ID representing Spain may have associated name facts conveying the country's common name “Spain” and the official name “Kingdom of Spain.” As another example, an object ID representing the U.S. Patent and Trademark Office may have associated name facts conveying the agency's acronyms “PTO” and “USPTO” as well as the official name “United States Patent and Trademark Office.” If an object does have more than one associated name fact, one of the name facts may be designated as a primary name and other name facts may be designated as secondary names, either implicitly or explicitly.\n\nA property fact 208 is a fact that conveys a statement about the entity or concept represented by the object ID. Property facts are generally used for summary information about an object. A property fact 208, being a special instance of a general fact 204, also includes the same parameters (such as attribute, value, fact ID, etc.) as other facts 204. The attribute field 226 of a property fact 208 indicates that the fact is a property fact (e.g., attribute is “property”) and the value is a string of text that conveys the statement of interest. For example, for the object ID representing Bill Clinton, the value of a property fact may be the text string “Bill Clinton was the 42nd President of the United States from 1993 to 2001.” Some object IDs may have one or more associated property facts while other objects may have no associated property facts. It should be appreciated that the data structures shown in FIGS. 2( a)-2(d) and described above are merely exemplary. The data structure of the repository 115 may take on other forms. Other fields may be included in facts and some of the fields described above may be omitted. Additionally, each object ID may have additional special facts aside from name facts and property facts, such as facts conveying a type or category (for example, person, place, movie, actor, organization, etc.) for categorizing the entity or concept represented by the object ID. In some embodiments, an object's name(s) and/or properties may be represented by special records that have a different format than the general facts records 204.\n\nAs described previously, a collection of facts is associated with an object ID of an object. An object may become a null or empty object when facts are disassociated from the object. A null object can arise in a number of different ways. One type of null object is an object that has had all of its facts (including name facts) removed, leaving no facts associated with its object ID. Another type of null object is an object that has all of its associated facts other than name facts removed, leaving only its name fact(s). Alternatively, the object may be a null object only if all of its associated name facts are removed. A null object represents an entity or concept for which the data processing system 106 has no factual information and, as far as the data processing system 106 is concerned, does not exist. In some embodiments, facts of a null object may be left in the repository 115, but have their object ID values cleared (or have their importance to a negative value). However, the facts of the null object are treated as if they were removed from the repository 115. In some other embodiments, facts of null objects are physically removed from repository 115.\n\nFIG. 2( e) is a block diagram illustrating an alternate data structure 290 for facts and objects in accordance with preferred embodiments of the invention. In this data structure, an object 290 contains an object ID 292 and references or points to facts 294. Each fact includes a fact ID 295, an attribute 297, and a value 299. In this embodiment, an object 290 actually exists in memory 107.\n\nFIG. 3( a) is a data flow diagram illustrating the role of a date resolution janitor 306, according to one embodiment of the present invention. As described above, a document 301 is processed by an importer 108 to locate a text string that may be a date. The document 301 may contain text with at least one numeral, such as “Britney Spears was born on December 2, 1981” or may only contain numerals and delimiters, such as “12/2/81.” According to one embodiment, date resolution janitor 306 determines whether at least one text string listed within document 301 conforms to one or more date formats, as described below with reference to FIGS. 4 and 5( a). Date resolution janitor 306 assigns confidence values based on the amount of specificity with which each text string conforms to the date format, and merges the date formats with the highest confidence values, producing merged result 308. The process of assigning confidence values and merging is described below with reference to FIGS. 4-5( e).\n\nFIG. 3( b) is a data flow diagram illustrating the role of a date resolution janitor 306, according to one embodiment of the present invention. Previously, fact 310 has been extracted from a document, such as a website, and may be stored within a computer memory. According to one embodiment, a determination is made whether at least one text string listed within fact 310 conforms to one or more date formats. Date resolution janitor 306 assigns confidence values based on the amount of specificity with which each text string conforms to the date format, and merges the date formats date formats with the highest confidence values, merged result 308.\n\nFor the purposes of illustration, a single document 301 is shown in FIG. 3( a) and a single fact 310 is shown in FIG. 3( b). In another embodiment, a plurality of documents and/or a plurality of facts may be used by the date resolution janitor 306. Resolving date ambiguity using a plurality of documents and/or facts may be performed iteratively, in parallel, or both.\n\nFIG. 4 is a flow chart illustrating a method for resolving date ambiguity, according to one embodiment of the present invention. While the method is described with reference to FIG. 4 as being performed by a date resolution janitor 306 on information from one or more websites, the method is also useful in other contexts in which it is desired to resolve ambiguity in dates, for example, from information stored in a fact repository or other data structure or memory. FIG. 4 shows that the method contains an outer loop for each entity attribute 401, 417 and an inner loop for each date source 403, 413. Thus, a particular entity may have multiple text strings associated with it and the method will loop through all strings associated with that entity. Similarly, a particular text string may have multiple potential dates within it and the method will loop through all potential dates. Other embodiments merely receive a text string for evaluation, determine that the text string conforms to a particular date format, and use the determination to obtain the date for the entity attribute; these embodiments do not include looping through multiple entities and/or multiple dates within a string.\n\nAs shown in FIG. 4, one or more text strings associated with an attribute and containing at least one numeral is obtained 405 for an entity attribute from a date source. For example, the text string “01/02/81” may be associated with a “Date of Birth” attribute for the entity “Britney Spears.” An example of a date source may be www.nationalenquirer.com.\n\nThe date resolution janitor 306 determines whether the text string conforms to one or more date formats 407, according to one embodiment. Determining whether a text string conforms to one or more date formats 407 may be accomplished in a variety of ways, including analyzing the syntax of the sentence where the numeral appears, examining the separators between numerals (e.g., slashes, commas, periods, spaces), looking for keywords (in various languages), or any of a variety of methods understood by one of ordinary skill in the art. In one embodiment, all text strings containing numerals within a document are assumed to be date values.\n\nThe examples below illustrate one method of determining whether text strings containing numerals conform to one or more date formats 407, according to one embodiment. The regular expressions of how “year”, “month”, “day” and so forth may be defined within the various date formats will be described below, beginning at paragraph 52.\n\nIn one embodiment, the following regular expression defines a date in ISO format (YYYY-MM-DD for year, month, day):\n\n// Begin specific formats\n\n// year-month-day (“ISO”)\n\n// year\n\nstatic const string iso_date(\n\nstatic const RE iso_timespan_match(\n\nIn one embodiment, the following regular expression defines a date in United States date format (month, day, year):\n\n// month-day-year (“US”)\n\n// month-day\n\nstatic const string us_date(\n\nstatic const RE us_timespan_match(\n\nIn one embodiment, the following regular expression defines a date in European date format (day, month, year):\n\n// day-month-year (“European”)\n\n// month-year (Special case of European without a day.)\n\n// day-month (Special case of European without a year.)\n\nstatic const string european_date(\n\nstatic const RE european_timespan_match(\n\nIn one embodiment, the following regular expressions are an example of how “year”, “month”, “day” and so forth may be defined within the various date formats described above.\n\nIn one embodiment, the following regular expression defines a year:\n\n// A year can be any text string with up to 4 digits not surrounded by\n\n// digits, with an optional bc/ad before or after. Note that this\n\n// adds three parenthesized expressions: the bc/ad prefix, the numeric\n\n// year, and the bc/ad suffix.\n\nconst string bc_ad(“((?i)a\\\\.?d\\\\.?|b\\\\.?c\\\\.?e?\\\\.?)”);\n\nconst string TimespanJanitor::year_match(\n\nIn one embodiment, the following regular expression defines a month:\n\nconst string TimespanJanitor::month_word(\n\n“(?:(?<![a-z])(?:Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)”\n\n// Month can be any of 1-9 or 10-12, surrounded by non-text strings.\n\nconst string TimespanJanitor::month_text string(\n\n// Note that this adds one parenthesized expression—the month in\n\n// whatever form it's given.\n\nconst string TimespanJanitor::month_match(\n\nIn one embodiment, the following regular expression defines a numeric day:\n\n// Day can be any of 1-9, 10-19 or 20-29, or 30 or 31, surrounded by\n\n// non-digits. Note that this adds one parenthesized expression--\n\n// the numeric day.\n\nconst string TimespanJaniton:day_text string(“(?:(?<\\\\d)”\n\nIn one embodiment, the following regular expression defines a day of the week word:\n\n// Note that this adds one parenthesized expression—the day of the\n\n// week.\n\nconst string TimespanJanitor::day_of_week_word(\n\nIn one embodiment, the following regular expression defines separators month, day and year:\n\nconst string TimespanJaniton:separator_without_spaces(“(?:\\\\.|-|,|/)+”);\n\nconst string TimespanJaniton:separator(“(?:\\\\.|-|,|/|\\\\s)+”);\n\nIn one embodiment, the following regular expression defines a range separator:\n\nconst string TimespanJaniton:range_separator(\n\nIf a text string does not conform to any date format, it may be removed from consideration 409. For example, the text string “123.456.7891111” would be removed from consideration because it does not match any of the regular expressions, according to one embodiment. However, the text string “123456.01.03.05” might not be removed, as a portion of the text string “01.03.05” may conform to one or more of the date formats.\n\nFIG. 5( a) illustrates an example of assigning confidence values 510 (411, FIG. 4) to date formats. If a string conforms to one or more date formats, a confidence value is assigned to each conforming format 411. FIG. 5( a) shows a variety of text strings (A-E) from various sources selected as potential values for the birth date attribute for a given entity.\n\nAccording to one embodiment, interpretations may be used to facilitate assigning confidence values. Interpretations may take various forms. As an example, an interpretation used may be YYYY-MM-DD, where the YYYY represents the four digit representation of a year, MM represents the two digit representation of month, and DD represents the two digit representation of day. This interpretation corresponds to the ISO dating conventions. For convenience, the format of YYYY-MM-DD is used throughout the Figures and discussion when discussing date interpretation, although other formats may be used. Other interpretations may have further specificity, such as time or day of week. In addition, any other desired interpretation may be used.\n\nIn FIG. 5( a), a document (website) contains a text string 506 (A) of “01/02/03.” FIG. 5( a) shows how the text string 506 would be interpreted in light of the various dating conventions or formats that could be used. The date format interpretation in column 508 (YYYY-MM-DD) for example (A) would be YY03-01-02 (for the United States dating convention), YY03-02-01 (for the European dating convention, where the day is “01” and the month is “02”) or YY03-0M-0D (for the ISO dating convention). The ISO interpretation shown is YY03-0M-0D because, in one embodiment, that is the best potential match for the ISO regular expression under the assumption that the string contains only one date. In the embodiment depicted in this example, the year is “03” based on the assumption that the information occurring before the date is more likely to be incorrect than the information occurring after the date. In another embodiment, there would be multiple ISO interpretations (YY03-0M-0D, YY01-0M-0D, YY02-0M-0D). In another embodiment, the interpretation for ISO dating convention would be YY03-MM-DD, where the MM and DD segments are matched on an all or nothing basis.\n\nBoth the US and European date format interpretations have two variables, “YY”, and would therefore be assigned the highest confidence among the possible date formats. However, the ISO convention, YY03-0M-0D, has four undefined variables, “YY03-0M-0D,” and therefore will be assigned a lower confidence, according to one embodiment. Those of ordinary skill in the art will recognize, as illustrated in the foregoing example, that more than one date format may have the same “highest confidence value.”\n\nAccording to one embodiment, date formats containing higher specificity may be assigned higher confidence values that the string represents a date. As an example, “12:30:02 pm on July 9, 2023” would be tagged “very certain,” whereas “1996” would be tagged “maybe.” In addition, where an estimation has been made (e.g., that “1/2/03” has a year of “2003”), the confidence value may be reduced. One skilled in the art will recognize that the confidence values assigned may be, for example, text strings, words, graphics and other types of tags.\n\nIn contrast with string A, the date formats of strings B, C, D, and E respectively in FIG. 5 each receive the same level of confidence in interpretation regardless of the dating convention used, as can be seen by the number of variables under Confidence 510.\n\nIn another embodiment, Example E from FIG. 5( a) (which is a text string 506 of “2003”) would allow for the date format to be interpreted as shown “2003-MM-DD” in FIG. 5( a) or as a range from “2003-01-01 to 2003-12-31” (not shown). Similarly, the range displayed in Example B “between 2001-2005” may be interpreted as shown in FIG. 5( a) or may be interpreted as “2001-01-01 to 2005-12-31” (not shown).\n\nAccording to another embodiment, date format interpretations need not be used in assigning confidence values. Instead, confidence values can be assigned directly to one or more date formats without using an interpretation. For example, a higher confidence value can be assigned to a date format with more specificity than another format with less specificity (e.g. “January 12, 2004 at 12:01 p.m.” would have a higher confidence value than “1/12/04”).\n\nReferring again to FIG. 4, the process 405-411 may be looped for each date source (403-413). Thus, as shown in FIG. 4, a confidence value may be assigned to one or more text strings containing a numeral obtained from one or more sources (i.e. multiple web pages, multiple entries on one web page, or from single or multiple facts or objects in a memory).\n\nIn one embodiment, once confidence values have been assigned 411 for each format to which the text string conforms, the date format interpretations with the highest confidence values are merged 415. The merger of the date formats with the highest confidence values 415 may take place each time confidence values are assigned to date formats from a date source, after confidence values are assigned to date formats from many date sources, or at any other desired time. For example, the date source loop could also end after the date formats are merged (not shown), such that the loop would proceed from 403 to 415, with the date source loop ending after the merger 415 is completed.\n\nThe merger of date formats with the highest confidence values 415 may be carried out in many ways. FIG. 5( b) shows three such ways. For example, as shown in FIG. 5( b), highest confidence date formats may be merged, such that their noncontradictory components are retained in the merged result.\n\nIn FIG. 5( b), the noncontradictory merger (column 512) of the highest confidence date formats of Examples A and B from FIG. 5( a) results in a noncontradictory date value “2003-0M-0D.” The “YY03” year obtained from Example A does not contradict the “2003” part of the year range “2000(1-5)” in Example B. Since both the US and European interpretation\n\nhave a highest confidence rating in Example A, the described method looks at both. The “0M-0D” portion is noncontradictory for highest confidence date formats of Examples A and B.\n\nIn FIG. 5( b), the noncontradictory merger (column 512) of the highest confidence date formats of Examples D and E from FIG. 5( a) results in a noncontradictory date value “2003-01-02.” The “2003” obtained from Example E does not contradict the “YYYY” variables in Example D. Similarly, the “01-02” obtained from Example D does not contradict the “MM-DD” variables from Example E.\n\nCommon merger, another way in which to merge highest confidence date formats, is illustrated in column 514 of FIG. 5( b). When the highest confidence format interpretations from Examples A and B from FIG. 5( a) are merged such that the common 514 elements are retained, the result is YY03-0M-0D. When Examples D and E from FIG. 5( a) are merged such that the common 514 elements are retained, the result is YYYY-MM-DD because there are no elements in common between Examples D and E.\n\nUnambiguous merger, another way to merge highest confidence date formats, is shown in column 516 of FIG. 5( b). When the highest confidence format interpretations from Examples A and B from FIG. 5( a) are merged such that the unambiguous elements are retained, the result is 2003-0M-0D. This outcome is reached because the merger of the year “200(1-5)” from Example B and “YY03” from Example A can only be interpreted in one way (as “2003”) while “01/02” is ambiguous as either being January 2 or February 1. When Examples D and E from FIG. 5( a) are merged such that the unambiguous elements are retained, the result is 2003-01-02 because the year “2003” from Example E can only be interpreted in one way and “Jan 2” can only be interpreted in one way.\n\nCommon merging 514 is preferred when the accuracy desired is high, according to one embodiment. Noncontradictory merging 512 is preferred when obtaining the most complete estimate is the desired outcome, according to one embodiment. Unambiguous merger 516 is useful where limited data is available and an estimate is needed, according to one embodiment. However, the accuracy of an unambiguous 516 and noncontradictory merger 512 may be diminished where the text string of data points is small. While FIG. 5( b) illustrates three methods of merging the highest confidence values, one of ordinary skill in the art will recognize that numerous methods of merging may be used.\n\nThe merger of the highest confidence date formats of text strings from a plurality of sources, for an attribute of a single entity, is illustrated in FIGS. 5( c)-5(e). FIG. 5( c) shows strings from web sites 1, 2, and 3 and the highest confidence values assigned to various date interpretations of the strings. The merger of date formats with the highest confidence values from websites 1 and 2 is shown in FIG. 5( d). Because website 2 lists the text string as “January 2”, and website 1 lists the text string as “01/02/03”, the merger of the noncontradictory 512 components of the highest confidence interpretation results in “YY03-01-02” (because “January 2” of website 2 does not contradict “01” of website 1). Similarly, because website 2 has no listing for the year, the “03” of website 1 does not contradict website 2.\n\nCommon merger 514 results in a date format of YYYY-01-02. The month,“01”, is common to both sites. However, because the sites do not have the year in common, the “YYYY” variables cannot be resolved in the merged result using common merger 512.\n\nAs illustrated in FIG. 5( e), when the merged results of websites 1 and 2 are merged with website 3 under noncontradictory merger 512 or common merger 514, the result is “2003-01-02.” The merged results of the highest confidence date formats of websites 1 and 2 are “YY03-01-02” (noncontradictory) and “YYYY-01-02” (common) (because “January 2” is common and noncontradictory to both sites, and “03” is noncontradictory, but not common to website 2). Thus, the only missing variable is the year. For both of the highest confidence date formats for website 3, the year is 2003. Therefore, both the common and noncontradictory merged result of websites 1, 2 and 3 is “2003-01-02.” Consequently, the date 2003-01-02 is used as the birth date for entity A.\n\nIn addition, the result is the same if the websites 1, 2 and 3 were merged as an “unambiguous merger” 516. Because the month and day of website 2, “January 2”, is unambiguous, and the year of website 3 “2003” is unambiguous, the outcome would be “2003-01-02.”\n\nMerging may take place at any desired time. In the examples discussed above with respect to FIGS. 5( c)-5(e), the merger of website takes place after websites 1 and 2 have a merged result. In another embodiment, the merger may take place after highest confidence values have been assigned to a large number of date formats.\n\nThe merger comparison can be performed using a variety of thresholds. Different thresholds may be useful for different purposes. For example, after a threshold number of date sources with identical date formats for the same attribute are obtained, the determination may be made that the merged result is sufficiently accurate. As another example, if a threshold percentage of dates for an attribute have the same format, the method may not look at more text strings. The date format of the merged result may then be applied to all text strings that correspond to a date format from at least one domain from which the merged result was obtained. For example, one embodiment may assume that dates on all pages of a website have the same format until proven otherwise.\n\nIn addition, the method may allow application of particular rules in resolving ambiguity in date values. Such rules may be applied to ensure that an obtained date value is consistent with rules related to the attribute and/or to determine whether a text string is consistent with rules relating to an attribute.\n\nIn one embodiment, the known relationships of data for attributes may be examined for consistency among merged results. For example, a rule may be that the value of the date of birth attribute must be earlier than the value of the date of death attribute for a given entity. As another example, a rule may be that the value of a date of birth attribute must have a time, day, month, date and year.\n\nAlso, another rule may be that if the text strings fall under only one valid date format interpretation, the system may use that interpretation for all text strings on the domain (e.g., “01/17/2003” has only one valid interpretation of “2003-01-17” because “17” cannot represent a month). The system could also interpret a string that would be spell corrected to a date (e.g., “Februar 17, 1972” would be interpreted as “1972-02-17”). Another rule might discard dates that are outside of recognized boundaries (e.g., “6 May 196” would be discarded as outside of a rule that “YYYY for a living person is 1880<YYYY<2007”) or might only discard the components of the text string that are inconsistent with the rule (e.g., “6 May 196” would be interpreted as “YYYY-05-06”). Another rule might estimate dates as nearest to the closest century (e.g., Jan. 2, 2003 would assume the year was 2003, as opposed to 1903 or earlier). In addition, the system may also resolve date ambiguity by examining the global domain name extension (e.g., .uk, .jp, .us) of the page or domain from which the text string was obtained. One of ordinary skill in the art will recognize that additional rules to resolve ambiguity in date values could be applied.\n\nReturning to FIG. 4, the method described with reference to numerals 403-415 may be looped for separate entity attributes (401-417). For example, the method may be performed for the birth date attribute of the “Britney Spears” entity and then the wedding date attribute of the “Britney Spears” entity. The method may also be performed again to determine the birth date attribute of the “Gwyneth Paltrow” entity.\n\nThe method depicted in FIG. 4 illustrates the resolution of ambiguous date values for one attribute, such as date of birth, for one entity. However, one of ordinary skill in the art would recognize that each entity may have multiple attributes for which associated date values could be disambiguated, such at date of birth, date of death, rookie year, etc. In addition, FIG. 4 illustrates that each entity has only one date. One of ordinary skill in the art would recognize that each entity may have more than one text string containing a numeral associated with some attributes. For example, an entity may have lived in a particular location for multiple years. Furthermore, each date source may contain more than one text string containing a numeral associated with each attribute. For example, Britney Spears' birthday may appear several times on one webpage in the same or different formats.\n\nReference in the specification to “one embodiment” or to “an embodiment” means that a particular feature, structure, or characteristic described in connection with the embodiments is included in at least one embodiment of the invention. The appearances of the phrase “in one embodiment” in various places in the specification are not necessarily all referring to the same embodiment.\n\nSome portions of the above are presented in terms of methods and symbolic representations of operations on data bits within a computer memory. These descriptions and representations are the means used by those skilled in the data processing arts to most effectively convey the substance of their work to others skilled in the art. A method is here, and generally, conceived to be a self-consistent sequence of steps (instructions) leading to a desired result. The steps are those requiring physical manipulations of physical quantities. Usually, though not necessarily, these quantities take the form of electrical, magnetic or optical signals capable of being stored, transferred, combined, compared and otherwise manipulated. It is convenient at times, principally for reasons of common usage, to refer to these signals as bits, values, elements, symbols, characters, terms, text strings, or the like. Furthermore, it is also convenient at times, to refer to certain arrangements of steps requiring physical manipulations of physical quantities as modules or code devices, without loss of generality.\n\nIt should be borne in mind, however, that all of these and similar terms are to be associated with the appropriate physical quantities and are merely convenient labels applied to these quantities. Unless specifically stated otherwise as apparent from the following discussion, it is appreciated that throughout the description, discussions utilizing terms such as “processing” or “computing” or “calculating” or “determining” or “displaying” or “determining” or the like, refer to the action and processes of a computer system, or similar electronic computing device, that manipulates and transforms data represented as physical (electronic) quantities within the computer system memories or registers or other such information storage, transmission or display devices.\n\nCertain aspects of the present invention include process steps and instructions described herein in the form of a method. It should be noted that the process steps and instructions of the present invention can be embodied in software, firmware or hardware, and when embodied in software, can be downloaded to reside on and be operated from different platforms used by a variety of operating systems.\n\nThe present invention also relates to an apparatus for performing the operations herein. This apparatus may be specially constructed for the required purposes, or it may comprise a general-purpose computer selectively activated or reconfigured by a computer program stored in the computer. Such a computer program may be stored in a computer readable storage medium, such as, but is not limited to, any type of disk including floppy disks, optical disks, CD-ROMs, magnetic-optical disks, read-only memories (ROMs), random access memories (RAMs), EPROMs, EEPROMs, magnetic or optical cards, application specific integrated circuits (ASICs), or any type of media suitable for storing electronic instructions, and each coupled to a computer system bus. Furthermore, the computers referred to in the specification may include a single processor or may be architectures employing multiple processor designs for increased computing capability.\n\nThe methods and displays presented herein are not inherently related to any particular computer or other apparatus. Various general-purpose systems may also be used with programs in accordance with the teachings herein, or it may prove convenient to construct more specialized apparatus to perform the required method steps. The required structure for a variety of these systems will appear from the description below. In addition, the present invention is not described with reference to any particular programming language. It will be appreciated that a variety of programming languages may be used to implement the teachings of the present invention as described herein, and any references below to specific languages are provided for disclosure of enablement and best mode of the present invention.\n\nWhile the invention has been particularly shown and described with reference to a preferred embodiment and several alternate embodiments, it will be understood by persons skilled in the relevant art that various changes in form and details can be made therein without departing from the spirit and scope of the invention.\n\nFinally, it should be noted that the language used in the specification has been principally selected for readability and instructional purposes, and may not have been selected to delineate or circumscribe the inventive subject matter. Accordingly, the disclosure of the present invention is intended to be illustrative, but not limiting, of the scope of the invention, which is set forth in the following claims.",
+ "cited_by": [
+  {
+   "id": "US9692804B2",
+   "title": "Method of and system for determining creation time of a web resource",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "US9934319B2",
+   "title": "Method of and system for determining creation time of a web resource",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "US10158900B1",
+   "title": "Systems and methods for detecting and correlating schedule-related information in an electronic document to generate a calender schedule indicator",
+   "assignee": "Rovi Guides, Inc."
+  },
+  {
+   "id": "US10740534B1",
+   "title": "Ambiguous date resolution for electronic communication documents",
+   "assignee": "Relativity Oda Llc"
+  },
+  {
+   "id": "US20250342709A1",
+   "title": "Document management system and methods for automatic formatting of fields in documents",
+   "assignee": "Kyocera Document Solutions Inc."
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5010478A",
+   "title": "Entity-attribute value database system with inverse attribute for selectively relating two different entities",
+   "assignee": "Deran Roger L"
+  },
+  {
+   "id": "US5133075A",
+   "title": "Method of monitoring changes in attribute values of object in an object-oriented database",
+   "assignee": "Hewlett-Packard Company"
+  },
+  {
+   "id": "US5347653A",
+   "title": "System for reconstructing prior versions of indexes using records indicating changes between successive versions of the indexes",
+   "assignee": "Digital Equipment Corporation"
+  },
+  {
+   "id": "US5440730A",
+   "title": "Time index access structure for temporal databases having concurrent multiple versions",
+   "assignee": "Bell Communications Research, Inc."
+  },
+  {
+   "id": "US5475819A",
+   "title": "Distributed configuration profile for computing system",
+   "assignee": "Digital Equipment Corporation"
+  },
+  {
+   "id": "US5519608A",
+   "title": "Method for extracting from a text corpus answers to questions stated in natural language by using linguistic analysis and hypothesis generation",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5560005A",
+   "title": "Methods and systems for object-based relational distributed databases",
+   "assignee": "Actamed Corp."
+  },
+  {
+   "id": "US5574898A",
+   "title": "Dynamic software version auditor which monitors a process to provide a list of objects that are accessed",
+   "assignee": "Atria Software, Inc."
+  },
+  {
+   "id": "US5680622A",
+   "title": "System and methods for quickly detecting shareability of symbol and type information in header files",
+   "assignee": "Borland International, Inc."
+  },
+  {
+   "id": "US5694590A",
+   "title": "Apparatus and method for the detection of security violations in multilevel secure databases",
+   "assignee": "The Mitre Corporation"
+  },
+  {
+   "id": "US5701470A",
+   "title": "System and method for space efficient object locking using a data subarray and pointers",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US5717911A",
+   "title": "Relational database system and method with high availability compliation of SQL programs",
+   "assignee": "Tandem Computers, Inc."
+  },
+  {
+   "id": "US5717951A",
+   "title": "Method for storing and retrieving information on a magnetic storage medium via data blocks of variable sizes",
+   "assignee": "Yabumoto; Kan W."
+  },
+  {
+   "id": "US5724571A",
+   "title": "Method and apparatus for generating query responses in a computer-based document retrieval system",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US5778378A",
+   "title": "Object oriented information retrieval framework mechanism",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5787413A",
+   "title": "C++ classes for a digital library",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5793966A",
+   "title": "Computer system and computer-implemented process for creation and maintenance of online services",
+   "assignee": "Vermeer Technologies, Inc."
+  },
+  {
+   "id": "US5802299A",
+   "title": "Interactive system for authoring hypertext document collections",
+   "assignee": "Microtouch Systems, Inc."
+  },
+  {
+   "id": "US5815415A",
+   "title": "Computer system for portable persistent modeling",
+   "assignee": "Bentley Systems, Incorporated"
+  },
+  {
+   "id": "US5819265A",
+   "title": "Processing names in a text",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5819210A",
+   "title": "Method of lazy contexted copying during unification",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5822743A",
+   "title": "Knowledge-based information retrieval system",
+   "assignee": "1215627 Ontario Inc."
+  },
+  {
+   "id": "US5826258A",
+   "title": "Method and apparatus for structuring the querying and interpretation of semistructured information",
+   "assignee": "Junglee Corporation"
+  },
+  {
+   "id": "US5838979A",
+   "title": "Process and tool for scalable automated data field replacement",
+   "assignee": "Peritus Software Services, Inc."
+  },
+  {
+   "id": "US5909689A",
+   "title": "Automatic update of file versions for files shared by several computers which record in respective file directories temporal information for indicating when the files have been created",
+   "assignee": "Sony Corporation"
+  },
+  {
+   "id": "US5920859A",
+   "title": "Hypertext document retrieval system and method",
+   "assignee": "Idd Enterprises, L.P."
+  },
+  {
+   "id": "US5943670A",
+   "title": "System and method for categorizing objects in combined categories",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5956718A",
+   "title": "Method and apparatus for moving subtrees in a distributed network directory",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US5974254A",
+   "title": "Method for detecting differences between graphical programs",
+   "assignee": "National Instruments Corporation"
+  },
+  {
+   "id": "US5987460A",
+   "title": "Document retrieval-assisting method and system for the same and document retrieval service using the same with document frequency and term frequency",
+   "assignee": "Hitachi, Ltd."
+  },
+  {
+   "id": "US6018741A",
+   "title": "Method and system for managing objects in a dynamic inheritance tree",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6044366A",
+   "title": "Use of the UNPIVOT relational operator in the efficient gathering of sufficient statistics for data mining",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6052693A",
+   "title": "System for assembling large databases through information extracted from text sources",
+   "assignee": "Harlequin Group Plc"
+  },
+  {
+   "id": "US6078918A",
+   "title": "Online predictive memory",
+   "assignee": "Trivada Corporation"
+  },
+  {
+   "id": "US6112203A",
+   "title": "Method for ranking documents in a hyperlinked environment using connectivity and selective content analysis",
+   "assignee": "Altavista Company"
+  },
+  {
+   "id": "US6112210A",
+   "title": "Apparatus and method for null representation in database object storage",
+   "assignee": "Oracle Corporation"
+  },
+  {
+   "id": "US6122647A",
+   "title": "Dynamic generation of contextual links in hypertext documents",
+   "assignee": "Perspecta, Inc."
+  },
+  {
+   "id": "US6134555A",
+   "title": "Dimension reduction using association rules for data mining application",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6212526B1",
+   "title": "Method for apparatus for efficient mining of classification models from databases",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6240546B1",
+   "title": "Identifying date fields for runtime year 2000 system solution process, method and article of manufacture",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6263328B1",
+   "title": "Object oriented query model and process for complex heterogeneous database queries",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US6289338B1",
+   "title": "Database analysis using a probabilistic ontology",
+   "assignee": "Manning & Napier Information Services"
+  },
+  {
+   "id": "US6311194B1",
+   "title": "System and method for creating a semantic web and its applications in browsing, searching, profiling, personalization and advertising",
+   "assignee": "Taalee, Inc."
+  },
+  {
+   "id": "US6327574B1",
+   "title": "Hierarchical models of consumer attributes for targeting content in a privacy-preserving manner",
+   "assignee": "Encirq Corporation"
+  },
+  {
+   "id": "US6349275B1",
+   "title": "Multiple concurrent language support system for electronic catalogue using a concept based knowledge representation",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20020038307A1",
+   "title": "Systems and methods for knowledge discovery in spatial data",
+   "assignee": "Zoran Obradovic"
+  },
+  {
+   "id": "US20020042707A1",
+   "title": "Grammar-packaged parsing",
+   "assignee": "Gang Zhao"
+  },
+  {
+   "id": "US6377943B1",
+   "title": "Initial ordering of tables for database queries",
+   "assignee": "Oracle Corp."
+  },
+  {
+   "id": "US6397228B1",
+   "title": "Data enhancement techniques",
+   "assignee": "Verizon Laboratories Inc."
+  },
+  {
+   "id": "US20020065845A1",
+   "title": "Information retrieval system",
+   "assignee": "Eiichi Naito"
+  },
+  {
+   "id": "JP2002157276A",
+   "title": "Problem solving support method and system",
+   "assignee": "Hitachi Software Eng Co Ltd"
+  },
+  {
+   "id": "US20020073115A1",
+   "title": "RDL search engine",
+   "assignee": "Davis Russell T."
+  },
+  {
+   "id": "US20020083039A1",
+   "title": "Hierarchical data-driven search and navigation system and method for information retrieval",
+   "assignee": "Ferrari Adam J."
+  },
+  {
+   "id": "US20020087567A1",
+   "title": "Unified binary model and methodology for knowledge representation and for data and information mining",
+   "assignee": "Israel Spiegler"
+  },
+  {
+   "id": "US6438543B1",
+   "title": "System and method for cross-document coreference",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20020147738A1",
+   "title": "Method and appratus for finding patent-relevant web documents",
+   "assignee": "Reader Scot A."
+  },
+  {
+   "id": "US6473898B1",
+   "title": "Method for compiling and selecting data attributes",
+   "assignee": "Pcorder.Com, Inc."
+  },
+  {
+   "id": "US20020169770A1",
+   "title": "Apparatus and method that categorize a collection of documents into a hierarchy of categories that are defined by the collection of documents",
+   "assignee": "Kim Brian Seong-Gon"
+  },
+  {
+   "id": "JP2002540506A",
+   "title": "Glamor template query system",
+   "assignee": "アスク ジーヴス インコーポレイテッド"
+  },
+  {
+   "id": "US20020178448A1",
+   "title": "Method and system for registering a user preference",
+   "assignee": "Te Kiefte Jan Benjamin"
+  },
+  {
+   "id": "US20020194172A1",
+   "title": "System and method for searching extended regular expressions",
+   "assignee": "Schreiber Robert Walter"
+  },
+  {
+   "id": "US6502102B1",
+   "title": "System, method and article of manufacture for a table-driven automated scripting architecture",
+   "assignee": "Accenture Llp"
+  },
+  {
+   "id": "US20030018652A1",
+   "title": "Apparatus and accompanying methods for visualizing clusters of data and hierarchical cluster classifications",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20030058706A1",
+   "title": "Tree system diagram output method, computer program and recording medium",
+   "assignee": "Hiroyuki Okamoto"
+  },
+  {
+   "id": "US20030078902A1",
+   "title": "Method, system, and program for maintaining a database of data objects",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US6556991B1",
+   "title": "Item name normalization",
+   "assignee": "E-Centives, Inc."
+  },
+  {
+   "id": "US6567936B1",
+   "title": "Data clustering using error-tolerant frequent item sets",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6572661B1",
+   "title": "System and method for automated annotation of files",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US20030120644A1",
+   "title": "Method, apparatus, and computer program product for locating data in large datasets",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030120675A1",
+   "title": "Application instantiation based upon attributes and values stored in a meta data repository, including tiering of application layers, objects, and components",
+   "assignee": "Siebel Systems, Inc."
+  },
+  {
+   "id": "US20030126102A1",
+   "title": "Probabilistic record linkage model derived from training data",
+   "assignee": "Choicemaker Technologies, Inc."
+  },
+  {
+   "id": "US20030149567A1",
+   "title": "Method and system for using natural language in computer resource utilization analysis via a communications network",
+   "assignee": "Tony Schmitz"
+  },
+  {
+   "id": "US6606625B1",
+   "title": "Wrapper induction by hierarchical data analysis",
+   "assignee": "University Of Southern California"
+  },
+  {
+   "id": "US6606659B1",
+   "title": "System and method for controlling access to internet sites",
+   "assignee": "Websense, Inc."
+  },
+  {
+   "id": "US20030154071A1",
+   "title": "Process for the document management and computer-assisted translation of documents utilizing document corpora constructed by intelligent agents",
+   "assignee": "Shreve Gregory M."
+  },
+  {
+   "id": "US6609123B1",
+   "title": "Query engine and method for querying data using metadata model",
+   "assignee": "Cognos Incorporated"
+  },
+  {
+   "id": "US20030177110A1",
+   "title": "Profile information recommendation method, program and apparatus",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US20030182310A1",
+   "title": "Method and apparatus for sociological data mining",
+   "assignee": "Elizabeth Charnock"
+  },
+  {
+   "id": "JP2003281173A",
+   "title": "Information collection system, information collection method, and program for causing computer to execute information collection",
+   "assignee": "Toshiba Corp"
+  },
+  {
+   "id": "US20030196052A1",
+   "title": "Method, system, and program for grouping objects",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030195877A1",
+   "title": "Search query processing to provide category-ranked presentation of search results",
+   "assignee": "Ford James L."
+  },
+  {
+   "id": "US6656991B2",
+   "title": "Blends of fluorinated and acrylic elastomers",
+   "assignee": "Ausimont S.P.A."
+  },
+  {
+   "id": "US6665837B1",
+   "title": "Method for identifying related pages in a hyperlinked database",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US6665659B1",
+   "title": "Methods and apparatus for distributing and using metadata via the internet",
+   "assignee": "James D. Logan"
+  },
+  {
+   "id": "US6665666B1",
+   "title": "System, method and program product for answering questions using a search engine",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040003067A1",
+   "title": "System and method for enabling a user interface with GUI meta data",
+   "assignee": "Daniel Ferrin"
+  },
+  {
+   "id": "US20040024739A1",
+   "title": "System and method for implementing a knowledge management system",
+   "assignee": "Kanisa Inc."
+  },
+  {
+   "id": "US20040064447A1",
+   "title": "System and method for management of synonymic searching",
+   "assignee": "Simske Steven J."
+  },
+  {
+   "id": "US20040088292A1",
+   "title": "Global query correlation attributes",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6745189B2",
+   "title": "System and method for enabling multi-indexing of objects",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040107125A1",
+   "title": "Business alliance identification in a web architecture",
+   "assignee": "Accenture Llp"
+  },
+  {
+   "id": "US6754873B1",
+   "title": "Techniques for finding related hyperlinked documents using link-based analysis",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040123240A1",
+   "title": "Automatic completion of dates",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040122844A1",
+   "title": "Method, system, and program for use of metadata to create multidimensional cubes in a relational database",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040128624A1",
+   "title": "System and methods for an architectural framework for design of an adaptive, personalized, interactive content delivery system",
+   "assignee": "Sbc Technology Resources, Inc."
+  },
+  {
+   "id": "US20040143600A1",
+   "title": "Content aggregation method and apparatus for on-line purchasing system",
+   "assignee": "Musgrove Timothy Allen"
+  },
+  {
+   "id": "US20040153456A1",
+   "title": "Method and apparatus to visually present discussions for data mining purposes",
+   "assignee": "Elizabeth Charnock"
+  },
+  {
+   "id": "US20040167870A1",
+   "title": "Systems and methods for providing a mixed data integration service",
+   "assignee": "Attensity Corporation"
+  },
+  {
+   "id": "US20040177015A1",
+   "title": "System and method for extracting content for submission to a search engine",
+   "assignee": "Yaron Galai"
+  },
+  {
+   "id": "US20040199923A1",
+   "title": "Method, system and software for associating atributes within digital media presentations",
+   "assignee": "Russek David J."
+  },
+  {
+   "id": "US6804667B1",
+   "title": "Filter for checking for duplicate entries in database",
+   "assignee": "Ncr Corporation"
+  },
+  {
+   "id": "US6820093B2",
+   "title": "Method for verifying record code prior to an action based on the code",
+   "assignee": "Hyperphrase Technologies, Llc"
+  },
+  {
+   "id": "US6820081B1",
+   "title": "System and method for evaluating a structured message store for message redundancy",
+   "assignee": "Attenex Corporation"
+  },
+  {
+   "id": "US6823495B1",
+   "title": "Mapping tool graphical user interface",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20040255237A1",
+   "title": "Document search engine including highlighting of confident results",
+   "assignee": "Simon Tong"
+  },
+  {
+   "id": "US20040260979A1",
+   "title": "Information mining system",
+   "assignee": "Hiroyuki Kumai"
+  },
+  {
+   "id": "US20040267700A1",
+   "title": "Systems and methods for personal ubiquitous information retrieval and reuse",
+   "assignee": "Dumais Susan T."
+  },
+  {
+   "id": "US6850896B1",
+   "title": "Method and system for managing and providing sales data using world wide web",
+   "assignee": "Market-Touch Corporation"
+  },
+  {
+   "id": "US20050076012A1",
+   "title": "Personalized searchable library with highlighting capabilities",
+   "assignee": "Udi Manber"
+  },
+  {
+   "id": "US20050086222A1",
+   "title": "Semi-automatic construction method for knowledge base of encyclopedia question answering system",
+   "assignee": "Wang Ji H."
+  },
+  {
+   "id": "US20050086211A1",
+   "title": "System and method for searching, finding and contacting dates on the Internet in instant messaging networks and/or in other methods that enable immediate finding and creating immediate contact",
+   "assignee": "Yaron Mayer"
+  },
+  {
+   "id": "US20050097150A1",
+   "title": "Data aggregation",
+   "assignee": "Mckeon Adrian J."
+  },
+  {
+   "id": "US6901403B1",
+   "title": "XML presentation of general-purpose data sources",
+   "assignee": "Quovadx, Inc."
+  },
+  {
+   "id": "US20050125311A1",
+   "title": "System and method for automated part-number mapping",
+   "assignee": "Ghassan Chidiac"
+  },
+  {
+   "id": "US20050149851A1",
+   "title": "Generating hyperlinks and anchor text in HTML and non-HTML documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20050149576A1",
+   "title": "Systems and methods for direct navigation to specific portion of target document",
+   "assignee": "Google Inc. A Delaware Corporation"
+  },
+  {
+   "id": "US20050187923A1",
+   "title": "Intelligent search and retrieval system and method",
+   "assignee": "Dow Jones Reuters Business Interactive, Llc"
+  },
+  {
+   "id": "US6957213B1",
+   "title": "Method of utilizing implicit references to answer a query",
+   "assignee": "Inquira, Inc."
+  },
+  {
+   "id": "US20050240615A1",
+   "title": "Techniques for identifying mergeable data",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6963880B1",
+   "title": "Schema evolution of complex objects",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US20050256825A1",
+   "title": "Viewing annotations across multiple applications",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20060036504A1",
+   "title": "Dynamically classifying items for international delivery",
+   "assignee": "Allocca William W"
+  },
+  {
+   "id": "US7003522B1",
+   "title": "System and method for incorporating smart tags in online content",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7003719B1",
+   "title": "System, method, and software for inserting hyperlinks into documents",
+   "assignee": "West Publishing Company, Dba West Group"
+  },
+  {
+   "id": "US20060041597A1",
+   "title": "Information retrieval systems with duplicate document detection and presentation functions",
+   "assignee": "West Services, Inc."
+  },
+  {
+   "id": "US20060047838A1",
+   "title": "Inferring server state in a stateless communication protocol",
+   "assignee": "Abhishek Chauhan"
+  },
+  {
+   "id": "US20060053175A1",
+   "title": "System and method for creating, editing, and utilizing one or more rules for multi-relational ontology creation and maintenance",
+   "assignee": "Biowisdom Limited"
+  },
+  {
+   "id": "US20060053171A1",
+   "title": "System and method for curating one or more multi-relational ontologies",
+   "assignee": "Biowisdom Limited"
+  },
+  {
+   "id": "US7020662B2",
+   "title": "Method and system for determining a directory entry's class of service based on the value of a specifier in the entry",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US20060074824A1",
+   "title": "Prediction by collective likelihood from emerging patterns",
+   "assignee": "Jinyan Li"
+  },
+  {
+   "id": "US20060074910A1",
+   "title": "Systems and methods of retrieving topic specific information",
+   "assignee": "Become, Inc."
+  },
+  {
+   "id": "US20060085465A1",
+   "title": "Method(s) for updating database object metadata",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US7051023B2",
+   "title": "Systems and methods for generating concept units from search queries",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20060136585A1",
+   "title": "Resource reconciliation",
+   "assignee": "Bmc Software, Inc."
+  },
+  {
+   "id": "US20060143603A1",
+   "title": "Data object association based on graph theory techniques",
+   "assignee": "Wolfgang Kalthoff"
+  },
+  {
+   "id": "US20060143227A1",
+   "title": "System and method for persisting software objects",
+   "assignee": "Helm Martin W"
+  },
+  {
+   "id": "US20060152755A1",
+   "title": "Method, system and program product for managing document summary information",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7080085B1",
+   "title": "System and method for ensuring referential integrity for heterogeneously scoped references in an information management system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7080073B1",
+   "title": "Method and apparatus for focused crawling",
+   "assignee": "Firstrain, Inc."
+  },
+  {
+   "id": "US20060167991A1",
+   "title": "Buddy list filtering",
+   "assignee": "Heikes Brian D"
+  },
+  {
+   "id": "US20060238919A1",
+   "title": "Adaptive data cleaning",
+   "assignee": "The Boeing Company"
+  },
+  {
+   "id": "US20060248456A1",
+   "title": "Assigning a publication date for at least one electronic document",
+   "assignee": "Ibm Corporation"
+  },
+  {
+   "id": "US20060248045A1",
+   "title": "Information access using ontologies",
+   "assignee": "Kinor Technologies Inc."
+  },
+  {
+   "id": "US7143099B2",
+   "title": "Historical data warehousing system",
+   "assignee": "Amdocs Software Systems Limited"
+  },
+  {
+   "id": "US7146536B2",
+   "title": "Fact collection for product knowledge management",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US20060288268A1",
+   "title": "Method for extracting, interpreting and standardizing tabular data from unstructured documents",
+   "assignee": "Rage Frameworks, Inc."
+  },
+  {
+   "id": "US20060293879A1",
+   "title": "Learning facts from semi-structured text",
+   "assignee": "Shubin Zhao"
+  },
+  {
+   "id": "US20070005593A1",
+   "title": "Attribute-based data retrieval and association",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070005639A1",
+   "title": "Categorization including dependencies between different category systems",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US7162499B2",
+   "title": "Linked value replication",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070016890A1",
+   "title": "Configurator using structure to provide a user interface",
+   "assignee": "Stephan Brunner"
+  },
+  {
+   "id": "US20070038610A1",
+   "title": "System and method for knowledge retrieval, management, delivery and presentation",
+   "assignee": "Nosa Omoigui"
+  },
+  {
+   "id": "US7194380B2",
+   "title": "Classification using probability estimate re-sampling",
+   "assignee": "Chordiant Software Europe Limited"
+  },
+  {
+   "id": "US7197449B2",
+   "title": "Method for extracting name entities and jargon terms using a suffix tree data structure",
+   "assignee": "Intel Corporation"
+  },
+  {
+   "id": "US20070073768A1",
+   "title": "Interactive system for building and sharing one's own databank of wisdom bytes, such as words of wisdom, basic truths and/or facts and and feats, in one or more languages",
+   "assignee": "Goradia Gautam D"
+  },
+  {
+   "id": "US20070094246A1",
+   "title": "System and method for searching dates efficiently in a collection of web documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20070130123A1",
+   "title": "Content matching",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070198480A1",
+   "title": "Query language",
+   "assignee": "Hogue Andrew W"
+  },
+  {
+   "id": "US20070203867A1",
+   "title": "Data object visualization",
+   "assignee": "Hogue Andrew W"
+  },
+  {
+   "id": "US7277879B2",
+   "title": "Concept navigation in data storage systems",
+   "assignee": "Electronic Data Systems Corporation"
+  },
+  {
+   "id": "US20070271268A1",
+   "title": "Architecture for an indexer",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7305380B1",
+   "title": "Systems and methods for performing in-context searching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080071739A1",
+   "title": "Using anchor text to provide context",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7363312B2",
+   "title": "Combining data descriptions",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US20080104019A1",
+   "title": "Associating Geographic-Related Information with Objects",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7472182B1",
+   "title": "Data collection policy for storage devices",
+   "assignee": "Emc Corporation"
+  },
+  {
+   "id": "US20090006359A1",
+   "title": "Automatically finding acronyms and synonyms in a corpus",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US7483829B2",
+   "title": "Candidate synonym support device for generating candidate synonyms that can handle abbreviations, mispellings, and the like",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7493317B2",
+   "title": "Result-based triggering for presentation of online content",
+   "assignee": "Omniture, Inc."
+  },
+  {
+   "id": "US7747571B2",
+   "title": "Methods, systems, and computer program products for implementing logical and physical data models",
+   "assignee": "At&T Intellectual Property, I,L.P."
+  },
+  {
+   "id": "US7797282B1",
+   "title": "System and method for modifying a training set",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US7953720B1",
+   "title": "Selecting the best answer to a fact query from among a set of potential answers",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8065290B2",
+   "title": "User interface for facts query engine with snippets from information sources that include query terms and answer terms",
+   "assignee": "Google Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US10459955B1",
+   "title": "Determining geographic locations for place names"
+  },
+  {
+   "id": "US9558186B2",
+   "title": "Unsupervised extraction of facts"
+  },
+  {
+   "id": "US9760570B2",
+   "title": "Finding and disambiguating references to entities on web pages"
+  },
+  {
+   "id": "US7966291B1",
+   "title": "Fact-based object merging"
+  },
+  {
+   "id": "US8239751B1",
+   "title": "Data from web documents in a spreadsheet"
+  },
+  {
+   "id": "US7792837B1",
+   "title": "Entity name recognition"
+  },
+  {
+   "id": "US8244689B2",
+   "title": "Attribute entropy as a signal in object normalization"
+  },
+  {
+   "id": "US8812435B1",
+   "title": "Learning objects and facts from documents"
+  },
+  {
+   "id": "US20080147642A1",
+   "title": "System for discovering data artifacts in an on-line data object"
+  },
+  {
+   "id": "US7672971B2",
+   "title": "Modular architecture for entity normalization"
+  },
+  {
+   "id": "US20080147578A1",
+   "title": "System for prioritizing search results retrieved in response to a computerized search query"
+  },
+  {
+   "id": "US7464090B2",
+   "title": "Object categorization for information extraction"
+  },
+  {
+   "id": "US20140359409A1",
+   "title": "Learning Synonymous Object Names from Anchor Texts"
+  },
+  {
+   "id": "US20080147641A1",
+   "title": "Method for prioritizing search results retrieved in response to a computerized search query"
+  },
+  {
+   "id": "US20080147588A1",
+   "title": "Method for discovering data artifacts in an on-line data object"
+  },
+  {
+   "id": "US9208229B2",
+   "title": "Anchor text summarization for corroboration"
+  },
+  {
+   "id": "US7991797B2",
+   "title": "ID persistence through normalization"
+  },
+  {
+   "id": "US7590628B2",
+   "title": "Determining document subject by using title and anchor text of related documents"
+  },
+  {
+   "id": "US7739212B1",
+   "title": "System and method for updating facts in a fact repository"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8239350B1/en"
+}

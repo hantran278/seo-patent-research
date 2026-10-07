@@ -1,0 +1,1555 @@
+{
+ "id": "US8396865B1",
+ "title": "Sharing search engine relevance data between corpora",
+ "abstract": "In general, the subject matter described in this specification can be embodied in methods, systems, and program products for providing a query to a search engine for searching a corpus of documents. A plurality of result documents are received from the search engine, each result document associated with a ranking. For a first document in the plurality, the following is performed. First, a second document in a second corpus is identified as containing content that identifies the same physical object as the first document. The second document was included in a plurality of result documents responsive to a second query of the second corpus, similar to the first query. Second, a new ranking is determined for the first document based on its ranking and relevance data associated with the second document. The relevance data is indicative of the second document's popularity as a result for the second query.",
+ "inventors": [
+  "Eugene Ie",
+  "Xuefu Wang",
+  "Daniel J. Clancy"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2008-12-10",
+ "filing_date": "2008-12-10",
+ "publication_date": "2013-03-12",
+ "status": "Expired - Fee Related",
+ "expiration": "2030-06-15",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/953",
+  "G06F16/9538",
+  "G06F16/951"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer-implemented method comprising: providing, by a computing system, a first query to a first search engine for searching a first corpus of documents; receiving, by the computing system and from the first search engine, a plurality of first search results that are responsive to the first query, each first search result corresponding to a first result document, each first search result being associated with a respective ranking among the first search results; and for at least a particular search result that corresponds to a particular document and that is in the plurality of first search results, performing the following: identifying, by the computing system, second relevance data that is indicative of a second search result's popularity as having been selected by a population of users as a result for a second query that is identical to the first query or similar to the first query, the second relevance data being identified based on the second search result corresponding to a second document that contains content that identifies a physical object that is also identified by content in the particular document; and determining, by the computing system, a new ranking for the particular search result among the plurality of first search results based on the particular search result's ranking and the second relevance data that is indicative of the second search result's popularity as having been selected by the population of users as the result for the second query, wherein determining the new ranking for the particular search result is further based upon first relevance data that is indicative of the particular search result's popularity as having been selected by a first population of users as a result for the first query, wherein determining the new ranking for the particular search result further comprises a weighting of the first relevance data and the second relevance data, and wherein the weighting favors the first relevance data as selections of the particular search result as a result for first query increase.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, wherein the weighting favors the first relevance data as selections of the particular search result pass a threshold number of selections.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, wherein: the physical object is a book; and the content of the second document identifies the physical object with an ISBN number and the content of the particular document identifies the physical object with the ISBN number.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, wherein: the physical object is a product; and the content of the second document identifies the physical object with a product identification number and the content of the particular document identifies the physical object with the product identification number.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 1, wherein: the second document is from a second corpus of documents; and the second query was provided to a second search engine for searching the second corpus of documents.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 5, wherein the second search engine is a general content search engine and the first search engine is a book content search engine.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 1, wherein: the second document is from a second corpus of documents; and the documents of the first corpus include content of a shared category and the documents of the second corpus include content of all categories.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 1, wherein: the second document is from a second corpus of documents; the second query was provided to a second search engine for searching the second corpus of documents; and the second search engine is a general content search engine and the first search engine is a specific content search engine.",
+   "dependent": true
+  },
+  {
+   "text": "9. The method of claim 1, wherein the second relevance data is based on an aggregate amount of time that the second document is viewed by the users in the population in response to the users in the population selecting the second search result as a result for the second query.",
+   "dependent": true
+  },
+  {
+   "text": "10. The method of claim 1, wherein the second query is similar to the first query if the second query and first query each include an identical term.",
+   "dependent": true
+  },
+  {
+   "text": "11. The method of claim 1, further comprising outputting the plurality of first search results, or a portion thereof, to a user, the output first result documents arranged, at least in part, according to the particular search result's new ranking.",
+   "dependent": true
+  },
+  {
+   "text": "12. A computer program product tangibly embodied in one or more non-transitory computer-readable storage mediums and comprising instructions that when executed by one or more processors perform operations comprising: providing a first query to a first search engine for searching a first corpus of documents; receiving, from the first search engine, a plurality of first search results that are responsive to the first query, each first search result corresponding to a first result document, each first search result being associated with a respective ranking among the first search results; and for at least a particular search result that corresponds to a particular document and that is in the plurality of first search results, performing the following: identifying second relevance data that is indicative of a second search result's popularity as having been selected by a population of users as a result for a second query that is identical to the first query or similar to the first query, the second relevance data being identified based on the second search result corresponding to a second document that contains content that identifies a physical object that is also identified by content in the particular document; and determining a new ranking for the particular search result among the plurality of first search results based on the particular search result's ranking and the second relevance data that is indicative of the second search result's popularity as having been selected by the population of users as the result for the second query, wherein determining the new ranking for the particular search result is further based upon first relevance data that is indicative of the particular search result's popularity as having been selected by a first population of users as a result for the first query, wherein determining the new ranking for the particular search result further comprises a weighting of the first relevance data and the second relevance data, and wherein the weighting favors the first relevance data as selections of the particular search result as a result for first query increase.",
+   "dependent": false
+  },
+  {
+   "text": "13. A system, comprising: one or more non-transitory computer-readable mediums including instructions; one or more processors configured to execute the instructions to perform operations comprising: providing a first query to a first search engine for searching a first corpus of documents; receiving, from the first search engine, a plurality of first search results that are responsive to the first query, each first search result corresponding to a first result document, each first search result being associated with a respective ranking among the first search results; and for at least a particular search result that corresponds to a particular document and that is in the plurality of first search results, performing the following: identifying second relevance data that is indicative of a second search result's popularity as having been selected by a population of users as a result for a second query that is identical to the first query or similar to the first query, the second relevance data being identified based on the second search result corresponding to a second document that contains content that identifies a physical object that is also identified by content in the particular document; and determining a new ranking for the particular search result among the plurality of first search results based on the particular search result's respective ranking and the second relevance data that is indicative of the second search result's popularity as having been selected by the population of users as the result for the second query, wherein determining the new ranking for the particular search result is further based upon first relevance data that is indicative of the particular search result's popularity as having been selected by a first population of users as a result for the first query, wherein determining the new ranking for the particular search result further comprises a weighting of the first relevance data and the second relevance data, and wherein the weighting favors the first relevance data as selections of the particular search result as a result for first query increase.",
+   "dependent": false
+  },
+  {
+   "text": "14. The system of claim 13, wherein the second query is similar to the first query if the second query and first query each include an identical term.",
+   "dependent": true
+  },
+  {
+   "text": "15. The system of claim 13, wherein the operations further comprise outputting the plurality of first search results, or a portion thereof, to a user, the output first result documents arranged, at least in part, according to the particular search result's new ranking.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## BACKGROUND\n\n\nSome search engines that search a document corpus (e.g., a group of web pages) collect information pertaining to which documents users find relevant for a particular search query (e.g., the documents viewed as results for a specific query). The collected information can be used to improve the rank of relevant documents in search results. However, when new documents are introduced into a corpus, very little information on their relevance for particular searches exists. Therefore, new documents which may be highly pertinent as results for a given query can have low search result rankings that make them less likely to be noticed by users.\n\n\n## SUMMARY\n\n\nThis specification describes technologies relating to search engine ranking. In general, one aspect of the subject matter described in this specification can be embodied in a method that includes providing a first query to a first search engine for searching a first corpus of documents. A plurality of first result documents are received from the first search engine responsive to the query, each first result document being associated with a respective ranking among the first result documents. For one or more first documents in the plurality of first result documents, the following is performed. First, a distinct second document in a second corpus of documents is identified where the second document contains content that identifies a physical object that has an identification number, where the first document contains content that identifies the physical object, and where the second document was included in a plurality of second result documents responsive to a second query of the second corpus of documents, and where the second query is identical to the first query or similar to the first query. Second, a new ranking is determined for the first document in the plurality of first search result documents based on the first document's respective ranking and second relevance data associated with the second document, where the second relevance data is indicative of the second document's popularity among a population of users as a result for the second query. Other embodiments of this aspect include corresponding systems and computer program products.\n\nThese and other embodiments can optionally include one or more of the following features. Determining the new ranking for the first document can be further based upon first relevance data associated with the first document, where the first relevance data is indicative of the first document's popularity among a population of users as a result for the first query. Determining the new ranking for the first document can further include a weighting of the first relevance data and the second relevance data. The weighting can favor the first relevance data as selections of the first document as a result for the first query increase. The weighting can favor the first relevance data as views of the first document pass a threshold number of views. The physical object can be a book and the identification number can be an ISBN number. The physical object can be a product and the identification number can be a product identification number. The second query can be provided to a second search engine for searching the second corpus of documents. The second search engine can be a general content search engine and the first search engine can be a book content search engine. The documents of the first corpus can include content of a shared category and the documents of the second corpus can include content of all categories. The second query can be provided to a second search engine for searching the second corpus of documents, where the second search engine is a general content search engine and the first search engine is a specific content search engine. The relevance data associated with the second document can be based on an aggregate amount of time that the second document is selected by the users in the population. The second query can be similar to the first query if the second query and first query each include an identical term. The plurality of first result documents, or a portion thereof, can be output to a user, the output first result documents arranged according to each first result document's new ranking.\n\nParticular embodiments of the subject matter described in this specification can be implemented to realize one or more of the following advantages. A document newly introduced into a corpus of documents searched by a search engine may benefit from existing user search patterns involving documents of similar content. The documents of similar content may be included in the same corpus or a corpus searched by a different search engine. Similarly, a search engine receiving limited traffic may gain the benefit of statistically significant user search patterns from a search engine receiving greater traffic.\n\nThe details of one or more embodiments of the invention are set forth in the accompanying drawings and the description below. Other features, aspects, and advantages of the invention will become apparent from the description, the drawings, and the claims.\n\n\n## DESCRIPTION OF DRAWINGS\n\n\nFIG. 1 shows a representation of an example system for improving the relevance of results obtained from submitting search queries.\n\nFIG. 2 shows an example system for improving the relevance of results obtained from submitting search queries.\n\nFIG. 3 shows example components of a system for improving the relevance of results obtained from submitting search queries.\n\nFIG. 4 shows a flow chart of an example process for improving the relevance of results obtained from submitting search queries.\n\nFIG. 5 is a schematic diagram of a computer system. Like reference symbols in the various drawings indicate like elements.\n\n\n## DETAILED DESCRIPTION\n\n\nSystems and techniques for improving search results for searches of a first corpus of documents by utilizing relevance data collected as a result of searches performed on a second corpus of documents are described herein.\n\nFIG. 1 shows a representation of an example system 100 for improving the relevance of results obtained from submitting search queries. Book search engine system 100 includes a book search engine server 140 that provides a list of search results in response to a query 118 (e.g., one or more search terms from a user or a process such as an executing software application). For example, book search engine page 116 (e.g. a website) permits a user to enter the query “Dinosaurs” and receive search results 120 and 122 about the books “Early Dinosaurs” and “Mean Dinosaurs.”\n\nThe search results 120 and 122 (also called result documents) correspond to documents in a corpus of book content documents 106 (e.g. a collection of web pages of the Internet relating to books or pages of books) searched by the book search engine server 140. The corpus 106 includes documents 124, 126, 128, and 130. For example, search result 122 contains a title, information, and an image corresponding to document 126 and permits a user to view the document 126 (e.g., a user may click on or otherwise select a link and visit document 126). Search results 120 and 122 are arranged according to a rank of each search result. For example, the search result 120 has a better rank than result 122 because it is closer to the top of the page 116.\n\nWhen the query 118 is provided to the book search engine server 140, the book search engine server 140 generates an initial list of search results corresponding to relevant documents in the corpus 106 and provides an initial rank or score to each search result. For example, the initial rank may be based upon the prevalence of the query 118's search terms within the search result document or may be based upon how often other highly ranked documents link to the particular search result document. The initial ranking is discussed in greater detail later.\n\nIn some implementations, the initial rank of a search result is modified based upon relevance data. Relevance data indicates the relevance of a document as a search result for a given query for a population of users. For example, document 126 and corresponding search results are associated with relevance data 112 and 114 which may have been used to modify (e.g., increase or decrease) the initial rank of the search result 122. The relevance data 112 and 114 may indicate an aggregate amount of time that the document 126 is viewed by users in the population using the book search engine server 140 (e.g., whether each user views the document for a short, medium, or long amount of time). The relevance data may also indicate a number of times that the document 126 is selected by users in the population or a view (i.e., impression) to click ratio. The relevance data may further indicate a user-specified promotion or demotion of a search result. Other measures of relevance are possible.\n\nBy way of illustration, relevance data 114 may indicate the relevance of document 126 to the query “Dinosaurs” and relevance data 112 may indicate the relevance of document 126 to the query “Fish.” Because the document 126 contains content about a dinosaur book, the relevance data 114 is likely to indicate a greater relevance that the relevance data 112. In some implementations, the relevance data includes click/query pairs. For instance, relevance data 114 may indicate the relevance (e.g., the “click information”) of document 126 to a specific query. The click information indicates the amount of time a user viewed a document in response to the specific query. Longer dwell times on the document indicate a greater relevance. Any of the above discussed relevance data may be query specific. Other indicators of relevance are possible.\n\nIn some implementations, a separate general content search engine server (not shown) searches a corpus of general content documents 104 (i.e., a group of documents that include content of all types or categories). For example, document 132 may include content about a breed of dogs, document 134 may include content about a journal entry, and document 136 may include content about a dinosaur book. The corpus of general content documents 104 may include documents of similar content to the book content corpus of documents 106. For example, the documents of the book corpus 106 include scanned copies of books while the documents of the general corpus 106 include specific pages of a bookstore website about some of the same books.\n\nIn some implementations, the book search engine server 140 or another process identifies a document in the corpus of general content documents 104 as associated with a document in the corpus of book content documents 106. The two documents are identified as associated if they include similar content. In some implementations, the similar content is a physical object with an identification number (e.g. a book with an International Standard Book Number (ISBN) number or a product with a product number). For example, the document 136 is associated with document 126 because each document identifies a book “Mean Dinosaurs” by John Doe.\n\nIn various implementations, a primary content of each document in the corpus of general content documents 104 is identified. For example, the documents in corpus 104 that include content describing a single book are identified. In some implementations, the identification occurs by searching for a physical object's identification number. A server (e.g. server 140 or the general content search engine server) searches the corpus of general content documents 104 for ISBN numbers.\n\nShould a searched document include a single ISBN number, the searched document is identified as containing as its primary content the book associated with the ISBN number.\n\nShould a searched document include more than one ISBN number, the primary content of the searched document is determined by performing search queries for each ISBN number using as search terms the author or title of the book corresponding to each ISBN number. A document rank for each search is received and the query corresponding to the highest document ranking identifies the searched document's primary content. The system 100 stores the primary content of documents of the corpus 104, if any, in a repository (e.g. a database connected to the book search engine server 140 or the general content search engine server). Not only is the searched document identified as containing a primary content, but a search result corresponding to the searched document and provided in response to a query is identified as associated with the primary content.\n\nThe primary content of documents in the general content corpus of documents 104 may be determined without using an ISBN number. In some implementations, a book is identified as the primary content of a document if the document satisfies a citation criterion for the book. A citation criterion can be satisfied, for example, if a citation score of a document for a book exceeds a citation threshold.\n\nTo calculate a citation score of a document for a book, a server (e.g., book search engine server 140 or the general content search engine) first determines if the document cites to a book. A document can cite to a book if the document, for example, includes a reference to the book, such as the book title and, optionally, the author of the book. In some implementations, the server has access to a library data store that stores book metadata for many published books, including book titles, author names, ISBN numbers, year published, and other such information. This information from the library data store can be compared to content of the document to identify any book citations in the document.\n\nThe server can generate a citation score for each book cited within a document by calculating a relevance metric of the book metadata in relation to the contents of the document. For example, upon finding a book citation, the server can access book metadata for the book and compare the book metadata to the content of the document to generate a citation score for the document and the book. The citation score, in some implementations, is a measure of the relevance of the book metadata to the content of the document. In some implementations, the server can submit the book metadata as a query to the general content search engine server and an relevance score for the document can be generated by the search engine. The citation score for the document for that book is then set to this relevance score.\n\nAfter citations scores are determined, the general content search engine server determines whether the citation score for a document and a book satisfies a citation criterion. In some implementations, the citation score of a particular book referenced within a document satisfies the citation criterion when the citation score of the document for the particular book exceeds a citation threshold, and when citation scores of the document for any other books referenced in the document are each less than the citation score for the particular book. In some implementations, a citation score can satisfy the citation criterion if the citation score for a particular book is at least a predetermined percentage greater than the citation scores for the other books cited within the same document (e.g., at least two times greater). If a citation score for a particular book cited in a document is determined to satisfy the citation criteria, then the book is identified as the primary content of the document.\n\nIn some implementations, the primary content of documents in the book content corpus of documents 106 is identified by ISBN numbers or other unique identifiers entered when the documents (e.g., scanned books or pages of books) are entered into the corpus 106. In other implementations, procedures similar to those described above regarding the corpus of general content documents 104 is performed on the corpus of book content documents 106.\n\nIn some implementations, the search engine server 140 modifies the initial ranking of search result 122 corresponding to document 126 based upon relevance data of associated document 136 (i.e., relevance data 142 and 144). The relevance data 142 and 144 identifies information similar to relevance data 112 and 114, but the information indicates relevance of the document 136 to users of the general content search engine server (not the book search engine server 140). For example, relevance data 144 may indicate the relevance of document 136 to the query “Dinosaurs” (e.g. a number of views of the document 136 in result to the query “Dinosaurs”). The book search engine server 140 may not receive as much traffic as the general content search engine server, so it benefits by “borrowing” relevance data from associated documents.\n\nThe book search engine server 140 checks the repository to determine associations between documents in corpus 106 and corpus 104. The checking may occur, for example, with each query of the book search engine server 140 (in which case, pertinent relevance data would be used by server 140 in modifying initial search result rankings). The checking may also occur periodically, in which case relevance data of associated documents in corpus 104 is stored by the book search engine server 140 for immediate access upon processing of a query 118.\n\nIn some implementations, in determining the modified ranking of a search result 122, the book search engine server 140 weighs the relevance data of the corresponding document 126 and its associated document 136 from the corpus of general content documents 104 (e.g., relevance data 114 of document 126 and relevance data 144 of document 136 are weighted). In various implementations, the information or data of 114 and 144 is generated through user interaction or activity associated with each respective search engine server. If the activity corresponding to the relevance data 114 is below a low threshold, the system 140 only uses the relevance data 144. However, if activity corresponding to the relevance data 114 is above a high threshold, the system 140 only uses the relevance data 114. Still, if the activity corresponding to the relevance data 114 is between the low and high thresholds, the system 140 may average or otherwise combine relevance data 114 and 144.\n\nIn some implementations, the book search engine server 142 favors the relevance data 144 as the corresponding activity increases. In other implementations, the system 142 favors the relevance data 114 as the corresponding activity increases in proportion to the corresponding activity of the relevance data 144.\n\nIn some implementations, more than one document from the corpus of general content documents 104 is associated with document 126 of corpus 106. For example, document 134 may, like document 136 and document 126, contain content about a book “Mean Dinosaurs.” In such implementation, numerous methods of determining which relevance data from the corpus 104 to use are feasible. The relevance data of sister documents 134 and 136 in the corpus 104 may be averaged. The relevance data with the most favorable or least favorable values from the sister documents may be used. The relevance data of the sister documents may be aggregated. Also, system 100 may overwrite in the repository a document previously associated with a document of the corpus 106, effectively only allowing association with one document (and one set of relevance data).\n\nIt should be understood that the use of search engine servers and corpora of documents corresponding to books and general content matter is for illustrative purposes only. In various implementations, the described system can work with any collection of physical or electronic objects having unique identifiers. The corpus of book content documents 106 may instead include documents associated with any specific content, type, topic, category, or subject or may even include documents of general content. For example, the corpus 106 may include documents including content of a shared category (e.g., news articles, products, images, videos, blog entries, user group entries, etc.). A search engine searching such category is considered a specific content search engine. A search engine may search more than one or all categories is considered a general content search engine. The corpus of general content documents 104 similarly may include documents addressing any type, general or specific. Further, the book search engine server 140 may include several servers or computerized devices performing the operations described above. Example components of the server 140 are described in systems 200 and 300.\n\nFIG. 2 shows an example system 200 for improving the relevance of results obtained from submitting search queries. The system 200 is an example of the system 100 implemented in an Internet, intranet, or other client/server environment. Although several components are illustrated, there may be fewer or more components in the system 200. Moreover, the components can be distributed on one or more computing devices connected by one or more networks or other suitable communication mediums.\n\nA user 202 (202 a, 202 b, 202 c) interacts with the system 200 through a client device 204 (204 a, 204 b, 204 c) or other device. For example, the client device 204 can be a computer terminal within a local area network (LAN) or within a wide area network (WAN). The client device 204 includes a random access memory (RAM) 206 (or other memory and/or a storage device) and a processor 208. The processor 208 is structured to process instructions within the system 200. In some implementations, the processor 208 is a single threaded processor. In other implementations, the processor 208 is a multi-threaded processor. The processor 208 can include multiple processing cores and is structured to process instructions stored in the RAM 206 (or other memory and/or a storage device included with the client device 204) to display graphical information for a user interface.\n\nA user 202 a connects to the search engine 230 within a book search engine server 214 to submit a query 215. The book search engine server 214 and the query 215, for instance, are the same as the server 140 and the query 118, respectively, of FIG. 1. When the user 202 a submits the query 215 through an input device attached to a client device 204 a, a client-side query signal 210 a is sent into a network 212 and is forwarded to the book search engine server 214 as a server-side query signal 210 b. In some implementations, the server 214 is one or more server devices in one or more locations.\n\nBook search engine server 214 includes a memory device 216, which includes the search engine 230 loaded therein. A processor 218 is configured to process instructions within the server 214. These instructions can implement one or more components of the search engine 230. The processor 218 may be a single-threaded processor or a multi-threaded processor and may include multiple processing cores. The processor 218 processes instructions stored in the memory 216 related to the search engine 230 and sends information to the client device 204, through the network 212, to create a graphical presentation in a user interface of the client device 204 (e.g., a search results web page displayed in a web browser). In some implementations, the graphical presentation is the page 116 in FIG. 1.\n\nThe server-side query signal 210 b is received by the search engine 230. The search engine 230 uses the information within the user query 215 (e.g., query terms) to find relevant documents. In some implementations, the search engine 230 includes an indexing engine 220 that actively searches a corpus (e.g., the corpus of book content documents 106 or web pages on the Internet) to index the documents found in that corpus, and the index information for the documents in the corpus is stored in a book content index database 222. This index database 222 is accessed to identify documents related to the user query 215. Note that, an electronic document (which for brevity will simply be referred to as a document) does not necessarily correspond to a file. A document can be stored in a portion of a file that holds other documents, in a single file dedicated to the document in question, or in multiple coordinated files.\n\nIn some implementations, the search engine 230 includes a ranking engine 252 to rank the documents related to the user query 215. The ranking of the documents is performed, for instance, using techniques for determining an information retrieval (IR) score for indexed documents in view of a given query. By way of illustration, the relevance of a particular document with respect to a particular search term or to other provided information may be determined by any appropriate technique. For example, the general number of back-links to a document that contains matches for a search term is used to infer a document's relevance. In particular, if a document is linked to (e.g., is the target of a hyperlink) by many other relevant documents (e.g., documents that also contain matches for the search terms), it can be inferred that the target document is particularly relevant. This inference is made because the authors of the pointing documents presumably point, for the most part, to other documents that are relevant to their audience.\n\nIf the pointing documents are in turn the targets of links from other relevant documents, they can be considered more relevant, and the first document is considered particularly relevant because it is the target of relevant (or even highly relevant) documents. Such a technique is the determinant of a document's relevance or one of multiple determinants. In some implementations, appropriate techniques are also utilized to identify and eliminate attempts to cast false votes so as to artificially drive up the relevance of a page.\n\nTo further improve such traditional document ranking techniques, the ranking engine 252 receives an additional signal from a rank modifier engine 256 to assist in determining an appropriate ranking for the documents. The rank modifier engine 256 provides one or more measures of relevance for the documents ( e.g. relevance data 112, 114, 142, and 144 from FIG. 1), which can be used by the ranking engine 252 to improve the search results' ranking provided to the user 202. The rank modifier engine 256 performs one or more of the operations described further below to generate the one or more measures of relevance.\n\nThe search engine 230 forwards the final, ranked result list within a server-side search results signal 228 a through the network 212. Exiting the network 212, a client-side search results signal 228 b is received by the client device 204 a where the results are stored within the RAM 206 and/or used by the processor 208 to display the results on an output device for the user 202 a.\n\nFIG. 3 shows example components of a system 300 for improving the relevance of results obtained from submitting search queries. These components include an indexing engine 310, a scoring engine 320, a ranking engine 330, and a rank modifier engine 370. The indexing engine 310 functions as described above for the indexing engine 220. In addition, the scoring engine 320 generates scores (e.g. initial rankings) for search results based on many different features, including content-based features that link a query to search results, and query-independent features that generally indicate the quality of documents results. The content-based features include aspects of document format, such as query matches to title or anchor text in an HTML (Hyper Text Markup Language) page. The query-independent features include aspects of document cross-referencing. Moreover, the particular functions used by the scoring engine 320 can be tuned to adjust the various feature contributions to the final IR score, using automatic or semi-automatic processes.\n\nThe ranking engine 330 produces a ranking of search results 340 for display to a user based on IR scores received from the scoring engine 320 and one or more signals from the rank modifier engine 370. A tracking component 350 records information regarding individual user selections of the results presented in the ranking 340. In some implementations, the tracking component 350 is embedded JavaScript code included in a web page ranking 340 that identifies user selections (clicks) of individual search results and also identifies when the user returns to the results page, thus indicating the amount of time the user spent viewing the selected document result. In other implementations, the tracking component 350 is a proxy system through which user selections of the search results are routed, or the tracking component includes pre-installed software at the client (e.g., a toolbar plug-in to the client's operating system). Other implementations are also possible, such as by using a feature of a web browser that allows a tag/directive to be included in a page, which requests the browser to connect back to the server with message(s) regarding link(s) clicked by the user.\n\nThe recorded information is stored in result selection logs 360. In some implementations, the recorded information includes log entries that indicate, for each user selection, the query (Q), the document (D), the time (T) on the document, the language (L) employed by the user, and the country (C) where the user is likely located (e.g., based on the server used to access the IR system). In further implementations, other information is recorded regarding user interactions with a presented ranking, including negative information, such as the fact that a document result was presented to a user, but was not clicked, position(s) of click(s) in the user interface, IR scores of clicked results, IR scores of all results shown before click, the titles and snippets shown to the user before the click, the user's cookie, cookie age, IP (Internet Protocol) address, user agent of the browser, etc. In other implementations, similar information (e.g., IR scores, position, etc.) is recorded for an entire session, or multiple sessions of a user, including potentially recording such information for every click that occurs both before and after a current click.\n\nThe information stored in the result selection logs 360 (e.g. relevance data 112 and 114 is included in this information) is used by the rank modifier engine 370 in generating the one or more signals to the ranking engine 330. In general, a wide range of information is collected and used to modify or tune the click signal from the user to make the signal, and the future search results provided, a better fit for the user's needs. Thus, user interactions with the rankings presented to the users of the information retrieval system can be used to improve future rankings.\n\nIn some implementations, information stored in general content search engine result selection logs 380 ( e.g. relevance data 142 and 144 is included in this information) is used by the rank modifier engine 370 in generating one or more signals to the ranking engine 330. The information in logs 380 is created by the general content search engine server (discussed in relation to FIG. 1) in a manner similar to the creation of the information in the logs 360 by the book search engine server 302. In some implementations, the book search engine server 302 periodically retrieves information from the logs 380 and stores the information locally for immediate access.\n\nThe components shown in FIG. 3 can be combined in various manners and implemented in various system configurations. For example, the scoring engine 320 and the ranking engine 330 can be merged into a single ranking engine, such as the ranking engine 252 of FIG. 2. The rank modifier engine 370 and the ranking engine 330 can also be merged, and in general, a ranking engine includes any software component that generates a ranking of search results after a query. Moreover, a ranking engine can be included in a client system in addition to (or rather than) in a server.\n\nFIG. 4 shows a flow chart of an example process for improving the relevance of results obtained from submitting search queries. The process 400 may be performed, for example, by systems such as the system 100 in FIG. 1, system 200 in FIG. 2, and system 300 in FIG. 3 as the basis of an example for describing the process. Another system or combination of systems, however, may be used to perform the process 400.\n\nIn box 402, a query is provided to a search engine. The query is provided by a user of the search engine or by a system for searching documents in a corpus of documents. For example, the book search engine server 140 in FIG. 1 receives a query 118 from a user entering the query on the book search engine web page 116.\n\nIn box 404, search results are received. For example, the scoring engine 320 receives a list or a plurality of search results relevant to the query 118 from the indexing engine 310. Each search result represents or corresponds to a document in the corpus of documents. For example, the received search results (that are not shown) correspond to documents 124, 126, 128, and 130 in the corpus of book content documents 106.\n\nIn box 406, an initial rank or score is provided to each of the received search results based upon each corresponding document's relevance to the query. For example, the scoring engine 320 provides an initial rank to each of the received search results corresponding to documents 124, 126, 128, and 130. The search results are initially ranked based upon their corresponding documents' relevance to the query 118 “Dinosaurs.”\n\nIn box 408, an initial rank for a first search result (i.e., a single search result from the plurality of search results) is received. For example, the ranking engine 330 receives an initial rank for the search result corresponding to the document 126.\n\nIn box 410, content of a first document (i.e., a document corresponding to the first search result) is identified. In some implementations, the identified content includes physical objects (e.g., books or products). In other implementations, the physical objects include identification numbers (e.g., an ISBN number for a book or a product number for a product). For example, the book search engine server 140 identifies the book “Mean Dinosaurs” by John Doe as the content of document 126.\n\nIn other implementations, a non-physical object is identified as the content of the first document. For example, an electronic version of a book, a journal entry, a blog posting, a website, a song, or a video may be identified as the content of the first document. The non-physical object may include an identification number (e.g. an ISBN number for an electronic book or database tags or labels for digital content). In some implementations, only content of a particular type or subject matter is identified (e.g. only books are identified; not journal entries, newspaper articles, etc.). In some implementations, no content is identified for the first document and the operation of box 408 is followed by the determination of box 414.\n\nIn box 412, a second document is identified that includes content similar or the same as the content of the first document. In some implementations the second document is from a separate, second corpus of documents searched by a separate search engine. For example, the book search engine server 140 identifies the document 136 from corpus 104 as including content similar to the content of the document 126. Both the document 126 and 136 include content about the book “Mean Dinosaurs” by John Doe. In some implementations, the second document is from the same corpus of documents as the first document (e.g., the book search engine server 140 identifies document 130 as including content about the book “Mean Dinosaurs”). In other implementations, the book search engine server 140 identifies more than one document that includes content about the book “Mean Dinosaurs” (e.g., the documents 134 and 136).\n\nIn box 414, a new or modified rank of the first search result is determined using relevance data associated with the second document. In some implementations, the relevance data identifies information regarding user interaction with a search result corresponding to the second document. For example, the information may include a number of selections of the search result as a result for a query, a length of selections of the search result as a result for a query, an indication of previewing the second document as a result for the query, etc.\n\nIn some implementations, the relevance data is the relevance data 142 and 144 of FIG. 1. For example, as a result of the query 118 for “Dinosaurs,” the initial rank for the search result associated with document 126 is modified using relevance data 144 of the document 136. The relevance data 144 indicates a vector of the length of user selections of document 136 for the query “Dinosaurs” (or a query that contains the term “Dinosaurs”).\n\nIn box 416, a determination is made whether there are additional search results from the plurality of received search results for which the operations of boxes 408 through 414 has not been performed. If such an additional search result exists, the process performs the operations of boxes 408 through 412 for the additional search result (i.e., the new “first search result”). For example, the process 400 performs the operations of boxes 408 through 412 for the search results related to documents 124, 128, and 130 (the operations were already performed for the search result related to document 126). If no such additional search result exists, the process ends.\n\nFIG. 5 is a schematic diagram of a computer system 500. The system 500 can be used for the operations described in association with any of the computer-implement methods described previously, according to one implementation. The system 500 is intended to include various forms of digital computers, such as laptops, desktops, workstations, personal digital assistants, servers, blade servers, mainframes, and other appropriate computers. The system 500 can also include mobile devices, such as personal digital assistants, cellular telephones, smartphones, and other similar computing devices. Additionally the system can include portable storage media, such as, Universal Serial Bus (USB) flash drives. For example, the USB flash drives may store operating systems and other applications. The USB flash drives can include input/output components, such as a wireless transmitter or USB connector that may be inserted into a USB port of another computing device.\n\nThe system 500 includes a processor 510, a memory 520, a storage device 530, and an input/output device 540. Each of the components 510, 520, 530, and 540 are interconnected using a system bus 550. The processor 510 is capable of processing instructions for execution within the system 500. The processor may be designed using any of a number of architectures. For example, the processor 510 may be a CISC (Complex Instruction Set Computers) processor, a RISC (Reduced Instruction Set Computer) processor, or a MISC (Minimal Instruction Set Computer) processor.\n\nIn one implementation, the processor 510 is a single-threaded processor. In another implementation, the processor 510 is a multi-threaded processor. The processor 510 is capable of processing instructions stored in the memory 520 or on the storage device 530 to display graphical information for a user interface on the input/output device 540.\n\nThe memory 520 stores information within the system 500. In one implementation, the memory 520 is a computer-readable medium. In one implementation, the memory 520 is a volatile memory unit. In another implementation, the memory 520 is a non-volatile memory unit.\n\nThe storage device 530 is capable of providing mass storage for the system 500. In one implementation, the storage device 530 is a computer-readable medium. In various different implementations, the storage device 530 may be a floppy disk device, a hard disk device, an optical disk device, or a tape device.\n\nThe input/output device 540 provides input/output operations for the system 500. In one implementation, the input/output device 540 includes a keyboard and/or pointing device. In another implementation, the input/output device 540 includes a display unit for displaying graphical user interfaces.\n\nThe features described can be implemented in digital electronic circuitry, or in computer hardware, firmware, software, or in combinations of them. The apparatus can be implemented in a computer program product tangibly embodied in an information carrier, e.g., in a machine-readable storage device for execution by a programmable processor; and method steps can be performed by a programmable processor executing a program of instructions to perform functions of the described implementations by operating on input data and generating output. The described features can be implemented advantageously in one or more computer programs that are executable on a programmable system including at least one programmable processor coupled to receive data and instructions from, and to transmit data and instructions to, a data storage system, at least one input device, and at least one output device. A computer program is a set of instructions that can be used, directly or indirectly, in a computer to perform a certain activity or bring about a certain result. A computer program can be written in any form of programming language, including compiled or interpreted languages, and it can be deployed in any form, including as a stand-alone program or as a module, component, subroutine, or other unit suitable for use in a computing environment.\n\nSuitable processors for the execution of a program of instructions include, by way of example, both general and special purpose microprocessors, and the sole processor or one of multiple processors of any kind of computer. Generally, a processor will receive instructions and data from a read-only memory or a random access memory or both. The essential elements of a computer are a processor for executing instructions and one or more memories for storing instructions and data. Generally, a computer will also include, or be operatively coupled to communicate with, one or more mass storage devices for storing data files; such devices include magnetic disks, such as internal hard disks and removable disks; magneto-optical disks; and optical disks. Storage devices suitable for tangibly embodying computer program instructions and data include all forms of non-volatile memory, including by way of example semiconductor memory devices, such as EPROM, EEPROM, and flash memory devices; magnetic disks such as internal hard disks and removable disks; magneto-optical disks; and CD-ROM and DVD-ROM disks. The processor and the memory can be supplemented by, or incorporated in, ASICs (application-specific integrated circuits).\n\nTo provide for interaction with a user, the features can be implemented on a computer having a display device such as a CRT (cathode ray tube) or LCD (liquid crystal display) monitor for displaying information to the user and a keyboard and a pointing device such as a mouse or a trackball by which the user can provide input to the computer.\n\nThe features can be implemented in a computer system that includes a back-end component, such as a data server, or that includes a middleware component, such as an application server or an Internet server, or that includes a front-end component, such as a client computer having a graphical user interface or an Internet browser, or any combination of them. The components of the system can be connected by any form or medium of digital data communication such as a communication network. Examples of communication networks include a local area network (“LAN”), a wide area network (“WAN”), peer-to-peer networks (having ad-hoc or static members), grid computing infrastructures, and the Internet.\n\nThe computer system can include clients and servers. A client and server are generally remote from each other and typically interact through a network, such as the described one. The relationship of client and server arises by virtue of computer programs running on the respective computers and having a client-server relationship to each other.",
+ "cited_by": [
+  {
+   "id": "US20120166421A1",
+   "title": "Systems and/or methods for user feedback driven dynamic query rewriting in complex event processing environments",
+   "assignee": "Software Ag"
+  },
+  {
+   "id": "US20130173571A1",
+   "title": "Click noise characterization model",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "CN103744897A",
+   "title": "Associated search method and associated search system for fault information, and network management system",
+   "assignee": "华为技术有限公司"
+  },
+  {
+   "id": "US20140181077A1",
+   "title": "Techniques for three-step join processing on column partitioned tables",
+   "assignee": "Teradata Us, Inc."
+  },
+  {
+   "id": "US20140181076A1",
+   "title": "Techniques for join processing on column partitioned tables",
+   "assignee": "Teradata Us, Inc."
+  },
+  {
+   "id": "US8898153B1",
+   "title": "Modifying scoring data based on historical changes",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8909655B1",
+   "title": "Time based ranking",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8972394B1",
+   "title": "Generating a related set of documents for an initial set of documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9135307B1",
+   "title": "Selectively generating alternative queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9183499B1",
+   "title": "Evaluating quality based on neighbor features",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9235627B1",
+   "title": "Modifying search result ranking based on implicit user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9390143B2",
+   "title": "Recent interest based relevance scoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9623119B1",
+   "title": "Accentuating search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9659097B1",
+   "title": "Propagating query classifications",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20180032614A1",
+   "title": "System And Method For Compiling Search Results Using Information Regarding Length Of Time Users Spend Interacting With Individual Search Results",
+   "assignee": "Haystack Ws Inc."
+  },
+  {
+   "id": "US11526672B2",
+   "title": "Systems and methods for term prevalance-volume based relevance",
+   "assignee": "Richard Kerr"
+  },
+  {
+   "id": "US11023553B2",
+   "title": "Identifying and managing trusted sources in online and networked content for professional knowledge exchange",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US10664332B2",
+   "title": "Application programming interfaces for identifying, using, and managing trusted sources in online and networked content",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "RU2720954C1",
+   "title": "Search index construction method and system using machine learning algorithm",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5265065A",
+   "title": "Method and apparatus for information retrieval from a database by replacing domain specific stemmed phases in a natural language to create a search query",
+   "assignee": "West Publishing Company"
+  },
+  {
+   "id": "US5488725A",
+   "title": "System of document representation retrieval by successive iterated probability sampling",
+   "assignee": "West Publishing Company"
+  },
+  {
+   "id": "US5696962A",
+   "title": "Method for computerized information retrieval using shallow linguistic analysis",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5920854A",
+   "title": "Real-time document collection search engine with phrase indexing",
+   "assignee": "Infoseek Corporation"
+  },
+  {
+   "id": "US6006222A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6014665A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6067565A",
+   "title": "Technique for prefetching a web page of potential future interest in lieu of continuing a current information download",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6078916A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6078917A",
+   "title": "System for searching internet using automatic relevance feedback",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6088692A",
+   "title": "Natural language method and system for searching for and ranking relevant documents from a computer database",
+   "assignee": "University Of Central Florida"
+  },
+  {
+   "id": "US6134532A",
+   "title": "System and method for optimal adaptive matching of users to most relevant entity and information in real-time",
+   "assignee": "Aptex Software, Inc."
+  },
+  {
+   "id": "US6182068B1",
+   "title": "Personalized search methods",
+   "assignee": "Ask Jeeves, Inc."
+  },
+  {
+   "id": "US6185559B1",
+   "title": "Method and apparatus for dynamically counting large itemsets",
+   "assignee": "Hitachi America, Ltd."
+  },
+  {
+   "id": "US6249252B1",
+   "title": "Wireless location using multiple location estimators",
+   "assignee": "Tracbeam Llc"
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US6321228B1",
+   "title": "Internet search system for retrieving selected results from a previous search",
+   "assignee": "Powercast Media, Inc."
+  },
+  {
+   "id": "US6327590B1",
+   "title": "System and method for collaborative ranking of search results employing user and group profiles derived from document collection content analysis",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6341283B1",
+   "title": "Apparatus for data decomposition and method and storage medium therefor",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US6353849B1",
+   "title": "System and server for providing customized web information based on attributes of the requestor",
+   "assignee": "Intel Corporation"
+  },
+  {
+   "id": "US20020034292A1",
+   "title": "System and a method to match demand and supply based on geographical location derived from a positioning system",
+   "assignee": "Tuoriniemi Veijo M."
+  },
+  {
+   "id": "US6363378B1",
+   "title": "Ranking of query feedback terms in an information retrieval system",
+   "assignee": "Oracle Corporation"
+  },
+  {
+   "id": "US6370526B1",
+   "title": "Self-adaptive method and system for providing a user-preferred ranking order of object sets",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20020042791A1",
+   "title": "Methods and apparatus for using a modified index to provide search results in response to an ambiguous search query",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020049752A1",
+   "title": "Identifying the items most relevant to a current query based on items selected in connection with similar queries",
+   "assignee": "Dwayne Bowman"
+  },
+  {
+   "id": "US20020103790A1",
+   "title": "Utility for cross platform database query",
+   "assignee": "Wang Shirley S."
+  },
+  {
+   "id": "US20020123988A1",
+   "title": "Methods and apparatus for employing usage statistics in document retrieval",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020133481A1",
+   "title": "Methods and apparatus for providing search results in response to an ambiguous search query",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020165849A1",
+   "title": "Automatic advertiser notification for a system for providing place and price protection in a search result list generated by a computer network search engine",
+   "assignee": "Singh Narinder Pal"
+  },
+  {
+   "id": "US6480843B2",
+   "title": "Supporting web-query expansion efficiently using multi-granularity indexing and query processing",
+   "assignee": "Nec Usa, Inc."
+  },
+  {
+   "id": "US6490575B1",
+   "title": "Distributed network search engine",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030009399A1",
+   "title": "Method and system to identify discrete trends in time series",
+   "assignee": "Boerner Sean T."
+  },
+  {
+   "id": "US20030018707A1",
+   "title": "Server-side filter for corrupt web-browser cookies",
+   "assignee": "Flocken Philip Andrew"
+  },
+  {
+   "id": "US20030028529A1",
+   "title": "Search engine account monitoring",
+   "assignee": "Cheung Dominic Dough-Ming"
+  },
+  {
+   "id": "US20030037074A1",
+   "title": "System and method for aggregating ranking results from various sources to improve the results of web searching",
+   "assignee": "Ibm Corporation"
+  },
+  {
+   "id": "US6526440B1",
+   "title": "Ranking search results by reranking the results based on local inter-connectivity",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030078914A1",
+   "title": "Search results using editor feedback",
+   "assignee": "Witbrock Michael J."
+  },
+  {
+   "id": "US6560590B1",
+   "title": "Method and apparatus for multiple tiered matching of natural language queries to positions in a text corpus",
+   "assignee": "Kana Software, Inc."
+  },
+  {
+   "id": "US6567103B1",
+   "title": "Graphical search results system and method",
+   "assignee": "Verity, Inc."
+  },
+  {
+   "id": "US20030120654A1",
+   "title": "Metadata search results ranking system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6587848B1",
+   "title": "Methods and apparatus for performing an affinity based similarity search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030135490A1",
+   "title": "Enhanced popularity ranking",
+   "assignee": "Barrett Michael E."
+  },
+  {
+   "id": "US20030149704A1",
+   "title": "Similarity-based search method by relevance feedback",
+   "assignee": "Hitachi, Inc."
+  },
+  {
+   "id": "US6615209B1",
+   "title": "Detecting query-specific duplicate documents",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030167252A1",
+   "title": "Topic identification and use thereof in information retrieval systems",
+   "assignee": "Pliant Technologies, Inc."
+  },
+  {
+   "id": "US6623529B1",
+   "title": "Multilingual electronic document translation, management, and delivery system",
+   "assignee": "David Lakritz"
+  },
+  {
+   "id": "US20030195877A1",
+   "title": "Search query processing to provide category-ranked presentation of search results",
+   "assignee": "Ford James L."
+  },
+  {
+   "id": "US20030204495A1",
+   "title": "Data gathering",
+   "assignee": "Lehnert Bernd R."
+  },
+  {
+   "id": "US20030220913A1",
+   "title": "Techniques for personalized and adaptive search services",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6658423B1",
+   "title": "Detecting duplicate and near-duplicate files",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030229640A1",
+   "title": "Parallel database query processing for non-uniform data sources via buffered access",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6671681B1",
+   "title": "System and technique for suggesting alternate query expressions based on prior user selections and their query strings",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040006740A1",
+   "title": "Information access",
+   "assignee": "Uwe Krohn"
+  },
+  {
+   "id": "US6678681B1",
+   "title": "Information extraction from a database",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040034632A1",
+   "title": "Automatic query refinement",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040059708A1",
+   "title": "Methods and apparatus for serving relevant advertisements",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20040093325A1",
+   "title": "System and method for location influenced network search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6738764B2",
+   "title": "Apparatus and method for adaptively ranking search results",
+   "assignee": "Verity, Inc."
+  },
+  {
+   "id": "US6754873B1",
+   "title": "Techniques for finding related hyperlinked documents using link-based analysis",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040119740A1",
+   "title": "Methods and apparatus for displaying and replying to electronic messages",
+   "assignee": "Google, Inc., A Corporation Of The State Of California"
+  },
+  {
+   "id": "US20040122811A1",
+   "title": "Method for searching media",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20040153472A1",
+   "title": "Human resource networking system and method thereof",
+   "assignee": "Rieffanaugh Neal King"
+  },
+  {
+   "id": "US20040158560A1",
+   "title": "Systems and methods for query expansion",
+   "assignee": "Ji-Rong Wen"
+  },
+  {
+   "id": "US6792416B2",
+   "title": "Managing results of federated searches across heterogeneous datastores with a federated result set cursor object",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6795820B2",
+   "title": "Metasearch technique that ranks documents obtained from multiple collections",
+   "assignee": "Nextpage, Inc."
+  },
+  {
+   "id": "US20040186828A1",
+   "title": "Systems and methods for enabling a user to find information of interest to the user",
+   "assignee": "Prem Yadav"
+  },
+  {
+   "id": "US20040186996A1",
+   "title": "Unique digital signature",
+   "assignee": "Gibbs Benjamin K."
+  },
+  {
+   "id": "US20040199419A1",
+   "title": "Promoting strategic documents by bias ranking of search results on a web browser",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040215607A1",
+   "title": "Method and system fo blending search engine results from disparate sources into one search result",
+   "assignee": "Travis Robert L."
+  },
+  {
+   "id": "US20050015366A1",
+   "title": "Disambiguation of search phrases using interpretation clusters",
+   "assignee": "Carrasco John Joseph M."
+  },
+  {
+   "id": "US20050027691A1",
+   "title": "System and method for providing a user interface with search query broadening",
+   "assignee": "Sergey Brin"
+  },
+  {
+   "id": "US6853993B2",
+   "title": "System and methods for predicting correct spellings of terms in multiple-term search queries",
+   "assignee": "A9.Com, Inc."
+  },
+  {
+   "id": "US20050033803A1",
+   "title": "Server architecture and methods for persistently storing and serving event data",
+   "assignee": "Vleet Taylor N. Van"
+  },
+  {
+   "id": "US20050050014A1",
+   "title": "Method, device and software for querying and presenting search results",
+   "assignee": "Gosse David B."
+  },
+  {
+   "id": "US20050055342A1",
+   "title": "Method for estimating coverage of Web search engines",
+   "assignee": "Bharat Krishna Asur"
+  },
+  {
+   "id": "US20050055345A1",
+   "title": "Similarity search engine for use with relational databases",
+   "assignee": "Infoglide Software Corporation"
+  },
+  {
+   "id": "US20050060290A1",
+   "title": "Automatic query routing and rank configuration for search queries in an information retrieval system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050060311A1",
+   "title": "Methods and systems for improving a search ranking using related queries",
+   "assignee": "Simon Tong"
+  },
+  {
+   "id": "US20050060310A1",
+   "title": "Methods and systems for improving a search ranking using population information",
+   "assignee": "Simon Tong"
+  },
+  {
+   "id": "US6873982B1",
+   "title": "Ordering of database search results based on user feedback",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050071741A1",
+   "title": "Information retrieval based on historical data",
+   "assignee": "Anurag Acharya"
+  },
+  {
+   "id": "US6877002B2",
+   "title": "Fuzzy database retrieval",
+   "assignee": "America Online, Inc."
+  },
+  {
+   "id": "US6882999B2",
+   "title": "URL mapping methods and systems",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050102282A1",
+   "title": "Method for personalized search",
+   "assignee": "Greg Linden"
+  },
+  {
+   "id": "US6901402B1",
+   "title": "System for improving the performance of information retrieval-type tasks by identifying the relations of constituents",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6912505B2",
+   "title": "Use of product viewing histories of users to identify related products",
+   "assignee": "Amazon.Com, Inc."
+  },
+  {
+   "id": "US20050160083A1",
+   "title": "User-specific vertical search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050192946A1",
+   "title": "Lateral search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050198026A1",
+   "title": "Code, system, and method for generating concepts",
+   "assignee": "Dehlinger Peter J."
+  },
+  {
+   "id": "US6944612B2",
+   "title": "Structured contextual clustering method and system in a federated search engine",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6944611B2",
+   "title": "Method and apparatus for digital media management, retrieval, and collaboration",
+   "assignee": "Emotion, Inc."
+  },
+  {
+   "id": "US20050222987A1",
+   "title": "Automated detection of associations between search criteria and item categories based on collective analysis of user activity data",
+   "assignee": "Vadon Eric R"
+  },
+  {
+   "id": "US6954750B2",
+   "title": "Method and system for facilitating the refinement of data queries",
+   "assignee": "Content Analyst Company, Llc"
+  },
+  {
+   "id": "US20050240580A1",
+   "title": "Personalization of placed content ordering in search results",
+   "assignee": "Zamir Oren E"
+  },
+  {
+   "id": "US20050240576A1",
+   "title": "Named URL entry",
+   "assignee": "John Piscitello"
+  },
+  {
+   "id": "US20050256848A1",
+   "title": "System and method for user rank search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6990453B2",
+   "title": "System and methods for recognizing sound and music signals in high noise and distortion",
+   "assignee": "Landmark Digital Services Llc"
+  },
+  {
+   "id": "US20060047643A1",
+   "title": "Method and system for a personalized search engine",
+   "assignee": "Chirag Chaman"
+  },
+  {
+   "id": "US7016939B1",
+   "title": "Intelligent SPAM detection system using statistical analysis",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US20060069667A1",
+   "title": "Content evaluation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7028027B1",
+   "title": "Associating documents with classifications and ranking documents based on classification weights",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20060089926A1",
+   "title": "Method for re-ranking documents retrieved from a document database",
+   "assignee": "Harris Corporation, Corporation Of The State Of Delaware"
+  },
+  {
+   "id": "US20060095421A1",
+   "title": "Method, apparatus, and program for searching for data",
+   "assignee": "Canon Kabushiki Kaisha"
+  },
+  {
+   "id": "US20060106793A1",
+   "title": "Internet and computer information retrieval and mining with intelligent conceptual filtering, visualization and automation",
+   "assignee": "Ping Liang"
+  },
+  {
+   "id": "US7072886B2",
+   "title": "Method and business process to maintain privacy in distributed recommendation systems",
+   "assignee": "Nokia Corporation"
+  },
+  {
+   "id": "US7085761B2",
+   "title": "Program for changing search results rank, recording medium for recording such a program, and content search processing method",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US20060173830A1",
+   "title": "Information retrieval",
+   "assignee": "Barry Smyth"
+  },
+  {
+   "id": "US20060195443A1",
+   "title": "Information prioritisation system and method",
+   "assignee": "Franklin Gary L"
+  },
+  {
+   "id": "US20060200476A1",
+   "title": "Creating, storing and viewing process models",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060200556A1",
+   "title": "Method and apparatus for identifying, extracting, capturing, and leveraging expertise and knowledge",
+   "assignee": "Scott Brave"
+  },
+  {
+   "id": "US7113939B2",
+   "title": "Architecture to enable search gateways as part of federated search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7117206B1",
+   "title": "Method for ranking hyperlinked pages using content and connectivity analysis",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US7136849B2",
+   "title": "Method systems and computer program products for indicating links to external URLs",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7146361B2",
+   "title": "System, method and computer program product for performing unstructured information management and automatic text analysis, including a search operator functioning as a Weighted AND (WAND)",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20070005575A1",
+   "title": "Prioritizing search results by client search satisfaction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070038659A1",
+   "title": "Scalable user clustering based on set similarity",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20070061211A1",
+   "title": "Preventing mobile communication facility click fraud",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US20070081197A1",
+   "title": "System and method for semantic knowledge retrieval, management, capture, sharing, discovery, delivery and presentation",
+   "assignee": "Nosa Omoigui"
+  },
+  {
+   "id": "US20070106659A1",
+   "title": "Search engine that applies feedback from users to improve search results",
+   "assignee": "Yunshan Lu"
+  },
+  {
+   "id": "US20070112730A1",
+   "title": "Sampling Internet user traffic to improve search results",
+   "assignee": "Antonino Gulli"
+  },
+  {
+   "id": "US7222127B1",
+   "title": "Large scale machine learning systems and methods",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070130370A1",
+   "title": "Portable search engine",
+   "assignee": "Emeka Akaezuwa"
+  },
+  {
+   "id": "US20070156677A1",
+   "title": "Database access system",
+   "assignee": "Alberti Anemometer Llc"
+  },
+  {
+   "id": "US7243102B1",
+   "title": "Machine directed improvement of ranking algorithms",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070192190A1",
+   "title": "Method and system for scoring quality of traffic to network sites",
+   "assignee": "Authenticlick"
+  },
+  {
+   "id": "US7266765B2",
+   "title": "Detection and processing of annotated anchors",
+   "assignee": "Fuji Xerox Co., Ltd."
+  },
+  {
+   "id": "US20070214131A1",
+   "title": "Re-ranking search results based on query log",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070233653A1",
+   "title": "Selecting directly bid upon advertisements for display",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070255689A1",
+   "title": "System and method for indexing web content using click-through features",
+   "assignee": "Gordon Sun"
+  },
+  {
+   "id": "US7293016B1",
+   "title": "Index partitioning based on document relevance for document indexes",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070260597A1",
+   "title": "Dynamic search engine results employing user behavior",
+   "assignee": "Mark Cramer"
+  },
+  {
+   "id": "US20070266439A1",
+   "title": "Privacy management and transaction system",
+   "assignee": "Harold Kraft"
+  },
+  {
+   "id": "US20070266021A1",
+   "title": "Methods and systems for selecting and presenting content based on dynamically identifying microgenres associated with the content",
+   "assignee": "Murali Aravamudan"
+  },
+  {
+   "id": "US20070288450A1",
+   "title": "Query language determination using query terms and interface language",
+   "assignee": "Datta Ruchira S"
+  },
+  {
+   "id": "US20080010143A1",
+   "title": "Secure and extensible pay per action online advertising",
+   "assignee": "Rob Kniaz"
+  },
+  {
+   "id": "US20080027913A1",
+   "title": "System and method of information retrieval engine evaluation using human judgment input",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20080052273A1",
+   "title": "Apparatus and method for term context modeling for information retrieval",
+   "assignee": "Fuji Xerox Co., Ltd."
+  },
+  {
+   "id": "US20080052219A1",
+   "title": "System for and method of expressive auctions of user events",
+   "assignee": "Combinenet, Inc."
+  },
+  {
+   "id": "US20080059453A1",
+   "title": "System and method for enhancing the result of a query",
+   "assignee": "Raphael Laderman"
+  },
+  {
+   "id": "US20080077570A1",
+   "title": "Full Text Query and Search Systems and Method of Use",
+   "assignee": "Infovell, Inc."
+  },
+  {
+   "id": "US20080082518A1",
+   "title": "Strategy for Providing Query Results Based on Analysis of User Intent",
+   "assignee": "Loftesness David E"
+  },
+  {
+   "id": "US20080091650A1",
+   "title": "Augmented Search With Error Detection and Replacement",
+   "assignee": "Marcus Felipe Fontoura"
+  },
+  {
+   "id": "US20080114729A1",
+   "title": "Computer-implemented interactive, virtual bookshelf system and method",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080114624A1",
+   "title": "Click-fraud protector",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080114750A1",
+   "title": "Retrieval and ranking of items utilizing similarity",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7379951B2",
+   "title": "Support for real-time queries concerning current state, data and history of a process",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7382358B2",
+   "title": "System and method for continuous stroke word-based text input",
+   "assignee": "Forword Input, Inc."
+  },
+  {
+   "id": "US20080140699A1",
+   "title": "System and method for generating substitutable queries",
+   "assignee": "Rosie Jones"
+  },
+  {
+   "id": "US7395222B1",
+   "title": "Method and system for identifying expertise",
+   "assignee": "Sotos John G"
+  },
+  {
+   "id": "US20080162475A1",
+   "title": "Click-fraud detection method",
+   "assignee": "Meggs Anthony F"
+  },
+  {
+   "id": "US20080183660A1",
+   "title": "Content identification expansion",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080189269A1",
+   "title": "Relevance-weighted navigation in information access, search and retrieval",
+   "assignee": "Fast Search & Transfer Asa"
+  },
+  {
+   "id": "US20080208825A1",
+   "title": "Methods and systems for providing a response to a query",
+   "assignee": "Andy Curtis"
+  },
+  {
+   "id": "US7426507B1",
+   "title": "Automatic taxonomy generation in search results using phrases",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20080228442A1",
+   "title": "Statistical data inspector",
+   "assignee": "Lisa Ellen Lippincott"
+  },
+  {
+   "id": "US20080256050A1",
+   "title": "System and method for modeling user selection feedback in a search result page",
+   "assignee": "Ruofei Zhang"
+  },
+  {
+   "id": "US20080313168A1",
+   "title": "Ranking documents based on a series of document graphs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080313247A1",
+   "title": "Page Ranking Based on a Behavioral WEB Graph",
+   "assignee": "Brian Galvin"
+  },
+  {
+   "id": "US20090012969A1",
+   "title": "Systems and processes for evaluating webpages",
+   "assignee": "Rail Peter D"
+  },
+  {
+   "id": "US20090055392A1",
+   "title": "Ordering of search results based on language and/or country of the search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7516146B2",
+   "title": "Fast adaptive document filtering",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7533092B2",
+   "title": "Link-based spam detection",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20090157643A1",
+   "title": "Semi-supervised part-of-speech tagging",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7552112B2",
+   "title": "Discovering associative intent queries from search web logs",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20090182723A1",
+   "title": "Ranking search results using author extraction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7565363B2",
+   "title": "Search engine with user activity memory",
+   "assignee": "Anwar Mohammed S"
+  },
+  {
+   "id": "US7566363B2",
+   "title": "Alternative phthalocyanine dyes suitable for use in offset inks",
+   "assignee": "Silverbrook Research Pty Ltd"
+  },
+  {
+   "id": "US7574530B2",
+   "title": "Method and system for web resource location classification and detection",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7584181B2",
+   "title": "Implicit links search enhancement system and method for search engines using implicit links generated by mining user access patterns",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7610282B1",
+   "title": "Rank-adjusted content items",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090287656A1",
+   "title": "Network search engine utilizing client browser favorites",
+   "assignee": "Bennett James D"
+  },
+  {
+   "id": "US7657626B1",
+   "title": "Click fraud detection",
+   "assignee": "Enquisite, Inc."
+  },
+  {
+   "id": "US7680775B2",
+   "title": "Methods and systems for generating query and result-based relevance indexes",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US7693818B2",
+   "title": "UserRank: ranking linked nodes leveraging user logs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100106706A1",
+   "title": "Method and apparatus for identifying related searches in a database search system",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7716225B1",
+   "title": "Ranking documents based on user behavior and/or feature data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20100131563A1",
+   "title": "System and methods for automatic clustering of ranked and categorized search objects",
+   "assignee": "Hongfeng Yin"
+  },
+  {
+   "id": "US7747612B2",
+   "title": "Indication of exclusive items in a result set",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7756887B1",
+   "title": "System and method for modulating search relevancy using pointer activity monitoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20100205541A1",
+   "title": "social network driven indexing system for instantly clustering people with concurrent focus on same topic into on-topic chat rooms and/or for generating on-topic search results tailored to user preferences regarding topic",
+   "assignee": "Jeffrey A. Rapaport"
+  },
+  {
+   "id": "US7783632B2",
+   "title": "Using popularity data for ranking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7801885B1",
+   "title": "Search engine system and method with user feedback on search results",
+   "assignee": "Neal Akash Verma"
+  },
+  {
+   "id": "US20100241472A1",
+   "title": "Illness specific diagnostic system",
+   "assignee": "David Antonio Hernandez"
+  },
+  {
+   "id": "US7809716B2",
+   "title": "Method and apparatus for establishing relationship between documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7818320B2",
+   "title": "Enhanced search results based on user feedback relating to search result abstracts",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7836058B2",
+   "title": "Web searching",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7844589B2",
+   "title": "Method and apparatus for performing a search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7849089B2",
+   "title": "Method and system for adapting search results to personal information needs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7853557B2",
+   "title": "Method and computer for responding to a query according to the language used",
+   "assignee": "Siebel Systems, Inc."
+  },
+  {
+   "id": "US7877404B2",
+   "title": "Query classification based on query click logs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7895177B2",
+   "title": "Enabling searching of user ratings and reviews using user profile location, and social networks",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20110064795A1",
+   "title": "Therapeutic vaccine targeted against P-glycoprotein 170 for inhibiting multidrug resistance in the treatment of cancers",
+   "assignee": "Ac Immune Sa"
+  },
+  {
+   "id": "US7974974B2",
+   "title": "Techniques to perform relative ranking for search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7987185B1",
+   "title": "Ranking custom search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8024325B2",
+   "title": "Estimating the cost of XML operators for binary XML storage",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US8037043B2",
+   "title": "Information retrieval system",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8037042B2",
+   "title": "Automated analysis of user search behavior",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8051061B2",
+   "title": "Cross-lingual query suggestion",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8060497B1",
+   "title": "Framework for evaluating web search scoring functions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20110295844A1",
+   "title": "Enhancing freshness of search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8073772B2",
+   "title": "Systems and methods for processing transactions using multiple budgets",
+   "assignee": "American Express Travel Related Services Company, Inc."
+  },
+  {
+   "id": "US5724571A",
+   "title": "Method and apparatus for generating query responses in a computer-based document retrieval system",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US5963940A",
+   "title": "Natural language information retrieval system and method",
+   "assignee": "Syracuse University"
+  },
+  {
+   "id": "US6026388A",
+   "title": "User interface and other enhancements for natural language information retrieval system and method",
+   "assignee": "Textwise, Llc"
+  },
+  {
+   "id": "EP1025517A1",
+   "title": "Image search and retrieval system",
+   "assignee": "Massachusetts Institute Of Technology"
+  },
+  {
+   "id": "US6182066B1",
+   "title": "Category processing of query topics and electronic document content topics",
+   "assignee": "International Business Machines Corp."
+  },
+  {
+   "id": "US6421675B1",
+   "title": "Search engine",
+   "assignee": "S. L. I. Systems, Inc."
+  },
+  {
+   "id": "US6574632B2",
+   "title": "Multiple engine information retrieval and visualization system",
+   "assignee": "Harris Corporation"
+  },
+  {
+   "id": "US6466901B1",
+   "title": "Multi-language document search and retrieval system",
+   "assignee": "Apple Computer, Inc."
+  },
+  {
+   "id": "US7072888B1",
+   "title": "Process for improving search engine efficiency using feedback",
+   "assignee": "Triogo, Inc."
+  },
+  {
+   "id": "AU7111700A",
+   "title": "An internet search system for tracking and ranking selected records from a previous search",
+   "assignee": "Mindcrossing,Inc"
+  },
+  {
+   "id": "WO2001067297A1",
+   "title": "System and method for computer searching",
+   "assignee": "Tzunami Inc."
+  },
+  {
+   "id": "US20020065813A1",
+   "title": "Image relationships derived from thresholding of historically tracked user data for facilitating image based searching",
+   "assignee": "Scanlon Henry R."
+  },
+  {
+   "id": "US6701309B1",
+   "title": "Method and system for collecting related queries",
+   "assignee": "Lycos, Inc."
+  },
+  {
+   "id": "US8090717B1",
+   "title": "Methods and apparatus for ranking documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040083205A1",
+   "title": "Continuous knowledgebase access improvement systems and methods",
+   "assignee": "Steve Yeager"
+  },
+  {
+   "id": "US7526470B1",
+   "title": "System and method for measuring and improving search result relevance based on user satisfaction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7451487B2",
+   "title": "Fraudulent message detection",
+   "assignee": "Sonicwall, Inc."
+  },
+  {
+   "id": "US8521725B1",
+   "title": "Systems and methods for improved searching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7181447B2",
+   "title": "Methods and systems for conceptually organizing and presenting information",
+   "assignee": "Iac Search And Media, Inc."
+  },
+  {
+   "id": "US20060230040A1",
+   "title": "Methods and systems for providing a response to a query",
+   "assignee": "Andy Curtis"
+  },
+  {
+   "id": "JP4754247B2",
+   "title": "Apparatus and computerized method for determining words constituting compound words",
+   "assignee": "オセ−テクノロジーズ ビーブイ"
+  },
+  {
+   "id": "US8024330B1",
+   "title": "Collaborative incident alert system for mobile devices",
+   "assignee": "Hector Franco"
+  },
+  {
+   "id": "US8065296B1",
+   "title": "Systems and methods for determining a quality of provided items",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7761448B2",
+   "title": "System and method for ranking search results using click distance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7752077B2",
+   "title": "Method and system for automated comparison of items",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US7765231B2",
+   "title": "System and method for accessing electronic data via an image search engine",
+   "assignee": "Rathus Spencer A"
+  },
+  {
+   "id": "US20060293950A1",
+   "title": "Automatic ad placement",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080005064A1",
+   "title": "Apparatus and method for content annotation and conditional annotation retrieval in a search context",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20070005588A1",
+   "title": "Determining relevance using queries as surrogate content",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7844599B2",
+   "title": "Biasing queries to determine suggested queries",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20070061195A1",
+   "title": "Framework for selecting and delivering advertisements over a network based on combined short-term and long-term user behavioral interests",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8208764B2",
+   "title": "Photo automatic linking system and method for accessing, linking, and visualizing “key-face” and/or multiple similar facial images along with associated electronic data via a facial image recognition search engine",
+   "assignee": "Elizabeth Guckenberger"
+  },
+  {
+   "id": "US7836388B2",
+   "title": "Enhancing accuracy of jumping by incorporating interestingness estimates",
+   "assignee": "Ricoh Co., Ltd."
+  },
+  {
+   "id": "US7953740B1",
+   "title": "Detection of behavior-based associations between search strings and items",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US20070208730A1",
+   "title": "Mining web search user behavior to enhance web search relevance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8504575B2",
+   "title": "Behavioral targeting system",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8069182B2",
+   "title": "Relevancy-based domain classification",
+   "assignee": "Working Research, Inc."
+  },
+  {
+   "id": "US8073263B2",
+   "title": "Multi-classifier selection and monitoring for MMR-based image recognition",
+   "assignee": "Ricoh Co., Ltd."
+  },
+  {
+   "id": "US8027439B2",
+   "title": "Self-calibrating fraud detection",
+   "assignee": "Fair Isaac Corporation"
+  },
+  {
+   "id": "US8119156B2",
+   "title": "Dual action, inhaled formulations providing both an immediate and sustained release profile",
+   "assignee": "Aradigm Corporation"
+  },
+  {
+   "id": "US8086599B1",
+   "title": "Method and apparatus for automatically identifying compunds",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7979425B2",
+   "title": "Server-side match",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7533130B2",
+   "title": "User behavior reporting based on pre-aggregated activity data",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8458165B2",
+   "title": "System and method for applying ranking SVM in query relaxation",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "KR100909563B1",
+   "title": "A method of calculating an expected billing amount for an advertisement and a system for performing the method",
+   "assignee": "엔에이치엔비즈니스플랫폼 주식회사"
+  },
+  {
+   "id": "US20090228442A1",
+   "title": "Systems and methods for building a document index",
+   "assignee": "Searchme, Inc."
+  },
+  {
+   "id": "US8060456B2",
+   "title": "Training a search result ranker with automatically-generated samples",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8156111B2",
+   "title": "Identifying and expanding implicitly temporally qualified queries",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20100228738A1",
+   "title": "Adaptive document sampling for information extraction",
+   "assignee": "Mehta Rupesh R"
+  },
+  {
+   "id": "US8412699B1",
+   "title": "Fresh related search suggestions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8498974B1",
+   "title": "Refining search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9015139B2",
+   "title": "Systems and methods for performing a search based on a media content snapshot image",
+   "assignee": "Rovi Guides, Inc."
+  },
+  {
+   "id": "US20110295879A1",
+   "title": "Systems and methods for document management",
+   "assignee": "Neuone, Llc"
+  }
+ ],
+ "similar": [
+  {
+   "id": "US8898152B1",
+   "title": "Sharing search engine relevance data"
+  },
+  {
+   "id": "US12210564B2",
+   "title": "Query categorization based on image results"
+  },
+  {
+   "id": "US8738596B1",
+   "title": "Refining search results"
+  },
+  {
+   "id": "US9390143B2",
+   "title": "Recent interest based relevance scoring"
+  },
+  {
+   "id": "US8326836B1",
+   "title": "Providing time series information with search results"
+  },
+  {
+   "id": "CN108090111B",
+   "title": "Animated excerpts for search results"
+  },
+  {
+   "id": "US8874555B1",
+   "title": "Modifying scoring data based on historical changes"
+  },
+  {
+   "id": "JP4837040B2",
+   "title": "Ranking blog documents"
+  },
+  {
+   "id": "US20090043749A1",
+   "title": "Extracting query intent from query logs"
+  },
+  {
+   "id": "JP5281405B2",
+   "title": "Selecting high-quality reviews for display"
+  },
+  {
+   "id": "US8856162B2",
+   "title": "Cross language search options"
+  },
+  {
+   "id": "US20140149399A1",
+   "title": "Determining user intent from query patterns"
+  },
+  {
+   "id": "US9396188B2",
+   "title": "Assigning tags to digital content"
+  },
+  {
+   "id": "US8417692B2",
+   "title": "Generalized edit distance for queries"
+  },
+  {
+   "id": "US7966341B2",
+   "title": "Estimating the date relevance of a query from query logs"
+  },
+  {
+   "id": "US20090287676A1",
+   "title": "Search results with word or phrase index"
+  },
+  {
+   "id": "US8959093B1",
+   "title": "Ranking search results based on anchors"
+  },
+  {
+   "id": "US20120131008A1",
+   "title": "Indentifying referring expressions for concepts"
+  },
+  {
+   "id": "KR20080024208A",
+   "title": "System and method for providing search results"
+  },
+  {
+   "id": "US8990201B1",
+   "title": "Image search results provisoning"
+  },
+  {
+   "id": "EP3485394B1",
+   "title": "Contextual based image search results"
+  },
+  {
+   "id": "US7765209B1",
+   "title": "Indexing and retrieval of blogs"
+  },
+  {
+   "id": "CN107870915B",
+   "title": "Indication of search results"
+  },
+  {
+   "id": "US9623119B1",
+   "title": "Accentuating search results"
+  },
+  {
+   "id": "US8799107B1",
+   "title": "Systems and methods for scoring documents"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8396865B1/en"
+}

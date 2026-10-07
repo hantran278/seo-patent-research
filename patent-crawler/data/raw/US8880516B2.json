@@ -1,0 +1,1349 @@
+{
+ "id": "US8880516B2",
+ "title": "Endorsing local search results",
+ "abstract": "Methods and systems for improving user search experience with a search engine by providing a way for associated users to create and share personalized lists of local search results and/or advertisements through endorsements of such local search results and/or ads. Local search endorsements can be used to personalize the search engine's ranking of local search results by offering a way for users to re-rank the results for themselves and for those who trust them.",
+ "inventors": [
+  "Thomas Christopher Korte",
+  "Sumit Agarwal",
+  "Celia Neuhoff Saino"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2004-06-30",
+ "filing_date": "2012-09-14",
+ "publication_date": "2014-11-04",
+ "status": "Expired - Lifetime",
+ "expiration": "2024-11-05",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/20",
+  "G06F16/24",
+  "G06F16/248",
+  "G06F17/30867",
+  "G06Q30/00",
+  "G06Q30/02",
+  "G06Q30/0241",
+  "G06Q30/0251",
+  "G06Q30/0255",
+  "G06Q30/0256",
+  "G06F16/245",
+  "G06F16/2457",
+  "G06F16/24578",
+  "G06F16/29",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/951",
+  "G06F16/953",
+  "G06F16/9535",
+  "G06F16/9536",
+  "G06F16/9538"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer-implemented method comprising: receiving a first search query from a first member of a member network; responding to the first search query with a first result set that is based on the first search query and that comprises a plurality of electronic articles and, for one or more electronic articles of the plurality of electronic articles, rating information that corresponds to the one or more electronic articles, and a rating system control that corresponds to a particular one of the plurality of electronic articles, wherein the rating system control is a selectable item adapted to receive an endorsement rating regarding the corresponding particular one of the plurality of electronic articles, and wherein the rating information comprises text or indicia that indicates a prior selection by one or more members of the member network of rating system controls corresponding to the one or more electronic articles of the plurality of electronic articles; receiving a selection, by the first member, of the rating system control that corresponds to the particular one of the plurality of electronic articles; updating, based on the received selection of the rating system control that corresponds to the particular one of the plurality of electronic articles, the rating information that corresponds to the particular one of the plurality of electronic articles; receiving a second search query from a second member of the member network; and responding to the second search query with a second result set based on the second search query, wherein the second result set comprises the particular one of the plurality of electronic articles and, based on the second member's membership in the member network, the second result set comprises the updated rating information that corresponds to the particular one of the plurality of electronic articles.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, further comprising determining that the first member and the second member have an association that is defined between them by the member network and that comprises a direct explicit association.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, further comprising determining that the first member and the second member have an association that is defined between them by the member network and that comprises an indirect explicit association.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, further comprising determining that the first member and the second member have no association defined between them by the member network.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 4, further comprising determining the updated rating information for the second local result set presentation using a correspondence between the particular electronic article and an attribute of the first member's member network profile that is identified by the member network.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 5, further comprising determining the correspondence using a geographic locale aspect for the first member.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 4, further comprising determining the updated rating information for the second local result set presentation using a correspondence between one or more attributes of the first member's member network profile and one or more attributes of the second member's member network profile.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 1, further comprising: in response to receiving the selection by the first member of the rating system control, providing one or more rating entry modes that comprise one or more of (i) a binary positive or negative rating, (ii) a scaled rating, or (iii) a textual comments field.",
+   "dependent": true
+  },
+  {
+   "text": "9. The method of claim 8, further comprising: receiving textual comments for the particular one of the plurality of electronic articles in the textual comments field; and providing, with the second local result set presentation for the updated rating information that corresponds to the particular one of the plurality of electronic articles, a selectable link arranged to provide a display, in response to a selection of the selectable link, that comprises the textual comments.",
+   "dependent": true
+  },
+  {
+   "text": "10. The method of claim 1, further comprising: ranking the second local result set presentation using a strength of relationship factor for an association between the first member and the second member in the member network.",
+   "dependent": true
+  },
+  {
+   "text": "11. The method of claim 1, further comprising providing, with the second local result set presentation for the updated rating information, an identifier that corresponds to the first member.",
+   "dependent": true
+  },
+  {
+   "text": "12. The method of claim 11, wherein the identifier that corresponds to the first member comprises at least a portion of the first member's name or a photo corresponding to the first member.",
+   "dependent": true
+  },
+  {
+   "text": "13. A computer-implemented method comprising: receiving, from one or more members of a member network that each have a member network profile comprising a geographic locale identifier, ratings of electronic articles that characterize the corresponding members' favorability assessments of the electronic articles; receiving, from a user who is not a member of the member network, a search query that comprises a target geographic locale; determining one or more electronic articles responsive to the search query; identifying one or more particular members of the member network that have profiles with geographic locale identifiers that correlate to the target geographic locale; identifying one or more rated electronic articles that have been rated by the particular members and that correspond to the one or more electronic articles; ranking the identified rated electronic articles using the particular members' received ratings of the corresponding electronic articles; and providing, for display to the user, references to each of the ranked electronic articles with text or indicia that represent the particular members' received ratings of the corresponding electronic articles.",
+   "dependent": false
+  },
+  {
+   "text": "14. The method of claim 13, wherein the received ratings comprise one or more of (i) a binary positive or negative rating of the electronic articles, (ii) a scaled rating of the electronic articles, and (iii) a textual comments field corresponding to the electronic articles.",
+   "dependent": true
+  },
+  {
+   "text": "15. The method of claim 13, wherein the received ratings comprise a scaled rating of the electronic articles and a textual comments field corresponding to the electronic articles.",
+   "dependent": true
+  },
+  {
+   "text": "16. The method of claim 13, further comprising providing, for at least one of the references to a ranked electronic articles, a selectable link arranged to provide a display comprising textual rating comments in response to a selection of the selectable link.",
+   "dependent": true
+  },
+  {
+   "text": "17. The method of claim 16, wherein the display comprises an identifier corresponding to a rating member who entered the textual rating comments.",
+   "dependent": true
+  },
+  {
+   "text": "18. The method of claim 17, wherein the identifier comprises at least a portion of the rating member's name.",
+   "dependent": true
+  },
+  {
+   "text": "19. The method of claim 13, wherein the electronic articles comprise one or more unrated electronic articles that have not been rated by the members.",
+   "dependent": true
+  },
+  {
+   "text": "20. A system comprising: a member network server implemented by one or more computer processors, the member network server comprising: a member network database stored in machine-readable memory, the member network database storing profiles that represent members in a member network, the profiles comprising endorsements of electronic documents including web pages; and a member network engine programmed to allow users to interact with and participate in the member network, including by classifying particular electronic documents as user endorsed electronic documents by inputting a favorable rating on a control that is displayed simultaneously with an identifier for a corresponding electronic document; and a search engine server implemented by one or more computer processors, the search engine server comprising: an article index stored in machine-readable memory, the article index indexing electronic documents stored at other devices or systems; and a search engine programmed to respond to receipt of a local query signal that embodies a local search query for a particular geographic locality made by a query-submitting member of the member network, by performing operations comprising: performing a search of the article index to locate local information responsive to the local search query and for the particular geographic locality in the electronic documents indexed by the article index, and returning identifiers of the electronic documents in a first local search result set; communicating with the member network engine to identify particular members in the member network who have provided endorsements; accessing the member profiles of the particular members to identify the endorsements in the member profiles of the particular members and returning the identified endorsements in a second local search result set; merging the first local search result set and the second local search result set to form a final local search result set, wherein a ranking of the identifiers for the electronic documents in the final local search result set differs from a ranking of the identifiers for the electronic documents in the first local search result set and a ranking of the identifiers for the electronic documents in the second local search result set; and providing the final local search result set for presentation to the query-submitting member of the member network, wherein the presentation identifies, for particular ones of the final local search result set, the particular members in the member network identified as having provided endorsements for electronic documents that correspond to the particular ones of the final local search result set.",
+   "dependent": false
+  },
+  {
+   "text": "21. The system of claim 20, wherein the operations performed by the search engine further comprise: noting navigation by the query-submitting member to a first web page represented by an identifier in the final local search result set; and transmitting information indicating the navigation by the query-submitting member to the first web page to the member network server for storage in a profile of the query-submitting member in the member network database.",
+   "dependent": true
+  },
+  {
+   "text": "22. The system of claim 20, wherein communicating with the member network engine to identify the particular members in the member network comprises identifying members in the member network that are explicitly associated with the query-submitting member.",
+   "dependent": true
+  },
+  {
+   "text": "23. The system of claim 20, wherein communicating with the member network engine to identify the particular members in the member network comprises identifying members in the member network that are associated with the particular geographic locality of the local search query submitted by the query-submitting member.",
+   "dependent": true
+  },
+  {
+   "text": "24. The system of claim 20, wherein communicating with the member network engine to identify the particular members in the member network comprises: comparing a profile of the query-submitting member with profiles of other members of the member network; and etermining that the particular members that have profiles similar to the profile of the query-submitting member.",
+   "dependent": true
+  },
+  {
+   "text": "25. The system of claim 20, wherein communicating with the member network engine to identify the particular members in the member network comprises: comparing profiles of other members of the member network with the local search query submitted by the query-submitting member; and determining that the particular members that have profiles related to the local search query.",
+   "dependent": true
+  },
+  {
+   "text": "26. The system of claim 20, wherein the member network database further comprises: a look-up table listing a category classifying local search queries; and an identifier for an endorsed electronic document in the category classifying local search queries.",
+   "dependent": true
+  },
+  {
+   "text": "27. The system of claim 26, wherein the member network database further comprises an endorsement associated with the identifier for the endorsed electronic documents.",
+   "dependent": true
+  },
+  {
+   "text": "28. The system of claim 26, wherein accessing the member profiles of the particular members to identify the endorsements in the member profiles of the particular members comprises locating endorsements of electronic documents in a same category as a category of the local search query.",
+   "dependent": true
+  },
+  {
+   "text": "29. The system of claim 20, wherein the electronic document endorsements comprise endorsements of advertisements.",
+   "dependent": true
+  },
+  {
+   "text": "30. The system of claim 20, wherein the final local search result set comprises annotations indicative of the electronic document endorsements identified in the member profiles of the particular members.",
+   "dependent": true
+  },
+  {
+   "text": "31. The system of claim 20, wherein the member network database receives some of the endorsements of electronic documents independent of a search query.",
+   "dependent": true
+  },
+  {
+   "text": "32. A computer-implemented method, comprising: receiving, from particular members of a network, endorsements of electronic articles that that are presented to members of the network, particular ones of the endorsements involving a member of the network affirmatively selecting an endorsement control that is displayed simultaneously with a reference to a corresponding electronic article being endorsed; receiving a local search query from a first member that is for a particular geographic locality; searching one or more article indexes to identify a plurality of local search results that are responsive to the received local search query and correspond to the particular geographic locality, the one or more indexes indexing the electronic articles that are presented to members of the network; identifying, for particular ones of the local search results, corresponding endorsements received from particular members; ranking the plurality of local search results based at least in part on the identified endorsements; and providing references to the ranked local search results for presentation to the first member, wherein the presentation identifies, for particular ones of the references to the search results, particular ones of the members identified as having provided endorsements for the corresponding electronic articles.",
+   "dependent": false
+  },
+  {
+   "text": "33. The computer-implemented method of claim 32, further comprising providing the references to the local search results for display to the first member according to the ranking.",
+   "dependent": true
+  },
+  {
+   "text": "34. The computer-implemented method of claim 33, further comprising: determining, for each of the references to the search results that corresponds to an electronic article for which an endorsement was identified, an identifier for the particular ones of the members that provided the corresponding endorsement; and providing, for each of the identifiers for the particular ones of the members, the respective identifier for presentation with the corresponding reference to the ranked local search results.",
+   "dependent": true
+  },
+  {
+   "text": "35. The computer-implemented method of claim 32, wherein ranking the plurality of local search results comprises: identifying one or more second members of the members who have created a defined relationship with the first member; and ranking the plurality of local search results based on endorsements by the one or more second members without regard to other members of the members who do not have a defined relationship with the first member.",
+   "dependent": true
+  },
+  {
+   "text": "36. The computer-implemented method of claim 32, wherein identifying the corresponding endorsements received from particular members of the members comprises determining that the particular members as being associated with the particular geographic locality.",
+   "dependent": true
+  },
+  {
+   "text": "37. The computer-implemented method of claim 32, wherein identifying the corresponding endorsements received from particular members of the members comprises determining, for each of the particular members, that a profile of the first member is similar to a profile for the corresponding particular member.",
+   "dependent": true
+  },
+  {
+   "text": "38. The computer-implemented method of claim 32, wherein the endorsements comprise endorsements of advertisements.",
+   "dependent": true
+  },
+  {
+   "text": "39. The computer-implemented method of claim 32, further comprising providing a financial incentive to at least one of the particular members.",
+   "dependent": true
+  },
+  {
+   "text": "40. The computer-implemented method of claim 32, further comprising prompting one of the members for an endorsement for an electronic article the corresponding member previously visited.",
+   "dependent": true
+  },
+  {
+   "text": "41. The computer-implemented method of claim 40, wherein prompting the one of the members for the endorsement for the electronic article the corresponding member previously visited comprising: determining whether the one of the members visited the electronic article a threshold quantity of times; and prompting the one of the members for the endorsement for the electronic article the corresponding member previously visited upon determining that the one of the members visited the electronic article the threshold quantity of times.",
+   "dependent": true
+  },
+  {
+   "text": "42. A computer-implemented method, comprising: receiving, from particular members of a network, endorsements of electronic articles that that are presented to members of the network, particular ones of the endorsements involving a member of the network affirmatively selecting an on-screen selection that does not cause a corresponding endorsed electronic document to be displayed; receiving a local search query for a particular geographic locality from a first member of the members; searching one or more article indexes to identify a plurality of local search results that are responsive to the received local search query and for the particular geographic locality, the one or more indexes indexing the electronic articles that are presented to members of the network; identifying, for particular ones of the local search results, corresponding endorsements received from particular members of the members; ranking the plurality of local search results based at least in part on the identified endorsements; and providing references to the ranked local search results for presentation to the first member, wherein the presentation identifies, for particular ones of the local search results, particular ones of the members identified as having provided endorsements for the corresponding electronic articles.",
+   "dependent": false
+  },
+  {
+   "text": "43. The computer-implemented method of claim 42, further comprising: determining, for each of the references to the local search results that corresponds to an electronic article for which an endorsement was identified, an identifier for the particular ones of the members that provided the corresponding endorsement; and providing, to the first member for each of the identifiers for the particular ones of the members, the respective identifier for presentation with the corresponding reference to the ranked local search result.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## CROSS-REFERENCE TO RELATED APPLICATIONS\n\n\nThis application is a continuation of U.S. Utility patent application Ser. No. 12/912,037 filed Oct. 26, 2010 now U.S. Pat. No. 8,489,586 which is a continuation of U.S. Utility patent application Ser. No. 10/879,591, filed Jun. 30, 2004, now U.S. Pat. No. 7,827,176, issued Nov. 2, 2010, which is also related to co-pending U.S. Utility patent application Ser. No. 10/879,592, filed Jun. 30, 2004, entitled, “METHODS AND SYSTEMS FOR ENDORSING SEARCH RESULTS”.\n\n\n## BACKGROUND OF THE INVENTION\n\n\n1. Field of the Invention\n\nThe present invention relates generally to methods and systems for searching. For example, embodiments of the present invention relate generally to methods and systems for using member networks to improve a user's search experience with a search engine.\n\n2. Background\n\nA conventional search engine, such as the Google™ search engine, returns a result set in response to a search query submitted by a user. The search engine performs the search based on a conventional search method. For example, one known method, described in an article entitled “The Anatomy of a Large-Scale Hypertextual Search Engine,” by Sergey Brin and Lawrence Page, assigns a degree of importance to a document, such as a web page, based on the link structure of the web page. The search engine ranks or sorts the individual articles or documents in the result set based on a variety of measures. For example, the search engine may rank the results based on a popularity score. The search engine generally places the most popular results at the beginning of the result set. Some conventional search engines also include electronic yellow pages to provide searches of individual product/service providers (e.g., restaurants, tax services, auto repair services, etc.) in a particular locality. Such local searches enable users to locate desired product/service providers that do not ordinarily appear in regular searches because they do not have their own websites or URLs.\n\nConventional websites (also written as “Web sites”) such as those hosted on Yahoo!™, Tribe™, Tickle™, or other web sites, allow users to form communities, groups, and/or other member networks. The member networks on conventional websites allow members of the group to communicate with each other and list announcements associated with the community. Generally, conventional web sites do not connect the member networks with search engines and enable members of such networks to endorse or recommend search results, particularly online advertisements and/or search results of local individual product/service providers, to one another.\n\n\n## SUMMARY OF THE INVENTION\n\n\nEmbodiments of the present invention provide methods and systems for members of a member networks to endorse or recommend to other members or users local articles and/or advertisements (hereinafter, “ads”) for particular search queries. In one embodiment of the present invention, there is provided a method comprising: receiving endorsement information of endorsed local articles or ads; receiving a local search query; and providing a search result set relevant to the local search query, wherein the search result set includes at least one endorsed article identifier for one of the endorsed local articles or ads.\n\nIn another embodiment of the present invention, there is provided a method comprising: receiving a first user profile in a member network created by a first user; receiving a first local search query submitted by the first user; returning from a search engine to the first user a local search result set relevant to the first local search query, the local search result set includes one or more links for endorsing local articles identified in the search result set; receiving from the first user a first endorsement for one of the local articles identified in the local search result set; storing the first endorsement for the local article in a member network database; receiving a second user profile in the member network created by a second user; receiving a second local search query submitted by the second user that is substantially identical or relevant to the first local search query; returning from the search engine a second local search result set relevant to the second local search query; returning from the member network database a third local search result set relevant to the second search query; and merging the second local search result set with the third local search result set to provide the second user with a final local search result set identifying the first endorsement for the second local search query.\n\nThe aforementioned embodiments are mentioned not to limit or define the invention, but to provide an example of embodiments of the invention to aid understanding thereof. Such exemplary embodiments are discussed in the Detailed Description, and further description of the invention is provided there. Advantages offered by the various embodiments of the present invention may be further understood by examining this specification.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nThe embodiments of the present invention are illustrated by way of example in, and not limited to, the following figures:\n\nFIG. 1 is a block diagram illustrating an exemplary environment in which embodiments of the present invention may operate;\n\nFIG. 2 depicts a diagram of a member network in accordance with an embodiment of the present invention; and\n\nFIGS. 3A-B depict process flows for local search endorsements in accordance with an embodiment of the present invention.\n\nFIG. 4 depicts a sample screenshot of a local articles page in accordance with an embodiment of the present invention;\n\nFIG. 5 depicts a sample screenshot of an endorsement page in accordance with an embodiment of the present invention; and\n\nFIGS. 6A-B depict process flows for local search endorsements in accordance with another embodiment of the present invention.\n\n\n## DETAILED DESCRIPTION OF THE INVENTION\n\n\n\n## Overview\n\n\nEmbodiments of the present invention provide methods and systems for members of a member networks to endorse or recommend to other members or users a localized article or articles, which may include individual product/service providers and/or ads for a desired locality. In one embodiment, the method begins with a user signing up to become a member of a member network. After becoming a member, the user can endorse or recommend a local article(s) or ad(s). When an endorsed article identifier appears in a result set relevant to a local search query, the article identifier can have associated endorsement data. Further, as a member, the user can submit local user queries to the search engine and receive lists of search results that include article identifiers of endorsed articles and/or ads from other members of the member network. Each list of article identifiers in a local search result set can be re-ordered or re-ranked to reflect those endorsed article identifiers within the list. Thus, the search endorsements can be used to improve the search engine's ranking of local search results and endorsed ads by offering a way for users to re-rank the local search results and endorsed ads for themselves and for those who trust them.\n\nSystem Architecture\n\nVarious systems in accordance with the present invention may be constructed. FIG. 1 is a block diagram illustrating an exemplary system in which embodiments of the present invention can operate. The present invention may operate, and be embodied, in other systems as well.\n\nReferring now to the drawings in which like numerals indicate like elements throughout the several figures, FIG. 1 is a block diagram illustrating an exemplary system in accordance with an exemplary embodiment of the present invention. The system 100 shown in FIG. 1 includes multiple client devices 102 a-n with users 112 a-112 n in communication with a search site 150 and a member network site 160 over a network 106. The search site 150 and the member network site 160 are also in communication with each other directly (as shown by the dashed line) or through the network 106. The network 106 can be a wired or wireless network. Further, it can be a public network, e.g., the Internet, or a private data network, e.g., a local area network (LAN) or a wide area network (WAN). Moreover, methods according to the present invention may operate within a single computer.\n\nEach of the client devices 102 a-n includes a memory 108, which can be a computer-readable medium (CRM), such as a random access memory (RAM), coupled to a processor 110. The processor 110 executes computer-executable program instructions stored in the client device, such as memory 108, as program code. Such processor may include a microprocessor, an ASIC, and state machines. Such processors include, or may be in communication with, media, for example computer-readable media, which stores instructions that, when executed by the processor, cause the processor to perform the methods described herein. Moreover, the processor 110 can be any of a number of computer processors, such as processors from Intel Corporation of Santa Clara, Calif. and Motorola Corporation of Schaumburg, Ill. Embodiments of computer-readable media include, but are not limited to, an electronic, optical, magnetic, or other storage or transmission device capable of providing a processor, such as the processor 110 of client 102 a, with computer-readable instructions. Other examples of suitable media include, but are not limited to, a floppy disk, CD-ROM, DVD, magnetic disk, memory chip, ROM, RAM, an ASIC, a configured processor, all optical media, all magnetic tape or other magnetic media, or any other medium from which a computer processor can read instructions. Also, various other forms of computer-readable media may transmit or carry instructions to a computer, including a router, switch, private or public network, or other transmission device or channel, both wired and wireless. The instructions may include code from any suitable computer-programming language, including, for example, C, C++, C#, Visual Basic, Java, Python, Perl, and JavaScript.\n\nClient devices 102 a-n can also include a number of external or internal devices such as a mouse, a CD-ROM drive, a DVD drive, a keyboard, a display, or other input or output devices. Examples of client devices 102 a-n are personal computers, digital assistants, personal digital assistants (PDAs), cellular phones, mobile phones, smart phones, pagers, digital tablets, laptop computers, Internet appliances, and other processor-based devices. In general, the client devices 102 a-n can be any type of processor-based platform that operates on any operating system capable of supporting one or more client application programs. Client devices 102 a-n may operate on any operating system capable of supporting a browser or browser-enabled application, such as Microsoft® Windows® or Linux. The client devices 102 a-n shown include, for example, personal computers executing a browser application program such as Microsoft Corporation's Internet Explorer™, Netscape Communication Corporation's Netscape Navigator™, and Apple Computer, Inc.'s Safari™.\n\nThrough the client devices 102 a-n, users 112 a-n can communicate over the network 106 with each other and with other sites, systems and devices coupled to the network 106. As shown in FIG. 1, a search site 150 and a member network site 160 are also coupled to the network 106.\n\nThe search site 150 shown includes a server device 152 executing a search application program, also known as a member network engine 168. The member network engine 168 allows users, such as user 112 a, to interact with and participate in a member network. A member network can refer to a computer network connecting entities, such as people or organizations, by a set of social relationships, such as friendship, co-working, or information exchange. Of course, a member network can refer to a computer application or data connecting such entities by such social relationships. Examples of member networks include Orkut.com and Friendster.com.\n\nMember networks can comprise any of a variety of suitable arrangements. An entity or member of a member network can have a profile and that profile can represent the member in the member network. The member network can facilitate interaction between member profiles and allow associations or relationships between member profiles. Associations between member profiles can be one or more of a variety of types, such as friend, co-worker, family member, business associate, common-interest association, and common-geography association. Associations can also include intermediary relationships, such as friend of a friend, and degree of separation relationships, such as three degrees away.\n\nAssociations between member profiles can be reciprocal associations. For example, a first member can invite another member to become associated with the first member and the other member can accept or reject the invitation. A member can also categorize or weigh the association with other member profiles, such as, for example, by assigning a level to the association. For example, for a friendship-type association, the member can assign a level, such as acquaintance, friend, good friend, and best friend, to the associations between the member's profile and other member profiles. In one embodiment, the member network engine 168 can determine the type of association between member profiles, including, in some embodiments, the degree of separation of the association and the corresponding weight or level of the association.\n\nSimilar to the client devices 102 a-n, the server device 152 shown includes a processor 154 coupled to a CRM 156. Server device 152, depicted as a single computer system, may be implemented as a network of computer processors. Examples of the server device 162 are servers, mainframe computers, networked computers, a processor-based device, and similar types of systems and devices. The server processor 154 can be any of a number of computer processors, such as processors from Intel Corporation of Santa Clara, Calif. and Motorola Corporation of Schaumburg, Ill.\n\nMemory 156 contains a search application program, also known as a search engine 158. The search engine 158 locates relevant information in response to a search query from one of the client devices 102 a-n, e.g., the client device 102 a. In the embodiment shown, the server device 152, or related devices, has previously performed a crawl of the network 106 to locate articles, such as web pages, stored at other devices or systems coupled to the network 106, and indexed the articles in an article index for storage in memory 156 or another data storage device. Thus, the search engine 158 can locate relevant information by accessing the article index in response to a search query. The search engine 158 then provides a result set to the client device 102 a via the network 106. The result set comprises one or more identifiers of articles that are relevant to the search query. Articles include, for example: word processor, spreadsheet, presentation, e-mail, instant messenger, database, and other client application program content files or groups of files; web pages of various formats (e.g., HTML, XML, XHTML); portable document format (PDF) files; audio tiles; video files; or any other documents or groups of documents or information of any type whatsoever. An article identifier may be, for example, a uniform resource locator (URL), a uniform resource identifier (URI), a file name, a link, an icon, a path for a local file, or anything else that identifies an article or ad.\n\nThe member network site 160 shown includes a member network database 170 and a server device 162 executing a member network engine application program. Similar to the client devices 102 a-n, the server device 162 shown includes a processor 164 coupled to a CRM 166. The server device 162 is in communication with a member network database 170. Server device 162, depicted as a single computer system, may be implemented as a network of computer processors. Examples of the server device 162 are servers, mainframe computers, networked computers, a processor-based device, and similar types of systems and devices. The server processor 164 can be any of a number of suitable computer processors, such as processors from Intel Corporation of Santa Clara, Calif. and Motorola Corporation of Schaumburg, Ill.\n\nMemory 166 in the server device 162 contains a member network engine application program, also known as a member network engine 168. The member network engine 168 allows users, such as user 112 a, to interact with and participate in a member network. A member network can refer to a computer network connecting people or organization by a set of relationships, such as social relationships like friendship, co-working, or information exchange. A member network can include profiles that can be associated with other profiles. Each profile may represent a member and a member can be, for example, a person, an organization, a business, a corporation, a community, a fictitious person, or other entity. Each profile can contain entries, and each entry can include information associated with a profile. Examples of entries for a person profile can include information regarding relationship status, birth date, age, children, ethnicity, religion, political view, sense of humor, sexual orientation, fashion preferences, smoking habits, drinking habits, pets, hometown location, passions, sports, activities, favorite books, music, TV, or movie preferences, favorite cuisines, email addresses, location information, IM name, phone number, address, skills, career, or any other information describing, identifying, or otherwise associated with a profile. Entries for a business profile can include market sector, customer base, location, supplier information, net profits, net worth, number of employees, stock performance, or other types of information associated with the business profile.\n\nAdditionally, entries within a profile can include associations with other profiles. Associations between profiles within a member network can include, for example, friendships, business relationships, acquaintances, community or group associations, activity partner associations, common interest associations, common characteristic associations, or any other suitable type of relationship connection (e.g., social relationship connection). Associations between profiles can also have various levels. For example, friendship levels can include, for example, a “haven't met” level, an “acquaintance” level, a “friend” level, a “good friend” level, a “best friend” level, and other suitable levels.\n\nA degree of separation based on associations between profiles can also be determined. For example, a degree of separation can be determined based on the fewest number of associations between two profiles. Thus, if profile A is a friend of profile B, and profile B is a friend of profile C, there can be a degree of separation of two between profiles A and C. A degree of separation can be type specific or type neutral. Type specific degrees of separation only count relationships of a certain type. Thus, for example, in the case above where A is a friend of B, and B is a friend of C, there is a friendship degree separation of two, even if A is directly associated with C by a business association, which would otherwise produce a degree of separation of 1.\n\nMoreover, each profile can also contain local-search endorsement entries, each entry can include information associated with an endorsed local article. For example, a local-search endorsement entry can include a particular local search query, one or more article identifiers for local articles and/or ads that the user has endorsed for the local search query, and the kind of endorsement for each of the endorsed local endorsed articles and/or ads.\n\nServer device 162 of the member network site 160 also provides access to storage elements, such as a member network storage element, in the example shown in FIG. 1, a member network database 170. The member network database 170 can be used to store profiles of members in a member network and to store communities within the member network as created by the member-network engine 168. Data storage elements may include any one or combination of methods for storing data, including without limitation, arrays, hash tables, lists, and pairs. Other similar types of data storage devices can be accessed by the server device 162. The member network engine 168 can receive data comprising the profiles and communities from the member-network database 170 and can also send data comprising communities and profiles to the member network database 170 for storage. The member-network database 170 may be physically attached or otherwise in communication with the member-network engine 168 by way of a network or other connection.\n\nIn operation, upon receiving a search query from a user, such as one of the users 112 a-n, the search engine 158 locates relevant information in response to the search query. The search engine 158 then returns a first result set of one or more article identifiers relevant to the search query. The search engine 158 also communicates with the member network engine 168 to access the member network database 170, look up local-search endorsement entries in member profiles that are associated with the user in a member network as further explained later, and return a second result set of one or more endorsed local article identifiers. The two search result sets are then merged to provide the user with a final search result set having article identifiers for local articles and/or ads that are relevant to the search queries, with some article identifiers indicated as having been endorsed based on the second search result set. The final search result set also provides the user with an option to endorse one or more local articles and/or ads in the member profile. The methods for accomplishing these tasks are described below in the process section.\n\nIt should be noted that the present invention may include systems having different architecture than that which is shown in FIG. 1. For example, in some systems according to the present invention, server device 162 may include a single physical or logical server. The system 100 shown in FIG. 1 is merely exemplary, and is used to help explain the member networks and methods illustrated in subsequent figures.\n\n\n## Exemplary Member Network\n\n\nFIG. 2 shows a diagram of a member network 200 according to one embodiment of the present invention. According to the embodiment illustrated in FIG. 2, the member network 200 is illustrated with a graph comprising vertices 202, 204, 206, 208, 210, 212, and 214 and edges 218, 220, 222, 224, 226, 228, 230, 232, and 234. The vertices 202, 204, 206, 208, 210, 212, and 214 comprise profiles A, B, C, D, E, F, and G, respectively. Each profile can represent a member profile of a member of the member network 200. The exemplary network 200 shown in FIG. 2 has seven members. Considerably more members can be part of the member network 200. A member can be an entity such as, for example, a person, an organization, a business, a corporation, a community, a fictitious person, or other suitable entity.\n\nEach member profile can contain entries, and each entry can comprise information associated with a profile. For example, a person's member profile can contain: personal information, such as relationship status, birth date, age, children, ethnicity, religion, political view, sense of humor, sexual orientation, fashion preferences, smoking habits, drinking habits, pets, hometown location, passions, sports, activities, favorite books or music, TV or movie preferences, and favorite cuisines; contact information, such as email addresses, location information, instant messenger name, telephone numbers, and address; professional information, such as job title, employer, and skills; educational information, such as schools attended and degrees obtained, and any other suitable information describing, identifying, or otherwise associated with a person. A business' member profile can, for example, contain a description of the business, and information about its market sector, customer base, location, suppliers, net profits, net worth, number of employees, stock performance, contact information, and other types of suitable information associated with the business.\n\nA member profile can also contain rating information associated with the member. For example, the member can be rated or scored by other members of the member network 200 in specific categories, such as humor, intelligence, fashion, trustworthiness, sexiness, and coolness. A member's category ratings can be contained in the member's profile. In one embodiment of the member network, a member can have fans. Fans can be other members who have indicated that they are “fans” of the member. Rating information can also include the number of fans of a member and identifiers of the fans. Rating information can also include the rate at which a member accumulated ratings or fans and how recently the member has been rated or acquired fans.\n\nA member profile can also contain membership information associated with the member. Membership information can include information about a member's login patterns to the member network, such as the frequency that the member logs in to the member network and the member's most recent login to the member network. Membership information can also include information about the rate and frequency that a member profile gains associations to other member profiles. In a member network that comprises advertising or sponsorship, a member profile may contain consumer information. Consumer information may include the frequency, patterns, types, or number of purchases the member makes, or information about which advertisers or sponsors the member has accessed, patronized, or used.\n\nA member profile may comprise data stored in memory. The profile, in addition to comprising data about the member, can also comprise data relating to others. For example, a member profile can contain an identification of associations or virtual links with other member profiles. In one embodiment, a member's member network member profile may comprise a hyperlink associated with another member's profile. In one such association, the other member's profile may contain a reciprocal hyperlink associated with the first member's profile. A member's profile may also contain information excerpted from another associated member's profile, such as a thumbnail image of the associated member, his or her age, marital status, and location, as well as an indication of the number of members with which the associated member is associated. In one embodiment, a member's profile may comprise a list of other member network members' profiles with which the member wishes to be associated.\n\nAn association may be designated manually or automatically. For example, a member may designate associated members manually by selecting other profiles and indicating an association that can be recorded in the member's profile. Also, an association between two profiles may comprise an association automatically generated in response to a predetermined number of common entries, aspects, or elements in the two members' profiles. In one embodiment, a member profile may be associated with all of the other member profiles comprising a predetermined number or percentage of common entries, such as interests, hobbies, likes, dislikes, employers and/or habits.\n\nAssociations between profiles within a member network can be of a single type or can be multiple types and can include, for example, friendship associations, business associations, family associations, community associations, school associations, or any other suitable type of link between profiles. Associations can further be weighted to represent the strength of the association. For example, a friendship association can be weighted more than a school association. Each type of association can have various levels with different weights associated with each level. For example, a friendship association can be classified according to which of a plurality of friendship association levels it belongs to. In one embodiment, a friendship association may be assigned a level by the member from a list of levels comprising: a best friend, a good friend, a regular friend, an acquaintance, and a friend the member has not met.\n\nIn FIG. 2, the edges 218, 220, 222, 224, 226, 228, 230, 232, and 234 shown comprise associations between profiles. According to the embodiment shown in FIG. 2, the member network 200 comprises a plurality of differing types of associations represented by edges 218, 220, 222, 224, 226, 228, 230, 232, and 234. The types of associations shown in FIG. 2 for illustration purposes are business associations, activity partner associations, friendship associations, community associations, and common characteristic associations. Common characteristic associations may include, for example, associations based on some characteristic, such as attending the same high school or being from the same hometown, and can indicate a lower level of significance than another type of association, such as a friendship association.\n\nReferring to FIG. 2, edge 220 and edge 222 each comprise an association between profile A at vertex 202 and profile D at vertex 208. The edge 220 represents a business association, and the edge 222 represents a friendship association. Profile A is also associated with profile E by a common characteristic association comprising edge 218. The association between profile A and profile E may be more attenuated than the association between profile A and D, but the association can still be represented by the member network depicted in FIG. 2.\n\nEach member represented by the profiles A, B, C, D, E, F, and G comprising the vertices 202, 204, 206, 208, 210, 212, and 214, respectively, for purposes of illustration, comprises a person. Other types of members can be in member network 200. For example, communities, special interest groups, organizations, political parties, universities, and legal persons, such as corporations and business partnerships may be members of the member network 200. The associations 218, 220, 222, 224, 226, 228, 230, 232, and 234 illustrated in FIG. 2 comprise bi-directional associations. An association between two profiles may comprise a bi-directional association when both parties to the association are associated with each other. For example, in FIG. 2, profile A is associated with profile D, and profile D is also associated with profile A. In one embodiment, profiles A and D will not be bi-directionally associated with each other until both profiles consent to such an association. For example, profile A may invite profile D to be associated therewith, and the bi-directional association occurs upon profile D's acceptance of such invitation. The invitation, for example, may include sending an email or other message to profile D indicating that profile A has requested an association with profile D.\n\nOther embodiments of the present invention may comprise directed associations or other types of associations. Directed associations can associate a first profile with a second profile while not requiring the second profile to be associated with the first profile. For example, profile A can be associated by a friendship association with profile B, and profile B can be unassociated with profile A, or profile B can be associated with profile A through a different type of association, such as a business association. Thus a display of profile A's friends would include profile B, but a display of profile B's friends would not include profile A.\n\nWithin a member network, a degree of separation can be determined for associated profiles. In one embodiment, a degree of separation between two profiles can be determined by the fewest number of edges of a certain type separating the associated profiles. In another embodiment, a type-specific degree of separation may be determined. A type-specific degree of separation comprises a degree of separation determined based on one particular type of association. For example, a profile A has a friend association degree of separation of two from profile E. The fewest number of friendship associations between profile A and profile E is two—the friendship association comprising edge 222 between profiles A and D and the friendship association comprising edge 234 between profiles D and E. Thus, for the associated profiles A and E, the degree of friendship separation, determined according to one aspect of one embodiment of the present invention, is two.\n\nAnother type-specific degree of separation can be determined for profiles A and E. For example, a common characteristic degree of separation can be determined by determining the fewest number of common characteristic associations separating profile A and profile E. According to the embodiment depicted in FIG. 2, there is one common characteristic association, comprising edge 218, separating profiles A and E. Thus, the co on characteristic association degree of separation, according to the embodiment depicted in FIG. 2, is one. The common characteristic in this example, can be that profile A attended the same high school as profile E. A common characteristic association may be selected by profiles A and E to represent that they are associated in some fashion, but to not create a close association such as with a friendship association.\n\nAccording to other aspects of certain embodiments of the present invention, the degree of separation may be determined by use of a weighting factor assigned to each association. For example, close friendships can be weighted higher than more distant friendships. According to certain aspects of embodiments using a weighting factor, a higher weighting factor for an association can reduce the degree of separation between profiles and lower weighting factors can increase the degree of separation. This can be accomplished, for example, by establishing an inverse relationship between each associations and a corresponding weighting factor prior to summing the associations. Thus, highly weighted associations would contribute less to the resulting sum that lower weighted associations.\n\nProcess\n\nVarious methods or processes in accordance with the present invention may be constructed. For example, in one embodiment, the method begins with receiving profiles of users in a member network, wherein the profiles comprise endorsement information of local articles and/or ads. The endorsement information can include a look-up table listing a category classifying local search queries, an article identifier for an endorsed local article or ad in the category, and an endorsement associated with the article identifier. The endorsements come from members of the member network, and they can be binary endorsements of the local articles and/or ads, ratings of the local articles and/or ads, and/or comments about the local articles and/or ads. Financial incentives can be provided to endorsing users. The method also includes receiving a local search query from a user within or outside of the member network and providing local articles relevant to the local search query, wherein one of the local articles may be endorsed based on the endorsement information. When the received local search query is classified in the same category found in the endorsement information, the provided local article for the received local search query is the endorsed local article listed in the endorsement information. The endorsed local articles and/or ads are from members associated with the user that submits the received local search query. The associations can be based on profile associations indicated in user profiles and/or the received local search query.\n\nFIGS. 3A-B illustrate an exemplary method that provides local search endorsements whereby members can create and share their personalized lists of local articles and/or ads with other members in the member network and/or other users of a search engine. The exemplary method is provided by way of example, as there are a variety of ways to carry out methods according to the present invention. The method shown in FIGS. 3A-B can be executed or otherwise performed by one or a combination of various systems. The method in FIGS. 3A-B is described below as carried out by the system 100 shown in FIG. 1 by way of example, and various elements of the system 100 are referenced in explaining the example method of FIGS. 3A-B.\n\nThe method begins at 310 with a user, such as user 112 a, joining a member network, such as the member network 200 (e.g., Orkut™), by creating a user or member profile as described earlier.\n\nAt 320, the user 112 a submits a local search query to a search engine, such as the search engine 158 at the search site 152, that is linked to the member network site 160. The local search query includes one or more items to be searched (e.g., a sushi restaurant) and a particular locality for the search (e.g., San Francisco). The user 112 a submits the local search query by generating a query signal that includes the local search query at the client device 102 a and transmitting the query signal to the server device 152 via the network 106.\n\nAt 330, in response to receiving the query signal from the client device 102 a, the search engine 158 locates the desired local information in a manner know in the art and return article identifiers representing the desired local information in a local search result set. The search engine 158 further categorizes the local search query. For instance, referring to the example of the local search query for a sushi restaurant in San Francisco, such query can be categorized under “Japanese or Sushi Restaurants”, and listed under a locality subcategory of “San Francisco”. Alternatively, such query can be categorized under the San Francisco locality and listed under a subcategory for “Japanese or Sushi Restaurants”. Thus, the types of categorization used for local search queries merely depend on the desire of the search site 150.\n\nEach article identifier in the local search result set returned by the search engine 158 is provided with one or more “endorse” links that enables the user 112 a to endorse or recommend the underlying local article represented by the article identifier for the particular issued search query. The endorsement/recommendation can be a simple binary endorsement (e.g., a positive or negative endorsement) of the local article, a scaling system (e.g., 1 to 5 or A to F to indicate best to worst) rating the local article, and/or other added comments about the local article.\n\nAt 340, the user 112 a can endorse a local article by accessing the respective “endorse” link(s). For instance, the user 112 a can click on the “endorse” link and be directed to a navigational page or window, wherein the user 112 a is presented with the option to either positively endorse (e.g., “Recommended”) or negatively endorse (e.g., “Not Recommended”) the local article. In another instance, the user 112 a can click on the “endorse” link and be directed to a navigational page or window, wherein the user 112 a is presented with a scale, e.g., from 1 to 5 to rate the local article from best to worse or vice versa. In still another instance, separately or in combination with the aforementioned two instances, the user 112 a can click on the “endorse” link and be directed to a navigational page or window, wherein the user 112 a has the option to add comments about his/her opinion of the local article.\n\nAlternatively, the user 112 a can endorse a local article without having to first obtain the local article from a search query. For instance, the user 112 a can create a search endorsement entry in his or her member profile, wherein the user 112 a can input a desired search query for the endorsement, one or more article identifiers of local articles that the user 112 a chooses to endorse for the desired search query, and the kind of endorsement for each of the endorsed local article identifiers.\n\nIn a further instance, the user 112 a does not click on the available “endorse” link but click on the actual local article identifier to navigate to the actual local article. The search engine 158 then notes such access and transmits that information to the member network site 160 for storage in the profile of the user 112 a in the member network database 170. At some point in the future, when the user 112 a accesses the search engine 158 for another search, and the search engine 158, communicating with the member network engine 168, links the user 112 a with his/her member profile in the member network database 170, the search engine 158 can then prompt the user 112 a to endorse the particular local article that the user 112 a previously accessed but did not endorse. The user 112 a can receive such prompt for endorsement the next time he/she accesses the search engine 158 or after a predetermined number of accesses to the search engine 158. Also, the user 112 a may be prompted one or more times as desired. If the user 112 a chooses to disregard the prompts, the search engine 158 can stop prompting the user 112 a to endorse such local article after a predetermined number of prompts. Subsequently, the search engine 158 can bring up another article identifier for a local article that the user 112 a previously accessed but did not endorse and repeat the above prompt process again.\n\nAt 345, the user 112 a can also endorse any number of ads for a particular local search query in addition to or in lieu of the local articles. As referred herein, an ad can be an online ad, such as a banner ad, a pop-up window ad, or simply a listing of a name of a product/service provider along with contact information. An ad can also be in any format presently known or prospectively contemplated in the art and accessible via its article identifier by the search engine 158 and member network engine 168. According to one embodiment of the present invention, the act of endorsing an ad is separate from the act of accessing the search engine 158 to perform a search as described above. Also, the endorsed ad may or may not contain the same information as one of the local articles that the search engine 158 can come up with for a particular local search query. For instance, prior or subsequent to accessing the search engine 158 for a search, the user 112 a may have endorsed an ad through a website that handles such ad. The ad website can then forwards information about the endorsed ad to the member network site 160 so that the member network engine 168 can store the endorsed ad along with the proper local category for the ad in the profile of the user 112 a in the member network database 170. The categorization of endorsed ads is similar to that for local articles as described earlier.\n\nAt 350, once the user 112 a has endorsed one or more local articles as represented by their article identifiers in the local search result set and/or the user 112 a has endorsed one or more ads as also represented by their article identifiers, the search engine 158 can communicate with the member network engine 168 to store the endorsements in the member profile in the member network database 170. The endorsements are categorically stored in accordance with the category in which the local search query submitted by the user 112 a is listed.\n\nAccordingly, the member profile of the user 112 a can include at least the following information: 1) an identifier of the user 112 a (who can be anonymous); 2) a list of other users in the member network 200 that have one or more associations with the user 112 a as described earlier; 3) a list of categories of local search queries that have local search endorsements; 4) a list of endorsed local articles (e.g., names of a product/service providers and their contact information) and/or ads in each of the categories previously submitted by the user 112 a; and/or 5) the endorsements by the user 112 a for each of the endorsed local articles and/or ads. Alternatively, the endorsements can include the aforementioned information but be stored in a file other than the member profile and yet be associated with the member.\n\nReferring now to FIG. 3B, at 360, another user, such as user 112 b, submits a local search query to the same search site 150. As described earlier with regard to 320, the user 112 b submits the local search query at 370 by generating a query signal that includes a local search query at the client device 102 b and transmitting the query signal to the server device 152 via the network 106.\n\nIn response to receiving the query signal from the client device 102 b at 370, the search engine 158 performs two searches: 1) at 371, a regular local search similar to 330 in FIG. 3A whereby the search engine 158 locates the desired local information in a manner know in the art and return article identifiers associated with the local information in a first local search result set; and 2) at 372, a search of the member network database 170 whereby the search engine 158 locates previously endorsed local articles and/or ads in the same category or categories as the local search query submitted by the user 112 b in associated member profiles in a member network and return them in a second local search result set. The search engine 158 searches the member network database 170 by first communicating with the server device 162 and its member network engine 168 to identify members in the member network 200 that are associated with the user 112 b and/or associated with the local search query submitted by the user 112 b. Next, through the member network engine 168, the search engine 158 can access the member profiles of those associated members to look up any available list of endorsed local articles and/or ads (via their article identifiers) in the appropriate one or more categories as described.\n\nThus, the user 112 b can add a layer of trust on top of the regular local search result set. The trust can be in the form of local search endorsements from those members of the member network 200 that are associated with the user 112 b because of their explicit profile associations with the user 112 b, as described earlier with reference to FIG. 3. The trust can also be in the form of local search endorsements from those members that are associated with the user 112 b because of their implicit profile associations with the user 112 b and/or the local search query submitted by the user 112 b. In one implicit profile association, the search engine 158 and member network engine 168 can identify from member profiles stored in the member network database 170 those members that have the same or similar interests with the user 112 b, based on a comparison between the profile of the user 112 b and profiles of other users in the member network 200 or a comparison between the profiles of other users in the member network 200 and the local search query submitted by the user 112 b. The search engine 158 and member network engine 168 can then provide the user 112 b with any local article and/or ad endorsements that are classified in the same category or categories with the local search query submitted by the user 112 b from such implicitly-associated members. For instance, if the user 112 b is searching for a sushi restaurant in San Francisco, the user 112 b can receive endorsements from those members that live in the San Francisco area and like Japanese or sushi restaurant or from those members that are food critics in the San Francisco area. To provide another example, if both the users 112 a and 112 b are members of a “photography” community within the member network 200, and the user 112 b is searching for a digital camera, the user 112 b can receive any endorsements from the user 112 a and other members of the “photography” community on the kind of digital camera to purchase and/or where to purchase a digital camera. From the present disclosure, one of ordinary skill in the art can see that there are a myriad of criteria that can be used to identify those members that can be implicitly associated with the user 112 b. Those criteria merely depend on the extent of the information contained in the member profiles for the member network 200 and the local search queries entered by the user 112 b to obtain endorsed local articles and/or ads.\n\nAt 380, the search engine 158 then merges the first and second local search result sets together to form a final local search result set. According to one embodiment of the present invention, any endorsed local articles and/or ads in the final search result set can be ranked differently from other local articles in the set and annotated to indicate endorsements. The ranking for each endorsed local article and/or ad can be based on the type and/or degree of associations (implicit or explicit) between the user 112 b and the member in the member network 200 that has endorsed such local article and/or ad. For instance, the final search result set is the regular first local search result set that has been re-ordered or re-ranked with article identifiers for the endorsed local articles and/or ads (found from the second local search result set) arranged at the top of the list with annotations to indicate endorsements. The user 112 b can then access the annotations to view all endorsements for each endorsed local article and/or ad and identify the user or users that made the endorsements. This allows the user 112 b to appropriately trust the endorsements based on his/her associations (implicit or explicit) with the endorsers. The annotations (e.g., “endorsed by John Doe” and/or “from John Doe: a great place for buying widgets”) can accompany the article identifier of an endorsed local article or ad and be placed in the vicinity of the article identifier. Alternatively, the annotations can be links to pop-up windows or other sites/pages that contain the endorsement language. According to another embodiment of the present invention, the user 112 b can be automatically redirected to the navigational site of an endorsed article or ad based on the ranking or re-ordering.\n\nAlthough the aforementioned embodiments of the present invention have been described with regard to query-dependent endorsements, i.e., endorsed search results are provided based on search queries submitted by a user, it should be understood that query-independent endorsements also can be provided. FIGS. 6A-B illustrate an exemplary method that provides query-independent article endorsements whereby members can create and share their personalized lists of articles with other members in the member network and/or other users of a search engine. The exemplary method is provided by way of example, as there are a variety of ways to carry out methods according to the present invention. The method shown in FIGS. 6A-B can be executed or otherwise performed by one or a combination of various systems. The method in FIGS. 6A-B is described below as carried out by the system 100 shown in FIG. 1 by way of example, and various elements of the system 100 are referenced in explaining the example method of FIGS. 6A-B.\n\nThe method begins at 610 and continues at 620 and 630 in a similar manner as described earlier for 310, 320, and 330 in FIG. 3A, respectively.\n\nAt 640, similar to 340 in FIG. 3A, the user 112 a can endorse a local article by accessing the respective “endorse” link(s). For instance, the user 112 a can click on the “endorse” link and be directed to a navigational page or window, wherein the user 112 a is presented with the option to either positively endorse (e.g., “Recommended”) or negatively endorse (e.g., “Not Recommended”) the local article. In another instance, the user 112 a can click on the “endorse” link and be directed to a navigational page or window, wherein the user 112 a is presented with a scale, e.g., from 1 to 5 to rate the local article from best to worse or vice versa. In still another instance, separately or in combination with the aforementioned two instances, the user 112 a can click on the “endorse” link and be directed to a navigational page or window, wherein the user 112 a has the option to add comments about his/her opinion of the local article.\n\nAlternatively, the user 112 a can endorse a local article without having to first obtain the local article from a search query. For instance, the user 112 a can create a search endorsement entry in his or her member profile, wherein, unlike 340 in FIG. 3A, the user 112 a does not have to input a desired search query for the endorsement (because the endorsed search result set will be query-independent anyway, although the user 112 a can still input a desired search query). Here, the user 112 a also can input one or more article identifiers of local articles that the user 112 a chooses to endorse, and the kind of endorsement for each of the endorsed local article identifiers.\n\nIn a further instance, the user 112 a does not click on the available “endorse” link but click on the actual local article identifier to navigate to the actual local article. The search engine 158 then notes such access and transmits that information to the member network site 160 for storage in the profile of the user 112 a in the member network database 170. At some point in the future, when the user 112 a accesses the search engine 158 for another search, and the search engine 158, communicating with the member network engine 168, links the user 112 a with his/her member profile in the member network database 170, the search engine 158 can then prompt the user 112 a to endorse the particular local article that the user 112 a previously accessed but did not endorse. The user 112 a can receive such prompt for endorsement the next time he/she accesses the search engine 158 or after a predetermined number of accesses to the search engine 158, Also, the user 112 a may be prompted one or more times as desired. If the user 112 a chooses to disregard the prompts, the search engine 158 can stop prompting the user 112 a to endorse such local article after a predetermined number of prompts. Subsequently, the search engine 158 can bring up another article identifier for a local article that the user 112 a previously accessed but did not endorse and repeat the above prompt process again.\n\nAt 645, similar to 345 in FIG. 3, the user 112 a can also endorse any number of ads in addition to or in lieu of the local articles. As referred herein, an ad can be an online ad, such as a banner ad, a pop-up window ad, or simply a listing of a name of a product/service provider along with contact information. An ad can also be in any format presently known or prospectively contemplated in the art and accessible via its article identifier by the search engine 158 and member network engine 168. According to one embodiment of the present invention, the act of endorsing an ad is separate from the act of accessing the search engine 158 to perform a search as described above. Also, the endorsed ad may or may not contain the same information as one of the local articles that the search engine 158 can come up with for a particular local search query. For instance, prior or subsequent to accessing the search engine 158 for a search, the user 112 a may have endorsed an ad through a website that handles such ad. The ad website can then forwards information about the endorsed ad to the member network site 160 so that the member network engine 168 can store the endorsed ad along with the proper local category for the ad in the profile of the user 112 a in the member network database 170. The categorization of endorsed ads is similar to that for local articles as described earlier.\n\nAt 650, similar to 350 in FIG. 3A, once the user 112 a has endorsed one or more local articles as represented by their article identifiers in the local search result set and/or the user 112 a has endorsed one or more ads as also represented by their article identifiers, the search engine 158 can communicate with the member network engine 168 to store the endorsements in the member profile in the member network database 170. The endorsements are categorically stored in accordance with the category in which the local search query submitted by the user 112 a is listed.\n\nAccordingly, the member profile of the user 112 a can include at least the following information: 1) an identifier of the user 112 a (who can be anonymous); 2) a list of other users in the member network 200 that have one or more associations with the user 112 a as described earlier; 3) a list of local categories that have local search endorsements; 4) a list of endorsed local articles (e.g., names of a product/service providers and their contact information) and/or ads in each of the categories previously submitted by the user 112 a; and/or 5) the endorsements by the user 112 a for each of the endorsed local articles and/or ads. Alternatively, the endorsements can include the aforementioned information but be stored in a file other than the member profile and yet be associated with the member.\n\nReferring now to FIG. 6B, the method continues at 660, which is similar to 360 in FIG. 3 and described earlier. Next, in response to receiving the query signal from the client device 102 b at 370, the search engine 158 performs two searches: 1) at 371, a regular local search similar to 330 in FIG. 3A whereby the search engine 158 locates the desired local information in a manner know in the art and return article identifiers associated with the local information in a first local search result set; and 2) at 372, a search of the member network database 170 whereby the search engine 158 locates previously endorsed local articles and/or ads in associated member profiles in a member network and return them in a second local search result set. The search engine 158 searches the member network database 170 by first communicating with the server device 162 and its member network engine 168 to identify members in the member network 200 that are associated with the user 112 b. Next, through the member network engine 168, the search engine 158 can access the member profiles of those associated members to look up any available list of endorsed local articles and/or ads (via their article identifiers) in the appropriate one or more categories as described for those articles that match with the article identifiers contained in the first search result set.\n\nThus, the user 112 b can add a layer of trust on top of the regular local search result set, even though such layer of trust may be query-independent. The trust can be in the form of local search endorsements from those members of the member network 200 that are associated with the user 112 b because of their explicit profile associations with the user 112 b, as described earlier with reference to FIG. 2. The trust can also be in the form of local search endorsements from those members that are associated with the user 112 b because of their implicit profile associations with the user 112 b. In one implicit profile association, the search engine 158 and member network engine 168 can identify from member profiles stored in the member network database 170 those members that have the same or similar interests with the user 112 b, based on a comparison between the profile of the user 112 b and profiles of other users in the member network 200 or a comparison between the profiles of other users in the member network 200 and the local search query submitted by the user 112 b. The search engine 158 and member network engine 168 can then provide the user 112 b with any local article and/or ad endorsements that are classified in the same category or categories with the local search query submitted by the user 112 b from such implicitly-associated members.\n\nTo provide an example, if the user 112 b is searching for a sushi restaurant in San Francisco, the user 112 b can receive endorsements from those members that live in the San Francisco area and like Japanese or sushi restaurant or from those members that are food critics in the San Francisco area, even though such endorsements contained in the member profiles of those members may not have associated any assigned search queries at all but merely match some of the search results initially returned by the search engine 158. To provide another example, if both the users 112 a and 112 b are members of a “photography” community within the member network 200, and the user 112 b is searching for a digital camera, the user 112 b can receive any endorsements from the user 112 a and other members of the “photography” community on the kind of digital camera to purchase and/or where to purchase a digital camera. From the present disclosure, one of ordinary skill in the art can see that there are a myriad of criteria that can be used to identify those members that can be implicitly associated with the user 112 b. Those criteria merely depend on the extent of the information contained in the member profiles for the member network 200 as entered by the user 112 b to obtain endorsed local articles and/or ads.\n\nAt 680, the method continues as described earlier for 380 of FIG. 3.\n\nFIGS. 3A and 6A have been described with reference to one user, namely, user 112 a, and FIGS. 3B and 6B have been described with reference to another user, namely, user 112 b. However, it should be noted that a plurality of users, including the user 112 a or aside from the user 112 a, may have endorsed a plurality of local articles and/or ads in the same category or categories of the local search query subsequently submitted by the user 112 b. Also, the users 112 a and 112 b can be one and the same. Hence, according to one embodiment of the present invention, each article identifier in the final search result set described in FIGS. 3B and 6B, regardless of its endorsed or non-endorsed status, can be provided with one or more “endorse” links that enables the user 112 b to also endorse and/or recommend the underlying local article or ad for the submitted search query, just as the user 112 a is able to do. Further, the user 112 b can still benefit from local search endorsements by members of the member network 200 even when the user 112 b is not in a member network 200. This is because, as mentioned earlier, the search engine 158 and the member network engine 168 can retrieve endorsements from stored member profiles in the member network database 170 that are implicitly associated with the user 112 b based on just the local search query submitted by the user 112 b.\n\nConsequently, the local search endorsements can be used to personalize the search engine's ranking of article identifiers in a search result set by offering a way for users to re-rank the article identifiers for themselves and for those associated with them in the member network 200.\n\nAccording to one embodiment of the present invention, the local search endorsements can provide financial opportunities to both the users who endorse local articles and/or ads and the search site that implements the local search endorsements. For example, to encourage users to endorse a particular article or ad for a particular category, such web site can offer to pay each endorsing user a financial proceed (e.g., a fee for each click through) for the endorsement. The search site can also retain a portion of such proceed.\n\n\n## Example\n\n\nReferring to the screenshot shown in FIG. 4, with reference to FIGS. 1 and 2, an example in accordance with an embodiment of the present invention is now provided. When a user A (who can be, e.g., any one of the users 112 a-n), having a profile A at vertex 202 in FIG. 2 submits, a search query for, e.g., widgets in Chicago, to the search engine 158 at the search site 150, the search engine returns a search result set as shown in FIG. 4 to the user A. As shown, the article identifier 410 indicates an endorsement of the underlying article with a comment by a user D (having profile D at vertex 208 in FIG. 2). The article identifier 520 indicates a negative endorsement by a user E (having profile E at vertex 410 in FIG. 3) with no comments. The article identifier 430 indicates endorsements by users B (having profile B at vertex 204 in FIG. 2) and C (having profile C at vertex 206 in FIG. 2) with comments only from C. The article identifier 440 indicates an endorsement by a user F (having profile F at vertex 212 in FIG. 2) with no comments. The article identifier 450 indicates no endorsements or comments.\n\nFrom viewing the search results, the user A can decide to: 1) trust the articles represented by article identifiers 410 and 430 because they are endorsed by his/her friends, user B, C, and D (as shown by the friendship associations 226, 32, and 222, respectively); 2) trust the article represented by article identifier 420 a little less because it is endorsed by his/her friend of a friend, user E; and/or 3) not trust the articles represented by article identifier 440 or 450 because article identifier 440 is endorsed by a user F with whom the user A is strenuously associated (a friend F of a friend G of a friend C) and article identifier 450 is not endorsed by anyone. Alternatively, if the user F is implicitly associated with the user A (e.g., the user F is a Widget expert or aficionado in the Chicago area based on his/her user profile, or both users A and F are members of widget community or association within the member network 200), the user A can choose to trust the article represented by article identifier 440. The user A can also trust the article represented by article identifier 430 more than the article represented by article identifier 410 because the user A is associated in more ways with the user B than with the user D (three associations 224, 226, 228 versus two associations 220 and 222, as seen in FIG. 2).\n\nAs mentioned earlier, the user A also has an opportunity to provide endorsements and/or comments to one or more of the articles represented by article identifiers 410, 420, 430, 440, and 450 by accessing the link 401 that accompanies each of the article identifiers.\n\nFIG. 5 shows a sample screenshot 500 of an endorsement page that is provided when the user A accesses the link 401 of the article identifier 410, in accordance with an embodiment of the present invention. As shown, the user A can positively endorse the link by clicking on button 510, negatively endorse the link by clicking on button 520, and/or add comments in box 530. Once finished, the user A can click on button 540 to end the endorsement process, store the endorsement in his/her user profile in the member network database 170, and return to the search result page shown in FIG. 4. The endorsement by user A will then be added to a search result page in a similar manner to that shown in FIG. 4.\n\nGeneral\n\nAlthough the invention has been described with reference to these embodiments, other embodiments could be made by those in the art to achieve the same or similar results. Variations and modifications of the present invention will be apparent to one skilled in the art based on the present disclosure, and the present invention encompasses all such modifications and equivalents.",
+ "cited_by": [
+  {
+   "id": "US10868882B1",
+   "title": "Methods and systems for facilitating redirecting of internet traffic to service providers of a particular location",
+   "assignee": "David Bolyard"
+  },
+  {
+   "id": "US20090112715A1",
+   "title": "Engine, system and method for generation of brand affinity content",
+   "assignee": "Ryan Steelberg"
+  },
+  {
+   "id": "US8825639B2",
+   "title": "Endorsing search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7827176B2",
+   "title": "Methods and systems for endorsing local search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "EP1786821B1",
+   "title": "Dynamic knowledge-based networking system and method",
+   "assignee": "Intercasting Corporation"
+  },
+  {
+   "id": "US8046472B2",
+   "title": "System and method for expert service providers to provide advice services through unique, empowered independent agents to consumers",
+   "assignee": "Gopesh Kumar"
+  },
+  {
+   "id": "US20060085392A1",
+   "title": "System and method for automatic generation of search results based on local intention",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US10755313B2",
+   "title": "System and method for distribution of targeted content between mobile communication devices",
+   "assignee": "Andrew Levi"
+  },
+  {
+   "id": "US10354280B2",
+   "title": "System and method for distribution of targeted advertising between mobile communication devices",
+   "assignee": "Blue Calypso, Llc"
+  },
+  {
+   "id": "US9314697B2",
+   "title": "System and method for advertising distribution through mobile social gaming",
+   "assignee": "Blue Calypso, Llc"
+  },
+  {
+   "id": "US10482474B1",
+   "title": "Advertising database system and method",
+   "assignee": "A9.Com, Inc."
+  },
+  {
+   "id": "US7624102B2",
+   "title": "System and method for grouping by attribute",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7353034B2",
+   "title": "Location sharing and tracking using mobile phones or other wireless devices",
+   "assignee": "X One, Inc."
+  },
+  {
+   "id": "US8438499B2",
+   "title": "Indicating website reputations during user interactions",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US20060253582A1",
+   "title": "Indicating website reputations within search results",
+   "assignee": "Dixon Christopher J"
+  },
+  {
+   "id": "US20060253584A1",
+   "title": "Reputation of an entity associated with a content item",
+   "assignee": "Dixon Christopher J"
+  },
+  {
+   "id": "US7562304B2",
+   "title": "Indicating website reputations during website manipulation of user information",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US9384345B2",
+   "title": "Providing alternative web content based on website reputation assessment",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US8566726B2",
+   "title": "Indicating website reputations based on website handling of personal information",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "WO2007002820A2",
+   "title": "Search engine with augmented relevance ranking by community participation",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8560385B2",
+   "title": "Advertising and incentives over a social network",
+   "assignee": "Bees & Pollen Ltd."
+  },
+  {
+   "id": "US7809805B2",
+   "title": "Systems and methods for automatically locating web-based social network members",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US7836045B2",
+   "title": "Customizing web search results based on users' offline activity",
+   "assignee": "Approximatch, Inc."
+  },
+  {
+   "id": "US8117196B2",
+   "title": "Search tool providing optional use of human search guides",
+   "assignee": "Chacha Search, Inc."
+  },
+  {
+   "id": "US20070174258A1",
+   "title": "Targeted mobile device advertisements",
+   "assignee": "Jones Scott A"
+  },
+  {
+   "id": "US7657523B2",
+   "title": "Ranking search results presented to on-line users as a function of perspectives of relationships trusted by the users",
+   "assignee": "Customerforce.Com"
+  },
+  {
+   "id": "US7571050B2",
+   "title": "Transit-coordinated local search",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8701196B2",
+   "title": "System, method and computer program product for obtaining a reputation associated with a file",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US7702456B2",
+   "title": "System and method for presenting a computed route",
+   "assignee": "Scenera Technologies, Llc"
+  },
+  {
+   "id": "US9141704B2",
+   "title": "Data management in social networks",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9396269B2",
+   "title": "Search engine that identifies and uses social networks in communications, retrieval, and electronic commerce",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8874592B2",
+   "title": "Search guided by location and context",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "WO2008011454A2",
+   "title": "Anonymous search system using human searchers",
+   "assignee": "Chacha Search, Inc."
+  },
+  {
+   "id": "WO2008013978A2",
+   "title": "Systems and methods for enhanced information visualization",
+   "assignee": "Visible World Inc."
+  },
+  {
+   "id": "JP2010500665A",
+   "title": "Related group search method, system and computer readable storage",
+   "assignee": "チャチャ サーチ，インク．"
+  },
+  {
+   "id": "US20080077574A1",
+   "title": "Topic Based Recommender System & Methods",
+   "assignee": "John Nicholas Gross"
+  },
+  {
+   "id": "US11392595B2",
+   "title": "Techniques for determining relevant electronic content in response to queries",
+   "assignee": "EMB Partners, LLC"
+  },
+  {
+   "id": "US8880583B2",
+   "title": "System and method for permitting geographically-pertinent information to be ranked by users according to users' geographic proximity to information and to each other for affecting the ranking of such information",
+   "assignee": "Nixle, Llc"
+  },
+  {
+   "id": "US7870026B2",
+   "title": "Selecting and displaying advertisement in a personal media space",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7885986B2",
+   "title": "Enhanced browsing experience in social bookmarking based on self tags",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9591086B2",
+   "title": "Display of information in electronic communications",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20110040606A1",
+   "title": "System And Method For Metricizing Assets In A Brand Affinity Content Distribution",
+   "assignee": "Ryan Steelberg"
+  },
+  {
+   "id": "US20100318375A1",
+   "title": "System and Method for Localized Valuations of Media Assets",
+   "assignee": "Ryan Steelberg"
+  },
+  {
+   "id": "US8566884B2",
+   "title": "Socially collaborative filtering",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US20090157612A1",
+   "title": "User-created search results in an incentive scheme",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20090164929A1",
+   "title": "Customizing Search Results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8577894B2",
+   "title": "Method and system for access to restricted resources",
+   "assignee": "Chacha Search, Inc"
+  },
+  {
+   "id": "US7937387B2",
+   "title": "System and method for data preservation and retrieval",
+   "assignee": "Mandiant"
+  },
+  {
+   "id": "US7890530B2",
+   "title": "Method and system for controlling access to data via a data-centric security model",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8255396B2",
+   "title": "Electronic profile development, storage, use, and systems therefor",
+   "assignee": "Atigeo Llc"
+  },
+  {
+   "id": "US20090271417A1",
+   "title": "Identifying User Relationships from Situational Analysis of User Comments Made on Media Content",
+   "assignee": "John Toebes"
+  },
+  {
+   "id": "US20120158720A1",
+   "title": "Social network powered search enhancements",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20090271374A1",
+   "title": "Social network powered query refinement and recommendations",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20090315766A1",
+   "title": "Source switching for devices supporting dynamic direction information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8700301B2",
+   "title": "Mobile computing devices, architecture and user interfaces based on dynamic direction information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8467991B2",
+   "title": "Data services based on gesture and location information of device",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20090319166A1",
+   "title": "Mobile computing services based on devices with dynamic direction information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20090315775A1",
+   "title": "Mobile computing services based on devices with dynamic direction information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8719258B2",
+   "title": "Information sharing in an online community",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8700609B2",
+   "title": "Advertising in an online community",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8180766B2",
+   "title": "Bayesian video search reranking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US10489747B2",
+   "title": "System and methods to facilitate social media",
+   "assignee": "Leaf Group Ltd."
+  },
+  {
+   "id": "US10318603B2",
+   "title": "Reciprocal tags in social tagging",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7934161B1",
+   "title": "Electronic search interface technology",
+   "assignee": "Jason Adam Denise"
+  },
+  {
+   "id": "US20100174712A1",
+   "title": "Expertise ranking using social distance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8595228B1",
+   "title": "Preferred sites",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20100228612A1",
+   "title": "Device transaction model and services based on directional information of device",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20120047087A1",
+   "title": "Smart encounters",
+   "assignee": "Waldeck Technology Llc"
+  },
+  {
+   "id": "US20100268704A1",
+   "title": "Method of searching information and ranking search results, user terminal and internet search server with the method applied thereto",
+   "assignee": "Mitac Technology Corp."
+  },
+  {
+   "id": "US20120330854A1",
+   "title": "Distributable referral directory",
+   "assignee": "Maclaughlin Edwin J"
+  },
+  {
+   "id": "US9495460B2",
+   "title": "Merging search results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9626405B2",
+   "title": "Trust network effect",
+   "assignee": "Edmond K. Chow"
+  },
+  {
+   "id": "US20100332324A1",
+   "title": "Portal services based on interactions with points of interest discovered via directional device information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "CN101937437B",
+   "title": "Search method, device and system",
+   "assignee": "华为技术有限公司"
+  },
+  {
+   "id": "US8872767B2",
+   "title": "System and method for converting gestures into digital graffiti",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7930430B2",
+   "title": "Systems and methods to provide assistance during address input",
+   "assignee": "Xobni Corporation"
+  },
+  {
+   "id": "US8990323B2",
+   "title": "Defining a social network model implied by communications data",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9721228B2",
+   "title": "Locally hosting a social network using social data stored on a user's computer",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20110191717A1",
+   "title": "Presenting Suggestions for User Input Based on Client Device Characteristics",
+   "assignee": "Xobni Corporation"
+  },
+  {
+   "id": "KR101169840B1",
+   "title": "System and method for providing of personalized mobile advertising",
+   "assignee": "삼성전자주식회사"
+  },
+  {
+   "id": "US9514466B2",
+   "title": "Collecting and presenting data including links from communications sent to or from a user",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9760866B2",
+   "title": "Systems and methods to provide server side profile information",
+   "assignee": "Yahoo Holdings, Inc."
+  },
+  {
+   "id": "US9268850B2",
+   "title": "Methods and systems for selecting an optimized scoring function for use in ranking item listings presented in search results",
+   "assignee": "Rami El-Charif"
+  },
+  {
+   "id": "US20110258025A1",
+   "title": "Payment model with endorsements",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20110258042A1",
+   "title": "Endorsements Used in Ranking Ads",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8880520B2",
+   "title": "Selectively adding social dimension to web searches",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8972257B2",
+   "title": "Systems and methods to present voice message information to a user of a computing device",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8620935B2",
+   "title": "Personalizing an online service based on data collected for a user of a computing device",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20110314017A1",
+   "title": "Techniques to automatically manage social connections",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9870391B1",
+   "title": "People search using proximity",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US20120150598A1",
+   "title": "Social retail referral control apparatuses, methods and systems",
+   "assignee": "Alfred William Griggs"
+  },
+  {
+   "id": "US10142441B2",
+   "title": "Search result annotations",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US20120084160A1",
+   "title": "Providing Social Endorsements with Online Advertising",
+   "assignee": "Gregory Joseph Badros"
+  },
+  {
+   "id": "US8571937B2",
+   "title": "Dynamic payment optimization apparatuses, methods and systems",
+   "assignee": "Playspan Inc."
+  },
+  {
+   "id": "US20120197881A1",
+   "title": "Segmentation of professional network update data",
+   "assignee": "Allen Blue"
+  },
+  {
+   "id": "US20120143701A1",
+   "title": "Re-publishing content in an activity stream",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8484191B2",
+   "title": "On-line social search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9229900B2",
+   "title": "Techniques for ascribing social attributes to content",
+   "assignee": "Linkedin Corporation"
+  },
+  {
+   "id": "US8949239B2",
+   "title": "Methods and systems for utilizing activity data with clustered events",
+   "assignee": "Linkedin Corporation"
+  },
+  {
+   "id": "US9172762B2",
+   "title": "Methods and systems for recommending a context based on content interaction",
+   "assignee": "Linkedin Corporation"
+  },
+  {
+   "id": "US9083747B2",
+   "title": "Automated location check-in for geo-social networking system",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "CN102255952A",
+   "title": "Service middleware based on position",
+   "assignee": "苏州萃智新技术开发有限公司"
+  },
+  {
+   "id": "US10078819B2",
+   "title": "Presenting favorite contacts information to a user of a computing device",
+   "assignee": "Oath Inc."
+  },
+  {
+   "id": "US9747583B2",
+   "title": "Presenting entity profile information to a user of a computing device",
+   "assignee": "Yahoo Holdings, Inc."
+  },
+  {
+   "id": "US10438176B2",
+   "title": "Multiple merchant payment processor platform apparatuses, methods and systems",
+   "assignee": "Visa International Service Association"
+  },
+  {
+   "id": "US20130024439A1",
+   "title": "Modeling search in a social graph",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US10318941B2",
+   "title": "Payment platform interface widget generation apparatuses, methods and systems",
+   "assignee": "Visa International Service Association"
+  },
+  {
+   "id": "US20130054631A1",
+   "title": "Adding social network data to search suggestions",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8874557B2",
+   "title": "Object retrieval and localization using a spatially-constrained similarity model",
+   "assignee": "Adobe Systems Incorporated"
+  },
+  {
+   "id": "US8805116B2",
+   "title": "Methods and apparatus for visual search",
+   "assignee": "Adobe Systems Incorporated"
+  },
+  {
+   "id": "US20130097143A1",
+   "title": "Presenting aggregately endorsed search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8930384B2",
+   "title": "Topical activity monitor system and method",
+   "assignee": "MarketChorus, Inc."
+  },
+  {
+   "id": "US9009129B2",
+   "title": "Presenting search results annotated with domain endorsements",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9104751B2",
+   "title": "Supplemental search results having social connection endorsement data on a SERP",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9092529B1",
+   "title": "Social search endorsements",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10096022B2",
+   "title": "Dynamic widget generator apparatuses, methods and systems",
+   "assignee": "Visa International Service Association"
+  },
+  {
+   "id": "US8498979B1",
+   "title": "System and method for semantic analysis of social network user activities",
+   "assignee": "Wajam Internet Technologies Inc."
+  },
+  {
+   "id": "US8478735B1",
+   "title": "Method and system for ranking results and providing lists of experts from social networks",
+   "assignee": "Wajam Internet Technologies Inc."
+  },
+  {
+   "id": "US8577859B2",
+   "title": "Method and system for aggregating searchable web content from a plurality of social networks and presenting search results",
+   "assignee": "Wajam Internet Technologie Inc."
+  },
+  {
+   "id": "US8620898B2",
+   "title": "Proxy server for application on mobile device",
+   "assignee": "Wajam Internet Technologies Inc."
+  },
+  {
+   "id": "US10977285B2",
+   "title": "Using observations of a person to determine if data corresponds to the person",
+   "assignee": "Verizon Media Inc."
+  },
+  {
+   "id": "US20130297657A1",
+   "title": "Apparatus and Method for Forming and Using a Tree Structured Database with Top-Down Trees and Bottom-Up Indices",
+   "assignee": "Gajanan Chinchwadkar"
+  },
+  {
+   "id": "US8880563B2",
+   "title": "Image search by query object segmentation",
+   "assignee": "Adobe Systems Incorporated"
+  },
+  {
+   "id": "US10013672B2",
+   "title": "Address extraction from a communication",
+   "assignee": "Oath Inc."
+  },
+  {
+   "id": "US10192200B2",
+   "title": "Classifying a portion of user contact data into local contacts",
+   "assignee": "Oath Inc."
+  },
+  {
+   "id": "US9414004B2",
+   "title": "Method for combining voice signals to form a continuous conversation in performing a voice search",
+   "assignee": "The Directv Group, Inc."
+  },
+  {
+   "id": "US20140280079A1",
+   "title": "Creating Lists of Digital Content",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9792330B1",
+   "title": "Identifying local experts for local search",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20140324582A1",
+   "title": "Social network enhanced content items responsive to search queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9814985B2",
+   "title": "System and method for advertising distribution through mobile social gaming",
+   "assignee": "Blue Calypso, Llc"
+  },
+  {
+   "id": "US10373431B2",
+   "title": "System and method for advertising distribution through mobile social gaming",
+   "assignee": "Blue Calypso, Llc"
+  },
+  {
+   "id": "KR20150019668A",
+   "title": "Supporting Method For suggesting information associated with search and Electronic Device supporting the same",
+   "assignee": "삼성전자주식회사"
+  },
+  {
+   "id": "US20150134639A1",
+   "title": "Inline Commenting on Social Threads",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "CN105446972B",
+   "title": "Searching method, device and system based on and fused with user relationship data",
+   "assignee": "阿里巴巴集团控股有限公司"
+  },
+  {
+   "id": "US11216468B2",
+   "title": "Converged merchant processing apparatuses, methods and systems",
+   "assignee": "Visa International Service Association"
+  },
+  {
+   "id": "CN104731962B",
+   "title": "Friend recommendation method and system based on similar corporations in a kind of social networks",
+   "assignee": "重庆邮电大学"
+  },
+  {
+   "id": "US10331752B2",
+   "title": "Methods and systems for determining query date ranges",
+   "assignee": "Oath Inc."
+  },
+  {
+   "id": "US10061817B1",
+   "title": "Social ranking for apps",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US20170031998A1",
+   "title": "Organizational directory access client and server leveraging local and network search",
+   "assignee": "Linkedln Corporation"
+  },
+  {
+   "id": "US10474997B2",
+   "title": "Generating popularity scores for keywords",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US10496662B2",
+   "title": "Generating relevance scores for keywords",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US10445305B2",
+   "title": "Prioritizing keywords",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US10152545B2",
+   "title": "Personalized recommendations using localized regularization",
+   "assignee": "Adobe Systems Incorporated"
+  },
+  {
+   "id": "US20180060432A1",
+   "title": "Prioritizing people search results",
+   "assignee": "Linkedln Corporation"
+  },
+  {
+   "id": "US20180060438A1",
+   "title": "Prioritizing locations for people search",
+   "assignee": "Linkedin Corporation"
+  },
+  {
+   "id": "US20180060433A1",
+   "title": "Prioritizing keywords for people search",
+   "assignee": "Linkedin Corporation"
+  },
+  {
+   "id": "US10902342B2",
+   "title": "System and method for scoring the geographic relevance of answers in a deep question answering system based on geographic context of an input question",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "CN112309563B",
+   "title": "Method and system for improving information pushing accuracy of medical robot",
+   "assignee": "深圳百诺明医说科技有限公司"
+  },
+  {
+   "id": "US11397777B2",
+   "title": "System and method for associating endorsers with articles on the internet",
+   "assignee": "Transactable Corporation"
+  },
+  {
+   "id": "WO2021209901A1",
+   "title": "Endorsement system and techniques for educational content",
+   "assignee": "Khalifa University of Science and Technology"
+  },
+  {
+   "id": "US12602439B2",
+   "title": "Search experience management system",
+   "assignee": "Yext, Inc."
+  }
+ ],
+ "cites": [
+  {
+   "id": "JPH11265369A",
+   "title": "Interaction display",
+   "assignee": "Nippon Telegr & Teleph Corp"
+  },
+  {
+   "id": "US6006222A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6014665A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6078916A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6138128A",
+   "title": "Sharing and organizing world wide web references using distinctive characters",
+   "assignee": "Microsoft Corp."
+  },
+  {
+   "id": "WO2000077689A1",
+   "title": "A process for improving search engine efficiency using user feedback",
+   "assignee": "Triogo, Inc."
+  },
+  {
+   "id": "US6182068B1",
+   "title": "Personalized search methods",
+   "assignee": "Ask Jeeves, Inc."
+  },
+  {
+   "id": "US6185559B1",
+   "title": "Method and apparatus for dynamically counting large itemsets",
+   "assignee": "Hitachi America, Ltd."
+  },
+  {
+   "id": "US6256648B1",
+   "title": "System and method for selecting and displaying hyperlinked information resources",
+   "assignee": "At&T Corp."
+  },
+  {
+   "id": "US6266649B1",
+   "title": "Collaborative recommendations using item-to-item similarity mappings",
+   "assignee": "Amazon.Com, Inc."
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US20020002600A1",
+   "title": "Information retrieval apparatus and method using regional information",
+   "assignee": "Sanyo Electric Co., Ltd."
+  },
+  {
+   "id": "US20020027567A1",
+   "title": "Listing network for classified information",
+   "assignee": "Niamir Bern B."
+  },
+  {
+   "id": "US20020042791A1",
+   "title": "Methods and apparatus for using a modified index to provide search results in response to an ambiguous search query",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "JP2002132604A",
+   "title": "Network system and social network system and its communication method",
+   "assignee": "Ai Kyara Kk"
+  },
+  {
+   "id": "US6389372B1",
+   "title": "System and method for bootstrapping a collaborative filtering system",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6405175B1",
+   "title": "Shopping scouts web site for rewarding customer referrals on product and price information with rewards scaled by the number of shoppers using the information",
+   "assignee": "David Way Ng"
+  },
+  {
+   "id": "US20020116466A1",
+   "title": "Characterizing relationships in social networks",
+   "assignee": "Parity Communications, Inc"
+  },
+  {
+   "id": "US20020120609A1",
+   "title": "Collaborative/adaptive search engine",
+   "assignee": "Lang Andrew K."
+  },
+  {
+   "id": "US20020124053A1",
+   "title": "Control of access control lists based on social networks",
+   "assignee": "Robert Adams"
+  },
+  {
+   "id": "US20020123988A1",
+   "title": "Methods and apparatus for employing usage statistics in document retrieval",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020133481A1",
+   "title": "Methods and apparatus for providing search results in response to an ambiguous search query",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US6526440B1",
+   "title": "Ranking search results by reranking the results based on local inter-connectivity",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030046098A1",
+   "title": "Apparatus and method that modifies the ranking of the search results by the number of votes cast by end-users and advertisers",
+   "assignee": "Seong-Gon Kim"
+  },
+  {
+   "id": "US20030050977A1",
+   "title": "Peer discovery and connection management based on context sensitive social networks",
+   "assignee": "Puthenkulam Jose P."
+  },
+  {
+   "id": "US6594673B1",
+   "title": "Visualizations for collaborative information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "WO2000068860A3",
+   "title": "Method of social network generation for customer relationships",
+   "assignee": "Innovative Systems Inc"
+  },
+  {
+   "id": "US6615209B1",
+   "title": "Detecting query-specific duplicate documents",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "WO2003081483A1",
+   "title": "Community directory",
+   "assignee": "Daniel Rex Greening"
+  },
+  {
+   "id": "US6658423B1",
+   "title": "Detecting duplicate and near-duplicate files",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US6678681B1",
+   "title": "Information extraction from a database",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040034631A1",
+   "title": "Shared document repository with coupled recommender system",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20040042599A1",
+   "title": "Virtual calling card system and method",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20040059708A1",
+   "title": "Methods and apparatus for serving relevant advertisements",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20040088325A1",
+   "title": "System and method for building social networks based on activity around shared virtual objects",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6754873B1",
+   "title": "Techniques for finding related hyperlinked documents using link-based analysis",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040119740A1",
+   "title": "Methods and apparatus for displaying and replying to electronic messages",
+   "assignee": "Google, Inc., A Corporation Of The State Of California"
+  },
+  {
+   "id": "US20040122803A1",
+   "title": "Detect and qualify relationships between people and find the best path through the resulting social network",
+   "assignee": "Dom Byron E."
+  },
+  {
+   "id": "US20040122811A1",
+   "title": "Method for searching media",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20050120006A1",
+   "title": "Systems and methods for enhancing web-based searching",
+   "assignee": "Geosign Corporation"
+  },
+  {
+   "id": "US6947924B2",
+   "title": "Group based search engine generating search results ranking based on at least one nomination previously made by member of the user group where nomination system is independent from visitation system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050256866A1",
+   "title": "Search system and methods with integration of user annotations from a trust network",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20060004713A1",
+   "title": "Methods and systems for endorsing local search results",
+   "assignee": "Korte Thomas C"
+  },
+  {
+   "id": "US7225182B2",
+   "title": "Recommending search terms using collaborative filtering and web spidering",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "AU2001241510A1",
+   "title": "Customer service system and method",
+   "assignee": "Askit Systems Inc."
+  },
+  {
+   "id": "US20040006497A1",
+   "title": "Entertainment event ticket purchase and exchange system",
+   "assignee": "Nestor Tod A."
+  },
+  {
+   "id": "US8001035B2",
+   "title": "System and method for conducting an electronic financial asset deposit auction over computer network",
+   "assignee": "Khai Hee Kwan"
+  },
+  {
+   "id": "US7058516B2",
+   "title": "Computer implemented searching using search criteria comprised of ratings prepared by leading practitioners in biomedical specialties",
+   "assignee": "Bioexpertise, Inc."
+  },
+  {
+   "id": "US6463430B1",
+   "title": "Devices and methods for generating and managing a database",
+   "assignee": "Mohomine, Inc."
+  },
+  {
+   "id": "US6647383B1",
+   "title": "System and method for providing interactive dialogue and iterative search functions to find information",
+   "assignee": "Lucent Technologies Inc."
+  },
+  {
+   "id": "US20020092019A1",
+   "title": "Method and apparatus for creation, distribution, assembly and verification of media",
+   "assignee": "Dwight Marcus"
+  },
+  {
+   "id": "US20020042733A1",
+   "title": "Enhancements to business research over internet",
+   "assignee": "Lesandrini Jay William"
+  },
+  {
+   "id": "KR20020061119A",
+   "title": "Associating information management system, program for associating information management, and recording medium",
+   "assignee": "유겐가이샤 츠유키 소프트 겐큐쇼"
+  },
+  {
+   "id": "US20050004837A1",
+   "title": "System and method for compounded marketing",
+   "assignee": "Duane Sweeney"
+  },
+  {
+   "id": "US20040148201A1",
+   "title": "Insurance management system",
+   "assignee": "Smith Tracy Lee"
+  },
+  {
+   "id": "US20060277091A1",
+   "title": "Automated method for quantitative measurement of benefits in a plurality of self-assessing, knowledge sharing communities",
+   "assignee": "Kochikar Vivekanand P"
+  },
+  {
+   "id": "US7739281B2",
+   "title": "Systems and methods for ranking documents based upon structurally interrelated information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7305389B2",
+   "title": "Content propagation for enhanced document retrieval",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8483668B2",
+   "title": "Content delivery system for mobile device",
+   "assignee": "David A. Hurowitz"
+  }
+ ],
+ "similar": [
+  {
+   "id": "US8489586B2",
+   "title": "Methods and systems for endorsing local search results"
+  },
+  {
+   "id": "US8825639B2",
+   "title": "Endorsing search results"
+  },
+  {
+   "id": "US10706115B1",
+   "title": "Personalizing search queries based on user membership in social network communities"
+  },
+  {
+   "id": "US12093339B1",
+   "title": "Methods and systems for providing a document"
+  },
+  {
+   "id": "US7359894B1",
+   "title": "Methods and systems for requesting and providing information in a social network"
+  },
+  {
+   "id": "US11108887B2",
+   "title": "Methods and systems for the display and navigation of a social network"
+  },
+  {
+   "id": "US10740723B2",
+   "title": "Computer method and system for searching and navigating published content on a global computer network"
+  },
+  {
+   "id": "US8060405B1",
+   "title": "Methods and systems for correlating connections between users and links between articles"
+  },
+  {
+   "id": "US20110035329A1",
+   "title": "Search Methods and Systems Utilizing Social Graphs as Filters"
+  },
+  {
+   "id": "US20050038717A1",
+   "title": "Personalized selection and display of user-supplied content to enhance browsing of electronic catalogs"
+  },
+  {
+   "id": "US20090299853A1",
+   "title": "Method and system of improving selection of search results"
+  },
+  {
+   "id": "US20130151639A1",
+   "title": "Social network information system and method"
+  },
+  {
+   "id": "CA2603042C",
+   "title": "Methods and systems for member-created advertisement in a member network"
+  },
+  {
+   "id": "US20080294631A1",
+   "title": "Desire posting system and method"
+  },
+  {
+   "id": "CN107155362A",
+   "title": "Sort search results for member profile queries"
+  },
+  {
+   "id": "US7702653B1",
+   "title": "Methods and systems for triggering actions"
+  },
+  {
+   "id": "US20120330854A1",
+   "title": "Distributable referral directory"
+  },
+  {
+   "id": "US10402457B1",
+   "title": "Methods and systems for correlating connections between users and links between articles"
+  },
+  {
+   "id": "CN101512577A",
+   "title": "Computer method and apparatus for targeting advertisements"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8880516B2/en"
+}

@@ -1,0 +1,1399 @@
+{
+ "id": "US8694374B1",
+ "title": "Detecting click spam",
+ "abstract": "A computer-implemented method for processing network activities is described. The method includes identifying a model that specifies attributes for network objects, identifying a network object having one or more attributes that deviate from the model, and providing as an input to a ranking algorithm a value associated with the deviance of the one or more attributes of the identified network object.",
+ "inventors": [
+  "Michelangelo Diligenti",
+  "Diego Federici"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2007-03-14",
+ "filing_date": "2007-03-14",
+ "publication_date": "2014-04-08",
+ "status": "Expired - Fee Related",
+ "expiration": "2030-03-06",
+ "cpc": [
+  "G06Q30/00",
+  "G06Q30/02"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer-implemented method, the method comprising: obtaining a model of typical behavior for each of a plurality of different statistics derived from selection data associated with each of a plurality of user identifiers, the selection data representing prior selections of search results by users associated with respective user identifiers, wherein the search results are responsive to respective search queries; determining a distribution of counts of deviations to counts of the user identifiers having those deviations, wherein a particular deviation is a calculated statistic for a user identifier that deviates from typical behavior for the statistic according to the model; determining a plurality of zones within the distribution of counts of deviations to counts of the user identifiers having those deviations, wherein each zone defines a respective range of deviations in the distribution; determining that a first user identifier of the plurality of user identifiers has a count of deviations that is within a particular zone of the plurality of zones within the distribution; and modifying, by one or more computers, selection data associated with the first user identifier based on a weight associated with the particular zone within the distribution in response to determining that the first user identifier has a count of deviations that is within the particular zone within the distribution.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1 wherein a user identifier is an Internet Protocol address, a cookie, a media access control address, or a hardware configuration for a client device.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1 wherein modifying selection data associated with the first user identifier based on a weight associated with the particular zone within the distribution comprises reducing an influence of one or more attributes of selection data associated with the first user according to the weight when computing statistics between search queries and search results.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, wherein a calculated statistic in the plurality of different statistics is a click to query ratio, a count of click types for different search results, a count of clicked search results per total number of clicks, a count of queries per number of distinct queries, a median click length, a maximum number of clicks per time period, a distribution of the click lengths, a distribution of click positions, a fraction of clicks outside a first page of search results, or a fraction of clicks on advertisements.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 4 wherein a click type in the click types is a duration of the click.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 1 wherein the typical behavior for the statistic according to the model is based at least partly on a prototypical distribution for the statistic.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 6 wherein the prototypical distribution for the statistic is an average of values of the statistic for the plurality of user identifiers.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 1, wherein modifying selection data associated with the first user identifier based on a weight associated with the particular zone within the distribution comprises: providing the weight to a ranking process for use in discounting the selection data associated with the first user identifier.",
+   "dependent": true
+  },
+  {
+   "text": "9. The method of claim 1, wherein modifying selection data associated with the first user identifier based on a weight associated with the particular zone within the distribution comprises discounting one or more selection statistics associated with the first user identifier according to the weight.",
+   "dependent": true
+  },
+  {
+   "text": "10. The method of claim 1, further comprising: calculating the plurality of different statistics; and building the model of typical behavior for each statistic for the plurality of user identifiers.",
+   "dependent": true
+  },
+  {
+   "text": "11. The method of claim 1, wherein modifying selection data associated with the first user identifier comprises limiting a contribution of selection data associated with the first user identifier.",
+   "dependent": true
+  },
+  {
+   "text": "12. The method of claim 1, further comprising: providing the modified selection data to a ranking process for ranking search results responsive to search queries.",
+   "dependent": true
+  },
+  {
+   "text": "13. A system comprising: one or more data processing apparatus; and a computer-readable storage device having instructions stored thereon that, when executed by the one or more data processing apparatus, cause the one or more data processing apparatus to perform operations comprising: obtaining a model of typical behavior for each of a plurality of different statistics derived from selection data associated with each of a plurality of user identifiers, the selection data representing prior selections of search results by users associated with respective user identifiers, wherein the search results are responsive to respective search queries; determining a distribution of counts of deviations to counts of the user identifiers having those deviations, wherein a particular deviation is a calculated statistic for a user identifier that deviates from typical behavior for the statistic according to the model; determining a plurality of zones within the distribution of counts of deviations to counts of the user identifiers having those deviations, wherein each zone defines a respective range of deviations in the distribution; determining that a first user identifier of the plurality of user identifiers has a count of deviations that is within a particular zone of the plurality of zones within the distribution; and modifying selection data associated with the first user identifier based on a weight associated with the particular zone within the distribution in response to determining that the first user identifier has a count of deviations that is within the particular zone within the distribution.",
+   "dependent": false
+  },
+  {
+   "text": "14. The system of claim 13, wherein a user identifier is an Internet Protocol address, a cookie, a media access control address, or a hardware configuration for a client device.",
+   "dependent": true
+  },
+  {
+   "text": "15. The system of claim 13, wherein modifying selection data associated with the first user identifier based on a weight associated with the particular zone within the distribution comprises reducing an influence of one or more attributes of selection data associated with the first user according to the weight when computing statistics between search queries and search results.",
+   "dependent": true
+  },
+  {
+   "text": "16. The system of claim 13, wherein a calculated statistic in the plurality of different statistics is a click to query ratio, a count of click types for different search results, a count of clicked search results per total number of clicks, a count of queries per number of distinct queries, a median click length, a maximum number of clicks per time period, a distribution of the click lengths, a distribution of click positions, a fraction of clicks outside a first page of search results, or a fraction of clicks on advertisements.",
+   "dependent": true
+  },
+  {
+   "text": "17. The system of claim 16, wherein a click type in the click types is a duration of the click.",
+   "dependent": true
+  },
+  {
+   "text": "18. The system of claim 13, wherein the typical behavior for the statistic according to the model is based at least partly on a prototypical distribution for the statistic.",
+   "dependent": true
+  },
+  {
+   "text": "19. The system of claim 18, wherein the prototypical distribution for the statistic is an average of values of the statistic for the plurality of user identifiers.",
+   "dependent": true
+  },
+  {
+   "text": "20. The system of claim 13, wherein modifying selection data associated with the first user identifier based on a weight associated with the particular zone within the distribution comprises: providing the weight to a ranking process for use in discounting the selection data associated with the first user identifier.",
+   "dependent": true
+  },
+  {
+   "text": "21. The system of claim 13, wherein modifying selection data associated with the first user identifier based on a weight associated with the particular zone within the distribution comprises discounting one or more selection statistics associated with the first user identifier according to the weight.",
+   "dependent": true
+  },
+  {
+   "text": "22. The system of claim 13, wherein the operations further comprise: calculating the plurality of different statistics; and building the model of typical behavior for each statistic for the plurality of user identifiers.",
+   "dependent": true
+  },
+  {
+   "text": "23. The system of claim 13, wherein modifying selection data associated with the first user identifier based on a weight associated with the particular zone within the distribution comprises limiting a contribution of selection data associated with the first user identifier.",
+   "dependent": true
+  },
+  {
+   "text": "24. The system of claim 13, wherein the operations further comprise: providing the modified selection data to a ranking process for ranking search results responsive to search queries.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## TECHNICAL FIELD\n\n\nThis instant specification relates to detecting anomalous network activity.\n\n\n## BACKGROUND\n\n\nInternet search engines aim to identify documents or other items that are relevant to a user's needs and to present the document or items in a manner that is most useful to the user. Such activity often involves a fair amount of mind-reading—inferring from various clues what the user wants. Certain clues may be user specific. For example, knowledge that a user is making a request from a mobile device, and knowledge of the location of the device can result in much better search results for such a user.\n\nClues about a user's needs may also be more general. For example, search results can have an elevated importance, or inferred relevance, if a number of other search results link to them. If the linking results are themselves highly relevant, then the linked-to results may have a particularly high relevance. Such an approach to determining relevance, generally associated with the GOOGLE® PageRank technology, is premised on the assumption that, if authors of web pages felt that another web site was relevant enough to be linked to, then web searches would also find the site to be particularly relevant. In short, the web authors “vote up” the relevance of the sites.\n\nOther various inputs may be used instead of, or in addition to, such techniques for determining and ranking search results. For example, user reactions to particular search results or search result lists may be gauged, so that results on which users often click will receive a higher ranking. The general assumption under such an approach is that searching users are often the best judges of relevance, so that if they select a particular search result, it is likely to be relevant, or at least more relevant than the presented alternatives.\n\n\n## SUMMARY\n\n\nIn general, implementations of systems and methods for identifying and processing anomalous network activity are described.\n\nIn a first general aspect, a computer-implemented method for processing network activities is described. The method includes identifying a model that specifies attributes for network objects, identifying a network object having one or more attributes that deviate from the model, and providing as an input to a ranking algorithm a value associated with the deviance of the one or more attributes of the identified network object.\n\nIn a second general aspect, a computer-implemented method is described, where the method includes generating a model of network navigation for a network object based on aggregated network navigational activities associated with a plurality of network objects. The method also includes identifying a network navigation activity if the network navigation activity deviates from one or more parameter thresholds indicated by the model, and providing as an input to a ranking algorithm a value associated with the deviance of the network navigation activity.\n\nIn another general aspect, a system for processing network activities is described. The system includes means for identifying a network object having one or more attributes that are aberrant relative to a model that specifies expected attributes for network objects, and means for providing as an input to a ranking algorithm a value associated with the aberrant one or more attributes.\n\nImplementations of systems and techniques described here may provide one or more of the following advantages. First, some implementations can improve the ranking of search results based on network behavior, such as hyperlink selections, by filtering out anomalous network behaviors. Second, certain implementations make it difficult to spam a significant portion of click data used to modify the ranking of search results by implementing techniques that require significant time and resource investments to circumvent. Third, some implementations can increase the detection of click spam by generating several independent layers of spam filtering criteria. Fourth, certain implementations can dynamically update models used to detect deviant network activity.\n\nThe details of one or more implementations of systems and methods for identifying and processing anomalous network activity are set forth in the accompanying drawings and the description below. Other features and advantages of the systems and methods for identifying and processing anomalous network activity will be apparent from the description and drawings, and from the claims.\n\n\n## DESCRIPTION OF DRAWINGS\n\n\nFIG. 1 shows an exemplary system for improving the relevance of search results obtained from submitting search queries.\n\nFIG. 2 is an exemplary system for generating models used to detect anomalous network activity and for modifying a contribution of anomalous network activity to ranking search results.\n\nFIG. 3 is a diagram of an exemplary model used to detect anomalous network users.\n\nFIG. 4 is a flowchart of an exemplary method for building a model used to detect anomalous network objects.\n\nFIGS. 5A-5C are diagrams illustrating aspects of classifying a network object as anomalous.\n\nFIG. 6 is a flowchart of an exemplary method for identifying anomalous network objects and assigning a contribution for network activity associated with the anomalous network objects.\n\nFIG. 7 is a general computing system.\n\nLike reference symbols in the various drawings indicate like elements.\n\n\n## DETAILED DESCRIPTION OF ILLUSTRIOUS IMPLEMENTATIONS\n\n\nCertain implementations of systems and techniques for detecting and processing anomalous network activity are described. For example, individual hyperlink selections can be compared to a general population of hyperlink selections to determine if the individual hyperlink selections appear to be “click spam” (i.e., invalid hyperlink selections). In certain implementations, eliminating or decreasing the influence of anomalous network activity, such as click spam, can be important if the network activity is used to improve a correlation between search queries and search results.\n\nIn certain implementations, click spam filtering includes multiple layers of independent safeguards, which can include: removing clicks, or selections, associated with new or invalid cookies; limiting a number of clicks based on a particular search query that a single cookie or internet protocol (IP) address can submit during a time period (e.g., one hour, one day, etc.); extracting statistics for individual cookies or IP addresses and filtering out clicks from the cookies or IP address that have anomalous behaviors or attributes; limiting a number of “votes” that a cookie or IP address can contribute to a given query/result pair for algorithms that infer relevance of documents based on the votes; and computing click statistics on a query basis to determine if the clicks appear plausible.\n\nIn the following description, identifiers associated with users, such as cookies, IP addresses, MAC addresses, hardware configurations, etc., will be used interchangeably with the term “user”. Cookies, as described here, can include unique and/or anonymous identifiers assigned by a server to a user. An issuer for a cookie can prescribe that a cookie have a particular format. For example, a cookie can have predetermined numbers and types of fields. Additionally, a cookie can include a digital signature generated, for example, using a non-invertible hashing function. The signature may decrease the ability of users to forge cookies. Cookies can also include time stamps that specify when certain events associated with the cookie occurred. For example, a timestamp can specify when a cookie was issued to a user. The time since issuance of the cookie can be referred to as the age of the cookie.\n\nAdditionally, it will be understood that if a cookie is described as submitting a search query, it is intended that a user (whether human or machine) associated with the cookie is submitting the search query. Similarly, the term webpage and uniform resource identifier (URI) will be used interchangeably. For example, if a user selects a webpage, it will be understood that the user is selecting a URI that identifies the webpage.\n\nFIG. 1 shows an example system 1000 for improving the relevance of results obtained from submitting search queries as can be implemented, for example, in an internet, intranet, or other client/server environment. The system 1000 is an example of an information retrieval system in which the systems, components and techniques described below can be implemented. Although several components are illustrated, there may be fewer or more components in the system 1000. Moreover, the components can be distributed on one or more computing devices connected by one or more networks or other suitable communication mediums.\n\nA user 1002 (1002 a, 1002 b, 1002 c) can interact with the system 1000 through a client device 1004 (1004 a, 1004 b, 1004 c) or other device. For example, the client device 1004 can be a computer terminal within a local area network (LAN) or wide area network (WAN). The client device 1004 can include a random access memory (RAM) 1006 (or other memory and/or a storage device) and a processor 1008. The processor 1008 is structured to process instructions within the system 1000. In some implementations, the processor 1008 is a single-threaded processor. In other implementations, the processor 1008 is a multi-threaded processor. The processor 1008 can include multiple processing cores and is structured to process instructions stored in the RAM 1006 (or other memory and/or a storage device included with the client device 1004) to display graphical information for a user interface.\n\nA user 1002 a can connect to the search engine 1030 within a server system 1014 to submit a query 1015. When the user 1002 a submits the query 1015 through an input device attached to a client device 1004 a, a client-side search query 1010 a is sent into a network 1012 and is forwarded to the server system 1014 as a server-side search query 1010 b. Server system 1014 can be one or more server devices in one or more locations. A server device 1014 includes a memory device 1016, which can include the search engine 1030 loaded therein. A processor 1018 is structured to process instructions within the device 1014. These instructions can implement one or more components of the search engine 1030. The processor 1018 can be a single-threaded processor or a multi-threaded processor, and can include multiple processing cores. The processor 1018 can process instructions stored in the memory 1016 related to the search engine 1030 and can send information to the client device 1004, through the network 1012, to create a graphical presentation in a user interface of the client device 1004 (e.g., a search results web page displayed in a web browser).\n\nThe server-side search query 1010 b is received by the search engine 1030. The search engine 1030 uses the information within the user query 1015 (e.g. query terms) to find relevant documents. The search engine 1030 can include an indexing engine 1020 that actively searches a corpus (e.g., web pages on the Internet) to index the documents found in that corpus, and the index information for the documents in the corpus can be stored in an index database 1022. This index database 1022 can be accessed to identify documents related to the user query 1015. Note that, an electronic document (which for brevity will simply be referred to as a document) does not necessarily correspond to a file. A document can be stored in a portion of a file that holds other documents, in a single file dedicated to the document in question, or in multiple coordinated files.\n\nThe search engine 1030 can include a ranking engine 1052 to rank the documents related to the user query 1015. The ranking of the documents can be performed using traditional techniques for determining an information retrieval (IR) score for indexed documents in view of a given query. The relevance of a particular document with respect to a particular search term or to other provided information may be determined by any appropriate technique. For example, the general level of back-links to a document that contains matches for a search term may be used to infer a document's relevance. In particular, if a document is linked to (e.g., is the target of a hyperlink) by many other relevant documents (e.g., documents that also contain matches for the search terms), it can be inferred that the target document is particularly relevant. This inference can be made because the authors of the pointing documents presumably point, for the most part, to other documents that are relevant to their audience.\n\nIf the pointing documents are in turn the targets of links from other relevant documents, they can be considered more relevant, and the first document can be considered particularly relevant because it is the target of relevant (or even highly relevant) documents. Such a technique may be the determinant of a document's relevance or one of multiple determinants. The technique is exemplified in the GOOGLE® PageRank system, which treats a link from one web page to another as an indication of quality for the latter page, so that the page with the most such quality indicators wins.\n\nTo further improve such traditional document ranking techniques, the ranking engine 1052 can receive an additional signal from a rank modifier engine 1056 to assist in determining an appropriate ranking for the documents. The rank modifier engine 1056 can perform one or more of operations to generate one or more measures of relevance. Based on a document's relevance, the rank modifier engine 1056 can increase or decrease the ranking of the document in search results\n\nFor example, a timer can track how long a user views or “dwells” on the document, and the dwell time can be use to infer document relevance. The amount of time is referred to as “click data.” For example, a longer time spent dwelling on a document, termed a “long click,” can indicate that a user found the document to be relevant for their query. A brief period viewing a document, termed a “short click”, can be interpreted as a lack of document relevance. In various implementations, the click data is a count of each click type (e.g., long, medium, short) for a particular query and document combination. Aggregated click data from model queries for a given document can be used to create a quality of result statistic for that document and can be used to enhance a ranking of that document. By way of illustration, a quality of result statistic can be a weighted average of the count of long clicks for a given document and query.\n\nThe search engine 1030 can forward the final, ranked result list within a server-side search results signal 1028 a through the network 1012. Exiting the network 1012, a client-side search results signal 1028 b can be received by the client device 1004 a where the results can be stored within the RAM 1006 and/or used by the processor 1008 to display the results on a output device for the user 1002 a.\n\nFIG. 2 is an exemplary system 2000 for generating models used to detect anomalous network activity and for modifying a contribution of anomalous network activity to ranking search results. The exemplary system 2000 includes several clients 1004A-C that transmit search queries 1010 and URI (uniform resource identifier) selections 2006, or hyperlink selections, of results from the search queries. In certain implementations, the clients 1004A-C transmit the search queries 2006 and the URI selections 2006 to a server system 1014 over a network 1012, such as the Internet.\n\nThe exemplary server 2008 can include a search engine 1030, which, in turn, can include a ranking engine 1052 and a rank modifier engine 2013. The server system 1014 can receive the search queries 1010 and use the search engine 1030 to process them. As discussed above, a ranking engine, such as the ranking engine 1052, can rank the relevance of results associated with a search query and position the results in an order which highlights the more relevant results. The server system 1014 can transmit the results (not shown in FIG. 2) associated with the search queries 1010 back to the clients 1004A-C, and the clients 1004A-C can select results (e.g., displayed as URI links), which can then be transmitted to the server system 1014 as the URI selections 2006.\n\nIn certain implementations, the exemplary server system 1014 can include a network monitor 2005 that monitors network activity, such as the search queries 2008, the URI selections 2006, and identifiers for network objects submitting this information. For example, the server system 1014 can record the internet protocol (IP) addresses associated with users that submitted a particular query or selected, or clicked on, a particular search result. The server system 1014 can record the network activity and network objects associated with that activity in network activity logs 2010.\n\nAdditionally, the network activity logs 2010 can include or be used to derive statistics associated with the network activity for individual network objects. For example, statistics collected based on each user identifier (e.g., cookie, IP address, MAC address, hardware configuration, etc.) can include, but are not limited to: a number of issued queries; a number of distinct queries; a most input query; a maximum number of times the same query was input; a total number of selections (e.g., clicks, highlighting text, etc.) on URI's; a maximum number of selections on the same search result; a most selected URI; a number of selections of online advertisements; and a number of selections for distinct online advertisements.\n\nAdditional statistics compiled for each user can include: a number of long clicks (e.g., a period of time beginning when a user selects a search result from a search web page and ending when a user returns to the search web page, where a user can set a range that defines a “long” period); a number of medium clicks (e.g., a click length shorter than a long click); a number of short clicks (e.g., a click length shorter than a medium click); a Boolean value indicating whether the identifier is associated with a web browser toolbar; a median click position (e.g., a median position on a web page of selected URI's); a portion of search results select that are ranked after a predetermined number (e.g., search results ranked less relevant than the tenth search result); a number of image searches; a number of distinct IP addresses from which a particular cookie was active (e.g., when collecting statistics for a cookie identifier); a number of cookie identifiers that were active from a given IP address (e.g., when collecting statistics for an IP address); a number of distinct clicked search results; and a time delay between a search and a selection of a search result (e.g., this attribute can be used as a single value, such as an average, median, etc., or as a distribution, such as a distribution of the time delays for the network objects).\n\nIn certain implementations, additional statistics for each user can be derived from the previously listed statistics. These additional statistics can include: a click to query ratio; a number of distinct clicked search results per total number of clicks; a number of queries per number of distinct queries; a median click length; a maximum number of clicks per time period (e.g., minute, hour, day, etc.); a distribution of click lengths; a distribution of click positions (e.g., ten percent of selections are the last ranked URI of search results); a fraction of clicks outside a first page of search results; a fraction of clicks on advertisements; and a fraction of image searches.\n\nIn certain implementations, statistics are collected based on queries. For example, query-based statistics can be gathered for each query and may include: a number of cookies that submitted the query, a number of IP addresses that issued the query; how many times a click was submitted from a malformed cookie for the query (e.g., a malformed cookie may not conform to the correct cookie format specified by the issuer or it may not have a valid digital signature); how many times a click was submitted from a “bad” cookie for the query (where a cookie can be classified as “bad” if it deviated beyond a threshold when compared to a model of a typical cookie); a distribution of “spam scores” for cookies that clicked based on the query (where a “spam score” indicates a deviance of a network object from a model of the expected behavior or attributes of the network object); and a distribution of a spam score for IP addresses that clicked based on the query.\n\nAdditional query-based statistics collected for each query can include: a ratio of a number of clicks relative to a number of times the query was issued; a distribution of clicks by URI; a distribution of clicks by position (e.g., position on a web page or ranking on a web page); a distribution of clicks by cookie; a distribution of clicks by IP address; a distribution of click lengths; a distribution of ages of cookies that clicked on a result for the query; a distribution of ages of the cookies that submitted the query; a fraction of clicks on advertisements relative to all clicks; a fraction of users that issued the query and have a particular web browser toolbar; a distribution of clicks for the query by client device (e.g., web browser or operating systems); a distribution of clicks by language of the user (e.g., which may be explicitly provided by the user or inferred from the user's location or search history); a distribution of user languages that issued the query; a ratio of clicks resulting from the query relative to a global average of clicks from other queries for a particular user; and a distribution of clicks by user location (e.g., country, region, or city), which may be explicitly provided by the user or inferred, for example, from a user's IP address or search history.\n\nAdditional statistics that can be derived from the above query-based statistics can include: a ratio of a number of cookies and IP addresses that clicked based on the query; a ratio of a number of cookies and IP addresses that submitted the queries; a ratio of a number of times that the query was issued and a number of cookies that issued it; a ratio of a number of times that the query was issued and a number of IP addresses that issued it; a ratio of a number of times that the query was submitted and a number of clicks that resulted from the query; a proportion of spam cookies (e.g., cookies that have spam scores that exceed a threshold) that issued the query; a proportion of spam IP addresses that issued the query; a distribution of the ages of cookies that clicked on the query; a first user agent distribution of the ages of cookies that clicked on results generated by the query; a second user agent distribution of the browsers that issued the query; and a distance between the first and second user agent distribution. For example, a close distance between the two distributions can indicate that the values are similarly distributed.\n\nThe statistics based on queries can be used to identify clicks that should be classified as anomalous. For example, if a particular query deviates from a model describing the expected attributes for a typical query, clicks that result from that query (e.g., selections of search results based on the query) can be classified as deviant, too. This is described in more detail below.\n\nThe statistics can be regenerated based on a predetermined time periods, such as every hour, day, week, month, etc. In other implementations, the statistics can be used to create longer-term profiles for each user so that the behavior of the user is recorded over a longer period of time. In this implementation, the user's profile can be supplemented with statistical information instead of regenerated on a recurrent basis.\n\nIn certain implementations, the server system 1014 can transmit the network activity logs 2010 to a separate computing device 2012 (e.g., another server) that can use a modeling engine 2014 to construct models of network objects, such as models of IP addresses, cookies, MAC addresses, hardware configurations, search queries, URI's, and web domains. These models can define typical, or expected, attributes and behaviors of the network objects.\n\nThe computing device 2012 can use the constructed models to identify network objects that deviate from the models. In some implementations, the models include parameters that correspond to the statistics listed above. The statistics for a given network object (e.g., IP address, cookie, web domain, query, etc.) can be compared to statistics aggregated across all network objects. If a network object has an attribute with a statistic that deviates from the model's corresponding parameter, the attribute can be classified as deviant.\n\nIn certain implementations, a network object's deviance, or “spamminess”, can be partially defined based on whether one or more of the network object's attributes are deviant. The attributes can include a single value or a distribution of values. For example, if an attribute is a distribution, a statistical fitness of the distribution can be compared to a prototypical distribution expected for the attribute. In some implementations, the prototypical distributions are manually generated and encode human prior knowledge. In other implementations, the prototypical distributions are automatically generated by, for example, averaging the values of the same attribute across all (or a set of similar) network objects. Network objects that have a “spamminess” that exceeds a threshold can be removed from the model.\n\nIn some implementations, the presence of a single deviant attribute can be sufficient to discard the network object from the model if the deviance exceeds an expected threshold by a predetermined value.\n\nIn other implementations, various classification methods can be used to determine a network object's “spamminess”. For example, a supervised classifier can be trained using examples of objects pre-determined to be “spammy”. The classifier can then determine whether additional network objects are spammy based on the network objects' features relative to the training examples.\n\nThe statistics also permit a measurement of the spamminess level of a particular model by numbering the spammed queries, and in certain implementations, weighting the spammed queries by the amount of traffic they receive.\n\nIn certain implementations, statistics that are similar to the query-based statistics can also be computed for each URI or web domain. This can also be used as an indication of the spamminess of a model.\n\nIn some implementations, logged network activity for a deviant network object is assigned a contribution (e.g., using a weighting coefficient), that decreases the logged network activity's influence in modifying the ranking of search results. For example, the computing device can transmit the logged network activity and its contribution to the server system 1014 that includes the rank modifier engine 2013. The rank modifier engine 2013 can demote the effect of the network activity on the ranking of search results if the network activity is from a deviant IP address.\n\nFIG. 3 is a diagram of an exemplary model 3000 used to detect anomalous network users. The exemplary model 3000 includes typical parameters, such as behaviors or attributes, expected for an IP address. For example, a first parameter 3004 can be based on a distribution of distinct queries issued by IP addresses, which is illustrated by a graph 3006. The Y-axis of the graph 3006 indicates a number of IP addresses, and the X-axis indicates the number of distinct queries. In certain implementations, the information included in the graph 3006 is obtained from the logged network activity and can be updated on a recurrent basis with or independent of updates of other parameters within the model 3000.\n\nThe exemplary graph 3006 includes two thresholds—a low threshold (THL) 3008 and a high threshold (THH) 3010. These thresholds can be used to define ranges outside of which a value is considered deviant. For example, if an IP address submits a number distinct of queries that is lower than the T HL 3008, the computing device 2012 can classify the IP address as deviant relative to the other IP addresses in the distribution. Similarly, the computing device 2012 can classify IP addresses that submit a number of distinct queries that is higher than the T HH 3010 as deviant.\n\nA second parameter 3012 and a third parameter 3014 can include similar distributions of data. For example, the second parameter 3012 is illustrated with graph 3015, which shows a distribution of total queries (not just distinct queries) per IP address. Similar to the graph 3006, the graph 3015 also includes threshold values that can define ranges outside of which a value is classified as deviant.\n\nThe exemplary third parameter 3014 includes a distribution of image searches issued per IP address, which is illustrated by a graph 3016. The graph 3016 includes a single low threshold 3018. The presence of a single low threshold can indicate that values that occur below the threshold are deviant, but that values that are above the threshold are not deviant (e.g., there is no high threshold above which a value is classified as deviant).\n\nIn other implementations, the parameters can be derived from sources other than the logged network activity. For example, instead of defining thresholds using distributions based on the logged network activity, a user can input threshold values, or a range in which a value for an attribute is considered normal, or non-deviant.\n\nAlthough, FIG. 3 shows a model that describes an expected behavior associated with an IP address, models for other network objects can be constructed as well. In other implementations, the modeled network objects can include cookies, IP addresses, MAC addresses, hardware configurations, particular URI's, entire web domains, search queries, etc.\n\nFIG. 4 is a flowchart of an exemplary method 4000 for building a model used to detect anomalous network objects. The exemplary method 4000 starts with step 4010. In step 4010, network activity logs are accessed. For example, the network activity logs 2010 generated by the network monitor 2005 can be transmitted to the computing device 2012 and accessed by the modeling engine 2014.\n\nIn step 4020, a parameter for a network object model can be generated. For example, if the model defines expected behaviors and attributes for an IP address, the modeling engine can generate a parameter that includes an expected number of queries submitted by a typical IP address.\n\nIn step 4030, it is determined whether there are more parameters to generate for the model. For example, the modeling engine can determine if additional parameters should be generated for the IP address model. In certain implementations, this determination can be based on user input that includes the number and type of parameters to include in the IP address model. If there are more parameters to generate, the method 4000 returns to step 4020. If not, the method 4000 moves to step 4040.\n\nIn the step 4040, a signal is received to update or re-generate the model. For example, the modeling engine can receive a timing signal that prompts it to regenerate the model (or a portion of the model) on a recurrent basis, such as daily, weekly, or monthly. If a signal is received, the method 4000 can return to the step 4010. If a signal is not received, the method 4000 can end.\n\nFIGS. 5A-5C are diagrams illustrating aspects of classifying a network object as anomalous. More specifically, FIG. 5A is a diagram that illustrates an IP address 5002 having several attributes 5004A-E and a position of the IP address relative to a distribution of IP addresses that also have the several attributes.\n\nIn the illustration of FIG. 5A, IP address 216.239.39.99 has a first attribute 5004A, which includes a number of “short” clicks the IP address has submitted. The number of short clicks for 216.239.39.99 is displayed on a graph 5006 relative to the distribution of short clicks from other IP addresses obtained from, for example, a model of an IP address. The graph 5006 shows that the IP address 216.239.39.99 is included with other IP addresses that have a number of short clicks that is below a low threshold (THL), which indicates the IP address is outside a range considered typical relative to the model. Because the IP address 216.239.39.99 has a number of short clicks below the low threshold, the first attribute 5004A can be classified as deviant.\n\nFIG. 5B shows an exemplary graph 5020 that illustrates a distribution of a network object's deviance relative to other network objects. FIG. 5C shows a table 5030 that illustrates an exemplary correlation between a network object's deviance, or spamminess, and the contribution to a ranking algorithm of navigational activity associated with the network object.\n\nAs shown in FIG. 5B, the graph 5020 shows one measure of the spamminess of the IP address 216.239.39.99 relative to other IP addresses. The graph 5020 includes an X-axis that indicates a number of deviant attributes per IP address and a Y-axis that indicates a number of IP addresses. The exemplary graph shows a bi-modal distribution of IP addresses with deviant attributes, where many IP addresses have a either a small number of deviant attributes or a large number of deviant attributes.\n\nThe exemplary graph 5020 includes three thresholds, which define four ranges, or zones. IP addresses that include a number of deviant attributes below a first threshold 5022 fall within a zone without a discount (the discounts are described more fully in association with FIG. 5C). IP addresses with a number of deviant attributes between the first threshold 5022 and a second threshold 5024 fall within a first zone. IP addresses with a number of deviant attributes between the second threshold 5024 and a third threshold 5026 fall within a second zone, and IP address with a number of deviant attributes that exceed the third threshold 5026 fall within a third zone.\n\nThe table 5030 of FIG. 5C shows exemplary discounts, such as weighting factors, that can be applied to network activity associated with network objects that fall within the zones shown in FIG. 5B. In certain implementations, the discounts can reduce the influence of network activity, such as hyperlink clicks, when computing correlations between search queries and search results. In this way, network activity associated with network objects having a high spamminess can be discarded or discounted when used to refine correlations between search queries and relevant search results.\n\nFor example, if an IP address is within the first zone, a first coefficient 5032 can be associated with a value representing the network activity. The exemplary first coefficient 5032 includes a constant of 0.5, which indicates that the rank modifier engine will reduce the network activity's influence by half in a search/result correlation algorithm.\n\nIn certain implementations, the coefficient can include additional components that further refine the weight given to the network activity. For example, the coefficient 5032 includes a variable “A” that is dependent upon an IP address' position within the first zone. For example, the closer the IP address is to the second zone, the more variable “A” discounts the network activity.\n\nIf an IP address falls within the second zone, the discount may be higher because the probability that the IP address is issuing fraudulent clicks increases. For example, a coefficient 5034 includes a constant 0.3, which approximately reduces the influence of network activity to a third of its full value.\n\nIf the IP address falls in the third zone, navigational activity associated with the IP address may be discarded, or discounted entirely. In the example of FIG. 5C, a coefficient 2036 of zero is associated with a value representing the influence of the network activity on a ranking algorithm. The association with the zero coefficient may effectively discard any network activity associated with an IP address in the zone 3 so that it does not influence, for example, a ranking algorithm performed by the rank modifier engine.\n\nIn certain implementations, the modeling engine 2014 or another component within the computing device 2012 can assign the discount to the aberrant network activity before transmitting it to the server system 1014. In other implementations, the discount can be assigned by components of the search engine, such as the rank modifier engine 2013. In either implementation, the components can access a table, such as the exemplary table 5030, or other data structure to assign any discounts.\n\nFIG. 6 is a flowchart of an exemplary method 6000 for identifying anomalous network objects and assigning a contribution for network activity associated with the network objects. The exemplary method 6000 begins in step 6010 when network activity logs are accessed. For example the modeling engine 2014 can access the network activity logs 2010. In step 6020, a network object is selected from the logs for analysis. For example, an IP address can be selected from the logs.\n\nIn step 6030, an attribute of the network object can be selected for analysis. For example, the modeling engine can select the number of clicks that the IP address issues within an hour.\n\nIn step 6040, it can be determined whether the attribute deviates from corresponding parameters included in a network object model. For example, the modeling engine can compare the number of clicks submitted by a particular IP address to an expected number of clicks included in a parameter of a model for a typical IP address. If the IP address' attribute deviates beyond a threshold prescribed by the model's parameter, the modeling engine can record this deviation and associate it with the IP address or the IP address' particular attribute.\n\nNext, in step 6050, it can be determined if there are more attributes for the network object. For example, an IP address can have multiple attributes, and the modeling engine 2014 can determine if all the attributes have been examined. If there are more attributes, the method 6000 can return to step 6030. If there are not more attributes for the network object, the method can proceed to step 6060.\n\nIn the step 6060, a contribution for networking activity associated with the network object can be assigned based on the attribute's deviation from a model's parameters. For example, a weighting factor of 0.1 can be assigned to network activity associated with a cookie that is classified as highly deviant relative to other cookies.\n\nIn step 6070, the contribution can be transmitted to a ranking algorithm. For example, the modeling engine can initiate a transmission of the weighted network activity to the rank modifier engine 2013 for use in modifying the relevance of documents returned in response to search queries. After the step 6070, the method 6000 can end.\n\nFIG. 7 is a schematic diagram of a computer system 7000. The system 7000 can be used for the operations described in association with any of the computer-implement methods described previously, according to one implementation. The system 7000 includes a processor 7010, a memory 7020, a storage device 7030, and an input/output device 7040. Each of the components 7010, 7020, 7030, and 7040 are interconnected using a system bus 7050. The processor 7010 is capable of processing instructions for execution within the system 7000. In one implementation, the processor 7010 is a single-threaded processor. In another implementation, the processor 7010 is a multi-threaded processor. The processor 7010 is capable of processing instructions stored in the memory 7020 or on the storage device 7030 to display graphical information for a user interface on the input/output device 7040.\n\nThe memory 7020 stores information within the system 7000. In one implementation, the memory 7020 is a computer-readable medium. In one implementation, the memory 7020 is a volatile memory unit. In another implementation, the memory 7020 is a non-volatile memory unit.\n\nThe storage device 7030 is capable of providing mass storage for the system 7000. In one implementation, the storage device 7030 is a computer-readable medium. In various different implementations, the storage device 7030 may be a floppy disk device, a hard disk device, an optical disk device, or a tape device.\n\nThe input/output device 7040 provides input/output operations for the system 7000. In one implementation, the input/output device 7040 includes a keyboard and/or pointing device. In another implementation, the input/output device 7040 includes a display unit for displaying graphical user interfaces.\n\nThe features described can be implemented in digital electronic circuitry, or in computer hardware, firmware, software, or in combinations of them. The apparatus can be implemented in a computer program product tangibly embodied in an information carrier, e.g., in a machine-readable storage device or in a propagated signal, for execution by a programmable processor; and method steps can be performed by a programmable processor executing a program of instructions to perform functions of the described implementations by operating on input data and generating output. The described features can be implemented advantageously in one or more computer programs that are executable on a programmable system including at least one programmable processor coupled to receive data and instructions from, and to transmit data and instructions to, a data storage system, at least one input device, and at least one output device. A computer program is a set of instructions that can be used, directly or indirectly, in a computer to perform a certain activity or bring about a certain result. A computer program can be written in any form of programming language, including compiled or interpreted languages, and it can be deployed in any form, including as a stand-alone program or as a module, component, subroutine, or other unit suitable for use in a computing environment.\n\nSuitable processors for the execution of a program of instructions include, by way of example, both general and special purpose microprocessors, and the sole processor or one of multiple processors of any kind of computer. Generally, a processor will receive instructions and data from a read-only memory or a random access memory or both. The essential elements of a computer are a processor for executing instructions and one or more memories for storing instructions and data. Generally, a computer will also include, or be operatively coupled to communicate with, one or more mass storage devices for storing data files; such devices include magnetic disks, such as internal hard disks and removable disks; magneto-optical disks; and optical disks. Storage devices suitable for tangibly embodying computer program instructions and data include all forms of non-volatile memory, including by way of example semiconductor memory devices, such as EPROM, EEPROM, and flash memory devices; magnetic disks such as internal hard disks and removable disks; magneto-optical disks; and CD-ROM and DVD-ROM disks. The processor and the memory can be supplemented by, or incorporated in, ASICs (application-specific integrated circuits).\n\nTo provide for interaction with a user, the features can be implemented on a computer having a display device such as a CRT (cathode ray tube) or LCD (liquid crystal display) monitor for displaying information to the user and a keyboard and a pointing device such as a mouse or a trackball by which the user can provide input to the computer.\n\nThe features can be implemented in a computer system that includes a back-end component, such as a data server, or that includes a middleware component, such as an application server or an Internet server, or that includes a front-end component, such as a client computer having a graphical user interface or an Internet browser, or any combination of them. The components of the system can be connected by any form or medium of digital data communication such as a communication network. Examples of communication networks include, e.g., a LAN, a WAN, and the computers and networks forming the Internet.\n\nThe computer system can include clients and servers. A client and server are generally remote from each other and typically interact through a network, such as the described one. The relationship of client and server arises by virtue of computer programs running on the respective computers and having a client-server relationship to each other.\n\nAlthough a few implementations have been described in detail above, other modifications are possible. For example, in certain implementations, all network activity associated with a malformed cookie (e.g., a cookie that does not conform to a format prescribed by the issuer) can be discarded from a cookie model or ranking algorithms. Additionally, network activity associated with cookies with an incorrect digital signature can also be discarded.\n\nIn other implementations, network activities associated with young cookies (e.g., cookies that were generated or issued in the last seven days) are also discarded from a cookie model or ranking algorithms.\n\nIn yet other implementations, components of the described system, such as the modeling engine, can limit the influence that a single network object, such as a cookie, can exert for a particular entry accessed by a ranking algorithm. For example, a user identified by a cookie, IP address, etc., may not be allowed to contribute more than a given number of “votes” per result and query during the same day, where a “vote” includes issuing a search query and selecting a result based on the search query.\n\nFurthermore, in certain implementations, a single user or IP address is not allowed to contribute more than a predefined number of votes per result/query in a ranking algorithm. For example, an IP address may be limited to 10 votes per year. Multiple restrictions can be applied to users and IP addresses. For example, a cookie may be limited to 2 votes a day, 4 votes a week, and 10 votes a year. Any votes that exceed these amounts can be discarded from ranking algorithms.\n\nFurthermore, different user identifiers (e.g., cookies) can be expected to come from different IP addresses on a single entry in a ranking algorithm. If they do not, the network activity associated with the different user identifiers can be discarded.\n\nIn yet other implementations, the system and methods can be used to match a random sample of users sessions with corresponding click spam data. Also, in some implementations, queries and documents that have a sudden increase/decreases in clicks can be monitored.\n\nIn certain implementations, statistics for the network objects can be grouped by regions, browsers, user types, etc. to create refined models for the network objects that fall within the groups.\n\nIn other implementations, system components, such as those illustrated in FIG. 2, can be combined on fewer devices than shown. For example, the modeling engine can be included in the server system 1014, which eliminates the need to transfer the network activity logs 2010 to the computing device 2012.\n\nAdditionally, although the clients 1004A-C, the server system 1014, and the computing device 2012 are shown as separate and single devices for illustrative purposes, in certain implementations, each device may include multiple computers. For example, the server system 1014 can include several hundreds or thousands of computers that host the search engine and the network monitor 2005. In some implementations, groups of multiple computers implementing the server system 1014 are geographically separated but connected through a network, such as the Internet.\n\nIn addition, the logic flows depicted in the figures do not require the particular order shown, or sequential order, to achieve desirable results. In addition, other steps may be provided, or steps may be eliminated, from the described flows, and other components may be added to, or removed from, the described systems. Accordingly, other implementations are within the scope of the following claims.",
+ "cited_by": [
+  {
+   "id": "US8909655B1",
+   "title": "Time based ranking",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20150199711A1",
+   "title": "Keeping popular advertisements active",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US9183499B1",
+   "title": "Evaluating quality based on neighbor features",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9235627B1",
+   "title": "Modifying search result ranking based on implicit user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9390143B2",
+   "title": "Recent interest based relevance scoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN105786941A",
+   "title": "Information mining method and device",
+   "assignee": "中国移动通信集团上海有限公司"
+  },
+  {
+   "id": "US9659097B1",
+   "title": "Propagating query classifications",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9967273B2",
+   "title": "Abusive traffic detection",
+   "assignee": "Microsoft Technology Licensing, Llc."
+  },
+  {
+   "id": "US10152736B2",
+   "title": "Auto adaptive anomaly detection system for streams",
+   "assignee": "Fair Isaac Corporation"
+  },
+  {
+   "id": "US10229431B1",
+   "title": "Explicit user history input",
+   "assignee": "Sprint Communications Company L.P."
+  },
+  {
+   "id": "US10437861B1",
+   "title": "Inferring geographic locations for entities appearing in search queries",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US20200126110A1",
+   "title": "Object selection method and device",
+   "assignee": "Alibaba Group Holding Limited"
+  },
+  {
+   "id": "US10706114B2",
+   "title": "Systems and methods for using link graphs to demote links to low-quality webpages",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US10963910B2",
+   "title": "Real-time detection of intent-less engagements in digital content distribution systems",
+   "assignee": "Taboola.Com Ltd."
+  },
+  {
+   "id": "US20210136059A1",
+   "title": "Monitoring resource utilization of an online system based on browser attributes collected for a session",
+   "assignee": "Salesforce.Com, Inc."
+  },
+  {
+   "id": "US11368464B2",
+   "title": "Monitoring resource utilization of an online system based on statistics describing browser attributes",
+   "assignee": "Salesforce.Com, Inc."
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5265065A",
+   "title": "Method and apparatus for information retrieval from a database by replacing domain specific stemmed phases in a natural language to create a search query",
+   "assignee": "West Publishing Company"
+  },
+  {
+   "id": "US5488725A",
+   "title": "System of document representation retrieval by successive iterated probability sampling",
+   "assignee": "West Publishing Company"
+  },
+  {
+   "id": "US5696962A",
+   "title": "Method for computerized information retrieval using shallow linguistic analysis",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5920854A",
+   "title": "Real-time document collection search engine with phrase indexing",
+   "assignee": "Infoseek Corporation"
+  },
+  {
+   "id": "US5963940A",
+   "title": "Natural language information retrieval system and method",
+   "assignee": "Syracuse University"
+  },
+  {
+   "id": "US6006222A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6014665A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6026388A",
+   "title": "User interface and other enhancements for natural language information retrieval system and method",
+   "assignee": "Textwise, Llc"
+  },
+  {
+   "id": "US6067565A",
+   "title": "Technique for prefetching a web page of potential future interest in lieu of continuing a current information download",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6078917A",
+   "title": "System for searching internet using automatic relevance feedback",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6078916A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6088692A",
+   "title": "Natural language method and system for searching for and ranking relevant documents from a computer database",
+   "assignee": "University Of Central Florida"
+  },
+  {
+   "id": "US6134532A",
+   "title": "System and method for optimal adaptive matching of users to most relevant entity and information in real-time",
+   "assignee": "Aptex Software, Inc."
+  },
+  {
+   "id": "WO2000077689A1",
+   "title": "A process for improving search engine efficiency using user feedback",
+   "assignee": "Triogo, Inc."
+  },
+  {
+   "id": "US6182068B1",
+   "title": "Personalized search methods",
+   "assignee": "Ask Jeeves, Inc."
+  },
+  {
+   "id": "US6185559B1",
+   "title": "Method and apparatus for dynamically counting large itemsets",
+   "assignee": "Hitachi America, Ltd."
+  },
+  {
+   "id": "WO2001016807A1",
+   "title": "An internet search system for tracking and ranking selected records from a previous search",
+   "assignee": "Mindcrossing, Inc."
+  },
+  {
+   "id": "US20010000356A1",
+   "title": "Method and apparatus for generating query responses in a computer-based document retrieval system",
+   "assignee": "Woods William A."
+  },
+  {
+   "id": "US6249252B1",
+   "title": "Wireless location using multiple location estimators",
+   "assignee": "Tracbeam Llc"
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "WO2001067297A1",
+   "title": "System and method for computer searching",
+   "assignee": "Tzunami Inc."
+  },
+  {
+   "id": "US6321228B1",
+   "title": "Internet search system for retrieving selected results from a previous search",
+   "assignee": "Powercast Media, Inc."
+  },
+  {
+   "id": "US6327590B1",
+   "title": "System and method for collaborative ranking of search results employing user and group profiles derived from document collection content analysis",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6341283B1",
+   "title": "Apparatus for data decomposition and method and storage medium therefor",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US20020034292A1",
+   "title": "System and a method to match demand and supply based on geographical location derived from a positioning system",
+   "assignee": "Tuoriniemi Veijo M."
+  },
+  {
+   "id": "US6363378B1",
+   "title": "Ranking of query feedback terms in an information retrieval system",
+   "assignee": "Oracle Corporation"
+  },
+  {
+   "id": "US20020042791A1",
+   "title": "Methods and apparatus for using a modified index to provide search results in response to an ambiguous search query",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020049752A1",
+   "title": "Identifying the items most relevant to a current query based on items selected in connection with similar queries",
+   "assignee": "Dwayne Bowman"
+  },
+  {
+   "id": "US20020103790A1",
+   "title": "Utility for cross platform database query",
+   "assignee": "Wang Shirley S."
+  },
+  {
+   "id": "US20020123988A1",
+   "title": "Methods and apparatus for employing usage statistics in document retrieval",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020133481A1",
+   "title": "Methods and apparatus for providing search results in response to an ambiguous search query",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020165849A1",
+   "title": "Automatic advertiser notification for a system for providing place and price protection in a search result list generated by a computer network search engine",
+   "assignee": "Singh Narinder Pal"
+  },
+  {
+   "id": "US6480843B2",
+   "title": "Supporting web-query expansion efficiently using multi-granularity indexing and query processing",
+   "assignee": "Nec Usa, Inc."
+  },
+  {
+   "id": "US6490575B1",
+   "title": "Distributed network search engine",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030009399A1",
+   "title": "Method and system to identify discrete trends in time series",
+   "assignee": "Boerner Sean T."
+  },
+  {
+   "id": "US20030018707A1",
+   "title": "Server-side filter for corrupt web-browser cookies",
+   "assignee": "Flocken Philip Andrew"
+  },
+  {
+   "id": "US20030028529A1",
+   "title": "Search engine account monitoring",
+   "assignee": "Cheung Dominic Dough-Ming"
+  },
+  {
+   "id": "US20030037074A1",
+   "title": "System and method for aggregating ranking results from various sources to improve the results of web searching",
+   "assignee": "Ibm Corporation"
+  },
+  {
+   "id": "US6526440B1",
+   "title": "Ranking search results by reranking the results based on local inter-connectivity",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030078914A1",
+   "title": "Search results using editor feedback",
+   "assignee": "Witbrock Michael J."
+  },
+  {
+   "id": "US6560590B1",
+   "title": "Method and apparatus for multiple tiered matching of natural language queries to positions in a text corpus",
+   "assignee": "Kana Software, Inc."
+  },
+  {
+   "id": "US6567103B1",
+   "title": "Graphical search results system and method",
+   "assignee": "Verity, Inc."
+  },
+  {
+   "id": "US20030120654A1",
+   "title": "Metadata search results ranking system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6587848B1",
+   "title": "Methods and apparatus for performing an affinity based similarity search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030135877A1",
+   "title": "Sugar and lipid metabolism regulators in plants",
+   "assignee": "Haertel Heiko A."
+  },
+  {
+   "id": "US20030135490A1",
+   "title": "Enhanced popularity ranking",
+   "assignee": "Barrett Michael E."
+  },
+  {
+   "id": "US20030149704A1",
+   "title": "Similarity-based search method by relevance feedback",
+   "assignee": "Hitachi, Inc."
+  },
+  {
+   "id": "US6615209B1",
+   "title": "Detecting query-specific duplicate documents",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030167252A1",
+   "title": "Topic identification and use thereof in information retrieval systems",
+   "assignee": "Pliant Technologies, Inc."
+  },
+  {
+   "id": "US6623529B1",
+   "title": "Multilingual electronic document translation, management, and delivery system",
+   "assignee": "David Lakritz"
+  },
+  {
+   "id": "US20030204495A1",
+   "title": "Data gathering",
+   "assignee": "Lehnert Bernd R."
+  },
+  {
+   "id": "US20030220913A1",
+   "title": "Techniques for personalized and adaptive search services",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6658423B1",
+   "title": "Detecting duplicate and near-duplicate files",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030229640A1",
+   "title": "Parallel database query processing for non-uniform data sources via buffered access",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6671681B1",
+   "title": "System and technique for suggesting alternate query expressions based on prior user selections and their query strings",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040006456A1",
+   "title": "Multi-language document search and retrieval system",
+   "assignee": "Wayne Loofbourrow"
+  },
+  {
+   "id": "US20040006740A1",
+   "title": "Information access",
+   "assignee": "Uwe Krohn"
+  },
+  {
+   "id": "US6678681B1",
+   "title": "Information extraction from a database",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040034632A1",
+   "title": "Automatic query refinement",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6701309B1",
+   "title": "Method and system for collecting related queries",
+   "assignee": "Lycos, Inc."
+  },
+  {
+   "id": "US20040059708A1",
+   "title": "Methods and apparatus for serving relevant advertisements",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20040083205A1",
+   "title": "Continuous knowledgebase access improvement systems and methods",
+   "assignee": "Steve Yeager"
+  },
+  {
+   "id": "US20040093325A1",
+   "title": "System and method for location influenced network search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6738764B2",
+   "title": "Apparatus and method for adaptively ranking search results",
+   "assignee": "Verity, Inc."
+  },
+  {
+   "id": "US6754873B1",
+   "title": "Techniques for finding related hyperlinked documents using link-based analysis",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040119740A1",
+   "title": "Methods and apparatus for displaying and replying to electronic messages",
+   "assignee": "Google, Inc., A Corporation Of The State Of California"
+  },
+  {
+   "id": "US20040122811A1",
+   "title": "Method for searching media",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "WO2004059514A1",
+   "title": "Systems and methods for enabling a user to find information of interest to the user",
+   "assignee": "American Type Culture Collection"
+  },
+  {
+   "id": "US20040153472A1",
+   "title": "Human resource networking system and method thereof",
+   "assignee": "Rieffanaugh Neal King"
+  },
+  {
+   "id": "US20040158560A1",
+   "title": "Systems and methods for query expansion",
+   "assignee": "Ji-Rong Wen"
+  },
+  {
+   "id": "US6792416B2",
+   "title": "Managing results of federated searches across heterogeneous datastores with a federated result set cursor object",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6795820B2",
+   "title": "Metasearch technique that ranks documents obtained from multiple collections",
+   "assignee": "Nextpage, Inc."
+  },
+  {
+   "id": "US20040186996A1",
+   "title": "Unique digital signature",
+   "assignee": "Gibbs Benjamin K."
+  },
+  {
+   "id": "US20040199419A1",
+   "title": "Promoting strategic documents by bias ranking of search results on a web browser",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040215607A1",
+   "title": "Method and system fo blending search engine results from disparate sources into one search result",
+   "assignee": "Travis Robert L."
+  },
+  {
+   "id": "US20050015366A1",
+   "title": "Disambiguation of search phrases using interpretation clusters",
+   "assignee": "Carrasco John Joseph M."
+  },
+  {
+   "id": "US20050027691A1",
+   "title": "System and method for providing a user interface with search query broadening",
+   "assignee": "Sergey Brin"
+  },
+  {
+   "id": "US6853993B2",
+   "title": "System and methods for predicting correct spellings of terms in multiple-term search queries",
+   "assignee": "A9.Com, Inc."
+  },
+  {
+   "id": "US20050033803A1",
+   "title": "Server architecture and methods for persistently storing and serving event data",
+   "assignee": "Vleet Taylor N. Van"
+  },
+  {
+   "id": "US20050050014A1",
+   "title": "Method, device and software for querying and presenting search results",
+   "assignee": "Gosse David B."
+  },
+  {
+   "id": "US20050055342A1",
+   "title": "Method for estimating coverage of Web search engines",
+   "assignee": "Bharat Krishna Asur"
+  },
+  {
+   "id": "US20050055345A1",
+   "title": "Similarity search engine for use with relational databases",
+   "assignee": "Infoglide Software Corporation"
+  },
+  {
+   "id": "US20050060290A1",
+   "title": "Automatic query routing and rank configuration for search queries in an information retrieval system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050060310A1",
+   "title": "Methods and systems for improving a search ranking using population information",
+   "assignee": "Simon Tong"
+  },
+  {
+   "id": "US20050060311A1",
+   "title": "Methods and systems for improving a search ranking using related queries",
+   "assignee": "Simon Tong"
+  },
+  {
+   "id": "US6873982B1",
+   "title": "Ordering of database search results based on user feedback",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050071741A1",
+   "title": "Information retrieval based on historical data",
+   "assignee": "Anurag Acharya"
+  },
+  {
+   "id": "US6877002B2",
+   "title": "Fuzzy database retrieval",
+   "assignee": "America Online, Inc."
+  },
+  {
+   "id": "US6882999B2",
+   "title": "URL mapping methods and systems",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050102282A1",
+   "title": "Method for personalized search",
+   "assignee": "Greg Linden"
+  },
+  {
+   "id": "US6901402B1",
+   "title": "System for improving the performance of information retrieval-type tasks by identifying the relations of constituents",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050125376A1",
+   "title": "Methods and systems for providing a response to a query",
+   "assignee": "Andy Curtis"
+  },
+  {
+   "id": "US6912505B2",
+   "title": "Use of product viewing histories of users to identify related products",
+   "assignee": "Amazon.Com, Inc."
+  },
+  {
+   "id": "US20050160083A1",
+   "title": "User-specific vertical search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050192946A1",
+   "title": "Lateral search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050198026A1",
+   "title": "Code, system, and method for generating concepts",
+   "assignee": "Dehlinger Peter J."
+  },
+  {
+   "id": "US6944611B2",
+   "title": "Method and apparatus for digital media management, retrieval, and collaboration",
+   "assignee": "Emotion, Inc."
+  },
+  {
+   "id": "US6944612B2",
+   "title": "Structured contextual clustering method and system in a federated search engine",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20050222987A1",
+   "title": "Automated detection of associations between search criteria and item categories based on collective analysis of user activity data",
+   "assignee": "Vadon Eric R"
+  },
+  {
+   "id": "US20050222998A1",
+   "title": "Apparatus and computerised method for determining constituent words of a compound word",
+   "assignee": "Oce-Technologies B.V."
+  },
+  {
+   "id": "US6954750B2",
+   "title": "Method and system for facilitating the refinement of data queries",
+   "assignee": "Content Analyst Company, Llc"
+  },
+  {
+   "id": "US20050240576A1",
+   "title": "Named URL entry",
+   "assignee": "John Piscitello"
+  },
+  {
+   "id": "US20050240580A1",
+   "title": "Personalization of placed content ordering in search results",
+   "assignee": "Zamir Oren E"
+  },
+  {
+   "id": "US20050256848A1",
+   "title": "System and method for user rank search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6990453B2",
+   "title": "System and methods for recognizing sound and music signals in high noise and distortion",
+   "assignee": "Landmark Digital Services Llc"
+  },
+  {
+   "id": "US20060047643A1",
+   "title": "Method and system for a personalized search engine",
+   "assignee": "Chirag Chaman"
+  },
+  {
+   "id": "US7016939B1",
+   "title": "Intelligent SPAM detection system using statistical analysis",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US20060069667A1",
+   "title": "Content evaluation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7028027B1",
+   "title": "Associating documents with classifications and ranking documents based on classification weights",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20060089926A1",
+   "title": "Method for re-ranking documents retrieved from a document database",
+   "assignee": "Harris Corporation, Corporation Of The State Of Delaware"
+  },
+  {
+   "id": "US20060095421A1",
+   "title": "Method, apparatus, and program for searching for data",
+   "assignee": "Canon Kabushiki Kaisha"
+  },
+  {
+   "id": "US20060106793A1",
+   "title": "Internet and computer information retrieval and mining with intelligent conceptual filtering, visualization and automation",
+   "assignee": "Ping Liang"
+  },
+  {
+   "id": "US7072886B2",
+   "title": "Method and business process to maintain privacy in distributed recommendation systems",
+   "assignee": "Nokia Corporation"
+  },
+  {
+   "id": "US7085761B2",
+   "title": "Program for changing search results rank, recording medium for recording such a program, and content search processing method",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US20060173830A1",
+   "title": "Information retrieval",
+   "assignee": "Barry Smyth"
+  },
+  {
+   "id": "US20060195443A1",
+   "title": "Information prioritisation system and method",
+   "assignee": "Franklin Gary L"
+  },
+  {
+   "id": "US20060200476A1",
+   "title": "Creating, storing and viewing process models",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060200556A1",
+   "title": "Method and apparatus for identifying, extracting, capturing, and leveraging expertise and knowledge",
+   "assignee": "Scott Brave"
+  },
+  {
+   "id": "US7113939B2",
+   "title": "Architecture to enable search gateways as part of federated search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7117206B1",
+   "title": "Method for ranking hyperlinked pages using content and connectivity analysis",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US20060230040A1",
+   "title": "Methods and systems for providing a response to a query",
+   "assignee": "Andy Curtis"
+  },
+  {
+   "id": "US7136849B2",
+   "title": "Method systems and computer program products for indicating links to external URLs",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7146361B2",
+   "title": "System, method and computer program product for performing unstructured information management and automatic text analysis, including a search operator functioning as a Weighted AND (WAND)",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20070005588A1",
+   "title": "Determining relevance using queries as surrogate content",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070005575A1",
+   "title": "Prioritizing search results by client search satisfaction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070038659A1",
+   "title": "Scalable user clustering based on set similarity",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20070061211A1",
+   "title": "Preventing mobile communication facility click fraud",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US20070081197A1",
+   "title": "System and method for semantic knowledge retrieval, management, capture, sharing, discovery, delivery and presentation",
+   "assignee": "Nosa Omoigui"
+  },
+  {
+   "id": "US20070106659A1",
+   "title": "Search engine that applies feedback from users to improve search results",
+   "assignee": "Yunshan Lu"
+  },
+  {
+   "id": "US20070112730A1",
+   "title": "Sampling Internet user traffic to improve search results",
+   "assignee": "Antonino Gulli"
+  },
+  {
+   "id": "US7222127B1",
+   "title": "Large scale machine learning systems and methods",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070130370A1",
+   "title": "Portable search engine",
+   "assignee": "Emeka Akaezuwa"
+  },
+  {
+   "id": "US20070156677A1",
+   "title": "Database access system",
+   "assignee": "Alberti Anemometer Llc"
+  },
+  {
+   "id": "US7243102B1",
+   "title": "Machine directed improvement of ranking algorithms",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070192190A1",
+   "title": "Method and system for scoring quality of traffic to network sites",
+   "assignee": "Authenticlick"
+  },
+  {
+   "id": "US7266765B2",
+   "title": "Detection and processing of annotated anchors",
+   "assignee": "Fuji Xerox Co., Ltd."
+  },
+  {
+   "id": "US20070214131A1",
+   "title": "Re-ranking search results based on query log",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070233653A1",
+   "title": "Selecting directly bid upon advertisements for display",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070255689A1",
+   "title": "System and method for indexing web content using click-through features",
+   "assignee": "Gordon Sun"
+  },
+  {
+   "id": "US7293016B1",
+   "title": "Index partitioning based on document relevance for document indexes",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070260597A1",
+   "title": "Dynamic search engine results employing user behavior",
+   "assignee": "Mark Cramer"
+  },
+  {
+   "id": "US20070266439A1",
+   "title": "Privacy management and transaction system",
+   "assignee": "Harold Kraft"
+  },
+  {
+   "id": "US20070288450A1",
+   "title": "Query language determination using query terms and interface language",
+   "assignee": "Datta Ruchira S"
+  },
+  {
+   "id": "US20080010143A1",
+   "title": "Secure and extensible pay per action online advertising",
+   "assignee": "Rob Kniaz"
+  },
+  {
+   "id": "US20080027913A1",
+   "title": "System and method of information retrieval engine evaluation using human judgment input",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20080052219A1",
+   "title": "System for and method of expressive auctions of user events",
+   "assignee": "Combinenet, Inc."
+  },
+  {
+   "id": "US20080052273A1",
+   "title": "Apparatus and method for term context modeling for information retrieval",
+   "assignee": "Fuji Xerox Co., Ltd."
+  },
+  {
+   "id": "US20080059453A1",
+   "title": "System and method for enhancing the result of a query",
+   "assignee": "Raphael Laderman"
+  },
+  {
+   "id": "US20080077570A1",
+   "title": "Full Text Query and Search Systems and Method of Use",
+   "assignee": "Infovell, Inc."
+  },
+  {
+   "id": "US20080082518A1",
+   "title": "Strategy for Providing Query Results Based on Analysis of User Intent",
+   "assignee": "Loftesness David E"
+  },
+  {
+   "id": "US20080091650A1",
+   "title": "Augmented Search With Error Detection and Replacement",
+   "assignee": "Marcus Felipe Fontoura"
+  },
+  {
+   "id": "US20080114729A1",
+   "title": "Computer-implemented interactive, virtual bookshelf system and method",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080114750A1",
+   "title": "Retrieval and ranking of items utilizing similarity",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080114624A1",
+   "title": "Click-fraud protector",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7379951B2",
+   "title": "Support for real-time queries concerning current state, data and history of a process",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7382358B2",
+   "title": "System and method for continuous stroke word-based text input",
+   "assignee": "Forword Input, Inc."
+  },
+  {
+   "id": "US20080140699A1",
+   "title": "System and method for generating substitutable queries",
+   "assignee": "Rosie Jones"
+  },
+  {
+   "id": "US7395222B1",
+   "title": "Method and system for identifying expertise",
+   "assignee": "Sotos John G"
+  },
+  {
+   "id": "US20080162475A1",
+   "title": "Click-fraud detection method",
+   "assignee": "Meggs Anthony F"
+  },
+  {
+   "id": "US20080183660A1",
+   "title": "Content identification expansion",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080189269A1",
+   "title": "Relevance-weighted navigation in information access, search and retrieval",
+   "assignee": "Fast Search & Transfer Asa"
+  },
+  {
+   "id": "US20080208825A1",
+   "title": "Methods and systems for providing a response to a query",
+   "assignee": "Andy Curtis"
+  },
+  {
+   "id": "US7426507B1",
+   "title": "Automatic taxonomy generation in search results using phrases",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20080228442A1",
+   "title": "Statistical data inspector",
+   "assignee": "Lisa Ellen Lippincott"
+  },
+  {
+   "id": "US20080256050A1",
+   "title": "System and method for modeling user selection feedback in a search result page",
+   "assignee": "Ruofei Zhang"
+  },
+  {
+   "id": "US7451487B2",
+   "title": "Fraudulent message detection",
+   "assignee": "Sonicwall, Inc."
+  },
+  {
+   "id": "US20080313168A1",
+   "title": "Ranking documents based on a series of document graphs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080313247A1",
+   "title": "Page Ranking Based on a Behavioral WEB Graph",
+   "assignee": "Brian Galvin"
+  },
+  {
+   "id": "US20090012969A1",
+   "title": "Systems and processes for evaluating webpages",
+   "assignee": "Rail Peter D"
+  },
+  {
+   "id": "US20090055392A1",
+   "title": "Ordering of search results based on language and/or country of the search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7516146B2",
+   "title": "Fast adaptive document filtering",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7526470B1",
+   "title": "System and method for measuring and improving search result relevance based on user satisfaction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7533092B2",
+   "title": "Link-based spam detection",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7533130B2",
+   "title": "User behavior reporting based on pre-aggregated activity data",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20090157643A1",
+   "title": "Semi-supervised part-of-speech tagging",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7552112B2",
+   "title": "Discovering associative intent queries from search web logs",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20090182723A1",
+   "title": "Ranking search results using author extraction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7565363B2",
+   "title": "Search engine with user activity memory",
+   "assignee": "Anwar Mohammed S"
+  },
+  {
+   "id": "US7566363B2",
+   "title": "Alternative phthalocyanine dyes suitable for use in offset inks",
+   "assignee": "Silverbrook Research Pty Ltd"
+  },
+  {
+   "id": "US7574530B2",
+   "title": "Method and system for web resource location classification and detection",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7584181B2",
+   "title": "Implicit links search enhancement system and method for search engines using implicit links generated by mining user access patterns",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7610282B1",
+   "title": "Rank-adjusted content items",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090287656A1",
+   "title": "Network search engine utilizing client browser favorites",
+   "assignee": "Bennett James D"
+  },
+  {
+   "id": "US7657626B1",
+   "title": "Click fraud detection",
+   "assignee": "Enquisite, Inc."
+  },
+  {
+   "id": "US7680775B2",
+   "title": "Methods and systems for generating query and result-based relevance indexes",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US7693818B2",
+   "title": "UserRank: ranking linked nodes leveraging user logs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100106706A1",
+   "title": "Method and apparatus for identifying related searches in a database search system",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7716225B1",
+   "title": "Ranking documents based on user behavior and/or feature data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20100131563A1",
+   "title": "System and methods for automatic clustering of ranked and categorized search objects",
+   "assignee": "Hongfeng Yin"
+  },
+  {
+   "id": "US7756887B1",
+   "title": "System and method for modulating search relevancy using pointer activity monitoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20100205541A1",
+   "title": "social network driven indexing system for instantly clustering people with concurrent focus on same topic into on-topic chat rooms and/or for generating on-topic search results tailored to user preferences regarding topic",
+   "assignee": "Jeffrey A. Rapaport"
+  },
+  {
+   "id": "US7783632B2",
+   "title": "Using popularity data for ranking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100228738A1",
+   "title": "Adaptive document sampling for information extraction",
+   "assignee": "Mehta Rupesh R"
+  },
+  {
+   "id": "US7801885B1",
+   "title": "Search engine system and method with user feedback on search results",
+   "assignee": "Neal Akash Verma"
+  },
+  {
+   "id": "US20100241472A1",
+   "title": "Illness specific diagnostic system",
+   "assignee": "David Antonio Hernandez"
+  },
+  {
+   "id": "US7809716B2",
+   "title": "Method and apparatus for establishing relationship between documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7818320B2",
+   "title": "Enhanced search results based on user feedback relating to search result abstracts",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7836058B2",
+   "title": "Web searching",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7844589B2",
+   "title": "Method and apparatus for performing a search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7849089B2",
+   "title": "Method and system for adapting search results to personal information needs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7853557B2",
+   "title": "Method and computer for responding to a query according to the language used",
+   "assignee": "Siebel Systems, Inc."
+  },
+  {
+   "id": "US7865427B2",
+   "title": "Method and apparatus for evaluating fraud risk in an electronic commerce transaction",
+   "assignee": "Cybersource Corporation"
+  },
+  {
+   "id": "US7877404B2",
+   "title": "Query classification based on query click logs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7895177B2",
+   "title": "Enabling searching of user ratings and reviews using user profile location, and social networks",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20110064795A1",
+   "title": "Therapeutic vaccine targeted against P-glycoprotein 170 for inhibiting multidrug resistance in the treatment of cancers",
+   "assignee": "Ac Immune Sa"
+  },
+  {
+   "id": "US7974974B2",
+   "title": "Techniques to perform relative ranking for search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7987185B1",
+   "title": "Ranking custom search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8019650B2",
+   "title": "Method and system for producing item comparisons",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US8024330B1",
+   "title": "Collaborative incident alert system for mobile devices",
+   "assignee": "Hector Franco"
+  },
+  {
+   "id": "US8027439B2",
+   "title": "Self-calibrating fraud detection",
+   "assignee": "Fair Isaac Corporation"
+  },
+  {
+   "id": "US8037043B2",
+   "title": "Information retrieval system",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8037042B2",
+   "title": "Automated analysis of user search behavior",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8051061B2",
+   "title": "Cross-lingual query suggestion",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8060497B1",
+   "title": "Framework for evaluating web search scoring functions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8069182B2",
+   "title": "Relevancy-based domain classification",
+   "assignee": "Working Research, Inc."
+  },
+  {
+   "id": "US20110295844A1",
+   "title": "Enhancing freshness of search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8073263B2",
+   "title": "Multi-classifier selection and monitoring for MMR-based image recognition",
+   "assignee": "Ricoh Co., Ltd."
+  },
+  {
+   "id": "US8073772B2",
+   "title": "Systems and methods for processing transactions using multiple budgets",
+   "assignee": "American Express Travel Related Services Company, Inc."
+  },
+  {
+   "id": "US8086599B1",
+   "title": "Method and apparatus for automatically identifying compunds",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8090717B1",
+   "title": "Methods and apparatus for ranking documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8156111B2",
+   "title": "Identifying and expanding implicitly temporally qualified queries",
+   "assignee": "Yahoo! Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US11816114B1",
+   "title": "Modifying search result ranking based on implicit user feedback"
+  },
+  {
+   "id": "US8694511B1",
+   "title": "Modifying search result ranking based on populations"
+  },
+  {
+   "id": "US8938463B1",
+   "title": "Modifying search result ranking based on implicit user feedback and a model of presentation bias"
+  },
+  {
+   "id": "US9092510B1",
+   "title": "Modifying search result ranking based on a temporal element of user feedback"
+  },
+  {
+   "id": "US8615514B1",
+   "title": "Evaluating website properties by partitioning user feedback"
+  },
+  {
+   "id": "US8972391B1",
+   "title": "Recent interest based relevance scoring"
+  },
+  {
+   "id": "US8321278B2",
+   "title": "Targeted advertisements based on user profiles and page profile"
+  },
+  {
+   "id": "KR101700352B1",
+   "title": "Generating improved document classification data using historical search results"
+  },
+  {
+   "id": "CN107665444B",
+   "title": "A method and system for instant effect evaluation of online advertising based on user online behavior"
+  },
+  {
+   "id": "US8898153B1",
+   "title": "Modifying scoring data based on historical changes"
+  },
+  {
+   "id": "JP5078674B2",
+   "title": "Analysis system, information processing apparatus, activity analysis method, and program"
+  },
+  {
+   "id": "US8359309B1",
+   "title": "Modifying search result ranking based on corpus search statistics"
+  },
+  {
+   "id": "US8244752B2",
+   "title": "Classifying search query traffic"
+  },
+  {
+   "id": "US20060173556A1",
+   "title": "Methods and apparatus for using user gender and/or age group to improve the organization of documents retrieved in response to a search query"
+  },
+  {
+   "id": "US20090287645A1",
+   "title": "Search results with most clicked next objects"
+  },
+  {
+   "id": "US20130024448A1",
+   "title": "Ranking search results using feature score distributions"
+  },
+  {
+   "id": "US20140149399A1",
+   "title": "Determining user intent from query patterns"
+  },
+  {
+   "id": "US7617208B2",
+   "title": "User query data mining and related techniques"
+  },
+  {
+   "id": "CN101454780A",
+   "title": "Method for Generating Website Profile Based on Monitoring User Behavior"
+  },
+  {
+   "id": "CN1996316A",
+   "title": "Search engine searching method based on web page correlation"
+  },
+  {
+   "id": "US9623119B1",
+   "title": "Accentuating search results"
+  },
+  {
+   "id": "CN104077713A",
+   "title": "Method and system of demand assessment and advertisement push for user visiting website"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8694374B1/en"
+}

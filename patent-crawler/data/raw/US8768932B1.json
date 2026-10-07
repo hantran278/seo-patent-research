@@ -1,0 +1,539 @@
+{
+ "id": "US8768932B1",
+ "title": "Method and apparatus for ranking search results",
+ "abstract": "One embodiment of the present invention provides a system for ranking search-results. During operation, the system receives a query, wherein the query includes one or more terms. The system subsequently searches a dataset using the one or more terms to obtain search-results. Next, the system receives an attribute-identifier, which identifies an attribute for the obtained search-results. Then, for each search-result, the system calculates a combined score based on an attribute-value for the identified attribute, and a relevance-score for the search-result. The system then ranks the search-results based on combined scores associated with the search-results. Finally, the system presents the ranked search-results to a user.",
+ "inventors": [
+  "Varun Kacholia",
+  "Ashutosh Garg"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2007-05-14",
+ "filing_date": "2007-05-14",
+ "publication_date": "2014-07-01",
+ "status": "Active",
+ "expiration": "2029-04-28",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/953",
+  "G06F16/9538",
+  "G06F17/30864",
+  "G06F16/951",
+  "G06F16/30",
+  "G06F16/33",
+  "G06F16/3331",
+  "G06F16/334",
+  "G06F16/9535",
+  "G06F17/30675",
+  "G06F17/30867",
+  "G06Q30/00",
+  "G06Q30/06",
+  "G06Q30/0601",
+  "G06Q30/0623",
+  "G06Q30/0625",
+  "G06Q30/0627",
+  "G06F16/955",
+  "G06F16/9558",
+  "G06F17/30882",
+  "G06Q30/02"
+ ],
+ "claims": [
+  {
+   "text": "1. A method comprising: receiving, by one or more devices, a query that includes one or more terms; searching, by the one or more devices, a dataset, using the one or more terms, to obtain search results; obtaining, by the one or more devices, a user-specified attribute identifier that identifies an attribute to be used in ranking the search results, the identified attribute being different from a measure of relevance of the search results to the query; calculating, by the one or more devices, a combined score for each search result, included in the search results, based on the attribute value and a value corresponding to the measure of relevance of the search result to the query; ranking, by the one or more devices, the search results based on the combined score calculated for each search result to form a first ranking of search results; dividing, by the one or more devices and based on a threshold value associated with the measure of relevance of the search results to the query, the first ranking of search results into subsets of ranked search results, the subsets of ranked search results including a first subset of ranked search results and a second subset of ranked search results; ranking, by the one or more devices, search results included in the first subset of ranked search results and search results included in the second subset of ranked search results based on the attribute value to form a second ranking of search results, each of the search results, included in the first subset of ranked search results, being ranked relative only to other ones of the search results included in the first subset of ranked search results, and each of the search results, included in the second subset of ranked search results, being ranked relative only to other ones of the search results included in the second subset of ranked search results; and providing, by the one or more devices, the second ranking of search results.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, wherein the query includes the attribute identifier.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, wherein the attribute identifier comprises one or more of: a price; a rating; an image size; an image resolution; a video length; an audio length; a text length; a file size; a date; a time; or an expiration date.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method claim 1, wherein calculating the combined score includes: applying a first weight to the value corresponding to the measure of relevance, and applying a second weight to the attribute value, wherein the second weight is different from the first weight.",
+   "dependent": true
+  },
+  {
+   "text": "5. A method comprising: receiving, by one or more processors, a query that includes one or more terms; identifying, by the one or more processors and using the one or more terms, search results; receiving, by the one or more processors, an attribute identifier, specified by a user, that identifies an attribute to be used in ranking the search results, the identified attribute being different from a measure of relevance of the search results to the query; calculating, by the one or more processors, a combined score for each search result, included in search results, based on an attribute value associated with the attribute and a value corresponding to the measure of relevance of the search result to the query; ranking, by the one or more processors, the search results based on the combined score calculated for each search result to obtain first ranked search results; dividing, by the one or more processors, the first ranked search results into a first subset of ranked search results and a second subset of ranked search results based on a threshold; ranking, by the one or more processors, search results included in the first subset of ranked search results and search results included in the second subset of ranked search results based on the attribute value to obtain second ranked search results, each of the search results included in the first subset of ranked search results being ranked relative only to other ones of the search results included in the first subset of ranked search results, and each of the search results included in the second subset of ranked search results being ranked relative only to other ones of the search results included in the second subset of ranked search results; and providing, by the one or more processors, the second ranked search results.",
+   "dependent": false
+  },
+  {
+   "text": "6. The method of claim 5, where calculating the combined score for each search result includes: applying a first weight to the value corresponding to the measure of relevance, and applying a second weight to the attribute value, the second weight being different from the first weight.",
+   "dependent": true
+  },
+  {
+   "text": "7. A non-transitory computer-readable storage medium storing instructions, the instructions comprising: one or more instructions which, when executed by one or more processors, cause the one or more processors to: receive a query that includes one or more terms; identify, using the one or more terms, search results; determine an attribute identifier that identifies an attribute to be used in ranking the search results, the attribute being different from a measure of relevance of the search results to the query; calculate a combined score for each search result, included in the search results, based on an attribute value associated with the attribute and a value corresponding to the measure of relevance of the search result to the query; rank the search results based on the combined score calculated for each search result to obtain a first ranking of search results; divide, based on a threshold measure of relevancy, the first ranking of search results into a first subset of ranked search results and a second subset of ranked search results; rank search results included in the first subset of ranked search results and search results included in the second subset of ranked search results based on the attribute value to obtain a second ranking of search results, each of the search results included in the first subset of ranked search results being ranked relative only to other ones of the search results included in the first subset of ranked search results, and each of the search results included in the second subset of ranked search results being ranked relative only to other ones of the search results included in the second subset of ranked search results; and provide the second ranking of search results.",
+   "dependent": false
+  },
+  {
+   "text": "8. The non-transitory computer-readable storage medium of claim 7, wherein the query includes the attribute identifier.",
+   "dependent": true
+  },
+  {
+   "text": "9. The non-transitory computer-readable storage medium of claim 7, wherein the attribute identifier includes one or more of: a price; a rating; an image size; an image resolution; a video length; an audio length; a text length; a file size; a date; a time; or an expiration date.",
+   "dependent": true
+  },
+  {
+   "text": "10. The non-transitory computer-readable storage medium of claim 7, wherein the one or more instructions to calculate the combined score include: one or more instructions to apply a first weight to the value corresponding to the measure of relevance, and one or more instructions to apply a second weight to the attribute value, wherein the second weight is different from the first weight.",
+   "dependent": true
+  },
+  {
+   "text": "11. A non-transitory computer-readable storage medium storing instructions, the instructions comprising: one or more instructions which, when executed by one or more processors, cause the one or more processors to: receive a query that includes one or more terms; identify, using the one or more terms, search results; determine an attribute identifier that identifies an attribute to be used in ranking the search results, the attribute being different from a measure of relevance of the search results to the query; calculate a combined score for each search result, included in the search results, based on the measure of relevance of the search result to the query and the attribute; rank the search results based on the combined score calculated for each search result to obtain first ranked search results; divide, based on a threshold measure of relevancy, the first ranked search results into a first subset of the first ranked search results and a second subset of the first ranked search results; rank search results included in the first subset of the ranked search results and search results included in the second subset of the ranked search results based on the attribute to obtain second ranked search results, each of the search results included in the first subset of the ranked search results being ranked relative only to other ones of the search results included in the first subset of the ranked search results, and each of the search results included in the second subset of the ranked search results being ranked relative only to other ones of the search results included in the second subset of the ranked search results; and provide the second ranked search results.",
+   "dependent": false
+  },
+  {
+   "text": "12. The non-transitory computer-readable storage medium of claim 11, wherein the one or more instructions to calculate the combined score for each search result include: one or more instructions to calculate the combined score for each search result based on a value for the attribute and a value corresponding to the measure of relevance of the search result to the query.",
+   "dependent": true
+  },
+  {
+   "text": "13. The non-transitory computer-readable storage medium of claim 12, where the one or more instructions to calculate the combined score for each search result further include: one or more instructions to apply a first weight to the value corresponding to the measure of relevance, and one or more instructions to apply a second weight to the attribute value, the second weight being different from the first weight.",
+   "dependent": true
+  },
+  {
+   "text": "14. A device comprising: a processor to: receive a query that includes one or more terms; identify, using the one or more terms, search results; receive an attribute identifier, that is specified by a user, to identify an attribute for ranking the search results, the identified attribute being different from a measure of relevance of the search results to the query; calculate a combined score for each search result, included in the search results, based on an attribute value associated with the attribute and the measure of relevance of the search result to the query; rank the search results based on the combined score calculated for search result to obtain a first ranking of the search results; divide, based on a threshold value associated with the measure of relevance of the search results to the query, the first ranking of the search results into a first subset of the first ranking of the search results and a second subset of the first ranking of the search results; rank search results included in the first subset of the first ranking of the search results and search results included in the second subset of the first ranking of the search results based on the attribute value to obtain a second ranking of the search results, each of the search results included in the first subset of the first ranking of the search results being ranked relative only to other ones of the search results included in the first subset of the first ranking of the search results, and each of the search results included in the second subset of the first ranking of the search results being ranked relative only to other ones of the search results included in the second subset of the first ranking of the search results; and provide the second ranking of the search results.",
+   "dependent": false
+  },
+  {
+   "text": "15. The device of claim 14, where, when calculating the combined score for each search result, the processor is to: calculate the combined score for each search result based on the attribute value and a value corresponding to the measure of relevance of the search result to the query.",
+   "dependent": true
+  },
+  {
+   "text": "16. The device of claim 15, wherein, when calculating the combined score for each search result, the processor is further to: apply a first weight to the value corresponding to the measure of relevance, and apply a second weight to the attribute value, wherein the second weight is different from the first weight.",
+   "dependent": true
+  },
+  {
+   "text": "17. A system comprising: a device to: receive a query that includes one or more terms; identify, using the one or more terms, a plurality of search results; determine an attribute identifier, specified by a user, that identifies an attribute used to rank the plurality of search results, the identified attribute being different from a measure of relevance of the plurality of search results to the query; calculate a combined score for each search result, included in the plurality of search results, based on the attribute and the measure of relevance of the search result to the query; rank the search results based on the combined score calculated for each search result to obtain a first ranking of the plurality of search results; divide, based on a threshold value associated with the measure of relevance of the plurality of search results to the query, the first ranking of the plurality of search results into a first subset of ranked search results and a second subset of ranked search results; rank search results included in the first subset of ranked search results and the search results included in the second subset of ranked search results based on an attribute value associated with the attribute to obtain a second ranking of the plurality of search results, each of the search results included in the first subset of ranked search results being ranked relative only to other ones of the search results included in the first subset of ranked search results, and each of the search results included in the second subset of ranked search results being ranked relative only to other ones of the search results included in the second subset of ranked search results; and provide the second ranking of the plurality of search results.",
+   "dependent": false
+  },
+  {
+   "text": "18. The system of claim 17, wherein, when calculating the combined score for each search result, the device is to: calculate a combined score for each search result based on the attribute value and a value corresponding to the measure of relevance of the search result to the query.",
+   "dependent": true
+  },
+  {
+   "text": "19. The system of claim 18, where, when calculating the combined score for each search result, the device is further to: apply a first weight to the value corresponding to the measure of relevance, and apply a second weight to the attribute value, the second weight being different from the first weight.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## BACKGROUND\n\n\n1. Field of the Invention\n\nThe present invention relates to search-engines. More specifically, the present invention relates to a method and apparatus for ranking search-results produced by a search-engine.\n\n2. Related Art\n\nUpon receiving a query from a user, a search-engine will typically identify a set of search-results that are related to terms in the query. In most cases, the search-engine will present the search-results to a user in an ordering based on a relevance measure. However, often a user desires to rank the search-results by a specific attribute, such as price or date. To do so, the user specifies the desired attribute, and the search-engine subsequently re-ranks the search-results based on the desired attribute.\n\nHowever, if the search-engine re-ranks search-results based on a desired attribute, the search-engine may list less relevant search-results before more relevant search-results. Consequently, the user may have to browse through several pages of less relevant search-results before finding more relevant search-results. This problem is often exacerbated by people who adjust a specific attribute to affect the ranking of specific search-results. For example, a merchant may reduce the price of a product by a nominal value to ensure that a search-engine lists the product first. This often causes the search-engine to list less relevant products before more relevant products.\n\nHence, what is needed is a method and apparatus for ranking search-results without the problems listed above.\n\n\n## SUMMARY\n\n\nOne embodiment of the present invention provides a system for ranking search-results. During operation, the system receives a query, wherein the query includes one or more terms. The system subsequently searches a dataset using the one or more terms to obtain search-results. Next, the system receives an attribute-identifier, which identifies an attribute for the obtained search-results. Then, for each search-result, the system calculates a combined score based on an attribute-value for the identified attribute, and a relevance-score for the search-result. The system then ranks the search-results based on combined scores associated with the search-results. Finally, the system presents the ranked search-results to a user.\n\nIn a variation on this embodiment, the query can include the attribute-identifier.\n\nIn a variation on this embodiment, the attribute can be: a price, a rating, an image size, an image resolution, a video length, an audio length, a text length, a file size, a date, a time, an expiration date, and a quantity.\n\nIn a variation on this embodiment, calculating the combined score can include normalizing the combined score.\n\nIn a variation on this embodiment, calculating the combined score includes applying weights to the relevance-score and the attribute-value.\n\nIn a variation on this embodiment, the system divides the ranked search-results into subsets of ranked search-results. Then, for each subset, the system re-ranks the search-results based on the attribute-value to obtain re-ranked search-results. The system then presents the re-ranked search-results to the user.\n\nOne embodiment of the present invention provides a system for ranking search-results. During operation, the system receives a query from a client at a search-engine, wherein the query includes one or more terms. The system subsequently searches a dataset using the one or more terms to obtain search-results. Next, the system receives an attribute-identifier, which identifies an attribute associated with the obtained search-results. Then, for each search-result, the system determines if the search-result has a relevance-score which is above a threshold-value. If not, the system discards the search-result. If so, the system includes the search-result in a set of relevant search-results. The system then ranks the set of relevant search-results based on an attribute-value for the identified attribute to obtain ranked relevant search-results. Finally, the system presents the ranked relevant search-results to a user.\n\nIn a variation on this embodiment, for each relevant search-result, the system calculates a combined score based on the attribute-value and the relevance-score associated with the relevant search-result. The system then ranks the relevant search-results based on combined scores associated with the relevant search-results to obtain the ranked relevant search-results.\n\nIn a variation on this embodiment, the system divides the ranked relevant search-results into subsets of ranked relevant search-results. Then, for each subset of ranked relevant search-results, the system re-ranks the search-results based on the attribute-value to obtain re-ranked relevant search-results. The system then presents the re-ranked relevant search-results to the user.\n\n\n## BRIEF DESCRIPTION OF THE FIGURES\n\n\nFIG. 1 illustrates a computing environment in accordance with an embodiment of the present invention.\n\nFIG. 2 presents a flow chart illustrating a process for ranking search-results in accordance with an embodiment of the present invention.\n\nFIG. 3 presents a flow chart illustrating a process for ranking subsets of search-results in accordance with an embodiment of the present invention.\n\nFIG. 4 presents a flow chart illustrating a second process for ranking search-results in accordance with an embodiment of the present invention.\n\nFIG. 5A illustrates a web-page in accordance with an embodiment of the present invention.\n\nFIG. 5B illustrates a second web-page in accordance with an embodiment of the present invention.\n\nFIG. 5C illustrates a third web-page in accordance with an embodiment of the present invention.\n\nTable 1 illustrates examples of formulas for combining an attribute-value with a relevance-score in accordance with an embodiment of the present invention.\n\n\n## DETAILED DESCRIPTION\n\n\nThe following description is presented to enable any person skilled in the art to make and use the invention, and is provided in the context of a particular application and its requirements. Various modifications to the disclosed embodiments will be readily apparent to those skilled in the art, and the general principles defined herein may be applied to other embodiments and applications without departing from the spirit and scope of the present invention. Thus, the present invention is not limited to the embodiments shown, but is to be accorded the widest scope consistent with the principles and features disclosed herein.\n\nThe data structures and code described in this detailed description are typically stored on a computer-readable storage medium, which may be any device or medium that can store code and/or data for use by a computer system. This includes, but is not limited to, volatile memory, non-volatile memory, magnetic and optical storage devices such as disk drives, magnetic tape, CDs (compact discs), DVDs (digital versatile discs or digital video discs), or other media capable of storing computer readable media now known or later developed.\n\nOverview\n\nOne embodiment of the present invention provides a search-engine that can rank search-results based on an attribute which is orthogonal to the relevancy of the search-results. Hence, for each search-result, this search-engine can calculate a combined score based on both the relevance-score of the search-result and an attribute-value associated with the search-result. The search-engine can then rank the search-results based on their combined scores and can then present the ranked search-results to a user.\n\nIn one embodiment of the present invention, the search-engine can calculate the combined score based on multiple attribute-values associated with the search-result.\n\nIn one embodiment of the present invention, the search-engine can calculate the combined score based on any orthogonal factors associated with the search-results. In this embodiment, the search-engine is not limited to using a relevance-score to calculate the combined score. For example, the search-engine could use a quality-factor in combination with an attribute-value to calculate the combined score. This quality-factor may or may not be based on the relevance of the search-result to the query, but may instead, for example, relate to the reliability of a source associated with the search-result.\n\nIn one embodiment of the present invention, by ranking the search-results by their combined score, the search-engine is able to rank search-results with a higher degree of relevancy, but a lower attribute-value above search-results with a lower-degree of relevancy, but a higher attribute-value. For example, suppose that a user searches for a digital camera and desires that the search-engine rank the search-results in ascending order of price. Note that, in this example, because the user desires to rank the search-results in ascending order of price, a low price correlates to a high attribute-value and vice-versa. Furthermore, suppose that the search-results include a camera case, which has a price that is significantly lower than any digital camera. Because the search-engine ranks the search-results based on a combined score that includes both the relevance-score and the attribute-value, the search-engine can rank, and thus present, the camera case after the digital cameras. Note that this ranking is dependent on the formula that the search-engine uses to calculate the combined score. Thus, a search-result that has a relevance-score that is only slightly higher than the relevance-score of a second search-result may still rank below the second search-result even if the second search-result is less relevant than the search-result.\n\nIn one embodiment of the present invention, after ranking the search-results based on the combined scores associated with the search-results, the search-engine can divide the search-results into subsets. During this process, the search-engine maintains the relative ranking between the search-results. The search-engine can then re-rank these subsets based on the attribute-values associated with the search-results. This enables the search-engine to fine-tune the rankings to help prevent search-results associated with a given attribute-value from ranking above search-results with a higher attribute-value. Note that the search-engine can also use this embodiment to help prevent search-results associated with a given attribute-value from ranking above search-results with a lower attribute-value, wherein the search-engine ranks search-results in ascending order based on attribute-values associated with the search-results.\n\nIn one embodiment of the present invention, before ranking the search-results, the search-engine can discard search-results associated with a relevance-score that is below a given threshold. This enables the search-engine to rank search-results based on an attribute without including search-results that have a particularly low relevance-score that can skew the rankings.\n\nComputing Environment\n\nFIG. 1 illustrates a computing environment 100 in accordance with an embodiment of the present invention. Computing environment 100 includes a number of computer systems, which can generally include any type of computer system based on: a microprocessor, a mainframe computer, a digital signal processor, a portable computing device, a personal organizer, a device controller, or a computational engine within an appliance. More specifically, computing environment 100 includes: client 110; network 120; server 130; and search-engine 140.\n\nClient 110 can generally include any node on a network including computational capability and including a mechanism for communicating across the network.\n\nNetwork 120 can generally include any type of wired or wireless communication channel capable of coupling together computing nodes. This includes, but is not limited to, a local area network, a wide area network, or a combination of networks. In one embodiment of the present invention, network 120 comprises the Internet.\n\nServer 130 can generally include any computational node including a mechanism for servicing requests from a client for computational and/or data storage resources.\n\nSearch-engine 140 can generally include any system capable of searching a dataset for an occurrence of one or more terms. Note that the dataset can include any type of data, including: images, text, video, audio, etc. Furthermore, note that search-engine 140 can comprise hardware, software, or a combination of hardware and software.\n\nIn one embodiment of the present invention, server 130 hosts search-engine 140.\n\nIn one embodiment of the present invention, client 110 hosts search-engine 140.\n\nIn one embodiment of the present invention, search-engine 140 is a stand-alone system.\n\nUser 112 can generally include: an individual; a group of individuals; an organization; a group of organizations; a computing system; a group of computing systems; or any other entity that can interact with computing environment 100.\n\nIn one embodiment of the present invention, user 112 can be a client.\n\nA Process for Ranking Search-Results\n\nFIG. 2 presents a flow chart illustrating a process for ranking search-results in accordance with an embodiment of the present invention. The process begins when search-engine 140 receives a query from user 112 via client 110 (operation 202). Note that the query can include one or more terms that user 112 desires to search for. Search-engine 140 then searches a dataset using the one or more terms to obtain search-results (operation 204). Note that the dataset can include: web-pages, data files, video files, audio files, image files, and any other type of searchable-content. Furthermore, note that any number of clients, servers, and databases can host the dataset. Next, search-engine 140 receives an attribute-identifier from user 112 via client 110 (operation 206). Note that the attribute-identifier specifies an attribute that may be associated with the search-results. This attribute can include: a price, a rating, an image size, an image resolution, a video length, a video resolution, an audio length, an audio bit-rate, a text length, a file size, a date, a time, an expiration date, a quantity, and any other attribute that can be associated with the search-results.\n\nIn one embodiment of the present invention, the query can include the attribute-identifier.\n\nIn one embodiment of the present invention, the attribute-identifier is pre-determined. For example, search-engine 140 may be pre-configured to rank search-results by a creation-date associated with each search-result.\n\nThen, for each search-result, search-engine 140 calculates a combined score based on an attribute-value for the identified attribute and a relevance-score for the search-result (operation 208). Note that the relevance-score can be any value that indicates how relevant a search-result is to a search. This value may be determined a priori, or may be determined during a search.\n\nIn one embodiment of the present invention, search-engine 140 can calculate the relevance-score using any method for determining a web-page quality metric, or for determining the relevancy of a search-result to a query. For example, search-engine 140 can use PageRank® to determine the relevance-score of a search-result. Generally, the PageRank technique computes and assigns a PageRank score to each web-page it encounters on the web, wherein the PageRank score serves as a measure of the relative quality of a given web-page with respect to other web-pages. PageRank generally ensures that important and high-quality web-pages receive high PageRank scores, which enables a search engine to efficiently rank the search results based on their associated PageRank scores. (see U.S. Pat. No. 6,285,999, entitled “Method for Node Ranking in a Linked Database,” by inventor Lawrence Page).\n\nIn one embodiment of the present invention, the relevance-score indicates the quality of a source that provides the search-result. In this embodiment, the relevance-score may or may not indicate the quality of the search-result.\n\nIn one embodiment of the present invention, the relevance-score may be an indicator of the quality of the search-result.\n\nIn one embodiment of the present invention, search-engine 140 can use any formula for combining the attribute-value and the relevance-score. Table 1 illustrates examples of formulas for combining an attribute-value with a relevance-score in accordance with an embodiment of the present invention. The variable ‘R’ represents the relevance-score and the variable ‘A’ represents the attribute-value. Note that the attribute-value can be a value associated with an identified attribute, or a value derived from the identified attribute or multiple identified attributes. The variables ‘x1’ and ‘x2’ represent scaling factors or weights. Note that search-engine 140 is not limited to using the formulas illustrated in Table 1. Furthermore, note that search-engine 140 is not limited to using formulas that include an attribute-value, a relevance-score, and scaling factors, but can use formulas that combine any number of values associated with a search-result, search-engine 140, or a set of user-preferences. In addition, note that the attribute-value and the relevance score can be scaled using different techniques as illustrated by Formula 4.\n\nTABLE 1 Example Formulas Formula 1 f(R, A) = x1R + x2A Formula 2 f(R, A) = (x1R + x2A)/(x1 + x2) Formula 3 f(R, A) = x1R * x2A Formula 4 f(R, A) = x1R + AX2 Formula 5 f(R, A) = RX1 + AX2\n\nIn one embodiment of the present invention, search-engine 140 can apply weights to the relevance-score and the attribute-value. This enables search-engine 140 to adjust the relative contributions of the relevance-score and the attribute-value to the combined score.\n\nIn one embodiment of the present invention, search-engine 140 normalizes the combined score, for example using Formula 2. (Note that normalizing the combined score can involve scaling the combined score by a reference-value). This can facilitate sorting the combined scores, which helps in ranking the search-results.\n\nThen, after calculating the combined scores for each search-result, search-engine 140 ranks the search-results based on the combined scores (operation 210). Search-engine 140 then presents the ranked search-results to user 112 (operation 212).\n\n\n## Example Search\n\n\nFIG. 5A illustrates a web-page 500 in accordance with an embodiment of the present invention. Web-page 500 contains search-results obtained in response to a query relating to digital cameras. More specifically, web-page 500 includes: search-results 505; ranking-type 510; product rating 520; and price 530.\n\nSearch-results 505 contains a subset of the search-results that search-engine 140 identified in response to the query.\n\nRanking-type 510 specifies an attribute and an order that user 112 desires search-engine 140 to use to rank search-results 505. In this example, user 112 desires search-engine 140 to rank search-results 505 in descending order by price.\n\nProduct rating 520 specifies a rating associated with each search-result. In this example, product rating 520 represents a relevance-score. Note that the relevance-score is a hidden value that search-engine 140 calculates and does not present to user 112.\n\nIn one embodiment of the present invention, search-engine 140 presents the relevance-score to user 112.\n\nIn one embodiment of the present invention, product rating 520 represents a secondary attribute, which is separate from the relevance-score. In this embodiment, search-engine 140 may or may not use product rating 520 in addition to the relevance-score and to price 530 to determine the rank of search-results 505.\n\nIn one embodiment of the present invention, search-engine 140 uses multiple attributes to rank search-results 505. In this embodiment, search-engine 140 may or may not use a relevance-score in addition to the multiple attributes to rank search-results 505.\n\nPrice 530 specifies the price associated with each search-result. Note that in this example, because user 112 selected descending order of price for ranking type 510, search-engine 140 ranks search-results 505 based on descending order of price. Furthermore, note that, because search-engine 140 uses product rating 520 as the relevance-score, search-engine 140 ranks search-results with the same price, such as search-result 514 and search-result 512, in descending order of product rating.\n\nRanking Subsets of Search-Results\n\nFIG. 3 presents a flow chart illustrating a process for ranking subsets of search-results in accordance with an embodiment of the present invention. Note that this process typically occurs after the completion of the process described in the previous section with respect to FIG. 2. The process begins when search-engine 140 divides the ranked search-results into subsets of ranked search-results (operation 302). Note that, when performing operation 302, search-engine 140 maintains the relative ranking of the search-results. For example, suppose that a search-result ranks above a second search-result. After search-engine 140 performs operation 302, the search-result will still rank above the second search-result. Then, for each subset, search-engine 140 re-ranks the search-results based on the attribute-value (operation 304). Search-engine 140 then presents the re-ranked search-results to user 112 (operation 306).\n\nIn one embodiment of the present invention, search-engine 140 can use this process to decrease the probability that user 112 will see a search-result associated with an attribute-value ranked above a search-result associated with a higher attribute-value.\n\nIn one embodiment of the present invention, search-engine 140 can use threshold-ranges to determine which subset of ranked search-results includes a given search-result. This embodiment can help prevent search-engine 140 from ranking a search-result which has a given relevance-score above a second search-result which has a significantly higher relevance-score regardless of the relationship between the attribute-values of the two search-results.\n\nIn one embodiment of the present invention, search-engine 140 may reshuffle search-results which are associated with a subset of search-results based on a threshold-value. This embodiment can help prevent search-engine 140 from including a search-result with a given subset of search-results that are each associated with a significantly greater or lesser relevance-score or attribute-value than the search-result.\n\n\n## Second Example Search\n\n\nFIG. 5B illustrates a second web-page 550 in accordance with an embodiment of the present invention. Web-page 550 illustrates a second exemplary page of search-results for the same query associated with web-page 500 in FIG. 5A, wherein web-page 550 is generated after search-engine 140 executes the process described with reference to FIG. 3. In this example, each web-page represents a subset of search-results. Thus, search-results 505 represent one subset of search-results, and search-results 555 represent a second subset of search-results. Observe that search-result 562 has a higher price than several other search-results, such as search-result 522, on web-page 500. In this example, search-result 562 is included with search-results 555 because the low product rating associated with search-result 562 significantly decreases the combined attribute-value and relevance-score associated with search-result 562, and thus search-engine 140 includes search-result 562 with the second subset of search-results.\n\nIn one embodiment of the present invention, search-engine 140 does not use product rating 520 to determining ranking. In this embodiment, search-engine 140 ranks search-result 562 above search-result 514.\n\nIn one embodiment of the present invention, search-engine 140 does not divide the ranked search-results. In this embodiment, search-engine 140 ranks search-result 562 above search-result 514.\n\nA Second Process for Ranking Search-Results\n\nFIG. 4 presents a flow chart illustrating a second process for ranking search-results in accordance with an embodiment of the present invention. The process begins when search-engine 140 receives a query from user 112 via client 110 (operation 402). Note that the query can include one or more terms. Search-engine 140 then searches a dataset using the one or more terms to obtain search-results (operation 404). Note that the dataset can include: web-pages; data files; video files; audio files; image files; and any other type of searchable-content. Next, search-engine 140 receives an attribute-identifier from user 112 via client 110 (operation 406). Note that the attribute-identifier specifies an attribute that may be associated with the search-results. This attribute can include: a price, a rating, an image size, an image resolution, a video length, a video resolution, an audio length, an audio bit-rate, a text length, a file size, a date, a time, an expiration date, a quantity, and any other attribute that can be associated with the search-results.\n\nIn one embodiment of the present invention, the query can include the attribute-identifier.\n\nIn one embodiment of the present invention, the attribute-identifier is pre-determined. For example, search-engine 140 may be pre-configured to rank search-results by a creation-date associated with each search-result.\n\nSearch-engine 140 then determines if a given search-result has a relevance-score above a threshold-value (operation 408). If so, search-engine 140 includes the given search-result in a set of relevant search-results (operation 412). If not, search-engine 140 discards the given search-result (operation 410).\n\nIn one embodiment of the present invention, search-engine 140 can determine the threshold-value by analyzing historical-data related to searches. This may involve analyzing all historical-data or historical-data related to searches which are similar to the query. Note that a similar search may be a search that: includes one or more terms in common with the query; includes the same attribute-identifier as the query; or shares any other feature in common with the query.\n\nIn one embodiment of the present invention, user 112 can select the threshold-value.\n\nIn one embodiment of the present invention, the threshold-value can be associated with the number of search-results for the query.\n\nNext, search-engine 140 determines if more search-results exist (operation 414). If so, search-engine 140 returns to operation 408. If not, search-engine 140 ranks the set of relevant search-results based on an attribute-value associated with the attribute (operation 416). Search-engine 140 then presents the ranked relevant search-results to user 112 (operation 418).\n\nIn one embodiment of the present invention, discarding search-results that are not highly relevant to a query before ranking the remaining search-results helps prevent irrelevant search-results from appearing near the top of the rankings. For example, suppose that user 112 is searching for a digital camera to purchase and suppose that user 112 desires to see the search-results presented from lowest price to highest price. By first discarding irrelevant search-results, search-engine 140 does not present search-results that relate to digital cameras, but that are not currently of interest to user 112, such as search-results relating to digital camera cases.\n\nIn one embodiment of the present invention, after discarding the search-results that are not highly relevant to the query, search-engine 140 can calculate a combined score for each relevant search-result. Search-engine 140 can calculate this combined score based on a combination of the attribute-value and the relevance-score associated with the search-result. Table 1 illustrates examples of formulas for combining the attribute-value with the relevance-score in accordance with an embodiment of the present invention. Search-engine 140 can then rank the relevant search-results based on the combined scores associated with the relevant search-results.\n\nIn one embodiment of the present invention, after ranking the relevant search-results, search-engine 140 can re-rank subsets of the relevant search-results using a process similar to that described in the previous section with respect to FIG. 3.\n\n\n## Second Example Search\n\n\nFIG. 5C illustrates a third web-page 575 in accordance with an embodiment of the present invention. Web-page 575 illustrates an exemplary page of search-results for the same query associated with web-page 500 in FIG. 5A, wherein web-page 575 is generated after search-engine 140 executes the process described with reference to FIG. 4. In this example, ranking-type 580 specifies that search-engine 140 rank the search-results in ascending order by price. Observe that web-page 575 only includes digital cameras as part of the search-results. Furthermore, observe that low-priced search-results that are not highly relevant to the “Digital Cameras” query illustrated in query-box 590, such as digital camera cases and batteries designed for digital cameras, are not included with the search-results. Note that search-engine 140 can use the process illustrated in FIG. 4 to remove the search-results which are not highly relevant to the “Digital Cameras” query.\n\nThe foregoing descriptions of embodiments of the present invention have been presented only for purposes of illustration and description. They are not intended to be exhaustive or to limit the present invention to the forms disclosed. Accordingly, many modifications and variations will be apparent to practitioners skilled in the art. Additionally, the above disclosure is not intended to limit the present invention. The scope of the present invention is defined by the appended claims.",
+ "cited_by": [
+  {
+   "id": "US20120310954A1",
+   "title": "Method and system to narrow generic searches using related search terms",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US20140236942A1",
+   "title": "Determining search result rankings based on trust level values associated with sellers",
+   "assignee": "Alibaba Group Holding Limited"
+  },
+  {
+   "id": "US20160253600A1",
+   "title": "Travel search machine with shareable trip objects",
+   "assignee": "Hipmunk, Inc."
+  },
+  {
+   "id": "US20160335261A1",
+   "title": "Ranking for efficient factual question answering",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "WO2018039014A1",
+   "title": "Rank query results for relevance utilizing external context",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US10198153B1",
+   "title": "Ordering items for switching",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10198762B1",
+   "title": "Ordering search results to maximize financial gain",
+   "assignee": "Staples, Inc."
+  },
+  {
+   "id": "US11275807B2",
+   "title": "React to location changes on web pages",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US11308099B2",
+   "title": "Method of and system for ranking digital objects based on objective characteristic associated therewith",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "US11354359B2",
+   "title": "Ordering archived search results",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US11367119B2",
+   "title": "Methods and apparatuses for evaluating substitutions made during order fulfillment processes",
+   "assignee": "Walmart Apollo, Llc"
+  },
+  {
+   "id": "US12008622B2",
+   "title": "Methods and apparatuses for recommending substitutions made during order fulfillment processes",
+   "assignee": "Walmart Apollo, Llc"
+  },
+  {
+   "id": "US20260087079A1",
+   "title": "Search ranking optimization",
+   "assignee": "Notion Labs, Inc."
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5913208A",
+   "title": "Identifying duplicate documents from search results without comparing document content",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6029195A",
+   "title": "System for customized electronic identification of desirable objects",
+   "assignee": "Herz; Frederick S. M."
+  },
+  {
+   "id": "US6185558B1",
+   "title": "Identifying the items most relevant to a current query based on items selected in connection with similar queries",
+   "assignee": "Amazon.Com, Inc."
+  },
+  {
+   "id": "US6385602B1",
+   "title": "Presentation of search results using dynamic categorization",
+   "assignee": "E-Centives, Inc."
+  },
+  {
+   "id": "US6499051B1",
+   "title": "Information transmission method and device",
+   "assignee": "Toyota Jidosha Kabushiki Kaisha"
+  },
+  {
+   "id": "US20020198875A1",
+   "title": "System and method for optimizing search results",
+   "assignee": "Masters Graham S."
+  },
+  {
+   "id": "US20030105682A1",
+   "title": "User interface and methods for recommending items to users",
+   "assignee": "Dicker Russell A."
+  },
+  {
+   "id": "US20030145277A1",
+   "title": "Interactively comparing records in a database",
+   "assignee": "Neal Michael Renn"
+  },
+  {
+   "id": "US20030195877A1",
+   "title": "Search query processing to provide category-ranked presentation of search results",
+   "assignee": "Ford James L."
+  },
+  {
+   "id": "US20040002973A1",
+   "title": "Automatically ranking answers to database queries",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20040143600A1",
+   "title": "Content aggregation method and apparatus for on-line purchasing system",
+   "assignee": "Musgrove Timothy Allen"
+  },
+  {
+   "id": "US20040230440A1",
+   "title": "System for automating purchase recommendations",
+   "assignee": "Anil Malhotra"
+  },
+  {
+   "id": "US20040254932A1",
+   "title": "System and method for providing preferred country biasing of search results",
+   "assignee": "Vineet Gupta"
+  },
+  {
+   "id": "US20050086215A1",
+   "title": "System and method for harmonizing content relevancy across structured and unstructured data",
+   "assignee": "Igor Perisic"
+  },
+  {
+   "id": "US20050091245A1",
+   "title": "System and process for automatically explaining probabilistic predictions",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050120006A1",
+   "title": "Systems and methods for enhancing web-based searching",
+   "assignee": "Geosign Corporation"
+  },
+  {
+   "id": "US20050165753A1",
+   "title": "Building and using subwebs for focused search",
+   "assignee": "Harr Chen"
+  },
+  {
+   "id": "US20050256833A1",
+   "title": "Method and system for determining similarity of objects based on heterogeneous relationships",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050278328A1",
+   "title": "Sorting and filtering techniques for products, namely posters and artwork",
+   "assignee": "Marston Michael J"
+  },
+  {
+   "id": "US20060004717A1",
+   "title": "Dispersing search engine results by using page category information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060036593A1",
+   "title": "Multi-stage query processing system and method for use with tokenspace repository",
+   "assignee": "Dean Jeffrey A"
+  },
+  {
+   "id": "US20060195440A1",
+   "title": "Ranking results using multiple nested ranking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060218156A1",
+   "title": "Schechinger/Fennell System and method for filtering search results by utilizing user-selected parametric values from a self-defined drop-down list on a website\"",
+   "assignee": "Diane Schechinger"
+  },
+  {
+   "id": "US20060265400A1",
+   "title": "Method and apparatus for categorizing and presenting documents of a distributed database",
+   "assignee": "Fain Daniel C"
+  },
+  {
+   "id": "US20070174257A1",
+   "title": "Systems and methods for providing sorted search results",
+   "assignee": "Bruce Thomas Howard"
+  },
+  {
+   "id": "US20070192306A1",
+   "title": "Searching digital information and databases",
+   "assignee": "Yannis Papakonstantinou"
+  },
+  {
+   "id": "US20070198503A1",
+   "title": "Browseable fact repository",
+   "assignee": "Hogue Andrew W"
+  },
+  {
+   "id": "US20070244854A1",
+   "title": "Methods and systems for output of search results",
+   "assignee": "Craig Nevill-Manning"
+  },
+  {
+   "id": "US20070250488A1",
+   "title": "Method and system for creating search result list",
+   "assignee": "Nhn Corporation"
+  },
+  {
+   "id": "US7299222B1",
+   "title": "Enhanced search results",
+   "assignee": "Aol Llc"
+  },
+  {
+   "id": "US20070276803A1",
+   "title": "Inline search results from user-created search verticals",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080005118A1",
+   "title": "Presentation of structured search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080010264A1",
+   "title": "Relevance ranked faceted metadata search method",
+   "assignee": "John Morton"
+  },
+  {
+   "id": "US20080033939A1",
+   "title": "Method for relevancy ranking of products in online shopping",
+   "assignee": "Thefind, Inc."
+  },
+  {
+   "id": "US20080033915A1",
+   "title": "Group-by attribute value in search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080077558A1",
+   "title": "Systems and methods for generating multiple implicit search queries",
+   "assignee": "Lawrence Stephen R"
+  },
+  {
+   "id": "US20080091670A1",
+   "title": "Search phrase refinement by search term replacement",
+   "assignee": "Collarity, Inc."
+  },
+  {
+   "id": "US20080147644A1",
+   "title": "Information search using knowledge agents",
+   "assignee": "Yariv Aridor"
+  },
+  {
+   "id": "US20080154878A1",
+   "title": "Diversifying a set of items",
+   "assignee": "Rose Daniel E"
+  },
+  {
+   "id": "US20080215563A1",
+   "title": "Pseudo-Anchor Text Extraction for Vertical Search",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080244429A1",
+   "title": "System and method of presenting search results",
+   "assignee": "Tyron Jerrod Stading"
+  },
+  {
+   "id": "US7437382B2",
+   "title": "Method and system for ranking messages of discussion threads",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080263026A1",
+   "title": "Techniques for detecting duplicate web pages",
+   "assignee": "Amit Sasturkar"
+  },
+  {
+   "id": "US20080275859A1",
+   "title": "Method and system for disambiguating informational objects",
+   "assignee": "Thomson Corporation"
+  },
+  {
+   "id": "US7505964B2",
+   "title": "Methods and systems for improving a search ranking using related queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7536413B1",
+   "title": "Concept-based categorization of unstructured objects",
+   "assignee": "Ixreveal, Inc."
+  },
+  {
+   "id": "US7542920B1",
+   "title": "System for interactive computer-assisted on-line auctions",
+   "assignee": "Catherine Lin-Hendel"
+  },
+  {
+   "id": "US20100268598A1",
+   "title": "System and method for generating an alternative product recommendation",
+   "assignee": "Cbs Interactive, Inc."
+  },
+  {
+   "id": "USRE42262E1",
+   "title": "Method and apparatus for representing and navigating search results",
+   "assignee": "Frederick Monocacy Llc"
+  },
+  {
+   "id": "US7933818B1",
+   "title": "Service for automatically detecting and responding to transition events that occur during browsing of an electronic catalog",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US8260786B2",
+   "title": "Method and apparatus for categorizing and presenting documents of a distributed database",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20120323953A1",
+   "title": "Predictive selection of item attributes likely to be useful in refining a search",
+   "assignee": "Ortega Ruben E"
+  },
+  {
+   "id": "US8423536B2",
+   "title": "Systems and methods to sort information related to entities having different locations",
+   "assignee": "Yellowpages.Com Llc"
+  },
+  {
+   "id": "US8484208B1",
+   "title": "Displaying results of keyword search over enterprise data",
+   "assignee": "Oracle International Corporation"
+  }
+ ],
+ "similar": [
+  {
+   "id": "AU2010234452B2",
+   "title": "Generating improved document classification data using historical search results"
+  },
+  {
+   "id": "US8429173B1",
+   "title": "Method, system, and computer readable medium for identifying result images based on an image query"
+  },
+  {
+   "id": "KR101994987B1",
+   "title": "Related entities"
+  },
+  {
+   "id": "US8713034B1",
+   "title": "Systems and methods for identifying similar documents"
+  },
+  {
+   "id": "JP5736469B2",
+   "title": "Search keyword recommendation based on user intention"
+  },
+  {
+   "id": "JP5860456B2",
+   "title": "Determination and use of search term weighting"
+  },
+  {
+   "id": "US20220237247A1",
+   "title": "Selecting content objects for recommendation based on content object collections"
+  },
+  {
+   "id": "US9507804B2",
+   "title": "Similar search queries and images"
+  },
+  {
+   "id": "US8909625B1",
+   "title": "Image search"
+  },
+  {
+   "id": "US7840538B2",
+   "title": "Discovering query intent from search queries and concept networks"
+  },
+  {
+   "id": "US20130110829A1",
+   "title": "Method and Apparatus of Ranking Search Results, and Search Method and Apparatus"
+  },
+  {
+   "id": "US20060173556A1",
+   "title": "Methods and apparatus for using user gender and/or age group to improve the organization of documents retrieved in response to a search query"
+  },
+  {
+   "id": "US20110145226A1",
+   "title": "Product similarity measure"
+  },
+  {
+   "id": "US10007732B2",
+   "title": "Ranking content items based on preference scores"
+  },
+  {
+   "id": "JP2009516890A",
+   "title": "Estimating search category synonyms from user logs"
+  },
+  {
+   "id": "US9977816B1",
+   "title": "Link-based ranking of objects that do not include explicitly defined links"
+  },
+  {
+   "id": "US20130159291A1",
+   "title": "Ranking search results using weighted topologies"
+  },
+  {
+   "id": "US20150161292A1",
+   "title": "Method for recommending document"
+  },
+  {
+   "id": "US11308099B2",
+   "title": "Method of and system for ranking digital objects based on objective characteristic associated therewith"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8768932B1/en"
+}

@@ -1,0 +1,4948 @@
+{
+ "id": "US6799176B1",
+ "title": "Method for scoring documents in a linked database",
+ "abstract": "A method is presented for scoring documents stored in a network. The method includes identifying links from linking documents to linked documents in the network and determining an importance of the identified links. The method further includes weighting the identified links based on the determined importance and scoring the linked documents based on the weighted links.",
+ "inventors": [
+  "Lawrence Page"
+ ],
+ "assignee_original": "Leland Stanford Junior University",
+ "assignee_current": "Google LLC",
+ "priority_date": "1997-01-10",
+ "filing_date": "2001-07-06",
+ "publication_date": "2004-09-28",
+ "status": "Expired - Lifetime",
+ "expiration": "2018-06-29",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/951",
+  "G06F16/30",
+  "G06F16/38",
+  "G06F16/382",
+  "Y10S707/00",
+  "Y10S707/99931",
+  "Y10S707/99933",
+  "Y10S707/99935",
+  "Y10S707/99937"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer implemented method for scoring documents, at least some of the documents containing links to other ones of the documents, the method comprising: determining a probability that a searcher will access each of the documents after following a number of the links; and scoring each of the documents based on the determined probability.",
+   "dependent": false
+  }
+ ],
+ "description": "\n## CROSS-REFERENCES TO RELATED APPLICATIONS\n\n\nThis application is a continuation of application Ser. No. 09/004,827, filed Jan. 9, 1998, now U.S. Pat. No. 6,285,999. This application claims priority from U.S. provisional patent application No. 60/035,205 filed Jan. 10, 1997, which is incorporated herein by reference.\n\n\n## STATEMENT REGARDING GOVERNMENT SUPPORT\n\n\nThis invention was supported in part by the National Science Foundation grant number IRI-9411306-4. The Government has certain rights in the invention:\n\n\n## FIELD OF THE INVENTION\n\n\nThis invention relates generally to techniques for analyzing linked databases. More particularly, it relates to methods for assigning ranks to nodes in a linked database, such as any database of documents containing citations, the world wide web or any other hypermedia database.\n\n\n## BACKGROUND OF THE INVENTION\n\n\nDue to the developments in computer technology and its increase in popularity, large numbers of people have recently started to frequently search huge databases. For example, internet search engines are frequently used to search the entire world wide web. Currently, a popular search engine might execute over 30 million searches per day of the indexable part of the web, which has a size in excess of 500 Gigabytes. Information retrieval systems are traditionally judged by their precision and recall. What is often neglected, however, is the quality of the results produced by these search engines. Large databases of documents such as the web contain many low quality documents. As a result, searches typically return hundreds of irrelevant or unwanted documents which camouflage the few relevant ones. In order to improve the selectivity of the results, common techniques allow the user to constrain the scope of the search to a specified subset of the database, or to provide additional search terms. These techniques are most effective in cases where the database is homogeneous and already classified into subsets, or in cases where the user is searching for well known and specific information. In other cases, however, these techniques are often not effective because each constraint introduced by the user increases the chances that the desired information will be inadvertently eliminated from the search results.\n\nSearch engines presently use various techniques that attempt to present more relevant documents. Typically, documents are ranked according to variations of a standard vector space model. These variations could include (a) how recently the document was updated, and/or (b) how close the search terms are to the beginning of the document. Although this strategy provides search results that are better than with no ranking at all, the results still have relatively low quality. Moreover, when searching the highly competitive web, this measure of relevancy is vulnerable to “spamming” techniques that authors can use to artificially inflate their document's relevance in order to draw attention to it or its advertisements. For this reason search results often contain commercial appeals that should not be considered a match to the query. Although search engines are designed to avoid such ruses, poorly conceived mechanisms can result in disappointing failures to retrieve desired information.\n\nHyperlink Search Engine, developed by IDD Information Services, (http://rankdex.gari.com/) uses backlink information (i.e., information from pages that contain links to the current page) to assist in identifying relevant web documents. Rather than using the content of a document to determine relevance, the technique uses the anchor text of links to the document to characterize the relevance of a document. The idea of associating anchor text with the page the text points to was first implemented in the World Wide Web Worm (Oliver A. McBryan, GENVL and WWWW: Tools for Taming the Web, First International Conference on the World Wide Web, CERN, Geneva, May 25-27, 1994). The Hyperlink Search Engine has applied this idea to assist in determining document relevance in a search. In particular, search query terms are compared to a collection of anchor text descriptions that point to the page, rather than to a keyword index of the page content. A rank is then assigned to a document based on the degree to which the search terms match the anchor descriptions in its backlink documents.\n\nThe well known idea of citation counting is a simple method for determining the importance of a document by counting its number of citations, or backlinks. The citation rank r(A) of a document which has n backlink pages is simply\n\nr(A)=n.\n\nIn the case of databases whose content is of relatively uniform quality and importance it is valid to assume that a highly cited document should be of greater interest than a document with only one or two citations. Many databases, however, have extreme variations in the quality and importance of documents. In these cases, citation ranking is overly simplistic. For example, citation ranking will give the same rank to a document that is cited once on an obscure page as to a similar document that is cited once on a well-known and highly respected page.\n\n\n## SUMMARY OF THE INVENTION\n\n\nVarious aspects of the present invention provide systems and methods for ranking documents in a linked database. One aspect provides an objective ranking based on the relationship between documents. Another aspect of the invention is directed to a technique for ranking documents within a database whose content has a large variation in quality and importance. Another aspect of the present invention is to provide a document ranking method that is scalable and can be applied to extremely large databases such as the world wide web. Additional aspects of the invention will become apparent in view of the following description and associated figures.\n\nOne aspect of the present invention is directed to taking advantage of the linked structure of a database to assign a rank to each document in the database, where the document rank is a measure of the importance of a document. Rather than determining relevance only from the intrinsic content of a document, or from the anchor text of backlinks to the document, a method consistent with the invention determines importance from the extrinsic relationships between documents. Intuitively, a document should be important (regardless of its content) if it is highly cited by other documents. Not all citations, however, are necessarily of equal significance. A citation from an important document is more important than a citation from a relatively unimportant document. Thus, the importance of a page, and hence the rank assigned to it, should depend not just on the number of citations it has, but on the importance of the citing documents as well. This implies a recursive definition of rank: the rank of a document is a function of the ranks of the documents which cite it. The ranks of documents may be calculated by an iterative procedure on a linked database.\n\nBecause citations, or links, are ways of directing attention, the important documents correspond to those documents to which the most attention is directed. Thus, a high rank indicates that a document is considered valuable by many people or by important people. Most likely, these are the pages to which someone performing a search would like to direct his or her attention. Looked at another way, the importance of a page is directly related to the steady-state probability that a random web surfer ends up at the page after following a large number of links. Because there is a larger probability that a surfer will end up at an important page than at an unimportant page, this method of ranking pages assigns higher ranks to the more important pages.\n\nIn one aspect of the invention, a computer implemented method is provided for scoring linked documents. The method includes identifying links from linking documents to linked documents in the network and determining an importance of the identified links. The method further includes weighting the identified links based on the determined importance and scoring the linked documents based on the weighted links.\n\nIn accordance with another implementation consistent with the present invention, a method for scoring documents, where at least some of the documents contain links to other ones of the documents, includes determining a probability that a searcher will access each of the documents after following a number of the links; and scoring each of the documents based on the determined probability.\n\nIn accordance with yet another implementation consistent with the present invention, a method scoring documents stored in a network includes traversing the network to identify links between the documents; identifying a location at which each of the documents is stored; weighting the links between documents based on the identified locations; and scoring the documents based on the weighted links.\n\nIn accordance with a further implementation consistent with the present invention, a method for scoring documents stored in a network includes identifying links from linking documents to linked documents in the network; determining an importance of the identified links; weighting the identified links based on the determined importance; and scoring the linked documents based on the weighted links.\n\nIn accordance with another implementation consistent with the present invention, a method for searching linked documents includes receiving a search query from a user; identifying a plurality of documents using the search query; identifying links to the identified documents from corresponding linking documents; assigning a score to each of the links based on a relationship between the link and user information; and presenting the identified documents to the user based on the scores assigned to the links.\n\nIn accordance with yet another implementation consistent with the present invention, a method for searching a network includes crawling the network to locate documents; creating a directed graph of the documents, the directed graph identifying links between the documents; and scoring each of the documents in the directed graph based on scores of the documents containing links to the document.\n\nIn a further implementation consistent with the present invention, a method for searching a network includes receiving one or more search terms; searching the network to identify first documents based on the one or more search terms; determining whether text of links in the first documents match the one or more search terms, each of the links identifying a second document; and generating search results that include the first documents and one or more of the second documents identified by the text of the links that match the one or more search terms.\n\nIn yet another implementation consistent with the present invention, a method of organizing linked documents includes: (a) identifying a first linked document; (b) identifying links between linking documents and the first linked document; (c) assigning a weight to each of the identified links; (d) determining a score for the first linked document based on (i) the identified links between the linking documents and the first linked document, and (ii) the weights assigned to each of the identified links; (e) repeating steps (a)-(d) for a second linked document; and (f) organizing the first and second linked documents based on the determined scores.\n\nAdditional aspects, applications and advantages will become apparent in view of the following description and associated figures.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nFIG. 1 is a diagram of the relationship between three linked hypertext documents according to the invention.\n\nFIG. 2 is a diagram of a three-document web illustrating the rank associated with each document in accordance with the present invention.\n\nFIG. 3 is a flowchart of one implementation of the invention.\n\n\n## DETAILED DESCRIPTION\n\n\nAlthough the following detailed description contains many specifics for the purposes of illustration, anyone of ordinary skill in the art will appreciate that many variations and alterations to the following details are within the scope of the invention. Accordingly, the following embodiments of the invention are set forth without any loss of generality to, and without imposing limitations upon, the claimed invention. For support in reducing the present invention to practice, the inventor acknowledges Sergey Brin, Scott Hassan, Rajeev Motwani, Alan Steremberg, and Terry Winograd.\n\nA linked database (i.e. any database of documents containing mutual citations, such as the world wide web or other hypermedia archive, a dictionary or thesaurus, and a database of academic articles, patents, or court cases) can be represented as a directed graph of N nodes, where each node corresponds to a web page document and where the directed connections between nodes correspond to links from one document to another. A given node has a set of forward links that connect it to children nodes, and a set of backward links that connect it to parent nodes. FIG. 1 shows a typical relationship between three hypertext documents A, B, and C. As shown in this particular figure, the first links in documents B and C are pointers to document A. In this case we say that B and C are backlinks of A, and that A is a forward link of B and of C. Documents B and C also have other forward links to documents that are not shown.\n\nAlthough the ranking method of the present invention is superficially similar to the well known idea of citation counting, the present method is more subtle and complex than citation counting and gives far superior results. In a simple citation ranking, the rank of a document A which has n backlink pages is simply\n\nr(A)=n.\n\nAccording to one embodiment of the present method of ranking, the backlinks from different pages are weighted differently and the number of links on each page is normalized. More precisely, the rank of a page A is defined according to the present invention as r  ( A ) = α N + ( 1 - α )  ( r  ( B 1 )  B 1  + … + r  ( B n )  B n  ) ,\n\nwhere B1, . . . , Bn are the backlink pages of A, r(B1), . . . , r(Bn) are their ranks, |B1|, . . . , |Bn| are their numbers of forward links, and α is a constant in the interval [0,1], and N is the total number of pages in the web. This definition is clearly more complicated and subtle than the simple citation rank. Like the citation rank, this definition yields a page rank that increases as the number of backlinks increases. But the present method considers a citation from a highly ranked backlink as more important than a citation from a lowly ranked backlink (provided both citations come from backlink documents that have an equal number of forward links). In the present invention, it is possible, therefore, for a document with only one backlink (from a very highly ranked page) to have a higher rank than another document with many backlinks (from very low ranked pages). This is not the case with simple citation ranking.\n\nThe ranks form a probability distribution over web pages, so that the sum of ranks over all web pages is unity. The rank of a page can be interpreted as the probability that a surfer will be at the page after following a large number of forward links. The constant α in the formula is interpreted as the probability that the web surfer will jump randomly to any web page instead of following a forward link. The page ranks for all the pages can be calculated using a simple iterative algorithm, and corresponds to the principal eigenvector of the normalized link matrix of the web, as will be discussed in more detail below.\n\nIn order to illustrate the present method of ranking, consider the simple web of three documents shown in FIG. 2. For simplicity of illustration, we assume in this example that r=0. Document A has a single backlink to document C, and this is the only forward link of document C, so\n\nr(A)=r(C).\n\nDocument B has a single backlink to document A, but this is one of two forward links of document A, so\n\nr(B)=r(A)/2.\n\nDocument C has two backlinks. One backlink is to document B, and this is the only forward link of document B. The other backlink is to document A via the other of the two forward links from A. Thus\n\nr(C)=r(B)+r(A)/2.\n\nIn this simple illustrative case we can see by inspection that r(A)=0.4, r(B)=0.2, and r(C)=0.4. Although a typical value for α is ˜0.1, if for simplicity we set α=0.5 (which corresponds to a 50% chance that a surfer will randomly jump to one of the three pages rather than following a forward link), then the mathematical relationships between the ranks become more complicated. In particular, we then have\n\nr(A)=1/6+r(C)/2,\n\nr(B)=1/6+r(A)/4, and\n\nr(C)=1/6+r(A)/4+r(B)/2.\n\nThe solution in this case is r(A)=14/39, r(B)=10/39, and r(C)=15/39.\n\nIn practice, there are millions of documents and it is not possible to find the solution to a million equations by inspection. Accordingly, in the preferred embodiment a simple iterative procedure is used. As the initial state we may simply set all the ranks equal to 1/N. The formulas are then used to calculate a new set of ranks based on the existing ranks. In the case of millions of documents, sufficient convergence typically takes on the order of 100 iterations. It is not always necessary or even desirable, however, to calculate the rank of every page with high precision. Even approximate rank values, using two or more iterations, can provide very valuable, or even superior, information.\n\nThe iteration process can be understood as a steady-state probability distribution calculated from a model of a random surfer. This model is mathematically equivalent to the explanation described above, but provides a more direct and concise characterization of the procedure. The model includes (a) an initial N-dimensional probability distribution vector p0 where each component p0[i] gives the initial probability that a random surfer will start at a node i, and (b) an N×N transition probability matrix A where each component A[i][j] gives the probability that the surfer will move from node i to node j. The probability distribution of the graph after the surfer follows one link is p1=Ap0, and after two links the probability distribution is p2=Ap1=A2p0. Assuming this iteration converges, it will converge to a steady-state probability p ∞ = lim n -> ∞  A n  p 0\n\nwhich is a dominant eigenvector of A. The iteration circulates the probability through the linked nodes like energy flows through a circuit and accumulates in important places. Because pages with no links occur in significant numbers and bleed off energy, they cause some complication with computing the ranking. This complication is caused by the fact they can add huge amounts to the “random jump” factor. This, in turn, causes loops in the graph to be highly emphasized which is not generally a desirable property of the model. In order to address this problem, these childless pages can simply be removed from the model during the iterative stages, and added back in after the iteration is complete. After the childless pages are added back in, however, the same number of iterations that was required to remove them should be done to make sure they all receive a value. (Note that in order to ensure convergence, the norm of pi must be made equal to 1 after each iteration.) An alternate method to control the contribution of the childless nodes is to only estimate the steady state by iterating a small number of times.\n\nThe rank r[i] of a node i can then be defined as a function of this steady-state probability distribution. For example, the rank can be defined simply by r[i]=p∞[i]. This method of calculating rank is mathematically equivalent to the iterative method described first. Those skilled in the art will appreciate that this same method can be characterized in various different ways that are mathematically equivalent. Such characterizations are obviously within the scope of the present invention. Because the rank of various different documents can vary by orders of magnitude, it is convenient to define a logarithmic rank r  [ i ] = log   p ∞  [ i ] min k ∈ [ l , N ]  { p ∞  [ k ] }\n\nwhich assigns a rank of 0 to the lowest ranked node and increases by 1 for each order of magnitude in importance higher than the lowest ranked node.\n\nFIG. 3 shows one embodiment of a computer implemented method for calculating an importance rank for N linked nodes of a linked database. At a step 101, an initial N-dimensional vector p0 is selected. An approximation pn to a steady-state probability p∞ in accordance with the equation pn=Anp0 is computed at a step 103. Matrix A can be an N×N transition probability matrix having elements A[i][j] representing a probability of moving from node i to node j. At a step 105, a rank r[k] for node k from a kth component of pn is determined.\n\nIn one particular embodiment, a finite number of iterations are performed to approximate p∞. The initial distribution can be selected to be uniform or non-uniform. A uniform distribution would set each component of p0 equal to 1/N. A non-uniform distribution, for example, can divide the initial probability among a few nodes which are known a priori to have relatively large importance. This non-uniform distribution decreases the number of iterations required to obtain a close approximation to p∞ and also is one way to reduce the effect of artificially inflating relevance by adding unrelated terms.\n\nIn another particular embodiment, the transition matrix A is given by\n\nA=α/N11+(1−α)B,\n\nwhere 11 is an N×N matrix consisting of all 1s, α is the probability that a surfer will jump randomly to any one of the N nodes, and B is a matrix whose elements B[i][J] are given by B  [ i ]  [ j ] = { 1 / n i if   node   i   points   to   node   j 0 otherwise ,\n\nwhere ni is the total number of forward links from node i. The (1−α) factor acts as a damping factor that limits the extent to which a document's rank can be inherited by children documents. This models the fact that users typically jump to a different place in the web after following a few links. The value of α is typically around 15%. Including this damping is important when many iterations are used to calculate the rank so that there is no artificial concentration of rank importance within loops of the web. Alternatively, one may set α=0 and only iterate a few times in the calculation.\n\nConsistent with the present invention, there are several ways that this method can be adapted or altered for various purposes. As already mentioned above, rather than including the random linking probability α equally among all nodes, it can be divided in various ways among all the sites by changing the 11 matrix to another matrix. For example, it could be distributed so that a random jump takes the surfer to one of a few nodes that have a high importance, and will not take the surfer to any of the other nodes. This can be very effective in preventing deceptively tagged documents from receiving artificially inflated relevance. Alternatively, the random linking probability could be distributed so that random jumps do not happen from high importance nodes, and only happen from other nodes. This distribution would model a surfer who is more likely to make random jumps from unimportant sites and follow forward links from important sites. A modification to avoid drawing unwarranted attention to pages with artificially inflated relevance is to ignore local links between documents and only consider links between separate domains. Because the links from other sites to the document are not directly under the control of a typical web site designer, it is then difficult for the designer to artificially inflate the ranking. A simpler approach is to weight links from pages contained on the same web server less than links from other servers. Also, in addition to servers, internet domains and any general measure of the distance between links could be used to determine such a weighting.\n\nAdditional modifications can further improve the performance of this method. Rank can be increased for documents whose backlinks are maintained by different institutions and authors in various geographic locations. Or it can be increased if links come from unusually important web locations such as the root page of a domain.\n\nLinks can also be weighted by their relative importance within a document. For example, highly visible links that are near the top of a document can be given more weight. Also, links that are in large fonts or emphasized in other ways can be given more weight. In this way, the model better approximates human usage and authors' intentions. In many cases it is appropriate to assign higher value to links coming from pages that have been modified recently since such information is less likely to be obsolete.\n\nVarious implementations of the invention have the advantage that the convergence is very fast (a few hours using current processors) and it is much less expensive than building a full-text index. This speed allows the ranking to be customized or personalized for specific users. For example, a user's home page and/or bookmarks can be given a large initial importance, and/or a high probability of a random jump returning to it. This high rating essentially indicates to the system that the person's homepage and/or bookmarks does indeed contain subjects of importance that should be highly ranked. This procedure essentially trains the system to recognize pages related to the person's interests.\n\nThe present method of determining the rank of a document can also be used to enhance the display of documents. In particular, each link in a document can be annotated with an icon, text, or other indicator of the rank of the document that each link points to. Anyone viewing the document can then easily see the relative importance of various links in the document.\n\nThe present method of ranking documents in a database can also be useful for estimating the amount of attention any document receives on the web since it models human behavior when surfing the web. Estimating the importance of each backlink to a page can be useful for many purposes including site design, business arrangements with the backlinkers, and marketing. The effect of potential changes to the hypertext structure can be evaluated by adding them to the link structure and recomputing the ranking.\n\nReal usage data, when available, can be used as a starting point for the model and as the distribution for the alpha factor. This can allow this ranking model to fill holes in the usage data, and provide a more accurate or comprehensive picture. Thus, although this method of ranking does not necessarily match the actual traffic, it nevertheless measures the degree of exposure a document has throughout the web.\n\nAnother important application and embodiment of the present invention is directed to enhancing the quality of results from web search engines. In this application of the present invention, a ranking method according to the invention is integrated into a web search engine to produce results far superior to existing methods in quality and performance. A search engine employing a ranking method of the present invention provides automation while producing results comparable to a human maintained categorized system. In this approach, a web crawler explores the web and creates an index of the web content, as well as a directed graph of nodes corresponding to the structure of hyperlinks. The nodes of the graph (i.e., pages of the web) are then ranked according to importance as described above in connection with various exemplary embodiments of the present invention.\n\nThe search engine is used to locate documents that match the specified search criteria, either by searching full text, or by searching titles only. In addition, the search can include the anchor text associated with backlinks to the page. This approach has several advantages in this context. First, anchors often provide more accurate descriptions of web pages than the pages themselves. Second, anchors may exist for images, programs, and other objects that cannot be indexed by a text-based search engine. This also makes it possible to return web pages which have not actually been crawled. In addition, the engine can compare the search terms with a list of its backlink document titles. Thus, even though the text of the document itself may not match the search terms, if the document is cited by documents whose titles or backlink anchor text match the search terms, the document will be considered a match. In addition to or instead of the anchor text, the text in the immediate vicinity of the backlink anchor text can also be compared to the search terms in order to improve the search.\n\nOnce a set of documents is identified that match the search terms, the list of documents is then sorted with high ranking documents first and low ranking documents last. The ranking in this case is a function which combines all of the above factors such as the objective ranking and textual matching. If desired, the results can be grouped by category or site as well.\n\nIt will be clear to one skilled in the art that the above embodiments may be altered in many ways without departing from the scope of the invention. Accordingly, the scope of the invention should be determined by the following claims and their legal equivalents.",
+ "cited_by": [
+  {
+   "id": "US20020038249A1",
+   "title": "System and method for facilitating information requests",
+   "assignee": "Daugherty F. William"
+  },
+  {
+   "id": "US20020078091A1",
+   "title": "Automatic summarization of a document",
+   "assignee": "Sonny Vu"
+  },
+  {
+   "id": "US20020129014A1",
+   "title": "Systems and methods of retrieving relevant information",
+   "assignee": "Kim Brian S."
+  },
+  {
+   "id": "US20030050959A1",
+   "title": "System and method for distributed real-time search",
+   "assignee": "Yaroslav Faybishenko"
+  },
+  {
+   "id": "US20030050924A1",
+   "title": "System and method for resolving distributed network search queries to information providers",
+   "assignee": "Yaroslav Faybishenko"
+  },
+  {
+   "id": "US20030055818A1",
+   "title": "Method and system of routing messages in a distributed search network",
+   "assignee": "Yaroslav Faybishenko"
+  },
+  {
+   "id": "US20030055914A1",
+   "title": "Communication apparatus and method, recording medium, program, and content providing apparatus",
+   "assignee": "Izuru Tanaka"
+  },
+  {
+   "id": "US20030088544A1",
+   "title": "Distributed information discovery",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US20030105663A1",
+   "title": "Network-based sweepstakes system and method",
+   "assignee": "Scott B. Allison"
+  },
+  {
+   "id": "US20030126120A1",
+   "title": "System and method for multiple data sources to plug into a standardized interface for distributed deep search",
+   "assignee": "Yaroslav Faybishenko"
+  },
+  {
+   "id": "US20030158839A1",
+   "title": "System and method for determining relevancy of query responses in a distributed network search mechanism",
+   "assignee": "Yaroslav Faybishenko"
+  },
+  {
+   "id": "US20030167163A1",
+   "title": "Inferring hierarchical descriptions of a set of documents",
+   "assignee": "Nec Research Institute, Inc."
+  },
+  {
+   "id": "US20030195834A1",
+   "title": "Automated online purchasing system",
+   "assignee": "Hillis W. Daniel"
+  },
+  {
+   "id": "US20030220895A1",
+   "title": "System, tools and methods to facilitate identification and organization of new information based on context of user's existing information",
+   "assignee": "Aditya Vailaya"
+  },
+  {
+   "id": "US20040019846A1",
+   "title": "System and method for managing document retention of shared documents",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20040034635A1",
+   "title": "Method and system for identifying and matching companies to business event information",
+   "assignee": "Czarnecki David Anthony"
+  },
+  {
+   "id": "US20040076345A1",
+   "title": "Method for referencing image data",
+   "assignee": "Olszak Artur G."
+  },
+  {
+   "id": "US20040133562A1",
+   "title": "Systems and methods of searching databases",
+   "assignee": "Toong Hoo-Min"
+  },
+  {
+   "id": "US20040210602A1",
+   "title": "Meta-Web",
+   "assignee": "Hillis W. Daniel"
+  },
+  {
+   "id": "US20050010559A1",
+   "title": "Methods for information search and citation search",
+   "assignee": "Joseph Du"
+  },
+  {
+   "id": "US20050027685A1",
+   "title": "Adaptive computation of ranking",
+   "assignee": "Kamvar Sepandar D."
+  },
+  {
+   "id": "US20050027699A1",
+   "title": "Listings optimization using a plurality of data sources",
+   "assignee": "Amr Awadallah"
+  },
+  {
+   "id": "US20050033742A1",
+   "title": "Methods for ranking nodes in large directed graphs",
+   "assignee": "Kamvar Sepandar D."
+  },
+  {
+   "id": "US20050131722A1",
+   "title": "Delegated authority evaluation system",
+   "assignee": "Hillis W. D."
+  },
+  {
+   "id": "US20050145141A1",
+   "title": "Permeable cement composition and method for preparing the same",
+   "assignee": "Halliburton Energy Services, Inc."
+  },
+  {
+   "id": "US20050149524A1",
+   "title": "Automated system and method for generating reasons that a court case is cited",
+   "assignee": "Lexis-Nexis Group."
+  },
+  {
+   "id": "US20050159998A1",
+   "title": "Methods and systems for rating associated members in a social network",
+   "assignee": "Orkut Buyukkokten"
+  },
+  {
+   "id": "US20050216533A1",
+   "title": "Search using graph colorization and personalized bookmark processing",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050222989A1",
+   "title": "Results based personalization of advertisements in a search engine",
+   "assignee": "Taher Haveliwala"
+  },
+  {
+   "id": "US20060036588A1",
+   "title": "Searching by using spatial document and spatial keyword document indexes",
+   "assignee": "Metacarta, Inc."
+  },
+  {
+   "id": "US20060059119A1",
+   "title": "Method, system, and computer program product for ranking of documents using link analysis, with remedies for sinks",
+   "assignee": "Telenor Asa"
+  },
+  {
+   "id": "US20060074910A1",
+   "title": "Systems and methods of retrieving topic specific information",
+   "assignee": "Become, Inc."
+  },
+  {
+   "id": "US20060072812A1",
+   "title": "Computer based method for finding the effect of an element in a domain of N-dimensional function with a provision for N‘dimensions",
+   "assignee": "Council Of Scientific And Industrial Research"
+  },
+  {
+   "id": "US20060074960A1",
+   "title": "Providing data integrity for data streams",
+   "assignee": "Goldschmidt Marc A"
+  },
+  {
+   "id": "US20060143197A1",
+   "title": "Method for assigning relative quality scores to a collection of linked documents",
+   "assignee": "Become, Inc."
+  },
+  {
+   "id": "US20060149710A1",
+   "title": "Associating features with entities, such as categories of web page documents, and/or weighting such features",
+   "assignee": "Ross Koningstein"
+  },
+  {
+   "id": "US20060195842A1",
+   "title": "Disk drive/CPU architecture for distributed computing",
+   "assignee": "Williams Larry L"
+  },
+  {
+   "id": "US20060193074A1",
+   "title": "Data storage organization for distributed computing in an intelligent disk drive",
+   "assignee": "Williams Larry L"
+  },
+  {
+   "id": "US20060193470A1",
+   "title": "Data storage device with data transformation capability",
+   "assignee": "Williams Larry L"
+  },
+  {
+   "id": "US20060224972A1",
+   "title": "Graphical application interface with a browser",
+   "assignee": "Paul Albrecht"
+  },
+  {
+   "id": "US20060224978A1",
+   "title": "System for creating a graphical application interface",
+   "assignee": "Paul Albrecht"
+  },
+  {
+   "id": "US20060224984A1",
+   "title": "Apparatus for creating graphical visualization of data with a browser",
+   "assignee": "Paul Albrecht"
+  },
+  {
+   "id": "US20060224983A1",
+   "title": "Graphical visualization of data using browser",
+   "assignee": "Paul Albrecht"
+  },
+  {
+   "id": "US20060224446A1",
+   "title": "Methods and systems for member-created advertisement in a member network",
+   "assignee": "Fox Kevin D"
+  },
+  {
+   "id": "US20060224973A1",
+   "title": "Method of using a browser",
+   "assignee": "Paul Albrecht"
+  },
+  {
+   "id": "US20060224554A1",
+   "title": "Query revision using known highly-ranked queries",
+   "assignee": "Bailey David R"
+  },
+  {
+   "id": "US20060224976A1",
+   "title": "Graphical application interface product",
+   "assignee": "Paul Albrecht"
+  },
+  {
+   "id": "US20060224974A1",
+   "title": "Method of creating graphical application interface with a browser",
+   "assignee": "Paul Albrecht"
+  },
+  {
+   "id": "US20060224975A1",
+   "title": "System for creating a graphical application interface with a browser",
+   "assignee": "Paul Albrecht"
+  },
+  {
+   "id": "US20060224980A1",
+   "title": "Method of creating graphical visualizations of data with a browser",
+   "assignee": "Paul Albrecht"
+  },
+  {
+   "id": "US20060224999A1",
+   "title": "Graphical visualization of data product using browser",
+   "assignee": "Paul Albrecht"
+  },
+  {
+   "id": "US20060225000A1",
+   "title": "Graphical application interface using browser",
+   "assignee": "Paul Albrecht"
+  },
+  {
+   "id": "US20060224675A1",
+   "title": "Methods and systems for providing current email addresses and contact information for members within a social network",
+   "assignee": "Fox Kevin D"
+  },
+  {
+   "id": "US20060230033A1",
+   "title": "Searching through content which is accessible through web-based forms",
+   "assignee": "Halevy Alon Y"
+  },
+  {
+   "id": "US20060235691A1",
+   "title": "Intent-based information processing and updates in association with a service agent",
+   "assignee": "Tomasic Anthony S"
+  },
+  {
+   "id": "US20060235690A1",
+   "title": "Intent-based information processing and updates",
+   "assignee": "Tomasic Anthony S"
+  },
+  {
+   "id": "US20070016579A1",
+   "title": "Method for assigning quality scores to documents in a linked database",
+   "assignee": "Become, Inc."
+  },
+  {
+   "id": "US20070061315A1",
+   "title": "Determination of useful convergence of static rank",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070073894A1",
+   "title": "Networked information indexing and search apparatus and method",
+   "assignee": "O Ya! Inc."
+  },
+  {
+   "id": "US7222127B1",
+   "title": "Large scale machine learning systems and methods",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070150477A1",
+   "title": "Validating a uniform resource locator ('URL') in a document",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20070168249A1",
+   "title": "Method of Invisibly Linking Documents",
+   "assignee": "Brian Echard"
+  },
+  {
+   "id": "US20070174254A1",
+   "title": "Systems and methods for organizing data",
+   "assignee": "Toong Hoo-Min"
+  },
+  {
+   "id": "WO2007044975A3",
+   "title": "Entity display priority in a distributed geographic information system",
+   "assignee": "Google Inc"
+  },
+  {
+   "id": "US20070198481A1",
+   "title": "Automatic object reference identification and linking in a browseable fact repository",
+   "assignee": "Hogue Andrew W"
+  },
+  {
+   "id": "US7269587B1",
+   "title": "Scoring documents in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US20070234209A1",
+   "title": "Method and system for aggregating and presenting user highlighting of content",
+   "assignee": "Williams Brian R"
+  },
+  {
+   "id": "US20070244857A1",
+   "title": "Generating an index for a network search engine",
+   "assignee": "Gilbert Yu"
+  },
+  {
+   "id": "US20070265870A1",
+   "title": "Methods and systems for utilizing a time factor and/or asymmetric user behavior patterns for data analysis",
+   "assignee": "Nec Laboratories America, Inc."
+  },
+  {
+   "id": "US20070266306A1",
+   "title": "Site finding",
+   "assignee": "Egocentricity Ltd."
+  },
+  {
+   "id": "US20080052263A1",
+   "title": "System and method for identifying web communities from seed sets of web pages",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20080075014A1",
+   "title": "Methods and apparatus for ranking a node in a network having a plurality of interconnecting nodes",
+   "assignee": "The Hong Kong Polytechnic University"
+  },
+  {
+   "id": "US20080091650A1",
+   "title": "Augmented Search With Error Detection and Replacement",
+   "assignee": "Marcus Felipe Fontoura"
+  },
+  {
+   "id": "US20080097941A1",
+   "title": "Learning algorithm for ranking on graph data",
+   "assignee": "Shivani Agarwal"
+  },
+  {
+   "id": "US20080104047A1",
+   "title": "Intelligent search with guiding info",
+   "assignee": "Transaxtions Llc"
+  },
+  {
+   "id": "US20080114753A1",
+   "title": "Method and a device for ranking linked documents",
+   "assignee": "Apmath Ltd."
+  },
+  {
+   "id": "US7376786B2",
+   "title": "Command stack management in a disk drive",
+   "assignee": "Hitachi Global Storage Technologies Netherlands B.V."
+  },
+  {
+   "id": "US20080134060A1",
+   "title": "System for creating a graphical visualization of data with a browser",
+   "assignee": "Paul Albrecht"
+  },
+  {
+   "id": "US20080162260A1",
+   "title": "Network node ad targeting",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080228723A1",
+   "title": "Predisposition Prediction Using Attribute Combinations",
+   "assignee": "Expanse Networks, Inc."
+  },
+  {
+   "id": "US20080229828A1",
+   "title": "Establishing reputation factors for publishing entities",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080243907A1",
+   "title": "Efficient Indexing Using Compact Decision Diagrams",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US20080243830A1",
+   "title": "User suggested ordering to influence search result ranking",
+   "assignee": "Fatdoor, Inc."
+  },
+  {
+   "id": "US20080249798A1",
+   "title": "Method and System of Ranking Web Content",
+   "assignee": "Atul Tulshibagwale"
+  },
+  {
+   "id": "US7467349B1",
+   "title": "Method and system for displaying a hyperlink at multiple levels of prominence based on user interaction",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US20090100041A1",
+   "title": "Public Electronic Document Dating List",
+   "assignee": "Wilson Kelce S"
+  },
+  {
+   "id": "US20090171928A1",
+   "title": "Ranking Nodes for Session-Based Queries",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US7565630B1",
+   "title": "Customization of search results for search queries received from third party sites",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090210404A1",
+   "title": "Database search control",
+   "assignee": "Wilson Kelce S"
+  },
+  {
+   "id": "US7587391B1",
+   "title": "Method and apparatus for generating a preference ranking",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090234781A1",
+   "title": "Methods and systems for utilizing intellectual property assets and rights",
+   "assignee": "Malackowski James E"
+  },
+  {
+   "id": "US20090307014A1",
+   "title": "Method of appraising and insuring intellectual property",
+   "assignee": "Robert Block"
+  },
+  {
+   "id": "US20100017392A1",
+   "title": "Intent match search engine",
+   "assignee": "Jianwei Dian"
+  },
+  {
+   "id": "US20100042610A1",
+   "title": "Rank documents based on popularity of key metadata",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7716223B2",
+   "title": "Variable personalization of search results in a search engine",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7716225B1",
+   "title": "Ranking documents based on user behavior and/or feature data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7743417B2",
+   "title": "Data storage device with code scanning capability",
+   "assignee": "Hitachi Global Storage Technologies Netherlands B.V."
+  },
+  {
+   "id": "US20100169313A1",
+   "title": "Pangenetic Web Item Feedback System",
+   "assignee": "Expanse Networks, Inc."
+  },
+  {
+   "id": "US20100169343A1",
+   "title": "Pangenetic Web User Behavior Prediction System",
+   "assignee": "Expanse Networks, Inc."
+  },
+  {
+   "id": "US20100169262A1",
+   "title": "Mobile Device for Pangenetic Web",
+   "assignee": "Expanse Networks, Inc."
+  },
+  {
+   "id": "US20100169340A1",
+   "title": "Pangenetic Web Item Recommendation System",
+   "assignee": "Expanse Networks, Inc."
+  },
+  {
+   "id": "US20100169338A1",
+   "title": "Pangenetic Web Search System",
+   "assignee": "Expanse Networks, Inc."
+  },
+  {
+   "id": "US20100169342A1",
+   "title": "Pangenetic Web Satisfaction Prediction System",
+   "assignee": "Expanse Networks, Inc."
+  },
+  {
+   "id": "US20100169325A1",
+   "title": "Search results display for weighted multi-term searches",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20100185626A1",
+   "title": "Delegated authority evaluation system",
+   "assignee": "Hillis W Daniel"
+  },
+  {
+   "id": "US20100211533A1",
+   "title": "Extracting structured data from web forums",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7783639B1",
+   "title": "Determining quality of linked documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7831545B1",
+   "title": "Identifying the unifying subject of a set of facts",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20100293057A1",
+   "title": "Targeted advertisements based on user profiles and page profile",
+   "assignee": "Haveliwala Taher H"
+  },
+  {
+   "id": "US20110004504A1",
+   "title": "Systems and methods for scoring a plurality of web pages according to brand reputation",
+   "assignee": "Edward Ives"
+  },
+  {
+   "id": "US20110010384A1",
+   "title": "Multi-community content sharing in online social networks",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20110010365A1",
+   "title": "Content Category Scoring for Nodes in a Linked Database",
+   "assignee": "Sosvia, Inc."
+  },
+  {
+   "id": "US20110022621A1",
+   "title": "Dynamically naming communities within online social networks",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20110022602A1",
+   "title": "Ranking Social Network Objects",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7908277B1",
+   "title": "Annotating links in a document based on the ranks of documents pointed to by the links",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US20110072024A1",
+   "title": "Method and system for probabilistically quantifying and visualizing relevance between two or more citationally or contextually related data objects",
+   "assignee": "Patentratings, Llc"
+  },
+  {
+   "id": "US20110072273A1",
+   "title": "Date-provable registration system for published documents",
+   "assignee": "Kelce Steven Wilson"
+  },
+  {
+   "id": "US7966291B1",
+   "title": "Fact-based object merging",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7970766B1",
+   "title": "Entity type assignment",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7991797B2",
+   "title": "ID persistence through normalization",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20110191231A1",
+   "title": "Method and System for Improving Trading and a Trader's Ranking",
+   "assignee": "Zuver Jr Kenneth Ray"
+  },
+  {
+   "id": "US7996379B1",
+   "title": "Document ranking using word relationships",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8015019B1",
+   "title": "Methods and systems for providing a document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8019875B1",
+   "title": "Systems and methods for indicating a user state in a social network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20110231386A1",
+   "title": "Indexing and searching employing virtual documents",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8060405B1",
+   "title": "Methods and systems for correlating connections between users and links between articles",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8122026B1",
+   "title": "Finding and disambiguating references to entities on web pages",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8140524B1",
+   "title": "Estimating confidence for query revision models",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8190645B1",
+   "title": "Method and system for storing, retrieving, and sharing data using a field-accessed database system comprising a mobile unit",
+   "assignee": "Matthew Charles Bashaw"
+  },
+  {
+   "id": "US8225195B1",
+   "title": "Displaying links at varying levels of prominence to reveal emergent paths based on user interaction",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US8239350B1",
+   "title": "Date ambiguity resolution",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8244689B2",
+   "title": "Attribute entropy as a signal in object normalization",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8316001B1",
+   "title": "Apparatus and method for performing analyses on data derived from a web-based search engine",
+   "assignee": "Ipvision, Inc."
+  },
+  {
+   "id": "US8316040B2",
+   "title": "Programmable search engine",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20120323876A1",
+   "title": "Search results based on user and result profiles",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8347202B1",
+   "title": "Determining geographic locations for place names in a fact repository",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8375073B1",
+   "title": "Identification and ranking of news stories of interest",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8396882B2",
+   "title": "Systems and methods for generating issue libraries within a document corpus",
+   "assignee": "Lexisnexis, A Division Of Reed Elsevier Inc."
+  },
+  {
+   "id": "US8396889B2",
+   "title": "Methods for semantics-based citation-pairing information",
+   "assignee": "Lexisnexis, A Division Of Reed Elsevier Inc."
+  },
+  {
+   "id": "US8452746B2",
+   "title": "Detecting spam search results for context processed search queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8621215B1",
+   "title": "Methods and systems for creating monetary accounts for members in a social network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8650175B2",
+   "title": "User interface for facts query engine with snippets from information sources that include query terms and answer terms",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8682913B1",
+   "title": "Corroborating facts extracted from multiple sources",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8700568B2",
+   "title": "Entity normalization via name normalization",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8732857B2",
+   "title": "Client-side access control of electronic content",
+   "assignee": "Sosvia, Inc."
+  },
+  {
+   "id": "US8738643B1",
+   "title": "Learning synonymous object names from anchor texts",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20140157095A1",
+   "title": "Identifying comments to show in connection with a document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8756210B1",
+   "title": "Aggregating context data for programmable search engines",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20140180934A1",
+   "title": "Systems and Methods for Using Non-Textual Information In Analyzing Patent Matters",
+   "assignee": "Lex Machina, Inc."
+  },
+  {
+   "id": "US8788286B2",
+   "title": "Side effects prediction using co-associating bioattributes",
+   "assignee": "Expanse Bioinformatics, Inc."
+  },
+  {
+   "id": "US8812435B1",
+   "title": "Learning objects and facts from documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8825471B2",
+   "title": "Unsupervised extraction of facts",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8832132B1",
+   "title": "Personalizing search queries based on user membership in social network communities",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8996514B1",
+   "title": "Mobile to non-mobile document correlation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8996470B1",
+   "title": "System for ensuring the internal consistency of a fact repository",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9191402B2",
+   "title": "Domain classification based on client request behavior",
+   "assignee": "Opendns, Inc."
+  },
+  {
+   "id": "US9208229B2",
+   "title": "Anchor text summarization for corroboration",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9223868B2",
+   "title": "Deriving and using interaction profiles",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9276902B2",
+   "title": "Robust domain name resolution",
+   "assignee": "Opendns, Inc."
+  },
+  {
+   "id": "US9336305B2",
+   "title": "Systems and methods for generating issue networks",
+   "assignee": "Lexis Nexis, A Division Of Reed Elsevier Inc."
+  },
+  {
+   "id": "US9450840B2",
+   "title": "Domain classification using domain co-occurrence information",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US9558233B1",
+   "title": "Determining a quality measure for a resource",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9858317B1",
+   "title": "Ranking communities based on members",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9934516B1",
+   "title": "Communicating information relating to a network resource",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US9946800B2",
+   "title": "Ranking related objects using blink model based relation strength determinations",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9979748B2",
+   "title": "Domain classification and routing using lexical and semantic processing",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US10380147B1",
+   "title": "Computer implemented method for quantifying the relevance of documents",
+   "assignee": "PatentSight GmbH"
+  },
+  {
+   "id": "US10402457B1",
+   "title": "Methods and systems for correlating connections between users and links between articles",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10691888B2",
+   "title": "Method, terminal, apparatus and computer-readable storage medium for extracting a headword",
+   "assignee": "Ping An Technology (Shenzhen) Co., Ltd."
+  },
+  {
+   "id": "WO2021163196A1",
+   "title": "Reference-based document ranking system",
+   "assignee": "Copyright Clearance Center, Inc."
+  },
+  {
+   "id": "US11113348B2",
+   "title": "Device, system, and method for determining content relevance through ranked indexes",
+   "assignee": "Austin Walters"
+  },
+  {
+   "id": "US11411987B2",
+   "title": "Methods and systems for detection of security threats on network resources based on referrer information",
+   "assignee": "Cloudflare, Inc."
+  },
+  {
+   "id": "US11444776B2",
+   "title": "Blockchain with daisy chained records, document corral, quarantine, message timestamping, and self-addressing",
+   "assignee": "Kelce S. Wilson"
+  },
+  {
+   "id": "US11841904B1",
+   "title": "Detection of coactively linked topological structures in networks and databases",
+   "assignee": "Government Of The United States, As Represented By The Director, National Security Agency"
+  },
+  {
+   "id": "US11863678B2",
+   "title": "Rendering blockchain operations resistant to advanced persistent threats (APTs)",
+   "assignee": "Tenet 3, LLC"
+  },
+  {
+   "id": "US12153628B1",
+   "title": "Method of measuring triangle graph centrality and ranking nodes of interest based upon triangle graph centrality",
+   "assignee": "The Government Of The United States As Represented By The Director, National Security Agency"
+  },
+  {
+   "id": "US12438896B2",
+   "title": "Method and system for detecting a cybersecurity breach",
+   "assignee": "Royal Bank Of Canada"
+  },
+  {
+   "id": "US5966126A",
+   "title": "Graphic user interface for database system",
+   "assignee": "Szabo; Andrew J."
+  },
+  {
+   "id": "US7363291B1",
+   "title": "Methods and apparatus for increasing efficiency of electronic document delivery to users",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US6182068B1",
+   "title": "Personalized search methods",
+   "assignee": "Ask Jeeves, Inc."
+  },
+  {
+   "id": "US6711568B1",
+   "title": "Method for estimating coverage of web search engines",
+   "assignee": "Krishna Asur Bharat"
+  },
+  {
+   "id": "US6738678B1",
+   "title": "Method for ranking hyperlinked pages using content and connectivity analysis",
+   "assignee": "Krishna Asur Bharat"
+  },
+  {
+   "id": "US20080034113A1",
+   "title": "Method of contextually determining missing components of an incomplete uniform resource locator",
+   "assignee": "Frank Montero"
+  },
+  {
+   "id": "US6665837B1",
+   "title": "Method for identifying related pages in a hyperlinked database",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US6772139B1",
+   "title": "Method and apparatus for facilitating use of hypertext links on the world wide web",
+   "assignee": "Smith, Iii Julius O."
+  },
+  {
+   "id": "US6725429B1",
+   "title": "System and method for presenting and processing documents on the internet",
+   "assignee": "Pitney Bowes Inc."
+  },
+  {
+   "id": "JP3347088B2",
+   "title": "Related information search method and system",
+   "assignee": "インターナショナル・ビジネス・マシーンズ・コーポレーション"
+  },
+  {
+   "id": "US6631496B1",
+   "title": "System for personalizing, organizing and managing web information",
+   "assignee": "Nec Corporation"
+  },
+  {
+   "id": "US6907566B1",
+   "title": "Method and system for optimum placement of advertisements on a webpage",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US8126779B2",
+   "title": "Machine implemented methods of ranking merchants",
+   "assignee": "William Paul Wanker"
+  },
+  {
+   "id": "US7302429B1",
+   "title": "Customizable electronic commerce comparison system and method",
+   "assignee": "William Paul Wanker"
+  },
+  {
+   "id": "US7752251B1",
+   "title": "Method, apparatus and system for hosting information exchange groups on a wide area network",
+   "assignee": "Brian Mark Shuster"
+  },
+  {
+   "id": "US6487555B1",
+   "title": "Method and apparatus for finding mirrored hosts by analyzing connectivity and IP addresses",
+   "assignee": "Alta Vista Company"
+  },
+  {
+   "id": "US6675170B1",
+   "title": "Method to efficiently partition large hyperlinked databases by hyperlink structure",
+   "assignee": "Nec Laboratories America, Inc."
+  },
+  {
+   "id": "US7213198B1",
+   "title": "Link based clustering of hyperlinked documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7451388B1",
+   "title": "Ranking search engine results",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US7072863B1",
+   "title": "Forecasting using interpolation modeling",
+   "assignee": "C4Cast.Com, Inc."
+  },
+  {
+   "id": "US20090259506A1",
+   "title": "Method and system for rating patents and other intangible assets",
+   "assignee": "Barney Jonathan A"
+  },
+  {
+   "id": "US6556992B1",
+   "title": "Method and system for rating patents and other intangible assets",
+   "assignee": "Patent Ratings, Llc"
+  },
+  {
+   "id": "US6754873B1",
+   "title": "Techniques for finding related hyperlinked documents using link-based analysis",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US6629092B1",
+   "title": "Search engine",
+   "assignee": "Andrew Berke"
+  },
+  {
+   "id": "US7346604B1",
+   "title": "Method for ranking hypertext search results by analysis of hyperlinks from expert documents and keyword scope",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US7813958B1",
+   "title": "Method, system, and software for geographically focused network advertising",
+   "assignee": "Heavy Hammer, Inc."
+  },
+  {
+   "id": "US8127220B1",
+   "title": "Scoring links in a document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7305380B1",
+   "title": "Systems and methods for performing in-context searching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US6658402B1",
+   "title": "Web client controlled system, method, and program to get a proximate page when a bookmarked page disappears",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6434747B1",
+   "title": "Method and system for providing a customized media list",
+   "assignee": "Individual Network, Inc."
+  },
+  {
+   "id": "US8813123B2",
+   "title": "Content with customized advertisement",
+   "assignee": "Interad Technologies, Llc"
+  },
+  {
+   "id": "US20020100042A1",
+   "title": "Method and system for providing intelligent advertisement placement in a motion picture",
+   "assignee": "Denis Khoo"
+  },
+  {
+   "id": "US20040193488A1",
+   "title": "Method and system for advertising over a data network",
+   "assignee": "Denis Khoo"
+  },
+  {
+   "id": "US6883135B1",
+   "title": "Proxy server using a statistical model",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7225181B2",
+   "title": "Document searching apparatus, method thereof, and record medium thereof",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "JP3307625B2",
+   "title": "Electronic bulletin board system and mail server",
+   "assignee": "株式会社ガーラ"
+  },
+  {
+   "id": "JP2001282603A",
+   "title": "Association management system for information contents",
+   "assignee": "Toshihiro Wakayama"
+  },
+  {
+   "id": "US6671711B1",
+   "title": "System and method for predicting web user flow by determining association strength of hypermedia links",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US7567958B1",
+   "title": "Filtering system for providing personalized information in the absence of negative data",
+   "assignee": "Aol, Llc"
+  },
+  {
+   "id": "AU2001243610A1",
+   "title": "Fuzzy content network management and access",
+   "assignee": "Manyworlds Consulting, Inc."
+  },
+  {
+   "id": "US6738759B1",
+   "title": "System and method for performing similarity searching using pointer optimization",
+   "assignee": "Infoglide Corporation, Inc."
+  },
+  {
+   "id": "JP2002024702A",
+   "title": "Information grading system, information grading method, and computer-readable recording medium recording information grading program",
+   "assignee": "Fujitsu Ltd"
+  },
+  {
+   "id": "US7103838B1",
+   "title": "Method and apparatus for extracting relevant data",
+   "assignee": "Firstrain, Inc."
+  },
+  {
+   "id": "US6560600B1",
+   "title": "Method and apparatus for ranking Web page search results",
+   "assignee": "Alta Vista Company"
+  },
+  {
+   "id": "US6792419B1",
+   "title": "System and method for ranking hyperlinked documents based on a stochastic backoff processes",
+   "assignee": "Verity, Inc."
+  },
+  {
+   "id": "US7308445B2",
+   "title": "Method for estimating coverage of web search engines",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US6658423B1",
+   "title": "Detecting duplicate and near-duplicate files",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US8605089B1",
+   "title": "Data visualization using association networks",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7213069B2",
+   "title": "Category name service able to override the category name based on requestor privilege information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8001118B2",
+   "title": "Methods and apparatus for employing usage statistics in document retrieval",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US6985950B1",
+   "title": "System for creating a space-efficient document categorizer for training and testing of automatic categorization engines",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6907459B2",
+   "title": "Systems and methods for predicting usage of a web site using proximal cues",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20020165770A1",
+   "title": "Method and system for providing content with an option",
+   "assignee": "Individual Network, Inc."
+  },
+  {
+   "id": "US6938025B1",
+   "title": "Method and apparatus for automatically determining salient features for object classification",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6978266B2",
+   "title": "Determining a rating for a collection of documents",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6826576B2",
+   "title": "Very-large-scale automatic categorizer for web content",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7139972B2",
+   "title": "Preemptive downloading of web pages with terms associated with user interest keywords",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7010527B2",
+   "title": "Linguistically aware link analysis method and system",
+   "assignee": "Oracle International Corp."
+  },
+  {
+   "id": "US7769895B1",
+   "title": "System and method for ensuring that a web browser displays the highest ranked image format possible for an image",
+   "assignee": "Corda Technologies, Inc."
+  },
+  {
+   "id": "JP4283466B2",
+   "title": "Document arrangement method based on link relationship",
+   "assignee": "富士通株式会社"
+  },
+  {
+   "id": "US20030131097A1",
+   "title": "Interactive path analysis",
+   "assignee": "Stephane Kasriel"
+  },
+  {
+   "id": "US20040205508A1",
+   "title": "Content replacement in electronically-provided archived material",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7296016B1",
+   "title": "Systems and methods for performing point-of-view searching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7346606B2",
+   "title": "Rendering advertisements with documents having one or more topics using user topic interest",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US7680796B2",
+   "title": "Determining and/or using location information in an ad system",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030188194A1",
+   "title": "Method and apparatus for real-time security verification of on-line services",
+   "assignee": "David Currie"
+  },
+  {
+   "id": "US20050114198A1",
+   "title": "Using concepts for ad targeting",
+   "assignee": "Ross Koningstein"
+  },
+  {
+   "id": "US20050021397A1",
+   "title": "Content-targeted advertising using collected user behavior data",
+   "assignee": "Cui Yingwei Claire"
+  },
+  {
+   "id": "US9235849B2",
+   "title": "Generating user information for use in targeted advertising",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7716161B2",
+   "title": "Methods and apparatus for serving relevant advertisements",
+   "assignee": "Google, Inc,"
+  },
+  {
+   "id": "US20070038603A1",
+   "title": "Sharing context data across programmable search engines",
+   "assignee": "Guha Ramanathan V"
+  },
+  {
+   "id": "US9684676B1",
+   "title": "Method for searching media",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8560493B2",
+   "title": "Determining and/or using end user local time information in an ad system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7136875B2",
+   "title": "Serving advertisements based on content",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "USRE45952E1",
+   "title": "Method for searching media",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070038614A1",
+   "title": "Generating and presenting advertisements based on context data for programmable search engines",
+   "assignee": "Guha Ramanathan V"
+  },
+  {
+   "id": "US20030187832A1",
+   "title": "Method for locating patent-relevant web pages and search agent for use therein",
+   "assignee": "Reader Scot A."
+  },
+  {
+   "id": "US20030225763A1",
+   "title": "Self-improving system and method for classifying pages on the world wide web",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7089252B2",
+   "title": "System and method for rapid computation of PageRank",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7167871B2",
+   "title": "Systems and methods for authoritativeness grading, estimation and sorting of documents in large heterogeneous document collections",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20030221166A1",
+   "title": "Systems and methods for authoritativeness grading, estimation and sorting of documents in large heterogeneous document collections",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US7188117B2",
+   "title": "Systems and methods for authoritativeness grading, estimation and sorting of documents in large heterogeneous document collections",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US7231395B2",
+   "title": "Method and apparatus for categorizing and presenting documents of a distributed database",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US8260786B2",
+   "title": "Method and apparatus for categorizing and presenting documents of a distributed database",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7024404B1",
+   "title": "Retrieval and display of data objects using a cross-group ranking metric",
+   "assignee": "The State University Rutgers"
+  },
+  {
+   "id": "US7028026B1",
+   "title": "Relevancy-based database retrieval and display techniques",
+   "assignee": "Ask Jeeves, Inc."
+  },
+  {
+   "id": "US7028036B2",
+   "title": "System and method for visualization of continuous attribute values",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20040054673A1",
+   "title": "Provision of search topic-specific search results information",
+   "assignee": "Dement William Sanford"
+  },
+  {
+   "id": "JP3785388B2",
+   "title": "Failure detection method",
+   "assignee": "松下電器産業株式会社"
+  },
+  {
+   "id": "US20100100437A1",
+   "title": "Suggesting and/or providing ad serving constraint information",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US7881658B2",
+   "title": "Method and apparatus for entertainment and information services delivered via mobile telecommunication devices",
+   "assignee": "Znl Enterprises, Llc"
+  },
+  {
+   "id": "AU2003293071A1",
+   "title": "Autonomous response engine",
+   "assignee": "Roy Rosser"
+  },
+  {
+   "id": "US7792827B2",
+   "title": "Temporal link analysis of linked entities",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8224689B1",
+   "title": "Estimating inventory, user behavior, and/or cost and presentation attributes for an advertisement for use with an advertising system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8140965B2",
+   "title": "Identifying related information given content and/or presenting related information in association with content-related advertisements",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US8055669B1",
+   "title": "Search queries improved based on query semantic information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20050188300A1",
+   "title": "Determination of member pages for a hyperlinked document with link and document analysis",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20040237037A1",
+   "title": "Determination of member pages for a hyperlinked document with recursive page-level link analysis",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US7451129B2",
+   "title": "System and method for providing preferred language ordering of search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7451130B2",
+   "title": "System and method for providing preferred country biasing of search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8306972B2",
+   "title": "Ordering of search results based on language and/or country of the search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040223497A1",
+   "title": "Communications network with converged services",
+   "assignee": "Onvoy Inc."
+  },
+  {
+   "id": "US7552400B1",
+   "title": "System and method for navigating within a graphical user interface without using a pointing device",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8255417B2",
+   "title": "System and method for providing definitions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7401072B2",
+   "title": "Named URL entry",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7836391B2",
+   "title": "Document search engine including highlighting of confident results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040260680A1",
+   "title": "Personalized indexing and searching for information in a distributed data processing system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7289983B2",
+   "title": "Personalized indexing and searching for information in a distributed data processing system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8438154B2",
+   "title": "Generating information for online advertisements from internet data and traditional media data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8595071B2",
+   "title": "Using enhanced ad features to increase competition in online advertising",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7647299B2",
+   "title": "Serving advertisements using a search of advertiser web information",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US8136025B1",
+   "title": "Assigning document identification tags",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8042112B1",
+   "title": "Scheduler for search engine crawler",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7308643B1",
+   "title": "Anchor tag indexing in a web crawler system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7725452B1",
+   "title": "Scheduler for search engine crawler",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8856163B2",
+   "title": "System and method for providing a user interface with search query broadening",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7391885B2",
+   "title": "Method for determining overall effectiveness of a document",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US7171618B2",
+   "title": "Multi-versioned documents and method for creation and use thereof",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US7386438B1",
+   "title": "Identifying language attributes through probabilistic analysis",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "EP1505520A3",
+   "title": "Ranking of business objects for search engines",
+   "assignee": "Sap Ag"
+  },
+  {
+   "id": "US8775443B2",
+   "title": "Ranking of business objects for search engines",
+   "assignee": "Sap Ag"
+  },
+  {
+   "id": "US8473532B1",
+   "title": "Method and apparatus for automatic organization for computer files",
+   "assignee": "Louisiana Tech University Research Foundation"
+  },
+  {
+   "id": "US7509344B1",
+   "title": "Method for detecting link spam in hyperlinked databases",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7555428B1",
+   "title": "System and method for identifying compounds through iterative analysis",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7421498B2",
+   "title": "Method and system for URL based filtering of electronic communications and web pages",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "FR2859341A1",
+   "title": "METHOD FOR CONTROLLING EQUIPMENT CONNECTED TO A HETEROGENEOUS NETWORK AND APPARATUS IMPLEMENTING THE METHOD",
+   "assignee": "Thomson Licensing Sa"
+  },
+  {
+   "id": "US11042886B2",
+   "title": "Systems and methods for determining user actions",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US8706551B2",
+   "title": "Systems and methods for determining user actions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8086619B2",
+   "title": "System and method for providing search query refinements",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8548995B1",
+   "title": "Ranking of documents based on analysis of related documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7454417B2",
+   "title": "Methods and systems for improving a search ranking using population information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7505964B2",
+   "title": "Methods and systems for improving a search ranking using related queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7739281B2",
+   "title": "Systems and methods for ranking documents based upon structurally interrelated information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7606798B2",
+   "title": "Methods and systems for improving a search ranking using location awareness",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7693827B2",
+   "title": "Personalization of placed content ordering in search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7797316B2",
+   "title": "Systems and methods for determining document freshness",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20050071328A1",
+   "title": "Personalization of web search",
+   "assignee": "Lawrence Stephen R."
+  },
+  {
+   "id": "US7346839B2",
+   "title": "Information retrieval based on historical data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8041601B2",
+   "title": "System and method for automatically targeting web-based advertisements",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US7730054B1",
+   "title": "Systems and methods for providing searchable prior history",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7281005B2",
+   "title": "Backward and forward non-normalized link weight analysis method, system, and computer program product",
+   "assignee": "Telenor Asa"
+  },
+  {
+   "id": "US7441044B2",
+   "title": "Countrytagging",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US8719276B1",
+   "title": "Ranking nodes in a linked database based on node independence",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8166039B1",
+   "title": "System and method for encoding document ranking vectors",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US7451398B1",
+   "title": "Providing capitalization correction for unstructured excerpts",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "WO2005050471A2",
+   "title": "Data processing system and device",
+   "assignee": "Wurzer Joerg"
+  },
+  {
+   "id": "KR100650404B1",
+   "title": "Online advertising system and method",
+   "assignee": "엔에이치엔(주)"
+  },
+  {
+   "id": "RU2339078C2",
+   "title": "Designation of web-pages for identification of geographical positions",
+   "assignee": "Гугл Инк."
+  },
+  {
+   "id": "US20050114678A1",
+   "title": "Method and apparatus for verifying security of authentication information extracted from a user",
+   "assignee": "Amit Bagga"
+  },
+  {
+   "id": "US8639937B2",
+   "title": "Method and apparatus for extracting authentication information from a user",
+   "assignee": "Avaya Inc."
+  },
+  {
+   "id": "USRE45770E1",
+   "title": "Adaptive recommendation explanations",
+   "assignee": "World Assets Consulting Ag, Llc"
+  },
+  {
+   "id": "US7526459B2",
+   "title": "Adaptive social and process network systems",
+   "assignee": "Manyworlds, Inc."
+  },
+  {
+   "id": "US12093983B2",
+   "title": "Adaptive and recursive system and method",
+   "assignee": "World Assets Consulting Ag, Llc"
+  },
+  {
+   "id": "US8566263B2",
+   "title": "Adaptive computer-based personalities",
+   "assignee": "World Assets Consulting Ag, Llc"
+  },
+  {
+   "id": "US7539652B2",
+   "title": "Adaptive self-modifying and recombinant systems",
+   "assignee": "Manyworlds, Inc."
+  },
+  {
+   "id": "US8600920B2",
+   "title": "Affinity propagation in adaptive network-based systems",
+   "assignee": "World Assets Consulting Ag, Llc"
+  },
+  {
+   "id": "US20090018918A1",
+   "title": "Influence-based Social Network Advertising",
+   "assignee": "Manyworlds Inc."
+  },
+  {
+   "id": "US7526458B2",
+   "title": "Adaptive recommendations systems",
+   "assignee": "Manyworlds, Inc."
+  },
+  {
+   "id": "US7606772B2",
+   "title": "Adaptive social computing methods",
+   "assignee": "Manyworlds, Inc."
+  },
+  {
+   "id": "US7587309B1",
+   "title": "System and method for providing text summarization for use in web-based content",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US8521725B1",
+   "title": "Systems and methods for improved searching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8676790B1",
+   "title": "Methods and systems for improving search rankings using advertising data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7302645B1",
+   "title": "Methods and systems for identifying manipulated articles",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7774782B1",
+   "title": "Limiting requests by web crawlers to a web host",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9858590B1",
+   "title": "Determining better ad selection, scoring, and/or presentation techniques",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7249126B1",
+   "title": "Systems and methods for dynamically updating relevance of a selected item",
+   "assignee": "Shopping.Com"
+  },
+  {
+   "id": "US7516118B1",
+   "title": "Methods and systems for assisted network browsing",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7502773B1",
+   "title": "System and method facilitating page indexing employing reference information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "KR20050073126A",
+   "title": "Method and system for providing personalized web-page in wireless internet",
+   "assignee": "와이더댄 주식회사"
+  },
+  {
+   "id": "US20060294124A1",
+   "title": "Unbiased page ranking",
+   "assignee": "Junghoo Cho"
+  },
+  {
+   "id": "US8015119B2",
+   "title": "Methods and systems for the display and navigation of a social network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7680770B1",
+   "title": "Automatic generation and recommendation of communities in a social network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7293005B2",
+   "title": "Pipelined architecture for global analysis and index building",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7424467B2",
+   "title": "Architecture for an indexer with fixed width sort and variable width sort",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7499913B2",
+   "title": "Method for handling anchor text",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8296304B2",
+   "title": "Method, system, and program for handling redirects in a search engine",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7814085B1",
+   "title": "System and method for determining a composite score for categorized search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20050198305A1",
+   "title": "Method and system for associating a thread with content in a social networking environment",
+   "assignee": "Peter Pezaris"
+  },
+  {
+   "id": "US20050198559A1",
+   "title": "Document information management system, document information management program, and document information management method",
+   "assignee": "Kabushiki Kaisha Toshiba"
+  },
+  {
+   "id": "US7974868B2",
+   "title": "Enhancing virally-marketed facilities",
+   "assignee": "Tagged, Inc."
+  },
+  {
+   "id": "US20050203924A1",
+   "title": "System and methods for analytic research and literate reporting of authoritative document collections",
+   "assignee": "Rosenberg Gerald B."
+  },
+  {
+   "id": "US7925657B1",
+   "title": "Methods and systems for adjusting a scoring measure based on query breadth",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7584221B2",
+   "title": "Field weighting in text searching",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050216335A1",
+   "title": "System and method for providing on-line user-assisted Web-based advertising",
+   "assignee": "Andrew Fikes"
+  },
+  {
+   "id": "US7840547B1",
+   "title": "Methods and systems for efficient query rewriting",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8131702B1",
+   "title": "Systems and methods for browsing historical content",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7257577B2",
+   "title": "System, method and service for ranking search results using a modular scoring system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050251444A1",
+   "title": "Facilitating the serving of ads having different treatments and/or characteristics, such as text ads and image ads",
+   "assignee": "Hal Varian"
+  },
+  {
+   "id": "US7260573B1",
+   "title": "Personalizing anchor text scores in a search engine",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7809548B2",
+   "title": "Graph-based ranking algorithms for text processing",
+   "assignee": "University Of North Texas"
+  },
+  {
+   "id": "WO2006007229A1",
+   "title": "Method and apparatus for retrieving and indexing hidden web pages",
+   "assignee": "The Regents Of The University Of California"
+  },
+  {
+   "id": "US20070214133A1",
+   "title": "Methods for filtering data and filling in missing data using nonlinear inference",
+   "assignee": "Edo Liberty"
+  },
+  {
+   "id": "US20060155751A1",
+   "title": "System and method for document analysis, processing and information extraction",
+   "assignee": "Frank Geshwind"
+  },
+  {
+   "id": "US20070276733A1",
+   "title": "Method and system for music information retrieval",
+   "assignee": "Frank Geshwind"
+  },
+  {
+   "id": "US7827176B2",
+   "title": "Methods and systems for endorsing local search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8676922B1",
+   "title": "Automatic proxy setting modification",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "WO2006004800A2",
+   "title": "Local area advertissements",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US8224964B1",
+   "title": "System and method of accessing a document efficiently through multi-tier web caching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8825639B2",
+   "title": "Endorsing search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7437364B1",
+   "title": "System and method of accessing a document efficiently through multi-tier web caching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7673253B1",
+   "title": "Systems and methods for inferring concepts for association with content",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8005716B1",
+   "title": "Methods and systems for establishing a keyword utilizing path navigation information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7512587B2",
+   "title": "Efficient computation of web page rankings",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8620915B1",
+   "title": "Systems and methods for promoting personalized search results based on personal information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8078607B2",
+   "title": "Generating website profiles based on queries from webistes and user activities on the search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7379947B2",
+   "title": "Efficiently ranking web pages via matrix index manipulation and improved caching",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "CN100568230C",
+   "title": "Hypertext-based Multilingual Network Information Search Method and System",
+   "assignee": "国际商业机器公司"
+  },
+  {
+   "id": "US7917587B2",
+   "title": "Method and system for prioritizing communications based on interpersonal relationships",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060036598A1",
+   "title": "Computerized method for ranking linked information items in distributed sources",
+   "assignee": "Jie Wu"
+  },
+  {
+   "id": "US7698267B2",
+   "title": "Searching digital information and databases",
+   "assignee": "The Regents Of The University Of California"
+  },
+  {
+   "id": "US7987172B1",
+   "title": "Minimizing visibility of stale content in web searching including revising web crawl intervals of documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060069734A1",
+   "title": "Method and system for organizing and displaying message threads",
+   "assignee": "Michael Gersh"
+  },
+  {
+   "id": "US7490082B2",
+   "title": "System and method for searching internet domains",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "CA2579691A1",
+   "title": "A method, system, and computer program product for searching for, navigating among, and ranking of documents in a personal web",
+   "assignee": "Telenor Asa"
+  },
+  {
+   "id": "US7461064B2",
+   "title": "Method for searching documents for ranges of numeric values",
+   "assignee": "International Buiness Machines Corporation"
+  },
+  {
+   "id": "US7606793B2",
+   "title": "System and method for scoping searches using index keys",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7739277B2",
+   "title": "System and method for incorporating anchor text into ranking search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8386453B2",
+   "title": "Providing search information relating to a document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8799107B1",
+   "title": "Systems and methods for scoring documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8051096B1",
+   "title": "Methods and systems for augmenting a token lexicon",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7761448B2",
+   "title": "System and method for ranking search results using click distance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7680648B2",
+   "title": "Methods and systems for improving text segmentation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7996208B2",
+   "title": "Methods and systems for selecting a language for text segmentation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7827181B2",
+   "title": "Click distance determination",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7810035B2",
+   "title": "Browsing web content using predictive navigation links",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7904337B2",
+   "title": "Match engine marketing",
+   "assignee": "Steve Morsa"
+  },
+  {
+   "id": "US7533092B2",
+   "title": "Link-based spam detection",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8185543B1",
+   "title": "Video image-based querying for video content",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8874570B1",
+   "title": "Search boost vector based on co-visitation information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080140655A1",
+   "title": "Systems and Methods for Storing, Maintaining and Providing Access to Information",
+   "assignee": "Hoos Holger H"
+  },
+  {
+   "id": "US8312003B2",
+   "title": "Computer method and apparatus for collaborative web searches",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US7512579B2",
+   "title": "System and method for interactively delivering expert information to remote outlets",
+   "assignee": "Clairvista Llc"
+  },
+  {
+   "id": "US7991755B2",
+   "title": "Dynamically ranking nodes and labels in a hyperlinked database",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7716198B2",
+   "title": "Ranking search results using feature extraction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060136451A1",
+   "title": "Methods and systems for applying attention strength, activation scores and co-occurrence statistics in information management",
+   "assignee": "Mikhail Denissov"
+  },
+  {
+   "id": "US20060136245A1",
+   "title": "Methods and systems for applying attention strength, activation scores and co-occurrence statistics in information management",
+   "assignee": "Mikhail Denissov"
+  },
+  {
+   "id": "US7756887B1",
+   "title": "System and method for modulating search relevancy using pointer activity monitoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8090736B1",
+   "title": "Enhancing search results using conceptual document relationships",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7523099B1",
+   "title": "Category suggestions relating to a search",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8843536B1",
+   "title": "Methods and systems for providing relevant advertisements or other content for inactive uniform resource locators using search queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8117200B1",
+   "title": "Parallelizing graph computations",
+   "assignee": "Wal-Mart Stores, Inc."
+  },
+  {
+   "id": "US9286387B1",
+   "title": "Double iterative flavored rank",
+   "assignee": "Wal-Mart Stores, Inc."
+  },
+  {
+   "id": "WO2006076661A2",
+   "title": "Dynamic advertisement system and method",
+   "assignee": "Tremor Media Llc"
+  },
+  {
+   "id": "US8626775B1",
+   "title": "Topic relevance",
+   "assignee": "Wal-Mart Stores, Inc."
+  },
+  {
+   "id": "US7792833B2",
+   "title": "Ranking search results using language types",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7620631B2",
+   "title": "Pyramid view",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8346757B1",
+   "title": "Determining query terms of little significance",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7565345B2",
+   "title": "Integration of multiple query revision models",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9256685B2",
+   "title": "Systems and methods for modifying search results based on a user's history",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8990193B1",
+   "title": "Method, system, and graphical user interface for improved search result displays via user-specified annotations",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8589391B1",
+   "title": "Method and system for generating web site ratings for a user",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060224608A1",
+   "title": "Systems and methods for combining sets of favorites",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US8423541B1",
+   "title": "Using saved search results for quality feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060224583A1",
+   "title": "Systems and methods for analyzing a user's web history",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US8166028B1",
+   "title": "Method, system, and graphical user interface for improved searching via user-specified annotations",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7636714B1",
+   "title": "Determining query term synonyms within query context",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7694212B2",
+   "title": "Systems and methods for providing a graphical display of search activity",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7783631B2",
+   "title": "Systems and methods for managing multiple user accounts",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7747632B2",
+   "title": "Systems and methods for providing subscription-based personalization",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8386459B1",
+   "title": "Scheduling a recrawl",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8666964B1",
+   "title": "Managing items in crawl schedule",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8606781B2",
+   "title": "Systems and methods for personalized search",
+   "assignee": "Palo Alto Research Center Incorporated"
+  },
+  {
+   "id": "US7765481B2",
+   "title": "Indicating website reputations during an electronic commerce transaction",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US8438499B2",
+   "title": "Indicating website reputations during user interactions",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US7562304B2",
+   "title": "Indicating website reputations during website manipulation of user information",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US8566726B2",
+   "title": "Indicating website reputations based on website handling of personal information",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US20060253582A1",
+   "title": "Indicating website reputations within search results",
+   "assignee": "Dixon Christopher J"
+  },
+  {
+   "id": "US9384345B2",
+   "title": "Providing alternative web content based on website reputation assessment",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US7822620B2",
+   "title": "Determining website reputations using automatic testing",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US20060265383A1",
+   "title": "Method and system for performing and sorting a content search",
+   "assignee": "Pezaris Design, Inc."
+  },
+  {
+   "id": "CN100470544C",
+   "title": "Method, device and system for linking documents",
+   "assignee": "国际商业机器公司"
+  },
+  {
+   "id": "US7769742B1",
+   "title": "Web crawler scheduler that utilizes sitemaps from websites",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7801881B1",
+   "title": "Sitemap generating client for web crawler",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7962462B1",
+   "title": "Deriving and using document and site quality signals from search query streams",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060282455A1",
+   "title": "System and method for ranking web content",
+   "assignee": "It Interactive Services Inc."
+  },
+  {
+   "id": "US7912960B2",
+   "title": "Reciprocal public trust relationship",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7996391B2",
+   "title": "Systems and methods for providing search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7509315B1",
+   "title": "Managing URLs",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7818208B1",
+   "title": "Accurately estimating advertisement performance",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060293950A1",
+   "title": "Automatic ad placement",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060293951A1",
+   "title": "Using the utility of configurations in ad serving decisions",
+   "assignee": "Amit Patel"
+  },
+  {
+   "id": "US9026511B1",
+   "title": "Call connection via document browsing",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7979417B1",
+   "title": "Embedded communication of link information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7739653B2",
+   "title": "Representing software development item relationships via a graph",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9129038B2",
+   "title": "Discovering and exploiting relationships in software repositories",
+   "assignee": "Andrew Begel"
+  },
+  {
+   "id": "US7743360B2",
+   "title": "Graph browser and implicit query for software development",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8417693B2",
+   "title": "Enforcing native access control to indexed documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20070022385A1",
+   "title": "Software module, method and system for managing information items by bookmarking information items through activation of said items",
+   "assignee": "Mikhail Denissov"
+  },
+  {
+   "id": "US9286388B2",
+   "title": "Method and apparatus for context-specific content delivery",
+   "assignee": "Time Warner Cable Enterprises Llc"
+  },
+  {
+   "id": "US7565358B2",
+   "title": "Agent rank",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7599917B2",
+   "title": "Ranking search results using biased click distance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8417697B2",
+   "title": "Permitting users to remove documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7653617B2",
+   "title": "Mobile sitemaps",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7949581B2",
+   "title": "Method of determining an obsolescence rate of a technology",
+   "assignee": "Patentratings, Llc"
+  },
+  {
+   "id": "US20080215614A1",
+   "title": "Pyramid Information Quantification or PIQ or Pyramid Database or Pyramided Database or Pyramided or Selective Pressure Database Management System",
+   "assignee": "Slattery Michael J"
+  },
+  {
+   "id": "US20120179563A1",
+   "title": "System for retrieving mobile communication facility user data from a plurality of providers",
+   "assignee": "Adam Soroca"
+  },
+  {
+   "id": "US20120173375A1",
+   "title": "System for retrieving mobile communication facility user data from a plurality of providers",
+   "assignee": "Adam Soroca"
+  },
+  {
+   "id": "US8326689B2",
+   "title": "Flexible advertising system which allows advertisers with different value propositions to express such value propositions to the advertising system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070067197A1",
+   "title": "Efficiently routing customer inquiries created with a self-service application",
+   "assignee": "Sbc Knowledge Ventures, L.P."
+  },
+  {
+   "id": "US8688673B2",
+   "title": "System for communication and collaboration",
+   "assignee": "Sarkar Pte Ltd"
+  },
+  {
+   "id": "WO2007038713A2",
+   "title": "Search engine determining results based on probabilistic scoring of relevance",
+   "assignee": "Epacris Inc."
+  },
+  {
+   "id": "US20070078669A1",
+   "title": "Selecting representative reviews for display",
+   "assignee": "Dave Kushal B"
+  },
+  {
+   "id": "US8010480B2",
+   "title": "Selecting high quality text within identified reviews for display in review snippets",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8438469B1",
+   "title": "Embedded review and rating information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7801893B2",
+   "title": "Similarity detection and clustering of images",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US20070078670A1",
+   "title": "Selecting high quality reviews for display",
+   "assignee": "Dave Kushal B"
+  },
+  {
+   "id": "US7827052B2",
+   "title": "Systems and methods for reputation management",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8849830B1",
+   "title": "Delivering search results",
+   "assignee": "Wal-Mart Stores, Inc."
+  },
+  {
+   "id": "US20070100689A1",
+   "title": "Selection and/or application of special ad styles",
+   "assignee": "Brian Axe"
+  },
+  {
+   "id": "WO2007056344A2",
+   "title": "Techiques for model optimization for statistical pattern recognition",
+   "assignee": "Scanscout, Inc."
+  },
+  {
+   "id": "US7574420B2",
+   "title": "Indexing pages based on associations with geographic regions",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20070129999A1",
+   "title": "Fraud detection in web-based advertising",
+   "assignee": "Jie Zhou"
+  },
+  {
+   "id": "US8095876B1",
+   "title": "Identifying a primary version of a document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7856445B2",
+   "title": "System and method of delivering RSS content based advertising",
+   "assignee": "John Nicholas and Kristin Gross"
+  },
+  {
+   "id": "US8924558B2",
+   "title": "System and method of delivering content based advertising",
+   "assignee": "John Nicholas and Kristin Gross"
+  },
+  {
+   "id": "US8417569B2",
+   "title": "System and method of evaluating content based advertising",
+   "assignee": "John Nicholas and Kristin Gross Trust"
+  },
+  {
+   "id": "US9202241B2",
+   "title": "System and method of delivering content based advertising",
+   "assignee": "John Nicholas and Kristin Gross"
+  },
+  {
+   "id": "US8095565B2",
+   "title": "Metadata driven user interface",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "IL172551A0",
+   "title": "Method for assigning one or more categorized scores to each document over a data network",
+   "assignee": "Grois Dan"
+  },
+  {
+   "id": "US8489614B2",
+   "title": "Ranking academic event related search results using event member metrics",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7971137B2",
+   "title": "Detecting and rejecting annoying documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "DE112006003614T5",
+   "title": "Device and method for evaluating a network-related relevance of a network element, program element and machine-readable data carrier connected to one or more further network elements in a network",
+   "assignee": "Leibniz-Institut für Pflanzengenetik Und Kulturpflanzenforschung (IPK)"
+  },
+  {
+   "id": "US20070157228A1",
+   "title": "Advertising with video ad creatives",
+   "assignee": "Jason Bayer"
+  },
+  {
+   "id": "US8065184B2",
+   "title": "Estimating ad quality from observed user behavior",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7925649B2",
+   "title": "Method, system, and graphical user interface for alerting a computer user to new results for a prior search",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7827060B2",
+   "title": "Using estimated ad qualities for ad filtering, ranking and promotion",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070156887A1",
+   "title": "Predicting ad quality",
+   "assignee": "Daniel Wright"
+  },
+  {
+   "id": "US10600090B2",
+   "title": "Query feature based data structure retrieval of predicted values",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US20070233565A1",
+   "title": "Online Advertising System and Method",
+   "assignee": "Jeff Herzog"
+  },
+  {
+   "id": "US20070162448A1",
+   "title": "Adaptive hierarchy structure ranking algorithm",
+   "assignee": "Ashish Jain"
+  },
+  {
+   "id": "US20070175674A1",
+   "title": "Systems and methods for ranking terms found in a data product",
+   "assignee": "Intelliscience Corporation"
+  },
+  {
+   "id": "US7814099B2",
+   "title": "Method for ranking and sorting electronic documents in a search result list based on relevance",
+   "assignee": "Louis S. Wang"
+  },
+  {
+   "id": "US7584183B2",
+   "title": "Method for node classification and scoring by combining parallel iterative scoring calculation",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8429177B2",
+   "title": "Using exceptional changes in webgraph snapshots over time for internet entity marking",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20070198566A1",
+   "title": "Method and apparatus for efficient storage of hierarchical signal names",
+   "assignee": "Matyas Sustik"
+  },
+  {
+   "id": "WO2007095997A1",
+   "title": "System and method for user-controlled, multi-dimensional navigation and/or subject-based aggregation and/or monitoring of multimedia data",
+   "assignee": "Netbreeze Gmbh"
+  },
+  {
+   "id": "US20070198504A1",
+   "title": "Calculating level-based importance of a web page",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070203888A1",
+   "title": "Simple hierarchical Web search engine",
+   "assignee": "Cun Wang"
+  },
+  {
+   "id": "US7788358B2",
+   "title": "Using cross-site relationships to generate recommendations",
+   "assignee": "Aggregate Knowledge"
+  },
+  {
+   "id": "US7853630B2",
+   "title": "System and method for the dynamic generation of correlation scores between arbitrary objects",
+   "assignee": "Aggregate Knowledge"
+  },
+  {
+   "id": "US7676464B2",
+   "title": "Page-ranking via user expertise and content relevance",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20070226213A1",
+   "title": "Method for ranking computer files",
+   "assignee": "Mohamed Al-Masri"
+  },
+  {
+   "id": "US20070239704A1",
+   "title": "Aggregating citation information from disparate documents",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8701196B2",
+   "title": "System, method and computer program product for obtaining a reputation associated with a file",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US8060567B2",
+   "title": "Method, system, graphical user interface, and data structure for creating electronic calendar entries from email messages",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7603350B1",
+   "title": "Search result ranking based on trust",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9443022B2",
+   "title": "Method, system, and graphical user interface for providing personalized recommendations of popular search queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20160012131A1",
+   "title": "Methods and apparatuses for searching content",
+   "assignee": "Zalag Corporation"
+  },
+  {
+   "id": "US9047379B2",
+   "title": "Methods and apparatuses for searching content",
+   "assignee": "Zalag Corporation"
+  },
+  {
+   "id": "US8489574B2",
+   "title": "Methods and apparatuses for searching content",
+   "assignee": "Zalag Corporation"
+  },
+  {
+   "id": "WO2007146951A2",
+   "title": "Methods and apparatus for searching content",
+   "assignee": "Zalag Corporation"
+  },
+  {
+   "id": "US8140511B2",
+   "title": "Methods and apparatuses for searching content",
+   "assignee": "Zalag Corporation"
+  },
+  {
+   "id": "US7987169B2",
+   "title": "Methods and apparatuses for searching content",
+   "assignee": "Zalag Corporation"
+  },
+  {
+   "id": "US7624104B2",
+   "title": "User-sensitive pagerank",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9898627B2",
+   "title": "Secure and extensible pay per action online advertising",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN100456296C",
+   "title": "A sorting method for multimedia file search engine",
+   "assignee": "腾讯科技（深圳）有限公司"
+  },
+  {
+   "id": "US20080005268A1",
+   "title": "Providing ad serving entity attribution and/or solicitation messages for call-on-select listings, such as for calls placed via call-on-select free listings",
+   "assignee": "Johnny Chen"
+  },
+  {
+   "id": "US20080004959A1",
+   "title": "Profile advertisements",
+   "assignee": "Tunguz-Zawislak Tomasz J"
+  },
+  {
+   "id": "US20080016072A1",
+   "title": "Enterprise-Based Tag System",
+   "assignee": "Bea Systems, Inc."
+  },
+  {
+   "id": "US20080016052A1",
+   "title": "Using Connections Between Users and Documents to Rank Documents in an Enterprise Search System",
+   "assignee": "Bea Systems, Inc."
+  },
+  {
+   "id": "US20080016061A1",
+   "title": "Using a Core Data Structure to Calculate Document Ranks",
+   "assignee": "Bea Systems, Inc."
+  },
+  {
+   "id": "US20080016071A1",
+   "title": "Using Connections Between Users, Tags and Documents to Rank Documents in an Enterprise Search System",
+   "assignee": "Bea Systems, Inc."
+  },
+  {
+   "id": "US20080016053A1",
+   "title": "Administration Console to Select Rank Factors",
+   "assignee": "Bea Systems, Inc."
+  },
+  {
+   "id": "US7873641B2",
+   "title": "Using tags in an enterprise search system",
+   "assignee": "Bea Systems, Inc."
+  },
+  {
+   "id": "US9256675B1",
+   "title": "Electronic processing and presentation of search results",
+   "assignee": "Aol Inc."
+  },
+  {
+   "id": "US8239253B2",
+   "title": "Election-based electronic compilations",
+   "assignee": "Wu Louis L"
+  },
+  {
+   "id": "US8533226B1",
+   "title": "System and method for verifying and revoking ownership rights with respect to a website in a website indexing system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8015162B2",
+   "title": "Detecting duplicate and near-duplicate files",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7930400B1",
+   "title": "System and method for managing multiple domain names for a website in a website indexing system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8122018B2",
+   "title": "System and method for generating creatives",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7529797B2",
+   "title": "User created tags for online social networking",
+   "assignee": "Tagged, Inc."
+  },
+  {
+   "id": "US20080215590A1",
+   "title": "System and method for assessing the importance of a web link",
+   "assignee": "Mary Rose Thai"
+  },
+  {
+   "id": "US7831472B2",
+   "title": "Methods and system for search engine revenue maximization in internet advertising",
+   "assignee": "Yufik Yan M"
+  },
+  {
+   "id": "US20080126331A1",
+   "title": "System and method for ranking reference documents",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US8005832B2",
+   "title": "Search document generation and use to provide recommendations",
+   "assignee": "Switchbook, Inc."
+  },
+  {
+   "id": "US8271266B2",
+   "title": "Media content assessment and control systems",
+   "assignee": "Waggner Edstrom Worldwide, Inc."
+  },
+  {
+   "id": "US8340957B2",
+   "title": "Media content assessment and control systems",
+   "assignee": "Waggener Edstrom Worldwide, Inc."
+  },
+  {
+   "id": "US20080065474A1",
+   "title": "Secure conversion tracking",
+   "assignee": "Abhinay Sharma"
+  },
+  {
+   "id": "US20080065621A1",
+   "title": "Ambiguous entity disambiguation method",
+   "assignee": "Kenneth Alexander Ellis"
+  },
+  {
+   "id": "US20080071797A1",
+   "title": "System and method to calculate average link growth on search engines for a keyword",
+   "assignee": "Thornton Nathaniel L"
+  },
+  {
+   "id": "JP4240096B2",
+   "title": "Information processing apparatus and method, program, and recording medium",
+   "assignee": "ソニー株式会社"
+  },
+  {
+   "id": "US9037581B1",
+   "title": "Personalized search result ranking",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8548991B1",
+   "title": "Personalized browsing activity displays",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7912831B2",
+   "title": "System and method for characterizing a web page using multiple anchor sets of web pages",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20080086490A1",
+   "title": "Discovery of services matching a service request",
+   "assignee": "Sap Ag"
+  },
+  {
+   "id": "US7599920B1",
+   "title": "System and method for enabling website owners to manage crawl rate in a website indexing system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7593935B2",
+   "title": "Methods and systems for node ranking based on DNS session data",
+   "assignee": "Paxfire"
+  },
+  {
+   "id": "US7921416B2",
+   "title": "Formal language and translator for parallel processing of data",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8041730B1",
+   "title": "Using geographic data to identify correlated geographic synonyms",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7672943B2",
+   "title": "Calculating a downloading priority for the uniform resource locator in response to the domain density score, the anchor text score, the URL string score, the category need score, and the link proximity score for targeted web crawling",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "TWI337712B",
+   "title": "Systems and methods for measuring behavior characteristics, and machine readable medium thereof",
+   "assignee": "Inst Information Industry"
+  },
+  {
+   "id": "US8661029B1",
+   "title": "Modifying search result ranking based on implicit user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080109391A1",
+   "title": "Classifying content based on mood",
+   "assignee": "Scanscout, Inc."
+  },
+  {
+   "id": "US20170032044A1",
+   "title": "System and Method for Personalized Search While Maintaining Searcher Privacy",
+   "assignee": "Paul Vincent Hayes"
+  },
+  {
+   "id": "AU2007324329B2",
+   "title": "Annotation index system and method",
+   "assignee": "Squiz Pty Ltd"
+  },
+  {
+   "id": "US8399573B2",
+   "title": "Polymer blend compositions",
+   "assignee": "Sabic Innovative Plastics Ip B.V."
+  },
+  {
+   "id": "US20080133476A1",
+   "title": "Automated peer performance measurement system for academic citation databases",
+   "assignee": "Ivo Welch"
+  },
+  {
+   "id": "US8983970B1",
+   "title": "Ranking content using content and content authors",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8577866B1",
+   "title": "Classifying content",
+   "assignee": "Googe Inc."
+  },
+  {
+   "id": "JP5194778B2",
+   "title": "Ranking nodes for session-based queries",
+   "assignee": "富士通株式会社"
+  },
+  {
+   "id": "US20080177724A1",
+   "title": "Method and System for Indicating Links in a Document",
+   "assignee": "Nokia Corporation"
+  },
+  {
+   "id": "US7725453B1",
+   "title": "Custom search index",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7617194B2",
+   "title": "Supervised ranking of vertices of a directed graph",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7987185B1",
+   "title": "Ranking custom search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "WO2008086323A1",
+   "title": "Directed graph embedding",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080168045A1",
+   "title": "Content rank",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7844602B2",
+   "title": "Method and system for establishing document relevance",
+   "assignee": "Healthline Networks, Inc."
+  },
+  {
+   "id": "US20080186810A1",
+   "title": "System and Method for Audiovisual Content Search",
+   "assignee": "Kumaran O R Senthil"
+  },
+  {
+   "id": "US7809705B2",
+   "title": "System and method for determining web page quality using collective inference based on local and global information",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8065275B2",
+   "title": "Systems and methods for cache optimization",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8812651B1",
+   "title": "Systems and methods for client cache awareness",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8938463B1",
+   "title": "Modifying search result ranking based on implicit user feedback and a model of presentation bias",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8694374B1",
+   "title": "Detecting click spam",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "JP4781466B2",
+   "title": "Document importance calculation program",
+   "assignee": "富士通株式会社"
+  },
+  {
+   "id": "US7580945B2",
+   "title": "Look-ahead document ranking system",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8156056B2",
+   "title": "Method and system of classifying, ranking and relating information based on weights of network links",
+   "assignee": "Fernando Luege Mateos"
+  },
+  {
+   "id": "US20080249853A1",
+   "title": "Advertising campaign template",
+   "assignee": "Elan Dekel"
+  },
+  {
+   "id": "US8732187B1",
+   "title": "Link-based ranking of objects that do not include explicitly defined links",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "IL182518A0",
+   "title": "Pay per relevance (ppr) advertising method and system",
+   "assignee": "Grois Dan"
+  },
+  {
+   "id": "US7676520B2",
+   "title": "Calculating importance of documents factoring historical importance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8086624B1",
+   "title": "Determining proximity to topics of advertisements",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8949214B1",
+   "title": "Mashup platform",
+   "assignee": "Wal-Mart Stores, Inc."
+  },
+  {
+   "id": "US8161040B2",
+   "title": "Criteria-specific authority ranking",
+   "assignee": "Piffany, Inc."
+  },
+  {
+   "id": "US9092510B1",
+   "title": "Modifying search result ranking based on a temporal element of user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9183290B2",
+   "title": "Method and system for disambiguating informational objects",
+   "assignee": "Thomas Reuters Global Resources"
+  },
+  {
+   "id": "US7953724B2",
+   "title": "Method and system for disambiguating informational objects",
+   "assignee": "Thomson Reuters (Scientific) Inc."
+  },
+  {
+   "id": "US8024700B2",
+   "title": "Method and system for understanding social organization in a design and development process",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8260642B2",
+   "title": "Method and system for scoring and ranking a plurality of relationships in components of socio-technical system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20080313117A1",
+   "title": "Methods and Systems for Creating a Behavioral WEB Graph",
+   "assignee": "Brian Galvin"
+  },
+  {
+   "id": "US20080313167A1",
+   "title": "System And Method For Intelligently Indexing Internet Resources",
+   "assignee": "Jim Anderson"
+  },
+  {
+   "id": "US8010527B2",
+   "title": "System and method for recommending information resources to user based on history of user's online activity",
+   "assignee": "Fuji Xerox Co., Ltd."
+  },
+  {
+   "id": "US20090013033A1",
+   "title": "Identifying excessively reciprocal links among web entities",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9053195B2",
+   "title": "Method and system for user and reference ranking in a database",
+   "assignee": "Grant Chieh-Hsiang Yang"
+  },
+  {
+   "id": "US20090024470A1",
+   "title": "Vertical clustering and anti-clustering of categories in ad link units",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9323827B2",
+   "title": "Identifying key terms related to similar passages",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8200694B1",
+   "title": "Identification of implicitly local queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9178848B1",
+   "title": "Identifying affiliated domains",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9591086B2",
+   "title": "Display of information in electronic communications",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8175914B1",
+   "title": "Automatic adjustment of advertiser bids to equalize cost-per-conversion among publishers for an advertisement",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090037431A1",
+   "title": "System and method for maintaining metadata correctness",
+   "assignee": "Paul Martino"
+  },
+  {
+   "id": "US8694511B1",
+   "title": "Modifying search result ranking based on populations",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8046355B2",
+   "title": "Word decompounder",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8166046B1",
+   "title": "Link filter",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090070679A1",
+   "title": "Method and system for social network analysis",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US20090070130A1",
+   "title": "Reputation scoring",
+   "assignee": "Neelakantan Sundaresan"
+  },
+  {
+   "id": "US8577996B2",
+   "title": "Method and apparatus for tracing users of online video web sites",
+   "assignee": "Tremor Video, Inc."
+  },
+  {
+   "id": "US8549550B2",
+   "title": "Method and apparatus for passively monitoring online video viewing and viewer behavior",
+   "assignee": "Tubemogul, Inc."
+  },
+  {
+   "id": "US7958142B2",
+   "title": "User profile aggregation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7831611B2",
+   "title": "Automatically verifying that anti-phishing URL signatures do not fire on legitimate web sites",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US8032714B2",
+   "title": "Methods and systems for caching data using behavioral event correlations",
+   "assignee": "Aggregate Knowledge Inc."
+  },
+  {
+   "id": "US8019700B2",
+   "title": "Detecting an intrusive landing page",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8909655B1",
+   "title": "Time based ranking",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7840569B2",
+   "title": "Enterprise relevancy ranking using a neural network",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9348912B2",
+   "title": "Document length as a static relevance feature for ranking search results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US20090112865A1",
+   "title": "Hierarchical structure entropy measurement methods and systems",
+   "assignee": "Vee Erik N"
+  },
+  {
+   "id": "KR100849420B1",
+   "title": "Image based retrieval system and method",
+   "assignee": "주식회사지앤지커머스"
+  },
+  {
+   "id": "US8924465B1",
+   "title": "Content sharing based on social graphing",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9367823B1",
+   "title": "Computer method and system for ranking users in a network community of users",
+   "assignee": "Skyword, Inc."
+  },
+  {
+   "id": "US8862608B2",
+   "title": "Information retrieval using category as a consideration",
+   "assignee": "Wal-Mart Stores, Inc."
+  },
+  {
+   "id": "WO2009065149A2",
+   "title": "Navigable website analysis engine",
+   "assignee": "Seoeng Llc"
+  },
+  {
+   "id": "US7945571B2",
+   "title": "Application of weights to online search request",
+   "assignee": "Legit Services Corporation"
+  },
+  {
+   "id": "US20090138329A1",
+   "title": "Application of query weights input to an electronic commerce information system to target advertising",
+   "assignee": "William Paul Wanker"
+  },
+  {
+   "id": "US8078613B2",
+   "title": "Method for removing network effects from search engine results",
+   "assignee": "Red Hat, Inc."
+  },
+  {
+   "id": "US8150842B2",
+   "title": "Reputation of an author of online content",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8051076B1",
+   "title": "Demotion of repetitive search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7895235B2",
+   "title": "Extracting semantic relations from query logs",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8190553B2",
+   "title": "Methods and systems for quantum search, computation and memory",
+   "assignee": "Routt Thomas J"
+  },
+  {
+   "id": "US8145630B1",
+   "title": "Session-based dynamic search snippets",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9584343B2",
+   "title": "Presentation of organized personal and public data using communication mediums",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20090177537A1",
+   "title": "Video advertisement pricing",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090187559A1",
+   "title": "Method of analyzing unstructured documents to predict asset value performance",
+   "assignee": "Peter Gloor"
+  },
+  {
+   "id": "US8010482B2",
+   "title": "Locally computable spam detection features and robust pagerank",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8204818B1",
+   "title": "Hybrid online auction",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7930287B2",
+   "title": "Systems and methods for compound searching",
+   "assignee": "Michelli Capital Limited Liability Company"
+  },
+  {
+   "id": "US8812493B2",
+   "title": "Search results ranking using editing distance and document information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8984147B1",
+   "title": "Velocity based content delivery",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "JP5340751B2",
+   "title": "Document processing apparatus and document processing method",
+   "assignee": "株式会社エヌ・ティ・ティ・ドコモ"
+  },
+  {
+   "id": "US8255948B1",
+   "title": "Demographic classifiers from media content",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "KR100963392B1",
+   "title": "System and method for providing search results based on similarity between contents and system and method for providing advertisement",
+   "assignee": "엔에이치엔비즈니스플랫폼 주식회사"
+  },
+  {
+   "id": "US7949643B2",
+   "title": "Method and apparatus for rating user generated content in search results",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "JP5089482B2",
+   "title": "Information processing apparatus, data processing method, and program",
+   "assignee": "キヤノン株式会社"
+  },
+  {
+   "id": "WO2009138755A1",
+   "title": "Community search system with relational ranking",
+   "assignee": "Aubert Park Ventures Ltd."
+  },
+  {
+   "id": "US9128945B1",
+   "title": "Query augmentation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8510262B2",
+   "title": "Promoting websites based on location",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8296279B1",
+   "title": "Identifying results through substring searching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "WO2009151134A1",
+   "title": "Method for calculating resource points of resource information and distributing points",
+   "assignee": "Kddi株式会社"
+  },
+  {
+   "id": "US9323832B2",
+   "title": "Determining desirability value using sale format of item listing",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US11048765B1",
+   "title": "Search engine optimizer",
+   "assignee": "Richard Paiz"
+  },
+  {
+   "id": "US8788490B1",
+   "title": "Link based locale identification for domains and domain content",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8286171B2",
+   "title": "Methods and systems to fingerprint textual information using word runs",
+   "assignee": "Workshare Technology, Inc."
+  },
+  {
+   "id": "US8165915B1",
+   "title": "Advertisement customization",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20100030621A1",
+   "title": "Apparatus Configured to Host an Online Marketplace",
+   "assignee": "Inderpal Guglani"
+  },
+  {
+   "id": "US20100049761A1",
+   "title": "Search engine method and system utilizing multiple contexts",
+   "assignee": "Bijal Mehta"
+  },
+  {
+   "id": "US8555080B2",
+   "title": "Methods and systems for protect agents using distributed lightweight fingerprints",
+   "assignee": "Workshare Technology, Inc."
+  },
+  {
+   "id": "US9612995B2",
+   "title": "Video viewer targeting based on preference similarity",
+   "assignee": "Adobe Systems Incorporated"
+  },
+  {
+   "id": "US20090282028A1",
+   "title": "User Interface and Method for Web Browsing based on Topical Relatedness of Domain Names",
+   "assignee": "Michael Subotin"
+  },
+  {
+   "id": "US8514226B2",
+   "title": "Methods and systems of graphically conveying a strength of communication between users",
+   "assignee": "Verizon Patent And Licensing Inc."
+  },
+  {
+   "id": "JP5173721B2",
+   "title": "Document processing system, control method therefor, program, and storage medium",
+   "assignee": "キヤノン株式会社"
+  },
+  {
+   "id": "JP5415736B2",
+   "title": "Document processing system, control method therefor, program, and storage medium",
+   "assignee": "キヤノン株式会社"
+  },
+  {
+   "id": "US8250069B2",
+   "title": "Green's function formulations for pagerank algorithm using helmholtz wave equation representations of internet interactions",
+   "assignee": "University Of Washington"
+  },
+  {
+   "id": "US9043375B2",
+   "title": "Searching the internet for common elements in a document in order to detect plagiarism",
+   "assignee": "Software Analysis And Forensic Engineering Corporation"
+  },
+  {
+   "id": "WO2010059747A2",
+   "title": "Methods and systems for exact data match filtering",
+   "assignee": "Workshare Technology, Inc."
+  },
+  {
+   "id": "US8406456B2",
+   "title": "Methods and systems for image fingerprinting",
+   "assignee": "Workshare Technology, Inc."
+  },
+  {
+   "id": "US20100131563A1",
+   "title": "System and methods for automatic clustering of ranked and categorized search objects",
+   "assignee": "Hongfeng Yin"
+  },
+  {
+   "id": "US8392429B1",
+   "title": "Informational book query",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8396865B1",
+   "title": "Sharing search engine relevance data between corpora",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8271328B1",
+   "title": "User-based advertisement positioning using markov models",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8234274B2",
+   "title": "Systems and methods for characterizing linked documents using a latent topic model",
+   "assignee": "Nec Laboratories America, Inc."
+  },
+  {
+   "id": "US8412749B2",
+   "title": "Populating a structured presentation with new values",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20100241580A1",
+   "title": "System and method of selecting a relevant user for introduction to a user in an online environment",
+   "assignee": "Tagged, Inc."
+  },
+  {
+   "id": "US8769515B2",
+   "title": "Semantic intensity based decomposition of software systems",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8069167B2",
+   "title": "Calculating web page importance",
+   "assignee": "Microsoft Corp."
+  },
+  {
+   "id": "US20100250523A1",
+   "title": "System and method for learning a ranking model that optimizes a ranking evaluation metric for ranking search results of a search query",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9009146B1",
+   "title": "Ranking search results based on similar queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9098582B1",
+   "title": "Identifying relevant document languages through link context",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "DE202009006918U1",
+   "title": "Search engine with person identification in pictures based on facial biometric characteristics",
+   "assignee": "Bär, Stefan, M.Sc."
+  },
+  {
+   "id": "US8209330B1",
+   "title": "Ordering image search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "WO2010141216A2",
+   "title": "Self populating address book",
+   "assignee": "Xobni Corporation"
+  },
+  {
+   "id": "US9721228B2",
+   "title": "Locally hosting a social network using social data stored on a user's computer",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7930430B2",
+   "title": "Systems and methods to provide assistance during address input",
+   "assignee": "Xobni Corporation"
+  },
+  {
+   "id": "US8984074B2",
+   "title": "Sender-based ranking of person profiles and multi-person automatic suggestions",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20110191717A1",
+   "title": "Presenting Suggestions for User Input Based on Client Device Characteristics",
+   "assignee": "Xobni Corporation"
+  },
+  {
+   "id": "US8990323B2",
+   "title": "Defining a social network model implied by communications data",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8447760B1",
+   "title": "Generating a related set of documents for an initial set of documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "WO2011017084A2",
+   "title": "Methods and systems for comparing presentation slide decks",
+   "assignee": "Workshare Technology, Inc."
+  },
+  {
+   "id": "US20110041075A1",
+   "title": "Separating reputation of users in different roles",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9002857B2",
+   "title": "Methods for searching with semantic similarity scores in one or more ontologies",
+   "assignee": "Charite-Universitatsmedizin Berlin"
+  },
+  {
+   "id": "US8392440B1",
+   "title": "Online de-compounding of query terms",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8335986B2",
+   "title": "Previewing different types of documents",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US8498974B1",
+   "title": "Refining search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8352465B1",
+   "title": "Grouping of image search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "ITTO20090704A1",
+   "title": "SYSTEM AND METHOD FOR CONTENT CLASSIFICATION",
+   "assignee": "Intellisemantic Srl"
+  },
+  {
+   "id": "US8972391B1",
+   "title": "Recent interest based relevance scoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20110082809A1",
+   "title": "Integrated Institution Application Management System",
+   "assignee": "Andapally Praveen K"
+  },
+  {
+   "id": "US9251157B2",
+   "title": "Enterprise node rank engine",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US8694514B2",
+   "title": "Collaborative filtering engine",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US9659265B2",
+   "title": "Methods and systems for collecting and analyzing enterprise activities",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US9110568B2",
+   "title": "Browser tab management",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9087323B2",
+   "title": "Systems and methods to automatically generate a signature block",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8954893B2",
+   "title": "Visually representing a hierarchy of category nodes",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US9514466B2",
+   "title": "Collecting and presenting data including links from communications sent to or from a user",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "EP2502195A2",
+   "title": "Methods and apparatus for optimizing advertisement allocation",
+   "assignee": "Tadashi Yonezaki"
+  },
+  {
+   "id": "US8874555B1",
+   "title": "Modifying scoring data based on historical changes",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9760866B2",
+   "title": "Systems and methods to provide server side profile information",
+   "assignee": "Yahoo Holdings, Inc."
+  },
+  {
+   "id": "DE102010043541B4",
+   "title": "Method and means for predicting survival in pancreatic carcinoma by analysis of biomarkers",
+   "assignee": "Technische Universität Dresden"
+  },
+  {
+   "id": "TW201123064A",
+   "title": "Method for patent valuation and computer-readable storage medium",
+   "assignee": "Univ Nat Taiwan Science Tech"
+  },
+  {
+   "id": "US8903812B1",
+   "title": "Query independent quality signals",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20170358027A1",
+   "title": "Scoring trustworthiness, competence, and/or compatibility of any entity for activities including recruiting or hiring decisions, composing a team, insurance underwriting, credit decisions, or shortening or improving sales cycles",
+   "assignee": "Www.Trustscience.Com Inc."
+  },
+  {
+   "id": "US9262526B2",
+   "title": "System and method for compiling search results using information regarding length of time users spend interacting with individual search results",
+   "assignee": "Karl Muth"
+  },
+  {
+   "id": "EP2354971A1",
+   "title": "Document analysis system",
+   "assignee": "E-Therapeutics plc"
+  },
+  {
+   "id": "US20110191327A1",
+   "title": "Method for Human Ranking of Search Results",
+   "assignee": "Advanced Research Llc"
+  },
+  {
+   "id": "US8924956B2",
+   "title": "Systems and methods to identify users using an automated learning process",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8615514B1",
+   "title": "Evaluating website properties by partitioning user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9729352B1",
+   "title": "Assisting participation in a social network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8606792B1",
+   "title": "Scoring authors of posts",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8582801B2",
+   "title": "Assisting the authoring of posts to an asymmetric social network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8825759B1",
+   "title": "Recommending posts to non-subscribing users",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20110197220A1",
+   "title": "Customized television advertising",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10621608B2",
+   "title": "Systems and methods for tracking referrals among a plurality of members of a social network",
+   "assignee": "Ethan Fieldman"
+  },
+  {
+   "id": "US8924379B1",
+   "title": "Temporal-based score adjustments",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9152696B2",
+   "title": "Linkage information output apparatus, linkage information output method and computer-readable recording medium",
+   "assignee": "Nec Corporation"
+  },
+  {
+   "id": "US8959093B1",
+   "title": "Ranking search results based on anchors",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10643227B1",
+   "title": "Business lines",
+   "assignee": "Aurea Software, Inc."
+  },
+  {
+   "id": "US9760634B1",
+   "title": "Models for classifying documents",
+   "assignee": "Firstrain, Inc."
+  },
+  {
+   "id": "US11367295B1",
+   "title": "Graphical user interface for presentation of events",
+   "assignee": "Aurea Software, Inc."
+  },
+  {
+   "id": "US8452658B2",
+   "title": "Method and apparatus for connecting consumers with one or more product or service providers",
+   "assignee": "Qazzoo, Llc"
+  },
+  {
+   "id": "US10546311B1",
+   "title": "Identifying competitors of companies",
+   "assignee": "Aurea Software, Inc."
+  },
+  {
+   "id": "US8650195B2",
+   "title": "Region based information retrieval system",
+   "assignee": "Palle M Pedersen"
+  },
+  {
+   "id": "US9384678B2",
+   "title": "System and method for generating questions and multiple choice answers to adaptively aid in word comprehension",
+   "assignee": "Thinkmap, Inc."
+  },
+  {
+   "id": "US20110264997A1",
+   "title": "Scalable Incremental Semantic Entity and Relatedness Extraction from Unstructured Text",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US10936687B1",
+   "title": "Codex search patterns virtual maestro",
+   "assignee": "Richard Paiz"
+  },
+  {
+   "id": "US11423018B1",
+   "title": "Multivariate analysis replica intelligent ambience evolving system",
+   "assignee": "Richard Paiz"
+  },
+  {
+   "id": "US11379473B1",
+   "title": "Site rank codex search patterns",
+   "assignee": "Richard Paiz"
+  },
+  {
+   "id": "US8386495B1",
+   "title": "Augmented resource graph for scoring resources",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20110264530A1",
+   "title": "Apparatus and methods for dynamic secondary content and data insertion and delivery",
+   "assignee": "Bryan Santangelo"
+  },
+  {
+   "id": "US8788260B2",
+   "title": "Generating snippets based on content features",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "AU2011258449B2",
+   "title": "Active search results page ranking technology",
+   "assignee": "Mark F. Mclellan"
+  },
+  {
+   "id": "US8982053B2",
+   "title": "Presenting a new user screen in response to detection of a user motion",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8738635B2",
+   "title": "Detection of junk in search result ranking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8972257B2",
+   "title": "Systems and methods to present voice message information to a user of a computing device",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8533319B2",
+   "title": "Methods and systems for prioritizing network assets",
+   "assignee": "Lockheed Martin Corporation"
+  },
+  {
+   "id": "US8620935B2",
+   "title": "Personalizing an online service based on data collected for a user of a computing device",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9623119B1",
+   "title": "Accentuating search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "GB201011062D0",
+   "title": "Method and system for using an information system",
+   "assignee": "Univ Antwerpen"
+  },
+  {
+   "id": "US8341054B2",
+   "title": "System and method for bank account management and currency investment",
+   "assignee": "Cdt Global Soft, Inc."
+  },
+  {
+   "id": "US8639695B1",
+   "title": "System, method and computer program for analysing and visualising data",
+   "assignee": "Patent Analytics Holding Pty Ltd"
+  },
+  {
+   "id": "AU2010202901B2",
+   "title": "A system, method and computer program for preparing data for analysis",
+   "assignee": "Patent Analytics Holding Pty Ltd"
+  },
+  {
+   "id": "US8832083B1",
+   "title": "Combining user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "AU2010358588B2",
+   "title": "Managing revenue sharing bids",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US8724910B1",
+   "title": "Selection of representative images",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8977538B2",
+   "title": "Constructing and analyzing a word graph",
+   "assignee": "Richard Salisbury"
+  },
+  {
+   "id": "US8346792B1",
+   "title": "Query generation using structural similarity between documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9183299B2",
+   "title": "Search engine for ranking a set of pages returned as search results from a search query",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10783326B2",
+   "title": "System for tracking changes in a collaborative document editing environment",
+   "assignee": "Workshare, Ltd."
+  },
+  {
+   "id": "US11030163B2",
+   "title": "System for tracking and displaying changes in a set of related electronic documents",
+   "assignee": "Workshare, Ltd."
+  },
+  {
+   "id": "US8635295B2",
+   "title": "Methods and systems for monitoring documents exchanged over email applications",
+   "assignee": "Workshare Technology, Inc."
+  },
+  {
+   "id": "US8396876B2",
+   "title": "Identifying reliable and authoritative sources of multimedia content",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8527597B2",
+   "title": "Determining message prominence",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8793706B2",
+   "title": "Metadata-based eventing supporting operations on data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9002867B1",
+   "title": "Modifying ranking data based on document changes",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9348978B2",
+   "title": "Universal content traceability",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US8612367B2",
+   "title": "Learning similarity function for rare queries",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9235566B2",
+   "title": "System and method for enhanced lookup in an online dictionary",
+   "assignee": "Thinkmap, Inc."
+  },
+  {
+   "id": "US8645393B1",
+   "title": "Ranking clusters and resources in a cluster",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8645394B1",
+   "title": "Ranking clusters and resources in a cluster",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8819000B1",
+   "title": "Query modification",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8812506B2",
+   "title": "System and method for conducting processor-assisted indexing and searching",
+   "assignee": "Max-Planck-Gesellschaft Zur Foerderung Der Wissenschaften E.V"
+  },
+  {
+   "id": "US8838564B2",
+   "title": "Method to increase content relevance using insights obtained from user activity updates",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "JP5483740B2",
+   "title": "Document division scoring apparatus, method, and program",
+   "assignee": "日本電信電話株式会社"
+  },
+  {
+   "id": "US10574729B2",
+   "title": "System and method for cross platform document sharing",
+   "assignee": "Workshare Ltd."
+  },
+  {
+   "id": "US9948676B2",
+   "title": "System and method for securing documents prior to transmission",
+   "assignee": "Workshare, Ltd."
+  },
+  {
+   "id": "US9613340B2",
+   "title": "Method and system for shared document approval",
+   "assignee": "Workshare Ltd."
+  },
+  {
+   "id": "US10880359B2",
+   "title": "System and method for cross platform document sharing",
+   "assignee": "Workshare, Ltd."
+  },
+  {
+   "id": "US9170990B2",
+   "title": "Method and system for document retrieval with selective document comparison",
+   "assignee": "Workshare Limited"
+  },
+  {
+   "id": "US10963584B2",
+   "title": "Method and system for collaborative editing of a remotely stored document",
+   "assignee": "Workshare Ltd."
+  },
+  {
+   "id": "US10078819B2",
+   "title": "Presenting favorite contacts information to a user of a computing device",
+   "assignee": "Oath Inc."
+  },
+  {
+   "id": "US8745572B2",
+   "title": "Software development automated analytics",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9747583B2",
+   "title": "Presenting entity profile information to a user of a computing device",
+   "assignee": "Yahoo Holdings, Inc."
+  },
+  {
+   "id": "US8880423B2",
+   "title": "Inventory estimation for search retargeting",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8965882B1",
+   "title": "Click or skip evaluation of synonym rules",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "EP2575053A1",
+   "title": "User-enhanced ranking of information objects",
+   "assignee": "Alcatel Lucent"
+  },
+  {
+   "id": "WO2013052866A2",
+   "title": "Semantic selection and purpose facilitation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8930393B1",
+   "title": "Referent based search suggestions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10013152B2",
+   "title": "Content selection disambiguation",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "EP2584475A1",
+   "title": "Consideration of statistical confidence when assessing the importance of a website",
+   "assignee": "Alcatel Lucent"
+  },
+  {
+   "id": "EP2584476A1",
+   "title": "Consideration of path diversity to determine the importance of a unit of information in a random path within an information network",
+   "assignee": "Alcatel Lucent"
+  },
+  {
+   "id": "US8909627B1",
+   "title": "Fake skip evaluation of synonym rules",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN103136281A",
+   "title": "Web search result display system and method thereof",
+   "assignee": "英顺源（上海）科技有限公司"
+  },
+  {
+   "id": "US8965875B1",
+   "title": "Removing substitution rules based on user interactions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9152698B1",
+   "title": "Substitute term identification based on over-represented terms identification",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8799269B2",
+   "title": "Optimizing map/reduce searches by using synthetic events",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9141672B1",
+   "title": "Click or skip evaluation of query term optionalization rule",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9495462B2",
+   "title": "Re-ranking search results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8775924B1",
+   "title": "Processing web pages based on content quality",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10977285B2",
+   "title": "Using observations of a person to determine if data corresponds to the person",
+   "assignee": "Verizon Media Inc."
+  },
+  {
+   "id": "US8959103B1",
+   "title": "Click or skip evaluation of reordering rules",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9020927B1",
+   "title": "Determining resource quality based on resource competition",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9158857B2",
+   "title": "Identifying landing pages for images",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9460200B2",
+   "title": "Activity recommendation based on a context-based electronic files search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8898165B2",
+   "title": "Identification of null sets in a context-based electronic document search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8903813B2",
+   "title": "Context-based electronic document search using a synthetic event",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9262499B2",
+   "title": "Context-based graphical database",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8676857B1",
+   "title": "Context-based search for a data store related to a graph node",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "JP5928248B2",
+   "title": "Evaluation method, information processing apparatus, and program",
+   "assignee": "富士通株式会社"
+  },
+  {
+   "id": "US8959119B2",
+   "title": "Context-based graph-relational intersect derived database",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8620958B1",
+   "title": "Dimensionally constrained synthetic context objects database",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9251237B2",
+   "title": "User-specific synthetic context object matching",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9619580B2",
+   "title": "Generation of synthetic context objects",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9223846B2",
+   "title": "Context-based navigation through a database",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8782777B2",
+   "title": "Use of synthetic context-based objects to secure data stores",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9146966B1",
+   "title": "Click or skip evaluation of proximity rules",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9741138B2",
+   "title": "Node cluster relationships in a graph database",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10013672B2",
+   "title": "Address extraction from a communication",
+   "assignee": "Oath Inc."
+  },
+  {
+   "id": "US8931109B2",
+   "title": "Context-based security screening for accessing data",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10192200B2",
+   "title": "Classifying a portion of user contact data into local contacts",
+   "assignee": "Oath Inc."
+  },
+  {
+   "id": "US9213754B1",
+   "title": "Personalizing content items",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9916301B2",
+   "title": "Named entity variations for multimodal understanding systems",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8914413B2",
+   "title": "Context-based data gravity wells",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9229932B2",
+   "title": "Conformed dimensional data gravity wells",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8983981B2",
+   "title": "Conformed dimensional and context-based data gravity wells",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8856946B2",
+   "title": "Security filter for context-based data gravity wells",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9053102B2",
+   "title": "Generation of synthetic context frameworks for dimensionally constrained hierarchical synthetic context-based objects",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9069752B2",
+   "title": "Measuring and displaying facets in context-based conformed dimensional data gravity wells",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US11809506B1",
+   "title": "Multivariant analyzing replicating intelligent ambience evolving system",
+   "assignee": "Richard Paiz"
+  },
+  {
+   "id": "US11741090B1",
+   "title": "Site rank codex search patterns",
+   "assignee": "Richard Paiz"
+  },
+  {
+   "id": "US9292506B2",
+   "title": "Dynamic generation of demonstrative aids for a meeting",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9110722B2",
+   "title": "Data processing work allocation",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US11567907B2",
+   "title": "Method and system for comparing document versions encoded in a hierarchical representation",
+   "assignee": "Workshare, Ltd."
+  },
+  {
+   "id": "US9053129B1",
+   "title": "Content item relevance based on presentation data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10318583B2",
+   "title": "Systems and methods for recommending relationships within a graph database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US9767157B2",
+   "title": "Predicting site quality",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10152526B2",
+   "title": "Generation of synthetic context objects using bounded context objects",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9760644B2",
+   "title": "Embedding event creation link in a document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9183499B1",
+   "title": "Evaluating quality based on neighbor features",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN103235827B",
+   "title": "A kind of method of scientific and technical information automatic classification screening",
+   "assignee": "政和科技股份有限公司"
+  },
+  {
+   "id": "US9348794B2",
+   "title": "Population of context-based data gravity wells",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9195608B2",
+   "title": "Stored data analysis",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9053192B2",
+   "title": "Minimization of surprisal context data through application of customized surprisal context filters",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9176998B2",
+   "title": "Minimization of surprisal context data through application of a hierarchy of reference artifacts",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10452660B2",
+   "title": "Generation and maintenance of synthetic context events from synthetic context objects",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "WO2014197160A1",
+   "title": "Method for decomposing complex objects into simpler components",
+   "assignee": "Exxonmobil Upstream Research Comapny"
+  },
+  {
+   "id": "US10911492B2",
+   "title": "System and method for securing documents prior to transmission",
+   "assignee": "Workshare Ltd."
+  },
+  {
+   "id": "US9276951B2",
+   "title": "System and method for discovering optimal network attack paths",
+   "assignee": "The Boeing Company"
+  },
+  {
+   "id": "WO2015038881A1",
+   "title": "A method and system for generating comparable visual maps for browsing activity analysis",
+   "assignee": "ClickTale, Ltd."
+  },
+  {
+   "id": "US9697240B2",
+   "title": "Contextual state of changed data structures",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20150112818A1",
+   "title": "Content item selection criteria generation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20140297430A1",
+   "title": "System and method for facilitating the distribution of electronically published promotions in a linked and embedded database",
+   "assignee": "Reach Labs, Inc."
+  },
+  {
+   "id": "US10255329B1",
+   "title": "System information management",
+   "assignee": "Ventovate, LLC"
+  },
+  {
+   "id": "US20150193786A1",
+   "title": "Computation of a mobile subscriber's social rank to indicate importance",
+   "assignee": "Tektronix, Inc."
+  },
+  {
+   "id": "EP2897062A1",
+   "title": "Device and method for ranking linked documents",
+   "assignee": "Alcatel Lucent"
+  },
+  {
+   "id": "GB2524073A",
+   "title": "Communication method and system for accessing media data",
+   "assignee": "Ibm"
+  },
+  {
+   "id": "JP6420849B2",
+   "title": "Search engine optimization for resource directories",
+   "assignee": "コンヴィーダ ワイヤレス， エルエルシー"
+  },
+  {
+   "id": "CN104092567B",
+   "title": "Determine the method and apparatus of the influence power sequence of user",
+   "assignee": "华为技术有限公司"
+  },
+  {
+   "id": "US9542451B2",
+   "title": "Mobile application search ranking",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10133723B2",
+   "title": "System and method for determining document version geneology",
+   "assignee": "Workshare Ltd."
+  },
+  {
+   "id": "US11182551B2",
+   "title": "System and method for determining document version geneology",
+   "assignee": "Workshare Ltd."
+  },
+  {
+   "id": "US10649740B2",
+   "title": "Predicting and using utility of script execution in functional web crawling and other crawling",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US11803918B2",
+   "title": "System and method for identifying experts on arbitrary topics in an enterprise social network",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "SG10201505793RA",
+   "title": "Methods and systems for ranking merchants",
+   "assignee": "Mastercard International Inc"
+  },
+  {
+   "id": "US10430721B2",
+   "title": "Classifying user behavior as anomalous",
+   "assignee": "Pivotal Software, Inc."
+  },
+  {
+   "id": "US10061817B1",
+   "title": "Social ranking for apps",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US11763013B2",
+   "title": "Transaction document management system and method",
+   "assignee": "Workshare, Ltd."
+  },
+  {
+   "id": "CN105608133B",
+   "title": "Method and device for determining key pages",
+   "assignee": "北京神州绿盟信息安全科技股份有限公司"
+  },
+  {
+   "id": "US10862968B2",
+   "title": "Sensor data search platform",
+   "assignee": "Intel IP Corporation"
+  },
+  {
+   "id": "US10327400B2",
+   "title": "Methods for identifying crosses for use in plant breeding",
+   "assignee": "Monsanto Technology Llc"
+  },
+  {
+   "id": "US12517892B2",
+   "title": "Systems, methods, and devices to map to a distributed ledger using a search term",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US12361486B2",
+   "title": "Toll and congestion community objects with price-time priority queues for transformed toll and congestion capacity units",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US11880883B2",
+   "title": "Systems and methods for geolocation portfolio exchanges",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US11810023B2",
+   "title": "System and method for a transportation or freight capacity exchange for one or more transportation or freight capacity units",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US11138827B2",
+   "title": "Implementations of a computerized business transaction exchange for various users",
+   "assignee": "Simpsx Technologies Llc"
+  },
+  {
+   "id": "US12152894B2",
+   "title": "Multi-dimension classification object matrices to estimate multi-dimensional representations with multi function device",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US11138661B2",
+   "title": "Agriculture community objects with price-time priority queues for transformed agriculture units",
+   "assignee": "Simpsx Technologies Llc"
+  },
+  {
+   "id": "US12579588B2",
+   "title": "Method and system utilizing one or more virtual power plant capacity units",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US11823090B2",
+   "title": "Transportation and freight and parking and tolling and curb capacity unit IPO method and system",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US11740777B2",
+   "title": "Multi-dimension information service helmet method and system",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US12106365B2",
+   "title": "Web browser and operating system portal and search portal with price time priority queues",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US11035682B2",
+   "title": "Navigation routes as community object virtual hub sequences to which users may subscribe",
+   "assignee": "Simpsx Technologies Llc"
+  },
+  {
+   "id": "US12619928B2",
+   "title": "System and method for trading emissions units",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US12141885B2",
+   "title": "Parking community objects with price-time priority queues for transformed parking units",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US12487095B2",
+   "title": "Curb community objects with price-time priority queues for transformed curb capacity units",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US11215466B2",
+   "title": "Route community objects with price-time priority queues for transformed transportation units",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US20190251503A1",
+   "title": "Strategy game layer over price based navigation",
+   "assignee": "Erik M. Simpson"
+  },
+  {
+   "id": "US12493831B2",
+   "title": "Market layer price queue map routing in transportation capacity and space",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US10460520B2",
+   "title": "Computer ball device for mixed reality, virtual reality, or augmented reality",
+   "assignee": "Simpsx Technologies Llc"
+  },
+  {
+   "id": "US12346987B2",
+   "title": "Price time priority queue routing for transportation capacity units",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US12260456B2",
+   "title": "Virtual reality, augmented reality, mixed reality data exchange social network with multi dimensional map tile porting",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US12154183B2",
+   "title": "System and method for a tutoring exchange for tutoring units",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US20200151816A1",
+   "title": "Transportation and freight capacity units",
+   "assignee": "Erik M Simpson"
+  },
+  {
+   "id": "US12001999B2",
+   "title": "Price based navigation",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US12320654B2",
+   "title": "Financial swap index method and system on transportation capacity units and trading derivative products based thereon",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US12124976B2",
+   "title": "Market exchange for transportation capacity in transportation vehicles",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US12165223B2",
+   "title": "Renewable energy community objects with price-time priority queues for transformed renewable energy units",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US12039585B2",
+   "title": "System and method for blood and saliva optimized food consumption and delivery",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US11861527B2",
+   "title": "Financial swap payment structure method and system on transportation capacity unit assets",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US11790382B2",
+   "title": "Method to transmit geolocation exchange based markets",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US12579492B2",
+   "title": "System and method for trading emissions units using location data",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US20190272589A1",
+   "title": "Securitization of transportation units",
+   "assignee": "Erik M. Simpson"
+  },
+  {
+   "id": "US12354033B2",
+   "title": "Time interval geolocation community objects with price-time priority queues for transformed time interval geolocation units",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "US11157852B2",
+   "title": "Tool appliance community objects with price-time priority queues for transformed tool appliance units",
+   "assignee": "Simpsx Technologies Llc"
+  },
+  {
+   "id": "US20180247271A1",
+   "title": "Value of content relevance through search engine optimization",
+   "assignee": "Linkedln Corporation"
+  },
+  {
+   "id": "US11100152B2",
+   "title": "Data portal",
+   "assignee": "Target Brands, Inc."
+  },
+  {
+   "id": "US10503791B2",
+   "title": "System for creating a reasoning graph and for ranking of its nodes",
+   "assignee": "Borislav Agapiev"
+  },
+  {
+   "id": "WO2019113480A1",
+   "title": "Methods and systems for identifying hybrids for use in plant breeding",
+   "assignee": "Monsanto Technology Llc"
+  },
+  {
+   "id": "US11728010B2",
+   "title": "Methods and systems for identifying progenies for use in plant breeding",
+   "assignee": "Monsanto Technology Llc"
+  },
+  {
+   "id": "WO2019180327A1",
+   "title": "Method of securing transfer and managing data, on internet or analogous network, across a data exchange portal or platform.",
+   "assignee": "Daniel Mauduit"
+  },
+  {
+   "id": "CN109614453A",
+   "title": "A data storage, query method and device for regulatory information",
+   "assignee": "杭州法询信息科技有限公司"
+  },
+  {
+   "id": "US11048738B2",
+   "title": "Records search and management in compliance platforms",
+   "assignee": "EMC IP Holding Company LLC"
+  },
+  {
+   "id": "US10686826B1",
+   "title": "Optical scanning parameters computation methods, devices and systems for malicious URL detection",
+   "assignee": "Vade Secure Inc."
+  },
+  {
+   "id": "US11176147B2",
+   "title": "Querying a relational knowledgebase that provides data extracted from plural sources",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US11403849B2",
+   "title": "Methods and apparatus for characterization of digital content",
+   "assignee": "Charter Communications Operating, Llc"
+  },
+  {
+   "id": "WO2021124933A1",
+   "title": "Information processing system and information processing method",
+   "assignee": "桂太 杉原"
+  },
+  {
+   "id": "CN111478854B",
+   "title": "Real-time network node importance ordering method based on flow data",
+   "assignee": "中国人民解放军国防科技大学"
+  },
+  {
+   "id": "US12541292B2",
+   "title": "User device utilizing one or more multidimensional object databases",
+   "assignee": "Circlesx Llc"
+  },
+  {
+   "id": "EP3965362A1",
+   "title": "Machine learning to determine domain reputation, content classification, phishing sites, and command and control sites",
+   "assignee": "Zscaler, Inc."
+  },
+  {
+   "id": "US20220198471A1",
+   "title": "Graph traversal for measurement of fraudulent nodes",
+   "assignee": "Feedzai - Consultadoria E Inovação Tecnológica, S.A."
+  },
+  {
+   "id": "US12047243B2",
+   "title": "Synthetic network generator for covert network analytics",
+   "assignee": "Rensselaer Polytechnic Institute"
+  },
+  {
+   "id": "IT202100027983A1",
+   "title": "METHOD FOR THE SEARCH AND CLASSIFICATION OF TECHNICAL DOCUMENTS STORED ON A MULTIPLE DATABASES ACCESSIBLE ELECTRONICALLY",
+   "assignee": "Innovation Discovery S R L"
+  },
+  {
+   "id": "CN115587197A",
+   "title": "Meta search method and device",
+   "assignee": "三星电子（中国）研发中心"
+  },
+  {
+   "id": "US12602572B2",
+   "title": "Collaborative generative artificial intelligence content identification and verification",
+   "assignee": "Qomplx Llc"
+  },
+  {
+   "id": "WO2026005583A2",
+   "title": "Hardware and software system for verifiably processing bibliometric data, ranking publications and generating a cumulative rating",
+   "assignee": "Товарищество С Ограниченной Ответственностью \"Университет Mеждународного Бизнеса Имени Кенжегали Сагадиева\""
+  }
+ ],
+ "cites": [
+  {
+   "id": "US4953106A",
+   "title": "Technique for drawing directed graphs",
+   "assignee": "At&T Bell Laboratories"
+  },
+  {
+   "id": "US5450535A",
+   "title": "Graphs employing clusters",
+   "assignee": "At&T Corp."
+  },
+  {
+   "id": "US5594897A",
+   "title": "Method for retrieving high relevance, high quality objects from an overall source",
+   "assignee": "Gwg Associates"
+  },
+  {
+   "id": "US5748954A",
+   "title": "Method for searching a queued and ranked constructed catalog of files stored on a network",
+   "assignee": "Carnegie Mellon University"
+  },
+  {
+   "id": "US5752241A",
+   "title": "Method and apparatus for estimating transitive closure and reachability",
+   "assignee": "Lucent Technologies Inc."
+  },
+  {
+   "id": "US5754939A",
+   "title": "System for generation of user profiles for a system for customized electronic identification of desirable objects",
+   "assignee": "Herz; Frederick S. M."
+  },
+  {
+   "id": "US5832494A",
+   "title": "Method and apparatus for indexing, searching and displaying data",
+   "assignee": "Libertech, Inc."
+  },
+  {
+   "id": "US5848407A",
+   "title": "Hypertext document retrieving apparatus for retrieving hypertext documents relating to each other",
+   "assignee": "Matsushita Electric Industrial Co., Ltd."
+  },
+  {
+   "id": "US5915249A",
+   "title": "System and method for accelerated query evaluation of very large full-text databases",
+   "assignee": "Excite, Inc."
+  },
+  {
+   "id": "US5920859A",
+   "title": "Hypertext document retrieval system and method",
+   "assignee": "Idd Enterprises, L.P."
+  },
+  {
+   "id": "US5920854A",
+   "title": "Real-time document collection search engine with phrase indexing",
+   "assignee": "Infoseek Corporation"
+  },
+  {
+   "id": "US6014678A",
+   "title": "Apparatus for preparing a hyper-text document of pieces of information having reference relationships with each other",
+   "assignee": "Matsushita Electric Industrial Co., Ltd."
+  },
+  {
+   "id": "US6112202A",
+   "title": "Method and system for identifying authoritative information resources in an environment with content-based links between information resources",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6163778A",
+   "title": "Probabilistic web link viability marker and web page ratings",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US20010002466A1",
+   "title": "Hypertext navigation system controlled by spoken words",
+   "assignee": "Krasle Darin Edward"
+  },
+  {
+   "id": "US6269368B1",
+   "title": "Information retrieval using dynamic evidence combination",
+   "assignee": "Textwise Llc"
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US6389436B1",
+   "title": "Enhanced hypertext categorization using hyperlinks",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5446891A",
+   "title": "System for adjusting hypertext links with weighed user goals and activities",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5444823A",
+   "title": "Intelligent search engine for associated on-line documentation having questionless case-based knowledge base",
+   "assignee": "Compaq Computer Corporation"
+  },
+  {
+   "id": "US5838906A",
+   "title": "Distributed hypermedia method for automatically invoking external application providing interaction and display of embedded objects within a hypermedia document",
+   "assignee": "The Regents Of The University Of California"
+  },
+  {
+   "id": "US7269587B1",
+   "title": "Scoring documents in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US6012053A",
+   "title": "Computer system with user-controlled relevance ranking of search results",
+   "assignee": "Lycos, Inc."
+  },
+  {
+   "id": "US6134532A",
+   "title": "System and method for optimal adaptive matching of users to most relevant entity and information in real-time",
+   "assignee": "Aptex Software, Inc."
+  },
+  {
+   "id": "US5987457A",
+   "title": "Query refinement method for searching documents",
+   "assignee": "Acceleration Software International Corporation"
+  },
+  {
+   "id": "US6591261B1",
+   "title": "Network search engine and navigation tool and method of determining search results in accordance with search criteria and/or associated sites",
+   "assignee": "Zerx, Llc"
+  },
+  {
+   "id": "US6665838B1",
+   "title": "Web page thumbnails and user configured complementary information provided from a server",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8127220B1",
+   "title": "Scoring links in a document",
+   "assignee": "Google Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US8131715B1",
+   "title": "Scoring documents in a database"
+  },
+  {
+   "id": "US7269587B1",
+   "title": "Scoring documents in a linked database"
+  },
+  {
+   "id": "US6871202B2",
+   "title": "Method and apparatus for ranking web page search results"
+  },
+  {
+   "id": "US10929487B1",
+   "title": "Customization of search results for search queries received from third party sites"
+  },
+  {
+   "id": "KR101361182B1",
+   "title": "Systems for and methods of finding relevant documents by analyzing tags"
+  },
+  {
+   "id": "KR100304335B1",
+   "title": "Keyword Extraction System and Document Retrieval System Using It"
+  },
+  {
+   "id": "US7664735B2",
+   "title": "Method and system for ranking documents of a search result to improve diversity and information richness"
+  },
+  {
+   "id": "US6430558B1",
+   "title": "Apparatus and methods for collaboratively searching knowledge databases"
+  },
+  {
+   "id": "US7356530B2",
+   "title": "Systems and methods of retrieving relevant information"
+  },
+  {
+   "id": "US9020936B2",
+   "title": "Using categorical metadata to rank search results"
+  },
+  {
+   "id": "US20080313142A1",
+   "title": "Categorization of queries"
+  },
+  {
+   "id": "US20030014501A1",
+   "title": "Predicting the popularity of a text-based object"
+  },
+  {
+   "id": "US20080114753A1",
+   "title": "Method and a device for ranking linked documents"
+  },
+  {
+   "id": "US20080250105A1",
+   "title": "Method for enabling a user to vote for a document stored within a database"
+  },
+  {
+   "id": "US20080082486A1",
+   "title": "Platform for user discovery experience"
+  },
+  {
+   "id": "JP2009238241A",
+   "title": "Method and apparatus for searching data of database"
+  },
+  {
+   "id": "KR20070038146A",
+   "title": "Personalization of batch content sorting in search results"
+  },
+  {
+   "id": "US20060282413A1",
+   "title": "System and method for a search engine using reading grade level analysis"
+  },
+  {
+   "id": "US9594809B2",
+   "title": "System and method for compiling search results using information regarding length of time users spend interacting with individual search results"
+  },
+  {
+   "id": "US20060004809A1",
+   "title": "Method and system for calculating document importance using document classifications"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US6799176B1/en"
+}

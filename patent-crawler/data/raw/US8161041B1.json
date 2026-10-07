@@ -1,0 +1,808 @@
+{
+ "id": "US8161041B1",
+ "title": "Document-based synonym generation",
+ "abstract": "One embodiment of the present invention provides a system that automatically generates synonyms for words from documents. During operation, this system determines co-occurrence frequencies for pairs of words in the documents. The system also determines closeness scores for pairs of words in the documents, wherein a closeness score indicates whether a pair of words are located so close to each other that the words are likely to occur in the same sentence or phrase. Finally, the system determines whether pairs of words are synonyms based on the determined co-occurrence frequencies and the determined closeness scores. While making this determination, the system can additionally consider correlations between words in a title or an anchor of a document and words in the document as well as word-form scores for pairs of words in the documents.",
+ "inventors": [
+  "Oleksandr Grushetskyy",
+  "Steven D. Baker"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2007-02-07",
+ "filing_date": "2011-02-10",
+ "publication_date": "2012-04-17",
+ "status": "Active",
+ "expiration": "",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/953",
+  "G06F16/9532",
+  "G06F16/9535",
+  "G06F40/00",
+  "G06F40/20",
+  "G06F40/237",
+  "G06F40/247"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer-implemented method comprising: receiving a pair of words comprising a first word and a second word, where each word appears in a collection of documents; generating a word-form score for the pair of words based on a consistency of the pair of words with word-form rules, wherein a word-form rule indicates how words with a common portion can vary; computing a probability that the first word occurs within a first number of words of the second word in the one or more documents in the collection; computing a probability that the first word occurs within a second number of words of the second word in the one or more documents in the collection, wherein the second number is greater than the first number; generating a closeness score for the pair of words by dividing the first number by the second number; computing a relative frequency of occurrence for the first word and the second word in the collection of documents; generating a correlation between occurrences of a first word in the title or the anchor of the documents and occurrences of a second word in a same document; and determining that the first word and the second word are synonyms based at least on the correlation, the relative frequency of the first word and the second word, the closeness score, and the word-form score.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, further comprising: determining a co-occurrence frequency for the pair of words in the collection of documents; and determining that the pair of words are synonyms based at least on the determined the co-occurrence frequency.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, further comprising: generating an alternative search query for a search query that includes one of the words of the pair of words using another word of the pair of words.",
+   "dependent": true
+  },
+  {
+   "text": "4. A computer-implemented method comprising: receiving a pair of words; generating a word-form score for the pair of words based on a consistency of the pair of words with word-form rules, wherein a word-form rule indicates how words with a common portion can vary; determining that the pair of words is a synonym pair based at least on the generated word-form score; and generating an alternative search query for a search query that includes one of the words of the pair of words using another word of the pair of words.",
+   "dependent": false
+  },
+  {
+   "text": "5. The method of claim 4, further comprising: receiving one or more synonyms; and generating one or more word-form rules from the synonyms.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 5, wherein the synonyms share common portions.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 4, wherein receiving pairs of words comprises receiving pairs of words in which each word in a pair occurs in a document.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 4, further comprising: determining a co-occurrence frequency for the pair of words in a collection of documents; and determining that the pair of words are synonyms based at least on the determined co-occurrence frequency.",
+   "dependent": true
+  },
+  {
+   "text": "9. A computer-implemented method comprising: receiving a pair of words that includes first word and a second word; computing a probability that the first word occurs within a first number of words of the second word in a collection of documents; computing a probability that the first word occurs within a second number of words of the second word in the one or more documents, wherein the second number is greater than the first number; generating a closeness score for the pair of words by dividing the first number by the second number; determining a co-occurrence frequency for the pair of words in a collection of documents; and determining that the pair of words are not synonyms based at least on the generated closeness score and the co-occurrence frequency.",
+   "dependent": false
+  },
+  {
+   "text": "10. The method of claim 9, further comprising: excluding the pair of words from a list of synonyms used to generate alternative search queries.",
+   "dependent": true
+  },
+  {
+   "text": "11. The method of claim 9, wherein the first number is 4 words, and the second number is 100 words.",
+   "dependent": true
+  },
+  {
+   "text": "12. A system comprising: one or more computers and one or more storage devices storing instructions that are operable, when executed by the one or more computers, to cause the one or more computers to perform operations comprising: receiving a pair of words comprising a first word and a second word, where each word appears in a collection of documents; generating a word-form score for the pair of words based on a consistency of the pair of words with word-form rules, wherein a word-form rule indicates how words with a common portion can vary; computing a probability that the first word occurs within a first number of words of the second word in the one or more documents in the collection; computing a probability that the first word occurs within a second number of words of the second word in the one or more documents in the collection, wherein the second number is greater than the first number; generating a closeness score for the pair of words by dividing the first number by the second number; computing a relative frequency of occurrence for the first word and the second word in the collection of documents; generating a correlation between occurrences of a first word in the title or the anchor of the documents and occurrences of a second word in a same document; and determining that the first word and the second word are synonyms based at least on the correlation, the relative frequency of the first word and the second word, the closeness score, and the word-form score.",
+   "dependent": false
+  },
+  {
+   "text": "13. The system of claim 12, further comprising: determining a co-occurrence frequency for the pair of words in the collection of documents; and determining that the pair of words are synonyms based at least on the determined the co-occurrence frequency.",
+   "dependent": true
+  },
+  {
+   "text": "14. The system of claim 12, further comprising: generating an alternative search query for a search query that includes one of the words of the pair of words using another word of the pair of words.",
+   "dependent": true
+  },
+  {
+   "text": "15. A system comprising: one or more computers and one or more storage devices storing instructions that are operable, when executed by the one or more computers, to cause the one or more computers to perform operations comprising: receiving a pair of words; generating a word-form score for the pair of words based on a consistency of the pair of words with word-form rules, wherein a word-form rule indicates how words with a common portion can vary; determining that the pair of words is a synonym pair based at least on the generated word form score; and generating an alternative search query for a search query that includes one of the words of the pair of words using another word of the pair of words.",
+   "dependent": false
+  },
+  {
+   "text": "16. The system of claim 15, wherein the operations further comprise: receiving one or more synonyms; and generating one or more word-form rules from the synonyms.",
+   "dependent": true
+  },
+  {
+   "text": "17. The system of claim 16, wherein the synonyms share common portions.",
+   "dependent": true
+  },
+  {
+   "text": "18. The system of claim 15, wherein receiving pairs of words comprises receiving pairs of words in which each word in a pair occurs in a document.",
+   "dependent": true
+  },
+  {
+   "text": "19. The system of claim 15, wherein the operations further comprise: determining a co-occurrence frequency for the pair of words in a collection of documents; and determining that the pair of words are synonyms based at least on the determined co-occurrence frequency.",
+   "dependent": true
+  },
+  {
+   "text": "20. A system comprising: one or more computers and one or more storage devices storing instructions that are operable, when executed by the one or more computers, to cause the one or more computers to perform operations comprising: receiving a pair of words that includes first word and a second word; computing a probability that the first word occurs within a first number of words of the second word in a collection of documents; computing a probability that the first word occurs within a second number of words of the second word in the one or more documents, wherein the second number is greater than the first number; generating a closeness score for the pair of words by dividing the first number by the second number; determining a co-occurrence frequency for the pair of words in a collection of documents; and determining that the pair of words are not synonyms based at least on the generated closeness score and the co-occurrence frequency.",
+   "dependent": false
+  },
+  {
+   "text": "21. The system of claim 20, wherein the operations further comprise: excluding the pair of words from a list of synonyms used to generate alternative search queries.",
+   "dependent": true
+  },
+  {
+   "text": "22. The system of claim 20, wherein the first number is 4 words, and the second number is 100 words.",
+   "dependent": true
+  },
+  {
+   "text": "23. A computer program product, encoded on one or more non-transitory computer storage media, comprising instructions that when executed by one or more computers cause the one or more computers to perform operations comprising: receiving a pair of words comprising a first word and a second word, where each word appears in a collection of documents; generating a word-form score for the pair of words based on a consistency of the pair of words with word-form rules, wherein a word-form rule indicates how words with a common portion can vary; computing a probability that the first word occurs within a first number of words of the second word in the one or more documents in the collection; computing a probability that the first word occurs within a second number of words of the second word in the one or more documents in the collection, wherein the second number is greater than the first number; generating a closeness score for the pair of words by dividing the first number by the second number; computing a relative frequency of occurrence for the first word and the second word in the collection of documents; generating a correlation between occurrences of a first word in the title or the anchor of the documents and occurrences of a second word in a same document; and determining that the first word and the second word are synonyms based at least on the correlation, the relative frequency of the first word and the second word, the closeness score, and the word-form score.",
+   "dependent": false
+  },
+  {
+   "text": "24. The computer program product of claim 23, further comprising: determining a co-occurrence frequency for the pair of words in the collection of documents; and determining that the pair of words are synonyms based at least on the determined the co-occurrence frequency.",
+   "dependent": true
+  },
+  {
+   "text": "25. The computer program product of claim 23, further comprising: generating an alternative search query for a search query that includes one of the words of the pair of words using another word of the pair of words.",
+   "dependent": true
+  },
+  {
+   "text": "26. A computer program product, encoded on one or more non-transitory computer storage media, comprising instructions that when executed by one or more computers cause the one or more computers to perform operations comprising: receiving a pair of words; generating a word-form score for the pair of words based on a consistency of the pair of words with word-form rules, wherein a word-form rule indicates how words with a common portion can vary; and determining that the pair of words is a synonym pair based at least on the generated word-form score; and generating an alternative search query for a search query that includes one of the words of the pair of words using another word of the pair of words.",
+   "dependent": false
+  },
+  {
+   "text": "27. The computer program product of claim 26, wherein the operations further comprise: receiving one or more synonyms; and generating one or more word-form rules from the synonyms.",
+   "dependent": true
+  },
+  {
+   "text": "28. The computer program product of claim 27, wherein the synonyms share common portions.",
+   "dependent": true
+  },
+  {
+   "text": "29. The computer program product of claim 26, wherein receiving pairs of words comprises receiving pairs of words in which each word in a pair occurs in a document.",
+   "dependent": true
+  },
+  {
+   "text": "30. The computer program product of claim 26, wherein the operations further comprise: determining a co-occurrence frequency for the pair of words in a collection of documents; and determining that the pair of words are synonyms based at least on the determined co-occurrence frequency.",
+   "dependent": true
+  },
+  {
+   "text": "31. A computer program product, encoded on one or more non-transitory computer storage media, comprising instructions that when executed by one or more computers cause the one or more computers to perform operations comprising: receiving a pair of words that includes first word and a second word; computing a probability that the first word occurs within a first number of words of the second word in a collection of documents; computing a probability that the first word occurs within a second number of words of the second word in the one or more documents, wherein the second number is greater than the first number; generating a closeness score for the pair of words by dividing the first number by the second number; determining a co-occurrence frequency for the pair of words in a collection of documents; and determining that the pair of words are not synonyms based at least on the generated closeness score and the co-occurrence frequency.",
+   "dependent": false
+  },
+  {
+   "text": "32. The computer program product of claim 31, wherein the operations further comprise: excluding the pair of words from a list of synonyms used to generate alternative search queries.",
+   "dependent": true
+  },
+  {
+   "text": "33. The computer program product of claim 31, wherein the first number is 4 words, and the second number is 100 words.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## CROSS-REFERENCE TO RELATED APPLICATIONS\n\n\nThis application is a continuation of U.S. patent application Ser. No. 12/027,559, filed on Feb. 7, 2008, now U.S. Pat. No. 7,890,521, entitled “Document-Based Synonym Generation,” and U.S. Provisional Application No. 60/900,271, filed on Feb. 7, 2007 entitled “Document-Based Synonym Generation.” The disclosure of the foregoing applications is incorporated herein by reference in its entirety.\n\n\n## BACKGROUND\n\n\nThe present invention generally relates to the field of information retrieval, and more specifically to the task of identifying synonyms for words to facilitate retrieving documents in response to queries which contain the words.\n\nThe World Wide Web (web) contains a vast amount of freely available information. However, locating a relevant item of information on the web can be a challenging task. Note that this problem continues to increase as the amount of information available on the web continues to grow.\n\nSearch engines can often help users to locate and retrieve a document of interest on the web. However, users often fail to select effective query terms during the searching process. For example, a user may enter the query [web hosting+fort wayne] when the city of Fort Wayne is usually referred to as Ft. Wayne. Or, a user may enter [free loops for flash movie] when most relevant pages use the term “music,” rather than “loops” and the term “animation” rather than “movie.” Thus, documents that satisfy a user's informational needs may use different terms than the specific query terms chosen by the user to express a concept of interest. Note that this problem becomes more of an issue as the number of terms in a query increases. For queries longer than three or four words, there is a strong likelihood that at least one of the terms is not the best term to describe the user's informational need.\n\nHence, there is a need to modify and/or expand user queries to include synonyms for query terms, so that retrieved documents will better meet the user's informational needs.\n\nUnfortunately, solving this problem has proven to be a difficult task. A simple approach is to use pre-constructed synonym information, for example from a thesaurus or a structured lexical database. However, thesaurus-based systems have various problems. For example, they are often expensive to construct, and are generally restricted to one language.\n\nSome systems consider how often terms are substituted for each other during query sessions to determine whether the terms are synonyms. However, there does not exist enough query data for rare words and rare languages to identify synonyms in this way.\n\nOther systems consider stemming relationships to identify synonyms. However, stemming is not always accurate. For example, the words “university” and “universal” share the same stem, but have very different meanings Furthermore, many good synonyms are not covered by stemming, such as “wolfs” and “wolves,” or “wales” and “welsh.”\n\nAccordingly, what is needed is a method and an apparatus that identifies potential synonyms to facilitate searching operations without the above-described problems.\n\n\n## SUMMARY\n\n\nOne embodiment of the present invention provides a system that automatically generates synonyms for words from documents. During operation, this system determines co-occurrence frequencies for pairs of words in the documents. The system also determines closeness scores for pairs of words in the documents, wherein a closeness score indicates whether a pair of words are located so close to each other (for example, in sequential distance or logical distance) that the words are likely to occur in the same sentence or phrase. Finally, the system determines whether pairs of words are synonyms based on the determined co-occurrence frequencies and the determined closeness scores.\n\nIn some embodiments, determining a closeness score for a pair of words includes dividing the probability that the words are very close to each other by the probability that the words are near each other.\n\nIn some embodiments, words are determined to be “very close” to each other if they are less than a small number of words apart, such as 4 words, and words are determined to be “near” each other if they are within a pre-specified number words of each other, such as 100 words.\n\nIn some embodiments, while determining whether words are synonyms, the system considers a high closeness score between two words to indicate that the two words are unlikely to be synonyms because synonyms rarely occur in the same sentence or phrase.\n\nIn some embodiments, the system additionally generates correlations between words in a title or an anchor of a document and words in the document. In this variation, determining whether pairs of words are synonyms additionally involves considering the generated correlations.\n\nIn some embodiments, the system additionally determines word-form scores for pairs of words in the documents, wherein a high word-form score indicates that words share common portions, but have differing portions that are consistent with word form rules. Note that word-form rules specify a set of edits that that are allowed to a base word to produce gender-specific, plurality-related or other variations of the base word. For example, a high word-form score can indicate that: a pair of words share a common prefix but have different suffixes, wherein the different suffixes are consistent with word-form rules; a pair of words share a common suffix but have different prefixes, wherein the different prefixes are consistent with word-form rules; or a pair of words share a common prefix and a common suffix, but have different middle sections, wherein the different middle sections are consistent with word-form rules. In this variation, determining whether pairs of words are synonyms additionally involves considering the word-form scores.\n\nIn some embodiments, the system automatically generates the word-form rules from synonymous words that share common prefixes and/or suffixes.\n\nIn some embodiments, while determining whether a candidate word is a synonym for a target word, the system considers whether the candidate word is much more common than the target word. If so, the candidate word is not a synonym because search results produced by the candidate word will overwhelm search results produced by the target word. The system also considers whether the candidate word is much less common than the target word. If so, the candidate word is not a synonym because using the candidate word will produce very few additional search results.\n\nIn some embodiments, the system additionally processes a query. This involves first receiving the query which contains a set of words. Next, the system uses the synonyms which were automatically generated from the documents to identify one or more synonyms for the one or more words in the query. The system then generates an altered query using the one or more synonyms, and uses the altered query to produce search results. In one embodiment of the present invention, alternative synonyms are presented to a user through a user interface to enable the user to select the synonyms that are used to produce the altered query. Also note that when search results are returned the system can highlight or bold synonymous terms in search results.\n\nAnother embodiment of the present invention provides another system that automatically generates synonyms for words from documents. During operation, this system determines co-occurrence frequencies for pairs of words in the documents. The system also determines word-form scores for pairs of words in the documents, wherein a high word-form score indicates that a pair of words share a common prefix but have different endings, wherein the different endings are consistent with word-form rules. Finally, the system determines whether pairs of words are synonyms based on the determined co-occurrence frequencies and the determined word-form scores.\n\n\n## BRIEF DESCRIPTION OF THE FIGURES\n\n\nFIG. 1 illustrates the crawling, ranking and searching processes in accordance with an embodiment of the present invention.\n\nFIG. 2 presents a flowchart illustrating a method for generating altered queries according to one embodiment of the present invention.\n\nFIG. 3 presents a flow chart illustrating the process of automatically generating synonyms from words in a document in accordance with an embodiment of the present invention.\n\nFIG. 4 presents a flow chart illustrating the process of automatically generating word-form rules in accordance with an embodiment of the present invention.\n\n\n## DETAILED DESCRIPTION\n\n\nThe following description is presented to enable one of ordinary skill in the art to make and use the invention, and is provided in the context of a particular application and its requirements. Various modifications to the disclosed embodiments will be readily apparent to those skilled in the art, and the general principles defined herein may be applied to other embodiments and applications without departing from the spirit and scope of the present invention. Thus, the present invention is not limited to the embodiments shown, but is to be accorded the widest scope consistent with the claims.\n\nThe data structures and code described in this detailed description are typically stored on a computer-readable storage medium, which may be any device or medium that can store code and/or data for use by a computer system. This includes, but is not limited to, volatile memory, non-volatile memory, magnetic and optical storage devices such as disk drives, magnetic tape, CDs (compact discs), DVDs (digital versatile discs or digital video discs), or other media capable of storing computer readable media now known or later developed.\n\nCrawling, Ranking and Searching Processes\n\nFIG. 1 illustrates the crawling, ranking and searching processes in accordance with an embodiment of the present invention. During the crawling process, a web crawler 104 crawls or otherwise searches through websites on web 102 to select web pages to be stored in indexed form in data center 108. The selected web pages are then compressed, indexed and ranked in module 105 (using the ranking process described above) before being stored in data center 108.\n\nDuring a subsequent search process, a search engine 112 receives a query 113 from a user 111 through a web browser 114. This query 113 specifies a number of terms to be searched for in the set of documents. In response to query 113, search engine 112 uses search terms specified in the query as well as synonyms for search terms to identify highly-ranked documents that satisfy the query. Search engine 112 then returns a response 115 through web browser 114, wherein the response 115 contains matching pages along with ranking information and references to the identified documents.\n\nGenerating Altered Queries\n\nFIG. 2 presents a flowchart illustrating a method for generating altered queries according to one embodiment of the present invention. Initially, a search query is received from a client 110. In one embodiment, a front-end server is responsible for receiving the search query from the client (step 210). This front-end server provides the query to the search engine, which evaluates the query. In addition, the front-end server and/or search engine maintains various log files or lookup tables that storing each received query, as well as other information. More particularly, each query can be stored with a user identifier that identifies the particular browser and/or computer from which the query was received, a timestamp for the query, and a list of some number of the search results (e.g., a list of the top ten document IDs from the search). Other information related to user context or the search itself may also be stored.\n\nNext, a list of search results for the search query is identified (step 220). In this example, the search engine evaluates the query to retrieve a set of search results in accordance with the search query and returns the results to the front-end server. The search engine communicates with one or more content servers to select documents that are relevant to the user's search query. Note that a content server stores a large number of indexed documents, indexed (and/or retrieved) from different websites. Alternatively, or in addition, the content server can store an index of documents stored on various websites. “Documents” are understood here to be any form of indexable content, including textual documents, images, video, audio, multimedia, presentations, and so forth.\n\nIn one embodiment, each indexed document is assigned a page rank according to the document's link structure. This page rank serves as a query-independent measure of the document's importance. The search engine assigns a score to each document based on the document's page rank (and/or other query-independent measure of the document's importance), as well as one or more query-dependent signals of the document's importance (e.g., the location and frequency of search terms in the document).\n\nThen, one or more synonymous terms are identified (step 230) from a predetermined list. Formation of the predetermined list may be accomplished using various processes. More specifically, FIG. 3 presents a flowchart illustrating a process for determining automatically identifying synonyms from documents according to one embodiment of the present invention.\n\nNext, referring back to FIG. 2, one or more altered queries are derived using the synonymous terms (step 240). Various methods exist for deriving alternative queries from the synonymous terms. In one embodiment, alternative queries are suggested that include the synonym, either as a substitution in or an addition to the query.\n\nIn another embodiment, the synonym is treated as equivalent to the original phrase automatically for purposes of document retrieval. For example, the original query can be modified by replacing the phrase with a synonym or a disjunction of the original phrase and a synonym when producing search results for the query.\n\nFrom the above steps, a list of altered search results for the altered query is identified (step 250). In one embodiment, this list may include a maximum number of results.\n\nGenerating Synonyms from Documents\n\nFIG. 3 presents a flow chart illustrating the process of automatically generating synonyms from words in a document in accordance with an embodiment of the present invention. First, the system determines co-occurrence frequencies for pairs of words in the documents (step 302). This can be easily accomplished using well-known statistical techniques.\n\nThe system also determines closeness scores for pairs of words in the documents (step 304), wherein a closeness score indicates whether a pair of words are located so close to each other that the words are likely to occur in the same sentence or phrase. For example, in one embodiment of the present invention, determining the closeness score for a pair of words involves dividing the probability that the words are very close to each other (e.g., within 4 words) by the probability that the words are near each other (e.g., within 100 words). Note that the system considers a high closeness score between two words to indicate that the two words are unlikely to be synonyms because synonyms rarely occur in the same sentence or phrase.\n\nThe system additionally generates correlations between words in a titles or URL anchors for documents and words in the documents (step 306). This helps to identify synonyms because a document tends to contain synonyms for words in the title or the anchor of the document.\n\nThe system also determines word-form scores for pairs of words in the documents (step 308). A high word-form score between a pair of words generally indicates that the words share a common portion and have differing portions, wherein the differing portions are consistent with word-form rules. A word-form rule indicates how words with a common stem can vary. For example a high word-form score can indicate that the pair of words: (1) share a common prefix but have different suffixes, wherein the different suffixes are consistent with word-form rules; (2) share a common suffix but have different prefixes, wherein the different prefixes are consistent with word-form rules; or (3) share a common prefix and a common suffix, but have different middle sections, wherein the different middle sections are consistent with word-form rules. The process of determining word-form rules is discussed in more detail below with reference to the flow chart which appears in FIG. 4.\n\nFinally, the system determines whether pairs of words are synonyms based on the determined co-occurrence frequencies, closeness scores, title/anchor correlations, and word-form scores (step 310). Note that the closeness score is a negative indicator of a synonym, whereas the other factors are positive indicators.\n\nWhile determining whether words are synonyms, the system can also consider relative frequencies of pairs of words. For example, if the candidate word is much more common than the target word, the candidate word will generally not be a good synonym because search results produced by the candidate word will overwhelm search results produced by the target word. Also, if the candidate word is much less common than the target word, the candidate word will generally not be a good synonym because using the candidate word will produce very few additional search results.\n\nGenerating Word-Form Rules\n\nFIG. 4 presents a flow chart illustrating the process of automatically generating word-form rules in accordance with an embodiment of the present invention. The system first obtains pairs of words that are likely to be synonyms (step 402). This can involve considering a number of factors, such as the co-occurrence frequencies, closeness scores and title/anchor correlations described above. It can also involve obtaining pair of synonymous words using other techniques, such as examining word substitutions during query sessions. Next, the system can generate word-form rules which indicate how related words which share a common stem can vary. For example, the system can generate word-form rules for pairs of words that share common parts, which can include prefixes, suffixes and/or middle sections, and wherein remaining parts of the pair of words are consistent with word-form rules (step 404).\n\nThe foregoing descriptions of embodiments of the present invention have been presented only for purposes of illustration and description. They are not intended to be exhaustive or to limit the present invention to the forms disclosed. Accordingly, many modifications and variations will be apparent to practitioners skilled in the art. Additionally, the above disclosure is not intended to limit the present invention. The scope of the present invention is defined by the appended claims.",
+ "cited_by": [
+  {
+   "id": "US20120095748A1",
+   "title": "Language Identification in Multilingual Text",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8762370B1",
+   "title": "Document-based synonym generation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9336317B2",
+   "title": "System and method for searching aliases associated with an entity",
+   "assignee": "Industrial Technology Research Institute"
+  },
+  {
+   "id": "US20160147734A1",
+   "title": "Pattern Identification and Correction of Document Misinterpretations in a Natural Language Processing System",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10115170B2",
+   "title": "Systems and methods for image searching of patent-related documents",
+   "assignee": "Lex Machina, Inc."
+  },
+  {
+   "id": "US20190121849A1",
+   "title": "Word replaceability through word vectors",
+   "assignee": "MachineVantage, Inc."
+  },
+  {
+   "id": "US20210173858A1",
+   "title": "Apparatus and method for automated and assisted patent claim mapping and expense planning",
+   "assignee": "Black Hills Ip Holdings, Llc"
+  },
+  {
+   "id": "US11232137B2",
+   "title": "Methods for evaluating term support in patent-related documents",
+   "assignee": "RELX Inc."
+  },
+  {
+   "id": "US11798111B2",
+   "title": "Method and apparatus for cross-referencing important IP relationships",
+   "assignee": "Black Hills Ip Holdings, Llc"
+  },
+  {
+   "id": "US12147439B2",
+   "title": "Patent mapping",
+   "assignee": "Black Hills IP Holdings, LLC."
+  },
+  {
+   "id": "US12361380B2",
+   "title": "Patent mapping",
+   "assignee": "Black Hills Ip Holdings, Llc"
+  },
+  {
+   "id": "US8903810B2",
+   "title": "Techniques for ranking search results",
+   "assignee": "Collarity, Inc."
+  },
+  {
+   "id": "US8429184B2",
+   "title": "Generation of refinement terms for search queries",
+   "assignee": "Collarity Inc."
+  },
+  {
+   "id": "EP2260374A1",
+   "title": "Automated ontology generation system and method",
+   "assignee": "Lead Horse Technologies, Inc."
+  },
+  {
+   "id": "US8745478B2",
+   "title": "System and method for generating inspiration boards",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US9092517B2",
+   "title": "Generating synonyms based on query log data",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8150676B1",
+   "title": "Methods and apparatus for processing grammatical tags in a template to generate text",
+   "assignee": "Yseop Sa"
+  },
+  {
+   "id": "US20100293179A1",
+   "title": "Identifying synonyms of entities using web search",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8533203B2",
+   "title": "Identifying synonyms of entities using a document collection",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8875038B2",
+   "title": "Anchoring for content synchronization",
+   "assignee": "Collarity, Inc."
+  },
+  {
+   "id": "US8972431B2",
+   "title": "Synonym supported searches",
+   "assignee": "Salesforce.Com, Inc."
+  },
+  {
+   "id": "US9600566B2",
+   "title": "Identifying entity synonyms",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US20120078926A1",
+   "title": "Efficient passage retrieval using document metadata",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8793120B1",
+   "title": "Behavior-driven multilingual stemming",
+   "assignee": "A9.Com, Inc."
+  },
+  {
+   "id": "WO2012059854A1",
+   "title": "Suggesting relevant terms during text entry",
+   "assignee": "Koninklijke Philips Electronics N.V."
+  },
+  {
+   "id": "US8375042B1",
+   "title": "Index-side synonym generation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US11423029B1",
+   "title": "Index-side stem-based variant generation",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US8825620B1",
+   "title": "Behavioral word segmentation for use in processing search queries",
+   "assignee": "A9.Com, Inc."
+  },
+  {
+   "id": "CN102999495B",
+   "title": "A kind of synonym Semantic mapping relation determines method and device",
+   "assignee": "北京百度网讯科技有限公司"
+  },
+  {
+   "id": "CN103136262B",
+   "title": "Information retrieval method and device",
+   "assignee": "阿里巴巴集团控股有限公司"
+  },
+  {
+   "id": "JP5710519B2",
+   "title": "Synonym extraction device, method, and program",
+   "assignee": "日本電信電話株式会社"
+  },
+  {
+   "id": "US8745019B2",
+   "title": "Robust discovery of entity synonyms using query logs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9037591B1",
+   "title": "Storing term substitution information in an index",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10032131B2",
+   "title": "Data services for enterprises leveraging search system data assets",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9594831B2",
+   "title": "Targeted disambiguation of named entities",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9229924B2",
+   "title": "Word detection and domain dictionary recommendation",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9916301B2",
+   "title": "Named entity variations for multimodal understanding systems",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9311297B2",
+   "title": "Method and system for outputting information",
+   "assignee": "Prateek Bhatnagar"
+  },
+  {
+   "id": "US9280536B2",
+   "title": "Synonym determination among n-grams",
+   "assignee": "Hewlett Packard Enterprise Development Lp"
+  },
+  {
+   "id": "US9311300B2",
+   "title": "Using natural language processing (NLP) to create subject matter synonyms from definitions",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9558263B2",
+   "title": "Identifying and displaying relationships between candidate answers",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10372739B2",
+   "title": "Corpus search systems and methods",
+   "assignee": "NLPCore LLC"
+  },
+  {
+   "id": "US10102274B2",
+   "title": "Corpus search systems and methods",
+   "assignee": "NLPCore LLC"
+  },
+  {
+   "id": "US9767169B1",
+   "title": "Enhancing search results for improved readability",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN106294309B",
+   "title": "Combined type ambiguous word recognition method and device",
+   "assignee": "深圳市腾讯计算机系统有限公司"
+  },
+  {
+   "id": "CN105159931B",
+   "title": "For generating the method and apparatus of synonym",
+   "assignee": "上海智臻智能网络科技股份有限公司"
+  },
+  {
+   "id": "CN106339369B",
+   "title": "A method and system for identifying synonyms in a dataset",
+   "assignee": "广东医科大学"
+  },
+  {
+   "id": "RU2672393C2",
+   "title": "Method and system of thesaurus automatic formation",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "US10671577B2",
+   "title": "Merging synonymous entities from multiple structured sources into a dataset",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "KR102630668B1",
+   "title": "System and method for expanding input text automatically",
+   "assignee": "한국전자통신연구원"
+  },
+  {
+   "id": "US11182416B2",
+   "title": "Augmentation of a text representation model",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "JP7316165B2",
+   "title": "Information processing method and information processing device",
+   "assignee": "株式会社日立製作所"
+  },
+  {
+   "id": "JP2022174776A",
+   "title": "Synonym determination system and synonym determination method",
+   "assignee": "株式会社日立製作所"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5265065A",
+   "title": "Method and apparatus for information retrieval from a database by replacing domain specific stemmed phases in a natural language to create a search query",
+   "assignee": "West Publishing Company"
+  },
+  {
+   "id": "US5331556A",
+   "title": "Method for natural language data processing using morphological and part-of-speech information",
+   "assignee": "General Electric Company"
+  },
+  {
+   "id": "US5424947A",
+   "title": "Natural language analyzing apparatus and method, and construction of a knowledge base for natural language analysis",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5428707A",
+   "title": "Apparatus and methods for training speech recognition systems and their users and otherwise improving speech recognition performance",
+   "assignee": "Dragon Systems, Inc."
+  },
+  {
+   "id": "US5500920A",
+   "title": "Semantic co-occurrence filtering for speech recognition and signal transcription applications",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5594641A",
+   "title": "Finite-state transduction of related word forms for text indexing and retrieval",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5708829A",
+   "title": "Text indexing system",
+   "assignee": "Wang Laboratories, Inc."
+  },
+  {
+   "id": "US5745890A",
+   "title": "Sequential searching of a database index using constraints on word-location pairs",
+   "assignee": "Digital Equipment Corporation"
+  },
+  {
+   "id": "US5794178A",
+   "title": "Visualization of information using graphical representations of context vector based relationships and attributes",
+   "assignee": "Hnc Software, Inc."
+  },
+  {
+   "id": "US5832474A",
+   "title": "Document search and retrieval system with partial match searching of user-drawn annotations",
+   "assignee": "Matsushita Electric Industrial Co., Ltd."
+  },
+  {
+   "id": "US5915251A",
+   "title": "Method and apparatus for generating and searching range-based index of word locations",
+   "assignee": "Digital Equipment Corporation"
+  },
+  {
+   "id": "US6026388A",
+   "title": "User interface and other enhancements for natural language information retrieval system and method",
+   "assignee": "Textwise, Llc"
+  },
+  {
+   "id": "US6128613A",
+   "title": "Method and apparatus for establishing topic word classes based on an entropy cost function to retrieve documents represented by the topic words",
+   "assignee": "The Chinese University Of Hong Kong"
+  },
+  {
+   "id": "US6137911A",
+   "title": "Test classification system and method",
+   "assignee": "The Dialog Corporation Plc"
+  },
+  {
+   "id": "US6308149B1",
+   "title": "Grouping words with equivalent substrings by automatic clustering based on suffix relationships",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20020002550A1",
+   "title": "Process for enabling flexible and fast content-based retrieval",
+   "assignee": "Berman Andrew P."
+  },
+  {
+   "id": "US20020111792A1",
+   "title": "Document storage, retrieval and search systems and methods",
+   "assignee": "Julius Cherny"
+  },
+  {
+   "id": "US6453315B1",
+   "title": "Meaning-based information organization and retrieval",
+   "assignee": "Applied Semantics, Inc."
+  },
+  {
+   "id": "US6466901B1",
+   "title": "Multi-language document search and retrieval system",
+   "assignee": "Apple Computer, Inc."
+  },
+  {
+   "id": "US20030023421A1",
+   "title": "Music database searching",
+   "assignee": "Sibelius Software, Ltd."
+  },
+  {
+   "id": "US20030061122A1",
+   "title": "Knowledge-based e-catalog procurement system and method",
+   "assignee": "Berkowitz Gary Charles"
+  },
+  {
+   "id": "US6618727B1",
+   "title": "System and method for performing similarity searching",
+   "assignee": "Infoglide Corporation"
+  },
+  {
+   "id": "US20040064447A1",
+   "title": "System and method for management of synonymic searching",
+   "assignee": "Simske Steven J."
+  },
+  {
+   "id": "US20040122656A1",
+   "title": "Knowledge system method and appparatus",
+   "assignee": "Eli Abir"
+  },
+  {
+   "id": "US6788759B2",
+   "title": "X-ray examination apparatus for reconstructing a three-dimensional data set from projection images",
+   "assignee": "Koninklijke Philips Electronics N.V."
+  },
+  {
+   "id": "US20040181759A1",
+   "title": "Data processing method, data processing system, and program",
+   "assignee": "Akiko Murakami"
+  },
+  {
+   "id": "US20050060304A1",
+   "title": "Navigational learning in a structured transaction processing system",
+   "assignee": "Prashant Parikh"
+  },
+  {
+   "id": "US20050108001A1",
+   "title": "Method and apparatus for textual exploration discovery",
+   "assignee": "Aarskog Brit H."
+  },
+  {
+   "id": "US20050216443A1",
+   "title": "Method and system for indexing and searching timed media information based upon relevance intervals",
+   "assignee": "Streamsage, Inc."
+  },
+  {
+   "id": "US7003516B2",
+   "title": "Text representation and method",
+   "assignee": "Word Data Corp."
+  },
+  {
+   "id": "US20060129538A1",
+   "title": "Text search quality by exploiting organizational information",
+   "assignee": "Andrea Baader"
+  },
+  {
+   "id": "US20060253476A1",
+   "title": "Technique for relationship discovery in schemas using semantic name indexing",
+   "assignee": "Roth Mary A"
+  },
+  {
+   "id": "US7155427B1",
+   "title": "Configurable search tool for finding and scoring non-exact matches in a relational database",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US20070124293A1",
+   "title": "Audio search system",
+   "assignee": "Ohigo, Inc."
+  },
+  {
+   "id": "US7251637B1",
+   "title": "Context vector generation and retrieval",
+   "assignee": "Fair Isaac Corporation"
+  },
+  {
+   "id": "US20070282824A1",
+   "title": "Method and system for classifying documents",
+   "assignee": "Ellingsworth Martin E"
+  },
+  {
+   "id": "US20080249983A1",
+   "title": "Identifying a result responsive to a current location of a client device",
+   "assignee": "Aol Llc"
+  },
+  {
+   "id": "US20090177463A1",
+   "title": "Media Content Assessment and Control Systems",
+   "assignee": "Daniel Gerard Gallagher"
+  },
+  {
+   "id": "US4916614A",
+   "title": "Sentence translator using a thesaurus and a concept-organized co- occurrence dictionary to select from a plurality of equivalent target words",
+   "assignee": "Hitachi, Ltd."
+  },
+  {
+   "id": "JPH05298360A",
+   "title": "Method and device for evaluating translated sentence, machine translation system with translated sentence evaluating function and machine translation system evaluating device",
+   "assignee": "Hitachi Ltd"
+  },
+  {
+   "id": "US5675819A",
+   "title": "Document information retrieval using global word co-occurrence patterns",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5963940A",
+   "title": "Natural language information retrieval system and method",
+   "assignee": "Syracuse University"
+  },
+  {
+   "id": "JPH1049549A",
+   "title": "Document search device",
+   "assignee": "Matsushita Electric Ind Co Ltd"
+  },
+  {
+   "id": "US6078878A",
+   "title": "Bootstrapping sense characterizations of occurrences of polysemous words",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "DE69809263T2",
+   "title": "METHODS AND SYSTEM FOR SELECTING DATA SETS",
+   "assignee": "British Telecommunications P.L.C., London"
+  },
+  {
+   "id": "JP3665480B2",
+   "title": "Document organizing apparatus and method",
+   "assignee": "富士通株式会社"
+  },
+  {
+   "id": "US6847960B1",
+   "title": "Document retrieval by information unit",
+   "assignee": "Nec Corporation"
+  },
+  {
+   "id": "US6757692B1",
+   "title": "Systems and methods for structured vocabulary search and classification",
+   "assignee": "Northrop Grumman Corporation"
+  },
+  {
+   "id": "GB2399427A",
+   "title": "Apparatus for and method of summarising text",
+   "assignee": "Canon Kk"
+  },
+  {
+   "id": "US7620539B2",
+   "title": "Methods and apparatuses for identifying bilingual lexicons in comparable corpora using geometric processing",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US7634462B2",
+   "title": "System and method for determining alternate search queries",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20070100823A1",
+   "title": "Techniques for manipulating unstructured data using synonyms and alternate spellings prior to recasting as structured data",
+   "assignee": "Inmon Data Systems, Inc."
+  },
+  {
+   "id": "US20080033935A1",
+   "title": "Systems and methods for presenting results of geographic text searches",
+   "assignee": "Metacarta, Inc."
+  },
+  {
+   "id": "US8401841B2",
+   "title": "Retrieval of documents using language models",
+   "assignee": "Orcatec Llc"
+  },
+  {
+   "id": "US8442972B2",
+   "title": "Negative associations for search results ranking and refinement",
+   "assignee": "Collarity, Inc."
+  },
+  {
+   "id": "US7925498B1",
+   "title": "Identifying a synonym with N-gram agreement for a query phrase",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7890521B1",
+   "title": "Document-based synonym generation",
+   "assignee": "Google Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US8762370B1",
+   "title": "Document-based synonym generation"
+  },
+  {
+   "id": "US8768917B1",
+   "title": "Method and apparatus for automatically identifying compounds"
+  },
+  {
+   "id": "US7636714B1",
+   "title": "Determining query term synonyms within query context"
+  },
+  {
+   "id": "US8645372B2",
+   "title": "Keyword-based search engine results using enhanced query strategies"
+  },
+  {
+   "id": "US8090708B1",
+   "title": "Searching indexed and non-indexed resources for content"
+  },
+  {
+   "id": "US9367637B2",
+   "title": "System and method for searching a bookmark and tag database for relevant bookmarks"
+  },
+  {
+   "id": "US8321201B1",
+   "title": "Identifying a synonym with N-gram agreement for a query phrase"
+  },
+  {
+   "id": "US9104772B2",
+   "title": "System and method for providing tag-based relevance recommendations of bookmarks in a bookmark and tag database"
+  },
+  {
+   "id": "CN104537116B",
+   "title": "A kind of books searching method based on label"
+  },
+  {
+   "id": "US20090254540A1",
+   "title": "Method and apparatus for automated tag generation for digital content"
+  },
+  {
+   "id": "US8661012B1",
+   "title": "Ensuring that a synonym for a query phrase does not drop information present in the query phrase"
+  },
+  {
+   "id": "US20120323897A1",
+   "title": "Query-dependent audio/video clip search result previews"
+  },
+  {
+   "id": "US20130332441A1",
+   "title": "Systems and Methods for Identifying Terms Relevant to Web Pages Using Social Network Messages"
+  },
+  {
+   "id": "US8122022B1",
+   "title": "Abbreviation detection for common synonym generation"
+  },
+  {
+   "id": "US20070043761A1",
+   "title": "Semantic discovery engine"
+  },
+  {
+   "id": "CN101878476A",
+   "title": "Machine translation for query expansion"
+  },
+  {
+   "id": "US20140207746A1",
+   "title": "Adaptive Query Suggestion"
+  },
+  {
+   "id": "WO2012149500A2",
+   "title": "Multilingual search for transliterated content"
+  },
+  {
+   "id": "EP2192503A1",
+   "title": "Optimised tag based searching"
+  },
+  {
+   "id": "JP2015525929A",
+   "title": "Weight-based stemming to improve search quality"
+  },
+  {
+   "id": "US9183297B1",
+   "title": "Method and apparatus for generating lexical synonyms for query terms"
+  },
+  {
+   "id": "US9703871B1",
+   "title": "Generating query refinements using query components"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8161041B1/en"
+}

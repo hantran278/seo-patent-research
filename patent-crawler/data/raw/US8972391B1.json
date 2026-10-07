@@ -1,0 +1,2160 @@
+{
+ "id": "US8972391B1",
+ "title": "Recent interest based relevance scoring",
+ "abstract": "A computer-implemented method for processing query information includes receiving prior queries followed by a current query, the prior and current queries being received within an activity period an originating with a search requester. The method also includes receiving a plurality of search results based on the current query. Each search result identifying a search result document, each respective search result document being associated with a query specific score indicating a relevance of the document to the current query. The method also includes determining a first category based, at least in part, on the prior queries. The method also includes identifying a plurality of prior activity periods of other search requesters, each prior activity period containing a prior activity query where the prior activity query matches the current query, and where the prior activity period indicates the same first category. The method also includes obtaining category based selection statistics of the other requesters search results based on the last queries of the other activity periods. The method also includes obtaining general selection statistics of a more general population of requesters based on the current query. The method also includes generating adjusted scores for the search result documents by adjusting the respective scores based on the query specific score and the category specific score. The method also includes ranking the search result documents according to the respective adjusted scores.",
+ "inventors": [
+  "Philip McDonnell",
+  "Glen M. Jeh",
+  "Taher H. Haveliwala",
+  "Yair Kurzion"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2009-10-02",
+ "filing_date": "2009-10-02",
+ "publication_date": "2015-03-03",
+ "status": "Active",
+ "expiration": "2031-04-10",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/20",
+  "G06F16/24",
+  "G06F16/245",
+  "G06F16/2457",
+  "G06F16/24578",
+  "G06F16/30",
+  "G06F16/33",
+  "G06F16/335",
+  "G06F16/337",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/953",
+  "G06F16/9535",
+  "H04L67/00",
+  "H04L67/01",
+  "H04L67/10"
+ ],
+ "claims": [
+  {
+   "text": "1. A non-transitory computer readable storage medium having a computer program stored thereon, the program comprising instructions that, when executed by data processing apparatus, cause the data processing apparatus to perform operations comprising: analyzing a recent search activity period of a user to determine a short-term category of interest of the user, wherein the analyzing comprises comparing queries submitted by the user during the recent search activity period with categories of selected search results that were selected by the user during the recent search activity period; obtaining a plurality of search results responsive to a query, each of the plurality of search results having a respective score; for each particular search result of a first plurality of the search results: calculating a category selection value for the particular search result, wherein the category selection value for the particular search result is based on a measure of a count of selections of the particular search result as a portion of combined selection counts for search results responsive to the query for a plurality of users for the short-term category of interest; calculating a general selection value for the particular search result, wherein the general selection value for the particular search result is based on a measure of a count of selections of the particular search result as a portion of combined selection counts for search results responsive to the query for a plurality of users for any category of interest; calculating a category relevance for the particular search result, wherein the respective category relevance for the particular search result is based on a difference between the respective category selection value for the search result and the respective general selection value for the particular search result; selecting one or more search results of the plurality of search results, each selected search result being selected based on the selected search result having a category relevance that exceeds a threshold; adjusting the respective score for each of the selected search results based on, at least, the category selection value for each selected search result and the general selection value for each selected search result; and ranking the search results of the plurality of search results according to the respective adjusted scores for the selected search results and the respective scores for search results that were not selected.",
+   "dependent": false
+  },
+  {
+   "text": "2. The non-transitory computer-readable storage medium of claim 1, wherein analyzing the recent search activity period of the user comprises determining an amount of time elapsed between selection of a first search result in the recent search activity period and selection of a second search result in the recent search activity period.",
+   "dependent": true
+  },
+  {
+   "text": "3. The non-transitory computer-readable storage medium of claim 1, wherein each of one or more of the selections of the particular search result is weighted by a respective weight based on an amount of time that a user viewed a document referred to by the particular search result.",
+   "dependent": true
+  },
+  {
+   "text": "4. The non-transitory computer-readable storage medium of claim 1, wherein the category relevance for each selected search result is statistically significant.",
+   "dependent": true
+  },
+  {
+   "text": "5. The non-transitory computer-readable storage medium of claim 1, wherein adjusting the respective score for a particular selected search result comprises combining the category relevance for the particular selected search result with an information retrieval score of the particular selected search result.",
+   "dependent": true
+  },
+  {
+   "text": "6. The non-transitory computer-readable storage medium of claim 5, wherein combining the category relevance for the selected search result with the information retrieval score of the particular selected search result comprises: multiplying the category relevance for the selected search result by the information retrieval score of the particular selected search result, or adding the category relevance for the particular selected search result by the information retrieval score of the particular selected search result.",
+   "dependent": true
+  },
+  {
+   "text": "7. The non-transitory computer-readable storage medium of claim 1, wherein determining the short-term category of interest comprises determining the short-term category of interest based on, at least, user specific information.",
+   "dependent": true
+  },
+  {
+   "text": "8. The non-transitory computer-readable storage medium of claim 7, wherein the user specific information includes at least one of demographic information of the user and location information of the user.",
+   "dependent": true
+  },
+  {
+   "text": "9. The non-transitory computer readable storage medium of claim 1, wherein: the category selection value for the particular search result is a first click-through rate for the particular search result when the particular search result is presented in response to the query and to a first group of users having an interest that matches the short-term category of interest; the general selection value for the particular search result is a second click-through rare for the particular search result when the particular search result is presented in response to the query and to a second group of users that have any category of interest, the second group of users having at least one user that is not included in the first group of users; and the category relevance is based on a difference between the first click-through rate and the second click-through rate.",
+   "dependent": true
+  },
+  {
+   "text": "10. A computer-implemented method comprising: analyzing a recent search activity period of a user to determine a short-term category of interest of the user, wherein the analyzing comprises comparing queries submitted by the user during the recent search activity period with categories of selected search results that were selected by the user during the recent search activity period; obtaining a plurality of search results responsive to a query, each of the plurality of search results having a respective score; for each particular search result of a first plurality of the search results: calculating a category selection value for the particular search result, wherein the category selection value for the particular search result is based on a measure of a count of selections of the particular search result as a portion of combined selection counts for search results responsive to the query for a plurality of users for the short-term category of interest; calculating a general selection value for the particular search result, wherein the general selection value for the particular search result is based on a measure of a count of selections of the particular search result as a portion of combined selection counts for search results responsive to the query for a plurality of users for any category of interest; calculating a category relevance for the particular search result, wherein the respective category relevance for the particular search result is based on a difference between the respective category selection value for the search result and the respective general selection value for the particular search result; selecting a one or more search results of the first plurality of search results, each selected search result being selected based on the selected search result having a category relevance that exceeds a threshold; adjusting the respective score for each of the selected search results based on, at least, the category selection value for each selected search result and the general selection value for each selected search result; and ranking the search results of the plurality of search results according to the respective adjusted scores for the selected search results and the respective scores for search results that were not selected.",
+   "dependent": false
+  },
+  {
+   "text": "11. The method of claim 10, wherein analyzing the recent search activity period of the user comprises determining an amount of time elapsed between selection of a first search result in the recent search activity period and selection of a second search result in the recent search activity period.",
+   "dependent": true
+  },
+  {
+   "text": "12. The method of claim 10, wherein each of one or more of the selections of the particular search result is weighted by a respective weight based on an amount of time that a user viewed a document referred to by the particular search result.",
+   "dependent": true
+  },
+  {
+   "text": "13. The method of claim 10, wherein the category relevance for each selected search result is statistically significant.",
+   "dependent": true
+  },
+  {
+   "text": "14. The method of claim 10, wherein adjusting the respective score for a particular selected search result comprises combining the category relevance for the particular selected search result with an information retrieval score of the particular selected search result.",
+   "dependent": true
+  },
+  {
+   "text": "15. The method of claim 14, wherein combining the category relevance for the selected search result with the information retrieval score of the particular selected search result comprises: multiplying the category relevance for the particular selected search result by the information retrieval score of the particular selected search result, or adding the category relevance the particular selected search result by the information retrieval score of the particular selected search result.",
+   "dependent": true
+  },
+  {
+   "text": "16. The method of claim 10, wherein determining the short-term category of interest comprises determining the short-term category if interest based on, at least, user specific information.",
+   "dependent": true
+  },
+  {
+   "text": "17. The method of claim 16, wherein the user specific information includes at least one of demographic information of the user and location information of the user.",
+   "dependent": true
+  },
+  {
+   "text": "18. The method of claim 10, wherein: the category selection value for the particular search result is a first click-through rate for the particular search result when the particular search result is presented in response to the query and to a first group of users having an interest that matches the short-term category of interest; the general selection value for the particular search result is a second click-through rare for the particular search result when the particular search result is presented in response to the query and to a second group of users that have any category of interest, the second group of users having at least one user that is not included in the first group of users; and the category relevance is based on a difference between the first click-through rate and the second click-through rate.",
+   "dependent": true
+  },
+  {
+   "text": "19. A system comprising: data processing apparatus programmed to perform operations comprising: analyzing a recent search activity period of a user to determine a short-term category of interest of the user, wherein the analyzing comprises comparing queries submitted by the user during the recent search activity period with categories of selected search results that were selected by the user during the recent search activity period; obtaining a plurality of search results responsive to a query, each of the plurality of search results having a respective score; for each particular search result of a first plurality of the search results: calculating a category selection value for the particular search result, wherein the category selection value for the particular search result is based on a measure of a count of selections of the particular search result as a portion of combined selection counts for search results responsive to the query for a plurality of users for the short-term category of interest; calculating a general selection value for the particular search result, wherein the general selection value for the particular search result is based on a measure of a count of selections of the particular search result as a portion of combined selection counts for search results responsive to the query for a plurality of users for any category of interest; calculating a category relevance for the particular search result, wherein the respective category relevance for the particular search result is based on a difference between the respective category selection value for the search result and the respective general selection value for the particular search result; selecting a one or more search results of the first plurality of search results, each selected search result being selected based on the selected search result having a category relevance that exceeds a threshold; adjusting the respective score for each of the selected search results based on, at least, the category selection value for each selected search result and the general selection value for each selected search result; and ranking the search results of the plurality of search results according to the respective adjusted scores for the selected search results and the respective scores for search results that were not selected.",
+   "dependent": false
+  },
+  {
+   "text": "20. The system of claim 19, wherein analyzing the recent search activity period of the user comprises determining an amount of time elapsed between selection of a first search result in the recent search activity period and selection of a second search result in the recent search activity period.",
+   "dependent": true
+  },
+  {
+   "text": "21. The system of claim 19, wherein each of one or more of the selections of the particular search result is weighted by a respective weight based on an amount of time that a user viewed a document referred to by the particular search result.",
+   "dependent": true
+  },
+  {
+   "text": "22. The system of claim 19, wherein the category relevance for each selected search result is statistically significant.",
+   "dependent": true
+  },
+  {
+   "text": "23. The system of claim 19, wherein adjusting the respective score for a particular selected search result comprises combining the category relevance for the selected search result with an information retrieval score of the particular selected search result.",
+   "dependent": true
+  },
+  {
+   "text": "24. The system of claim 23, wherein combining the category relevance for the particular selected search result with the information retrieval score of the particular selected search result comprises: multiplying the category relevance for the particular selected search result by the information retrieval score of the particular selected first search result, or adding the category relevance for the selected search result by the information retrieval score of the particular selected search result.",
+   "dependent": true
+  },
+  {
+   "text": "25. The system of claim 19, wherein determining the short-term category of interest comprises determining the short-term category of interest based on, at least, user specific information.",
+   "dependent": true
+  },
+  {
+   "text": "26. The system of claim 25, wherein the user specific information includes at least one of demographic information of the user and location information of the user.",
+   "dependent": true
+  },
+  {
+   "text": "27. The system of claim 19, wherein: the category selection value for the particular search result is a first click-through rate for the particular search result when the particular search result is presented in response to the query and to a first group of users having an interest that matches the short-term category of interest; the general selection value for the particular search result is a second click-through rare for the particular search result when the particular search result is presented in response to the query and to a second group of users that have any category of interest, the second group of users having at least one user that is not included in the first group of users; and the category relevance is based on a difference between the first click-through rate and the second click-through rate.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## BACKGROUND\n\n\nThe present disclosure relates to using queries provided by one or multiple users to identify the intent of the user or users.\n\nInternet search engines aim to identify documents or other items that are relevant to a user's queries and to present the documents or items in a manner that is most useful to the user. Such activity often involves a fair amount of inferring from various clues of what the user wants. Certain clues may be user specific. For example, knowledge that a user is making a request from a mobile device, and knowledge of the location of the device, can result in much better search results for such a user.\n\nClues about a user's needs may also be more general. For example, search results can have an elevated importance, or inferred relevance, if a number of other search results link to them. If the linking results are themselves highly relevant, then the linked-to results may have a particularly high relevance. Such an approach to determining relevance may be premised on the assumption that, if authors of web pages felt that another web site was relevant enough to be linked to, then web searchers would also find the site to be particularly relevant. In short, the web authors “vote up” the relevance of the sites.\n\nOther various inputs may be used instead of, or in addition to, such techniques for determining and ranking search results. For example, user reactions to particular search results or search result lists may be gauged, so that results on which users often click will receive a higher ranking. The general assumption under such an approach is that searching users are often the best judges of relevance, so that if they select a particular search result, it is likely to be relevant, or at least more relevant than the presented alternatives.\n\n\n## SUMMARY\n\n\nThis specification describes technologies relating to ranking of resources for presentation in search results. In general, one or more aspects of the subject matter described in this specification can be embodied in one or more methods for processing query information. The methods include receiving prior queries followed by a current, the prior and current queries being received within an activity period and originating with a search requester. The methods include receiving a plurality of search results based on the current query, each search result identifying a search result document, each respective search result document being associated with a query specific score indicating a relevance of the document to the current query. The methods include determining a first category based, at least in part, on the prior queries. The methods include identifying a plurality of prior activity periods of other search requesters. Each prior activity period contains a prior activity query where the prior activity query matches the current query and where the prior activity period indicates the same first category. The methods include obtaining category based selection statistics of the other requesters search results based on the prior activity queries of the other activity periods. The methods include obtaining general selection statistics of a more general population of requesters based on the current query. The methods include generating adjusted scores for the search result documents by adjusting the respective scores based on the query specific score and the category specific score. The methods include ranking the search result documents according to the respective adjusted scores.\n\nThese and other embodiments can optionally include one or more of the following features:\n\nDetermining that the prior queries indicate the first category may also include analyzing time spent between selecting a first result and a second result. Generating may include determining a category specific selection frequency measuring the frequency with which the respective search result document is selected in the other activity periods, determining a general selection frequency measuring the frequency with which the respective search result document is selected by the more general population; and comparing the category specific selection frequency and the general selection frequency. Comparing may also include determining the difference between the category specific selection frequency and the general selection frequency. Comparing may also include determining that the difference exceeds a given threshold. Generating may also include comparing a selection value for the search result document and a total selection value aggregated across search result documents in the first category of search requester interest. The selection count for the search result may be weighted based on time between selecting the search result and at least one of a selection of successive search results and other user activity marking the end of the user engagement with the search result. Adjusting the respective scores based on the category specific score may include adjusting the respective score by multiplying and summing the category specific score and the multiplied value to the respective score. Determining a first category may include determining a second category. Determining the first category of interest may be based on search requester specific information. The search requester specific information may include demographic information and/or location information. Generating the category specific score for the search result documents may include determining an absence of the category specific score for statistically insignificant categories.\n\nThe details of one or more embodiments of the subject matter described in this specification are set forth in the accompanying drawings and the description below. Other features, objects, and advantages of the subject matter will be apparent from the description, the drawings, and the claims.\n\n\n## BRIEF DESCRIPTION OF DRAWINGS\n\n\nFIG. 1 shows an example information retrieval system.\n\nFIG. 2 shows example components of an information retrieval system.\n\nFIG. 3 shows another example information retrieval system.\n\nFIG. 4 illustrates an information retrieval search session.\n\nFIG. 5 shows a flowchart of operations of an interest identifier.\n\nFIG. 6 shows a flowchart of operations of a search system.\n\nFIG. 7 shows a schematic diagram of an example computer system.\n\nLike reference symbols and designations in the various drawings indicate like elements.\n\n\n## DETAILED DESCRIPTION\n\n\nFIG. 1 shows an example system 1000 for improving the relevance of results obtained from submitting search queries as can be implemented in an internet, intranet, or other client/server environment. The system 1000 is an example of an information retrieval system in which the systems, components and techniques described below can be implemented. Although several components are illustrated, there may be fewer or more components in the system 1000. Moreover, the components can be distributed on one or more computing devices connected by one or more networks or other suitable communication mediums.\n\nA search requester 1002 (1002 a, 1002 b, 1002 c) can interact with the system 1000 through a client device 1004 (1004 a, 1004 b, 1004 c) or other device. For example, the client device 1004 can be a computer terminal within a local area network (LAN) or wide area network (WAN). The client device 1004 can include a random access memory (RAM) 1006 (or other memory and/or a storage device) and a processor 1008. The processor 1008 is structured to process instructions within the system 1000. In some arrangements, the processor 1008 is a single-threaded processor. In other arrangements, the processor 1008 is a multi-threaded processor. The processor 1008 can include multiple processing cores and is structured to process instructions stored in the RAM 1006 (or other memory and/or a storage device included with the client device 1004) to display graphical information for a search requester interface.\n\nA search requester 1002 a can connect to a search engine 1030 within a server system 1014 to submit a query 1015. When the search requester 1002 a submits the query 1015 through an input device attached to a client device 1004 a, a client-side query signal 1010 a is sent into a network 1012 and is forwarded to the server system 1014 as a server-side query signal 1010 b. Server system 1014 can be one or more server devices in one or more locations. The server system 1014 includes a memory device 1016, which can include the search engine 1030 loaded therein. A processor 1018 is structured to process instructions within the system 1014. These instructions can implement one or more components of the search engine 1030. The processor 1018 can be a single-threaded processor or a multi-threaded processor, and can include multiple processing cores. The processor 1018 can process instructions stored in the memory 1016 related to the search engine 1030 and can send information to the client device 1004, through the network 1012, to create a graphical presentation in a search requester interface of the client device 1004 (e.g., a search results web page displayed in a web browser).\n\nThe server-side query signal 1010 b is received by the search engine 1030. The search engine 1030 uses the information within the search requester query 1015 (e.g. query terms) to find relevant documents. The search engine 1030 can include an indexing engine 1020 that actively searches a corpus (e.g., web pages on the Internet) to index the documents found in that corpus, and the index information for the documents in the corpus can be stored in an index database 1022. This index database 1022 can be accessed to identify documents related to the search requester query 1015. Note that, an electronic document (which for brevity will simply be referred to as a document) does not necessarily correspond to a file. A document can be stored in a portion of a file that holds other documents, in a single file dedicated to the document in question, or in multiple coordinated files.\n\nThe search engine 1030 can include a ranking engine 1052 to rank the documents related to the search requester query 1015. The ranking of the documents can be performed using traditional techniques for determining an information retrieval (IR) score for indexed documents in view of a given query. The relevance of a particular document with respect to a particular search term or to other provided information may be determined by any appropriate technique. For example, the general level of back-links to a document that contains matches for a search term may be used to infer a document's relevance. In particular, if a document is linked to (e.g., is the target of a hyperlink) by many other relevant documents (e.g., documents that also contain matches for the search terms) then it can be inferred that the target document is particularly relevant. This inference can be made because the authors of the pointing documents presumably point, for the most part, to other documents that are relevant to their audience.\n\nIf the pointing documents are in turn the targets of links from other relevant documents, they can be considered more relevant, and the first document can be considered particularly relevant because it is the target of relevant (or even highly relevant) documents. Such a technique may be the determinant of a document's relevance or one of multiple determinants. The technique is exemplified in some systems that treat a link from one web page to another as an indication of quality for the latter page, so that the page with the most such quality indicators is rated higher than others. Appropriate techniques can also be used to identify and eliminate attempts to cast false votes so as to artificially drive up the relevance of a page.\n\nVarious types of information may be provided to the rank modifier engine 1056 for improving the ranking of documents. For example, search requesters are often interested in one or more particular subjects or categories for a short time period, e.g., the last 30 minutes or two hours of a search session. The short-term interests of a search requestor may be identified and used to adjust ranking of search results. To determine such underlying interests of a search requester, the search engine 1030 can include an interest identifier 1058 that may implement one or more interest identification techniques. For example, the categories of interest may be gleaned from adjustments provided by the search requester. A search requester's interested in a particular category may issue queries related to the category and select search results referring to resources related to the category. A search requester may have a browsing history that indicates a particular area of interest. Generally, the search requester's recent activity can indicate the search requester's present needs and interests. In some arrangements, after an initial search request is executed and corresponding results provided, the search may be refined by the search requester to steer the subsequent search towards desired results. For example, adding or removing particular search terms and phrases during a search session may provide clues to the interests of the search requester 1002 a (regarding the search). Similarly, the manner in which an individual interacts with search results (e.g., search selections, time spent interacting with search selections, advertisement selections, etc.) may enable the interest identifier 1058 to identify one or more categories of search requester interest. In some arrangements, an interest identifier may look at information over a recent time period. (for example, the last 30 minutes, one hour, two hours, or twenty-four hours) to determine a short-term category of user interest. In some arrangements, the search system infers that a search requester is not interested in a particular category based on the search requester's recent activity, e.g., the search requester ignores a search result referring to a resource related to the particular category, or the search requester views the resource for a very short period of time after selection of the search result.\n\nAdditional information may also be used in conjunction with the refinement information for identifying search requester interest. For example, the language of the search requester (e.g., English, Spanish, etc.), the location of the search requester (e.g., country, region, state, city, etc.) and similar information may be utilized. Once identified, data representing the identified interest may be cataloged in a database (e.g., the index db 1022). Further, the identified search requester interest may be used for various applications such as providing assistance during future search sessions performed by the search requester 1002 a or other search requesters. Search result scoring and ranking (e.g., as performed by the ranking engine 1020 or the rank modifier engine 1056) can be adjusted to account for interest of the search requester 1002 a or similar search requesters.\n\nIn some arrangements, the ranking engine 1052 receives one or more signals (i.e., data indicative of relevance) from a rank modifier engine 1056 to assist in determining an appropriate ranking for the resources. The rank modifier engine 1056 can provide one or more measures of category relevance for the resources, which can be used by the ranking engine 1052 to improve the ranking of resources referred to by search results 1028 provided to the search requester 1002. In some arrangements, the measure of category relevance represents a probability of search result selection given the values of one or more features, as described further below. The rank modifier engine 1056 can perform one or more of the operations described below to generate the one or more measures of category relevance.\n\nIn some arrangements, the search engine 1030 includes a scoring engine that generates scores for resources based on many different features, including content based features that indicate the relevance of resource content to the query and query independent features that generally indicate the quality of resources. The ranking engine 1052 can produce a ranking of resources based on scores received from the scoring engine and one or more measures of category relevance from the rank modifier engine 1056.\n\nThe search engine 1030 can forward the final, ranked result list within a server-side search results signal 1028 a through the network 1012. Exiting the network 1012, a client-side search results signal 1028 b can be received by the client device 1004 a where the results can be stored within the RAM 1006 and/or used by the processor 1008 to display the results on an output device for the search requester 1002 a.\n\nFIG. 2 shows example components of an information retrieval system. These components can include an indexing engine 2010, a scoring engine 2020, a ranking engine 2030, a rank modifier engine 2070, and an interest identifier 2080. The indexing engine 2010 can function as described above for the indexing engine 1020. In addition, the scoring engine 2020 can generate scores of document results based on many different features, including content-based features that link a query to document results, and query-independent features that generally indicate the quality of document results. The content-based features can include aspects of document format, such as query matches to title or anchor text in an HTML (Hyper Text Markup Language) page. The query-independent features can include aspects of document cross-referencing, such as a rank of the document or the domain. Moreover, the particular functions used by the scoring engine 2020 can be tuned to adjust the various feature contributions to the final IR score using automatic or semi-automatic processes.\n\nThe ranking engine 2030 can produce a ranking of document results 2040 for display to a search requester based on IR scores received from the scoring engine 2020 and one or more signals from the rank modifier engine 2070. The rank modifier engine 2070 can adjust rankings, at least in part, based on data received from the interest identifier 2080. Along with being provided data from the result selection logs 2060, other sources may provide information to the interest identifier 2080. For example, queries entered into a search requester interface may be provided to the interest identifier 2080. The interest identifier 2080 may provide information about the relevance of particular search results for a category of interest and a query to the rank modifier engine 2070. In this particular example, the interest identifier 2080 provides information to the rank modifier engine 2070, however other architectures may be implemented. For example, a category of interest information may be provided by the interest identifier 2080 to the indexing engine 2010 or one or more other components of the information retrieval system. A tracking component 2050 can be used to record information regarding individual search requester selections of the results presented in the ranking 2040. For example, the tracking component 2050 can be embedded JavaScript code included in a web page ranking 2040 that identifies search requester selections (clicks) of individual document results and also identifies when the search requester returns to the results page. Therefore the component may indicate the amount of time the search requester spent viewing the selected document result. In other arrangements, the tracking component 2050 can be a proxy system through which search requester selections of the document results are routed, or the tracking component can include pre-installed software at the client (e.g., a toolbar plug-in to the client's operating system). Other arrangements are also possible, such as using a feature of a web browser that allows a tag/directive to be included in a page, which requests the browser to connect back to the server with message(s) regarding link(s) clicked by the search requester.\n\nThe recorded information can be stored in result selection log(s) 2060. The recorded information can include log entries that indicate, for each search requester selection, the query, the resource, the time on the resource, the language employed by the search requester, and the country or region where the search requester is likely located (e.g., based on the server used to access the IR system). Other information can also be recorded regarding search requester interactions with a presented ranking, including negative information, such as the fact that a document result was presented to a search requester but was not clicked, position(s) of click(s) in the search requester interface, IR scores of clicked results, IR scores of all results shown before the clicked result, the titles and snippets shown to the search requester before the clicked result, the search requester's cookie, cookie age, IP (Internet Protocol) address, search requester agent of the browser, etc. Still, further information can be recorded such as described below during discussion of the various features that can be used to build a prior model. Moreover, similar information (e.g., IR scores, position, etc.) can be recorded for an entire session, or multiple sessions of a search requester, including potentially recording such information for every click that occurs both before and after a current click.\n\nThe information stored in the result selection log(s) 2060 can be used by one or more components of the information retrieval system. For example, information could be provided to interest identifier 2080 and the rank modifier engine 2070 in generating one or more signals to the ranking engine 2030. In general, a wide range of information can be collected and used to modify or tune the click signal from the search requester to make the signal, and the future search results provided, a better fit for the search requester's needs. Thus, search requester interactions with the rankings presented to the search requesters of the information retrieval system can be used to improve future rankings Additionally, query adjustments indicative of refining a search can be used to modify rankings. In some arrangements, the search requester interaction and search requester interest data may be provided to one or more server systems (e.g., server system 1014) for use and storage (e.g., database 1022) for later retrieval. For example, interest identifier 2080 may compare current search results with previous search activity to provide ranking adjustments to the rank modifier engine 2070.\n\nThe components shown in FIG. 2 can be combined in various manners and implemented in various system configurations. For example, the scoring engine 2020 and the ranking engine 2030 can be merged into a single ranking engine, such as the ranking engine 1052 of FIG. 1. The interest identifier 2080, the rank modifier engine 2070, and the ranking engine 2030 can also be merged and, in general, a ranking engine includes any software component that generates a ranking of document results after a query. Moreover, a ranking engine can be included in a client system in addition to (or rather than) in a server system.\n\nFIG. 3 shows another example of an information retrieval system. In this system, a server system 3050 includes an indexing engine 3060 and a scoring/ranking engine 3070. A client system 3000 includes a search requester interface for presenting a ranking 3010, a tracking component 3020, result selection log(s) 3030 and a ranking/rank modifier engine/interest identifier 3040. For example, the client system 3000 can include a company's enterprise network and personal computers, in which a browser plug-in incorporates the ranking/rank modifier engine/intent identifier 3040. When an employee in the company initiates a search on the server system 3050, the scoring/ranking engine 3070 can return the search results along with either an initial ranking or the actual IR scores for the results. The browser plug-in can then re-rank the results locally based on tracked page selections for the company-specific search requester base. While FIGS. 2 and 3 provide two exemplary information retrieval systems, other architectures may be implemented. For example, an indent identifier may be positioned in other locations of an information retrieval system or distributed across multiple locations.\n\nReferring to FIG. 1, the search system 1014 can modify the IR score of a resource for a particular searcher based on the searcher's inferred short-term categorical interests. In particular, for a given query issued by a particular searcher with inferred categorical interests, the search system 1014 can refer to the search result selections of other searchers who issued the same query or similar queries and were interested in the same categories. The search system 1014 can increase the IR scores of the resources associated with the search results that were preferred by these similarly interested search requesters. Likewise, the search system 1014 can decrease the IR scores of the resources associated with the search results that were ignored or not preferred by these similarly interested search requesters. Preference for a search result can be inferred in a number of ways, e.g., from a high rate of search requester selection of the search result or long views of the associated resource by search requesters selecting the search result.\n\nWhen the score of a resource increases or decreases, the rank of the resource relative to other responsive resources may be increased or decreased. Whether the rank of a particular resource changes depends on the rank of the resource before modifying the score, how much the score is modified, and how much the score for neighboring resources are modified. For example, if the ranking engine 1052 has already ranked a particular resource as the top resource for a given query, increasing the score for that particular resource will not change the resource's rank. However, if the search system increases the score for the second-ranked resource for the given query, the amount increased might be large enough to boost the second-ranked resource to the top spot. Thus, the search system can promote or demote resources in a search results list for a particular search requester based on the search requester's inferred short-term categorical interests.\n\nIn some arrangements, the search system 1014 only modifies the score of a resource for a particular search requester issuing a given query if similarly interested search requesters selected the search result referring to the resource at a rate that differs (e.g., by a statistically significant amount) from the rate at which the general population selected the same search result returned for the same query. The required threshold to determine that the result is selected more often for search requesters with a specific interest than by search requesters with a more general interested may be a fixed threshold (for example a difference of at least 0.01 in absolute click through rate). The required threshold may be relative, for example, the click through rate may need to be at least 10% greater. For example, if a result receives a click through rate of 10% among the general population, and a click through rate of 12% among search requesters having a particular interest, the relative difference is 20%. The threshold may also be statistical. For example, if the click through rate based on a sample observation period for a given result is more than a standard deviation greater for users having a particular interest than for the general population. In some arrangements the threshold may be a combination of absolute, relative, and/or statistical thresholds.\n\nThe search system 1014 can use the rate at which search requesters select a particular search result for a given query as a measure of the relevance of the associated resource to the given query. For example, if search requesters with an identified interest select a search result more frequently then the general population, the search system can infer that other similarly interested search requesters will find the search result to be more relevant. Likewise, if search requesters with an identified interest select a search result less frequently than the general population, the search system can infer that other similarly interested search requesters will find the associated resource to be less relevant.\n\nIn some arrangements, the difference between the two rates must be greater than a predefined threshold for the search system to modify the resource's score. If the difference is greater than the predefined threshold, the search system modifies the score of the resource to reflect the measure of category relevance (e.g., the expected selection rate) of the resource to the given query for the similarly interested search requesters.\n\nFor example, referring to FIG. 4A, a search requester may be researching business schools during a particular period. During this period, the search requester issues the query “harvard business” 420 a in the query interface 404. As shown by process arrows 422 a and 424 a, the search query 420 a and characteristics associated with the user (e.g. language, location, etc.) may be sent to the server side system 402 via the network 412. The server side system 402 can process the search query 420 a and related information, for example by using one or more software modules (e.g., a search engine) executed by the server 408. As shown by process arrow 426 a, the “harvard business” query 420 a may be stored in the data store 410. Other information (e.g., index information, user characteristics, search session statistics, etc.) may also be retrieved from or stored in the data store 410 and can be used by the server 408 for providing a set of query results. The data store 410 is representative of various types of information sources that may be in communication with the server 408. For example, one or more storage devices (e.g., hard drives, etc.), servers, and computing device equipment may be directly or indirectly (e.g., via one or more networks) in communication with the server 408. As shown by process arrows 428 a and 430 a, search results may be sent to the client side system 400 via the network 412. Upon receipt, a set of search results 440 a may be presented to a user via the results interface 406. In this example, the search requester selects the “Harvard Business School” search result 432, referring to the Harvard Business School web site. As shown by process arrows 434 a and 436 a, information about the selection is sent to the server side system 402 and stored in the database 410.\n\nReferring to FIG. 4B, during the same period, the same search requester issues a query “kellogg” 420 b in the query interface 404. As shown by process arrows 424 b and 424 b, the search query 420 b and characteristics associated with the user may be sent to the server side system 402 via the network 412. The server side system 402 may process the search query 420 a and related information. As shown by process arrow 426 a, the query “kellogg” 430 b may be stored in the data store 410. Other data may be retrieved from or stored in the data store 410, including information about the previously submitted query 420 a and the previously selected result 432 a. In this example, the server 408 determines that there is insufficient data to support an inference of a category of interest. In other examples, the previously submitted query 420 a, the search results returned from executing the query, and/or the previously selected result 432 a alone, or coupled with the user information, may be sufficient for the server 408 to infer a category of user interest. As shown by process arrows 428 b and 430 b, search results may be sent to the client side system 400 via the network 412. Upon receipt, a set of search results 440 b may be presented to a user via the results interface 406. In this example, the search requester selects the “Kellogg School of Management” search result 432 b referring to the website of the Kellogg School of Management at Northwestern. As shown by process arrows 434 b and 436 b, information about the selection is sent to the server side system 402 and stored in the database 410.\n\nReferring to FIG. 4C, also during the same period, the same search requester then issues a query “anderson” 420 c in the query interface 404. As shown by process arrows 424 c and 424 c, the search query 420 c and characteristics associated with the user may be sent to the server side system 402 via the network 412. The server side system 402 can process the search query 420 c and related information. As shown by process arrow 426 c, data may be retrieved from or stored in the data store 410, including information about the previously submitted queries 420 a, 420 b and the previously selected results 432 a, 432 b. The server 408, infers from the available data that the search requester has an interest in “business schools.” The server 408 computes or retrieves previously computed selection statistics for the search results returned for the query “anderson” 420 c for both search requesters of the general population and search requesters with an inferred interest in “business schools.” The selection statistics might indicate that search requesters interested in “business schools” selected the UCLA Anderson School of Management search result 432 c at a higher rate (e.g., 87%) than the rate (e.g., 2.7%) at which search requesters of the general population selected this search result returned for the query “anderson.” If the difference in the two rates exceeds a predefined threshold, the server 408 may increase the score for the UCLA Anderson School of Management web site for this search requester, where the increase reflects the higher measure of category relevance of this resource for similarly interested search requesters. As shown by process arrows 428 c and 430 c, search results may be sent to the client side system 400 via the network 412. Upon receipt, a set of search results 440 c may be presented to a user via the results interface 406. As a result of the increase, the UCLA Anderson School of Management search result 432 c may appear higher on the list of search results returned for the query “anderson”420 c for this particular search requester relative to the search result's position on the list of search results returned for the query for search requesters of the general population.\n\nReferring to FIG. 5, a flow chart 5000 represents a particular arrangement of operations of the interest identifier (FIG. 1, 1058). Typically the operations are executed by one or more processors of a computer system upon which the interest identifier is resident. While typically executed by a single electronic device, in some arrangements operation execution may be distributed among two or more electronic devices (for example, computer systems).\n\nOperations include storing recent activity 5010. In some arrangements recent activity may be stored by the interest identifier 1058 directly. In other arrangements, another component of the server system 1014 may store the recent activity for later use by the interest identifier 1058. In one example, a search requester's browing history may be stored. In another example, a search requester's interactions with the search system are stored. Their interaction may include queries submitted by a search requester and information descriptive of a search requester's interactions with the provided search results. For example, a search requester may select a particular resource and perform some action which indicates the search requester in finished with the resource, such as selecting another result, entering a new query, or leaving the search page or selecting another result. The selected results may be stored along with a measure of the passage of time between the selection and the subsequent action. As another example, a search requester may submit a query and subsequently submit a second query which further refines the query. In another arrangement, information about the particular search requester may also be stored. For example, the system may store location, demographic, and linguistic information.\n\nOperations also include identifying categories of interest 5020. In one example, the system may use the stored activity to identify categories of interest. In some arrangements the system may examine a search requester's interactions with the system to determine a category of interest. This may include analyzing patterns of query submission and result selection to infer a category. In some arrangements, the short term categorical interests are identified using a technique for classifying text (e.g., query terms or text in resources) into fine grained hierarchical categories. A hierarchical category may consist of a series of progressively narrower categories in a parent/child relationship, for example, a “sports” category may have a “football” child category, which in turn may have “high school football” and “professional football” child categories. Generally, the depth of the hierarchy defines the level of refinement. In some arrangements a search requester's category of interest may be defined at any level of the hierarchy. For example, a search requester may be determined to be interested in the “high school football” or a search requester may be determined to be interested in “sports.” In other arrangements, a category of interest may only be defined at the narrowest level subcategory, for example, “high school football”. In some arrangements, a determined interest in a parent category (for example, “football”) indicates interest in all child categories for that parent (for example, “professional football” and “high school football”). In other arrangements, interest in a parent category indicates only a general interest and does not indicate interest in the child categories, for example, an interest in “sports” may not indicate an interest in “football” or “high school football.”\n\nIn some arrangements, categories are formed by comparing a search requesters queries with the search results the search requester selects. For example, for the search requester submissions of query “professional football” a search engine may present a URL pointing to document to the search requester a number of times. If a search requester clicks on the URL, the click can be considered a confirmation that document is a valid search result for query. In this manner, categories of interest may be formed based on the queries and the search requester's selections. In some arrangements, queries which produce similar results or similar selected results may be determined to refer to the same category of interest.\n\nOperations also include determining selection counts 5030. In one example, determining selection counts may include calculating the number of times a resource is selected by a search requester executing a particular query and having a particular category of interest. The results of this process may be stored for later access. In some arrangements, selection counts are further refined based on the location, demographic or linguistic information.\n\nIn some arrangements, the selection count may be weighted based on the time between a search requester selects the respective resource and when the search requester indicates that the requester is finished with the respective source. In some arrangements, the selection of a subsequent resource by a search requester indicates that the requester is finished with the first resource. For example, if a search requester selects the resource referring to a particular resource and views that resource for a long period of time before selecting a different resource, the selection count may be increased by an amount proportional to how long the requester waited before selecting the different resource. In some arrangements submitting a new query may indicate that a search requester is finished with the first resource. In still other arrangements, a search requester may indicate that the search requester is finished with a particular resource by not returning to the search results.\n\nOperations also include calculating a category click-fraction 5040. In one example, the category click-fraction may be calculated for each resource selected for a particular query and category of interest. The category click-fraction may be a measure of the selection count for a particular resource as a percentage of the combined selection count for all resources for the query and category of interest.\n\nOperations also include calculating a general click fraction 5050. In one example, the general click fraction may be a measure of the selection count for a particular resource as a percentage of the combined selection count for all resources for the query independent of any category of interest.\n\nOperations also include calculating category relevance 5060. In one example, the category relevance may be a measure of the difference between category click fraction and the general click fraction. The difference may be determined in either absolute or relative terms.\n\nOperations also include determining if the category is significant 5070. In one example, the significance of the category may be determined based on the category relevance, the category click fraction, and the general click fraction. In one arrangement, the category may be significant if the category relevance exceeds a certain threshold. In another example, the category may be significant if the difference between the category click fraction and the general click fraction is statistically significant. In other arrangements, a category may be insignificant, regardless of any click fraction, if an aggregated selection count for all queries and resources is less than a predefined threshold.\n\nOperations also include providing a category relevance score 5080. In one example, the category relevance score may be determined based on the category relevance. In one arrangement, the category relevance score may be determined by multiplying the category relevance by a constant value. The category relevance score may be provided to a ranking engine and stored for later use.\n\nIn some arrangements, the interest identifier 1058 may execute the process 5000 in batch. The interest identifier 1058 may cache the measures of category relevance for quick retrieval. The interest identifier 1058 may modify the score of resources matching a given query for a particular search requester as soon as the system infers one or more categories of interests for the search requester. The interest identifier 1058 may also cache other scoring information, for example, measures of category relevance, general click fractions or category click fractions.\n\nReferring to FIG. 6, a flowchart 6000 represents a particular arrangement of operations of the interest identifier (FIG. 1, 1058). Typically the operations are executed by one or more processors of a computer system upon which the search system is resident. While typically executed by a single electronic device, in some arrangements, operation execution may be distributed among two or more electronic devices (for example, computer systems).\n\nOperations include reviewing recent activity 6010. In one example, the interest identifier 1058 reviews the recent activity of a search requester. The recent activity can be queries issued and the resources selected within a short time period, e.g., during the last 30 minutes, two hours, or 24 hours of a search session. Recent activity can also or alternatively be defined as a sequence of queries and interactions with resources with no interruption of more than a predetermined amount of time. Recent activity can also be determined in terms of the current task. In some arrangements, the end of the task may be identified when the current queries are no longer consistent with the previously identified category of interest.\n\nOperations also include identifying categories of interest 6020. The interest identifier 1058 may identify at least one category of interest for the search requester based on the search requester's recent activity. The system can identify the categories using the technique used in process 5000 described above. In some arrangements, the category of interest is further identified using location, demographic, and linguistic information of the search requester.\n\nOperations also include receiving a current query 6030. In one example, the interest identifier 1058 receives a new query issued by the search requester.\n\nOperations also include identifying resources 6040. In one example, the interest identifier 1058 identifies multiple resources matching the search requester's current query. Each resource is provided with a IR score which measures the general relevance of the resource to the current query. In some arrangements, resources matching particular popular queries are predetermined and cached. If available the system retrieves a list of the cached resources and their scores.\n\nOperations also include collecting category relevance scores 6050. In one example, the interest identifier 1058 retrieves category relevance scores for each resource matching the search requester's current query based on the category of interest.\n\nOperations also include determining adjusted relevance scores 6060. While this operation may be performed by the interest identifier 1058, it is typically performed by the ranking engine 1052. In one example, the ranking engine 1052 adjusts IR scores based on the category relevance score provided by the interest identifier 1058. In one arrangement, the adjusted relevance score is determined by summing the IR score and the category relevance score. In other arrangements, the adjusted score is determined by multiplying the IR score and the category relevance score.\n\nIn some arrangements, the relevance score of a resource may have been previously adjusted based on other characteristics of the search requester independent of any category of interest. For example, a relevance score may be adjusted based on the search requester's location, linguistic, and demographic information. The interest identifier 1058 may further adjust the relevance score of the resource by applying an adjustment that replaces the previous adjustments and accounts for both the characteristics of the search requester and categories of interest.\n\nIn some arrangements, the interest identifier 1058 may identify multiple categories of interest for the search requester. The interest identifier 1058 then determines a category relevance score for each category of interest. The final category relevance score reflects a combination of the relevance of the multiple categories. In some arrangements, the category relevance score for multiple categories may be based on summing the click fractions for each category. In other arrangements, the category relevance score may be based on the sum of all the category relevance scores. In other arrangements, the category relevance for multiple categories may be based on the multiplication of each category click fraction.\n\nFIG. 7 is a schematic diagram of an example computer system 7000. The system 7000 can be used for practicing operations described above. The system 7000 can include a processor 7010, a memory 7020, a storage device 7030, and input/output devices 7040. Each of the components 7010, 7020, 7030, and 7040 are interconnected using a system bus 7050. The processor 7010 is capable of processing instructions within the system 7000. These instructions can implement one or more aspects of the systems, components and techniques described above. In some implementations, the processor 7010 is a single-threaded processor. In other implementations, the processor 7010 is a multi-threaded processor. The processor 7010 can include multiple processing cores and is capable of processing instructions stored in the memory 7020 or on the storage device 7030 to display graphical information for a user interface on the input/output device 7040.\n\nThe memory 7020 is a computer readable medium such as volatile or non volatile that stores information within the system 7000. The memory 7020 can store processes related to the functionality of the search engine 1030 (shown in FIG. 1). The storage device 7030 is capable of providing persistent storage for the system 7000. The storage device 7030 can include a floppy disk device, a hard disk device, an optical disk device, a tape device, or other suitable persistent storage mediums. The storage device 7030 can store the various databases described above. The input/output device 7040 provides input/output operations for the system 7000. The input/output device 7040 can include a keyboard, a pointing device, and a display unit for displaying graphical user interfaces.\n\nThe computer system shown in FIG. 7 is but one example. In general, embodiments of the subject matter and the functional operations described in this specification can be implemented in digital electronic circuitry or in computer software, firmware, or hardware, including the structures disclosed in this specification and their structural equivalents, or in combinations of one or more of them. Embodiments of the subject matter described in this specification can be implemented as one or more computer program products, i.e., one or more modules of computer program instructions encoded on a computer readable medium for execution by, or to control the operation of, data processing apparatus. The computer readable medium can be a machine-readable storage device, a machine-readable storage substrate, a memory device, a composition of matter effecting a machine-readable propagated signal, or a combination of one or more of them. The term “data processing apparatus” encompasses all apparatus, devices, and machines for processing data, including by way of example a programmable processor, a computer, or multiple processors or computers. The apparatus can include, in addition to hardware, code that creates an execution environment for the computer program in question, e.g., code that constitutes processor firmware, a protocol stack, a database management system, an operating system, or a combination of one or more of them. A propagated signal is an artificially generated signal, e.g., a machine-generated electrical, optical, or electromagnetic signal, that is generated to encode information for transmission to suitable receiver apparatus.\n\nA computer program (also known as a program, software, software application, script, or code) can be written in any form of programming language, including compiled or interpreted languages, and it can be deployed in any form, including as a stand alone program or as a module, component, subroutine, or other unit suitable for use in a computing environment. A computer program does not necessarily correspond to a file in a file system. A program can be stored in a portion of a file that holds other programs or data (e.g., one or more scripts stored in a markup language document), in a single file dedicated to the program in question, or in multiple coordinated files (e.g., files that store one or more modules, sub programs, or portions of code). A computer program can be deployed to be executed on one computer or on multiple computers that are located at one site or distributed across multiple sites and interconnected by a communication network.\n\nThe processes and logic flows described in this specification can be performed by one or more programmable processors executing one or more computer programs to perform functions by operating on input data and generating output. The processes and logic flows can also be performed by, and apparatus can also be implemented as, special purpose logic circuitry, e.g., an FPGA (field programmable gate array) or an ASIC (application specific integrated circuit).\n\nProcessors suitable for the execution of a computer program include, by way of example, both general and special purpose microprocessors, and any one or more processors of any kind of digital computer. Generally, a processor will receive instructions and data from a read only memory or a random access memory or both. The essential elements of a computer are a processor for performing instructions and one or more memory devices for storing instructions and data. Generally, a computer will also include, or be operatively coupled to receive data from or transfer data to, or both, one or more mass storage devices for storing data, e.g., magnetic, magneto optical disks, or optical disks. However, a computer need not have such devices. Moreover, a computer can be embedded in another device, e.g., a mobile telephone, a personal digital assistant (PDA), a mobile audio player, a Global Positioning System (GPS) receiver, to name just a few. Computer readable media suitable for storing computer program instructions and data include all forms of non volatile memory, media and memory devices, including by way of example semiconductor memory devices, e.g., EPROM, EEPROM, and flash memory devices; magnetic disks, e.g., internal hard disks or removable disks; magneto optical disks; and CD ROM and DVD-ROM disks. The processor and the memory can be supplemented by, or incorporated in, special purpose logic circuitry.\n\nTo provide for interaction with a user, embodiments of the subject matter described in this specification can be implemented on a computer having a display device, e.g., a CRT (cathode ray tube) or LCD (liquid crystal display) monitor, for displaying information to the user and a keyboard and a pointing device, e.g., a mouse or a trackball, by which the user can provide input to the computer. Other kinds of devices can be used to provide for interaction with a user as well. For example, feedback provided to the user can be any form of sensory feedback, e.g., visual feedback, auditory feedback, or tactile feedback, and input from the user can be received in any form, including acoustic, speech, or tactile input.\n\nEmbodiments of the invention can be implemented in a computing system that includes a back end component, e.g., as a data server, or that includes a middleware component, e.g., an application server, or that includes a front end component, e.g., a client computer having a graphical user interface or a Web browser through which a user can interact with an implementation of the invention, or any combination of one or more such back end, middleware, or front end components. The components of the system can be interconnected by any form or medium of digital data communication, e.g., a communication network. Examples of communication networks include a local area network (“LAN”) and a wide area network (“WAN”), e.g., the Internet.\n\nThe computing system can include clients and servers. A client and server are generally remote from each other and typically interact through a communication network. The relationship of client and server arises by virtue of computer programs running on the respective computers and having a client-server relationship to each other.\n\nWhile this specification contains many specifics, these should not be construed as limitations on the scope of the invention or of what may be claimed, but rather as descriptions of features specific to particular embodiments of the invention. Certain features that are described in this specification in the context of separate embodiments can also be implemented in combination in a single embodiment. Conversely, various features that are described in the context of a single embodiment can also be implemented in multiple embodiments separately or in any suitable subcombination. Moreover, although features may be described above as acting in certain combinations and even initially claimed as such, one or more features from a claimed combination can in some cases, be excised from the combination, and the claimed combination may be directed to a subcombination or variation of a subcombination.\n\nSimilarly, while operations are depicted in the drawings in a particular order, this should not be understood as requiring that such operations be performed in the particular order shown or in sequential order, or that all illustrated operations be performed, to achieve desirable results. In certain circumstances, multitasking and parallel processing may be advantageous. Moreover, the separation of various system components in the embodiments described above should not be understood as requiring such separation in all embodiments, and it should be understood that the described program components and systems can generally be integrated together in a single software product or packaged into multiple software products.\n\nParticular embodiments of the subject matter described in this specification have been described. Other embodiments are within the scope of the following claims. For example, the actions recited in the claims can be performed in a different order and still achieve desirable results. As one example, the processes depicted in the accompanying figures do not necessarily require the particular order shown, or sequential order, to achieve desirable results. In certain arrangements, multitasking and parallel processing may be advantageous. In some arrangements, the search system uses a search requester's inferred short-term categorical interests to identify resources that match the search requester's present query.",
+ "cited_by": [
+  {
+   "id": "US20140101142A1",
+   "title": "Relationship-based search and recommendations",
+   "assignee": "NETFLIX Inc."
+  },
+  {
+   "id": "US20140156660A1",
+   "title": "Methods and systems for quantifying and tracking software application quality",
+   "assignee": "uTest, Inc."
+  },
+  {
+   "id": "US20140344258A1",
+   "title": "Ranking channels in search",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20150006526A1",
+   "title": "Determining Locations of Interest to a User",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20150227631A1",
+   "title": "Increasing search result validity",
+   "assignee": "Amadeus S.A.S."
+  },
+  {
+   "id": "US20150243279A1",
+   "title": "Systems and methods for recommending responses",
+   "assignee": "Toytalk, Inc."
+  },
+  {
+   "id": "US9183499B1",
+   "title": "Evaluating quality based on neighbor features",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20160019285A1",
+   "title": "Devices and method for scoring data to quickly identify relevant attributes for instant classification",
+   "assignee": "The Boeing Company"
+  },
+  {
+   "id": "US9298831B1",
+   "title": "Approximating a user location",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9449095B1",
+   "title": "Revising search queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20160328404A1",
+   "title": "Algorithmic radio for arbitrary textual queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20160378770A1",
+   "title": "Training a classification model to predict categories",
+   "assignee": "Wal-Mart Stores, Inc."
+  },
+  {
+   "id": "US20170017989A1",
+   "title": "Linkage to reduce errors in online promotion testing",
+   "assignee": "Brian Glover"
+  },
+  {
+   "id": "US9928233B2",
+   "title": "Computer-implemented methods and systems for clustering user reviews and ranking clusters",
+   "assignee": "Applause App Quality, Inc."
+  },
+  {
+   "id": "US9940639B2",
+   "title": "Automated and optimal promotional experimental test designs incorporating constraints",
+   "assignee": "Eversight, Inc."
+  },
+  {
+   "id": "US9940640B2",
+   "title": "Automated event correlation to improve promotional testing",
+   "assignee": "Eversight, Inc."
+  },
+  {
+   "id": "CN107944266A",
+   "title": "Assembly management method, device and mobile terminal",
+   "assignee": "北京奇虎科技有限公司"
+  },
+  {
+   "id": "US9984387B2",
+   "title": "Architecture and methods for promotion optimization",
+   "assignee": "Eversight, Inc."
+  },
+  {
+   "id": "US10114897B1",
+   "title": "Search and notification procedures based on user history information",
+   "assignee": "Open Invention Network Llc"
+  },
+  {
+   "id": "US20180332086A1",
+   "title": "Methods and Systems for Accessing Relevant Content",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US10140629B2",
+   "title": "Automated behavioral economics patterns in promotion testing and methods therefor",
+   "assignee": "Eversight, Inc."
+  },
+  {
+   "id": "US10169711B1",
+   "title": "Generalized engine for predicting actions",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US20190155962A1",
+   "title": "System and method for determining and displaying a list of suggested search items for a search field based on prior user interaction",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US10366092B2",
+   "title": "Search relevance",
+   "assignee": "Walmart Apollo, Llc"
+  },
+  {
+   "id": "US10394911B1",
+   "title": "Selecting content for devices specific to a particular user",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10438231B2",
+   "title": "Automatic offer generation using concept generator apparatus and methods therefor",
+   "assignee": "Eversight, Inc."
+  },
+  {
+   "id": "US10438230B2",
+   "title": "Adaptive experimentation and optimization in automated promotional testing",
+   "assignee": "Eversight, Inc."
+  },
+  {
+   "id": "US10445763B2",
+   "title": "Automated promotion forecasting and methods therefor",
+   "assignee": "Eversight, Inc."
+  },
+  {
+   "id": "US10489413B2",
+   "title": "Handling data requests",
+   "assignee": "Amadeus S.A.S."
+  },
+  {
+   "id": "US10579685B2",
+   "title": "Content event insights",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US10674215B2",
+   "title": "Method and system for determining a relevancy parameter for content item",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "US10706325B2",
+   "title": "Method and apparatus for selecting a network resource as a source of content for a recommendation system",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "USD890802S1",
+   "title": "Display screen with graphical user interface",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "US20200278975A1",
+   "title": "Searching data on a synchronization data stream",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10909561B2",
+   "title": "Systems and methods for democratized coupon redemption",
+   "assignee": "Eversight, Inc."
+  },
+  {
+   "id": "US10915912B2",
+   "title": "Systems and methods for price testing and optimization in brick and mortar retailers",
+   "assignee": "Eversight, Inc."
+  },
+  {
+   "id": "US10956409B2",
+   "title": "Relevance model for session search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10984441B2",
+   "title": "Systems and methods for intelligent promotion design with promotion selection",
+   "assignee": "Eversight, Inc."
+  },
+  {
+   "id": "US11003731B2",
+   "title": "Method and apparatus for generating information",
+   "assignee": "Beijing Baidu Netcom Science And Technology Co., Ltd."
+  },
+  {
+   "id": "US11086888B2",
+   "title": "Method and system for generating digital content recommendation",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "US11138628B2",
+   "title": "Promotion offer language and methods thereof",
+   "assignee": "Eversight, Inc."
+  },
+  {
+   "id": "US11210301B2",
+   "title": "Client-side search result re-ranking",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US11222084B2",
+   "title": "Content search and results",
+   "assignee": "Steven Michael VITTORIO"
+  },
+  {
+   "id": "US11238114B2",
+   "title": "Educational content search and results",
+   "assignee": "Steven Michael VITTORIO"
+  },
+  {
+   "id": "US11250008B2",
+   "title": "Content search and results",
+   "assignee": "Steven Michael VITTORIO"
+  },
+  {
+   "id": "US11263217B2",
+   "title": "Method of and system for determining user-specific proportions of content for recommendation",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "US11270325B2",
+   "title": "Systems and methods for collaborative offer generation",
+   "assignee": "Eversight, Inc."
+  },
+  {
+   "id": "US11276076B2",
+   "title": "Method and system for generating a digital content recommendation",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "US11276079B2",
+   "title": "Method and system for meeting service level of content item promotion",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "US11288696B2",
+   "title": "Systems and methods for efficient promotion experimentation for load to card",
+   "assignee": "Eversight, Inc."
+  },
+  {
+   "id": "US11288333B2",
+   "title": "Method and system for estimating user-item interaction data based on stored interaction data by using multiple models",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "US11288698B2",
+   "title": "Architecture and methods for generating intelligent offers with dynamic base prices",
+   "assignee": "Eversight, Inc."
+  },
+  {
+   "id": "US11494391B2",
+   "title": "Methods and apparatus for automatically providing a ranking of items in response to a search request",
+   "assignee": "Walmart Apollo, Llc"
+  },
+  {
+   "id": "US11734711B2",
+   "title": "Systems and methods for intelligent promotion design with promotion scoring",
+   "assignee": "Eversight, Inc."
+  },
+  {
+   "id": "US20230289864A1",
+   "title": "Methods and apparatus for diffused item recommendations",
+   "assignee": "Walmart Apollo, Llc"
+  },
+  {
+   "id": "US11941659B2",
+   "title": "Systems and methods for intelligent promotion design with promotion scoring",
+   "assignee": "Maplebear Inc."
+  },
+  {
+   "id": "US12235913B2",
+   "title": "Content search and results",
+   "assignee": "Steven Michael VITTORIO"
+  },
+  {
+   "id": "US12254482B2",
+   "title": "Systems and methods for contract based offer generation",
+   "assignee": "Maplebear Inc."
+  },
+  {
+   "id": "US11675795B2",
+   "title": "Method and system for ranking search content",
+   "assignee": "Yahoo Assets Llc"
+  },
+  {
+   "id": "JP6867579B2",
+   "title": "Information processing equipment, information processing system, its control method and program",
+   "assignee": "キヤノンマーケティングジャパン株式会社"
+  },
+  {
+   "id": "US10303420B2",
+   "title": "Proactive staged distribution of document activity indicators",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US10803251B2",
+   "title": "Method and device for extracting action of interest from natural language sentences",
+   "assignee": "Wipro Limited"
+  },
+  {
+   "id": "US10885081B2",
+   "title": "Systems and methods for contextual ranking of search results",
+   "assignee": "Optum Technology, Inc."
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5265065A",
+   "title": "Method and apparatus for information retrieval from a database by replacing domain specific stemmed phases in a natural language to create a search query",
+   "assignee": "West Publishing Company"
+  },
+  {
+   "id": "US5488725A",
+   "title": "System of document representation retrieval by successive iterated probability sampling",
+   "assignee": "West Publishing Company"
+  },
+  {
+   "id": "US5696962A",
+   "title": "Method for computerized information retrieval using shallow linguistic analysis",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5920854A",
+   "title": "Real-time document collection search engine with phrase indexing",
+   "assignee": "Infoseek Corporation"
+  },
+  {
+   "id": "US5963940A",
+   "title": "Natural language information retrieval system and method",
+   "assignee": "Syracuse University"
+  },
+  {
+   "id": "US6006225A",
+   "title": "Refining search queries by the suggestion of correlated terms from prior searches",
+   "assignee": "Amazon.Com"
+  },
+  {
+   "id": "US6006222A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6014665A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6026388A",
+   "title": "User interface and other enhancements for natural language information retrieval system and method",
+   "assignee": "Textwise, Llc"
+  },
+  {
+   "id": "US6067565A",
+   "title": "Technique for prefetching a web page of potential future interest in lieu of continuing a current information download",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6078916A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6078917A",
+   "title": "System for searching internet using automatic relevance feedback",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6088692A",
+   "title": "Natural language method and system for searching for and ranking relevant documents from a computer database",
+   "assignee": "University Of Central Florida"
+  },
+  {
+   "id": "US6134532A",
+   "title": "System and method for optimal adaptive matching of users to most relevant entity and information in real-time",
+   "assignee": "Aptex Software, Inc."
+  },
+  {
+   "id": "WO2000077689A1",
+   "title": "A process for improving search engine efficiency using user feedback",
+   "assignee": "Triogo, Inc."
+  },
+  {
+   "id": "US6182066B1",
+   "title": "Category processing of query topics and electronic document content topics",
+   "assignee": "International Business Machines Corp."
+  },
+  {
+   "id": "US6182068B1",
+   "title": "Personalized search methods",
+   "assignee": "Ask Jeeves, Inc."
+  },
+  {
+   "id": "US6185559B1",
+   "title": "Method and apparatus for dynamically counting large itemsets",
+   "assignee": "Hitachi America, Ltd."
+  },
+  {
+   "id": "WO2001016807A1",
+   "title": "An internet search system for tracking and ranking selected records from a previous search",
+   "assignee": "Mindcrossing, Inc."
+  },
+  {
+   "id": "US20010000356A1",
+   "title": "Method and apparatus for generating query responses in a computer-based document retrieval system",
+   "assignee": "Woods William A."
+  },
+  {
+   "id": "US6249252B1",
+   "title": "Wireless location using multiple location estimators",
+   "assignee": "Tracbeam Llc"
+  },
+  {
+   "id": "US6269368B1",
+   "title": "Information retrieval using dynamic evidence combination",
+   "assignee": "Textwise Llc"
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "WO2001067297A1",
+   "title": "System and method for computer searching",
+   "assignee": "Tzunami Inc."
+  },
+  {
+   "id": "US6321228B1",
+   "title": "Internet search system for retrieving selected results from a previous search",
+   "assignee": "Powercast Media, Inc."
+  },
+  {
+   "id": "US6327590B1",
+   "title": "System and method for collaborative ranking of search results employing user and group profiles derived from document collection content analysis",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6341283B1",
+   "title": "Apparatus for data decomposition and method and storage medium therefor",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US6353849B1",
+   "title": "System and server for providing customized web information based on attributes of the requestor",
+   "assignee": "Intel Corporation"
+  },
+  {
+   "id": "US20020034292A1",
+   "title": "System and a method to match demand and supply based on geographical location derived from a positioning system",
+   "assignee": "Tuoriniemi Veijo M."
+  },
+  {
+   "id": "US6363378B1",
+   "title": "Ranking of query feedback terms in an information retrieval system",
+   "assignee": "Oracle Corporation"
+  },
+  {
+   "id": "US6370526B1",
+   "title": "Self-adaptive method and system for providing a user-preferred ranking order of object sets",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20020042791A1",
+   "title": "Methods and apparatus for using a modified index to provide search results in response to an ambiguous search query",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020049752A1",
+   "title": "Identifying the items most relevant to a current query based on items selected in connection with similar queries",
+   "assignee": "Dwayne Bowman"
+  },
+  {
+   "id": "US20020078045A1",
+   "title": "System, method, and program for ranking search results using user category weighting",
+   "assignee": "Rabindranath Dutta"
+  },
+  {
+   "id": "US6421675B1",
+   "title": "Search engine",
+   "assignee": "S. L. I. Systems, Inc."
+  },
+  {
+   "id": "US20020103790A1",
+   "title": "Utility for cross platform database query",
+   "assignee": "Wang Shirley S."
+  },
+  {
+   "id": "US20020123988A1",
+   "title": "Methods and apparatus for employing usage statistics in document retrieval",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020133481A1",
+   "title": "Methods and apparatus for providing search results in response to an ambiguous search query",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US6473752B1",
+   "title": "Method and system for locating documents based on previously accessed documents",
+   "assignee": "Micron Technology, Inc."
+  },
+  {
+   "id": "US20020165849A1",
+   "title": "Automatic advertiser notification for a system for providing place and price protection in a search result list generated by a computer network search engine",
+   "assignee": "Singh Narinder Pal"
+  },
+  {
+   "id": "US6480843B2",
+   "title": "Supporting web-query expansion efficiently using multi-granularity indexing and query processing",
+   "assignee": "Nec Usa, Inc."
+  },
+  {
+   "id": "US6490575B1",
+   "title": "Distributed network search engine",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6502091B1",
+   "title": "Apparatus and method for discovering context groups and document categories by mining usage logs",
+   "assignee": "Hewlett-Packard Company"
+  },
+  {
+   "id": "US20030009399A1",
+   "title": "Method and system to identify discrete trends in time series",
+   "assignee": "Boerner Sean T."
+  },
+  {
+   "id": "US20030018707A1",
+   "title": "Server-side filter for corrupt web-browser cookies",
+   "assignee": "Flocken Philip Andrew"
+  },
+  {
+   "id": "US20030037074A1",
+   "title": "System and method for aggregating ranking results from various sources to improve the results of web searching",
+   "assignee": "Ibm Corporation"
+  },
+  {
+   "id": "US6526440B1",
+   "title": "Ranking search results by reranking the results based on local inter-connectivity",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030078914A1",
+   "title": "Search results using editor feedback",
+   "assignee": "Witbrock Michael J."
+  },
+  {
+   "id": "US6560590B1",
+   "title": "Method and apparatus for multiple tiered matching of natural language queries to positions in a text corpus",
+   "assignee": "Kana Software, Inc."
+  },
+  {
+   "id": "US6567103B1",
+   "title": "Graphical search results system and method",
+   "assignee": "Verity, Inc."
+  },
+  {
+   "id": "US20030120654A1",
+   "title": "Metadata search results ranking system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6587848B1",
+   "title": "Methods and apparatus for performing an affinity based similarity search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030135490A1",
+   "title": "Enhanced popularity ranking",
+   "assignee": "Barrett Michael E."
+  },
+  {
+   "id": "US20030149704A1",
+   "title": "Similarity-based search method by relevance feedback",
+   "assignee": "Hitachi, Inc."
+  },
+  {
+   "id": "US6615209B1",
+   "title": "Detecting query-specific duplicate documents",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030167252A1",
+   "title": "Topic identification and use thereof in information retrieval systems",
+   "assignee": "Pliant Technologies, Inc."
+  },
+  {
+   "id": "US6623529B1",
+   "title": "Multilingual electronic document translation, management, and delivery system",
+   "assignee": "David Lakritz"
+  },
+  {
+   "id": "US20030195877A1",
+   "title": "Search query processing to provide category-ranked presentation of search results",
+   "assignee": "Ford James L."
+  },
+  {
+   "id": "US6640218B1",
+   "title": "Estimating the usefulness of an item in a collection of information",
+   "assignee": "Lycos, Inc."
+  },
+  {
+   "id": "US20030204495A1",
+   "title": "Data gathering",
+   "assignee": "Lehnert Bernd R."
+  },
+  {
+   "id": "US20030220913A1",
+   "title": "Techniques for personalized and adaptive search services",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6658423B1",
+   "title": "Detecting duplicate and near-duplicate files",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030229640A1",
+   "title": "Parallel database query processing for non-uniform data sources via buffered access",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6671681B1",
+   "title": "System and technique for suggesting alternate query expressions based on prior user selections and their query strings",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040006456A1",
+   "title": "Multi-language document search and retrieval system",
+   "assignee": "Wayne Loofbourrow"
+  },
+  {
+   "id": "US20040006740A1",
+   "title": "Information access",
+   "assignee": "Uwe Krohn"
+  },
+  {
+   "id": "US6678681B1",
+   "title": "Information extraction from a database",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040034632A1",
+   "title": "Automatic query refinement",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6701309B1",
+   "title": "Method and system for collecting related queries",
+   "assignee": "Lycos, Inc."
+  },
+  {
+   "id": "US20040049486A1",
+   "title": "Image relationships derived from thresholding of historically tracked user data for facilitating image based searching",
+   "assignee": "Scanlon Henry R."
+  },
+  {
+   "id": "US20040059708A1",
+   "title": "Methods and apparatus for serving relevant advertisements",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20040083205A1",
+   "title": "Continuous knowledgebase access improvement systems and methods",
+   "assignee": "Steve Yeager"
+  },
+  {
+   "id": "US20040093325A1",
+   "title": "System and method for location influenced network search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6738764B2",
+   "title": "Apparatus and method for adaptively ranking search results",
+   "assignee": "Verity, Inc."
+  },
+  {
+   "id": "US6754873B1",
+   "title": "Techniques for finding related hyperlinked documents using link-based analysis",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040119740A1",
+   "title": "Methods and apparatus for displaying and replying to electronic messages",
+   "assignee": "Google, Inc., A Corporation Of The State Of California"
+  },
+  {
+   "id": "US20040122811A1",
+   "title": "Method for searching media",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "WO2004059514A1",
+   "title": "Systems and methods for enabling a user to find information of interest to the user",
+   "assignee": "American Type Culture Collection"
+  },
+  {
+   "id": "US20040153472A1",
+   "title": "Human resource networking system and method thereof",
+   "assignee": "Rieffanaugh Neal King"
+  },
+  {
+   "id": "US20040158560A1",
+   "title": "Systems and methods for query expansion",
+   "assignee": "Ji-Rong Wen"
+  },
+  {
+   "id": "US6792416B2",
+   "title": "Managing results of federated searches across heterogeneous datastores with a federated result set cursor object",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6795820B2",
+   "title": "Metasearch technique that ranks documents obtained from multiple collections",
+   "assignee": "Nextpage, Inc."
+  },
+  {
+   "id": "US20040186996A1",
+   "title": "Unique digital signature",
+   "assignee": "Gibbs Benjamin K."
+  },
+  {
+   "id": "US20040199419A1",
+   "title": "Promoting strategic documents by bias ranking of search results on a web browser",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040215607A1",
+   "title": "Method and system fo blending search engine results from disparate sources into one search result",
+   "assignee": "Travis Robert L."
+  },
+  {
+   "id": "US20050015366A1",
+   "title": "Disambiguation of search phrases using interpretation clusters",
+   "assignee": "Carrasco John Joseph M."
+  },
+  {
+   "id": "US20050021397A1",
+   "title": "Content-targeted advertising using collected user behavior data",
+   "assignee": "Cui Yingwei Claire"
+  },
+  {
+   "id": "US20050027691A1",
+   "title": "System and method for providing a user interface with search query broadening",
+   "assignee": "Sergey Brin"
+  },
+  {
+   "id": "US6853993B2",
+   "title": "System and methods for predicting correct spellings of terms in multiple-term search queries",
+   "assignee": "A9.Com, Inc."
+  },
+  {
+   "id": "US20050033803A1",
+   "title": "Server architecture and methods for persistently storing and serving event data",
+   "assignee": "Vleet Taylor N. Van"
+  },
+  {
+   "id": "US20050050014A1",
+   "title": "Method, device and software for querying and presenting search results",
+   "assignee": "Gosse David B."
+  },
+  {
+   "id": "US20050055345A1",
+   "title": "Similarity search engine for use with relational databases",
+   "assignee": "Infoglide Software Corporation"
+  },
+  {
+   "id": "US20050055342A1",
+   "title": "Method for estimating coverage of Web search engines",
+   "assignee": "Bharat Krishna Asur"
+  },
+  {
+   "id": "US20050060310A1",
+   "title": "Methods and systems for improving a search ranking using population information",
+   "assignee": "Simon Tong"
+  },
+  {
+   "id": "US20050060290A1",
+   "title": "Automatic query routing and rank configuration for search queries in an information retrieval system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050060311A1",
+   "title": "Methods and systems for improving a search ranking using related queries",
+   "assignee": "Simon Tong"
+  },
+  {
+   "id": "US6873982B1",
+   "title": "Ordering of database search results based on user feedback",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050071741A1",
+   "title": "Information retrieval based on historical data",
+   "assignee": "Anurag Acharya"
+  },
+  {
+   "id": "US6877002B2",
+   "title": "Fuzzy database retrieval",
+   "assignee": "America Online, Inc."
+  },
+  {
+   "id": "US6882999B2",
+   "title": "URL mapping methods and systems",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050102282A1",
+   "title": "Method for personalized search",
+   "assignee": "Greg Linden"
+  },
+  {
+   "id": "US6901402B1",
+   "title": "System for improving the performance of information retrieval-type tasks by identifying the relations of constituents",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050125376A1",
+   "title": "Methods and systems for providing a response to a query",
+   "assignee": "Andy Curtis"
+  },
+  {
+   "id": "US6912505B2",
+   "title": "Use of product viewing histories of users to identify related products",
+   "assignee": "Amazon.Com, Inc."
+  },
+  {
+   "id": "US20050160083A1",
+   "title": "User-specific vertical search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050192946A1",
+   "title": "Lateral search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050198026A1",
+   "title": "Code, system, and method for generating concepts",
+   "assignee": "Dehlinger Peter J."
+  },
+  {
+   "id": "US6944612B2",
+   "title": "Structured contextual clustering method and system in a federated search engine",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6944611B2",
+   "title": "Method and apparatus for digital media management, retrieval, and collaboration",
+   "assignee": "Emotion, Inc."
+  },
+  {
+   "id": "US20050222987A1",
+   "title": "Automated detection of associations between search criteria and item categories based on collective analysis of user activity data",
+   "assignee": "Vadon Eric R"
+  },
+  {
+   "id": "US20050222998A1",
+   "title": "Apparatus and computerised method for determining constituent words of a compound word",
+   "assignee": "Oce-Technologies B.V."
+  },
+  {
+   "id": "US6954750B2",
+   "title": "Method and system for facilitating the refinement of data queries",
+   "assignee": "Content Analyst Company, Llc"
+  },
+  {
+   "id": "US20050240580A1",
+   "title": "Personalization of placed content ordering in search results",
+   "assignee": "Zamir Oren E"
+  },
+  {
+   "id": "US20050240576A1",
+   "title": "Named URL entry",
+   "assignee": "John Piscitello"
+  },
+  {
+   "id": "US20050256848A1",
+   "title": "System and method for user rank search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6990453B2",
+   "title": "System and methods for recognizing sound and music signals in high noise and distortion",
+   "assignee": "Landmark Digital Services Llc"
+  },
+  {
+   "id": "US20060036593A1",
+   "title": "Multi-stage query processing system and method for use with tokenspace repository",
+   "assignee": "Dean Jeffrey A"
+  },
+  {
+   "id": "US20060047643A1",
+   "title": "Method and system for a personalized search engine",
+   "assignee": "Chirag Chaman"
+  },
+  {
+   "id": "US7016939B1",
+   "title": "Intelligent SPAM detection system using statistical analysis",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US20060069667A1",
+   "title": "Content evaluation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060074903A1",
+   "title": "System and method for ranking search results using click distance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7028027B1",
+   "title": "Associating documents with classifications and ranking documents based on classification weights",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20060089926A1",
+   "title": "Method for re-ranking documents retrieved from a document database",
+   "assignee": "Harris Corporation, Corporation Of The State Of Delaware"
+  },
+  {
+   "id": "US20060095421A1",
+   "title": "Method, apparatus, and program for searching for data",
+   "assignee": "Canon Kabushiki Kaisha"
+  },
+  {
+   "id": "US20060106793A1",
+   "title": "Internet and computer information retrieval and mining with intelligent conceptual filtering, visualization and automation",
+   "assignee": "Ping Liang"
+  },
+  {
+   "id": "US20060123014A1",
+   "title": "Ranking Internet Search Results Based on Number of Mobile Device Visits to Physical Locations Related to the Search Results",
+   "assignee": "David Ng"
+  },
+  {
+   "id": "US7072886B2",
+   "title": "Method and business process to maintain privacy in distributed recommendation systems",
+   "assignee": "Nokia Corporation"
+  },
+  {
+   "id": "US20060149710A1",
+   "title": "Associating features with entities, such as categories of web page documents, and/or weighting such features",
+   "assignee": "Ross Koningstein"
+  },
+  {
+   "id": "US7085761B2",
+   "title": "Program for changing search results rank, recording medium for recording such a program, and content search processing method",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US20060173830A1",
+   "title": "Information retrieval",
+   "assignee": "Barry Smyth"
+  },
+  {
+   "id": "US20060195443A1",
+   "title": "Information prioritisation system and method",
+   "assignee": "Franklin Gary L"
+  },
+  {
+   "id": "US20060200556A1",
+   "title": "Method and apparatus for identifying, extracting, capturing, and leveraging expertise and knowledge",
+   "assignee": "Scott Brave"
+  },
+  {
+   "id": "US20060200476A1",
+   "title": "Creating, storing and viewing process models",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7113939B2",
+   "title": "Architecture to enable search gateways as part of federated search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7117206B1",
+   "title": "Method for ranking hyperlinked pages using content and connectivity analysis",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US20060224583A1",
+   "title": "Systems and methods for analyzing a user's web history",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20060227992A1",
+   "title": "System and method for accessing electronic data via an image search engine",
+   "assignee": "Rathus Spencer A"
+  },
+  {
+   "id": "US20060230040A1",
+   "title": "Methods and systems for providing a response to a query",
+   "assignee": "Andy Curtis"
+  },
+  {
+   "id": "US7136849B2",
+   "title": "Method systems and computer program products for indicating links to external URLs",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20060259476A1",
+   "title": "System and Method for Retrieving and Organizing Information From Disparate Computer Network Information Services",
+   "assignee": "Inxight Software, Inc."
+  },
+  {
+   "id": "US7146361B2",
+   "title": "System, method and computer program product for performing unstructured information management and automatic text analysis, including a search operator functioning as a Weighted AND (WAND)",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20060293950A1",
+   "title": "Automatic ad placement",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070005575A1",
+   "title": "Prioritizing search results by client search satisfaction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070005588A1",
+   "title": "Determining relevance using queries as surrogate content",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070038659A1",
+   "title": "Scalable user clustering based on set similarity",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20070050339A1",
+   "title": "Biasing queries to determine suggested queries",
+   "assignee": "Richard Kasperski"
+  },
+  {
+   "id": "US20070061195A1",
+   "title": "Framework for selecting and delivering advertisements over a network based on combined short-term and long-term user behavioral interests",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20070061211A1",
+   "title": "Preventing mobile communication facility click fraud",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US20070081197A1",
+   "title": "System and method for semantic knowledge retrieval, management, capture, sharing, discovery, delivery and presentation",
+   "assignee": "Nosa Omoigui"
+  },
+  {
+   "id": "US20070106659A1",
+   "title": "Search engine that applies feedback from users to improve search results",
+   "assignee": "Yunshan Lu"
+  },
+  {
+   "id": "US20070112730A1",
+   "title": "Sampling Internet user traffic to improve search results",
+   "assignee": "Antonino Gulli"
+  },
+  {
+   "id": "US7222127B1",
+   "title": "Large scale machine learning systems and methods",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070130370A1",
+   "title": "Portable search engine",
+   "assignee": "Emeka Akaezuwa"
+  },
+  {
+   "id": "US20070156677A1",
+   "title": "Database access system",
+   "assignee": "Alberti Anemometer Llc"
+  },
+  {
+   "id": "US7243102B1",
+   "title": "Machine directed improvement of ranking algorithms",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7249126B1",
+   "title": "Systems and methods for dynamically updating relevance of a selected item",
+   "assignee": "Shopping.Com"
+  },
+  {
+   "id": "US20070172155A1",
+   "title": "Photo Automatic Linking System and method for accessing, linking, and visualizing \"key-face\" and/or multiple similar facial images along with associated electronic data via a facial image recognition search engine",
+   "assignee": "Elizabeth Guckenberger"
+  },
+  {
+   "id": "US20070180355A1",
+   "title": "Enhancing accuracy of jumping by incorporating interestingness estimates",
+   "assignee": "Ricoh Co., Ltd."
+  },
+  {
+   "id": "US20070192190A1",
+   "title": "Method and system for scoring quality of traffic to network sites",
+   "assignee": "Authenticlick"
+  },
+  {
+   "id": "US7266765B2",
+   "title": "Detection and processing of annotated anchors",
+   "assignee": "Fuji Xerox Co., Ltd."
+  },
+  {
+   "id": "US20070208730A1",
+   "title": "Mining web search user behavior to enhance web search relevance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070214131A1",
+   "title": "Re-ranking search results based on query log",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070233671A1",
+   "title": "Group Customized Search",
+   "assignee": "Oztekin Bilgehan U"
+  },
+  {
+   "id": "US20070233653A1",
+   "title": "Selecting directly bid upon advertisements for display",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070255689A1",
+   "title": "System and method for indexing web content using click-through features",
+   "assignee": "Gordon Sun"
+  },
+  {
+   "id": "US7293016B1",
+   "title": "Index partitioning based on document relevance for document indexes",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070260596A1",
+   "title": "Behavioral targeting system",
+   "assignee": "Koran Joshua M"
+  },
+  {
+   "id": "US20070260597A1",
+   "title": "Dynamic search engine results employing user behavior",
+   "assignee": "Mark Cramer"
+  },
+  {
+   "id": "US20070266021A1",
+   "title": "Methods and systems for selecting and presenting content based on dynamically identifying microgenres associated with the content",
+   "assignee": "Murali Aravamudan"
+  },
+  {
+   "id": "US20070266439A1",
+   "title": "Privacy management and transaction system",
+   "assignee": "Harold Kraft"
+  },
+  {
+   "id": "US20070288450A1",
+   "title": "Query language determination using query terms and interface language",
+   "assignee": "Datta Ruchira S"
+  },
+  {
+   "id": "US20080010143A1",
+   "title": "Secure and extensible pay per action online advertising",
+   "assignee": "Rob Kniaz"
+  },
+  {
+   "id": "US20080027913A1",
+   "title": "System and method of information retrieval engine evaluation using human judgment input",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20080052273A1",
+   "title": "Apparatus and method for term context modeling for information retrieval",
+   "assignee": "Fuji Xerox Co., Ltd."
+  },
+  {
+   "id": "US20080052219A1",
+   "title": "System for and method of expressive auctions of user events",
+   "assignee": "Combinenet, Inc."
+  },
+  {
+   "id": "US20080059453A1",
+   "title": "System and method for enhancing the result of a query",
+   "assignee": "Raphael Laderman"
+  },
+  {
+   "id": "US20080059456A1",
+   "title": "Domain Expert Search",
+   "assignee": "Aol Llc, A Delaware Limited Liability Company (Formerly Known As America Online, Inc.)"
+  },
+  {
+   "id": "US20080077570A1",
+   "title": "Full Text Query and Search Systems and Method of Use",
+   "assignee": "Infovell, Inc."
+  },
+  {
+   "id": "US20080082518A1",
+   "title": "Strategy for Providing Query Results Based on Analysis of User Intent",
+   "assignee": "Loftesness David E"
+  },
+  {
+   "id": "US20080091650A1",
+   "title": "Augmented Search With Error Detection and Replacement",
+   "assignee": "Marcus Felipe Fontoura"
+  },
+  {
+   "id": "US20080104043A1",
+   "title": "Server-side match",
+   "assignee": "Ashutosh Garg"
+  },
+  {
+   "id": "US20080114750A1",
+   "title": "Retrieval and ranking of items utilizing similarity",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080114624A1",
+   "title": "Click-fraud protector",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080114729A1",
+   "title": "Computer-implemented interactive, virtual bookshelf system and method",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7379951B2",
+   "title": "Support for real-time queries concerning current state, data and history of a process",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7382358B2",
+   "title": "System and method for continuous stroke word-based text input",
+   "assignee": "Forword Input, Inc."
+  },
+  {
+   "id": "US20080140699A1",
+   "title": "System and method for generating substitutable queries",
+   "assignee": "Rosie Jones"
+  },
+  {
+   "id": "US7395222B1",
+   "title": "Method and system for identifying expertise",
+   "assignee": "Sotos John G"
+  },
+  {
+   "id": "US20080162475A1",
+   "title": "Click-fraud detection method",
+   "assignee": "Meggs Anthony F"
+  },
+  {
+   "id": "US20080172362A1",
+   "title": "Providing Relevance-Ordered Categories of Information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080183660A1",
+   "title": "Content identification expansion",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080189269A1",
+   "title": "Relevance-weighted navigation in information access, search and retrieval",
+   "assignee": "Fast Search & Transfer Asa"
+  },
+  {
+   "id": "US20080208825A1",
+   "title": "Methods and systems for providing a response to a query",
+   "assignee": "Andy Curtis"
+  },
+  {
+   "id": "US7426507B1",
+   "title": "Automatic taxonomy generation in search results using phrases",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20080228442A1",
+   "title": "Statistical data inspector",
+   "assignee": "Lisa Ellen Lippincott"
+  },
+  {
+   "id": "US20080256050A1",
+   "title": "System and method for modeling user selection feedback in a search result page",
+   "assignee": "Ruofei Zhang"
+  },
+  {
+   "id": "US7451487B2",
+   "title": "Fraudulent message detection",
+   "assignee": "Sonicwall, Inc."
+  },
+  {
+   "id": "US20080313168A1",
+   "title": "Ranking documents based on a series of document graphs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080313247A1",
+   "title": "Page Ranking Based on a Behavioral WEB Graph",
+   "assignee": "Brian Galvin"
+  },
+  {
+   "id": "US20090006438A1",
+   "title": "System and method for measuring the quality of document sets",
+   "assignee": "Daniel Tunkelang"
+  },
+  {
+   "id": "US20090012969A1",
+   "title": "Systems and processes for evaluating webpages",
+   "assignee": "Rail Peter D"
+  },
+  {
+   "id": "US20090055392A1",
+   "title": "Ordering of search results based on language and/or country of the search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7499919B2",
+   "title": "Ranking functions using document usage statistics",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20090070194A1",
+   "title": "Method of providing estimated cost for keyword advertisement",
+   "assignee": "Nhn Corporation"
+  },
+  {
+   "id": "US7516146B2",
+   "title": "Fast adaptive document filtering",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7526470B1",
+   "title": "System and method for measuring and improving search result relevance based on user satisfaction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7533130B2",
+   "title": "User behavior reporting based on pre-aggregated activity data",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7533092B2",
+   "title": "Link-based spam detection",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20090125505A1",
+   "title": "Information retrieval using category as a consideration",
+   "assignee": "Kosmix Corporation"
+  },
+  {
+   "id": "US20090157643A1",
+   "title": "Semi-supervised part-of-speech tagging",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7552112B2",
+   "title": "Discovering associative intent queries from search web logs",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20090182723A1",
+   "title": "Ranking search results using author extraction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7565363B2",
+   "title": "Search engine with user activity memory",
+   "assignee": "Anwar Mohammed S"
+  },
+  {
+   "id": "US20090187557A1",
+   "title": "Arranging search engine results",
+   "assignee": "Globalspec, Inc."
+  },
+  {
+   "id": "US7566363B2",
+   "title": "Alternative phthalocyanine dyes suitable for use in offset inks",
+   "assignee": "Silverbrook Research Pty Ltd"
+  },
+  {
+   "id": "US7574530B2",
+   "title": "Method and system for web resource location classification and detection",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7584181B2",
+   "title": "Implicit links search enhancement system and method for search engines using implicit links generated by mining user access patterns",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20090228442A1",
+   "title": "Systems and methods for building a document index",
+   "assignee": "Searchme, Inc."
+  },
+  {
+   "id": "US7603350B1",
+   "title": "Search result ranking based on trust",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7610282B1",
+   "title": "Rank-adjusted content items",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090287656A1",
+   "title": "Network search engine utilizing client browser favorites",
+   "assignee": "Bennett James D"
+  },
+  {
+   "id": "US20090313242A1",
+   "title": "Content assesing apparatus, content searching apparatus, content assesing method, content searching method, and first and second computer programs",
+   "assignee": "Yasuteru Kodama"
+  },
+  {
+   "id": "US7636714B1",
+   "title": "Determining query term synonyms within query context",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7657626B1",
+   "title": "Click fraud detection",
+   "assignee": "Enquisite, Inc."
+  },
+  {
+   "id": "US7676507B2",
+   "title": "Methods and systems for searching and associating information resources such as web pages",
+   "assignee": "Enrico Maim"
+  },
+  {
+   "id": "US7680775B2",
+   "title": "Methods and systems for generating query and result-based relevance indexes",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US7693818B2",
+   "title": "UserRank: ranking linked nodes leveraging user logs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100106706A1",
+   "title": "Method and apparatus for identifying related searches in a database search system",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7716225B1",
+   "title": "Ranking documents based on user behavior and/or feature data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20100131563A1",
+   "title": "System and methods for automatic clustering of ranked and categorized search objects",
+   "assignee": "Hongfeng Yin"
+  },
+  {
+   "id": "US7747612B2",
+   "title": "Indication of exclusive items in a result set",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7756887B1",
+   "title": "System and method for modulating search relevancy using pointer activity monitoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20100205541A1",
+   "title": "social network driven indexing system for instantly clustering people with concurrent focus on same topic into on-topic chat rooms and/or for generating on-topic search results tailored to user preferences regarding topic",
+   "assignee": "Jeffrey A. Rapaport"
+  },
+  {
+   "id": "US7783632B2",
+   "title": "Using popularity data for ranking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100228738A1",
+   "title": "Adaptive document sampling for information extraction",
+   "assignee": "Mehta Rupesh R"
+  },
+  {
+   "id": "US7801885B1",
+   "title": "Search engine system and method with user feedback on search results",
+   "assignee": "Neal Akash Verma"
+  },
+  {
+   "id": "US20100241472A1",
+   "title": "Illness specific diagnostic system",
+   "assignee": "David Antonio Hernandez"
+  },
+  {
+   "id": "US7809716B2",
+   "title": "Method and apparatus for establishing relationship between documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7818320B2",
+   "title": "Enhanced search results based on user feedback relating to search result abstracts",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20100287129A1",
+   "title": "System, method, or apparatus relating to categorizing or selecting potential search results",
+   "assignee": "Yahoo!, Inc., a Delaware corporation"
+  },
+  {
+   "id": "US7836058B2",
+   "title": "Web searching",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100299317A1",
+   "title": "Method of displaying a subjective score with search engine results",
+   "assignee": "Victor David Uy"
+  },
+  {
+   "id": "US7844589B2",
+   "title": "Method and apparatus for performing a search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7849089B2",
+   "title": "Method and system for adapting search results to personal information needs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7853557B2",
+   "title": "Method and computer for responding to a query according to the language used",
+   "assignee": "Siebel Systems, Inc."
+  },
+  {
+   "id": "US7856446B2",
+   "title": "Method and apparatus for determining usefulness of a digital asset",
+   "assignee": "Baynote, Inc."
+  },
+  {
+   "id": "US20100325131A1",
+   "title": "Assigning relevance weights based on temporal dynamics",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7877404B2",
+   "title": "Query classification based on query click logs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7895177B2",
+   "title": "Enabling searching of user ratings and reviews using user profile location, and social networks",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20110064795A1",
+   "title": "Therapeutic vaccine targeted against P-glycoprotein 170 for inhibiting multidrug resistance in the treatment of cancers",
+   "assignee": "Ac Immune Sa"
+  },
+  {
+   "id": "US7925498B1",
+   "title": "Identifying a synonym with N-gram agreement for a query phrase",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7925649B2",
+   "title": "Method, system, and graphical user interface for alerting a computer user to new results for a prior search",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7953740B1",
+   "title": "Detection of behavior-based associations between search strings and items",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US7974974B2",
+   "title": "Techniques to perform relative ranking for search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20110179093A1",
+   "title": "Storing and Managing Information Artifacts Collected by Information Analysts Using a Computing Device",
+   "assignee": "Battelle Memorial Institute"
+  },
+  {
+   "id": "US7987185B1",
+   "title": "Ranking custom search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8001136B1",
+   "title": "Longest-common-subsequence detection for common synonyms",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20110219025A1",
+   "title": "Image search using images in query",
+   "assignee": "Massachusetts Institute Of Technology"
+  },
+  {
+   "id": "US8019650B2",
+   "title": "Method and system for producing item comparisons",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US8024330B1",
+   "title": "Collaborative incident alert system for mobile devices",
+   "assignee": "Hector Franco"
+  },
+  {
+   "id": "US8027439B2",
+   "title": "Self-calibrating fraud detection",
+   "assignee": "Fair Isaac Corporation"
+  },
+  {
+   "id": "US8037042B2",
+   "title": "Automated analysis of user search behavior",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8037043B2",
+   "title": "Information retrieval system",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20110264670A1",
+   "title": "Method and system for searching unstructured textual data for quantitative answers to queries",
+   "assignee": "Somnath Banerjee"
+  },
+  {
+   "id": "US8051061B2",
+   "title": "Cross-lingual query suggestion",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8060497B1",
+   "title": "Framework for evaluating web search scoring functions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8060456B2",
+   "title": "Training a search result ranker with automatically-generated samples",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20110282906A1",
+   "title": "Systems and methods for performing a search based on a media content snapshot image",
+   "assignee": "Rovi Technologies Corporation"
+  },
+  {
+   "id": "US8065296B1",
+   "title": "Systems and methods for determining a quality of provided items",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8069182B2",
+   "title": "Relevancy-based domain classification",
+   "assignee": "Working Research, Inc."
+  },
+  {
+   "id": "US20110295879A1",
+   "title": "Systems and methods for document management",
+   "assignee": "Neuone, Llc"
+  },
+  {
+   "id": "US20110295844A1",
+   "title": "Enhancing freshness of search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8073263B2",
+   "title": "Multi-classifier selection and monitoring for MMR-based image recognition",
+   "assignee": "Ricoh Co., Ltd."
+  },
+  {
+   "id": "US8073867B2",
+   "title": "Analyzing a query log for use in managing category-specific electronic content",
+   "assignee": "Aol Inc."
+  },
+  {
+   "id": "US8073772B2",
+   "title": "Systems and methods for processing transactions using multiple budgets",
+   "assignee": "American Express Travel Related Services Company, Inc."
+  },
+  {
+   "id": "US8082242B1",
+   "title": "Custom search",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8086599B1",
+   "title": "Method and apparatus for automatically identifying compunds",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8090717B1",
+   "title": "Methods and apparatus for ranking documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8156111B2",
+   "title": "Identifying and expanding implicitly temporally qualified queries",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8209331B1",
+   "title": "Context sensitive ranking",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8412699B1",
+   "title": "Fresh related search suggestions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8447760B1",
+   "title": "Generating a related set of documents for an initial set of documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8458165B2",
+   "title": "System and method for applying ranking SVM in query relaxation",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US8498974B1",
+   "title": "Refining search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8521725B1",
+   "title": "Systems and methods for improved searching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US6076051A",
+   "title": "Information retrieval utilizing semantic representation of text",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "JP2001519952A",
+   "title": "Data summarization device",
+   "assignee": "ブリティッシュ・テレコミュニケーションズ・パブリック・リミテッド・カンパニー"
+  },
+  {
+   "id": "US7421648B1",
+   "title": "Reusable data markup language",
+   "assignee": "E-Numerate Solutions, Inc."
+  },
+  {
+   "id": "US7043471B2",
+   "title": "Search engine account monitoring",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US7680796B2",
+   "title": "Determining and/or using location information in an ad system",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US8086690B1",
+   "title": "Determining geographical relevance of web documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "EP1669889A4",
+   "title": "Similarity calculation device and similarity calculation program",
+   "assignee": "Intellectual Property Bank"
+  },
+  {
+   "id": "US7792833B2",
+   "title": "Ranking search results using language types",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7693817B2",
+   "title": "Sensing, storing, indexing, and retrieving data leveraging measures of user activity, attention, and interest",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7904448B2",
+   "title": "Incremental update of long-term and short-term user profile scores in a behavioral targeting system",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8661029B1",
+   "title": "Modifying search result ranking based on implicit user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8661012B1",
+   "title": "Ensuring that a synonym for a query phrase does not drop information present in the query phrase",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8938463B1",
+   "title": "Modifying search result ranking based on implicit user feedback and a model of presentation bias",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8694374B1",
+   "title": "Detecting click spam",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8037086B1",
+   "title": "Identifying common co-occurring elements in lists",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8694511B1",
+   "title": "Modifying search result ranking based on populations",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090094073A1",
+   "title": "Real time click (rtc) system and methods",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8909655B1",
+   "title": "Time based ranking",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7769740B2",
+   "title": "Systems and methods of ranking attention",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7822742B2",
+   "title": "Modifying relevance ranking of search result items",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8171041B2",
+   "title": "Support for international search terms",
+   "assignee": "Enpulz, L.L.C."
+  },
+  {
+   "id": "US8126839B2",
+   "title": "Methods and apparatuses for adapting a ranking function of a search engine for use with a specific domain",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8239370B2",
+   "title": "Basing search results on metadata of prior results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8396865B1",
+   "title": "Sharing search engine relevance data between corpora",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8352466B2",
+   "title": "System and method of geo-based prediction in search result selection",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20110029517A1",
+   "title": "Global and topical ranking of search results using user clicks",
+   "assignee": "Shihao Ji"
+  },
+  {
+   "id": "KR101284788B1",
+   "title": "Apparatus for question answering based on answer trustworthiness and method thereof",
+   "assignee": "한국전자통신연구원"
+  },
+  {
+   "id": "US20110087966A1",
+   "title": "Internet customization system",
+   "assignee": "Yaniv Leviathan"
+  },
+  {
+   "id": "US8874555B1",
+   "title": "Modifying scoring data based on historical changes",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8615514B1",
+   "title": "Evaluating website properties by partitioning user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8924379B1",
+   "title": "Temporal-based score adjustments",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8832083B1",
+   "title": "Combining user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8898150B1",
+   "title": "Collecting image search event information",
+   "assignee": "Google Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US9390143B2",
+   "title": "Recent interest based relevance scoring"
+  },
+  {
+   "id": "US11816114B1",
+   "title": "Modifying search result ranking based on implicit user feedback"
+  },
+  {
+   "id": "US8868548B2",
+   "title": "Determining user intent from query patterns"
+  },
+  {
+   "id": "US9697259B1",
+   "title": "Refining search results"
+  },
+  {
+   "id": "US8938463B1",
+   "title": "Modifying search result ranking based on implicit user feedback and a model of presentation bias"
+  },
+  {
+   "id": "US8359309B1",
+   "title": "Modifying search result ranking based on corpus search statistics"
+  },
+  {
+   "id": "US9092510B1",
+   "title": "Modifying search result ranking based on a temporal element of user feedback"
+  },
+  {
+   "id": "US8694511B1",
+   "title": "Modifying search result ranking based on populations"
+  },
+  {
+   "id": "US8615514B1",
+   "title": "Evaluating website properties by partitioning user feedback"
+  },
+  {
+   "id": "US8874555B1",
+   "title": "Modifying scoring data based on historical changes"
+  },
+  {
+   "id": "US9213774B2",
+   "title": "Navigational resources for queries"
+  },
+  {
+   "id": "US9378247B1",
+   "title": "Generating query refinements from user preference data"
+  },
+  {
+   "id": "US9009146B1",
+   "title": "Ranking search results based on similar queries"
+  },
+  {
+   "id": "US8930350B1",
+   "title": "Autocompletion using previously submitted query data"
+  },
+  {
+   "id": "US8645367B1",
+   "title": "Predicting data for document attributes based on aggregated data for repeated URL patterns"
+  },
+  {
+   "id": "US8924379B1",
+   "title": "Temporal-based score adjustments"
+  },
+  {
+   "id": "US9275113B1",
+   "title": "Language-specific search results"
+  },
+  {
+   "id": "US8838587B1",
+   "title": "Propagating query classifications"
+  },
+  {
+   "id": "US8959093B1",
+   "title": "Ranking search results based on anchors"
+  },
+  {
+   "id": "US8819004B1",
+   "title": "Ranking image search results using hover data"
+  },
+  {
+   "id": "CN101454780A",
+   "title": "Method for Generating Website Profile Based on Monitoring User Behavior"
+  },
+  {
+   "id": "WO2009140272A2",
+   "title": "Search results with most clicked next objects"
+  },
+  {
+   "id": "US9110975B1",
+   "title": "Search result inputs using variant generalized queries"
+  },
+  {
+   "id": "US9623119B1",
+   "title": "Accentuating search results"
+  },
+  {
+   "id": "US8930351B1",
+   "title": "Grouping of users"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8972391B1/en"
+}

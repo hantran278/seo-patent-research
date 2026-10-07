@@ -1,0 +1,1090 @@
+{
+ "id": "US7971137B2",
+ "title": "Detecting and rejecting annoying documents",
+ "abstract": "A system and method for evaluating documents for approval or rejection and/or rating. The method comprises comparing the document to one or more criteria determining whether the document contains an element that is substantially identical to one or more of a visual element, an audio element or a textual element that is determined to be displeasing.",
+ "inventors": [
+  "Deepak Jindal",
+  "Anurag Agarwal"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2005-12-14",
+ "filing_date": "2005-12-14",
+ "publication_date": "2011-06-28",
+ "status": "Active",
+ "expiration": "2029-02-25",
+ "cpc": [
+  "G06Q30/00",
+  "G06Q30/02",
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/953",
+  "G06F16/9535",
+  "G06K15/00",
+  "G06Q50/00",
+  "G06Q50/10"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer-implemented method of approving a document, the method comprising: analyzing content of a first document to identify one or more first portions, wherein the first portions are visual, textual, or audio portions; identifying one or more second documents that are similar to the first document, wherein the one or more second documents have second portions that are visual, textual, or audio portions; based upon computer code that describes the first portions and the second portions, determining whether any of the first portions are substantially identical to the second portions that have been predetermined to be unacceptable; and approving the first document only if none of the first portions are substantially identical to the second portions that have been predetermined to be unacceptable.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1 further comprising making an approval or disapproval determination based on determining whether the document contains a portion that is substantially identical to an unacceptable segment.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, wherein the code determining operation comprises determining whether the document contains delay parameters of lower magnitude than a delay parameter predetermined to be acceptable.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, wherein the code determining operation comprises determining whether the document contains computer code that results in the downloading of one or more video documents without initiation by the user.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 1, wherein the code determining operation comprises determining whether the document comprises computer code that downloads one or more audio documents without initiation by the user.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 1, wherein the code determining operation comprises determining whether the document comprises computer code that downloads one or more video and one or more audio documents without initiation by the user.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 1, wherein the code determining operation comprises determining whether the document comprises computer code that obtains data from sources other than the document itself.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 1, wherein the code determining operation comprises determining whether the document comprises computer code that opens network connections.",
+   "dependent": true
+  },
+  {
+   "text": "9. The method of claim 1, wherein the determining operation comprises determining whether the document comprises computer code that loops greater than a number previously designated for comparison.",
+   "dependent": true
+  },
+  {
+   "text": "10. The method of claim 1, wherein the code determining operation comprises determining whether the document comprises computer code that includes simulated random number generation.",
+   "dependent": true
+  },
+  {
+   "text": "11. The method of claim 1, wherein the code determining operation comprises determining whether the document comprises computer code that calls hardware that is substantially identical to one or more types of hardware that has been predetermined to be unacceptable.",
+   "dependent": true
+  },
+  {
+   "text": "12. The method of claim 11, wherein the one or more types of hardware comprises a computer mouse.",
+   "dependent": true
+  },
+  {
+   "text": "13. The method of claim 11, wherein the one or more types of hardware comprises a game controller.",
+   "dependent": true
+  },
+  {
+   "text": "14. The method of claim 1, further comprising comparing an image of the document with one or more image quality values that have been predetermined to be acceptable.",
+   "dependent": true
+  },
+  {
+   "text": "15. The method of claim 14, wherein the one or more quality parameters comprises a degree of definition of a border boundary of a visual content of the document.",
+   "dependent": true
+  },
+  {
+   "text": "16. The method of claim 14, wherein the one or more quality parameters comprises an extent that a border boundary of a visual content of the document occupies a visual content of the document",
+   "dependent": true
+  },
+  {
+   "text": "17. The method of claim 1, further comprising comparing a frame of an image of the document change contrast rate with a change contrast rate that has been predetermined to be acceptable.",
+   "dependent": true
+  },
+  {
+   "text": "18. The method of claim 1, further comprising comparing a color change rate of a frame of an image with a color change rate that has been predetermined to be acceptable.",
+   "dependent": true
+  },
+  {
+   "text": "19. The method of claim 1, further comprising comparing a rate at which an image of a document translates with a rate of translation that has been predetermined to be acceptable.",
+   "dependent": true
+  },
+  {
+   "text": "20. A computerized system for approving a document, comprising: one or more computers for implementing the steps for: analyzing content of a first document to identify one or more first portions, wherein the first portions are visual, textual, or audio portions; identifying one or more second documents that are similar to the first document, wherein the one or more second documents have second portions that are visual, textual, or audio portions; based upon computer code that describes the first portions and the second portions, determining whether any of the first portions are substantially identical to the second portions that have been predetermined to be unacceptable; and approving the first document only if none of the first portions are substantially identical to the second portions that have been predetermined to be unacceptable.",
+   "dependent": false
+  }
+ ],
+ "description": "\n## FIELD OF THE INVENTION\n\n\nThe present inventions relate generally to detecting undesirable characteristics of a document such as an advertisement and rejecting such document for distribution.\n\n\n## BACKGROUND OF THE INVENTION\n\n\nThe Internet provides a useful venue for advertising. However, Internet advertisements may contain characteristics that are often found annoying or otherwise displeasing to persons who view the ads. For instance, ads may contain offensive language or annoying actions such as flashing or strobing or be of poor image quality. It is desirable for entities who have some control over whether to allow an ad to be displayed on the Internet to be able to detect annoying or otherwise displeasing ads.\n\nOne method of detecting ads which are annoying or otherwise displeasing is to manually review the ad before distributing it to the audience. However, there are problems associated with manual review. For example, one significant drawback of manual review systems and methods is the time and expense involved in reviewing the ads.\n\nThese and other drawbacks exist with current systems and methods.\n\n\n## SUMMARY OF THE INVENTION\n\n\nAccordingly, various embodiments of the present inventions may be directed a system and method for evaluating documents for approval or rejection and/or rating. The method comprises comparing the document to one or more criteria determining whether the document contains an element that is substantially identical to one or more of a visual element, an audio element or a textual element that is determined to be displeasing. An approval determination may be made for the document based on the stored information about the at least one parameter and the comparison.\n\nIn another exemplary embodiment, a method for approving or rejecting a document is provided. A document is processed for distribution. The document is compared to at least one parameter and a determination is made as to whether the document contains an element that is substantially identical to one or more of a visual element, an audio element or a textual element that is determined to be displeasing. Based on the act of comparing, the document is either approved or rejected for distribution.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nFIG. 1 depicts a system for approving or rejecting an electronic document according to an embodiment of the invention.\n\nFIG. 2 depicts a networked environment for operation of a system for approving or rejecting an electronic document according to an embodiment of the invention.\n\nFIG. 3 a is a flow chart illustrating an exemplary method for approving or rejecting an electronic document based on the characteristics of the electronic document according to an embodiment of the invention.\n\nFIG. 3 b is a flow chart illustrating an exemplary method for approving or rejecting a Flash ad based on the characteristics of the ad according to an embodiment of the invention.\n\nFIG. 3 c is a flow chart illustrating an exemplary method for approving or rejecting an animated GIF document based on the characteristics of the electronic document according to an embodiment of the invention.\n\nFIG. 3 d is a flow chart illustrating an exemplary method for approving or rejecting a static image ad based on the characteristics of the ad according to an embodiment of the invention.\n\nFIG. 4 a depicts an exemplary document according to an embodiment of the invention.\n\nFIG. 4 b depicts an exemplary document with a jiggling ad according to an embodiment of the invention.\n\nFIG. 4 c depicts an exemplary document with a layout problem according to an embodiment of the invention.\n\nFIG. 5 depicts an exemplary document providing rating information according to an embodiment of the invention.\n\n\n## DETAILED DESCRIPTION OF EXEMPLARY EMBODIMENT(S)\n\n\nThe embodiments described herein solve many problems with existing systems and methods. One problem facing Internet content providers is evaluating a large number of documents (such as advertisements presented through its services) to determine whether each is annoying or otherwise displeasing for a wide variety of different users. Embodiments described herein overcome these and other problems by processing a document to determine whether the document is annoying or otherwise displeasing by identifying annoying or displeasing parameters and comparing the document to the parameters (e.g., offensive language or flashing action). The processing may occur automatically, i.e., by a machine-implemented process and/or without human input or intervention.\n\nThe embodiments described herein enable Flash and animated image documents (e.g., advertisements). Some of these types of ads are annoying. An embodiment of the present invention provides for uploading a document such as an advertisement and comparing the document to specified parameters. The document can be compared to the parameters by a document processor (e.g., automatically by an image processor). The processor may process images, sound files, and other data to identify text, images (as well as spoken words and other data), and actions in the ad. For instance, text may be identified in an image using optical character recognition (OCR) technology. By comparing the document to specified parameters, characteristics can be identified in and associated with the document, and the document can be accordingly rated and approved or rejected based on these characteristics and the status of the ratings of the comparison parameters.\n\nWhile the term “advertisement” and “ad” may be used as an illustrative example, it should be appreciated that the same system and method may be applied to other forms of documents or electronic documents. As used herein, the term “document” and “electronic document” may encompass one or more advertisements, content pages (e.g., web pages), search results, emails, applications, IM messages, audio content or files, video content or files, other files, other data or applications that may reside on one or several (e.g., a network) of computer systems, or other definable concepts or content.\n\nOverview and System Architecture\n\nFIG. 1 depicts a system 100 for approving or rejecting an electronic document based on characteristics of the electronic document according to an embodiment of the invention. The system may comprise: a server 2, one or more providers 8, one or more document sources 12, one or more end users 10, and one or more databases 50 operatively connected to server 2.\n\nSystem 100 may enable server 2 to process characteristics ratings of electronic documents. Document sources 12, providers 8, and end users 10 may communicate with one or more servers 2 via electronic communication, including Internet communications. Document sources 12, providers 8, and end users 10 may include or have access to one or more servers 2 for providing functionality associated with electronic documents.\n\nInformation that may be communicated between and among server 2, providers 8, document sources 12, and end users 10 may include one or more of the following: document information, document performance information, document characteristics rating information, sensitivity rating information, suitability standard information, trust score information, provider information, link information, and other information. The document information may include one or more of the following: the document itself, any language(s) used in the document, length information, information regarding the type(s) of files in the document (e.g., html, doc, zip, etc.), type of document (advertisement, educational document), summary information, audio content (e.g., song lyrics), visual content (e.g., pictures of faces), pornographic content, other offensiveness content (e.g., use of potentially offensive words), programming code, image quality, actions associated with the document, age-related content, the identity of the document owner and/or the document creator, information about the document's intended audience (such as geographic area, age range, gender, race, national origin, religion, other demographic information), and any other information related to a document or to the server 2, providers 8, or document sources 12.\n\nDocument sources 12 may provide documents to server 2, or server 2 may “pull” or retrieve documents from document sources 12. For instance, the document source 12 may provide an advertisement to server 2 so that the server 2 may then provide the advertisement to one or more content providers 8, and the providers 8 may provide the ad to one or more end users 10 (or server 2 may provide the ad directly to the end user 10). Document sources 12 may include any content creator or content provider 8, such as an advertisement listings provider or server 2.\n\nProviders 8 may provide documents to one or more end-users, 10 a through 10 n. Providers 8 may include a content provider, search engine or other entity that makes available information, services, and/or products over an electronic network, such as the Internet. A provider 8 may include one or more of the following, for example: an advertisement listings provider, an electronic document provider, a website host, a server 2, any other entity that provides electronic documents to users or other entities, or any other provider of content.\n\nThe providers 8 may be partners of an entity associated with operating server 2. An end user 10 may be one or more persons, computers, computer networks, or other entity on a network. An end user 10 may request and receive content from a provider 8 and/or server 2. Additional participants may be included based on various applications.\n\nThe server 2 may comprise any server 2, hub, central processor, provider, search engine, or other entity in a network. A database 50 coupled to the server 2 may include one or more databases 50-66. Also, databases 50-66 may comprise portions of a single database 50. It should be appreciated that the databases 50-66 may or may not be physically distinct. The server 2 and its modules 20-42 may store and access information stored in the database(s) 50-66.\n\nA characteristics database 52 may store documents and/or data related to the documents, such as portions, images, actions, text, and hardware, patterns, rules, and programming usable by the document.\n\nThe documents may be received from document sources 12 and/or providers 8. The server 2 may also generate documents. The documents may be rated and/or unrated. For example, the documents may or may not have rating information of a specific type associated with them. For instance, the documents may have rating information from modules 28, 30, but not from an end user 10 or provider 12.\n\nThe characteristics database 52 may identify documents of a certain type. For instance, documents may be identified according to one or more of the following features: subject matter, characteristics rating, aggregate characteristics rating, sensitivity score, characteristics type, language, geographic origin (e.g., country or city of origin), geographic area of target audience, document source 12, owner of content, creator of content, target demographic, actions (such as image flashing), image movement, hardware usable by the document (such as a mouse, game controllers, camera, or microphone), whether user interaction is provided by the document (which may indicate a game), whether the document's programming involves random number generation, or other criteria. For instance, the documents may be identified according to their offensiveness/appropriateness characteristics, associated keywords, associated site (e.g., a site explicitly or implicitly linked from the document, such as through an embedded hypertext link), status of associated site (e.g., whether a link in a document is broken and/or points to an invalid URL), flesh content (e.g., state of undress of human images), pornographic or other prurient content, adult content, drug- or alcohol-related content, children's content. The documents may also contain annoying actions such as flashing, strobing, repetitive movement, infinitely looping animation, use of streaming video and/or audio, open network connections, involve game playing, or other actions which the provider may wish to use for criteria for approving or rejecting a document. The documents may also be identified by poor image quality or other criteria.\n\nAn image data database 54 may store image data. The image data may be received from a document source 12, the image reader module 28, and the image file data module 30. For instance, the image reader module 28 may read image data and store it in the image data database 54.\n\nThe image data database 54 may also store a wide variety of images and data used by Optical Character Recognition (“OCR”) (e.g., OCR processors and/or software) and other image processors to process and identify text and images. For instance, the image data database 54 may store programs and files that define and describe various images and image types. The programs may also identify patterns in the document that can be used to compare the document to other documents (e.g., by comparing the patterns in one document to the patterns in another). The image data database 54 may store generic (and specific) images for comparison. For instance, the image data database 54 may store a generic image of an apple. The comparison module 32 may process an image of a fruit and compare it to the stored image of the apple to determine whether the two images are sufficiently similar and accordingly determine whether the image can be classified as an image of an apple.\n\nA characteristics rating database 58 may store characteristics ratings (i.e., “rating information”) and other information generated by the image data module 28, as well as any other information that may be relevant to rating a document. For instance, the characteristics rating database 58 may store information relating to whether the document involves flashing or strobing images, repetitive movement, infinitely looping animation, use of streaming video and/or audio, open network connections, involve game playing, or other annoying or otherwise displeasing actions. Each stored characteristics rating may be associated with a particular document (e.g., an electronic document).\n\nEach characteristics rating may comprise one or more subject ratings.\n\nEach characteristics rating may also comprise one or more action ratings. For instance, a characteristics rating may include a rating for flashing, strobing, linking to other documents (e.g., links to a URL), program code looping, connecting to streaming audio or video, or connecting to hardware devices such as a mouse or game controller.\n\nEach characteristics rating may also comprise one or more image quality ratings. For instance, a characteristics rating may include a rating for quality related to image sizing, bordering, definition, shading, or perspective.\n\nThese separate ratings may or may not be combined into a single score (e.g., a single aggregate rating for a document). A document's characteristics rating and/or aggregate rating may change as new rating information for the document is received.\n\nThe characteristics rating database 58 may also store a general approval status of a document. The approval status may be “approved,” “disapproved,” “suspended pending further review,” or “rejected,” for instance. A document may have an approval status for a variety of criteria.\n\nA link database 60 may store linked documents and the links themselves. For instance, the server may receive an image ad from a document source 12 a. The image ad may have an embedded hypertext link (e.g., http://www.website.com/about/index) as well as a different link displayed in the image (e.g., www.website.com). The link database 60 may store the two links; link database 60 may also store the linked documents, e.g., an image or html file of the websites located at the linked addresses. The link database 60 may also store other link-related information.\n\nOther database(s) 66 may store other information related to the documents, links, linked documents, and other information.\n\nThe server 2 may comprise one or more modules to process documents and content, document ratings and other entity ratings, trust scores (e.g., of document sources), and other data. The modules of server 2 may store, access and otherwise interact with various sources of data, including external data, databases and other inputs.\n\nThe document rating module 26 may also process rating information related to the actions performed by the document, such as flashing, strobing, linking to other documents (e.g., links to a URL), program code looping, downloading of streaming audio or video documents, or connecting to hardware devices such as a mouse or game controller. The document rating module 26 accomplishes such processing by checking the document program code for objects, commands, and other code that generate such action.\n\nFor instance, a document program code that involves mouse motion tracking would involve user interaction and likely involve game playing and as such may be considered by the Provider 8 to be an annoying or otherwise displeasing characteristic of an ad. Similarly, program code that involves random number generation likely would involve game playing and could be assigned an appropriate action rating. Program code that results in audio or video action without being initiated by the user may be considered by the Provider 8 to be an annoying or otherwise displeasing characteristic of an ad and could be assigned an appropriate action rating.\n\nThe document rating module 26 may also check for actions such as flashing, flickering, or jiggling. Flash multimedia authoring program (“Flash”) may have been used to create document and is based on vector graphics and hence represents a frame as a collection of objects instead of a bitmap. A SWF file is made up of a header followed by a sequence of tags. There are two basic types of tags: Definition tags and Control tags. Definition tags define the objects which are then manipulated by the control tags to form the animation. The Flash player processes the tags until it encounters a ShowFrame tag. At that point, all the objects placed on the display list are shown on the screen. The player then continues to process the new control tags until it encounters the next ShowFrame tag. This way an animation is rendered on the screen. Flash also has support for a scripting language called ActionScript which has support for expression evaluation, branching, looping and Javascript-style object model along with inheritance. ActionScript also has built-in support for streaming audio and video along with some network connection capability.\n\nSome of the tags in a SWF file have a ActionScript block which is executed either on some event or when the element is displayed. A block of code generally begins with a constant pool which contains the set of strings used in the ActionScript code. These strings can be string constants, variable names or class names. An instruction takes some arguments from the stack and pushes the result back on the stack. For example, a Date object creation in ActionScript looks like:\n\nmyDate = new Date( );\n\nAfter compilation, it would appear as the following set of instructions:\n\naction: Constantpool String: “myDate”, String: “Date” action: Push Lookup:0 Lookup:1 action:\n\nNewObject action: SetVariable\n\nThe Push operation pushes the two strings in the order specified onto the stack. The NewObject command pops one argument from the stack and uses it to instantiate an object of that type. The resulting object is then pushed back on the stack. SetVariable pops two values from the stack and uses them as the RHS and LHS of an assignment statement i.e it assigns the first value on the stack to the second value (a variable) on the stack.\n\nIn order to track the click-through-rate for an ad, the system evaluates the target URL for a click at the time when the ad is displayed. For Flash, this may be accomplished by passing the target URL by setting a variable, generally named as “clickTAG.” An ad may ensure that on a click, it reads the URL from the clickTAG variable and directs the user to that URL. The system may elect to only accept Flash ads that support clickTAG.\n\nGIF may have been used to create documents being assessed for annoyance detection and/or rating and/or approval or rejection. The GIF format supports transparency through matte channel. Matte value of a pixel specifies if it is transparent or not. Every frame in a GIF animation has a page offset which specifies the position at which the frame is displayed with respect to the animation. The transparency option along with page offset and disposal method is often used to create optimized animations. The disposal method specifies the action to be performed on the previous frame before the next frame is displayed. It supports four options:\n\nEvery frame in a GIF animation includes a delay parameter which specifies the display duration for that frame in 1/100 second units. A NETSCAPE extension also allows specification of number of iterations that an animation should make.\n\nFlashing and jiggling ads generally have small delay parameters so the document rating module 26 may check for delay parameters that have been quantified by the Provider 8 to be considered small. Flashing or flickering ads generally consist of frames which change contrast and color scheme at a rapid rate. Therefore, the document rating module 26 may check for the same content in different frames and significant (as quantified by the Provider 8 by a designated comparison rate) intensity of color changes between different frames. Jiggling ads generally are images with every frame containing the same object but at slightly different positions. Therefore, the document rating module 26 may do a pixel-by-pixel match to determine if the frames are simply translations of a single image. To detect jiggling ads, the document rating module 26 may also match images by aligning the borders of the object contained in the image or by computing motion vectors and checking whether a group of the vectors are directed to the same direction. The document rating module 26 may also compute the Fast Fourier Transform for all the frames of an image and take the sum of the absolute difference of the coefficients. The closer that this difference is to zero, the more likely the image is jiggling. If this difference computes to within a quantified parameter specified by the Provider 8, the ad may be considered to be jiggling and assigned an appropriate rating.\n\nThe document rating module 26 may also check for image quality and layout problems by comparing quality characteristics of the document with previously established quality parameters. For layout problems, the document rating module 26 may extract the border from the image and check whether the border has a sharp edge boundary or occupies a large part of the image, which would be considered undesirable and result in an appropriate rating or ratings being assigned to the document. For image quality, the document may be evaluated based upon image quality metrics (IQMs) chosen by the Provider 8 and the document would be assigned an appropriate rating or ratings.\n\nThe image reader module 28 may comprise one or more computers or data processors equipped with one or more optical sensors. An image file data module 30 may process image data, such as data received from the image reader module 28. The image reader module 28 and image file data module 30 may be used in the processing, including rating, of optical data, such as images, text, and links, from the image of the document. This process is explained in further detail in U.S. patent application Ser. No. 10/841,833 (now U.S. Pat. No. 7,639,898) entitled “Method and System for Approving Documents Based on Image Similarity” filed May 10, 2004. This application is incorporated herein by reference in its entirety.\n\nThe image file data module 30 may identify one or more images in a document based on the optical and/or computer file data processed by the image reader module 28. In other words, the module 30 may recognize text, characters, and/or images. Based on this information, the image reader module 28 may rate the document (e.g., image) along these and other criteria.\n\nAn advantage of using the modules 26, 28, 30 to determine rating information is that rating information can be automatically determined (i.e., without human intervention). Because the server 2 may receive and distribute thousands, millions, and/or billions of different documents, the transaction and administrative costs of manually reviewing each document may be prohibitive and/or expensive. The modules 26, 28, 30 may provide a sufficient preliminary review of an image or other document to determine whether a document is approved (e.g., acceptable and appropriate) for general distribution or for distribution to one or more specific providers 8 or end users 10.\n\nIt should be understood that a single document may have one or more electronic embodiments and one or more physical embodiments. For instance, a single document may take the forms of a .pdf file, a .gif file, a .tiff file, a file of another format, a printed piece of paper, a photograph, another physical object, or a visual display on a screen or monitor. Thus, a single document may be passed from the server 2 to the rating entities (such as the image reader module 28 and image file data module 30) in an electronic format (e.g., .pdf format) or a physical embodiment (e.g., a printed document on a piece of paper).\n\nIt should be further understood that the image reader module 28 and image file data module 30 may also be configured to process and identify concepts based on sounds, animations, video, pop-up ability, and other audio-visual information. Accordingly, the modules 28, 30 may further comprise speakers, microphones, and audio/video processors. For instance, the modules 28, 30 may comprise voice recognition technology to process sound files to determine words spoken or sung in a sound file. The modules 28, 30 may further be configured to recognize types of sounds, like the sound of the ocean, the sound of jazz music, and the sound of an orchestra. Based on audio (and other audio-visual) information, additional concepts may be associated with a document.\n\nA comparison module 32 may compare the image (or portions thereof) or file content to other images (or portions thereof) or files, e.g., images or portions stored in the characteristics database 52 and image data database 54. Specifically, the comparison module 32 may compare an image from one document source 12 a to one or more documents from the same document source 12 a already stored in the content database 52 or image data database 54. For instance, the comparison module 32 may determine whether a document is identical to (or substantially identical to) another document. The document comparison module 32 may also determine a degree of similarity between two or more documents (e.g., that a document is 80% similar to another document).\n\nThe comparison module 32 may also identify that a first document has similar offensive, inappropriate content or annoying elements as a second document, file or image. For instance, if the module 32 identifies that an image ad contains an image that is substantially identical to an inappropriate image of Janet Jackson in a web page that was determined to be pornographic, the module 32 may flag the image ad for review or otherwise indicate that the image ad may have inappropriate content. For instance, the module 32 may send negative rating information to the document rating module 26, and the document rating module 26 may flag the ad or otherwise change the ad's rating.\n\nThe link module 34 may inspect one or more links in a document (e.g., automatically in response to identifying the link). For instance, if an image ad document comprises one or more links (e.g., if the image ad displays a URL link on the ad, embeds a hypertext link, or otherwise enables a viewer to select an associated document, e.g., by clicking on a link), the modules 28, 30 may access the link and the linked document. If the modules 28, 30 are unable to access the link or linked document (e.g., if the processor's web browser fails to load the linked document or there is another error), the processor may report a “broken” link (e.g., automatically in response to identifying a “broken” link). For instance, the modules 28, 30 may report this information as rating information to the document rating module 26.\n\nThe link information may comprise the link quality rating (e.g., whether the link works or has any problem) as well as the content (e.g., content ratings) of the link and any linked documents (e.g., linked websites). The information may be obtained in any manner of rating documents as described herein. Any link-associated information may be stored in the link database 60 or the characteristics database 52.\n\nFinally, link-related information may be passed to the document rating module 26, e.g., so that the characteristics of any linked documents (or the link itself) may be factored into a document's rating. For instance, an ad may receive a rating of inappropriateness if it links to a site relating to sex, drugs or alcohol or if it links to a document that flashes, contains streaming audio or video, contains infinitely looping animation, involves game playing, etc.\n\nThe link module 34 may periodically inspect links in documents, e.g., even after a document has already been rated. For instance, it may check links every month, or every tenth time a user clicks on the link, to ensure that the document has a working link that directs users to an appropriate site.\n\nOther module(s) 42 may accomplish other functions related to rating electronic documents. Several additional server 2 and system 100 functions are described in U.S. patent application Ser. No. 10/742,791 entitled “Method And System For Providing Targeted Graphical Advertisements” filed Dec. 23, 2003; U.S. patent application Ser. No. 10/812,417 (now U.S. Pat. No. 7,533,090) entitled “System and Method for Rating Electronic Documents” filed Mar. 30, 2004; and U.S. patent application Ser. No. 10/841,834 (now U.S. Pat. No. 7,801,738) entitled “System And Method For Rating Documents Comprising An Image,” filed May 10, 2004. These applications are incorporated herein by reference in their entirety.\n\nThese applications describe other modules 42 that enable processing rating information for documents. For instance, documents may be received and/or generated and passed to evaluators, such as end users, providers, and other entities. The documents may have a feedback link or another mechanism for rating a document, e.g., so that end users can rate a document after receiving the document. The server 2 may receive the ratings and determine content ratings (e.g., sexual content, violent content, and other appropriateness or suitability factors) for each rated document. The ratings may be aggregated and stored in the characteristics rating database 58. Aggregate ratings may indicate ratings in a variety of content areas, such as adult content and violent content. Sensitivity information may be determined for various providers and end users who have specific preferences for the type of content they receive (e.g., a prohibition on pornography). The document rating module 26 may determine whether the document should be approved or rejected based upon the rating or ratings of the document.\n\nIllustrative System Network Environment\n\nFIG. 2 depicts a networked environment for operation of a system for rating, approving or rejecting an electronic document according to an embodiment of the invention. In such an environment, evaluators and providers 8 may connect over a network 14, 15 to a server 2 (e.g., using a secure https connection) to provide documents and rating information to server 2 and to receive documents and rating request information from server 2. The server 2 may store the document, rating, and other information in a database 50. The server 2 may distribute the documents through various forums or feeds, including direct distribution in print media, providing the documents on one or more web sites affiliated with the server 2 and through providers 8. It should be noted that providers may comprise syndication partners of the server 2 (e.g., connected over network 14 or 15 depending on security desired), content systems (e.g., with associated content databases) and search engine systems operated by the server 2 or provider(s) 8.\n\nThrough these various forums, the documents provided to the providers 8 may be included in pages (or other documents) displayed to end-users 10 (often called an impression).\n\nEach of server 2, providers 8, and document sources 12 may comprise computerized systems that include one or more of the following systems: a web server 2, a database server 2, proxy server 2, network balancing mechanisms and systems, and various software components that enable the system to operate on the internet or other network type system. Additionally, networks 14 and 15, although depicted as http networks, may comprise other networks such as private lines, intranets, or any other network. In an exemplary embodiment, the connection between a document source 12 such as an advertisement provider and server 2 (and other connections such as between a provider 8 and server 2) may comprise secure network connections to insure that data is not subject to attack or corruption by any hacker or other third party. In addition, whereas two document providers 12 are depicted, it should be appreciated that one or more document providers 12 may be provided in the network. Similarly, although one database 50 is depicted, it should be appreciated that multiple databases may be provided and that such databases may be connected to the server 2 via any type of network connection, including a distributed database server 2 architecture.\n\nSimilarly, provider 8 a may comprise any number of such systems connected to the server 2 via any type of network, including an http or https network. Content provider 8 may comprise a system such as server 2 that provides functionality for enabling connection over the Internet or other network protocols. End users 10 may comprise any user (such as users connected to the internet) and may comprise computerized systems that enable that connection through any of various types of networks, including through Internet service providers, cable companies, and any other method of accessing data on the Internet. Providers 8 may comprise any system that distributes content such as advertising to end-users 10.\n\nIllustrative Process\n\nFIG. 3 a is a flow chart illustrating an exemplary method for rating or approving or rejecting an electronic document according to an embodiment of the invention.\n\nIn block 300, a document may be received. For instance, a document source 12 a such as an advertisement listings provider may pass an image advertisement to the server for distribution to providers 8 and end users 10. By way of example, the document may be an image ad showing a female model.\n\nIn block 310, the document may be processed (e.g., automatically) to identify document visual and textual subject matter (other characteristics such as flashing, involving game playing, and having poor image quality being identified later in block 370). For instance, the image reader module 28 and image file data module 30 may process the document as described herein to identify text and/or images in the document. An image of a female may be identified, as well as text indicating an endorsement of a product and a link to a website (e.g., www.bathingsuits.com), which may be displayed in the ad and/or embedded in the hypertext of the ad.\n\nIn block 320, the document may be compared to similar documents. For instance, based on the image processing in block 310, the comparison module 32 may compare the processed image information to image information of other documents and identify similar documents. Concepts such as keywords associated with the similar documents may be identified. For instance, by this comparison the document being evaluated may be associated with nudity, sexuality, violence, profanity, and other subject matter that the Provider 8 may wish to use as a basis for rating or rejecting the document.\n\nIn block 330, linked content may be accessed, e.g., by the link module 34. This block 350 is relevant only for documents that comprise at least one link. For instance, the link module 34 may access the www.bathingsuits.com website linked in the ad via a browser.\n\nIn block 340, the status of any links may be identified and/or reported. For instance, the link module 34 may identify that the link was functional and that the linked website properly loaded in a browser. If the link did not properly direct the browser to the proper website, or if the website failed to load, the link may be reported broken.\n\nIn block 350, linked content may be rated, rejected and/or approved. As in block 310, the content of the link and any linked documents may be rated and/or approved, e.g., by modules 28, 30. The rating/approval information may be associated with the underlying document.\n\nIf a link associated with a document is broken, the document may be flagged for review or otherwise disapproved. Similarly, if a link is determined to be associated with inappropriate content (e.g., there is inappropriate content at a linked website), the document may be flagged for review.\n\nIn block 360, the linked content may be associated with one or more concepts. The linked content may be associated with concepts such as keywords. The ratings and associations of the underlying document may reflect the ratings and associations of the linked content, as described above.\n\nIn block 370, the document may compared to parameters other than visual and textual content (visual and textual subject matter having been assessed in earlier blocks), for instance whether the document is flashing, involves game playing, is of poor image quality) be rated and/or approved. For instance, the image modules 26, 28, 30 may identify that there is a large amount of flesh content in the image of the female, that the document involves random number generation or mouse movement or other action indicating the document involves game playing, that the document flashes or jiggles, or that that document has poor image quality, and accordingly rate the document as undesirable. The ratings may be based on a variety of criteria, such as image content, text, motion, sound, links and linked documents, and other criteria. In some embodiments, the rating/approval information may be determined automatically, e.g., by modules 26, 28, 30. Various techniques may be used to compare ads with specified parameters for rating and/or approval or rejection by the Provider 8. A person skilled in the relevant art will recognize that other languages and techniques can be used for the specification of parameters, comparison of a document to those parameters, and other claim elements set forth herein without parting from the spirit and scope of the invention. For illustrative purposes, exemplary methods of evaluating Flash ads, animated GIF, and static images for ratings are described in the following paragraphs.\n\nFlash ads: The swftools library may be used as it is a robust and complete solution. The information contained in the SWF files may be used to perform the following tasks:\n\n1. Text extraction: Most of the text used in Flash animations is stored under the DefineText tag or its variants. It is possible to extract this text in most cases by examining these tags. This text will be associated with the image and it can be checked against the policies for text in the images like language, trademarks etc.\n\nSWF file supports two kinds of text—Glyph text and Device text. Every Glyph text character is described in terms of the control points of a Quadratic B-Spline which determines the shape of the character. Font for Device text is specified using a standard font name but it also provides Glyph text as a fallback option. Glyph fonts are defined using DefineFont and DefineFont2 tags and Device fonts are defined using DefineFont and DefineFontInfo tags. The DefineFont tag contains a list of the characters used in the animation as Glyphs. No character codes are associated with the Glyphs. Moreover, the characters listed in DefineFont are only a subset of the complete alphabet as it only includes the characters used in the animation and without any additional information, it is not possible to map each shape with its character representation (unless one uses an OCR like technique on the shapes). For the Glyph text, this additional information is completely missing but for Device text, the DefineFontInfo tag contains a mapping from a character shape to its character representation (ASCII or Unicode).\n\nThe actual text that is to be displayed is stored in either the DefineText or DefineEditText tag. These tags contain pointers to the character records in the DefineFont tag corresponding to the font it uses. As a result, decoding the text requires decoding both the DefineFont tags and the DefineText tags.\n\nThe swftools library allows traversing over the tags in a SWF file. A Provider 8 may first iterate over the tags to associate each font symbol with the corresponding character symbol using the DefineFont and DefineFontInfo tags. Once the fonts are discovered, DefineText and DefineEditText are decoded using the corresponding font information.\n\n2. Checking for disallowed actions: Flash ads which perform certain actions such as streaming audio, streaming video and opening network connections may be specified by the Provider 8 to be annoying. To check for these actions, ActionScript objects may be created and the SWF file can be checked for the presence of these objects.\n\nFlash's security policy ensures that a user 10 is warned if a user 10 is trying to load variables from outside the current domain but silently allows a flash movie to stream data or make web services calls. Even if Flash issues a warning to the user 10 about the movie accessing remote data, it can be annoying to the user 10 due to the warning dialog box opened by the movie. Hence a Provider 8 may wish to check for such methods.\n\nThe checks for the disallowed methods is divided into two parts: (1) Check for disallowed objects and (2) Check for disallowed methods. The disallowed objects are the ones which are only used for the purpose of accessing the network or some other resource that is restricted. Examples include classes like Camera, Microphone, NetConnection, SharedObject and XMLSocket. To check for the disallowed objects, a Provider 8 may look for the following ActionScript:\n\naction: Push action: NewObject\n\nA Provider 8 could also check for certain network-related calls on other objects. Examples include Sound.loadSound( ) and Movie.loadMovie( ). For these checks a Provider 8 would look for the following ActionScript code:\n\naction: Push action: CallMethod\n\nA Provider 8 could also use control flow and data flow analysis as another technique.\n\nAnother possibility for detecting such actions would be to monitor the system calls made by the Flash player while executing the document being in examining. A Provider 8 may check for socket open requests, sound device open requests, etc.\n\n3. Checking for games: Most games involve some kind of mouse motion tracking and random number generation. Mouse coordinates in Flash may be determined through the value of the _xmouse and _ymouse properties of a movie clip. Action script code which tries to do this may be checked. Also, other types of user 10 interaction may be checked. Random numbers in ActionScript are generally generated either through the “ActionRandomNumber” instruction or by using the in-built Math.random( ) library function and the code may be checked for their presence.\n\nChecking for games: Games typically involve mouse tracking and random number generation. In Flash, the position of mouse can be obtained by using the properties _xmouse and _ymouse of a movie clip (often the _root clip). In Flash, a movie clip refers to an animation sequence and such animation sequences can be embedded within the main animation as well. A generic way of tracking the mouse then is to register for a mouse motion event and on such an event, obtain the position of the mouse using the _xmouse and _ymouse properties and take appropriate action. Mouse motion event is supported by movie clip, button and Mouse objects (possibly some more objects as well). There are multiple ways of registering a listener for an event as well.\n\nMany of the Flash games have an object (such as a cross-hair) which moves along with the mouse cursor. For such games, a Provider 8 can check for the strings _xmouse and _ymouse in the disassembled file. Ads are generally expected to use the mouse position and it would be uncommon to use “_xmouse” and “_ymouse” as variables or as string constants. Hence, this technique should work reasonably well to detect games. There could be other games where the mouse coordinates are not required but use other mouse actions such as mouse hovering over certain areas.\n\nRandom numbers in ActionScript are obtained through the “ActionRandomNumber” instruction or through Math.random( ) call. For the ActionRandomNumber instruction, a Provider 8 may simply check for the presence of the corresponding actionscript tag. For Math.random( ) function, a Provider 8 may check for the following set of instructions:\n\naction: Push “Math” action: GetVariable action: Push “random” action: CallMethod\n\n4. Checking for sound and video: Sound and video are incorporated in a SWF file using the DefineSound and DefineVideoStream tags respectively. The Provider 8 may wish to allow the use of sound in the ads but not allow sound played only as a result of a user 10 action or the Provider 8 may simply check for the presence of sound in the SWF file regardless whether it is being initiated by a user 10 event. This could cause the ad to receive a certain rating, be rejected, or indicate to a human approver, if any, to make more thorough checks of such ads.\n\n5. Checking and fixing clickTAG: If clickTAG is used by the Provider 8, the Provider 8 may want to ensure that the Flash ads have proper support for clickTAG and the user 10 is not redirected to any other URL. This may be accomplished by checking whether there is a “clickTAG” string in the SWF file and that there is no URL present in the file. Provider 8 may also be able to fix the creative by simply replacing “clickTag” with “clickTAG”.\n\nTo support clickTAG, a Flash ad should have a button with the click action configured to invoke GetURL on the argument supplied through the clickTAG. One simple check would test the presence of the string “clickTAG” and absence of any URL in the code. Another technique would be to check if “clickTAG” is being used as an argument to GetURL2 instruction. A Provider 8 may check for either of the following set of instructions: // 1. getUrl(_root.clickTAG, ) 2. getUrl (“clickTAG”, ) Push Push “clickTAG” GetVariable GetVariable Push “clickTAG” Push GetMember GetUrl2 0 Push GetUrl2 0\n\nThe target argument of GetUrl instruction specifies the target window in which the click should be opened. In addition, a Provider 8 may also check for the presence of URLs in the file.\n\n6. Checking and adding clickTarget: Provider 8 may also want to control the window in which the landing page is displayed. This can be achieved by supporting a “clickTarget” argument similar to the clickTAG in the Flash movie. As this is a non-standard feature, Provider 8 may wish to ensure that all the advertisers do not have to change their ad inventory to adhere to this feature and therefore Provider 8 may wish to augment most of the existing Flash files to support this feature.\n\n7. Checking for infinitely looping animations: This check may implemented by executing the SWF file and noting any writes to the display device being performed by the flash player after the maximum allowed animation duration. This technique may be extended to perform checks for networking calls, sound etc. Provider 8 may also simulate user 10 actions like mouse click and check for support for clickTAG.\n\nAnimated GIF: ImageMagik library may be used for this purpose. The two most frequently encountered problems with animated GIFs are the flashing and jiggling image ads. Both of these types of ads generally have small delay parameters and that aspect can used to mark some subset of ads as safe.\n\n1. Flashing/Flickering Images: The ads under this category consist of frames with rapidly changing contrast and color scheme. Such ads may be detected by checking for same content in different frames and noting the intensity of color changes between different frames.\n\nFlashing images generally have the same set of objects in all the frames and only the colors (and luminosity) of the objects vary across the frames. Specifying a comparison parameter based on the delays between the frames eliminates the most annoying images. For instance, a comparison parameter of a delay of less than 0.5 seconds between all the frames gives a high probability the image turns out to be an annoying one.\n\nA Provider 8 may also identify similar frames in the animation which are at a distance of one frame from each other. The identification may be based on the observation that the animations which have some kind of flashing effect have similar frames interspersed with frames where either a new object appears in the picture or the color of an object present in the picture changes. Both of these can essentially be considered as sharp changes in the colors between the frames.\n\nProvider 7 may first identify similar frames with a frame in between them and then compare the interspersed frame with one of the similar frames. The contrast change per pixel may be computed, as may the frequency at which this change occurred. The CIE 1976 color-difference formula may be used for measuring the perceived color difference between two images.\n\nThe algorithm can be enhanced by taking into account factors such as spatial distribution of colors, color changes along the edges, masking and other idiosyncrasies of the Human Visual System (HVS).\n\n2. Jiggling Images: Jiggling ads are animations with every frame containing the same object but at slightly different positions, giving the impression of a jiggling object. In many of these ads, it might turn out that frames actually use the same image against a constant background but at different page offsets. These ads may be detected by doing a pixel-by-pixel match. If the frames are simply translations of a single image, the Fast Fourier Transform (FFT) coefficients of the frames are same. Another technique is to match the images by aligning the borders of the object contained in the image.\n\nFor jiggling animations which are created by changing the page offsets of the same image can be easily detected by comparing the actual frames used in the animation. Other jiggling ads consist of frames which are different images laid out at (0,0) page offset. In some of these ads, the jiggling object is laid against a transparent background. In such cases, each frame may be cropped to remove these transparent pixels and then compare the cropped images.\n\nTechniques based on Fast Fourier Transforms (FFT) also perform well for jiggling animations. The FFT coefficients for all the frames may be computed. Then the sum of absolute difference (SAD) of the coefficients may be computed. For the jiggling images, this difference is closer to zero as the frames mainly involve translation. To offset the effect of the illumination level in the image, the Provider may apply the threshold on SAD relative to the absolute sum of the coefficients of one of the frames. This technique can be made more robust by using Mellin-Fourier Transform.\n\nFor detecting strobing and moving objects in general, the Provider 8 may compute motion vectors and check whether there are a group of them pointing in the same direction. The Provider 8 may use a block based motion vector algorithm. To capture features sufficiently well in a block, large blocks of size 12 or more may be used. To avoid the problems of wrong alignment of the blocks, overlapping blocks may be used. Another technique is to use the methods for tracking optical flow in OpenCV library. Another technique would be to trace object movements in Flash through the transformations that are applied to the objects in subsequent frames. If an object is translated or scaled by a significant amount between frames, it would indicate the presence of strobing.\n\nStatic Images: Provider 8 may wish to check for poor quality images and layout problems in the static images.\n\n1. Layout Problems: The Provider 8 may extract the border from the image and check whether the border has a sharp edge boundary or occupies a large part of the image. The edges of the bounding box of the image may first be identified by scanning along each edge of the image and finding the first line parallel to that edge which does not match it. These lines constitute the bounding box of the image. Then a check for whether the edges of the bounding box correspond to edges in the original image may be made by computing the gradient along the edges. If the image has edges matching the bounding box or if the bounding box is very small compared to the original image, the image may be rated as having layout problems.\n\n2. Image Quality: A no-reference based quality assessment may be used. In such a type of assessment, there is no “ideal” image to compare the quality of the given image. Under such exemplary approach, the Provider 8 may determine some image quality metrics (IQMs), such as the and evaluate the given image on these IQMs. Also, OCR techniques may be employed to extract text from images. In addition to the text extraction, it may also be used to assess image quality. For ads which are supposed to contain text, if the OCR cannot decipher any meaningful text from the images, the document may be rated and/or rejected as having a low quality image.\n\nA Provider 8 may also compare parameters specified such to detect images intended to trick a user 10. Some ads may contain text boxes, drop downs, and buttons which are not functional and are just present as images. A Provider 8 could use edge/corner detection techniques for detecting the presence of these objects in images.\n\nIf a document is flagged or otherwise not approved based on its characteristics (e.g., if the ad contains undesirable actions such as flashing or jiggling), the document may be passed to one or more evaluators for human review. The document may be later approved after a number of human reviewers approve the document.\n\nIn block 380, the document, ratings, and approval or rejection status is passed, e.g., to the Provider 8.\n\nIt will be appreciated to those skilled in the art that the acts described may be performed by hardware, software, or a combination thereof, with or without human intervention, as may be embodied in one or more computing systems such as a server 2 system coupled to entities such as providers, evaluators, databases, and end users 10. Further, it should be appreciated that not all of the blocks must be accomplished. For instance, in one embodiment, the method may begin at block 310 and end at block 370. Also, it is not necessary that the action(s) of each block be performed in the order shown in FIG. 3. Any order of performance may be considered.\n\nFIG. 3 b is a flow chart illustrating an exemplary method for rating or approving or rejecting a Flash ad according to an embodiment of the invention.\n\nIn block 300, a Flash ad document may be received. By way of example, the Flash ad in this example is a game where the user 10 must use a mouse to play the game.\n\nIn block 310, the document may be processed (e.g., automatically). The strings _xmouse and _ymouse are checked for in the disassembled file. The strings are found and the document is rated as an annoying ad or rejected.\n\nIn block 320, the document, rating, and/or rejection status is passed, e.g., to the Provider 8.\n\nFIG. 3 c is a flow chart illustrating an exemplary method for approving or rejecting a flashing animated GIF document according to an embodiment of the invention.\n\nIn block 300, an animated GIF document may be received. By way of example, the animated GIF document is a flashing animation.\n\nIn block 310, the document may be processed (e.g., automatically). The delays between the frames is checked and found to be 0.2 seconds between all the frames. This determined delay is then compared against a comparison parameter of a delay of 0.5 seconds. Because the determined delay is found to be less than the comparison parameter, the document is found to be a flashing ad and is rated as a flashing ad or rejected.\n\nIn block 320, the document, rating, and/or rejection status is passed, e.g., to the Provider 8.\n\nFIG. 3 d is a flow chart illustrating an exemplary method for rating or approving or rejecting a static image document according to an embodiment of the invention.\n\nIn block 300, a static image may be received. By way of example, the static image is an image of a cola can with a surrounding border.\n\nIn block 310, the document may be processed (e.g., automatically). The border is extracted from the image and the percentage of the image occupied by the border is determined. It is found that the border occupies 50% of the image. The 50% value is compared against the comparison parameter of 30%. Because the determined value (50%) is greater than the comparison parameter (30%), the document is found to have a layout problem and the document is rated as an annoying ad or rejected.\n\nIn block 320, the document, rating, and/or rejection status is passed, e.g., to the Provider 8.\n\nIllustrative User Interface and Results\n\nFIG. 4 a depicts an exemplary image advertisement document 1 according to an embodiment of the invention. The image ad 1 may comprise a banner ad, another ad that can be displayed on a web page, or another graphical advertisement that can be displayed via an electronic means. The image ad 1 shows specific images 1A, ad text 1B, and one or more links 1C. The specific images 1A comprise a film projector and images of a DVD, VHS, and digital film container. The text 1B comprises an advertisement message, e.g., a description of a product or service, a suggestion to a potential customer, and/or other advertising text. The link 1C may comprise a link to another document, such as the advertiser's web page URL (or portion thereof). For instance, the link 1C may comprise an embedded hypertext link, and the embedded link may be associated with the link 1C displayed in the image of the document 1. In some embodiments, selecting (e.g., clicking on) the displayed URL or other link while viewing the document 1 (e.g., in a web browser) may direct the viewer's mechanism for viewing documents (e.g., web browser) to the content associated with the link (e.g., the advertiser's web page).\n\nThe document may have various types of content. For instance, the document may have words, images, sounds, and other information, as well as functions or programs, which may dynamically produce words, images, sounds, and other information. Each document may have different amounts of various types of content, such as sexual content, violent content, drug or alcohol-related content, financial content, adult-related content, child-related content, and other content.\n\nThe document 1 may explicitly display the link 1C. Also, the link 1C may be embedded in the document (e.g., in the programming of the document) or a portion thereof such that the link 1C is not visible. Here, selecting (e.g., clicking on) the document 1, an image 1A, text 1B, or another portion of the document may direct a user's 10 document viewing mechanism to the linked document(s). The document 1 itself, images 1A, and text 1C may also comprise one or more links 1C. For instance, an ad that advertises a plurality of products may comprise a link for each product, wherein selecting (e.g., clicking on) an image 1A, icon 1A, or text 1B relating to a specific product may direct a web browser (or other document viewing mechanism) to a page at a merchant's site associated with the specific product (or to another document). The document 1 may rapidly change colors, involve streaming audio or video not initiated by the user 10, or other actions that may be considered by the Provider 8 to be annoying or otherwise undesirable.\n\nThe document may have various types of content. For instance, the document may have words, images, sounds, and other information, as well as functions or programs, which may dynamically produce words, images, sounds, and other information. Each document may have different amounts of various types of content, such as sexual content, violent content, drug or alcohol-related content, financial content, adult-related content, child-related content, and other content.\n\nFIG. 4 b depicts several sequential frames 10, 20, 30, 40, 50, 60, 70, 80, 90, 110,120 of an exemplary video advertisement document 500 (which is a jiggling ad) according to an embodiment of the invention. The frames 10, 20, 30, 40, 50, 60, 70, 80, 90, 110,120 depict a can of cola 11, 21, 31, 41, 51, 61, 71, 81, 91, 111, 121 that is translated at different positions within the frames 10, 20, 30, 40, 50, 60, 70, 80, 90, 110, 120 so that when the frames are displayed sequentially, the can of cola 11, 21, 31, 41, 51, 61, 71, 81, 91, 111, 121 appears to jiggle in the video advertisement document 500. Frame 10 depicts a can of cola 11 standing upright, frame 20 depicts a can of cola 21 standing tilted slightly to the right, frame 30 depicts a can of cola 31 standing upright again, frame 40 depicts a can of cola 41 standing tilted slightly to the left, and the sequence begins again at frame 50. The invention would detect this ad as annoying and in one embodiment flag the document such to inform the Provider 8 that the ad needs to be examined. In another embodiment the invention would automatically reject the ad.\n\nFIG. 4 c depicts an exemplary image advertisement document 1 (which is a static ad) according to an embodiment of the invention. The image ad 1 shows an image of a cola can 2 and a border 6 around the image. The image ad 1 has poor layout; specifically, the sizing of the ad results in a large area being occupied by the border 6 of the ad 1. An embodiment of the invention would detect this layout problem and inform the Provider 8 that the ad needs to be examined. In another embodiment the invention would automatically reject the ad.\n\nFIG. 5 depicts an exemplary document 1 according to an embodiment of the invention. FIG. 5 depicts a document providing on a monitor, to the Provider 8, rating and approval/rejection information regarding an ad. The document ad 3 being rated and approved or rejected is provided to the Provider 8. Ratings provided include a content rating 5, action rating 7, link rating 9, aggregate rating 11, and approval/rejection status 13.\n\nIt should be understood that the server, processors, and modules described herein may perform their functions (e.g., comparing a document to specified parameters and/or determining rating information) automatically or via an automated system. As used herein, the term “automatically” refers to an action being performed by any machine-executable process, e.g., a process that does not require human intervention or input.\n\nThe embodiments of the present inventions are not to be limited in scope by the specific embodiments described herein. For example, although many of the embodiments disclosed herein have been described with reference to image ads, the principles herein are equally applicable to other documents, such as websites. Indeed, various modifications of the embodiments of the present inventions, in addition to those described herein, will be apparent to those of ordinary skill in the art from the foregoing description and accompanying drawings. Thus, such modifications are intended to fall within the scope of the following appended claims. Further, although the embodiments of the present inventions have been described herein in the context of a particular implementation in a particular environment for a particular purpose, those of ordinary skill in the art will recognize that its usefulness is not limited thereto and that the embodiments of the present inventions can be beneficially implemented in any number of environments for any number of purposes. Accordingly, the claims set forth below should be construed in view of the full breath and spirit of the embodiments of the present inventions as disclosed herein.",
+ "cited_by": [
+  {
+   "id": "US20110078558A1",
+   "title": "Method and system for identifying advertisement in web page",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20110093773A1",
+   "title": "Automated application compatibility testing",
+   "assignee": "Browsera LLC"
+  },
+  {
+   "id": "US20110219448A1",
+   "title": "Systems and methods for risk rating and pro-actively detecting malicious online ads",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US8510829B2",
+   "title": "Systems and methods to detect malicious media files",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US20150205777A1",
+   "title": "Automated form fill-in via form retrieval",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US10572750B2",
+   "title": "Publisher tool for controlling sponsored content quality across mediation platforms",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US20030097654A1",
+   "title": "System and method of geographic authorization for television and radio programming distributed by multiple delivery mechanisms",
+   "assignee": "Franken Kenneth A."
+  },
+  {
+   "id": "US6252547B1",
+   "title": "Method and apparatus for limiting access to signals delivered via the internet",
+   "assignee": "Decisionmark Corp."
+  },
+  {
+   "id": "US8010981B2",
+   "title": "Method and system for creating television programming guide",
+   "assignee": "Decisionmark Corp."
+  },
+  {
+   "id": "US7913287B1",
+   "title": "System and method for delivering data over an HDTV digital television spectrum",
+   "assignee": "Decisionmark Corp."
+  },
+  {
+   "id": "US8046832B2",
+   "title": "Spam detector with challenges",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7543053B2",
+   "title": "Intelligent quarantining for spam prevention",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7219148B2",
+   "title": "Feedback loop for spam prevention",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7483947B2",
+   "title": "Message rendering for identification of content features",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7272853B2",
+   "title": "Origination/destination features and lists for spam prevention",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7711779B2",
+   "title": "Prevention of outgoing spam",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8533270B2",
+   "title": "Advanced spam detection techniques",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050204005A1",
+   "title": "Selective treatment of messages based on junk rating",
+   "assignee": "Purcell Sean E."
+  },
+  {
+   "id": "US7664819B2",
+   "title": "Incremental anti-spam lookup and update service",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7904517B2",
+   "title": "Challenge response systems",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7660865B2",
+   "title": "Spam filtering with probabilistic secure hashes",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8066384B2",
+   "title": "Image projection kit and method and system of distributing image content for use with the same",
+   "assignee": "Klip Collective, Inc."
+  },
+  {
+   "id": "US7610345B2",
+   "title": "Reduced traceability electronic message system and method",
+   "assignee": "Vaporstream Incorporated"
+  },
+  {
+   "id": "US9282081B2",
+   "title": "Reduced traceability electronic message system and method",
+   "assignee": "Vaporstream Incorporated"
+  },
+  {
+   "id": "US7930353B2",
+   "title": "Trees of classifiers for detecting email spam",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8065370B2",
+   "title": "Proofs to filter spam",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "ES2306558B1",
+   "title": "ANCHORAGE DEVICE FOR FOLDING BOXES.",
+   "assignee": "Sp Berner Plastic Group, S.L."
+  },
+  {
+   "id": "JP2007281596A",
+   "title": "Information processing apparatus, information processing system, and control method thereof, program, and storage medium",
+   "assignee": "Canon Inc"
+  },
+  {
+   "id": "US20080077704A1",
+   "title": "Variable Electronic Communication Ping Time System and Method",
+   "assignee": "Void Communications, Inc."
+  },
+  {
+   "id": "US8224905B2",
+   "title": "Spam filtration utilizing sender activity data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080163283A1",
+   "title": "Broadband video with synchronized highlight signals",
+   "assignee": "Angelito Perez Tan"
+  },
+  {
+   "id": "US8965892B1",
+   "title": "Identity-based filtering",
+   "assignee": "Aaron T. Emigh"
+  },
+  {
+   "id": "US8898072B2",
+   "title": "Optimizing electronic display of advertising content",
+   "assignee": "Hubpages, Inc."
+  },
+  {
+   "id": "US20090012965A1",
+   "title": "Network Content Objection Handling System and Method",
+   "assignee": "Decisionmark Corp."
+  },
+  {
+   "id": "US20090006211A1",
+   "title": "Network Content And Advertisement Distribution System and Method",
+   "assignee": "Decisionmark Corp."
+  },
+  {
+   "id": "US20090192879A1",
+   "title": "Lead Rating Systems",
+   "assignee": "Michael Hood"
+  },
+  {
+   "id": "JP4953461B2",
+   "title": "Spam mail determination server, spam mail determination program, and spam mail determination method",
+   "assignee": "ヤフー株式会社"
+  },
+  {
+   "id": "KR20100034637A",
+   "title": "The data transmitting method in image forming apparatus and the image forming apparatus for performing the method",
+   "assignee": "삼성전자주식회사"
+  },
+  {
+   "id": "US8549627B2",
+   "title": "Detection of objectionable videos",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9009834B1",
+   "title": "System policy violation detection",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8490132B1",
+   "title": "Snapshot based video advertising system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8464304B2",
+   "title": "Content creation and distribution system",
+   "assignee": "Youtoo Technologies, LLC"
+  },
+  {
+   "id": "US20130054356A1",
+   "title": "Systems and methods for contextualizing services for images",
+   "assignee": "Jason Richman"
+  },
+  {
+   "id": "WO2013137613A1",
+   "title": "Method and apparatus for determining content type of video content",
+   "assignee": "Samsung Electronics Co., Ltd."
+  },
+  {
+   "id": "US9319161B2",
+   "title": "Participating in television programs",
+   "assignee": "Youtoo Technologies, LLC"
+  },
+  {
+   "id": "US9083997B2",
+   "title": "Recording and publishing content on social media websites",
+   "assignee": "YooToo Technologies, LLC"
+  },
+  {
+   "id": "CA2831204A1",
+   "title": "Internet search engine based on location and public opinion",
+   "assignee": "Inquestor Inc."
+  },
+  {
+   "id": "US20160189404A1",
+   "title": "Selecting and Editing Visual Elements with Attribute Groups",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "CN104423943A",
+   "title": "Method and device for obtaining external link of Flash animation",
+   "assignee": "腾讯科技（深圳）有限公司"
+  },
+  {
+   "id": "WO2015042901A1",
+   "title": "Media presentation effects",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "JP6238379B2",
+   "title": "Receiving device, broadcasting system and program",
+   "assignee": "シャープ株式会社"
+  },
+  {
+   "id": "JP6791641B2",
+   "title": "Ad review support device, ad review support method and ad review support program",
+   "assignee": "ヤフー株式会社"
+  },
+  {
+   "id": "CN106294555A",
+   "title": "A kind of method and system filtering music file",
+   "assignee": "捷开通讯(深圳)有限公司"
+  },
+  {
+   "id": "US10095671B2",
+   "title": "Browser plug-in with content blocking and feedback capability",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US10803013B2",
+   "title": "Efficient similarity detection",
+   "assignee": "Smugmug, Inc."
+  },
+  {
+   "id": "US10891419B2",
+   "title": "Displaying electronic text-based messages according to their typographic features",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "WO2019197924A1",
+   "title": "System and method for automatic docketing and data entry",
+   "assignee": "Perry + Currier Inc."
+  },
+  {
+   "id": "CN109830216A",
+   "title": "A kind of bistable display device low-power consumption refreshing driving method",
+   "assignee": "南京大学"
+  },
+  {
+   "id": "KR102283134B1",
+   "title": "METHOD AND APPARATUS FOR GENERATING READING DOCUMENT Of MINUTES",
+   "assignee": "주식회사 제윤의정"
+  },
+  {
+   "id": "US20230259979A1",
+   "title": "Facilitating identification of sensitive content",
+   "assignee": "Adobe Inc."
+  }
+ ],
+ "cites": [
+  {
+   "id": "US4430831A",
+   "title": "Window buck and frame",
+   "assignee": "Bowman & Kemp Steel & Supply, Inc."
+  },
+  {
+   "id": "US5169544A",
+   "title": "Buck for use in construction",
+   "assignee": "Stanfill Michael E"
+  },
+  {
+   "id": "US5636346A",
+   "title": "Method and system for selectively targeting advertisements and programming",
+   "assignee": "The Electronic Address, Inc."
+  },
+  {
+   "id": "US5724521A",
+   "title": "Method and apparatus for providing electronic advertisements to end users in a consumer best-fit pricing manner",
+   "assignee": "Intel Corporation"
+  },
+  {
+   "id": "US5787660A",
+   "title": "Extruded vinyl door jamb assembly",
+   "assignee": "Adams; Carl W."
+  },
+  {
+   "id": "US5799453A",
+   "title": "Structure and method of fabrication",
+   "assignee": "Westerlund; Robert E."
+  },
+  {
+   "id": "US5845265A",
+   "title": "Consignment nodes",
+   "assignee": "Mercexchange, L.L.C."
+  },
+  {
+   "id": "US5918010A",
+   "title": "Collaborative internet data mining systems",
+   "assignee": "General Internet, Inc."
+  },
+  {
+   "id": "US5920854A",
+   "title": "Real-time document collection search engine with phrase indexing",
+   "assignee": "Infoseek Corporation"
+  },
+  {
+   "id": "US5931901A",
+   "title": "Programmed music on demand from the internet",
+   "assignee": "Robert L. Wolfe"
+  },
+  {
+   "id": "US5974412A",
+   "title": "Intelligent query system for automatically indexing information in a database and automatically categorizing users",
+   "assignee": "Sapient Health Network"
+  },
+  {
+   "id": "US5974398A",
+   "title": "Method and apparatus enabling valuation of user access of advertising carried by interactive information and entertainment services",
+   "assignee": "At&T Corp."
+  },
+  {
+   "id": "US5996293A",
+   "title": "Window buck and methods of assembly",
+   "assignee": "Justin J. Anderson"
+  },
+  {
+   "id": "US6026368A",
+   "title": "On-line interactive system and method for providing content and advertising information to a targeted set of viewers",
+   "assignee": "24/7 Media, Inc."
+  },
+  {
+   "id": "US6044375A",
+   "title": "Automatic extraction of metadata using a neural network",
+   "assignee": "Hewlett-Packard Company"
+  },
+  {
+   "id": "US6061659A",
+   "title": "System and method for integrating a message into a graphical environment",
+   "assignee": "Digital Marketing Communications, Inc."
+  },
+  {
+   "id": "US6067570A",
+   "title": "Method and system for displaying and interacting with an informational message based on an information processing system event",
+   "assignee": "The Delfin Project, Inc."
+  },
+  {
+   "id": "US6078866A",
+   "title": "Internet site searching and listing service based on monetary ranking of site listings",
+   "assignee": "Searchup, Inc."
+  },
+  {
+   "id": "WO2000038074A1",
+   "title": "Optimized internet advertising using history to select sites",
+   "assignee": "Flycast Communications Corp"
+  },
+  {
+   "id": "EP1026610A2",
+   "title": "Method and system for selling and purchasing media advertising over a distributed communication network.",
+   "assignee": "DirectRep, LLC"
+  },
+  {
+   "id": "US6223163B1",
+   "title": "Method and apparatus for controlling offers that are provided at a point-of-sale terminal",
+   "assignee": "Walker Digital, Llc"
+  },
+  {
+   "id": "US6247009B1",
+   "title": "Image processing with searching of image data",
+   "assignee": "Canon Kabushiki Kaisha"
+  },
+  {
+   "id": "US6253189B1",
+   "title": "System and method for completing advertising time slot transactions",
+   "assignee": "At&T Corp."
+  },
+  {
+   "id": "US6269361B1",
+   "title": "System and method for influencing a position on a search result list generated by a computer network search engine",
+   "assignee": "Goto.Com"
+  },
+  {
+   "id": "US6285987B1",
+   "title": "Internet advertising system",
+   "assignee": "Engage, Inc."
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US6298348B1",
+   "title": "Consumer profiling system",
+   "assignee": "Expanse Networks, Inc."
+  },
+  {
+   "id": "US6324519B1",
+   "title": "Advertisement auction system",
+   "assignee": "Expanse Networks, Inc."
+  },
+  {
+   "id": "US20010047297A1",
+   "title": "Advertisement brokering with remote ad generation system and method in a distributed computer network",
+   "assignee": "Albert Wen"
+  },
+  {
+   "id": "US20010051911A1",
+   "title": "Bidding method for internet/wireless advertising and priority ranking in search results",
+   "assignee": "Marks Michael B."
+  },
+  {
+   "id": "US20020002509A1",
+   "title": "Custom advertising and trade facilitation system for internet or e-mail implementation",
+   "assignee": "Wagorn Paul E."
+  },
+  {
+   "id": "US20020002525A1",
+   "title": "Digital contents advertisement display system using auction",
+   "assignee": "Masatoshi Arai"
+  },
+  {
+   "id": "US20020026359A1",
+   "title": "Targeted advertising method and system",
+   "assignee": "Long Kenneth W."
+  },
+  {
+   "id": "US20020035536A1",
+   "title": "Method and system for forming a list-based value discovery network",
+   "assignee": "Peter Gellman"
+  },
+  {
+   "id": "US20020038282A1",
+   "title": "Buyer-side auction dynamic pricing agent, system, method and computer program product",
+   "assignee": "Montgomery Rob R."
+  },
+  {
+   "id": "US20020046099A1",
+   "title": "Method for providing customized user interface and targeted marketing forum",
+   "assignee": "Renee Frengut"
+  },
+  {
+   "id": "US20020046104A1",
+   "title": "Method and apparatus for generating targeted impressions to internet clients",
+   "assignee": "Geomicro, Inc."
+  },
+  {
+   "id": "US20020059588A1",
+   "title": "Personalized remote control",
+   "assignee": "Thomas Huber"
+  },
+  {
+   "id": "US20020077891A1",
+   "title": "Method and apparatus to maximize advertising revenue",
+   "assignee": "Castle Daniel C."
+  },
+  {
+   "id": "US6421675B1",
+   "title": "Search engine",
+   "assignee": "S. L. I. Systems, Inc."
+  },
+  {
+   "id": "US20020099605A1",
+   "title": "Search engine with demographic-based advertising",
+   "assignee": "Searchcactus, Llc"
+  },
+  {
+   "id": "US20020111898A1",
+   "title": "Advertisement space auction method, apparatus and storage medium",
+   "assignee": "Chisato Numaoka"
+  },
+  {
+   "id": "US20020123988A1",
+   "title": "Methods and apparatus for employing usage statistics in document retrieval",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020165773A1",
+   "title": "Method and system for distributing advertisements over network",
+   "assignee": "Takeshi Natsuno"
+  },
+  {
+   "id": "US20020184097A1",
+   "title": "Advertisement distributing device and charging device",
+   "assignee": "Toshiki Hijiri"
+  },
+  {
+   "id": "US20020194161A1",
+   "title": "Directed web crawler with machine learning",
+   "assignee": "Mcnamee J. Paul"
+  },
+  {
+   "id": "US20020194062A1",
+   "title": "Method and system for simulating the distribution of targeted advertising",
+   "assignee": "Leif Linde"
+  },
+  {
+   "id": "US20020198780A1",
+   "title": "Multimedia content distributing system, content distributing method and computer program thereof",
+   "assignee": "Nec Corporation"
+  },
+  {
+   "id": "US6505195B1",
+   "title": "Classification of retrievable documents according to types of attribute elements",
+   "assignee": "Nec Corporation"
+  },
+  {
+   "id": "US20030009495A1",
+   "title": "Systems and methods for filtering electronic content",
+   "assignee": "Akli Adjaoute"
+  },
+  {
+   "id": "US20030037334A1",
+   "title": "Method and system for providing a customized media list",
+   "assignee": "Denis Khoo"
+  },
+  {
+   "id": "US20030070167A1",
+   "title": "Advertisement management method, system, and computer program product",
+   "assignee": "Alex Holtz"
+  },
+  {
+   "id": "US20030083937A1",
+   "title": "Advertisement delivery systems, advertising content and advertisement delivery apparatus, and advertisement delivery methods",
+   "assignee": "Masayuki Hasegawa"
+  },
+  {
+   "id": "US20030088680A1",
+   "title": "Temporal access control for computer virus prevention",
+   "assignee": "Nachenberg Carey S"
+  },
+  {
+   "id": "US20030149618A1",
+   "title": "Flexible dynamic advertising",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20030163372A1",
+   "title": "Delivering content and advertisement",
+   "assignee": "Kolsy Mohammed H."
+  },
+  {
+   "id": "US20030216963A1",
+   "title": "Advertisement distribution processing system",
+   "assignee": "Nissan Motor Co., Ltd."
+  },
+  {
+   "id": "US20040015397A1",
+   "title": "Method and system for providing advertising through content specific nodes over the internet",
+   "assignee": "Barry Christopher J."
+  },
+  {
+   "id": "US20040019523A1",
+   "title": "Method and system for providing filtered and/or masked advertisements over the internet",
+   "assignee": "Barry Christopher J."
+  },
+  {
+   "id": "US20040044571A1",
+   "title": "Method and system for providing advertising listing variance in distribution feeds over the internet to maximize revenue to the advertising distributor",
+   "assignee": "Bronnimann Eric Robert"
+  },
+  {
+   "id": "US20040054577A1",
+   "title": "Advertisement selecting apparatus, advertisement selecting method and storage medium",
+   "assignee": "Toshio Inoue"
+  },
+  {
+   "id": "US20040054589A1",
+   "title": "Method and system for providing network based target advertising and encapsulation",
+   "assignee": "Nicholas Frank C."
+  },
+  {
+   "id": "US6711570B1",
+   "title": "System and method for matching terms contained in an electronic document with a set of user profiles",
+   "assignee": "Tacit Knowledge Systems, Inc."
+  },
+  {
+   "id": "US20040059708A1",
+   "title": "Methods and apparatus for serving relevant advertisements",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20040059712A1",
+   "title": "Serving advertisements using information associated with e-mail",
+   "assignee": "Dean Jeffrey A."
+  },
+  {
+   "id": "US20040093620A1",
+   "title": "Advertisement program providing system",
+   "assignee": "Daisuke Iino"
+  },
+  {
+   "id": "US20040093327A1",
+   "title": "Serving advertisements based on content",
+   "assignee": "Darrell Anderson"
+  },
+  {
+   "id": "WO2004042525A2",
+   "title": "Method and system for dynamic textual ad distribution via email",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040119740A1",
+   "title": "Methods and apparatus for displaying and replying to electronic messages",
+   "assignee": "Google, Inc., A Corporation Of The State Of California"
+  },
+  {
+   "id": "US20040143499A1",
+   "title": "System and method for delivering plural advertisement information on a data network",
+   "assignee": "Karl-Ludwig Dietsch"
+  },
+  {
+   "id": "US20040143843A1",
+   "title": "Content with customized advertisement",
+   "assignee": "Denis Khoo"
+  },
+  {
+   "id": "US20040167928A1",
+   "title": "Serving content-relevant advertisements with client-side device support",
+   "assignee": "Darrell Anderson"
+  },
+  {
+   "id": "US20040268211A1",
+   "title": "Systems and methods for analyzing and reporting electronic content",
+   "assignee": "Huff Christopher James"
+  },
+  {
+   "id": "US20050033849A1",
+   "title": "Content blocking",
+   "assignee": "Bellsouth Intellectual Property Corporation"
+  },
+  {
+   "id": "US20050065806A1",
+   "title": "Generating information for online advertisements from Internet data and traditional media data",
+   "assignee": "Harik Georges R."
+  },
+  {
+   "id": "US20050071224A1",
+   "title": "System and method for automatically targeting web-based advertisements",
+   "assignee": "Andrew Fikes"
+  },
+  {
+   "id": "US20050071741A1",
+   "title": "Information retrieval based on historical data",
+   "assignee": "Anurag Acharya"
+  },
+  {
+   "id": "US20050076014A1",
+   "title": "Determining and/or using end user local time information in an ad system",
+   "assignee": "Sumit Agarwal"
+  },
+  {
+   "id": "US20050096979A1",
+   "title": "System and method for enabling an advertisement to follow the user to additional web pages",
+   "assignee": "Ross Koningstein"
+  },
+  {
+   "id": "US20050108659A1",
+   "title": "Method for conducting a contest using a network",
+   "assignee": "Philyaw Jeffry J."
+  },
+  {
+   "id": "US20050131758A1",
+   "title": "Systems and methods detecting for providing advertisements in a communications network",
+   "assignee": "Desikan Pavan K."
+  },
+  {
+   "id": "US20050131762A1",
+   "title": "Generating user information for use in targeted advertising",
+   "assignee": "Krishna Bharat"
+  },
+  {
+   "id": "US20050144069A1",
+   "title": "Method and system for providing targeted graphical advertisements",
+   "assignee": "Wiseman Leora R."
+  },
+  {
+   "id": "US20050216335A1",
+   "title": "System and method for providing on-line user-assisted Web-based advertising",
+   "assignee": "Andrew Fikes"
+  },
+  {
+   "id": "US20050222903A1",
+   "title": "Rendering content-targeted ads with e-mail",
+   "assignee": "Paul Buchheit"
+  },
+  {
+   "id": "US20050223002A1",
+   "title": "System and method for rating electronic documents",
+   "assignee": "Sumit Agarwal"
+  },
+  {
+   "id": "US20050222900A1",
+   "title": "Selectively delivering advertisements based at least in part on trademark issues",
+   "assignee": "Prashant Fuloria"
+  },
+  {
+   "id": "US20050222989A1",
+   "title": "Results based personalization of advertisements in a search engine",
+   "assignee": "Taher Haveliwala"
+  },
+  {
+   "id": "US20050244744A1",
+   "title": "Method for forming temporary image",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20050251732A1",
+   "title": "System, method and article of manufacture for executing a multimedia event on a plurality of client computers using a synchronization host engine",
+   "assignee": "Interactual Technologies, Inc."
+  },
+  {
+   "id": "US20050262089A1",
+   "title": "Web server for multi-version Web documents",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US20050261062A1",
+   "title": "Systems and methods for delivering content over a network",
+   "assignee": "Turner Broadcasting System, Inc. (Tbs, Inc.)"
+  },
+  {
+   "id": "US20060005247A1",
+   "title": "Method and system for detecting when an outgoing communication contains certain content",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060005148A1",
+   "title": "System and method for content-based filtering of popup objects",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060020571A1",
+   "title": "Phrase-based generation of document descriptions",
+   "assignee": "Patterson Anna L"
+  },
+  {
+   "id": "US20060020607A1",
+   "title": "Phrase-based indexing in an information retrieval system",
+   "assignee": "Patterson Anna L"
+  },
+  {
+   "id": "US20060031195A1",
+   "title": "Phrase-based searching in an information retrieval system",
+   "assignee": "Patterson Anna L"
+  },
+  {
+   "id": "US20060294155A1",
+   "title": "Detecting spam documents in a phrase based information retrieval system",
+   "assignee": "Patterson Anna L"
+  },
+  {
+   "id": "US7185001B1",
+   "title": "Systems and methods for document searching and organizing",
+   "assignee": "Torch Concepts"
+  },
+  {
+   "id": "US7275052B2",
+   "title": "Combined classification based on examples, queries, and keywords",
+   "assignee": "Sap Ag"
+  },
+  {
+   "id": "US7639898B1",
+   "title": "Method and system for approving documents based on image similarity",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7668748B1",
+   "title": "Pricing across keywords associated with one or more advertisements",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US7697791B1",
+   "title": "Method and system for providing targeted documents based on concepts automatically identified therein",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7778872B2",
+   "title": "Methods and apparatus for ordering advertisements based on performance information and price information",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US7792698B1",
+   "title": "Automated price maintenance for use with a system in which advertisements are rendered with relative preferences",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US7801738B2",
+   "title": "System and method for rating documents comprising an image",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7818207B1",
+   "title": "Governing the serving of advertisements based on a cost target",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US6011375A",
+   "title": "Disc drive spindle motor with programmable current control",
+   "assignee": "Seagate Technology, Inc."
+  },
+  {
+   "id": "US20050015321A1",
+   "title": "System and method for listing offerings of commercial paper and other interests",
+   "assignee": "Susanne Vindekilde"
+  },
+  {
+   "id": "JP2002189925A",
+   "title": "Advertising management server on the Internet",
+   "assignee": "Gala Inc"
+  },
+  {
+   "id": "US6450160B1",
+   "title": "Confetti dispersion device",
+   "assignee": "Winco Fireworks International, L.L.C."
+  },
+  {
+   "id": "US20030126267A1",
+   "title": "Method and apparatus for preventing access to inappropriate content over a network based on audio or visual content",
+   "assignee": "Koninklijke Philips Electronics N.V."
+  },
+  {
+   "id": "JP4526355B2",
+   "title": "Web processing method, Web processing apparatus, and Web processing program",
+   "assignee": "株式会社日立製作所"
+  },
+  {
+   "id": "EP1741038A4",
+   "title": "Systems and methods for comparing documents containing graphic elements",
+   "assignee": "Creo Inc"
+  },
+  {
+   "id": "US8065611B1",
+   "title": "Method and system for mining image searches to associate images with concepts",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7996753B1",
+   "title": "Method and system for automatically creating an image advertisement",
+   "assignee": "Google Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "AU2006326465B2",
+   "title": "Detecting and rejecting annoying documents"
+  },
+  {
+   "id": "US8849070B2",
+   "title": "Method and system for providing targeted documents based on concepts automatically identified therein"
+  },
+  {
+   "id": "US8254729B1",
+   "title": "Method and system for approving documents based on image similarity"
+  },
+  {
+   "id": "US10334328B1",
+   "title": "Automatic video generation using auto-adaptive video story models"
+  },
+  {
+   "id": "US11042753B2",
+   "title": "Video ingestion framework for visual search platform"
+  },
+  {
+   "id": "US20200175550A1",
+   "title": "Method for identifying advertisements for placement in multimedia content elements"
+  },
+  {
+   "id": "US8234168B1",
+   "title": "Image content and quality assurance system and method"
+  },
+  {
+   "id": "US8510795B1",
+   "title": "Video-based CAPTCHA"
+  },
+  {
+   "id": "US9324085B2",
+   "title": "Method and system of generating digital content on a user interface"
+  },
+  {
+   "id": "US20160247070A1",
+   "title": "Comprehensive human computation framework"
+  },
+  {
+   "id": "US20240096051A1",
+   "title": "Determining whether a questionable video of a prominent individual is real or fake"
+  },
+  {
+   "id": "US20130124532A1",
+   "title": "Analyzing and repairing documents"
+  },
+  {
+   "id": "US20130339139A1",
+   "title": "System and method for nonstandard creative content auctioning"
+  },
+  {
+   "id": "US20170004543A1",
+   "title": "Automatic approval of advertisements for a social networking system"
+  },
+  {
+   "id": "US10769247B2",
+   "title": "System and method for interacting with information posted in the media"
+  },
+  {
+   "id": "US20130191323A1",
+   "title": "System and method for identifying the context of multimedia content elements displayed in a web-page"
+  },
+  {
+   "id": "AU2011253667B2",
+   "title": "Detecting and rejecting annoying media"
+  },
+  {
+   "id": "JP4896160B2",
+   "title": "Method for confirming conspicuous area of multimedia document, method for generating advertisement document, method for automatically confirming conspicuous area of Internet site, and related computer program"
+  },
+  {
+   "id": "CN114286155A",
+   "title": "Picture element modification method, device, equipment and storage medium based on barrage"
+  },
+  {
+   "id": "US11526652B1",
+   "title": "Automated optimization of displayed electronic content imagery"
+  },
+  {
+   "id": "US20170098254A1",
+   "title": "Dynamic generation and layout of media assets in a campaign management system"
+  },
+  {
+   "id": "CN121399669A",
+   "title": "Semantic-based image replication"
+  },
+  {
+   "id": "HK40012056A",
+   "title": "Video ingestion framework for visual search platform"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US7971137B2/en"
+}

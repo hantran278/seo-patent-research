@@ -1,0 +1,685 @@
+0 ; US8433512B1 ; 10 ; 2 ; user-signals|local|query-understanding ; 2009 ; Enhanced identification of interesting points-of-interest
+1 ; US10270791B1 ; 7 ; 1 ; links|site-quality|freshness|spam|topicality ; 2009 ; Search entity transition matrix and applications of the transition matrix
+2 ; US8938463B1 ; 7 ; 1 ; user-signals|site-quality|freshness|information-gain ; 2007 ; Modifying search result ranking based on implicit user feedback and a model of …
+3 ; US9235627B1 ; 6 ; 0 ; user-signals|site-quality|freshness ; 2006 ; Modifying search result ranking based on implicit user feedback
+4 ; US9384224B2 ; 6 ; 1 ; links|duplicates|information-gain|topicality ; 2004 ; Information retrieval system for archiving multiple document versions
+5 ; US9361331B2 ; 6 ; 2 ; topicality|duplicates|information-gain|links ; 2004 ; Multiple index based information retrieval system
+6 ; US8078629B2 ; 6 ; 3 ; links|spam|topicality|duplicates|information-gain ; 2004 ; Detecting spam documents in a phrase based information retrieval system
+7 ; US9128945B1 ; 6 ; 3 ; links|user-signals|reviews|entities|local ; 2008 ; Query augmentation
+8 ; US9037573B2 ; 5 ; 0 ; links|topicality|duplicates ; 2004 ; Phase-based personalization of searches in an information retrieval system
+9 ; US10339190B2 ; 5 ; 0 ; site-quality|freshness|topicality|entities ; 2013 ; Question answering using entity references in unstructured data
+10 ; US8694491B2 ; 5 ; 1 ; user-signals|site-quality|query-understanding ; 2005 ; Method, system, and graphical user interface for alerting a computer user to …
+11 ; US8631027B2 ; 5 ; 4 ; links|topicality|duplicates|information-gain ; 2007 ; Integrated external related phrase information into a phrase-based indexing …
+12 ; US10152520B1 ; 4 ; 0 ; links|user-signals ; 2004 ; Ranking documents based on user behavior and/or feature data
+13 ; US9275051B2 ; 4 ; 0 ; user-signals|freshness|local|authorship ; 2004 ; Automatic modification of web pages
+14 ; US7996393B1 ; 4 ; 0 ; links|entities|query-understanding|local ; 2006 ; Keywords associated with document categories
+15 ; US8027988B1 ; 4 ; 0 ; links|local|entities|query-understanding ; 2004 ; Category suggestions relating to a search
+16 ; US9378247B1 ; 4 ; 1 ; user-signals|site-quality|topicality|query-understanding ; 2009 ; Generating query refinements from user preference data
+17 ; US8452746B2 ; 4 ; 1 ; spam|query-understanding|reviews ; 2005 ; Detecting spam search results for context processed search queries
+18 ; US9697249B1 ; 4 ; 2 ; user-signals|query-understanding ; 2003 ; Estimating confidence for query revision models
+19 ; US9507826B1 ; 4 ; 2 ; site-quality|freshness|spam|query-understanding ; 2009 ; Generating real-time search results
+20 ; US8458171B2 ; 4 ; 5 ; user-signals|entities|query-understanding ; 2009 ; Identifying query aspects
+21 ; US9053115B1 ; 4 ; 6 ; user-signals|site-quality|freshness|duplicates ; 2009 ; Query image search
+22 ; US8694511B1 ; 4 ; 10 ; user-signals|site-quality|information-gain ; 2007 ; Modifying search result ranking based on populations
+23 ; US10152535B1 ; 3 ; 0 ; links|topicality|semantic-retrieval ; 2007 ; Query phrasification
+24 ; US9002817B2 ; 3 ; 0 ; user-signals|site-quality|freshness ; 2006 ; Interleaving search results
+25 ; US8738553B1 ; 3 ; 0 ; user-signals|site-quality ; 2009 ; Image selection based on image quality
+26 ; US10783156B1 ; 3 ; 0 ; site-quality|passages ; 2014 ; Scoring candidate answer passages
+27 ; US8452766B1 ; 3 ; 0 ; spam|duplicates ; 2000 ; Detecting query-specific duplicate documents
+28 ; US8694526B2 ; 3 ; 0 ; duplicates|information-gain|page-experience ; 2008 ; Apparatus and method for displaying search results using tabs
+29 ; US9336211B1 ; 3 ; 0 ; site-quality|freshness|authorship ; 2013 ; Associating an entity with a search query
+30 ; US9147154B2 ; 3 ; 0 ; spam|semantic-retrieval ; 2013 ; Classifying resources using a deep network
+31 ; US9390174B2 ; 3 ; 0 ; entities|site-quality ; 2012 ; Search result ranking and presentation
+32 ; US9152718B2 ; 3 ; 1 ; links|freshness|topicality ; 2002 ; Serving advertisements based on content
+33 ; US8370332B2 ; 3 ; 1 ; site-quality|page-experience|reviews ; 2007 ; Blending mobile search results
+34 ; US7966309B2 ; 3 ; 1 ; spam|local|reviews ; 2007 ; Providing relevance-ordered categories of information
+35 ; US9092495B2 ; 3 ; 2 ; links|entities|information-gain ; 2006 ; Automatic object reference identification and linking in a browseable fact …
+36 ; US9008435B2 ; 3 ; 2 ; user-signals|spam|semantic-retrieval ; 2005 ; System and method for search portions of objects in images and features thereof
+37 ; US7966321B2 ; 3 ; 2 ; spam|local|reviews ; 2007 ; Presentation of local results
+38 ; US7953763B2 ; 3 ; 2 ; freshness|spam|links ; 2003 ; Method for detecting link spam in hyperlinked databases
+39 ; US9223868B2 ; 3 ; 3 ; site-quality|query-understanding|spam ; 2004 ; Deriving and using interaction profiles
+40 ; US7657100B2 ; 3 ; 3 ; semantic-retrieval|spam ; 2005 ; System and method for enabling image recognition and searching of images
+41 ; US9274683B2 ; 3 ; 4 ; site-quality|passages|local ; 2011 ; Interactive answer boxes for user search queries
+42 ; US9865260B1 ; 3 ; 4 ; freshness|entities ; 2017 ; Proactive incorporation of unsolicited content into human-to-computer dialogs
+43 ; US7698059B2 ; 3 ; 4 ; entities|local ; 2005 ; Using boundaries associated with a map view for business location searching
+44 ; US8392394B1 ; 3 ; 6 ; spam|entities|local ; 2010 ; Merging search results
+45 ; US8996517B2 ; 3 ; 7 ; links|freshness|spam ; 2005 ; Permitting users to remove documents
+46 ; US9304648B2 ; 3 ; 7 ; links|reviews|semantic-retrieval ; 2013 ; Video segments for a video related to a task
+47 ; US8868548B2 ; 3 ; 7 ; user-signals|query-understanding ; 2010 ; Determining user intent from query patterns
+48 ; US9087235B2 ; 3 ; 8 ; links|site-quality|reviews ; 2009 ; Identifying matching canonical documents consistent with visual query …
+49 ; US9442989B1 ; 3 ; 8 ; spam|authorship|reviews ; 2010 ; Scoring authors of posts
+50 ; US8983939B1 ; 3 ; 8 ; user-signals|site-quality|duplicates ; 2011 ; Query image search
+51 ; US11687968B1 ; 3 ; 9 ; user-signals|freshness|query-understanding ; 2012 ; Serving advertisements based on partial queries
+52 ; US9411906B2 ; 3 ; 10 ; entities|query-understanding ; 2005 ; Suggesting and refining user input based on original user input
+53 ; US9092510B1 ; 3 ; 11 ; user-signals|site-quality ; 2007 ; Modifying search result ranking based on a temporal element of user feedback
+54 ; US8700300B2 ; 3 ; 11 ; spam|local ; 2009 ; Navigation queries
+55 ; US8712834B2 ; 3 ; 14 ; site-quality|spam|reviews ; 2000 ; Economic filtering system for delivery of permission based, targeted, …
+56 ; US9372939B2 ; 3 ; 16 ; site-quality|spam|reviews ; 1999 ; Internet based system and apparatus for paying users to view content and …
+57 ; US8843466B1 ; 3 ; 17 ; entities|query-understanding ; 2011 ; Identifying entities using search results
+58 ; US9268852B2 ; 3 ; 18 ; user-signals|local|authorship ; 2004 ; Search engines and systems with handheld document data capture devices
+59 ; US9953049B1 ; 2 ; 0 ; links|spam ; 2006 ; Producing a ranking for pages using distances in a web-link graph
+60 ; US9823744B2 ; 2 ; 0 ; user-signals|freshness ; 2014 ; Systems and methods for biomechanically-based eye signals for interacting with …
+61 ; US10204138B1 ; 2 ; 0 ; site-quality|query-understanding ; 2009 ; Navigational resources for queries
+62 ; US8433704B2 ; 2 ; 0 ; topicality|local ; 2004 ; Local item extraction
+63 ; US9195741B2 ; 2 ; 0 ; passages|query-understanding ; 2009 ; Triggering music answer boxes relevant to user search queries
+64 ; US8577907B1 ; 2 ; 0 ; query-understanding|semantic-retrieval ; 2003 ; Search queries improved based on query semantic information
+65 ; US9275143B2 ; 2 ; 0 ; duplicates ; 2001 ; Detecting duplicate and near-duplicate files
+66 ; US8209339B1 ; 2 ; 0 ; spam|duplicates ; 2003 ; Document similarity detection
+67 ; US9058364B2 ; 2 ; 0 ; spam|links ; 2004 ; Variable personalization of search results in a search engine
+68 ; US8296293B2 ; 2 ; 0 ; authorship|links ; 2005 ; Agent rank
+69 ; US9940398B1 ; 2 ; 1 ; links ; 2004 ; Customization of search results for search queries received from third party …
+70 ; US9081823B2 ; 2 ; 1 ; links|spam ; 2007 ; Ranking social network objects
+71 ; US10180964B1 ; 2 ; 1 ; site-quality|passages ; 2014 ; Candidate answer passages
+72 ; US9788179B1 ; 2 ; 1 ; freshness|entities ; 2014 ; Detection and ranking of entities from mobile onscreen content
+73 ; US8156102B2 ; 2 ; 1 ; query-understanding|local ; 2005 ; Inferring search category synonyms
+74 ; US8799099B2 ; 2 ; 1 ; freshness ; 2004 ; Processing techniques for text capture from a rendered document
+75 ; US9223877B1 ; 2 ; 1 ; topicality|links ; 2007 ; Index server architecture using tiered and sharded phrase posting lists
+76 ; US8065316B1 ; 2 ; 1 ; query-understanding|entities ; 2004 ; Systems and methods for providing search query refinements
+77 ; US11334916B2 ; 2 ; 1 ; page-experience|freshness ; 2009 ; Providing advertisements from related search queries
+78 ; US8965884B2 ; 2 ; 2 ; links|freshness ; 2005 ; Entity display priority in a distributed geographic information system
+79 ; US9323806B2 ; 2 ; 2 ; links|query-understanding ; 2009 ; Clustering query refinements by inferred user intent
+80 ; US9740780B1 ; 2 ; 2 ; user-signals ; 2009 ; Autocompletion using previously submitted query data
+81 ; US9965559B2 ; 2 ; 2 ; freshness|entities ; 2014 ; Providing automatic actions for mobile onscreen content
+82 ; US9342601B1 ; 2 ; 2 ; reviews|semantic-retrieval ; 2012 ; Query formulation and search in the context of a displayed document
+83 ; US8781228B2 ; 2 ; 2 ; freshness ; 2004 ; Triggering actions in response to optically or acoustically capturing keywords …
+84 ; US9530229B2 ; 2 ; 2 ; spam|entities ; 2006 ; Data object visualization using graphs
+85 ; US8166045B1 ; 2 ; 2 ; topicality|links ; 2007 ; Phrase extraction using subphrase scoring
+86 ; US10642893B2 ; 2 ; 3 ; user-signals|freshness ; 2016 ; Generating theme-based videos
+87 ; US9569504B1 ; 2 ; 3 ; site-quality ; 2005 ; Deriving and using document and site quality signals from search query streams
+88 ; US8478751B1 ; 2 ; 3 ; site-quality|reviews ; 2007 ; Demotion of repetitive search results
+89 ; US9122756B2 ; 2 ; 3 ; freshness|spam ; 2010 ; On-line social search
+90 ; US10108700B2 ; 2 ; 3 ; entities ; 2013 ; Question answering to populate knowledge base
+91 ; US9898554B2 ; 2 ; 3 ; entities|passages ; 2013 ; Implicit question query identification
+92 ; US8713071B1 ; 2 ; 3 ; entities|duplicates ; 2005 ; Detecting mirrors on the web
+93 ; US8589399B1 ; 2 ; 3 ; local ; 2011 ; Assigning terms of interest to an entity
+94 ; US8805867B2 ; 2 ; 3 ; query-understanding ; 2004 ; Query rewriting with entity detection
+95 ; US11783003B2 ; 2 ; 3 ; page-experience|duplicates ; 2021 ; User interfaces for surfacing web browser history data
+96 ; US7702614B1 ; 2 ; 4 ; links|topicality ; 2007 ; Index updating using segment swapping
+97 ; US9082162B2 ; 2 ; 4 ; spam|semantic-retrieval ; 2005 ; System and method for enabling image searching using manual enrichment, …
+98 ; US7925655B1 ; 2 ; 5 ; links|topicality ; 2007 ; Query scheduling using hierarchical tiers of index servers
+99 ; US9697259B1 ; 2 ; 5 ; user-signals ; 2009 ; Refining search results
+100 ; US8224827B2 ; 2 ; 5 ; freshness ; 2003 ; Document ranking based on document classification
+101 ; US9239823B1 ; 2 ; 5 ; topicality ; 2007 ; Identifying common co-occurring elements in lists
+102 ; US10235423B2 ; 2 ; 5 ; entities ; 2012 ; Ranking search results based on entity metrics
+103 ; US9116976B1 ; 2 ; 5 ; entities|query-understanding ; 2003 ; Ranking documents based on large data sets
+104 ; US8060501B1 ; 2 ; 5 ; site-quality|authorship ; 2004 ; Document ranking based on semantic distance between terms in a document
+105 ; US9582549B2 ; 2 ; 5 ; reviews|local ; 2009 ; Computer application data in search results
+106 ; US10091076B2 ; 2 ; 6 ; user-signals|page-experience ; 2015 ; Systems and methods for configuring a resource for network traffic analysis
+107 ; US9092528B1 ; 2 ; 6 ; user-signals|query-understanding ; 2009 ; Providing result-based query suggestions
+108 ; US10326768B2 ; 2 ; 6 ; site-quality|entities ; 2015 ; Access control for enterprise knowledge
+109 ; US8140524B1 ; 2 ; 6 ; site-quality|query-understanding ; 2005 ; Estimating confidence for query revision models
+110 ; US9009146B1 ; 2 ; 6 ; site-quality|freshness ; 2009 ; Ranking search results based on similar queries
+111 ; US9483530B1 ; 2 ; 7 ; links|entities ; 2005 ; Determining query terms of little significance
+112 ; US9245022B2 ; 2 ; 7 ; site-quality|query-understanding ; 2010 ; Context-based person search
+113 ; US12026194B1 ; 2 ; 7 ; topicality|passages ; 2014 ; Query modification based on non-textual resource context
+114 ; US20120290597A1 ; 2 ; 7 ; duplicates ; 2006 ; Detecting Duplicate and Near-Duplicate Files
+115 ; US9900358B1 ; 2 ; 7 ; duplicates|reviews ; 2010 ; Organizing a stream of content
+116 ; US8719079B2 ; 2 ; 8 ; site-quality|spam ; 2004 ; Adjusting ad costs using document performance or document collection …
+117 ; US11227017B2 ; 2 ; 8 ; entities ; 2016 ; Providing suggestions for interaction with an automated assistant in a multi- …
+118 ; US11055369B2 ; 2 ; 8 ; duplicates|reviews ; 2015 ; Automatic crawling of applications
+119 ; US8849817B1 ; 2 ; 8 ; user-signals|entities ; 2006 ; Ranking custom search results
+120 ; US8086594B1 ; 2 ; 9 ; links|topicality ; 2007 ; Bifurcated document relevance scoring
+121 ; US8655864B1 ; 2 ; 9 ; links|freshness ; 2005 ; Mobile SiteMaps
+122 ; US8745067B2 ; 2 ; 9 ; user-signals|local ; 2009 ; Presenting comments from various sources
+123 ; US9135674B1 ; 2 ; 9 ; duplicates ; 2007 ; Endpoint based video fingerprinting
+124 ; US10489410B2 ; 2 ; 9 ; topicality|entities ; 2016 ; Mapping images to search queries
+125 ; US9710549B2 ; 2 ; 9 ; duplicates|query-understanding ; 2006 ; Entity normalization via name normalization
+126 ; US8321201B1 ; 2 ; 10 ; topicality|query-understanding ; 2006 ; Identifying a synonym with N-gram agreement for a query phrase
+127 ; US8504437B1 ; 2 ; 10 ; passages|duplicates ; 2009 ; Dynamically selecting and presenting content relevant to user input
+128 ; US9031937B2 ; 2 ; 10 ; query-understanding|reviews ; 2005 ; Programmable search engine
+129 ; US9778819B2 ; 2 ; 10 ; duplicates|authorship ; 2012 ; Displaying a stream of content
+130 ; US10515387B2 ; 2 ; 11 ; user-signals|spam ; 2003 ; Systems and methods for determining user actions
+131 ; US8738357B2 ; 2 ; 11 ; topicality|spam ; 2006 ; Encoding and adaptive, scalable accessing of distributed models
+132 ; US8041730B1 ; 2 ; 11 ; topicality ; 2006 ; Using geographic data to identify correlated geographic synonyms
+133 ; US8046371B2 ; 2 ; 12 ; topicality|local ; 2005 ; Scoring local search results based on location prominence
+134 ; US11086883B2 ; 2 ; 12 ; entities|authorship ; 2016 ; Systems and methods for suggesting content to a writer based on contents of a …
+135 ; US10156900B2 ; 2 ; 12 ; local|reviews ; 2014 ; Systems and methods for discerning eye signals and continuous biometric …
+136 ; US8868559B2 ; 2 ; 13 ; links|freshness ; 2003 ; Representative document selection for a set of duplicate documents
+137 ; US8874555B1 ; 2 ; 13 ; site-quality|freshness ; 2009 ; Modifying scoring data based on historical changes
+138 ; US9405805B2 ; 2 ; 13 ; freshness|reviews ; 2007 ; Identification and ranking of news stories of interest
+139 ; US10387559B1 ; 2 ; 13 ; spam|entities ; 2016 ; Template-based identification of user interest
+140 ; US9760547B1 ; 2 ; 13 ; spam ; 2007 ; Monetization of online content
+141 ; US8645362B1 ; 2 ; 13 ; site-quality|page-experience ; 2010 ; Using resource load times in ranking search results
+142 ; US8856143B2 ; 2 ; 13 ; local|topicality ; 2004 ; Classification of ambiguous geographic references
+143 ; US9811728B2 ; 2 ; 15 ; user-signals|authorship ; 2004 ; Adding value to a rendered document
+144 ; US8538957B1 ; 2 ; 15 ; topicality ; 2009 ; … translations using visual similarity between visual media search results
+145 ; US8340449B1 ; 2 ; 15 ; duplicates ; 2007 ; Three-dimensional wavelet based video fingerprinting
+146 ; US8392411B2 ; 2 ; 16 ; user-signals|local ; 2010 ; Automatic routing of search results
+147 ; US20170270159A1 ; 2 ; 16 ; site-quality|passages ; 2013 ; Determining query results in response to natural language queries
+148 ; US11176575B2 ; 2 ; 16 ; query-understanding|page-experience ; 2010 ; Dynamic content aggregation
+149 ; US9143638B2 ; 2 ; 17 ; spam|authorship ; 2004 ; Data capture from rendered documents using handheld device
+150 ; US20150006563A1 ; 2 ; 17 ; topicality ; 2009 ; Transitive Synonym Creation
+151 ; US8825645B1 ; 2 ; 18 ; links|site-quality ; 2004 ; Determining quality of linked documents
+152 ; US10289618B2 ; 2 ; 18 ; freshness|spam ; 2013 ; Third party search applications for a search system
+153 ; US9881010B1 ; 2 ; 19 ; freshness|topicality ; 2014 ; Suggestions based on document topics
+154 ; US8375049B2 ; 2 ; 19 ; query-understanding|semantic-retrieval ; 2005 ; Query revision using known highly-ranked queries
+155 ; US9298777B2 ; 2 ; 19 ; links|query-understanding ; 2003 ; Personalization of web search results using term, category, and link-based user …
+156 ; US10108979B2 ; 1 ; 0 ; links ; 2009 ; Advertisement effectiveness measurements
+157 ; US8631010B1 ; 1 ; 0 ; links ; 2001 ; Systems and methods for using anchor text as parallel corpora for cross- …
+158 ; US8326861B1 ; 1 ; 0 ; user-signals ; 2010 ; Personalized term importance evaluation in queries
+159 ; US8327282B2 ; 1 ; 0 ; user-signals ; 2010 ; Extended keyboard user interface
+160 ; US10318995B2 ; 1 ; 0 ; freshness ; 2004 ; Contextual dynamic advertising based upon captured rendered text
+161 ; US8515731B1 ; 1 ; 0 ; topicality ; 2009 ; Synonym verification
+162 ; US11093813B2 ; 1 ; 0 ; passages ; 2016 ; Answer to question neural networks
+163 ; US9110995B2 ; 1 ; 0 ; passages ; 2009 ; Framework for selecting and presenting answer boxes relevant to user input as …
+164 ; US9552388B2 ; 1 ; 0 ; query-understanding ; 2003 ; System and method for providing search query refinements
+165 ; US8108412B2 ; 1 ; 0 ; information-gain ; 2004 ; Phrase-based detection of duplicate documents in an information retrieval system
+166 ; US20210350206A1 ; 1 ; 0 ; page-experience ; 2017 ; Highly Efficient Convolutional Neural Networks
+167 ; US9672285B2 ; 1 ; 0 ; page-experience ; 2012 ; System and method for improving access to search results
+168 ; US20130212089A1 ; 1 ; 0 ; reviews ; 2012 ; Search Result Categorization
+169 ; US8554759B1 ; 1 ; 0 ; semantic-retrieval ; 2008 ; Selection of documents to place in search index
+170 ; US10210256B2 ; 1 ; 1 ; links ; 2003 ; Anchor tag indexing in a web crawler system
+171 ; US10623312B2 ; 1 ; 1 ; links ; 2009 ; Wireless home network routing protocol
+172 ; US8682826B2 ; 1 ; 1 ; user-signals ; 2009 ; News topic-interest-based recommendations twiddling
+173 ; US9594826B2 ; 1 ; 1 ; user-signals ; 2009 ; Co-selected image classification
+174 ; US8990235B2 ; 1 ; 1 ; freshness ; 2009 ; Automatically providing content associated with captured information, such as …
+175 ; US8943153B2 ; 1 ; 1 ; spam ; 2005 ; System and method for displaying search results including email attachments
+176 ; US11397784B2 ; 1 ; 1 ; entities ; 2013 ; Structured user graph to support querying and predictions
+177 ; US8577868B1 ; 1 ; 1 ; entities ; 2006 ; Bookmarks
+178 ; US20250181664A1 ; 1 ; 1 ; passages ; 2022 ; Multi source extraction and scoring of short query answers
+179 ; US9361381B2 ; 1 ; 1 ; passages ; 2009 ; Selecting and presenting content relevant to user input
+180 ; US8996554B2 ; 1 ; 1 ; query-understanding ; 2007 ; Contextual query revision
+181 ; US8548972B1 ; 1 ; 1 ; duplicates ; 2005 ; Near-duplicate document detection for web crawling
+182 ; US8949013B2 ; 1 ; 1 ; local ; 2012 ; … based on visit likelihoods and predicting future visits to places from location …
+183 ; US7792837B1 ; 1 ; 1 ; authorship ; 2007 ; Entity name recognition
+184 ; US10607257B2 ; 1 ; 1 ; page-experience ; 2011 ; Mobile interstitial ads
+185 ; US20180020258A1 ; 1 ; 1 ; reviews ; 2007 ; Recommending Media Programs Based on Media Program Popularity
+186 ; US9542453B1 ; 1 ; 1 ; semantic-retrieval ; 2004 ; Systems and methods for promoting search results based on personal information
+187 ; US10055390B2 ; 1 ; 2 ; links ; 2015 ; Simulated hyperlinks on a mobile device based on user intent and a centered …
+188 ; US8688720B1 ; 1 ; 2 ; links ; 2002 ; Method and apparatus for characterizing documents based on clusters of related …
+189 ; US10194121B1 ; 1 ; 2 ; user-signals ; 2012 ; Content capture
+190 ; US10430452B2 ; 1 ; 2 ; user-signals ; 2014 ; Adaptive music and video recommendations
+191 ; US9129116B1 ; 1 ; 2 ; site-quality ; 2012 ; System and method for indicating security
+192 ; US9443197B1 ; 1 ; 2 ; freshness ; 2011 ; Predicting user navigation events
+193 ; US8145623B1 ; 1 ; 2 ; freshness ; 2009 ; Query ranking based on query clustering and categorization
+194 ; US20240193354A1 ; 1 ; 2 ; topicality ; 2018 ; Intelligent document notifications based on user comments
+195 ; US11409748B1 ; 1 ; 2 ; passages ; 2014 ; Context scoring adjustments for answer passages
+196 ; US12579191B2 ; 1 ; 2 ; passages ; 2024 ; Identifying search results in a history repository
+197 ; US8224802B2 ; 1 ; 2 ; query-understanding ; 2005 ; User interface for facts query engine with snippets from information sources …
+198 ; US8612563B2 ; 1 ; 2 ; local ; 2009 ; System and method of displaying search results based on density
+199 ; US8374975B1 ; 1 ; 2 ; authorship ; 2009 ; Clustering to spread comments to other documents
+200 ; US20220353319A1 ; 1 ; 2 ; page-experience ; 2013 ; Systems and methods for providing a personalized visual display multiple …
+201 ; US8966407B2 ; 1 ; 2 ; page-experience ; 2007 ; Expandable homepage modules
+202 ; US20190172102A1 ; 1 ; 2 ; page-experience ; 2004 ; Format and font based heuristic extraction of data structures
+203 ; US9703871B1 ; 1 ; 2 ; semantic-retrieval ; 2010 ; Generating query refinements using query components
+204 ; US10324960B1 ; 1 ; 3 ; links ; 2014 ; Determining a number of unique viewers of a content item
+205 ; US9965522B2 ; 1 ; 3 ; links ; 2014 ; Mobile application search ranking
+206 ; US8024372B2 ; 1 ; 3 ; links ; 2003 ; Method and apparatus for learning a probabilistic generative model for text
+207 ; US20160112501A1 ; 1 ; 3 ; user-signals ; 2012 ; Transferring Device States Between Multiple Devices
+208 ; US9722660B1 ; 1 ; 3 ; user-signals ; 2009 ; Simultaneous use of multiple radio frequency channels
+209 ; US9477714B1 ; 1 ; 3 ; site-quality ; 2002 ; Methods and apparatus for ranking documents
+210 ; US9123046B1 ; 1 ; 3 ; spam ; 2011 ; Identifying terms
+211 ; US9558234B1 ; 1 ; 3 ; topicality ; 2004 ; Automatic metadata identification
+212 ; US20250021842A1 ; 1 ; 3 ; topicality ; 2023 ; Monitoring generative model quality
+213 ; US10019513B1 ; 1 ; 3 ; passages ; 2014 ; Weighted answer terms for scoring answer passages
+214 ; US20140359409A1 ; 1 ; 3 ; authorship ; 2007 ; Learning Synonymous Object Names from Anchor Texts
+215 ; US9449094B2 ; 1 ; 3 ; page-experience ; 2012 ; Navigating among content items in a set
+216 ; US8326858B2 ; 1 ; 3 ; page-experience ; 2007 ; Synchronization of fixed and mobile data
+217 ; US20250036621A1 ; 1 ; 3 ; semantic-retrieval ; 2013 ; Generating query answers from a user's history
+218 ; US8744911B2 ; 1 ; 4 ; links ; 2006 ; Network node ad targeting
+219 ; US9734197B2 ; 1 ; 4 ; links ; 2000 ; Determining corresponding terms written in different formats
+220 ; US12456047B2 ; 1 ; 4 ; links ; 2019 ; Distilling from ensembles to improve reproducibility of neural networks
+221 ; US8316019B1 ; 1 ; 4 ; user-signals ; 2010 ; Personalized query suggestions from profile trees
+222 ; US8643951B1 ; 1 ; 4 ; user-signals ; 2012 ; Graphical menu and interaction therewith through a viewing window
+223 ; US9116963B2 ; 1 ; 4 ; user-signals ; 2007 ; Systems and methods for promoting personalized search results based on personal …
+224 ; US10126141B2 ; 1 ; 4 ; user-signals ; 2016 ; Systems and methods for using real-time imagery in navigation
+225 ; US9195944B1 ; 1 ; 4 ; site-quality ; 2012 ; Scoring site quality
+226 ; US9905122B2 ; 1 ; 4 ; freshness ; 2013 ; Smart-home control system providing HVAC system dependent responses to hazard …
+227 ; US8527524B2 ; 1 ; 4 ; spam ; 2003 ; Document scoring based on document content update
+228 ; US8332748B1 ; 1 ; 4 ; spam ; 2009 ; Multi-directional auto-complete menu
+229 ; US9703541B2 ; 1 ; 4 ; topicality ; 2015 ; Entity action suggestion on a mobile device
+230 ; US20240119047A1 ; 1 ; 4 ; passages ; 2014 ; Answer facts from structured content
+231 ; US9218397B1 ; 1 ; 4 ; query-understanding ; 2003 ; Systems and methods for improved searching
+232 ; US8874565B1 ; 1 ; 4 ; duplicates ; 2007 ; Detection of proxy pad sites
+233 ; US8108383B2 ; 1 ; 4 ; local ; 2006 ; Enhanced search results
+234 ; US8855684B2 ; 1 ; 4 ; local ; 2012 ; … information about relevant elements from maps history based on location
+235 ; US12013887B2 ; 1 ; 4 ; information-gain ; 2018 ; Contextual estimation of link information gain
+236 ; US20140114967A1 ; 1 ; 4 ; authorship ; 2009 ; Spreading comments to other documents
+237 ; US9245024B1 ; 1 ; 4 ; page-experience ; 2013 ; Contextual-based serving of content segments in a video delivery system
+238 ; US8224303B2 ; 1 ; 4 ; page-experience ; 2008 ; Method, device and system for session mobility of multimedia content delivered …
+239 ; US9098710B2 ; 1 ; 4 ; page-experience ; 2011 ; Setting default security features for use with web applications and extensions
+240 ; US8254699B1 ; 1 ; 4 ; semantic-retrieval ; 2009 ; Automatic large scale video object recognition
+241 ; US7877371B1 ; 1 ; 5 ; links ; 2007 ; Selectively deleting clusters of conceptually related words from a generative …
+242 ; US11907527B2 ; 1 ; 5 ; user-signals ; 2018 ; Methods and systems for positioning animated images within a dynamic keyboard …
+243 ; US9134978B1 ; 1 ; 5 ; user-signals ; 2009 ; Context-sensitive optimization level selection
+244 ; US9135307B1 ; 1 ; 5 ; site-quality ; 2012 ; Selectively generating alternative queries
+245 ; US9679067B2 ; 1 ; 5 ; site-quality ; 2003 ; Personalized network searching
+246 ; US9613009B2 ; 1 ; 5 ; freshness ; 2011 ; Predicting user navigation events
+247 ; US8825754B2 ; 1 ; 5 ; freshness ; 2004 ; Prioritized preloading of documents to client
+248 ; US6633885B1 ; 1 ; 5 ; spam ; 2000 ; System and method for web-based querying
+249 ; US11934474B2 ; 1 ; 5 ; topicality ; 2012 ; Selective presentation of content types and sources in search
+250 ; US10481861B2 ; 1 ; 5 ; entities ; 2016 ; Using user input to adapt search results provided for presentation to the user
+251 ; US20250077895A1 ; 1 ; 5 ; passages ; 2023 ; Fusing in-context learning and fine-tuning for language model neural networks
+252 ; US9875738B2 ; 1 ; 5 ; passages ; 2014 ; Query rewrite corrections
+253 ; US9135238B2 ; 1 ; 5 ; query-understanding ; 2006 ; Disambiguation of named entities
+254 ; US10776435B2 ; 1 ; 5 ; duplicates ; 2013 ; Canonicalized online document sitelink generation
+255 ; US8078601B1 ; 1 ; 5 ; local ; 2004 ; Determining unambiguous geographic references
+256 ; US8359235B1 ; 1 ; 5 ; local ; 2006 ; Business finder for locating local businesses to contact
+257 ; US8396879B1 ; 1 ; 5 ; authorship ; 2009 ; Ranking authors and their content in the same framework
+258 ; US9411890B2 ; 1 ; 5 ; page-experience ; 2012 ; Graph-based search queries using web content metadata
+259 ; US20120254768A1 ; 1 ; 5 ; page-experience ; 2011 ; Customizing mobile applications
+260 ; US10080966B2 ; 1 ; 5 ; page-experience ; 2013 ; System and method for experiencing advertised interactive applications
+261 ; US8402036B2 ; 1 ; 5 ; semantic-retrieval ; 2008 ; Phrase based snippet generation
+262 ; US9356901B1 ; 1 ; 6 ; links ; 2010 ; Determining message prominence
+263 ; US9477656B1 ; 1 ; 6 ; links ; 2003 ; Cross-lingual indexing and information retrieval
+264 ; US9380323B2 ; 1 ; 6 ; links ; 2011 ; Cache eviction
+265 ; US20150242750A1 ; 1 ; 6 ; user-signals ; 2014 ; Asymmetric Rankers for Vector-Based Recommendation
+266 ; US11100405B1 ; 1 ; 6 ; user-signals ; 2013 ; Systems and methods for cohort identification and reporting
+267 ; US9002832B1 ; 1 ; 6 ; site-quality ; 2012 ; Classifying sites as low quality sites
+268 ; US11461336B2 ; 1 ; 6 ; site-quality ; 2010 ; Selecting between global and location-specific search results
+269 ; US9697205B2 ; 1 ; 6 ; site-quality ; 2004 ; Enhanced document browsing with automatically generated links to relevant …
+270 ; US20100278453A1 ; 1 ; 6 ; freshness ; 2006 ; Capture and display of annotations in paper and electronic documents
+271 ; US12500949B2 ; 1 ; 6 ; topicality ; 2008 ; Asynchronous distributed de-duplication for replicated content addressable …
+272 ; US9317564B1 ; 1 ; 6 ; topicality ; 2009 ; Construction of text classifiers
+273 ; US10789428B2 ; 1 ; 6 ; topicality ; 2017 ; Optimized graph traversal
+274 ; US9838759B2 ; 1 ; 6 ; entities ; 2014 ; Displaying information related to content playing on a device
+275 ; US12437318B2 ; 1 ; 6 ; passages ; 2012 ; Presenting options for content delivery
+276 ; US11200027B2 ; 1 ; 6 ; query-understanding ; 2017 ; Virtual assistant configured to automatically customize groups of actions
+277 ; US11514035B1 ; 1 ; 6 ; query-understanding ; 2013 ; Query refinements using search data
+278 ; US8423885B1 ; 1 ; 6 ; duplicates ; 2009 ; Updating search engine document index based on calculated age of changed …
+279 ; US9454599B2 ; 1 ; 6 ; information-gain ; 2013 ; Automatic definition of entity collections
+280 ; US8150842B2 ; 1 ; 6 ; authorship ; 2007 ; Reputation of an author of online content
+281 ; US20180082330A1 ; 1 ; 6 ; page-experience ; 2003 ; System and method for delivering internet advertisements that change between …
+282 ; US8612291B2 ; 1 ; 6 ; page-experience ; 2011 ; Optimized display of ad landing page
+283 ; US9720913B1 ; 1 ; 6 ; reviews ; 2013 ; Automatic generation of snippets based on context and user interest
+284 ; US20210240793A1 ; 1 ; 6 ; semantic-retrieval ; 2018 ; Annotation and retrieval of personal bookmarks
+285 ; US9767478B2 ; 1 ; 7 ; links ; 2003 ; Document scoring based on traffic associated with a document
+286 ; US9584387B1 ; 1 ; 7 ; links ; 2013 ; Systems and methods of sending a packet in a packet-switched network through a …
+287 ; US10013438B2 ; 1 ; 7 ; user-signals ; 2009 ; Distributed image search
+288 ; US10372323B2 ; 1 ; 7 ; user-signals ; 2013 ; Information interchange via selective assembly using single gesture
+289 ; US9325783B2 ; 1 ; 7 ; user-signals ; 2013 ; Systems and methods for inferential sharing of photos
+290 ; US9767157B2 ; 1 ; 7 ; site-quality ; 2013 ; Predicting site quality
+291 ; US9171088B2 ; 1 ; 7 ; site-quality ; 2011 ; Mining for product classification structures for internet-based product …
+292 ; US8266143B2 ; 1 ; 7 ; freshness ; 2003 ; Document scoring based on query analysis
+293 ; US10909207B2 ; 1 ; 7 ; freshness ; 2013 ; Speeding up document loading
+294 ; US10565267B1 ; 1 ; 7 ; topicality ; 2012 ; Determining a quality score for a content item
+295 ; US12437012B2 ; 1 ; 7 ; entities ; 2016 ; Autonomously providing search results post-facto, including in assistant context
+296 ; US8549042B1 ; 1 ; 7 ; entities ; 2004 ; Systems and methods for sorting and displaying search results in multiple …
+297 ; US10019429B2 ; 1 ; 7 ; entities ; 2014 ; Identifying tasks in messages
+298 ; US11170285B2 ; 1 ; 7 ; query-understanding ; 2017 ; Virtual assistant configured to recommended actions in furtherance of an …
+299 ; US9275106B2 ; 1 ; 7 ; query-understanding ; 2005 ; Dynamic search box for web browser
+300 ; US20100306030A1 ; 1 ; 7 ; page-experience ; 2009 ; Contextual Content Targeting
+301 ; US20170147579A1 ; 1 ; 7 ; page-experience ; 2015 ; Information ranking based on properties of a computing device
+302 ; US20250245284A1 ; 1 ; 7 ; page-experience ; 2017 ; Predicting non-observable parameters for digital components
+303 ; US9058332B1 ; 1 ; 7 ; reviews ; 2012 ; Blended ranking of dissimilar populations using an N-furcated normalization …
+304 ; US8732030B2 ; 1 ; 7 ; semantic-retrieval ; 2005 ; System and method for using image analysis and search in E-commerce
+305 ; US10275434B1 ; 1 ; 8 ; links ; 2005 ; Identifying a primary version of a document
+306 ; US9355177B2 ; 1 ; 8 ; links ; 2005 ; Web crawler scheduler that utilizes sitemaps from websites
+307 ; US8260766B2 ; 1 ; 8 ; links ; 2005 ; Embedded communication of link information
+308 ; US12216703B2 ; 1 ; 8 ; user-signals ; 2022 ; Visual search determination for text-to-image replacement
+309 ; US8571851B1 ; 1 ; 8 ; user-signals ; 2012 ; Semantic interpretation using user gaze order
+310 ; US8656266B2 ; 1 ; 8 ; user-signals ; 2008 ; Identifying comments to show in connection with a document
+311 ; US9454621B2 ; 1 ; 8 ; site-quality ; 2013 ; Surfacing navigational search results
+312 ; US8788475B2 ; 1 ; 8 ; freshness ; 2004 ; System and method of accessing a document efficiently through multi-tier web …
+313 ; US12197406B1 ; 1 ; 8 ; freshness ; 2014 ; Providing suggestions within a document
+314 ; US20250013351A1 ; 1 ; 8 ; topicality ; 2017 ; Efficiently Augmenting Images with Related Content
+315 ; US11403288B2 ; 1 ; 8 ; entities ; 2013 ; Querying a data graph using natural language queries
+316 ; US9275152B2 ; 1 ; 8 ; entities ; 2012 ; Related entities
+317 ; US10853747B2 ; 1 ; 8 ; query-understanding ; 2016 ; Selection of computational agent for task performance
+318 ; US20200364219A1 ; 1 ; 8 ; query-understanding ; 2006 ; Search query refinement
+319 ; US9177030B2 ; 1 ; 8 ; local ; 2005 ; Systems and methods for providing search results
+320 ; US10331706B1 ; 1 ; 8 ; information-gain ; 2013 ; Automatic discovery of new entities using graph reconciliation
+321 ; US8452650B2 ; 1 ; 8 ; page-experience ; 2008 ; Dynamic pricing for content presentations
+322 ; US20160314215A1 ; 1 ; 8 ; page-experience ; 2015 ; Generating mobile-friendliness scores for resources
+323 ; US9549152B1 ; 1 ; 8 ; page-experience ; 2014 ; Application content delivery to multiple computing environments using existing …
+324 ; US10949708B2 ; 1 ; 8 ; semantic-retrieval ; 2014 ; Fine-grained image similarity
+325 ; US20230087460A1 ; 1 ; 8 ; semantic-retrieval ; 2016 ; Preventing the distribution of forbidden network content using automatic …
+326 ; US9799052B2 ; 1 ; 9 ; links ; 2002 ; Methods and apparatus for serving relevant advertisements
+327 ; US20250028966A1 ; 1 ; 9 ; links ; 2020 ; Minimum Deep Learning with Gating Multiplier
+328 ; US8866852B2 ; 1 ; 9 ; user-signals ; 2011 ; Method and system for input detection
+329 ; US10115133B2 ; 1 ; 9 ; user-signals ; 2003 ; Systems and methods for displaying morphing content items
+330 ; US9760641B1 ; 1 ; 9 ; site-quality ; 2012 ; Site quality score
+331 ; US9129026B1 ; 1 ; 9 ; site-quality ; 2012 ; Displaying social content in search results
+332 ; US9043197B1 ; 1 ; 9 ; site-quality ; 2006 ; Extracting information from unstructured text using generalized extraction …
+333 ; US9015157B2 ; 1 ; 9 ; spam ; 2004 ; Methods, systems, and products for assessing risks of internet searches
+334 ; US8447144B2 ; 1 ; 9 ; spam ; 2004 ; Data capture from rendered documents using handheld device
+335 ; US11113481B2 ; 1 ; 9 ; topicality ; 2019 ; Adapting automated assistants for use with multiple languages
+336 ; US20240078274A1 ; 1 ; 9 ; entities ; 2012 ; Providing search results based on a compositional query
+337 ; US9165038B1 ; 1 ; 9 ; entities ; 2007 ; Interpreting adjacent search terms based on a hierarchical relationship
+338 ; US10224031B2 ; 1 ; 9 ; entities ; 2016 ; Generating and transmitting invocation request to appropriate third-party agent
+339 ; US9684690B2 ; 1 ; 9 ; passages ; 2011 ; Flights search
+340 ; US11823068B2 ; 1 ; 9 ; query-understanding ; 2016 ; Proactive virtual assistant
+341 ; US8209315B2 ; 1 ; 9 ; query-understanding ; 2005 ; Search engine with fill-the-blanks capability
+342 ; US8577913B1 ; 1 ; 9 ; query-understanding ; 2011 ; Generating midstring query refinements
+343 ; US8655901B1 ; 1 ; 9 ; local ; 2010 ; Translation-based query pattern mining
+344 ; US7917490B2 ; 1 ; 9 ; local ; 2007 ; Interpreting local search queries
+345 ; US10846346B2 ; 1 ; 9 ; information-gain ; 2013 ; Search suggestion and display environment
+346 ; US20160224621A1 ; 1 ; 9 ; authorship ; 2013 ; Associating A Search Query With An Entity
+347 ; US20140337128A1 ; 1 ; 9 ; page-experience ; 2003 ; Content-targeted advertising using collected user behavior data
+348 ; US20130047088A1 ; 1 ; 9 ; page-experience ; 2011 ; Reporting focus duration to the advertiser
+349 ; US10356462B1 ; 1 ; 9 ; page-experience ; 2014 ; Recommending a composite channel
+350 ; US8645396B2 ; 1 ; 9 ; reviews ; 2007 ; Reputation scoring of an author
+351 ; US12499151B2 ; 1 ; 9 ; semantic-retrieval ; 2020 ; Embedding based retrieval for image search
+352 ; US8180760B1 ; 1 ; 9 ; semantic-retrieval ; 2007 ; Organization system for ad campaigns
+353 ; US9069855B2 ; 1 ; 10 ; links ; 2004 ; Modifying a hierarchical data structure according to a pseudo-rendering of a …
+354 ; US7890493B2 ; 1 ; 10 ; links ; 2007 ; Translating a search query into multiple languages
+355 ; US20250356210A1 ; 1 ; 10 ; links ; 2022 ; Calibrated Distillation
+356 ; US8897505B2 ; 1 ; 10 ; user-signals ; 2005 ; System and method for enabling the use of captured images through recognition
+357 ; US9047383B1 ; 1 ; 10 ; site-quality ; 2011 ; Analyzing user profiles
+358 ; US8782071B1 ; 1 ; 10 ; freshness ; 2009 ; Fresh related search suggestions
+359 ; US7818215B2 ; 1 ; 10 ; freshness ; 2004 ; Processing techniques for text capture from a rendered document
+360 ; US8090736B1 ; 1 ; 10 ; spam ; 2004 ; Enhancing search results using conceptual document relationships
+361 ; US7676117B1 ; 1 ; 10 ; topicality ; 2004 ; Systems and methods for using image duplicates to assign labels to images
+362 ; US9536522B1 ; 1 ; 10 ; entities ; 2013 ; Training a natural language processing model with information retrieval model …
+363 ; US10636418B2 ; 1 ; 10 ; entities ; 2017 ; Proactive incorporation of unsolicited content into human-to-computer dialogs
+364 ; US10685017B1 ; 1 ; 10 ; query-understanding ; 2004 ; Methods and systems for efficient query rewriting
+365 ; US8639701B1 ; 1 ; 10 ; query-understanding ; 2010 ; Language selection for information retrieval
+366 ; US8830331B2 ; 1 ; 10 ; duplicates ; 2008 ; Method and apparatus for detecting near-duplicate videos using perceptual video …
+367 ; US9116945B1 ; 1 ; 10 ; local ; 2005 ; Prediction of human ratings or rankings of information retrieval quality
+368 ; US8660834B2 ; 1 ; 10 ; information-gain ; 2004 ; User input classification
+369 ; US10489818B2 ; 1 ; 10 ; page-experience ; 2014 ; Automated creative extension selection for content performance optimization
+370 ; US20240104312A1 ; 1 ; 10 ; page-experience ; 2022 ; Photorealistic Text Inpainting for Augmented Reality Using Generative Models
+371 ; US11669431B2 ; 1 ; 10 ; page-experience ; 2019 ; Analytics personalization framework
+372 ; US20250307278A1 ; 1 ; 10 ; semantic-retrieval ; 2021 ; Systems and methods for training language models to reason over tables
+373 ; US20200410157A1 ; 1 ; 10 ; semantic-retrieval ; 2018 ; Automatic hyperlinking of documents
+374 ; US8180725B1 ; 1 ; 11 ; links ; 2007 ; Method and apparatus for selecting links to include in a probabilistic …
+375 ; US9396238B2 ; 1 ; 11 ; user-signals ; 2004 ; Systems and methods for determining user preferences
+376 ; US9374396B2 ; 1 ; 11 ; user-signals ; 2012 ; Recommended content for an endorsement user interface
+377 ; US5799286A ; 1 ; 11 ; site-quality ; 1995 ; Automated activity-based management system
+378 ; US20120265757A1 ; 1 ; 11 ; site-quality ; 2005 ; Ranking blog documents
+379 ; US11900068B1 ; 1 ; 11 ; freshness ; 2022 ; Generative summaries for search results
+380 ; US8886648B1 ; 1 ; 11 ; freshness ; 2012 ; System and method for computation of document similarity
+381 ; US12175747B2 ; 1 ; 11 ; entities ; 2017 ; Systems, methods, and apparatus for image-responsive automated assistants
+382 ; US11017037B2 ; 1 ; 11 ; entities ; 2017 ; Obtaining responsive information from multiple corpora
+383 ; US8655866B1 ; 1 ; 11 ; passages ; 2011 ; Returning factual answers in response to queries
+384 ; US10387437B2 ; 1 ; 11 ; query-understanding ; 2014 ; Query rewriting using session information
+385 ; US8161041B1 ; 1 ; 11 ; query-understanding ; 2007 ; Document-based synonym generation
+386 ; US11580170B2 ; 1 ; 11 ; duplicates ; 2018 ; Machine learning based automatic audience segment in ad targeting
+387 ; US8984006B2 ; 1 ; 11 ; local ; 2011 ; Systems and methods for identifying hierarchical relationships
+388 ; US8321463B2 ; 1 ; 11 ; authorship ; 2009 ; Objective and subjective ranking of comments
+389 ; US12229806B2 ; 1 ; 11 ; page-experience ; 2011 ; Expandable content items for presenting additional content
+390 ; US8903897B2 ; 1 ; 11 ; page-experience ; 2011 ; System and method for providing interactive content to non-native application …
+391 ; US9317559B1 ; 1 ; 11 ; reviews ; 2007 ; Sentiment detection as a ranking signal for reviewable entities
+392 ; US9189554B1 ; 1 ; 11 ; semantic-retrieval ; 2008 ; Providing images of named resources in response to a search query
+393 ; US20180060921A1 ; 1 ; 11 ; semantic-retrieval ; 2015 ; Augmenting visible content of ad creatives based on documents associated with …
+394 ; US9507858B1 ; 1 ; 12 ; links ; 2007 ; Selectively merging clusters of conceptually related words in a generative …
+395 ; US8566331B1 ; 1 ; 12 ; user-signals ; 2009 ; Ordering image search results
+396 ; US9854014B2 ; 1 ; 12 ; user-signals ; 2013 ; Motion data sharing
+397 ; US9250769B2 ; 1 ; 12 ; user-signals ; 2012 ; Grouping of cards by time periods and content types
+398 ; US10102482B2 ; 1 ; 12 ; site-quality ; 2015 ; Factorized models
+399 ; US10394908B1 ; 1 ; 12 ; freshness ; 2005 ; Systems and methods for modifying search results based on a user's history
+400 ; US8032518B2 ; 1 ; 12 ; freshness ; 2006 ; System and method for enabling website owners to manage crawl rate in a website …
+401 ; US9930096B2 ; 1 ; 12 ; spam ; 2010 ; Recommending posts to non-subscribing users
+402 ; US10102268B1 ; 1 ; 12 ; spam ; 2012 ; Efficient index for low latency search of large graphs
+403 ; US10664519B2 ; 1 ; 12 ; topicality ; 2016 ; Visual recognition using user tap locations
+404 ; US8001136B1 ; 1 ; 12 ; topicality ; 2007 ; Longest-common-subsequence detection for common synonyms
+405 ; US9300757B1 ; 1 ; 12 ; entities ; 2005 ; Personalizing aggregated news content
+406 ; US10469755B2 ; 1 ; 12 ; entities ; 2017 ; Storing metadata related to captured images
+407 ; US9336318B2 ; 1 ; 12 ; passages ; 2013 ; Rich content for query answers
+408 ; US10311856B2 ; 1 ; 12 ; query-understanding ; 2016 ; Synthesized voice selection for computational agents
+409 ; US20170116260A1 ; 1 ; 12 ; query-understanding ; 2014 ; Using a dimensional data model for transforming a natural language query to a …
+410 ; US9760570B2 ; 1 ; 12 ; duplicates ; 2006 ; Finding and disambiguating references to entities on web pages
+411 ; US10963472B2 ; 1 ; 12 ; duplicates ; 2012 ; Systems and methods for indexing content
+412 ; US20150206169A1 ; 1 ; 12 ; page-experience ; 2014 ; Systems and methods for extracting and generating images for display content
+413 ; US8566696B1 ; 1 ; 12 ; page-experience ; 2011 ; Predicting user navigation events
+414 ; US10178527B2 ; 1 ; 12 ; semantic-retrieval ; 2015 ; Personalized entity repository
+415 ; US10459957B2 ; 1 ; 12 ; semantic-retrieval ; 2013 ; User-guided term suggestions
+416 ; US7827052B2 ; 1 ; 13 ; links ; 2005 ; Systems and methods for reputation management
+417 ; US8966516B2 ; 1 ; 13 ; user-signals ; 2007 ; Determining automatically generated channel tunes based on channel tune dwell …
+418 ; US11676572B2 ; 1 ; 13 ; user-signals ; 2021 ; Instantaneous learning in text-to-speech during dialog
+419 ; US20240143679A1 ; 1 ; 13 ; site-quality ; 2015 ; Search result filters from resource content
+420 ; US10891342B2 ; 1 ; 13 ; freshness ; 2017 ; Content data determination, transmission and storage for local devices
+421 ; US9858275B1 ; 1 ; 13 ; freshness ; 2010 ; Scoring stream items in real time
+422 ; US8392440B1 ; 1 ; 13 ; topicality ; 2009 ; Online de-compounding of query terms
+423 ; US8694528B2 ; 1 ; 13 ; topicality ; 2008 ; Dynamic determination of location-identifying search phrases
+424 ; US11645277B2 ; 1 ; 13 ; entities ; 2017 ; Generating and/or utilizing a machine learning model in response to a search …
+425 ; US9990591B2 ; 1 ; 13 ; entities ; 2016 ; Automated assistant invocation of appropriate agent
+426 ; US10592540B2 ; 1 ; 13 ; passages ; 2015 ; Generating elements of answer-seeking queries and elements of answers
+427 ; US20230274205A1 ; 1 ; 13 ; query-understanding ; 2016 ; Multi computational agent performance of tasks
+428 ; US9235654B1 ; 1 ; 13 ; query-understanding ; 2012 ; Query rewrites for generating auto-complete suggestions
+429 ; US8275786B1 ; 1 ; 13 ; query-understanding ; 2007 ; Contextual display of query refinements
+430 ; US9558186B2 ; 1 ; 13 ; duplicates ; 2005 ; Unsupervised extraction of facts
+431 ; US10129317B2 ; 1 ; 13 ; duplicates ; 2012 ; Method and apparatus for streaming media content to client devices
+432 ; US10380160B2 ; 1 ; 13 ; local ; 2012 ; Dynamic language model
+433 ; US8386240B2 ; 1 ; 13 ; information-gain ; 2007 ; Domain dictionary creation by detection of new topic words using divergence …
+434 ; US9531649B2 ; 1 ; 13 ; authorship ; 2010 ; Identification of message recipients
+435 ; US9087337B2 ; 1 ; 13 ; page-experience ; 2008 ; Displaying vertical content on small display devices
+436 ; US20240311421A1 ; 1 ; 13 ; semantic-retrieval ; 2023 ; Multiple Dataset Search Based On a Visual Query
+437 ; US20260119564A1 ; 1 ; 13 ; semantic-retrieval ; 2023 ; Thematic search
+438 ; US9020933B2 ; 1 ; 14 ; links ; 2007 ; Identifying inadequate search content
+439 ; US8595270B2 ; 1 ; 14 ; links ; 2003 ; Artificial anchor for a document
+440 ; US5535195A ; 1 ; 14 ; links ; 1994 ; Method for efficient aggregation of link metrics
+441 ; US10261685B2 ; 1 ; 14 ; user-signals ; 2016 ; Multi-task machine learning for predicted touch interpretations
+442 ; US9280561B2 ; 1 ; 14 ; site-quality ; 2010 ; Automatic learning of logos for visual recognition
+443 ; US9749274B1 ; 1 ; 14 ; site-quality ; 2013 ; Associating an event attribute with a user based on a group of one or more …
+444 ; US11983175B1 ; 1 ; 14 ; freshness ; 2013 ; Ranking modifications of a previous query
+445 ; US8555157B1 ; 1 ; 14 ; freshness ; 2010 ; Document update generation
+446 ; US8694499B1 ; 1 ; 14 ; topicality ; 2004 ; Systems and methods for determining query similarity by query distribution …
+447 ; US8719293B2 ; 1 ; 14 ; topicality ; 2009 ; Generating improved document classification data using historical search results
+448 ; US9361362B1 ; 1 ; 14 ; topicality ; 2009 ; Synonym generation using online decompounding and transitivity
+449 ; US11683564B2 ; 1 ; 14 ; entities ; 2020 ; Network-connected television devices with knowledge-based media content …
+450 ; US20220408163A1 ; 1 ; 14 ; entities ; 2014 ; Methods and devices for clarifying audible video content
+451 ; US10394841B2 ; 1 ; 14 ; passages ; 2014 ; Generating contextual search presentations
+452 ; US8260785B2 ; 1 ; 14 ; query-understanding ; 2006 ; Automatic object reference identification and linking in a browseable fact …
+453 ; US7676745B2 ; 1 ; 14 ; local ; 2004 ; Document segmentation based on visual gaps
+454 ; US7917355B2 ; 1 ; 14 ; information-gain ; 2007 ; Word detection
+455 ; US9338197B2 ; 1 ; 14 ; authorship ; 2010 ; Social circles in social networks
+456 ; US20080086356A1 ; 1 ; 14 ; page-experience ; 2005 ; Determining advertisements using user interest information and map-based …
+457 ; US9336279B2 ; 1 ; 14 ; page-experience ; 2012 ; Hidden text detection for search result scoring
+458 ; US11989488B2 ; 1 ; 14 ; semantic-retrieval ; 2020 ; Automatically and intelligently exploring design spaces
+459 ; US9251206B2 ; 1 ; 14 ; semantic-retrieval ; 2010 ; Generalized edit distance for queries
+460 ; US9201876B1 ; 1 ; 15 ; links ; 2012 ; Contextual weighting of words in a word grouping
+461 ; US9894420B2 ; 1 ; 15 ; user-signals ; 2010 ; Self-service channel marketplace
+462 ; US10147243B2 ; 1 ; 15 ; user-signals ; 2016 ; Generating virtual notation surfaces with gestures in an augmented and/or …
+463 ; US9020926B1 ; 1 ; 15 ; user-signals ; 2009 ; Refining search queries
+464 ; US9646606B2 ; 1 ; 15 ; site-quality ; 2013 ; Speech recognition using domain knowledge
+465 ; US20140372119A1 ; 1 ; 15 ; site-quality ; 2008 ; Compounded Text Segmentation
+466 ; US8615514B1 ; 1 ; 15 ; site-quality ; 2010 ; Evaluating website properties by partitioning user feedback
+467 ; US6393415B1 ; 1 ; 15 ; freshness ; 1999 ; Adaptive partitioning techniques in performing query requests and request …
+468 ; US20250039114A1 ; 1 ; 15 ; spam ; 2016 ; Network Based Data Traffic Latency Reduction
+469 ; US10909199B2 ; 1 ; 15 ; spam ; 2010 ; Automatic routing using search results
+470 ; US10540804B2 ; 1 ; 15 ; topicality ; 2014 ; Selecting time-distributed panoramic images for display
+471 ; US8266133B2 ; 1 ; 15 ; entities ; 2005 ; Determination of a desired repository
+472 ; US10275651B2 ; 1 ; 15 ; entities ; 2017 ; Resolving automated assistant requests that are based on image(s) and/or other …
+473 ; US10068022B2 ; 1 ; 15 ; passages ; 2011 ; Identifying topical entities
+474 ; US20250156415A1 ; 1 ; 15 ; query-understanding ; 2014 ; Assistive browsing using context
+475 ; US10346415B1 ; 1 ; 15 ; query-understanding ; 2013 ; Determining question and answer alternatives
+476 ; US9436747B1 ; 1 ; 15 ; query-understanding ; 2010 ; Query generation using structural similarity between documents
+477 ; US9430496B2 ; 1 ; 15 ; local ; 2010 ; Range of focus in an augmented reality application
+478 ; US9602444B2 ; 1 ; 15 ; information-gain ; 2009 ; Participant suggestion system
+479 ; US20150262221A1 ; 1 ; 15 ; page-experience ; 2012 ; Linking offline actions with online activities
+480 ; US8311875B1 ; 1 ; 15 ; page-experience ; 2007 ; Content item location arrangement
+481 ; US20210004682A1 ; 1 ; 15 ; semantic-retrieval ; 2018 ; Adapting a sequence model for use in predicting future device interactions with …
+482 ; US20150161175A1 ; 1 ; 15 ; semantic-retrieval ; 2008 ; Alternative image queries
+483 ; US11526905B1 ; 1 ; 16 ; links ; 2007 ; Systems and methods for preserving privacy
+484 ; US20130346434A1 ; 1 ; 16 ; links ; 2002 ; Method of spell-checking search queries
+485 ; US11314926B2 ; 1 ; 16 ; user-signals ; 2012 ; Selectively replacing displayed content items based on user interaction
+486 ; US8930392B1 ; 1 ; 16 ; user-signals ; 2012 ; Simulated annealing in recommendation systems
+487 ; US20140358971A1 ; 1 ; 16 ; site-quality ; 2010 ; Techniques for identifying chain businesses and queries
+488 ; US9031945B1 ; 1 ; 16 ; site-quality ; 2005 ; Sharing and using search results
+489 ; US20250061892A1 ; 1 ; 16 ; freshness ; 2020 ; Generation of Interactive Audio Tracks From Visual Content
+490 ; US8468143B1 ; 1 ; 16 ; topicality ; 2010 ; System and method for directing questions to consultants through profile …
+491 ; US8510308B1 ; 1 ; 16 ; topicality ; 2009 ; Extracting semantic classes and instances from text
+492 ; US9710825B1 ; 1 ; 16 ; entities ; 1999 ; Meaning-based advertising and document relevance determination
+493 ; US10083006B1 ; 1 ; 16 ; entities ; 2017 ; Intercom-style communication using multiple computing devices
+494 ; US11829404B2 ; 1 ; 16 ; duplicates ; 2017 ; Functional image archiving
+495 ; US8024413B1 ; 1 ; 16 ; information-gain ; 2005 ; Reliability measure for a classifier
+496 ; US20170221107A1 ; 1 ; 16 ; page-experience ; 2005 ; Using the utility of configurations in ad serving decisions
+497 ; US20170237613A1 ; 1 ; 16 ; page-experience ; 2004 ; Device configuration-based function delivery
+498 ; US20250217423A1 ; 1 ; 16 ; semantic-retrieval ; 2023 ; Systems and Methods for Generating Benchmark Queries
+499 ; US8892422B1 ; 1 ; 17 ; links ; 2012 ; Phrase identification in a sequence of words
+500 ; US20080243830A1 ; 1 ; 17 ; links ; 2007 ; User suggested ordering to influence search result ranking
+501 ; US10056114B2 ; 1 ; 17 ; user-signals ; 2013 ; Small-screen movie-watching using a viewport
+502 ; US20100332431A1 ; 1 ; 17 ; user-signals ; 2007 ; Method and apparatus for modifying a user preference profile
+503 ; US11036804B1 ; 1 ; 17 ; site-quality ; 2014 ; Device specific adjustment based on resource utilities
+504 ; US8429103B1 ; 1 ; 17 ; freshness ; 2012 ; Native machine learning service for user adaptation on a mobile platform
+505 ; US20240289407A1 ; 1 ; 17 ; freshness ; 2023 ; Search with stateful chat
+506 ; US6397228B1 ; 1 ; 17 ; freshness ; 1999 ; Data enhancement techniques
+507 ; US8700396B1 ; 1 ; 17 ; topicality ; 2012 ; Generating speech data collection prompts
+508 ; US8122022B1 ; 1 ; 17 ; topicality ; 2007 ; Abbreviation detection for common synonym generation
+509 ; US10127227B1 ; 1 ; 17 ; entities ; 2017 ; Providing access to user-controlled resources by automated assistants
+510 ; US20160026727A1 ; 1 ; 17 ; passages ; 2011 ; Generating additional content
+511 ; US8346791B1 ; 1 ; 17 ; query-understanding ; 2008 ; Search augmentation
+512 ; US11636314B2 ; 1 ; 17 ; duplicates ; 2016 ; Training neural networks using a clustering loss
+513 ; US10069783B2 ; 1 ; 17 ; duplicates ; 2015 ; Notification bundles for affinities between notification data
+514 ; US20210216772A1 ; 1 ; 17 ; local ; 2018 ; Visual Menu
+515 ; US9390077B2 ; 1 ; 17 ; information-gain ; 2005 ; Document division method and system
+516 ; US9256676B2 ; 1 ; 17 ; authorship ; 2006 ; Presenting search result information
+517 ; US8745226B2 ; 1 ; 17 ; page-experience ; 2006 ; Customization of content and advertisements in publications
+518 ; US8725849B1 ; 1 ; 17 ; page-experience ; 2011 ; Browser cache pre-population
+519 ; US11531655B2 ; 1 ; 17 ; semantic-retrieval ; 2020 ; Automatically improving data quality
+520 ; US20230146144A1 ; 1 ; 17 ; semantic-retrieval ; 2018 ; Digital image classification and annotation
+521 ; US7996379B1 ; 1 ; 18 ; links ; 2008 ; Document ranking using word relationships
+522 ; US9341849B2 ; 1 ; 18 ; user-signals ; 2011 ; Wearable computer with nearby object response
+523 ; US9623119B1 ; 1 ; 18 ; user-signals ; 2010 ; Accentuating search results
+524 ; US8805079B2 ; 1 ; 18 ; site-quality ; 2009 ; Identifying matching canonical documents in response to a visual query and in …
+525 ; US20140188927A1 ; 1 ; 18 ; site-quality ; 2012 ; Presenting recommended content in search pages
+526 ; US8700452B1 ; 1 ; 18 ; site-quality ; 2007 ; Automatically switching between pricing models for services
+527 ; US8886576B1 ; 1 ; 18 ; freshness ; 2012 ; Automatic label suggestions for albums based on machine learning
+528 ; US6578056B1 ; 1 ; 18 ; freshness ; 1999 ; Efficient data transfer mechanism for synchronization of multi-media databases
+529 ; US9773167B2 ; 1 ; 18 ; spam ; 2004 ; Handheld device for capturing text from both a document printed on paper and a …
+530 ; US20120047172A1 ; 1 ; 18 ; topicality ; 2010 ; Parallel document mining
+531 ; US9881236B2 ; 1 ; 18 ; entities ; 2015 ; Organizing images associated with a user
+532 ; US10742435B2 ; 1 ; 18 ; entities ; 2017 ; Proactive provision of new content to group chat participants
+533 ; US9679027B1 ; 1 ; 18 ; passages ; 2013 ; Generating related questions for search queries
+534 ; US8135619B2 ; 1 ; 18 ; query-understanding ; 2003 ; Increasing a number of relevant advertisements using a relaxed match
+535 ; US10452920B2 ; 1 ; 18 ; duplicates ; 2017 ; Systems and methods for generating a summary storyboard from a plurality of …
+536 ; US8631146B2 ; 1 ; 18 ; duplicates ; 2006 ; Dynamic media serving infrastructure
+537 ; US9189496B2 ; 1 ; 18 ; local ; 2004 ; Indexing documents according to geographical relevance
+538 ; US9405772B2 ; 1 ; 18 ; local ; 2009 ; Actionable search results for street view visual queries
+539 ; US8990194B2 ; 1 ; 18 ; information-gain ; 2012 ; Adjusting content delivery based on user submissions of photographs
+540 ; US8041601B2 ; 1 ; 18 ; page-experience ; 2003 ; System and method for automatically targeting web-based advertisements
+541 ; US10515132B2 ; 1 ; 18 ; page-experience ; 2016 ; Optimizing transmission of digital components
+542 ; US20250201006A1 ; 1 ; 18 ; semantic-retrieval ; 2023 ; Generating Optimized Datasets for Training Machine-Learned Models for …
+543 ; US20250045316A1 ; 1 ; 18 ; semantic-retrieval ; 2023 ; Systems and Methods for Generating Instruction Fine-tuning Dataset for a …
+544 ; US8719276B1 ; 1 ; 19 ; links ; 2003 ; Ranking nodes in a linked database based on node independence
+545 ; US9846842B2 ; 1 ; 19 ; user-signals ; 2011 ; Predicting user navigation events
+546 ; US9830071B1 ; 1 ; 19 ; user-signals ; 2011 ; Text-entry for a computing device
+547 ; US20230066091A1 ; 1 ; 19 ; user-signals ; 2020 ; Interactive touch cord with microinteractions
+548 ; US20140317099A1 ; 1 ; 19 ; site-quality ; 2013 ; Personalized digital content search
+549 ; US8645367B1 ; 1 ; 19 ; site-quality ; 2009 ; Predicting data for document attributes based on aggregated data for repeated …
+550 ; US12236322B2 ; 1 ; 19 ; freshness ; 2020 ; Training and/or utilizing a model for predicting measures reflecting both …
+551 ; US9208676B2 ; 1 ; 19 ; freshness ; 2013 ; Devices, methods, and associated information processing for security in a smart …
+552 ; US9262455B2 ; 1 ; 19 ; spam ; 2011 ; … in messages in conversations to support advanced conversation-based searching
+553 ; US20230177360A1 ; 1 ; 19 ; topicality ; 2016 ; Surfacing unique facts for entities
+554 ; US20130046532A1 ; 1 ; 19 ; topicality ; 2003 ; System and method for providing definitions
+555 ; US9600724B2 ; 1 ; 19 ; entities ; 2014 ; Smart camera user interface
+556 ; US20080010252A1 ; 1 ; 19 ; entities ; 2006 ; Bookmarks and ranking
+557 ; US10268680B2 ; 1 ; 19 ; entities ; 2016 ; Context-aware human-to-computer dialog
+558 ; US9146992B2 ; 1 ; 19 ; passages ; 2010 ; Enriching web resources
+559 ; US8577911B1 ; 1 ; 19 ; query-understanding ; 2010 ; Presenting search term refinements
+560 ; US11443170B2 ; 1 ; 19 ; duplicates ; 2016 ; Semi-supervised training of neural networks
+561 ; US8280861B1 ; 1 ; 19 ; duplicates ; 2011 ; Identifying duplicate electronic content based on metadata
+562 ; US8880516B2 ; 1 ; 19 ; local ; 2004 ; Endorsing local search results
+563 ; US8977639B2 ; 1 ; 19 ; local ; 2009 ; Actionable search results for visual queries
+564 ; US9485285B1 ; 1 ; 19 ; authorship ; 2010 ; Assisting the authoring of posts to an asymmetric social network
+565 ; US10503803B2 ; 1 ; 19 ; page-experience ; 2016 ; Animated snippets for search results
+566 ; US20250328568A1 ; 1 ; 19 ; semantic-retrieval ; 2024 ; Content-Based Feedback Recommendation Systems and Methods
+567 ; US9177018B2 ; 1 ; 19 ; semantic-retrieval ; 2009 ; Cross language search options
+568 ; US20150142767A1 ; 1 ; 20 ; links ; 2010 ; Scoring authors of social network content
+569 ; US8150979B1 ; 1 ; 20 ; links ; 2007 ; Supporting multiple landing pages
+570 ; US10503814B1 ; 1 ; 20 ; user-signals ; 2009 ; Click tracking using link styles
+571 ; US10032074B2 ; 1 ; 20 ; user-signals ; 2011 ; Systems and methods for high-resolution gaze tracking
+572 ; US20250301202A1 ; 1 ; 20 ; user-signals ; 2024 ; Identifying skippable segments within videos
+573 ; US8935192B1 ; 1 ; 20 ; site-quality ; 2010 ; Social search engine
+574 ; US9047278B1 ; 1 ; 20 ; site-quality ; 2012 ; Identifying and ranking attributes of entities
+575 ; US8429012B2 ; 1 ; 20 ; freshness ; 2005 ; Using estimated ad qualities for ad filtering, ranking and promotion
+576 ; US9002867B1 ; 1 ; 20 ; freshness ; 2010 ; Modifying ranking data based on document changes
+577 ; US20210203773A1 ; 1 ; 20 ; spam ; 2013 ; Dynamic telephone number assignment
+578 ; US20220342942A1 ; 1 ; 20 ; spam ; 2009 ; Location-based searching using a search area that corresponds to a geographical …
+579 ; US9760629B1 ; 1 ; 20 ; topicality ; 2004 ; Systems and methods for implementing a news round table
+580 ; US9183297B1 ; 1 ; 20 ; topicality ; 2006 ; Method and apparatus for generating lexical synonyms for query terms
+581 ; US11941420B2 ; 1 ; 20 ; entities ; 2017 ; Facilitating user device and/or agent device actions during a communication …
+582 ; US20170220680A1 ; 1 ; 20 ; passages ; 2010 ; Search query reformulation using a user-selected term
+583 ; US8280722B1 ; 1 ; 20 ; query-understanding ; 2003 ; Automatic completion of fragments of text
+584 ; US9177350B1 ; 1 ; 20 ; duplicates ; 2012 ; Systems and methods for facilitating video fingerprinting using local …
+585 ; US20140337368A1 ; 1 ; 20 ; duplicates ; 2007 ; Duplicate Content Search
+586 ; US20150254357A1 ; 1 ; 20 ; local ; 2008 ; Socially relevant and activity aware local search
+587 ; US9594851B1 ; 1 ; 20 ; information-gain ; 2012 ; Determining query suggestions
+588 ; US11868724B2 ; 1 ; 20 ; authorship ; 2015 ; Generating author vectors
+589 ; US8438154B2 ; 1 ; 20 ; page-experience ; 2003 ; Generating information for online advertisements from internet data and …
+590 ; US11949744B2 ; 1 ; 20 ; page-experience ; 2019 ; Enhanced online privacy
+591 ; US11379516B2 ; 1 ; 20 ; semantic-retrieval ; 2018 ; Similar medical image search
+592 ; US9087271B2 ; 1 ; 20 ; semantic-retrieval ; 2009 ; Learning semantic image similarity
+593 ; US11361046B2 ; 1 ; 21 ; links ; 2016 ; Machine learning classification of an application link as broken or working
+594 ; US8768932B1 ; 1 ; 21 ; links ; 2007 ; Method and apparatus for ranking search results
+595 ; US9208177B2 ; 1 ; 21 ; links ; 2009 ; Facial recognition with social network aiding
+596 ; US9323808B1 ; 1 ; 21 ; user-signals ; 2010 ; Predictive query suggestion caching
+597 ; US10061767B1 ; 1 ; 21 ; site-quality ; 2014 ; Analyzing user reviews to determine entity attributes
+598 ; US10474719B2 ; 1 ; 21 ; site-quality ; 2015 ; Auto-completion of widely shared search queries
+599 ; US10402869B2 ; 1 ; 21 ; freshness ; 2014 ; System and methods for automatic verification of advertiser identifier in …
+600 ; US9858273B2 ; 1 ; 21 ; freshness ; 2011 ; Speculative rendering during cache revalidation
+601 ; US9009198B2 ; 1 ; 21 ; spam ; 2010 ; Processing the results of multiple search queries in a mapping application
+602 ; US8412704B1 ; 1 ; 21 ; topicality ; 2006 ; Providing blog posts relevant to search results
+603 ; US8798988B1 ; 1 ; 21 ; topicality ; 2006 ; Identifying related terms in different languages
+604 ; US9619450B2 ; 1 ; 21 ; entities ; 2013 ; Automatic generation of headlines
+605 ; US9218362B2 ; 1 ; 21 ; entities ; 2006 ; Markup language for interactive geographic information system
+606 ; US20090327234A1 ; 1 ; 21 ; passages ; 2008 ; Updating answers with references in forums
+607 ; US8589235B2 ; 1 ; 21 ; query-understanding ; 2010 ; Method of answering questions by trusted participants
+608 ; US8321403B1 ; 1 ; 21 ; query-understanding ; 2007 ; Web search refinement
+609 ; US8417674B2 ; 1 ; 21 ; duplicates ; 2010 ; System and method for creating deduplicated copies of data by sending …
+610 ; US8312010B1 ; 1 ; 21 ; local ; 2007 ; Local business ranking using mapping information
+611 ; US12191007B2 ; 1 ; 21 ; information-gain ; 2017 ; Human-in-the-loop interactive model training
+612 ; US9075779B2 ; 1 ; 21 ; authorship ; 2009 ; Performing actions based on capturing information from rendered documents, such …
+613 ; US20110276397A1 ; 1 ; 21 ; page-experience ; 2010 ; Social media enabled advertising
+614 ; US9203932B2 ; 1 ; 21 ; page-experience ; 2010 ; Optimization guided by connection classification in a web browser extension
+615 ; US20240232272A1 ; 1 ; 21 ; semantic-retrieval ; 2018 ; Analyzing web pages to facilitate automatic navigation
+616 ; US20250348498A1 ; 1 ; 21 ; semantic-retrieval ; 2024 ; Providing context for an image
+617 ; US20170270169A1 ; 1 ; 22 ; links ; 2012 ; Synthesis of Webpage Snippets Using Sub-pages of the Webpage
+618 ; US11259076B2 ; 1 ; 22 ; links ; 2017 ; Tactile launching of an asymmetric visual communication session
+619 ; US9864735B1 ; 1 ; 22 ; user-signals ; 2015 ; In-domain webpage editing
+620 ; US9911238B2 ; 1 ; 22 ; user-signals ; 2015 ; Virtual reality expeditions
+621 ; US9244972B1 ; 1 ; 22 ; site-quality ; 2012 ; Identifying navigational resources for informational queries
+622 ; US10614153B2 ; 1 ; 22 ; freshness ; 2013 ; Resource size-based content item selection
+623 ; US6493721B1 ; 1 ; 22 ; freshness ; 1999 ; Techniques for performing incremental data updates
+624 ; US8762204B2 ; 1 ; 22 ; spam ; 2005 ; Reviewing the suitability of websites for participation in an advertising …
+625 ; US8521516B2 ; 1 ; 22 ; topicality ; 2008 ; Linguistic key normalization
+626 ; US8463772B1 ; 1 ; 22 ; topicality ; 2010 ; Varied-importance proximity values
+627 ; US7426507B1 ; 1 ; 22 ; topicality ; 2004 ; Automatic taxonomy generation in search results using phrases
+628 ; US12020706B2 ; 1 ; 22 ; entities ; 2019 ; Generating automated assistant responses and/or actions directly from dialog …
+629 ; US7792883B2 ; 1 ; 22 ; entities ; 2006 ; Viewport-relative scoring for location search queries
+630 ; US12086168B2 ; 1 ; 22 ; entities ; 2016 ; Contextual voice search suggestions
+631 ; US20170017668A1 ; 1 ; 22 ; passages ; 2015 ; Images for query answers
+632 ; US9129012B2 ; 1 ; 22 ; query-understanding ; 2010 ; Information search system with real-time feedback
+633 ; US9569527B2 ; 1 ; 22 ; query-understanding ; 2007 ; Machine translation for query expansion
+634 ; US8605956B2 ; 1 ; 22 ; duplicates ; 2009 ; Automatically mining person models of celebrities for visual search …
+635 ; US11461003B1 ; 1 ; 22 ; local ; 2008 ; User interface for presenting suggestions from a local search corpus
+636 ; US8781916B1 ; 1 ; 22 ; information-gain ; 2012 ; Providing nuanced product recommendations based on similarity channels
+637 ; US8112702B2 ; 1 ; 22 ; authorship ; 2008 ; Annotating video intervals
+638 ; US20140122235A1 ; 1 ; 22 ; page-experience ; 2004 ; Determining ad targeting information and/or ad creative information using past …
+639 ; US11249741B2 ; 1 ; 22 ; page-experience ; 2016 ; Post-install application interaction
+640 ; US8995716B1 ; 1 ; 22 ; semantic-retrieval ; 2012 ; Image search results by seasonal time period
+641 ; US9514412B2 ; 1 ; 23 ; links ; 2013 ; Techniques for detecting deceptive answers to user questions based on user …
+642 ; US9026493B1 ; 1 ; 23 ; links ; 2011 ; Multi-master RDBMS improvements for distributed computing environment
+643 ; US9858348B1 ; 1 ; 23 ; user-signals ; 2008 ; System and method for presentation of media related to a context
+644 ; US9852225B2 ; 1 ; 23 ; user-signals ; 2004 ; Associating features with entities, such as categories of web page documents, …
+645 ; US8965883B2 ; 1 ; 23 ; site-quality ; 2009 ; Ranking user generated web content
+646 ; US10061850B1 ; 1 ; 23 ; site-quality ; 2010 ; Using recent queries for inserting relevant search results for navigational …
+647 ; US9734211B1 ; 1 ; 23 ; site-quality ; 2004 ; Personalizing search results
+648 ; US11409944B2 ; 1 ; 23 ; freshness ; 2012 ; Ordinal positioning of content items based on viewport
+649 ; US8665779B2 ; 1 ; 23 ; freshness ; 2006 ; Monitoring and control of transmit power in a multi-modem wireless …
+650 ; US9053156B1 ; 1 ; 23 ; topicality ; 2012 ; Search query results based upon topic
+651 ; US7599914B2 ; 1 ; 23 ; topicality ; 2004 ; Phrase-based searching in an information retrieval system
+652 ; US20160019280A1 ; 1 ; 23 ; passages ; 2013 ; Identifying question answerers in a question asking system
+653 ; US8756210B1 ; 1 ; 23 ; query-understanding ; 2005 ; Aggregating context data for programmable search engines
+654 ; US9619565B1 ; 1 ; 23 ; query-understanding ; 2004 ; Generating content snippets using a tokenspace repository
+655 ; US20240289395A1 ; 1 ; 23 ; query-understanding ; 2023 ; Factuality of generated responses
+656 ; US10180980B2 ; 1 ; 23 ; duplicates ; 2004 ; Methods and systems for eliminating duplicate events
+657 ; US11893034B2 ; 1 ; 23 ; local ; 2013 ; Distance based search ranking demotion
+658 ; US20140351760A1 ; 1 ; 23 ; information-gain ; 2013 ; Order-independent text input
+659 ; US8073811B2 ; 1 ; 23 ; authorship ; 2007 ; Online content collaboration model
+660 ; US9367524B1 ; 1 ; 23 ; page-experience ; 2012 ; Systems and methods for selecting web page layouts including content slots for …
+661 ; US12236676B2 ; 1 ; 23 ; page-experience ; 2019 ; Image extension neural networks
+662 ; US11379527B2 ; 1 ; 23 ; semantic-retrieval ; 2018 ; Sibling search queries
+663 ; US9984684B1 ; 1 ; 23 ; semantic-retrieval ; 2013 ; Inducing command inputs from high precision and high recall data
+664 ; US20160299972A1 ; 1 ; 24 ; links ; 2015 ; Providing app store search results
+665 ; US8762225B1 ; 1 ; 24 ; links ; 2004 ; Systems and methods for scoring documents
+666 ; US10162895B1 ; 1 ; 24 ; links ; 2010 ; Generating context-based spell corrections of entity names
+667 ; US9870623B2 ; 1 ; 24 ; user-signals ; 2016 ; Segmenting content displayed on a computing device into regions based on pixels …
+668 ; US9444772B2 ; 1 ; 24 ; site-quality ; 2009 ; Social search engine
+669 ; US20190155948A1 ; 1 ; 24 ; site-quality ; 2014 ; Re-ranking resources based on categorical quality
+670 ; US6496843B1 ; 1 ; 24 ; freshness ; 1999 ; Generic object for rapid integration of data changes
+671 ; US8782032B2 ; 1 ; 24 ; spam ; 2004 ; Minimizing visibility of stale content in web searching including revising web …
+672 ; US8626787B1 ; 1 ; 24 ; topicality ; 2004 ; Locating meaningful stopwords or stop-phrases in keyword-based retrieval …
+673 ; US7584175B2 ; 1 ; 24 ; topicality ; 2004 ; Phrase-based generation of document descriptions
+674 ; US11256700B2 ; 1 ; 24 ; entities ; 2015 ; World knowledge triggers
+675 ; US9471625B2 ; 1 ; 24 ; entities ; 2005 ; Dynamic view-based data layer in a geographic information system
+676 ; US20160078137A1 ; 1 ; 24 ; passages ; 2010 ; Enriching search results
+677 ; US8983941B1 ; 1 ; 24 ; duplicates ; 2011 ; Visual content retrieval
+678 ; US9380011B2 ; 1 ; 24 ; duplicates ; 2010 ; Participant-specific markup
+679 ; US20150242447A1 ; 1 ; 24 ; information-gain ; 2014 ; Identifying effective crowdsource contributors and high quality contributions
+680 ; US8374935B1 ; 1 ; 24 ; page-experience ; 2008 ; Advertisement customization
+681 ; US12380100B2 ; 1 ; 24 ; page-experience ; 2020 ; Evaluating an interpretation for a search query
+682 ; US11188824B2 ; 1 ; 24 ; reviews ; 2017 ; Cooperatively training and/or using separate input and subsequent content …
+683 ; US20230222285A1 ; 1 ; 24 ; semantic-retrieval ; 2020 ; Layout-Aware Multimodal Pretraining for Multimodal Document Understanding
+684 ; US8799285B1 ; 1 ; 24 ; semantic-retrieval ; 2007 ; Automatic advertising campaign structure suggestion

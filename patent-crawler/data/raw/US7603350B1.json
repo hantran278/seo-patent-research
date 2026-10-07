@@ -1,0 +1,1374 @@
+{
+ "id": "US7603350B1",
+ "title": "Search result ranking based on trust",
+ "abstract": "A search engine system provides search results that are ranked according to a measure of the trust associated with entities that have provided labels for the documents in the search results. A search engine receives a query and selects documents relevant to the query. The search engine also determines labels associated with selected documents, and the trust ranks of the entities that provided the labels. The trust ranks are used to determine trust factors for the respective documents. The trust factors are used to adjust information retrieval scores of the documents. The search results are then ranked based on the adjusted information retrieval scores.",
+ "inventors": [
+  "Ramanathan Guha"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2006-05-09",
+ "filing_date": "2006-05-09",
+ "publication_date": "2009-10-13",
+ "status": "Active",
+ "expiration": "2027-01-20",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/20",
+  "G06F16/24",
+  "G06F16/245",
+  "G06F16/2457",
+  "G06F16/24578",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/951",
+  "G06F16/953",
+  "Y10S707/00",
+  "Y10S707/99931",
+  "Y10S707/99933",
+  "Y10S707/99935"
+ ],
+ "claims": [
+  {
+   "text": "1. A method performed by a data processing apparatus, the method comprising: receiving a search query, the search query comprising a query term and a query label term, the query label term being a categorical identifier; identifying one or more resources in a search result set responsive to the search query, wherein each of the one or more resources has an associated matching label term that matches the query label term and an associated non-matching label term that does not match the query label term, each associated label term being the categorical identifier describing each resource and having been associated with the resource by a respective entity; determining, for each of the one or more resources: a trust rank of the entity that associated the associated matching label term with the resource, wherein the trust rank indicates whether a user trusts the associated matching label term of the resource, and increasing a relevance score of each resource that has the associated matching label term based on the respective trust rank, the relevance score indicating a degree of relevance between the respective resource and the query term; ranking each of the one or more resources in the search result set based on the respective relevance scores; annotating, with a name of the respective entity that associated the matching label term with each resource, indicia identifying each resource of the ranked search result set; and providing the indicia in a response to the search query.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, wherein annotating, with the name of the respective entity further comprises: annotating, with the matching label term associated with each resource, the indicia identifying each resource of the ranked search result set.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, further comprising: determining, for each of the one or more resources: a second trust rank of a second entity that associated a second matching label term with the resource; and aggregating the trust rank and the second trust rank to determine a trust factor.",
+   "dependent": true
+  },
+  {
+   "text": "4. A method executed by one or more processors causing the one or more processors to execute the steps of: receiving a search query, the search query comprising a query term and a query label term, the query label term being a categorical identifier; identifying one or more resources in a search result set responsive to the search query, wherein each of the one or more resources has two or more associated matching label terms that match the query label term and that each label term being the categorical identifier describing each resource and been associated with the resource by a different respective entity; determining, for each of the one or more resources: a trust rank of each entity that associated a matching label term with the resource, wherein the trust rank indicates whether a user trusts the associated matching label term of the resource, and increasing a relevance score of each resource that has the two or more associated matching label terms based on the respective trust factors, the relevance score indicating a degree of relevance between the respective resource and the query term; ranking each of the one or more resources in the search result set based on the respective relevance scores; annotating, with a name of each entity that associated the matching label terms with each resource, indicia identifying each resource of the ranked search result set; and providing the indicia in a response to the search query.",
+   "dependent": false
+  },
+  {
+   "text": "5. The method of claim 4, further comprising: determining, for each of the one or more resources: a second trust rank of a second entity that associated a second matching label term with the resource; and aggregating the trust rank and the second trust rank to determine a trust factor.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 4, wherein annotating, with the name of each entity further comprises: annotating, with the two matching label terms associated with each resource, the indicia identifying each resource of the ranked search result set.",
+   "dependent": true
+  },
+  {
+   "text": "7. A system comprising: one or more computers; a computer-readable medium coupled to the one or more computers having instructions stored thereon which, when executed by the one or more computers, cause the one or more computers to perform operations comprising: receiving a search query, the search query comprising a query term and a query label term, the query label term being a categorical identifier; identifying one or more resources in a search result set responsive to the search query, wherein each of the one or more resources has an associated matching label term that matches the query label term and an associated non-matching label term that does not match the query label term, each associated label term being the categorical identifier describing each resource and having been associated with the resource by a respective entity; determining, for each of the one or more resources: a trust rank of the entity that associated the associated matching label term with the resource, wherein the trust rank indicates whether a user trusts the associated matching label term of the resource, and increasing a relevance score of each resource that has the associated matching label term based on the respective trust rank, the relevance score indicating a degree of relevance between the respective resource and the query term; ranking each of the one or more resources in the search result set based on the respective relevance scores; annotating, with a name of the respective entity that associated the matching label term with each resource, indicia identifying each resource of the ranked search result set; and providing the indicia in a response to the search query.",
+   "dependent": false
+  },
+  {
+   "text": "8. The system of claim 7, where in the operations further comprise: annotating, with the matching label term associated with each resource, the indicia identifying each resource of the ranked search result set.",
+   "dependent": true
+  },
+  {
+   "text": "9. The system of claim 7, wherein the operations further comprise: determining, for each of the one or more resources: a second trust rank of a second entity that associated a second matching label term with the resource; and aggregating the trust rank and the second trust rank to determine a trust factor.",
+   "dependent": true
+  },
+  {
+   "text": "10. A system comprising: one or more computers; a computer-readable medium coupled to the one or more computers having instructions stored thereon which, when executed by the one or more computers, cause the one or more computers to perform operations comprising: receiving a search query, the search query comprising a query term and a query label term, the query label term being a categorical identifier; identifying one or more resources in a search result set responsive to the search query, wherein each of the one or more resources has two or more associated matching label terms that match the query label term and that each label term being the categorical identifier describing each resource and been associated with the resource by a different respective entity; determining, for each of the one or more resources: a trust rank of each entity that associated a matching label term with the resource based on the trust information; and increasing a relevance score of each resource that has the two or more associated matching label terms based on the respective trust ranks, the relevance score indicating a degree of relevance between the respective resource and the query term; ranking each of the one or more resources in the search result set based on the respective relevance scores; annotating, with a name of each entity that associated the matching label term with each resource, indicia identifying each resource of the ranked search result set; and providing the indicia in a response to the search query.",
+   "dependent": false
+  },
+  {
+   "text": "11. The system of claim 10, further comprising: determining, for each of the one or more resources: a second trust rank of a second entity that associated a second matching label term with the resource; and aggregating the trust rank and the second trust rank to determine a trust factor.",
+   "dependent": true
+  },
+  {
+   "text": "12. The system of claim 10, wherein the operations further comprise: annotating, with the two matching label terms associated with each resource, the indicia identifying each resource of the ranked search result set.",
+   "dependent": true
+  },
+  {
+   "text": "13. A computer storage medium encoded with a computer program, the program comprising instructions that when executed by data processing apparatus cause the data processing apparatus to perform operations comprising: receiving a search query, the search query comprising a query term and a query label term, the query label term being a categorical identifier; identifying one or more resources in a search result set responsive to the search query, wherein each of the one or more resources has an associated matching label term that matches the query label term and an associated non-matching label term that does not match the query label term, each associated label term being the categorical identifier describing each resource and having been associated with the resource by a respective entity; determining, for each of the one or more resources: a trust rank of the entity that associated the associated matching label term with the resource based on the trust information, wherein the trust rank indicates whether a user trusts the associated matching label term of the resource, and increasing a relevance score of each resource that has the associated matching label term based on the respective trust rank, the relevance score indicating a degree of relevance between the respective resource and the query term; ranking each of the one or more resources in the search result set based on the respective relevance scores; annotating, with a name of the respective entity that associated the matching label term with each resource, indicia identifying each resource of the ranked search result set; and providing the indicia in a response to the search query.",
+   "dependent": false
+  },
+  {
+   "text": "14. A computer storage medium encoded with a computer program, the program comprising instructions that when executed by data processing apparatus cause the data processing apparatus to perform operations comprising: receiving a search query, the search query comprising a query term and a query label term, the query label term being a categorical identifier; identifying one or more resources in a search result set responsive to the search query, wherein each of the one or more resources has two or more associated matching label terms that match the query label term and that each label term being the categorical identifier describing each resource and been associated with the resource by a different respective entity; determining, for each of the one or more resources: a trust rank of each entity that associated a matching label term with the resource, wherein the trust rank indicates whether a user trusts the associated matching label term of the resource, and increasing a relevance score of each resource that has the two or more associated matching label terms based on the respective trust ranks, the relevance score indicating a degree of relevance between the respective resource and the query term; ranking each of the one or more resources in the search result set based on the respective relevance scores; annotating, with a name of each entity that associated the matching label term with each resource, indicia identifying each resource of the ranked search result set; and providing the indicia in a response to the search query.",
+   "dependent": false
+  }
+ ],
+ "description": "\n## FIELD OF THE INVENTION\n\n\nThe present invention relates to search engines, and more specifically to search engines that use information indicative of trust relationship between users to rank search results.\n\n\n## BACKGROUND OF THE INVENTION\n\n\nThe development of information retrieval systems has predominantly focused on improving the overall quality of the search results presented to the user. The quality of the results has typically been measured in terms of precision, recall, or other quantifiable measures of performance. Information retrieval systems, or ‘search engines’ in the context of the Internet and World Wide Web, use a wide variety of techniques to improve the quality and usefulness of the search results. These techniques address every possible aspect of search engine design, from the basic indexing algorithms and document representation, through query analysis and modification, to relevance ranking and result presentation, methodologies too numerous to fully catalog here.\n\nAn inherent problem in the design of search engines is that the relevance of search results to a particular user depends on factors that are highly dependent on the user's intent in conducting the search—that is why they are conducting the search—as well as the user's circumstances, the facts pertaining to the user's information need. Thus, given the same query by two different users, a given set of search results can be relevant to one user and irrelevant to another, entirely because of the different intent and information needs. Most attempts at solving the problem of inferring a user's intent typically depend on relatively weak indicators, such as static user preferences, or predefined methods of query reformulation that are nothing more than educated guesses about what the user is interested in based on the query terms. Approaches such as these cannot fully capture user intent because such intent is itself highly variable and dependent on numerous situational facts that cannot be extrapolated from typical query terms.\n\nIn part because of the inability of contemporary search engines to consistently find information that satisfies the user's information need, and not merely the user's query terms, users frequently turn to websites that offer additional analysis or understanding of content available on the Internet. For the purposes of discussion these sites are called vertical knowledge sites. Some vertical knowledge websites, typically community sites for users of shared interests, allow users to link to content on the Internet and provide labels or tags describing the content. For example, a site may enable a user to link to the website of an automobile manufacturer, and post comment or description about a particular car being offered by the manufacturer; similarly, such a site could enable a user to link to a news report on the website of a news organization and post comment about the report. These and other vertical knowledge sites may also host the analysis and comments of experts or others with knowledge, expertise, or a point of view in particular fields, who again can comment on content found on the Internet. For example, a website operated by a digital camera expert and devoted to digital cameras typically includes product reviews, guidance on how to purchase a digital camera, as well as links to camera manufacturer's sites, new products announcements, technical articles, additional reviews, or other sources of content. To assist the user, the expert may include comments on the linked content, such as labeling a particular technical article as “expert level,” or a particular review as “negative professional review,” or a new product announcement as “new 10 MP digital SLR”. A user interested in a particular point of view, type of information, or the like then search within the domain of such a site for articles or links that have certain associated labels or comments. For example, a user could search the aforementioned digital camera site for all camera reviews labeled “digital SLR”.\n\nOne of the underlying aspects of vertical knowledge sites that makes them appealing to users is that some of the user who participate on them come to be perceived as being trustworthy in their comments, analysis, opinions and recommendations. This degree of trust is valuable to users as a way of evaluating the often bewildering array of information that is available on the Internet. Indeed, many popular vertical knowledge sites, blogs, news outlets, so forth, are primarily devoted to facilitating dissemination of the opinions of individual experts or commentators, while other vertical knowledge sites such as forums, rating sites, and community sites operate to share and disseminate the opinions of many users in a community. In either case, many users access these sites because of an underlying sense of trust in at least some of the others users who are providing their opinions. Of course, in some cases a particular user's (or author's) views may not be trusted by others. For example, on most forums there will be one or more users who are viewed by others as being uninformed, biased, hostile or otherwise not trustworthy. Particularly for new users, identifying which other members of a community are trustworthy and which are not can be a difficult and time consuming process.\n\nSome vertical knowledge sites now provide various types of indicators or proxies for the trustworthiness of particular individuals who participate at the site. Auction sites use rating systems to identify trusted buyers and sellers. Forum sites use membership criteria and other factors to distinguish between posters. But many sites simply rely on general reputation of their experts to instill a sense of trust in users who visit the site. Thus, at best a user can currently search within the context or domain of a particular website for comments, opinions or the like made by individuals who are trusted by the user or by others.\n\nThe problem remains that when the user returns to a general search engine, outside of the vertical knowledge site, the user is unable to obtain search results that reflect the trustworthiness of the documents themselves or the trustworthiness of any commentary or opinions that may be associated with the search result documents. Thus, none of the additional reputation based information that is associated with users in the vertical knowledge site is available to the general search engine in order to provide more meaningful search results to other users.\n\n\n## SUMMARY\n\n\nA search engine system provides search results that are ranked according to a measure of the trust associated with entities that have provided labels for the documents in the search results. The system maintains information describing annotations provided by any of the entities. An entity creates an annotation for a particular item (or collection) of web content as a way of associating a label with a particular item of web content, such as a web page. For example, an entity such as a digital camera expert operating a website devoted to digital cameras, may create an annotation associating the label “professional review” with a particular review of a digital camera on some third party site (e.g., on the site of a news publication). In addition, the system maintains information about trust relationships between entities, such as individual users, indicating whether (or the degree to which) one entity trusts another entity. Thus, users can indicate whether or the extent to which they trust the digital camera expert. The system can determine a trust rank for any particular entity, based on the trust relationships between the various entities.\n\nA user provides a query to the system; the query contains at least one query term and optionally includes one or more labels of interest to the user. The system retrieves a set of search results comprising documents that are relevant to the query term(s). The system determines which query labels are applicable to which of the search result documents. The system determines for each document an overall trust factor to apply to the document based on the trust ranks of those entities that provided the labels that match the query labels. Applying the trust factor to the document adjusts the document's information retrieval score, to provide a trust adjusted information retrieval score. The system reranks the search result documents based at on the trust adjusted information retrieval scores.\n\nThe present invention has various embodiments, including as a computer implemented process, as computer apparatuses, as integrated circuits, and as computer program products that execute on general or special purpose processors.\n\nThe features and advantages described in this summary and the following detailed description are not all-inclusive. Many additional features and advantages will be apparent to one of ordinary skill in the art in view of the drawings, specification, and claims hereof.\n\n\n## BRIEF DESCRIPTION OF THE FIGURES\n\n\nFIG. 1 illustrates a generalized system architecture for a search engine system in accordance with one embodiment.\n\nFIG. 2 is a flowchart of a method for collecting trust information.\n\nFIG. 3 is a flowchart of a method for collecting annotation information.\n\nFIG. 4 is a flowchart of a method for processing search results with trust ranks.\n\nFIG. 5 is an example of a search query including a label and corresponding search results.\n\nThe figures depict various embodiments of the present invention for purposes of illustration only. One skilled in the art will readily recognize from the following discussion that alternative embodiments of the illustrated and described structures, methods, and functions may be employed without departing from the principles of the invention.\n\n\n## DETAILED DESCRIPTION\n\n\n\n## System Overview\n\n\nFIG. 1 presents a diagram illustrating a system that ranks search results using trust in accordance with an embodiment of the present invention. Referring to FIG. 1, a user operates a browser 104 located on a client 103. Client 103 can generally include any node on a network including computational capability and including a mechanism for communicating across the network. The client 103 can be any type of client, including any type of computer (e.g., desktop computer, workstation, notebook, mainframe, terminal, etc.), handheld device (personal digital assistant, cellular phone, etc.), or the like. The client device 103 need only have the capability to communicate over a network (e.g. Internet, telephony, LAN, WAN, or combination thereof) with the search engine system 100. Typically, a client device 103 will also support appropriate networking applications and components, all of which are known to those of skill in the art.\n\nBrowser 104 can generally include any type of web browser capable of viewing a web site, such as the INTERNET EXPLORER™ browser distributed by the Microsoft Corporation of Redmond, Wash. Search engine system 100 can generally include any computational node including a mechanism for servicing queries from a client for computational and/or data storage resources. Note that the code and data involved in processing queries typically resides within a memory within search engine system 100. Copies of the code and data can also reside within non-volatile storage which is included in the system 100. The figure does not show a number of conventional components (e.g. network, firewalls, routers, domain name servers, load balancers, etc.) in order to not obscure the relevant details of the embodiment.\n\nDuring operation, a user's client 103 can communicate with search engine system 100 to search for documents relevant to a query. A query general comprises one or more query terms and optionally includes one or more labels. Query terms are words that the user believes are relevant to the user's information need; labels are words, phrases, markers or other indicia that have been associated with certain web content (pages, sites, documents, media, etc.) by others as descriptive or categorical identifiers. For example, a query “cancer label:symptoms” includes the query term cancer and a query label “symptoms”, and thus is a request for documents relevant to cancer, and that has been labeled as relating to “symptoms.” Labels such as these can be associated with documents from any entity, whether the entity created the document, or is a third party. The entity that has labeled a document has some degree of trust, as further described below.\n\nThe browser 104 can also access any web site available on the network (not shown) belonging to a person, or any other type of entity such as a company, enterprise, community group, and so forth. For example, in FIG. 1 browser 104 accesses Expert's web site 105, which is hosted by a third-party server, or alternatively by the server associated with the search engine system 100. Expert's web site 105 can generally be any type of web content provided by Expert. For example, Expert's web site 105 can include Expert's personal home page, along with pages directed towards Expert's interests, as well as Expert's blog, an e-commerce storefront for goods that Expert sells, and so forth. In addition, Expert's site 105 can include pages containing links to other sites (including entire sites, portions of a site, or individual pages) along with annotations 106 associated with such linked content. An annotation 106 includes a label 107 and a URL pattern associated with the label; the URL pattern can be specific to an individual web page or to any portion of a web site or pages therein. The term “document” is used herein to refer to any and all types of content that can be accessed by a client over a network.\n\nFor example, Expert may create an annotation 106 including the label 107 “Professional review” for a review 114 of Canon digital SLR camera on a web site “www.digitalcameraworld.com”, a label 107 of “Jazz music” for a CD 115 on the site “www.jazzworld.com”, a label 107 of “Classic Drama” for the movie 116 “North by Northwest” listed on website “www.movierental.com”, and a label 107 of “Symptoms” for a group of pages describing the symptoms of colon cancer on a website 117 “www.yourhealth.com”. Note that labels 107 can also include numerical values (not shown), indicating a rating or degree of significance that the entity attaches to the labeled document.\n\nExpert's web site 105 can also include trust information. More specifically, Expert's web site 105 can include a trust list 109 of entities whom Expert trusts. This list may be in the form of a list of entity names, the URLs of such entities' web pages, or by other identifying information. Expert's web site 105 may also include a vanity list 111 listing entities who trust Expert; again this may be in the form of a list of entity names, URLs, or other identifying information. The trust list 109 and vanity list 111 may be encoded in any computer readable form supported by Expert's website. An “entity” may be a specific person, group, organization, website, business, institution, government agency or the like.\n\nIn one embodiment of the present invention, a web crawler (not shown) obtains labels and trust information and sends it to search engine system 100 to facilitate subsequent usage in search result ranking. This process is described in more detail below with reference to FIGS. 2-4.\n\nExpert's web site 105 can also include a “trust button” 112. A user visiting Expert's web site can click on trust button 112 to cause a corresponding trust relationship to be recorded at the search engine system 100. This trust relationship indicates that the user trusts Expert, and may be understood as well to indicate that the user trusts the labels that Expert has provided for various documents and site. Note that if Expert's web site 105 is provided by a third-party server, the trust button 112 can be implemented as an inline frame (iframe) provided by such server, which examines a cookie to identify user and then provides an identifier for the user and an identifier for Expert to the search engine system 100. When accessed, the search engine system 100 receives information indicative of the trust relationship between the user and Expert. This information may take the form of a tuple of data identifying the trusting entity, the trusted entity, and a trust value. For example, the tuple indicates that the entity (e.g., a user) with the identifier 3365 trusts the entity with the identifier 1230 (e.g., Expert) with a trust value of 1. The trust information is stored in a trust database 190.\n\nIn one embodiment, a user can have different levels of trust in an entity for different topics. For example, a user may trust an entity with respect to politics and economics, but not with respect to sports and entertainment. The trust information tuple can thus be extended as , where topic identifies the particular topic for which entity1 trusts entity2 (the topic can be identified by a text string, a topic identifier, or other means). The user manifestation of topic based trust can vary. For example, the trust button 112 can be linked to a further selection or list of topics. For a trust list, the user can include a list of the trusted topics for each entity he or she trusts. The trust information provided by the users with respect to others is used to determine a trust rank for each user, which is measure of the overall degree of trust that users have in the particular entity.\n\nIn order to obtain search results, user's client 103 sends a search query the search engine system 100, which is received by a front end server 110. The front end server 110 is adapted to receive a query from the client 102 and pass it to the query processor 120, and then subsequently receive the search results back from the query processor 120 and provide them to the client 102. The front end server 110 is further adapted to handle the queries from multiple different clients 102 concurrently.\n\nThe front end server 110 passes the query to the search engine 180, which processes a user's query (using a content server and index 170) to obtain a set of search results that are relevant to the query term(s). Where the query includes labels (as these are optional), the search engine 180 accesses an annotation database 140 to determine which of the documents in the search results have one or more of the query labels associated with them. Using the annotation information and trust information from the trust database 190, the search engine 180 determines a trust factor for each document. A document's trust factor is a function of the trust ranks associated with the entities have labeled the document with labels that match the query labels. The search engine 180 adjusts each document's underlying information retrieval score using the document's trust factor, and then reranks the search results using the adjusted scores. The trust adjusted search results are returned to the front end server 110, which passes them to the client 103.\n\nFIG. 5 illustrates an example of search query including a label and corresponding search results. Search query field 506 is shown including a search query 500 that include the query term “cancer” and the indicated label “symptoms.” This query has been provided to the search engine system 100, and some of the search results 502 (a set of documents) as shown in trust-adjusted ranked order. Of interest in each search result 502 (document) is the indicia of the matching label 504 “symptom” for each shown search result, as well as other labels 504 such as “Tests/diagnosis,”, and “Treatment.” Also shown next to each result is the name 508 of the entity that provided the matching label, here the user named Guha; the name 508 of another user Roni, is also shown on one of the results. The results are listed in an order based on the trust ranks of the entities 508 which have provided the labels 504 that match the query label of “symptoms.” Thus, the user can determine the quality and significance of each search result in part by seeing which entities have provided the labels that match the query labels.\n\nObtaining and Storing Trust Information\n\nFIG. 2 presents a flowchart illustrating the process of obtaining and storing trust information in accordance with an embodiment of the present invention; other variations of the steps or procedures of this process can be readily developed to achieve the same results.\n\nDuring this process, the system 100 receives 202 information indicating that the user trusts labels provided by the entity. This can involve receiving this information directly from the user. For example, the user can click on a “trust button” on a web page belonging to the entity, which causes a corresponding record for a trust relationship to be recorded in the trust database 190. In general any type of input from the user indicating that such as trust relationship exists can be used.\n\nAs indicated above, the system can also use a web crawler to examine web pages to locate information indicating that which user trusts a particular entity. While examining web pages, the web crawler can look for a number of relationships, including: (1) links from the user's web page to web pages belonging to trusted entities; (2) a trust list that identifies entities that the user trusts; or (3) a vanity list which identifies users who trust the owner of the vanity page.\n\nThe system can also examine web visitation patterns of the user and can infer from the web visitation patterns which entities the user trusts. For example, the system can infer that a particular user trust a particular entity when the user visits the entity's web page with a certain frequency.\n\nThe search engine system 100 can also examine computer-based records belonging to the user, such as an email contact list or an instant-messaging chat list, and can infer from these computer-based records that the user trusts entities included in such contact or chat lists. More particular, for each entity included in the user's contact/chat list, a trust record indicating a trust relationship between the user and entity can be entered in the trust database 190. Alternatively, a user may specifically mark or identify entities in the user's contact or instant messaging list as being trusted, or with a particular degree of trust, or trusted topics.\n\nThe search engine system 100 can also infer trust transitively, by assigning a trust value between a user and first entity, where the user directly trusts a second entity, and the second entity in turn trusts the first entity.\n\nNext, the search engine system 100 stores 204 a corresponding record for the trust relationship between the user and the entity in the trust database 190 to facilitate subsequent data retrieval operations. The trust database 190 can include any type of data structure or database system that can facilitate data retrieval of trust information.\n\nIn one embodiment, the trust information in the trust database 190 is stored in a square trust matrix M, where each matrix value Mij stores a value indicative of entity i's trust of entity j. As noted above, in one embodiment, the trust value is 0 or 1, though other values or ranges of values can be used. The matrix information can be stored in any suitable storage structure, including tables, arrays, bit maps, trees, or the like.\n\nFor each entity i, a trust rank TRi can be computed 206 from the trust matrix M. The TRi of entity i is the ith component of the eigenvector of TR that is associated with the eigenvalue of 1. Where trust information includes topic information, a separate trust matrix M is constructed for each topic t and a topic-specific trust rank TRit is computed. The topic matrices can aggregated at various levels according to topical hierarchies, and aggregated topic-specific trust ranks may also be computed therefrom. While FIG. 2 shows the computation 206 of trust rank following storing 204, these steps need not occur in this order, and in one embodiment, the computation 206 of trust rank is executed in an independent process.\n\nNote that trust relationships can change. For example, the system can increase (or decrease) the strength of a trust relationship for a trusted entity. The search engine system 100 can also cause the strength of a trust relationship to decay over time if the trust relationship is not affirmed by the user, for example by visiting the entity's web site and activating the trust button 112. The search engine system 100 may also expose a user interface to the trust database 190 by which the user can edit the user trust relationships, including adding or removing trust relationships with selected entities.\n\nThe trust information in the trust database 190 is also periodically updated by crawling of web sites, including sites of entities with trust information (e.g., trust lists, vanity lists); trust ranks are recomputed based on the updated trust information.\n\nObtaining and Storing Label Information\n\nFIG. 3 presents a flowchart illustrating the process of obtaining and storing annotations (including labels) on web content in accordance with an embodiment of the present invention; other variations of the steps or procedures of this process can be readily developed to achieve the same results.\n\nDuring this process, the system gathers 302 annotations 106 associated with an entity. This can involve using a web crawler to examine web pages associated with the entity to identify annotations 106 created by the entity. One system and methodology for analysis of annotations provided by entities is described in U.S. application Ser. No. 11/202,423, filed on Aug. 10, 2005 and entitled “Programmable Search Engine”, which is incorporated by reference herein.\n\nThe system can also receive annotations 106 from an entity via an annotation interface 160 that is configured receive annotation files. An annotation file contains annotations. As indicated previously, an annotation includes a pattern for a uniform resource locator (URL) for the URLs of documents, and a label to be applied to a document whose URL matches the URL pattern. Schematically, an annotation may take the form:\n\nwhere label is a term or phrase, and URL_pattern is a specification of a pattern for a URL.\n\nFor example, the annotation\n\nwould be used to apply the label “professional review” to any document whose URL includes a URL prefix matching the network location “www.digitalcameraworld.com/review/”; all documents in this particular host's directory are considered by the entity providing the annotation to be “professional reviews” of digital cameras. In one embodiment, the URL pattern can include wildcards as well as regular expressions. In a typical embodiment, the annotation database 104 includes thousands, even millions of such annotations. There is a many-to-many relationship between labels and URL patterns, in that a given label may be applied to any document matching multiple different URL patterns, and a given URL pattern may be associated with many different labels.\n\nFrom the received annotation information, the system stores the annotations in the annotation database 140. The annotation database 140 includes an inverted index (or equivalent) that indexes each annotation to whatever URL patterns have been defined for it (whether by the same or different entities). In some cases, an entity may simply create a link from its site to a particular item of web content (e.g., a document) and provide a label 107 as the anchor text of the link. In this case, a crawler extracts the label from the link and generates the appropriate annotation by using the label and the associated URL of the linked content. Each annotation is associated with the entity that provided the annotation. The trust rank TR for the associated entity can thereby be accessed as follows. First, given a document identifier (e.g., a URL), the annotations 106 associated with the document can be determined from the annotation database 140. For each identified annotation, the entity that provided the annotation can be determined, and that entity's trust rank TR retrieved from the trust database 190.\n\nThe search engine system 100 periodically updates the annotation database 140 by crawling web sites and extracting annotations therein, as well as receiving annotation files via the annotation interface 160.\n\nGenerated Trust Ranked Search Results\n\nFIG. 4 presents a flowchart illustrating one process of generating trust ranked search results in accordance with an embodiment of the present invention; other variations of the steps or procedures of this process can be readily developed to achieve the same results.\n\nThe front end server 110 receives 402 a query from a user. The query includes at least one query term, and optionally includes one or more labels, as described above. The query is provided to the search engine 180.\n\nFor example, a query may be\n\ndigital camera more: professional review\n\nwhere the terms “digital camera” are the query terms, and the token “label:” indicates that the following term is a label of interest. Thus, in this example, the user is searching for documents that have been labeled (by one or more individuals, such as other users, experts, etc.) as being professional reviews of digital cameras.\n\nAnother example would be the query\n\nabortion label:statistics label:pro-choice.\n\nIn this example, the user would be searching for documents that relevant to abortion and had been labeled as either statistics or pro-choice related. The particular syntax used to indicate labels (as differentiated from query terms) is not limited to the use of “label:” and other tokens and formats can be used as well. For example, the query can take the form such as\n\nThe front end server 110 (or other module) includes a parser that performs the initial parsing of the query into query term and labels.\n\nThe search engine 180 retrieves 404 a set of documents that are relevant to the query term(s). The search engine 180 can use any type of information retrieval model for selecting and scoring relevant documents. One suitable information retrieval model is a link-based model, such as PageRank which is described in U.S. Pat. No. 6,285,999, and incorporated by reference herein.\n\nThe retrieved documents are ranked ordered in terms of an underlying (base) information retrieval score used by the search engine 180. For each document, the labels associated with the document are determined 406 from the annotation database 140 by matching the URL of the document to the URL patterns in the annotations. Thus, if the URL of a particular search result document matches the three different annotations for three different labels, each of these labels will be determined as associated with the document.\n\nThe query labels are then matched against the retrieved annotation labels, to identify which query labels apply to the document; this can be done by matching the query labels to the document's annotated labels. For each such annotation label matching a query label, the trust rank TR of entity that provided the annotation label is retrieved 408. A document may have been labeled with the same label by several different entities. For example, three different entities may have labeled a particular review of digital camera with the label “professional review” while a fourth labeled the same review with the label “negative review.” If the query label included “professional review” then only the first three annotation labels would be deemed matched. It should be noted that steps 406 and 408 can performed in batch against all the search results, or iteratively for each search result, depending the desired programming model.\n\nThe trust ranks of the entities associated with the matching labels are aggregated 410 to create an aggregated trust rank. Thus, in this example, the trust ranks of the three different experts would be aggregated into a single trust rank associated with the particular label “professional review” for the review document. This aggregation is performed for each label associated with the document.\n\nFor example, assume that a particular document, such as a review of a Casio digital camera, has the following annotations associated therewith:\n\nLabel Entity Trust Rank “Professional Review” Phil Photo 8 “Professional Review” Earl Expert 6 “Professional Review” Chris Click 7 “Digital SLR” Phil Photo 8 “Digital SLR” Eddy Shooter 2 “Best buy” Betsy Buyer 3\n\nThe trust ranks of the entities could be aggregated with respect to these labels. The trust ranks can be aggregated using a weighting function. Aggregation using a linear weighting function would be:\n\nLinear Aggregated Label Trust Rank “Professional Review” 21 “Digital SLR” 10 “Best buy” 3\n\nThis approach basically applies a fixed trust weight (e.g., 1) to the trust ranks prior to summing them.\n\nThe trust ranks TR can be aggregated in a number of different ways other than linear weighting. One variation is an asymptotic weighting function. For example, one approach here would be to sum the log of the trust ranks to form the aggregated trust rank. Another variation of the weighting function is to apply a weight that decays with the increasing number of instances of a particular label. For example, the trust ranks can be ordered by age of the associated annotation, and weighted to decrease (alternatively increase) the weight applied to the trust rank for the oldest annotation. Another way in which the trust ranks can be aggregated is by use of a sigmoid weighting function.\n\nThe foregoing are various examples of different ways that trust ranks can be aggregated; other way of combining the trust ranks of individual entities can be readily implemented, and these too are deemed to come within the concept of aggregation.\n\nOnce the trust ranks have been aggregated for each label that matches a query label, the aggregated trust ranks are applied 412 to the document's base information retrieval score. The aggregated trust ranks can be combined into a trust factor, using any type of aggregation function. For example, trust factor can be the sum total of the aggregated trust ranks. Second, the aggregated trust ranks can be aggregated asymptotically or via a sigmoid function to form the trust factor.\n\nHowever the trust factor is determined from the aggregated trust ranks, it is then applied to the base information retrieval score, for example by multiplying with the trust factor. Other ways of applying the trust factor to the base information retrieval score as also possible. The resulting score is said to be trust-adjusted information retrieval score.\n\nAfter (or as) the trust-adjusted information retrieval scores have been determined, the search engine 180 reranks 414 the search results by these adjusted scores. The result set is returned to the front end server 110, which in turn passes it to the client 103. The user can then review the search results.\n\nThe search engine system 100 is adapted to receive queries that do not include labels, and still provide trust based ranking. In this case, if certain annotations are applicable to a search result document, then the trust rank for the entities providing these annotations is retrieved, aggregated, and applied to the base information retrieval score of the document as well, and the documents are reranked accordingly.\n\nIn discussion of the various embodiments, examples have been discussed using search queries including a single query term and a single label, as well as examples referencing individual documents. It is understood that the embodiments and invention are not so limited, and should be generally understood as equally operable with queries including a plurality of query terms and a plurality of labels. Thus any reference herein, including in the claims below, to various words in the singular noun form, such as query term, label, annotation, document, and so forth, are not intended to be limited to the singular, but should be read as including at least one or a plurality thereof, unless such a construction is expressly indicated as not intended or appropriate for the circumstances.\n\nThe present invention has been described in particular detail with respect to one possible embodiment. Those of skill in the art will appreciate that the invention may be practiced in other embodiments. First, the particular naming of the components, capitalization of terms, the attributes, data structures, or any other programming or structural aspect is not mandatory or significant, and the mechanisms that implement the invention or its features may have different names, formats, or protocols. Further, the system may be implemented via a combination of hardware and software, as described, or entirely in hardware elements. Also, the particular division of functionality between the various system components described herein is merely exemplary, and not mandatory; functions performed by a single system component may instead be performed by multiple components, and functions performed by multiple components may instead be performed by a single component.\n\nSome portions of above description present the features of the present invention in terms of algorithms and symbolic representations of operations on information. These algorithmic descriptions and representations are the means used by those skilled in the data processing arts to most effectively convey the substance of their work to others skilled in the art. These operations, while described functionally or logically, are understood to be implemented by computer programs. Furthermore, it has also proven convenient at times, to refer to these arrangements of operations as modules or by functional names, without loss of generality.\n\nUnless specifically stated otherwise as apparent from the above discussion, it is appreciated that throughout the description, discussions utilizing terms such as “calculating” or “determining” or “identifying” or the like, refer to the action and processes of a computer system, or similar electronic computing device, that manipulates and transforms data represented as physical (electronic) quantities within the computer system memories or registers or other such information storage, transmission or display devices.\n\nCertain aspects of the present invention have been described using commands, mnemonics, tokens, formats, syntax, and other programming conventions. The particular selection of the names, formats, syntax, and the like are merely illustrative, and not limiting. Those of skill in the art can readily construct alternative names, formats, syntax rules, and so forth for defining context files and programming the operations a programmable search engine via context processing.\n\nCertain aspects of the present invention include process steps and instructions described herein in the form of an algorithm. It should be noted that the process steps and instructions of the present invention could be embodied in software, firmware or hardware, and when embodied in software, could be downloaded to reside on and be operated from different platforms used by real time network operating systems.\n\nThe present invention also relates to an apparatus for performing the operations herein. This apparatus may be specially constructed for the required purposes, or it may comprise a general-purpose computer selectively activated or reconfigured by a computer program stored on a computer readable medium that can be accessed by the computer. Such a computer program may be stored in a computer readable storage medium, such as, but is not limited to, any type of disk including floppy disks, optical disks, CD-ROMs, magnetic-optical disks, read-only memories (ROMs), random access memories (RAMs), EPROMs, EEPROMs, magnetic or optical cards, or any type of media suitable for storing electronic instructions, and each coupled to a computer system bus.\n\nThe algorithms and operations presented herein are not inherently related to any particular computer or other apparatus. Various general-purpose systems may also be used with programs in accordance with the teachings herein, or it may prove convenient to construct more specialized apparatus to perform the required method steps. The required structure for a variety of these systems will be apparent to those of skill in the art, along with equivalent variations. In addition, the present invention is not described with reference to any particular programming language. It is appreciated that a variety of programming languages may be used to implement the teachings of the present invention as described herein, and any references to specific languages are provided for disclosure of enablement and best mode of the present invention.\n\nFinally, it should be noted that the language used in the specification has been principally selected for readability and instructional purposes, and may not have been selected to delineate or circumscribe the inventive subject matter. Accordingly, the disclosure of the present invention is intended to be illustrative, but not limiting, of the scope of the invention, which is set forth in the following claims.",
+ "cited_by": [
+  {
+   "id": "US20070208613A1",
+   "title": "Reputation system for web pages and online entities",
+   "assignee": "Alejandro Backer"
+  },
+  {
+   "id": "US20080065646A1",
+   "title": "Enabling access to aggregated software security information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080172630A1",
+   "title": "Graphical representation of aggregated data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080276177A1",
+   "title": "Tag-sharing and tag-sharing application program interface",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080281769A1",
+   "title": "Systems and methods for community tagging",
+   "assignee": "Jason Hibbets"
+  },
+  {
+   "id": "US20080301091A1",
+   "title": "Systems and methods for improved forums",
+   "assignee": "Hibbets Jason S"
+  },
+  {
+   "id": "US20080301115A1",
+   "title": "Systems and methods for directed forums",
+   "assignee": "Mattox John R"
+  },
+  {
+   "id": "US20090007272A1",
+   "title": "Identifying data associated with security issue attributes",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20090007271A1",
+   "title": "Identifying attributes of aggregated data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20090063386A1",
+   "title": "Systems and methods for linking an issue with an entry in a knowledgebase",
+   "assignee": "Hibbets Jason S"
+  },
+  {
+   "id": "US20090063408A1",
+   "title": "Managing user ratings in a web services environment",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20100082685A1",
+   "title": "System and method for evaluation and presenting authorization rights in an organization",
+   "assignee": "Barr Hoisman Hila"
+  },
+  {
+   "id": "US20100153354A1",
+   "title": "Web Search Among Rich Media Objects",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20100169430A1",
+   "title": "Trust -Interactive Communication Applications",
+   "assignee": "Herbert Willi Artur Ristock"
+  },
+  {
+   "id": "US20100169265A1",
+   "title": "Scoring Persons and Files for Trust in Digital Communication",
+   "assignee": "Herbert Willi Artur Ristock"
+  },
+  {
+   "id": "US20100325105A1",
+   "title": "Generating ranked search results using linear and nonlinear ranking models",
+   "assignee": "Alibaba Group Holding Limited"
+  },
+  {
+   "id": "US20110029613A1",
+   "title": "Evaluation of an attribute of an information object",
+   "assignee": "John Norman Hedditch"
+  },
+  {
+   "id": "WO2011050495A1",
+   "title": "Ranking user generated web content",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7966319B2",
+   "title": "Systems and methods for a rating system",
+   "assignee": "Red Hat, Inc."
+  },
+  {
+   "id": "US20110161317A1",
+   "title": "Document retrieval system",
+   "assignee": "Fujifilm Corporation"
+  },
+  {
+   "id": "US20120005183A1",
+   "title": "System and method for aggregating and interactive ranking of search engine results",
+   "assignee": "Emergency24, Inc."
+  },
+  {
+   "id": "WO2012091541A1",
+   "title": "A semantic web constructor system and a method thereof",
+   "assignee": "Mimos Berhad"
+  },
+  {
+   "id": "US20120296918A1",
+   "title": "Credibility Information in Returned Web Results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20120323888A1",
+   "title": "Automatic Webpage Characterization and Search Results Annotation",
+   "assignee": "Osann Jr Robert"
+  },
+  {
+   "id": "US8386335B1",
+   "title": "Cross-referencing comments",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20130166552A1",
+   "title": "Systems and methods for merging source records in accordance with survivorship rules",
+   "assignee": "Guy Rozenwald"
+  },
+  {
+   "id": "US20130297464A1",
+   "title": "System, Method, and Computer-Readable Storage Medium For Identifying A Product",
+   "assignee": "Shopsavvy Inc."
+  },
+  {
+   "id": "US8601059B2",
+   "title": "Sharing form training result utilizing a social network",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8620136B1",
+   "title": "System and method for media intelligent recording in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US8645393B1",
+   "title": "Ranking clusters and resources in a cluster",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8645394B1",
+   "title": "Ranking clusters and resources in a cluster",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8667169B2",
+   "title": "System and method for providing argument maps based on activity in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US20140114959A1",
+   "title": "Discerning human intent based on user-generated metadata",
+   "assignee": "Viralheat, Inc."
+  },
+  {
+   "id": "US20140129539A1",
+   "title": "System and method for personalized search",
+   "assignee": "Paul Vincent Hayes"
+  },
+  {
+   "id": "US20140201271A1",
+   "title": "User generated rating by machine classification of entity",
+   "assignee": "Qualcomm Incorporated"
+  },
+  {
+   "id": "US8831403B2",
+   "title": "System and method for creating customized on-demand video reports in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US20140280011A1",
+   "title": "Predicting Site Quality",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "WO2014146230A1",
+   "title": "Method and apparatus for querying resources through search field",
+   "assignee": "Nokia Corporation"
+  },
+  {
+   "id": "WO2014100790A3",
+   "title": "Search results through interest circles",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8886797B2",
+   "title": "System and method for deriving user expertise based on data propagating in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US8909624B2",
+   "title": "System and method for evaluating results of a search query in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US8935274B1",
+   "title": "System and method for deriving user expertise based on data propagating in a network environment",
+   "assignee": "Cisco Technology, Inc"
+  },
+  {
+   "id": "US8972394B1",
+   "title": "Generating a related set of documents for an initial set of documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8972391B1",
+   "title": "Recent interest based relevance scoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8990083B1",
+   "title": "System and method for generating personal vocabulary from network data",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US9002867B1",
+   "title": "Modifying ranking data based on document changes",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9009146B1",
+   "title": "Ranking search results based on similar queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9031929B1",
+   "title": "Site quality score",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20150193495A1",
+   "title": "Systems and methods for quote extraction",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20150195295A1",
+   "title": "Monitoring of Negative Feedback Systems",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9092510B1",
+   "title": "Modifying search result ranking based on a temporal element of user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20150213521A1",
+   "title": "Adaptive social media scoring model with reviewer influence alignment",
+   "assignee": "The Toronto-Dominion Bank"
+  },
+  {
+   "id": "US20150261763A1",
+   "title": "Using reputation measures to improve search relevance",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "TWI501096B",
+   "title": "Ranking user generated web content",
+   "assignee": "Google Inc"
+  },
+  {
+   "id": "US9141772B2",
+   "title": "Trust conferencing apparatus and methods in digital communication",
+   "assignee": "Genesys Telecommunications Laboratories, Inc."
+  },
+  {
+   "id": "US20150278210A1",
+   "title": "Building user trust in profile creation and recommendations based on managed interaction with user",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20150302425A1",
+   "title": "Assigning priority levels to citizen sensor reports",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20150310022A1",
+   "title": "Searching documentation across interconnected nodes in a distributed network",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20150310111A1",
+   "title": "Source search engine",
+   "assignee": "Jorn Lyseggen"
+  },
+  {
+   "id": "US20150332169A1",
+   "title": "Introducing user trustworthiness in implicit feedback based search result ranking",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9195944B1",
+   "title": "Scoring site quality",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9201965B1",
+   "title": "System and method for providing speech recognition using personal vocabulary in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US9235627B1",
+   "title": "Modifying search result ranking based on implicit user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9378065B2",
+   "title": "Purposeful computing",
+   "assignee": "Advanced Elemental Technologies, Inc."
+  },
+  {
+   "id": "USD760792S1",
+   "title": "Animated graphical user interface for a display screen or portion thereof",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "USD760791S1",
+   "title": "Animated graphical user interface for a display screen or portion thereof",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "USD761833S1",
+   "title": "Display screen with graphical user interface of a menu for a news digest",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9418104B1",
+   "title": "Refining search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9465795B2",
+   "title": "System and method for providing feeds based on activity in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "USD775183S1",
+   "title": "Display screen with transitional graphical user interface for a content digest",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20170032044A1",
+   "title": "System and Method for Personalized Search While Maintaining Searcher Privacy",
+   "assignee": "Paul Vincent Hayes"
+  },
+  {
+   "id": "US9623119B1",
+   "title": "Accentuating search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20170140059A1",
+   "title": "Knowledge-based entity detection and disambiguation",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9684697B1",
+   "title": "Ranking search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9721086B2",
+   "title": "Methods and systems for secure and reliable identity-based computing",
+   "assignee": "Advanced Elemental Technologies, Inc."
+  },
+  {
+   "id": "US9742836B2",
+   "title": "Systems and methods for content delivery",
+   "assignee": "Yahoo Holdings, Inc."
+  },
+  {
+   "id": "US9886509B2",
+   "title": "Method and apparatus for processing a query based on associating intent and audience",
+   "assignee": "Nokia Technologies Oy"
+  },
+  {
+   "id": "US9904579B2",
+   "title": "Methods and systems for purposeful computing",
+   "assignee": "Advanced Elemental Technologies, Inc."
+  },
+  {
+   "id": "US9940099B2",
+   "title": "Systems and methods for content processing",
+   "assignee": "Oath Inc."
+  },
+  {
+   "id": "US20180113865A1",
+   "title": "Search and retrieval of structured information cards",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9971756B2",
+   "title": "Systems and methods for delivering task-oriented content",
+   "assignee": "Oath Inc."
+  },
+  {
+   "id": "US10075384B2",
+   "title": "Purposeful computing",
+   "assignee": "Advanced Elemental Technologies, Inc."
+  },
+  {
+   "id": "US10162891B2",
+   "title": "Determining demographics based on user interaction",
+   "assignee": "Vocus Nm Llc"
+  },
+  {
+   "id": "US10268641B1",
+   "title": "Search result ranking based on trust",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10296167B2",
+   "title": "Systems and methods for displaying an expanding menu via a user interface",
+   "assignee": "Oath Inc."
+  },
+  {
+   "id": "US10839421B2",
+   "title": "Implicitly associating metadata using user behavior",
+   "assignee": "Groupon, Inc."
+  },
+  {
+   "id": "US11314746B2",
+   "title": "Processing unstructured data streams using continuous queries",
+   "assignee": "Cision Us Inc."
+  },
+  {
+   "id": "US11361076B2",
+   "title": "Vulnerability-detection crawler",
+   "assignee": "ThreatWatch Inc."
+  },
+  {
+   "id": "US20220207048A1",
+   "title": "Signal of trust access prioritization",
+   "assignee": "EMC IP Holding Company LLC"
+  },
+  {
+   "id": "EP4018337A4",
+   "title": "MULTI-PROVIDER SEARCH RESPONSE VERIFICATION AND INTEGRATION",
+   "assignee": "Yext, Inc."
+  },
+  {
+   "id": "US20230360106A1",
+   "title": "Sentiment extraction from consumer reviews for providing product recommendations",
+   "assignee": "Groupon, Inc."
+  },
+  {
+   "id": "US11916960B2",
+   "title": "Curtailing search engines from obtaining and controlling information",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US12056721B2",
+   "title": "Method and system for programmatic analysis of consumer sentiment with regard to attribute descriptors",
+   "assignee": "Bytedance Inc."
+  },
+  {
+   "id": "US12073444B2",
+   "title": "Method and system for programmatic analysis of consumer reviews",
+   "assignee": "Bytedance Inc."
+  },
+  {
+   "id": "US12111902B2",
+   "title": "Systems and methods for a connected computing resource and event/activity identification information infrastructure using near existential or existential biometric identification of humans",
+   "assignee": "Advanced Elemental Technologies, Inc."
+  },
+  {
+   "id": "US20250005648A1",
+   "title": "Computer-readable recording medium storing display control program, display control apparatus, and display control system",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US9591086B2",
+   "title": "Display of information in electronic communications",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9626405B2",
+   "title": "Trust network effect",
+   "assignee": "Edmond K. Chow"
+  },
+  {
+   "id": "US9721228B2",
+   "title": "Locally hosting a social network using social data stored on a user's computer",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8990323B2",
+   "title": "Defining a social network model implied by communications data",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20110191717A1",
+   "title": "Presenting Suggestions for User Input Based on Client Device Characteristics",
+   "assignee": "Xobni Corporation"
+  },
+  {
+   "id": "US7930430B2",
+   "title": "Systems and methods to provide assistance during address input",
+   "assignee": "Xobni Corporation"
+  },
+  {
+   "id": "US20110078188A1",
+   "title": "Mining and Conveying Social Relationships",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9514466B2",
+   "title": "Collecting and presenting data including links from communications sent to or from a user",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9760866B2",
+   "title": "Systems and methods to provide server side profile information",
+   "assignee": "Yahoo Holdings, Inc."
+  },
+  {
+   "id": "US8620935B2",
+   "title": "Personalizing an online service based on data collected for a user of a computing device",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8972257B2",
+   "title": "Systems and methods to present voice message information to a user of a computing device",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9529822B2",
+   "title": "Media or content tagging determined by user credibility signals",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20120084226A1",
+   "title": "Measuring or estimating user credibility",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US10078819B2",
+   "title": "Presenting favorite contacts information to a user of a computing device",
+   "assignee": "Oath Inc."
+  },
+  {
+   "id": "US9747583B2",
+   "title": "Presenting entity profile information to a user of a computing device",
+   "assignee": "Yahoo Holdings, Inc."
+  },
+  {
+   "id": "US11914674B2",
+   "title": "System and method for extremely efficient image and pattern recognition and artificial intelligence platform",
+   "assignee": "Z Advanced Computing, Inc."
+  },
+  {
+   "id": "US9916538B2",
+   "title": "Method and system for feature detection",
+   "assignee": "Z Advanced Computing, Inc."
+  },
+  {
+   "id": "US8873813B2",
+   "title": "Application of Z-webs and Z-factors to analytics, search engine, learning, recognition, natural language, and other utilities",
+   "assignee": "Z Advanced Computing, Inc."
+  },
+  {
+   "id": "US11195057B2",
+   "title": "System and method for extremely efficient image and pattern recognition and artificial intelligence platform",
+   "assignee": "Z Advanced Computing, Inc."
+  },
+  {
+   "id": "US11074495B2",
+   "title": "System and method for extremely efficient image and pattern recognition and artificial intelligence platform",
+   "assignee": "Z Advanced Computing, Inc. (Zac)"
+  },
+  {
+   "id": "US9311650B2",
+   "title": "Determining search result rankings based on trust level values associated with sellers",
+   "assignee": "Alibaba Group Holding Limited"
+  },
+  {
+   "id": "US10977285B2",
+   "title": "Using observations of a person to determine if data corresponds to the person",
+   "assignee": "Verizon Media Inc."
+  },
+  {
+   "id": "US11023520B1",
+   "title": "Background audio identification for query disambiguation",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "CN103793388B",
+   "title": "The sort method and device of search result",
+   "assignee": "阿里巴巴集团控股有限公司"
+  },
+  {
+   "id": "US10013672B2",
+   "title": "Address extraction from a communication",
+   "assignee": "Oath Inc."
+  },
+  {
+   "id": "US10192200B2",
+   "title": "Classifying a portion of user contact data into local contacts",
+   "assignee": "Oath Inc."
+  },
+  {
+   "id": "US9002837B2",
+   "title": "Systems and methods for providing expert thread search results",
+   "assignee": "Ipar, Llc"
+  },
+  {
+   "id": "US10430418B2",
+   "title": "Context-based actions from a source application",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US11263221B2",
+   "title": "Search result contexts for application launch",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "CN105453073A",
+   "title": "Improving tamper resistance of aggregated data",
+   "assignee": "迈克菲股份有限公司"
+  },
+  {
+   "id": "US9767158B1",
+   "title": "Ranking algorithms using unique bucketing identifiers",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US12235913B2",
+   "title": "Content search and results",
+   "assignee": "Steven Michael VITTORIO"
+  },
+  {
+   "id": "WO2015061479A1",
+   "title": "Content and search results",
+   "assignee": "Vittorio Steven Michael"
+  },
+  {
+   "id": "US11222084B2",
+   "title": "Content search and results",
+   "assignee": "Steven Michael VITTORIO"
+  },
+  {
+   "id": "US20150317314A1",
+   "title": "Content search vertical",
+   "assignee": "Linkedln Corporation"
+  },
+  {
+   "id": "US9996768B2",
+   "title": "Neural network patch aggregation and statistics",
+   "assignee": "Adobe Systems Incorporated"
+  },
+  {
+   "id": "US10187399B2",
+   "title": "Enriched system for suspicious interaction record detection",
+   "assignee": "Passport Health Communications, Inc."
+  },
+  {
+   "id": "US11250008B2",
+   "title": "Content search and results",
+   "assignee": "Steven Michael VITTORIO"
+  },
+  {
+   "id": "CN105608139B",
+   "title": "Data matching system and method",
+   "assignee": "携程计算机技术（上海）有限公司"
+  },
+  {
+   "id": "US10846387B2",
+   "title": "Managing access based on activities of entities",
+   "assignee": "At&T Intellectual Property I, L.P."
+  },
+  {
+   "id": "US11132358B2",
+   "title": "Candidate name generation",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10936819B2",
+   "title": "Query-directed discovery and alignment of collections of document passages for improving named entity disambiguation precision",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US11226972B2",
+   "title": "Ranking collections of document passages associated with an entity name by relevance to a query",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "EP4118539A4",
+   "title": "AUTOMATIC DETECTION AND DISPLAY OF IMPORTANT MOMENTS IN CONVERSATIONS WITH MULTIPLE PARTICIPANTS",
+   "assignee": "Outreach Corporation"
+  },
+  {
+   "id": "CN113051487B",
+   "title": "Travel group recommendation method based on user trust and social influence",
+   "assignee": "安徽师范大学"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US6336117B1",
+   "title": "Content-indexing search system and method providing search results consistent with content filtering and blocking policies implemented in a blocking engine",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6360215B1",
+   "title": "Method and apparatus for retrieving documents based on information other than document content",
+   "assignee": "Inktomi Corporation"
+  },
+  {
+   "id": "US6421675B1",
+   "title": "Search engine",
+   "assignee": "S. L. I. Systems, Inc."
+  },
+  {
+   "id": "US6636854B2",
+   "title": "Method and system for augmenting web-indexed search engine results with peer-to-peer search results",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7031961B2",
+   "title": "System and method for searching and recommending objects from a categorically organized information repository",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20060200487A1",
+   "title": "Domain name related reputation and secure certificates",
+   "assignee": "The Go Daddy Group, Inc."
+  },
+  {
+   "id": "US20060294086A1",
+   "title": "Realtime indexing and search in large, rapidly changing document collections",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "AUPQ131399A0",
+   "title": "A method and apparatus (NPAGE02)",
+   "assignee": "Silverbrook Research Pty Ltd"
+  },
+  {
+   "id": "US5825880A",
+   "title": "Multi-step digital signature method and system",
+   "assignee": "Sudia; Frank W."
+  },
+  {
+   "id": "WO1996002993A2",
+   "title": "Method for securely using digital signatures in a commercial cryptographic system",
+   "assignee": "Bankers Trust Company"
+  },
+  {
+   "id": "US5544255A",
+   "title": "Method and system for the capture, storage, transport and authentication of handwritten signatures",
+   "assignee": "Peripheral Vision Limited"
+  },
+  {
+   "id": "US7162635B2",
+   "title": "System and method for electronic transmission, storage, and retrieval of authenticated electronic original documents",
+   "assignee": "Eoriginal, Inc."
+  },
+  {
+   "id": "NZ306846A",
+   "title": "Digital signing method using partial signatures",
+   "assignee": "Certco Llc"
+  },
+  {
+   "id": "US7047241B1",
+   "title": "System and methods for managing digital creative works",
+   "assignee": "Digimarc Corporation"
+  },
+  {
+   "id": "US5892824A",
+   "title": "Signature capture/verification systems and methods",
+   "assignee": "International Verifact Inc."
+  },
+  {
+   "id": "US7543018B2",
+   "title": "Caching signatures",
+   "assignee": "Aol Llc, A Delaware Limited Liability Company"
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US6742030B1",
+   "title": "Method to keep a persistent trace of weblink use per user",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6356924B2",
+   "title": "Configurable disablement of display objects in a browser",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6167518A",
+   "title": "Digital signature providing non-repudiation based on biological indicia",
+   "assignee": "Commercial Electronics, Llc"
+  },
+  {
+   "id": "US6334131B2",
+   "title": "Method for cataloging, filtering, and relevance ranking frame-based hierarchical information structures",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6260064B1",
+   "title": "Web site with automatic rating system",
+   "assignee": "Paul J. Kurzrok"
+  },
+  {
+   "id": "US6871191B1",
+   "title": "Method and system for partial quantity evaluated rank bidding in online auctions",
+   "assignee": "Sam E. Kinney, Jr."
+  },
+  {
+   "id": "WO2000062220A1",
+   "title": "Collaborative creation, editing, reviewing, and signing of electronic documents",
+   "assignee": "Ilumin Corporation"
+  },
+  {
+   "id": "US6760752B1",
+   "title": "Secure transmission system",
+   "assignee": "Zix Corporation"
+  },
+  {
+   "id": "US7886008B2",
+   "title": "System and method for verifying delivery and integrity of electronic messages",
+   "assignee": "Rpost International Limited"
+  },
+  {
+   "id": "US7664669B1",
+   "title": "Methods and systems for distributing information within a dynamically defined community",
+   "assignee": "Amazon.Com, Inc."
+  },
+  {
+   "id": "US7013323B1",
+   "title": "System and method for developing and interpreting e-commerce metrics by utilizing a list of rules wherein each rule contain at least one of entity-specific criteria",
+   "assignee": "Cyveillance, Inc."
+  },
+  {
+   "id": "WO2001095078A1",
+   "title": "Creating and verifying electronic documents",
+   "assignee": "Ingeo Systems, Inc."
+  },
+  {
+   "id": "US6891953B1",
+   "title": "Method and system for binding enhanced software features to a persona",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6618717B1",
+   "title": "Computer method and apparatus for determining content owner of a website",
+   "assignee": "Eliyon Technologies Corporation"
+  },
+  {
+   "id": "US6978369B2",
+   "title": "Person-centric account-based digital signature system",
+   "assignee": "First Data Corporation"
+  },
+  {
+   "id": "US7185065B1",
+   "title": "System and method for scoring electronic messages",
+   "assignee": "Buzzmetrics Ltd"
+  },
+  {
+   "id": "US20020062368A1",
+   "title": "System and method for establishing and evaluating cross community identities in electronic forums",
+   "assignee": "David Holtzman"
+  },
+  {
+   "id": "US7466663B2",
+   "title": "Method and apparatus for identifying components of a network having high importance for network integrity",
+   "assignee": "Inrotis Technology, Limited"
+  },
+  {
+   "id": "GB0028474D0",
+   "title": "Improved computer network architecture and associated method and system",
+   "assignee": "Raekanet Ltd"
+  },
+  {
+   "id": "US6961728B2",
+   "title": "System and methods for highly distributed wide-area data management of a network of data sources through a database interface",
+   "assignee": "Centerboard, Inc."
+  },
+  {
+   "id": "US20020169854A1",
+   "title": "Systems and methods for managing and promoting network content",
+   "assignee": "Tarnoff Harry L."
+  },
+  {
+   "id": "US7437429B2",
+   "title": "System and method for providing transparent access to distributed authoring and versioning files including encrypted files",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20020124172A1",
+   "title": "Method and apparatus for signing and validating web pages",
+   "assignee": "Brian Manahan"
+  },
+  {
+   "id": "US20040205076A1",
+   "title": "System and method to automate the management of hypertext link information in a Web site",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030051142A1",
+   "title": "Firewalls for providing security in HTTP networks and applications",
+   "assignee": "Hidalgo Lluis Mora"
+  },
+  {
+   "id": "US6947921B2",
+   "title": "Method and system for capturing memories of deceased individuals",
+   "assignee": "Eastman Kodak Company"
+  },
+  {
+   "id": "US6892201B2",
+   "title": "Apparatus and method for providing access rights information in a portion of a file",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "GB0205751D0",
+   "title": "Improvements relating to memory devices",
+   "assignee": "James Barry E"
+  },
+  {
+   "id": "WO2003077955A1",
+   "title": "System and method for expressing usage rights using modulated signals",
+   "assignee": "Contentguard Holdings, Inc."
+  },
+  {
+   "id": "US7512649B2",
+   "title": "Distributed identities",
+   "assignee": "Sun Microsytems, Inc."
+  },
+  {
+   "id": "US20030221166A1",
+   "title": "Systems and methods for authoritativeness grading, estimation and sorting of documents in large heterogeneous document collections",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US7039631B1",
+   "title": "System and method for providing search results with configurable scoring formula",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6892198B2",
+   "title": "System and method for personalized information retrieval based on user expertise",
+   "assignee": "Entopia, Inc."
+  },
+  {
+   "id": "US7246306B2",
+   "title": "Web information presentation structure for web page authoring",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "AU2003258037B2",
+   "title": "Desktop client interaction with a geographic text search system",
+   "assignee": "Nokia Corporation"
+  },
+  {
+   "id": "US8090717B1",
+   "title": "Methods and apparatus for ranking documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7340503B2",
+   "title": "Interactive messaging system",
+   "assignee": "Vocel, Inc."
+  },
+  {
+   "id": "US7216123B2",
+   "title": "Methods for ranking nodes in large directed graphs",
+   "assignee": "Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US20070174471A1",
+   "title": "Secure, continous, proxy-optimized, device-to-device data download reception system and method of use",
+   "assignee": "Cedric Van Rossum"
+  },
+  {
+   "id": "DE102004026083A1",
+   "title": "Server based linking of information e.g. for finding information on internet, has functional unit having content signature unit, to form document section and or file content which are embedded in electronic document.",
+   "assignee": "Wittkötter, Erland, Dr."
+  },
+  {
+   "id": "US7831693B2",
+   "title": "Structured methodology and design patterns for web services",
+   "assignee": "Oracle America, Inc."
+  },
+  {
+   "id": "US7822631B1",
+   "title": "Assessing content based on assessed trust in users",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US8001156B2",
+   "title": "Processing XML node sets",
+   "assignee": "Cybertrust Ireland Limited"
+  },
+  {
+   "id": "US7577655B2",
+   "title": "Systems and methods for improving the ranking of news articles",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060184452A1",
+   "title": "Electronic document management system",
+   "assignee": "Maccord Mason Pllc,"
+  },
+  {
+   "id": "US7281005B2",
+   "title": "Backward and forward non-normalized link weight analysis method, system, and computer program product",
+   "assignee": "Telenor Asa"
+  },
+  {
+   "id": "US7805518B1",
+   "title": "Method and system for reputation management in peer-to-peer networks",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US7424669B2",
+   "title": "Automatic bibliographical information within electronic documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7707039B2",
+   "title": "Automatic modification of web pages",
+   "assignee": "Exbiblio B.V."
+  },
+  {
+   "id": "US7822690B2",
+   "title": "Paperless process for mortgage closings and other applications",
+   "assignee": "Paul Rakowicz"
+  },
+  {
+   "id": "US8788492B2",
+   "title": "Search system and methods with integration of user annotations from a trust network",
+   "assignee": "Yahoo!, Inc."
+  },
+  {
+   "id": "US20060031235A1",
+   "title": "Expression and time-based data creation and creator-controlled organizations",
+   "assignee": "Xoopit, Inc."
+  },
+  {
+   "id": "WO2007001247A2",
+   "title": "Content-management system for user behavior targeting",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8494900B2",
+   "title": "Adjusting ad costs using document performance or document collection performance",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "WO2006011819A1",
+   "title": "Adaptive search engine",
+   "assignee": "Eurekster, Inc."
+  },
+  {
+   "id": "US20060036599A1",
+   "title": "Apparatus, system, and method for identifying the content representation value of a set of terms",
+   "assignee": "Glaser Howard J"
+  },
+  {
+   "id": "US7590589B2",
+   "title": "Game theoretic prioritization scheme for mobile ad hoc networks permitting hierarchal deference",
+   "assignee": "Hoffberg Steven M"
+  },
+  {
+   "id": "US20060168057A1",
+   "title": "Method and system for enhanced electronic mail processing",
+   "assignee": "Habeas, Inc."
+  },
+  {
+   "id": "US8930400B2",
+   "title": "System and method for discovering knowledge communities",
+   "assignee": "Hewlett-Packard Development Company, L. P."
+  },
+  {
+   "id": "US7370036B2",
+   "title": "Facilitating identification of entire web pages when each web page is rendered from multiple portions and interest is expressed based on content of the portions",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US7769724B2",
+   "title": "System and method for providing S/MIME-based document distribution via electronic mail mechanisms",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "WO2006094271A2",
+   "title": "Distribution of trust data",
+   "assignee": "Markmonitor, Inc."
+  },
+  {
+   "id": "EP1866738A4",
+   "title": "USER FEEDBACK RESEARCH ENGINE FOR IMPROVING RESEARCH RESULTS",
+   "assignee": "Search Engine Technologies Llc"
+  },
+  {
+   "id": "US7917761B2",
+   "title": "Digitally signing an electronic document with a user-entered signature image",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7577650B2",
+   "title": "Method and system for ranking objects of different object types",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8280882B2",
+   "title": "Automatic expert identification, ranking and literature search based on authorship in large document collections",
+   "assignee": "Case Western Reserve University"
+  },
+  {
+   "id": "US7865399B2",
+   "title": "Distributed electronic commerce system with centralized point of purchase",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7822620B2",
+   "title": "Determining website reputations using automatic testing",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US20060253582A1",
+   "title": "Indicating website reputations within search results",
+   "assignee": "Dixon Christopher J"
+  },
+  {
+   "id": "US8438499B2",
+   "title": "Indicating website reputations during user interactions",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "JP4880675B2",
+   "title": "Detection of unwanted email messages based on probabilistic analysis of reference resources",
+   "assignee": "シスコ アイアンポート システムズ エルエルシー"
+  },
+  {
+   "id": "US20060282396A1",
+   "title": "Multi-jurisdictional electronic-commerce legal products, methods of production and methods of conducting business therewith",
+   "assignee": "Civil Foundation, Llc"
+  },
+  {
+   "id": "US20080005064A1",
+   "title": "Apparatus and method for content annotation and conditional annotation retrieval in a search context",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "RU2008107340A",
+   "title": "RECIPE AUTHENTICATION USING SPECL STRUCTURES",
+   "assignee": "Инджениа Текнолоджи Лимитед (Gb)"
+  },
+  {
+   "id": "EP1908028A1",
+   "title": "Authenticity verification",
+   "assignee": "Ingenia Technology Limited"
+  },
+  {
+   "id": "US7685198B2",
+   "title": "Systems and methods for collaborative tag suggestions",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7603350B1",
+   "title": "Search result ranking based on trust",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "JP4289379B2",
+   "title": "E-mail processing apparatus, e-mail processing method, and e-mail processing program",
+   "assignee": "コニカミノルタビジネステクノロジーズ株式会社"
+  },
+  {
+   "id": "US7630972B2",
+   "title": "Clustered search processing",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7636713B2",
+   "title": "Using activation paths to cluster proximity query results",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8676815B2",
+   "title": "Suffix tree similarity measure for document clustering",
+   "assignee": "City University Of Hong Kong"
+  },
+  {
+   "id": "US8620929B2",
+   "title": "Context based resource relevance",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8260789B2",
+   "title": "System and method for authority value obtained by defining ranking functions related to weight and confidence value",
+   "assignee": "Microsoft Corporation"
+  }
+ ],
+ "similar": [
+  {
+   "id": "US8818995B1",
+   "title": "Search result ranking based on trust"
+  },
+  {
+   "id": "US8577878B1",
+   "title": "Filtering search results using annotations"
+  },
+  {
+   "id": "US8316040B2",
+   "title": "Programmable search engine"
+  },
+  {
+   "id": "US8260774B1",
+   "title": "Personalization search engine"
+  },
+  {
+   "id": "US7702690B2",
+   "title": "Method and apparatus for suggesting/disambiguation query terms based upon usage patterns observed"
+  },
+  {
+   "id": "US7546295B2",
+   "title": "Method and apparatus for determining expertise based upon observed usage patterns"
+  },
+  {
+   "id": "JP5069285B2",
+   "title": "Propagating useful information between related web pages, such as web pages on a website"
+  },
+  {
+   "id": "AU2009277143B2",
+   "title": "Federated community search"
+  },
+  {
+   "id": "US20070038600A1",
+   "title": "Detecting spam related and biased contexts for programmable search engines"
+  },
+  {
+   "id": "US20070203891A1",
+   "title": "Providing and using search index enabling searching based on a targeted content of documents"
+  },
+  {
+   "id": "US20110246457A1",
+   "title": "Ranking of search results based on microblog data"
+  },
+  {
+   "id": "US9275145B2",
+   "title": "Electronic document retrieval system with links to external documents"
+  },
+  {
+   "id": "US20100274804A1",
+   "title": "System and method for invoking functionalities using contextual relations"
+  },
+  {
+   "id": "JP2008524695A",
+   "title": "Search engine for computer networks"
+  },
+  {
+   "id": "US20110289081A1",
+   "title": "Response relevance determination for a computerized information search and indexing method, software and device"
+  },
+  {
+   "id": "CN110546633A",
+   "title": "Named entity based category tag addition for documents"
+  },
+  {
+   "id": "US8626753B1",
+   "title": "Personalization search engine"
+  },
+  {
+   "id": "US8131752B2",
+   "title": "Breaking documents"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US7603350B1/en"
+}

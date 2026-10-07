@@ -1,0 +1,216 @@
+{
+"US9697249B1": {
+  "relevance": "trung bình",
+  "mech": "- Google có nhiều **bộ sửa query** (đồng nghĩa, sửa chính tả, mở rộng, thu hẹp…). Mỗi bộ đề xuất query sửa; một **mô hình dự đoán** (huấn luyện trên nhãn 'sửa thành công hay không') ước tính độ tin cậy.\n- Bộ sửa theo phiên tính **lợi ích kỳ vọng** = tần suất cặp (query gốc → query sửa) × mức tăng chất lượng kết quả (đo bằng long click).\n- Query sửa tốt nhất được hiển thị ('Có phải bạn muốn tìm…', 'Tìm kiếm liên quan') hoặc dùng ngầm.",
+  "seo": "- Query người dùng gõ **không phải lúc nào cũng là query Google tìm** → trang có thể xếp hạng cho biến thể query mà không chứa đúng từ khoá gốc.\n- 'Tìm kiếm liên quan' phản ánh các query sửa có lợi ích cao → nguồn gợi ý chủ đề con.",
+  "audit": [
+    "Thu thập 'Tìm kiếm liên quan' và 'Có phải bạn muốn' cho từ khoá chính → bổ sung các biến thể/khía cạnh vào nội dung hoặc cụm bài"
+  ],
+  "leak": "Leak có đề cập hệ thống hiểu/viết lại query (QRewrite, Superroot) — tầng xử lý query trước khi truy xuất tài liệu."
+},
+"US8805867B2": {
+  "relevance": "trung bình",
+  "mech": "- Nếu query chứa **tên entity** (thường là tên thương hiệu/site), Google kiểm tra tên đó có trùng từ thông dụng không.\n- **Không trùng** (tên riêng rõ ràng) → viết lại query để **giới hạn kết quả trong domain của entity** (site:), kèm link quay về query gốc.\n- **Trùng từ thông dụng** (ví dụ 'Apple', 'Tiki') → vẫn tìm theo query gốc, chỉ đề xuất link tới query đã giới hạn domain.",
+  "seo": "- Thương hiệu có **tên độc đáo** được Google ưu tiên hiển thị trang của chính domain cho query có tên thương hiệu (sitelinks, nhiều kết quả cùng domain).\n- Tên trùng từ thông dụng phải cạnh tranh với nghĩa chung.",
+  "audit": [
+    "Tìm 'tên thương hiệu + từ khoá sản phẩm': các kết quả đầu có thuộc domain của bạn không",
+    "Kiểm tra site: đủ trang tốt để Google hiển thị sitelinks cho query thương hiệu"
+  ],
+  "leak": ""
+},
+"US10685017B1": {
+  "relevance": "thấp",
+  "mech": "- Ánh xạ trước các query phổ biến sang query viết lại tốt hơn và lưu cache; khi người dùng gõ query (hoặc chuỗi con) khớp, dùng ngay query viết lại để tránh tìm kiếm hai lần.",
+  "seo": "- Query phổ biến có 'phiên bản viết lại' cố định → kết quả của các biến thể query phổ biến thường giống nhau.",
+  "audit": [],
+  "leak": ""
+},
+"US8375049B2": {
+  "relevance": "trung bình",
+  "mech": "- Mỗi query có **query rank** = tần suất × **mức hài lòng người dùng** (đo bằng độ dài click — thời gian giữa hai lần chọn kết quả).\n- Query được xếp hạng cao (KHRQ) và các query 'gần' (hay bị sửa thành KHRQ) được xác định; Google đề xuất KHRQ làm phương án sửa cho query kém.",
+  "seo": "- Google 'dẫn' người dùng về các query cho kết quả hài lòng nhất → nên nhắm **phiên bản chuẩn/phổ biến** của từ khoá, vì các biến thể kém thường được chuyển hướng về đó.",
+  "audit": [
+    "Với cụm từ khoá: xác định phiên bản chuẩn (volume cao, SERP ổn định) để làm từ khoá chính của trang"
+  ],
+  "leak": ""
+},
+"US8321201B1": {
+  "relevance": "thấp",
+  "mech": "- Một cụm từ ứng viên được coi là **đồng nghĩa của cụm từ trong query** nếu **từng từ** tương ứng đều đồng nghĩa hoặc cùng nghĩa (N-gram agreement); dùng kết quả này để cải thiện ánh xạ đồng nghĩa ở mức từ đơn.",
+  "seo": "- Google hiểu đồng nghĩa ở mức cụm từ ('mua xe ô tô cũ' ≈ 'mua xe hơi đã qua sử dụng').",
+  "audit": [],
+  "leak": ""
+},
+"US8161041B1": {
+  "relevance": "trung bình",
+  "mech": "- Tự động tìm từ đồng nghĩa **từ nội dung tài liệu**: tính tần suất đồng xuất hiện, **điểm gần nhau** (xác suất rất gần / xác suất gần), độ giống hình thái từ, và tương quan giữa từ trong **title/anchor** với từ trong nội dung.",
+  "seo": "- Google học đồng nghĩa từ chính cách các trang viết → dùng **từ vựng tự nhiên, đa dạng** của ngành (biến thể, từ đồng nghĩa) giúp trang khớp nhiều cách diễn đạt query.\n- Không cần lặp đúng một cụm từ khoá.",
+  "audit": [
+    "Kiểm tra nội dung có dùng các biến thể/đồng nghĩa tự nhiên của từ khoá chính (không chỉ lặp một cụm)"
+  ],
+  "leak": ""
+},
+"US9183297B1": {
+  "relevance": "thấp",
+  "mech": "- Xác định **đồng nghĩa từ vựng** cho từ trong query — ví dụ khác dấu câu, khoảng trắng, viết liền/viết rời ('e-mail' ≈ 'email', 'smartphone' ≈ 'smart phone'), với ngưỡng riêng cho từng lớp quan hệ; tạo query mở rộng.",
+  "seo": "- Không cần tối ưu riêng cho từng biến thể chính tả/khoảng trắng.",
+  "audit": [],
+  "leak": ""
+},
+"US8868548B2": {
+  "relevance": "cao",
+  "mech": "- Google có danh sách **từ làm rõ ý định** (intent refining terms) — từ hay được thêm vào nhiều query khác nhau: 'giá', 'review', 'cách', 'mua', 'là gì', 'gần đây'…\n- Khi một phiên chứa query với từ làm rõ, phiên được gắn **ý định**.\n- Google tìm các phiên trước có cùng query + cùng ý định, xác định tài liệu được chọn **nhiều hơn (hoặc ít hơn) mức bình thường** trong các phiên đó → điều chỉnh điểm tài liệu.",
+  "seo": "- Cùng một từ khoá, **kết quả thay đổi theo ý định của phiên** (người vừa tìm 'review' sẽ thấy trang review cho query tiếp theo).\n- Nội dung nên phục vụ rõ **một ý định** (thông tin, so sánh, mua hàng) và dùng các từ ý định tương ứng.",
+  "audit": [
+    "Phân loại mỗi trang chủ lực theo ý định chính (thông tin / điều tra thương mại / giao dịch / điều hướng / local)",
+    "Kiểm tra SERP của từ khoá chính: loại trang đang xếp hạng (bài hướng dẫn, trang danh mục, trang sản phẩm, so sánh) có khớp loại trang của bạn không",
+    "Với từ khoá có nhiều ý định: cân nhắc tách thành các trang riêng cho từng ý định"
+  ],
+  "leak": ""
+},
+"US9323806B2": {
+  "relevance": "cao",
+  "mech": "- Với một query, Google lấy các **query tinh chỉnh** (query người dùng gõ tiếp sau đó) và các tài liệu được click cho mỗi query tinh chỉnh.\n- Dựng đồ thị query–tài liệu và **gom cụm các query tinh chỉnh** → mỗi cụm là một **nhu cầu thông tin riêng** của query gốc.\n- Dùng để chọn và sắp xếp gợi ý tìm kiếm, và tóm tắt các khía cạnh của query.",
+  "seo": "- Một từ khoá có **nhiều nhu cầu con** (cụm ý định) → nền tảng cho **topic cluster**: mỗi cụm nhu cầu có thể là một bài con.\n- Các gợi ý 'Tìm kiếm liên quan' / 'Mọi người cũng tìm' phản ánh các cụm này.",
+  "audit": [
+    "Với từ khoá trụ cột: thu thập query tinh chỉnh (Tìm kiếm liên quan, Autocomplete, PAA), gom cụm theo nhu cầu → đối chiếu với cấu trúc cụm bài hiện có",
+    "Nhu cầu con nào chưa có nội dung → bổ sung bài hoặc mục trong bài trụ cột"
+  ],
+  "leak": ""
+},
+"US8458171B2": {
+  "relevance": "cao",
+  "mech": "- Với query chứa một entity, Google tạo các **khía cạnh (aspect)** ứng viên từ các query chứa entity đó (ví dụ 'Đà Lạt' → khách sạn, thời tiết, địa điểm, ẩm thực).\n- Gộp các khía cạnh giống nhau (so sánh kết quả tìm kiếm của chúng), nhóm theo lớp khía cạnh, **xếp hạng theo độ đa dạng và độ phổ biến**.\n- Khía cạnh được dùng để **tổ chức và trình bày** kết quả cho query về entity.",
+  "seo": "- Nội dung về một entity nên **bao phủ các khía cạnh phổ biến và đa dạng** — trùng với khái niệm attribute/aspect coverage ([[Thực thể & Knowledge Graph]]).\n- Hub page về entity nên có mục/link tới từng khía cạnh chính.",
+  "audit": [
+    "Với entity chủ đề: liệt kê khía cạnh người dùng hay tìm (Autocomplete 'entity + a..z', PAA) → trang/hub có bao phủ các khía cạnh phổ biến nhất không",
+    "Cấu trúc heading của trang hub có phản ánh các khía cạnh này không"
+  ],
+  "leak": ""
+},
+"US9009146B1": {
+  "relevance": "trung bình",
+  "mech": "- Khi query hiện tại ít dữ liệu click, Google chấm điểm **các query tương tự** (khớp các từ bắt buộc, có trọng số cho từ tuỳ chọn, từ thông thường, stopword) và **mượn dữ liệu click** của chúng làm đầu vào xếp hạng.",
+  "seo": "- Trang được click tốt cho một query sẽ có lợi thế cho **cả họ query tương tự** (long-tail) → tối ưu tốt cho query chính lan sang biến thể.",
+  "audit": [],
+  "leak": ""
+},
+"US9483530B1": {
+  "relevance": "trung bình",
+  "mech": "- Từ log query, tìm các cặp query **chỉ khác nhau một từ**. Nếu kết quả hai query gần như giống nhau → từ thêm vào là **ít quan trọng**; nếu khác nhiều → từ quan trọng.\n- Từ ít quan trọng được coi là **tuỳ chọn** khi tìm kiếm (không bắt buộc khớp).",
+  "seo": "- Không cần nhồi các từ phụ ('tốt nhất', 'uy tín', 'năm 2026'…) nếu Google coi chúng là tuỳ chọn cho query đó.\n- Nhưng với từ **làm thay đổi kết quả** (địa điểm, loại sản phẩm), trang phải khớp.",
+  "audit": [
+    "So sánh SERP của từ khoá có và không có từ phụ: nếu giống nhau thì có thể nhắm cùng một trang"
+  ],
+  "leak": ""
+},
+"US10387437B2": {
+  "relevance": "trung bình",
+  "mech": "- Trong một phiên, Google kết hợp query hiện tại với **query trước đó** để tạo query viết lại (ví dụ 'Đà Lạt' → 'thời tiết thế nào' = 'thời tiết Đà Lạt'), chấm điểm dựa trên chất lượng kết quả rồi trả kết quả của query viết lại.",
+  "seo": "- Query ngắn/mơ hồ có thể được hiểu theo ngữ cảnh phiên → trang cần rõ ràng về entity + khía cạnh để khớp query đã được kết hợp.",
+  "audit": [],
+  "leak": ""
+},
+"US8996554B2": {
+  "relevance": "thấp",
+  "mech": "- Dùng các token liên quan từ phiên tìm kiếm (và phiên tương tự của người khác) để quyết định có thay một từ có thể sai trong query hiện tại hay không.",
+  "seo": "- Google sửa lỗi/nhầm lẫn theo ngữ cảnh phiên.",
+  "audit": [],
+  "leak": ""
+},
+"US8577907B1": {
+  "relevance": "trung bình",
+  "mech": "- Tạo **từ thay thế** cho từ trong query; lấy tập tài liệu kết quả của query gốc; chỉ giữ từ thay thế **xuất hiện phổ biến trong tập tài liệu đó**, rồi thêm vào query.\n- Tức là ngữ cảnh query (qua kết quả) quyết định từ đồng nghĩa nào hợp lệ.",
+  "seo": "- Từ vựng xuất hiện trong **các trang đang xếp hạng** định nghĩa 'ngôn ngữ' của chủ đề → nên dùng thuật ngữ mà top kết quả dùng (phân tích TF-IDF/NLP so với top).",
+  "audit": [
+    "So sánh từ vựng của trang với top 10 (công cụ TF-IDF / content editor): thiếu thuật ngữ quan trọng nào mà đa số top dùng"
+  ],
+  "leak": ""
+},
+"US9116976B1": {
+  "relevance": "trung bình",
+  "mech": "- Mô hình xếp hạng học từ **hàng chục triệu mẫu** dữ liệu tìm kiếm trước đó, dự đoán **xác suất người dùng chọn tài liệu** dựa trên điều kiện gồm đặc trưng của người dùng, query và tài liệu.",
+  "seo": "- Xếp hạng bằng machine learning dự đoán click → mọi yếu tố ảnh hưởng tới việc người dùng chọn (title, thương hiệu, định dạng) đều quan trọng.",
+  "audit": [],
+  "leak": ""
+},
+"US7505964B2": {
+  "relevance": "trung bình",
+  "mech": "- (Tong, Pearson, Brin) Xác định **query liên quan** tới query hiện tại; dùng dữ liệu của query liên quan — ví dụ tổng số người dùng chọn kết quả — để tính điểm xếp hạng cho tài liệu của query hiện tại.",
+  "seo": "- Hiệu quả của trang trên các query liên quan cộng dồn vào xếp hạng query chính → một trang mạnh cho cả cụm query liên quan có lợi thế.",
+  "audit": [],
+  "leak": ""
+},
+"US7636714B1": {
+  "relevance": "thấp",
+  "mech": "- Học đồng nghĩa từ log: tìm các cặp query giống nhau trừ một cụm từ ở cùng vị trí (ngữ cảnh 'pseudo-query'), cụm khác nhau là đồng nghĩa ứng viên; kiểm chứng bằng tần suất và dữ liệu phiên; thêm vào query dưới dạng OR.",
+  "seo": "- Đồng nghĩa phụ thuộc **ngữ cảnh** query (ví dụ 'car' ≈ 'auto' trong 'car insurance' nhưng không phải mọi ngữ cảnh).",
+  "audit": [],
+  "leak": ""
+},
+"US8819000B1": {
+  "relevance": "thấp",
+  "mech": "- Bỏ một điều kiện giới hạn của query, xem các kết quả xếp hạng cao có **đặc điểm chung** gì, rồi thêm đặc điểm đó thành điều kiện mới cho query (ví dụ trong Google Scholar: loại tài liệu, nguồn).",
+  "seo": "- Ít liên quan trực tiếp tới web search.",
+  "audit": [],
+  "leak": ""
+},
+"US9152698B1": {
+  "relevance": "thấp",
+  "mech": "- Nếu một từ **xuất hiện nhiều bất thường** (theo tf-idf) trong nhóm kết quả ban đầu và có liên hệ (dù yếu) với một từ trong query → sửa query để thêm từ đó.",
+  "seo": "- Thuật ngữ đặc trưng xuất hiện dày trong top kết quả được Google coi là một phần của ý nghĩa query.",
+  "audit": [],
+  "leak": ""
+},
+"US9116957B1": {
+  "relevance": "thấp",
+  "mech": "- Chấm điểm từ thay thế **theo ngữ cảnh**: nếu tài liệu đã đủ liên quan với query, dùng mô hình chấm điểm cộng điểm cho việc khớp từ thay thế; tài liệu khác dùng mô hình khác.",
+  "seo": "- Khớp đồng nghĩa có giá trị gần như khớp từ gốc khi trang đã liên quan chủ đề.",
+  "audit": [],
+  "leak": ""
+},
+"US8661012B1": {
+  "relevance": "thấp",
+  "mech": "- Không dùng từ đồng nghĩa cho cả cụm từ nếu nó cũng chỉ là đồng nghĩa của **một phần** cụm từ (tránh làm mất thông tin, ví dụ 'New York Times' không được thay bằng đồng nghĩa của 'New York').",
+  "seo": "- Google cố giữ nghĩa đầy đủ của cụm từ khoá nhiều từ.",
+  "audit": [],
+  "leak": ""
+},
+"US7565345B2": {
+  "relevance": "thấp",
+  "mech": "- Kiến trúc tích hợp nhiều chiến lược sửa query; tính độ tin cậy từ tần suất cặp (query gốc, query sửa); chọn một số query sửa và hiển thị kèm một phần kết quả của mỗi query sửa để người dùng chọn.",
+  "seo": "- Nền tảng của các gợi ý tìm kiếm trên SERP.",
+  "audit": [],
+  "leak": ""
+},
+"US9110975B1": {
+  "relevance": "trung bình",
+  "mech": "- Khi query người dùng **không có trong mô hình dữ liệu click** (query hiếm/long-tail), Google tạo các **biến thể tổng quát hoá** (bỏ bớt từ, thay từ) khớp với các query đã có dữ liệu, rồi dùng dữ liệu click của chúng cho tài liệu.",
+  "seo": "- Với long-tail, xếp hạng dựa nhiều vào dữ liệu hành vi của **query rộng hơn** → trang mạnh cho query chính sẽ mạnh cho long-tail liên quan.",
+  "audit": [],
+  "leak": "Khớp với việc Navboost lưu dữ liệu theo cặp query–tài liệu và cần cơ chế tổng quát hoá cho query hiếm."
+},
+"US7925657B1": {
+  "relevance": "trung bình",
+  "mech": "- Điều chỉnh độ phổ biến (dữ liệu click) của tài liệu theo **độ rộng của query** trước đó: query càng rộng (nhiều kết quả, ngắn, điểm IR giảm nhanh) thì click từ query đó **ít làm thay đổi** độ phổ biến.",
+  "seo": "- Click từ **query cụ thể** là tín hiệu mạnh hơn click từ query rộng → trang trả lời tốt query cụ thể (long-tail có ý định rõ) tích luỹ tín hiệu chất lượng hiệu quả hơn.",
+  "audit": [],
+  "leak": ""
+},
+"US8838587B1": {
+  "relevance": "trung bình",
+  "mech": "- Để quyết định gán **phân loại** cho query (ví dụ người lớn, local, y tế, tin tức), Google xem các tài liệu người dùng hay chọn cho query đó: nếu đủ tỷ lệ tài liệu (đặc biệt nhóm liên quan nhất) có phân loại → query nhận phân loại đó.",
+  "seo": "- Phân loại query (ví dụ YMYL, local) được suy ra từ loại trang người dùng chọn → quyết định loại xử lý/bộ lọc Google áp dụng cho query.",
+  "audit": [],
+  "leak": ""
+},
+"US8738643B1": {
+  "relevance": "trung bình",
+  "mech": "- Tìm **tên đồng nghĩa** của entity từ **anchor text** của các link trỏ tới tài liệu nguồn chứa fact của entity (ví dụ 'TP.HCM', 'Sài Gòn', 'HCMC').",
+  "seo": "- Google học các cách gọi khác của thương hiệu/sản phẩm từ anchor text → anchor đa dạng tự nhiên (tên đầy đủ, viết tắt, tên thường gọi) giúp Google hiểu tất cả đều chỉ bạn.",
+  "audit": [
+    "Liệt kê các cách gọi khác của thương hiệu/sản phẩm; kiểm tra chúng có xuất hiện trong anchor text backlink và trong schema alternateName"
+  ],
+  "leak": ""
+}
+}

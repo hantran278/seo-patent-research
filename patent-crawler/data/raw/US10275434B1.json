@@ -1,0 +1,523 @@
+{
+ "id": "US10275434B1",
+ "title": "Identifying a primary version of a document",
+ "abstract": "A system and method identifies a primary version out of different versions of the same document. The system selects a priority of authority for each document version based on a priority rule and information associated with the document version, and selects a primary version based on the priority of authority and information associated with the document version.",
+ "inventors": [
+  "Alexandre A. Verstak",
+  "Anurag Acharya"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2005-11-18",
+ "filing_date": "2017-09-01",
+ "publication_date": "2019-04-30",
+ "status": "Expired - Lifetime",
+ "expiration": "",
+ "cpc": [
+  "G06F17/2288",
+  "G06F40/00",
+  "G06F40/10",
+  "G06F40/197",
+  "G06F16/00",
+  "G06F16/10",
+  "G06F16/18",
+  "G06F16/1873",
+  "G06F16/20",
+  "G06F16/21",
+  "G06F16/219",
+  "G06F16/24",
+  "G06F16/245",
+  "G06F16/2458",
+  "G06F16/2474",
+  "G06F17/30067",
+  "G06F17/3023",
+  "G06F17/30309",
+  "G06F17/30548",
+  "G06F40/194"
+ ],
+ "claims": [
+  {
+   "text": "1. A method comprising: providing, to a server, a search query; receiving, by a user device and from the server, a set of search results that includes one or more respective search results that are each associated with a document; generating a search result display for each particular search result in the set of search results, wherein generating the search result display includes: rendering, on a display of the user device, a first hyperlink that references a first version of the document that is associated with the particular search result; rendering, on the display of the user device, publishing information related to the first version of the document, wherein the publishing information is different from the first hyperlink that references the first version of the document; rendering, on the display of the user device, a snippet from the first version of the document; and rendering, on the display of the user device, a second hyperlink that references a set of citing documents, wherein each citing document in the set of citing documents includes a citation to at least one version of the document.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, further comprising: determining a primary version of the document that is associated with the particular search result based at least in part on the source of the document, wherein the first version of the document is the primary version of the document.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, wherein rendering, on a display of the user device, the first hyperlink that references the first version of the document that is associated with the particular search result comprises: determining that there are multiple different versions of the document that are associated with the particular search result; and in response to determining that there are multiple different versions of the document that are associated with the particular search result, obtaining the title of the first version of the document for use as at least a portion of the anchor text for the first hyperlink.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 3, wherein generating a search result display further comprises: rendering, on a display of the user device, a hyperlink whose anchor text includes a count of the multiple different version of the document that were identified based on the search query.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 1, wherein rendering, on the display of the user device, publishing information related to the first version of the document comprises: obtaining one or more of a name of a first author, a year of publishing, a name of a publisher, or a combination thereof, for output on the display on the user device.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 1, further comprising: adjusting one or more characteristics of one or more words of the search result display that correspond to a word in the search query.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 1, wherein anchor text of the hyperlink that references the set of citing documents includes a count of the number of documents citing at least one version of the document.",
+   "dependent": true
+  },
+  {
+   "text": "8. A system comprising: one or more computers and one or more storage devices storing instructions that are operable, when executed by one or more computers, to cause the one or more computers to perform the operations comprising: providing, to a server, a search query; receiving, by a user device and from the server, a set of search results that includes one or more respective search results that are each associated with a document; generating a search result display for each particular search result in the set of search results, wherein generating the search result display includes: rendering, on a display of the user device, a first hyperlink that references a first version of the document that is associated with the particular search result; rendering, on the display of the user device, publishing information related to the first version of the document, wherein the publishing information is different from the first hyperlink that references the first version of the document; rendering, on the display of the user device, a snippet from the first version of the document; and rendering, on the display of the user device, a second hyperlink that references a set of citing documents, wherein each citing document in the set of citing documents includes a citation to at least one version of the document.",
+   "dependent": false
+  },
+  {
+   "text": "9. The system of claim 8, the operations further comprising: determining a primary version of the document that is associated with the particular search result based at least in part on the source of the document, wherein the first version of the document is the primary version of the document.",
+   "dependent": true
+  },
+  {
+   "text": "10. The system of claim 8, wherein rendering, on a display of the user device, a first hyperlink that references the first version of the document that is associated with the particular search result comprises: determining that there are multiple different versions of the document that are associated with the particular search result; and in response to determining that there are multiple different versions of the document that are associated with the particular search result, obtaining the title of the first version of the document for use as at least a portion of the anchor text for the first hyperlink.",
+   "dependent": true
+  },
+  {
+   "text": "11. The system of claim 10, wherein generating a search result display further comprises: rendering, on a display of the user device, a hyperlink whose anchor text includes a count of the multiple different versions of the document that were identified based on the search query.",
+   "dependent": true
+  },
+  {
+   "text": "12. The system of claim 8, wherein rendering, on the display of the user device, publishing information related to the first version of the document comprises: obtaining one or more of a name of a first author, a year of publishing, a name of a publisher, or a combination thereof, for output on the display on the user device.",
+   "dependent": true
+  },
+  {
+   "text": "13. The system of claim 8, the operations further comprising: adjusting one or more characteristics of one or more words of the search result display that correspond to a word in the search query.",
+   "dependent": true
+  },
+  {
+   "text": "14. A non-transitory computer-readable storage device having stored thereon instructions, which, when executed by data processing apparatus, cause the data processing apparatus to perform operations comprising: providing, to a server, a search query; receiving, by a user device and from the server, a set of search results that includes one or more respective search results that are each associated with a document; generating a search result display for each particular search result in the set of search results, wherein generating the search result display includes: rendering, on a display of the user device, a first hyperlink that references a first version of the document that is associated with the particular search result; rendering, on the display of the user device, publishing information related to the first version of the document, wherein the publishing information is different from the first hyperlink that references the first version of the document; rendering, on the display of the user device, a snippet from the first version of the document; and rendering, on the display of the user device, a second hyperlink that references a set of citing documents, wherein each citing document in the set of citing documents includes a citation to at least one version of the document.",
+   "dependent": false
+  },
+  {
+   "text": "15. The non-transitory computer-readable storage device of claim 14, the operations further comprising: determining a primary version of the document that is associated with the particular search result based at least in part on the source of the document, wherein the first version of the document is the primary version of the document.",
+   "dependent": true
+  },
+  {
+   "text": "16. The non-transitory computer-readable storage device of claim 14, wherein rendering, on a display of the user device, the first hyperlink that references the first version of the document that is associated with the particular search result comprises: determining that there are multiple different versions of the document that are associated with the particular search result; and in response to determining that there are multiple different versions of the document that are associated with the particular search result, obtaining the title of the first version of the document for use as at least a portion of the anchor text for the first hyperlink.",
+   "dependent": true
+  },
+  {
+   "text": "17. The non-transitory computer-readable storage device of claim 14, wherein rendering, on the display of the user device, publishing information related to the first version of the document comprises: obtaining one or more of a name of a first author, a year of publishing, a name of a publisher, or a combination thereof, for output on the display on the user device.",
+   "dependent": true
+  },
+  {
+   "text": "18. The non-transitory computer-readable storage device of claim 14, the operations further comprising: adjusting one or more characteristics of one or more words of the search result display that correspond to a word in the search query.",
+   "dependent": true
+  },
+  {
+   "text": "19. The non-transitory computer-readable storage device of claim 14, wherein generating a search result display further comprises: rendering, on a display of the user device, a hyperlink whose anchor text includes a count of the multiple different versions of the document that were identified based on the search query.",
+   "dependent": true
+  },
+  {
+   "text": "20. The non-transitory computer-readable storage device of claim 14, wherein anchor text of the hyperlink that references the set of citing documents includes a count of the number of documents citing at least one version of the document.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## CROSS-REFERENCE TO RELATED PATENT APPLICATION\n\n\nThis application is a continuation of U.S. application Ser. No. 13/955,180 filed on Jul. 31, 2013, now U.S. Pat. No. 9,779,072, which is a continuation of U.S. application Ser. No. 13/346,436, filed on Jan. 9, 2012, now U.S. Pat. No. 8,522,129, which is a continuation of U.S. application Ser. No. 11/283,328, filed on Nov. 18, 2005, now U.S. Pat. No. 8,095,876, the disclosure of each of which is incorporated herein by reference.\n\n\n## FIELD OF THE INVENTION\n\n\nThe present invention relates generally to information retrieval systems, in particular to identifying a primary version of a document from among a number of different versions of the document.\n\n\n## BACKGROUND OF THE INVENTION\n\n\nInformation retrieval systems, generally called search engines, are used to search large collections of documents. In some information retrieval systems, documents are added under the supervision of editors or others to ensure that only one version of a document with multiple different versions is introduced into the document collection. However, for search engines operating on the Internet, there is no such supervisory control. Accordingly, it is typical that a particular document or portion thereof, appears in a number of different versions or forms in various online repositories. This generally results in multiple versions of a document being included in the search results for any given query. Because the inclusion of different versions of the same document does not provide additional useful information, this increase in the number of the search results does not benefit users. Also, search results including different versions of the same document may crowd out diverse contents that should be included. Furthermore, where there are multiple different versions of a document present in the search results, the user may not know which version is most authoritative, complete, or best to access, and thus may waste time accessing the different versions in order to compare them. These problems have seriously affected the quality of search results provided by a search engine.\n\nFor these reasons, it would be desirable to identify a primary version out of different versions of the same document in a document collection. It would also be desirable to use the primary version to represent the document such that the search engine can furnish the most appropriate and reliable search result.\n\n\n## SUMMARY OF THE INVENTION\n\n\nA primary version of a document is identified from multiple different versions of the document by assigning a priority of authority to the different versions. The priority of authority is assigned according to a priority rule. The primary version is determined by the assigned priority of authority and other information associated with each document version.\n\nOne method of identifying a primary version is as follows. Different versions of a document are identified from a number of different sources, such as online databases, websites, and library data systems. For each document version, a priority of authority is selected based on the metadata information associated with the document version, such as the source, exclusive right to publish, licensing right, citation information, keywords, page rank, and the like. The document versions are then determined for length qualification using a length measure. The version with a high priority of authority and a qualified length is deemed the primary version of the document. If none of the document versions has both a high priority and a qualified length, then the primary version is selected based on the totality of information associated with each document version.\n\nThese features are not the only features of the invention. In view of the drawings, specification, and claims, many additional features and advantages will be apparent.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nFIG. 1 is a block diagram of the software architecture of one embodiment of the present invention.\n\nFIG. 2 is a flowchart of exemplary processing for identifying a primary version in accordance with the present invention.\n\nFIG. 3 is a screenshot of an interface for an application displaying search results including primary versions identified by an implementation consistent with the principles of the present invention.\n\nThe figures depict various embodiments of the present invention for purposes of illustration only. One skilled in the art will readily recognize from the following discussion that alternative embodiments of the structures and methods illustrated herein may be employed without departing from the principles of the invention described herein.\n\n\n## DETAILED DESCRIPTION\n\n\nSystem Architecture\n\nReferring to FIG. 1, there is shown the software architecture of a search engine system 100 in accordance with one embodiment of present invention. In this embodiment, the search engine system 100 includes an indexing system 110, a search system 120, a presentation system 130, and a front end server 140.\n\nThe indexing system 110 includes a version matching subsystem 160 and a primary version identification subsystem 170. The indexing system 110 identifies contents of documents, organizes the documents through the matching subsystem 160 and identification subsystem 170, calculating page ranks of the documents, and indexes the documents according to their contents, by accessing various documents such as D1-D5 at websites on the Internet, which may store the documents in directories, databases, or any other data repository. The matching subsystem 160 identifies different versions of the same document. The identification subsystem 170 identifies one primary version for each document with multiple versions. The front end server 140 receives queries from a user of a client 180, and provides those queries to the search system 120. The search system 120 searches for documents relevant to the search query, and ranks the documents in the search results. The search system 120 provides the search results to the presentation system 130. The presentation system 130 modifies the search results, and provides the modified search results back to the front end server 140, which provides the results to the client 180. The search engine system 100 further includes an index database 150 that stores the indexing information pertaining to documents.\n\nBecause works of scholarly literature are subject to rigorous format requirements, documents such as journal articles, conference articles, academic papers and citation records of journal articles, conference articles, and academic papers have metadata information describing the content and source of the document. As a result, works of scholarly literature are good candidates for the identification subsystem 170.\n\nOverview of Methodology\n\nReferring to FIG. 2, there is shown a flowchart of an exemplary methodology for identifying a primary version out of different versions of the same document in accordance with the present invention. The process illustrated in FIG. 2 may be implemented in software, hardware, or a combination of hardware and software.\n\nThe process illustrated in FIG. 2 commences with a set of different versions that have been collected by the indexing system, all versions in the set are of the same document. In one embodiment, the document versions that are deemed to be versions of the same document can be determined according to the method described in the related application, identified above. Each document version has metadata information describing the content and source of the version. An example of the set of document versions is as follows.\n\nDoc- ument Length Citation Reference Last ID Source (Byte) Count Count Modified D1 www.website1.com 16,724 29 32 Jul. 3, 1974 D2 www.website2.net 15,637 36 25 Jan. 1, 1980 D3 www.website2.net 678 79 0 Mar. 7, 1980 D4 www.website3.com 15,637 3 25 Jan. 1, 1980 D5 www.website4.com 14,978 27 34 Dec. 5, 1973\n\nDocuments D2 and D3 are from the same source, www.website2.net. D2 is the full-text version of the document, and D3 is the abstract of the document. Document D4 is a mirror image copy of D2, and thus is also full-text. Documents D1 and D5 are two different versions of the document, D1 being a more lengthy version, and D5 being a shorter version. In practice, the number of different versions of the same document collected during an indexing pass can be anywhere from a couple, to tens, or more. In addition, different versions of a document may be collected during different indexing passes.\n\nThe identification subsystem 170 assigns 210 a priority of authority to each document version based on a priority rule and document metadata associated with the document version. The document metadata includes author names, title, publisher, publication date, publication location, keywords, page rank, citation information, article identifiers such as Digital Object Identifier, PubMed Identifier, SiCl, ISBN, and the like, network location (e.g., URL), reference count, citation count, language, and so forth. The priority rule generates a numeric value (e.g., a score) to reflect the authoritativeness, completeness, or best to access of a document version. In one example, the priority rule determines the priority of authority assigned to a document version by the source of the document version based on a source-priority list. The source-priority list comprises a list of sources, each source having a corresponding priority of authority. The priority of a source can be based on editorial selection, including consideration of extrinsic factors such as reputation of the source, size of source's publication corpus, recency or frequency of updates, or any other factors. Each document version is thus associated with a priority of authority; this association can be maintained in a table, tree, or other data structures.\n\nThe table below illustrates the source-priority list and the resultant exemplary set of document versions after applying the above priority rule.\n\nSource-Priority List Document Source Priority ID Source Priority www.website1.com 1 D1 www.website1.com 1 www.website2.net 3 D2 www.website2.net 3 www.website3.com 2 D3 www.website2.net 3 www.website4.com 1 D4 www.website3.com 2 D5 www.website4.com 1\n\nAlternatively, the priority rule determines the priority of authority assigned to a document version based on the kind of publication right the source of the version has of the document. The information about publication right the source of the version has of the document can be found in the metadata associated with the version. Alternatively, the information about publication right can be found in a document-right holder list containing documents and corresponding publication right holders. The document-right holder list can be compiled from copyright/ownership registries, or from bibliographic citations of the document versions. The versions from sources with exclusive publication right of the document are assigned a high priority of authority. The versions from sources with licensing rights of the document are assigned a lower priority of authority. The versions from other sources are assigned even lower priorities of authority.\n\nThe identification subsystem 170 determines 220 whether there is any document version having both a qualified priority based on a priority measure and a qualified length based on a length measure. Assuming such document versions exist, the identification subsystem 170 selects 240 one of them as the primary version. Where multiple document versions qualify as a primary version, the identification subsystem can select the first such document version as the primary version, or select a document version from the qualified document versions based on information associated with the document version, such as page rank, priority of authority, length, and the like.\n\nThe priority measure for determining whether a document version has a qualified priority can be based on a qualified priority value. A qualified priority value is a threshold to determine whether a document version is authoritative, complete, or easy to access, depending on the priority rule. When the assigned priority of a document version is greater than or equal to the qualified priority value, the document is deemed to be authoritative, complete, or easy to access, depending on the priority rule. Alternatively, the qualified priority can be based on a relative measure, such as given the priorities of a set of document versions, only the highest priority is deemed as qualified priority.\n\nThe length measure can be determined by comparing the length of a document version to a minimum length threshold. The minimum length can be expressed in a number of ways, such as the number of bits, bytes, characters, words, lines, paragraphs, pages, and the like. This minimum length is chosen to prefer full-text document versions over versions that are abstracts or briefs, so that document versions with length longer than the minimum length threshold are deemed full-text versions, while document versions with length equal to or shorter than the minimum length threshold are deemed abstracts or briefs. Alternatively, the qualified length can be determined by the metadata associated with the document version. If a metadata element describes the associated document version as full-text or unabridged, the length measure deems the length of that document version as qualified, regardless of the length of the document version compared to the minimum length threshold.\n\nFor example, the priority of a document version is qualified where priority of the version equals the highest priority among the available document versions, and the length of a document version is qualified where it exceeds a minimum length of 3,000 bytes. Out of documents D1-D5, the identification subsystem 170 selects D2 as the primary version because it both has a highest priority (3) and has a length logger than 3,000 bytes (15,637). Document version D3 is not selected as the primary version because it does not have a qualified length.\n\nWhere none of the document versions has both qualified priority and qualified length, the identification subsystem 170 selects 230 the primary version of the document as the version with the most information based on an information measure.\n\nThe information measure for selecting a document version with the most information can be based on metadata information associated with the document version, such as the document length, citation count, reference count, and last modification time, and the like.\n\nFor example, the information measure can be the length of the document version, and thus the primary version is the document version with the greatest length. As discussed above, the length of a document version can be determined in a number of ways. Assuming the information measure is the length of the document version in terms of bytes, the identification subsystem 170 selects D1 as the primary version because it has the greatest length in bytes (16,724). Note that the priority of authority associated with document version D1 being low is not considered at this stage, because the identification subsystem 170 selects 230 the primary version based on the total information associated with the version, not priority of authority.\n\nAlternatively, the information measure can be based on the number of other documents cited in the document version, the reference count of the document version, and thus the primary version is the document version with the greatest reference count. Using this information measure, the identification subsystem 170 selects D5 as the primary version because it has the greatest reference count (34).\n\nIn another example, the information measure is based on the citation count and the length of the document version, and thus the primary version is the document version with the greatest citation count among the document versions with a qualified length. Using this information measure, the identification subsystem 170 selects D2 as primary version because it has the greatest citation count (36) among the documents with a qualified length (D1, D2, D4, D5).\n\nAlternatively, the information measure can be determined by the modification time and the length of the document version, and thus the primary version is the document version with the latest modification time among the document versions with a qualified length. Under these circumstances, the identification subsystem 170 can select either D2 or D4 as primary version because both document versions have a qualified length (15,637) and a latest modification time (Jan. 1, 1980). Where multiple document versions qualify as a primary version, the identification subsystem can select the first such document version as the primary version, or select a document version from the qualified document versions based on information associated with the document version, such as page rank, priority of authority, length, and the like.\n\nIn another example, the information measure is based on the page rank and the length of the document version, and thus the primary version is the document version with the greatest page rank among the document versions with a qualified length. A page rank is a measure of the importance of a document version determined by other documents referring to the document version. A method of determining page rank is disclosed in U.S. Pat. No, 6,285,999, titled “Method for Node Ranking in a Linked Database,” assigned to the same assignee as the present invention and incorporated herein by reference. The page rank information can be determined by the metadata associated with the document version.\n\nThe identification subsystem 170 calculates the citation count of the document by adding the citation count of all document versions of the document. Each document version has metadata information describing the citation count of the document version. In the example illustrated above, the subsystem 160 calculates the citation count for the document by adding the citation counts of the different document versions D1-D5, thus the citation count for the document is 174. Calculates the citation count of the document is advantageous because the citation number is often reflective of the importance, significance, or quality of the document. Provided a citation of the document, a user can have an accurate assessment of the actual significance, importance or quality of the document based on the citation count.\n\nUser Interface\n\nFIG. 3 is a screenshot of a user interface for an application (e.g., a browser) displaying a set of search results provided by a search engine system 100 in response to a search query. For each search result, a primary version is selected by an implementation consistent with the principles of the present invention and indicated in the display. The user interface includes a search query field 310, which accepts queries from a user, and a display area 320 for displaying search results of the query.\n\nAs a user enters a search term into the search query field 310, the query is submitted to the front end server 140, which forwards the query to the search system 120. The search system 120 searches for documents relevant to the query, and provides the search results back to the front end server 140 through the presentation system 130. The front end server 140 provides the search results to the browser, which displays the search results. The search results received by the browser includes the primary version for each document in the search result set, along with links to some number of the other versions of the document (if any). The number of results displayed in the display area 320 may be limited. The maximum number of results that can be shown in the display area 320 can be set according to user preferences.\n\nWhen one resulting document has multiple versions, the document title 330 is displayed, as a hyperlink, associated with the network address of the primary version of the document. This makes it easier for a user to access the most authorized and complete version of the resulting document, without having to review and individually consider each of the different versions of the document.\n\nBelow the document title 330, certain portions of publishing information 340 are displayed. The publishing information comprises the first author's name, the year of publishing, and the name of the publisher, though other publication metadata can be shown as well. A snippet 350 of the primary version of the document is displayed below the publication information 340. The search terms used in the search query are highlighted in bold font in the document title 330 and the snippet 350.\n\nBelow the snippet 350, the total number 360 of documents citing the all version of the document (the total citation count) is displayed as hyperlink, which is associated with a list of the documents citing any of the versions associated with the primary version of the document. The total citation count is often reflective of the importance, significance, or quality of the document. By providing a total citation count for all versions of the document, a user can have an accurate and quick assessment of the actual significance, importance or quality of the document, as compared with only an limited sense of the document from the citation count for any one version.\n\nAlso below the snippet 350, a search link 370 for a query to the search engine system to retrieve additional results in which the particular document may appear, for example, as being mentioned in a web page or other document. When the user selects the search link 370, a query with the author's name and keywords of the document title is submitted to the front end server 140, and the user interface will display the search result of that query. By providing such a link, a user can easily search for more documents related to the resulting document.\n\nAlso below the snippet 350, links to one or more of the other document versions 380 are shown, with the link being labeled with the source domain of each of other document version. Displaying the source domain of the other versions allows the user to decide whether another version is more favorable, such as better accessibility (e.g., in a subscription database to which the user has access). Another link 390 is provided to access a list of all document versions as well.\n\nThis user interface is advantageous in that instead of listing all versions of the same document in search results including the document, only a primary version is listed, together with links to all other versions. As a result, the user interface can accommodate more diverse result contents without sacrificing the totality of the result information.\n\nThe present invention has been described in particular detail with respect to one possible embodiment. Those of skill in the art will appreciate that the invention may be practiced in other embodiments. First, the particular naming of the components, capitalization of terms, the attributes, data structures, or any other programming or structural aspect is not mandatory or significant, and the mechanisms that implement the invention or its features may have different names, formats, or protocols. Further, the system may be implemented via a combination of hardware and software, as described, or entirely in hardware elements. Also, the particular division of functionality between the various system components described herein is merely exemplary, and not mandatory; functions performed by a single system component may instead be performed by multiple components, and functions performed by multiple components may instead performed by a single component.\n\nSome portions of above description present the feature of the present invention in terms of algorithms and symbolic representations of operations on information. These algorithmic descriptions and representations are the means used by those skilled in the data processing arts to most effectively convey the substance of their work to others skilled in the art. These operations, while described functionally or logically, are understood to be implemented by computer programs. Furthermore, it has also proven convenient at times, to refer to these arrangements of operations us modules or code devices, without loss of generality.\n\nThe present invention also relates to my method, computer program product, system or apparatus for performing the operations herein. This apparatus may be specially constructed for the required purposes, or it may comprise a general-purpose computer selectively activated or reconfigured by a computer program stored in the computer. Such a computer program may be stored in a computer readable storage medium, such as, but is not limited to, any type of disk including floppy disks, optical disks, CD-ROMs, magnetic-optical disks, read-only memories (ROMs), random access memories (RAMs), EPROMs, EEFROMs, magnetic or optical cards, application specific integrated circuits (ASICs), or any type of media suitable for storing electronic instructions, and each coupled to a computer system bus. Furthermore, the computers referred to in the specification may include a single processor or may be architectures employing multiple processor designs for increased computing capability.\n\nThe algorithms and displays presented herein are not inherently related to any particular computer or other apparatus. Various general-purpose systems may also be used with programs in accordance with the teachings herein, or it may prove convenient to construct more specialized apparatus to perform the required method steps. The required structure for a variety of these systems will appear from the description above. In addition, the present invention is not described with reference to any particular programming language. It is appreciated that a variety of programming languages may be used to implement the teachings of the present invention as described herein, and any references to specific languages are provided for disclosure of enablement and best mode of the present invention.\n\nThe present invention is well-suited to a wide variety of computer network systems over numerous topologies. Within this field, the configuration and management of large networks comprise storage devices and computers that are communicatively coupled to dissimilar computers and storage devices over a network, such as the Internet.\n\nFinally, it should be noted that the language used in the specification has been principally selected for readability and instructional purposes, and may not have been selected to delineate or circumscribe the inventive subject matter. Accordingly, the disclosure of the present invention is intended to be illustrative, but not limiting, of the scope of the invention, which is set forth in the following claims.",
+ "cited_by": [
+  {
+   "id": "US12265787B2",
+   "title": "Document difference viewing and navigation",
+   "assignee": "Everlaw, Inc."
+  },
+  {
+   "id": "US8578480B2",
+   "title": "Systems and methods for identifying potentially malicious messages",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US8561167B2",
+   "title": "Web reputation scoring",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US20060015942A1",
+   "title": "Systems and methods for classification of messaging entities",
+   "assignee": "Ciphertrust, Inc."
+  },
+  {
+   "id": "US8635690B2",
+   "title": "Reputation based message processing",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US8095876B1",
+   "title": "Identifying a primary version of a document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7779156B2",
+   "title": "Reputation based load balancing",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US8763114B2",
+   "title": "Detecting image spam",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US8214497B2",
+   "title": "Multi-dimensional reputation scoring",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US8209602B2",
+   "title": "Viewing of internet content",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US8290983B2",
+   "title": "System and method for searching for documents",
+   "assignee": "Lexisnexis Group"
+  },
+  {
+   "id": "US8185930B2",
+   "title": "Adjusting filter or classification control settings",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US20090125980A1",
+   "title": "Network rating",
+   "assignee": "Secure Computing Corporation"
+  },
+  {
+   "id": "US8589503B2",
+   "title": "Prioritizing network traffic",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US8621638B2",
+   "title": "Systems and methods for classification of messaging entities",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "JP5656563B2",
+   "title": "Document management system, document management system control method, and program",
+   "assignee": "キヤノン株式会社"
+  },
+  {
+   "id": "US9122877B2",
+   "title": "System and method for malware and network reputation correlation",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US8819000B1",
+   "title": "Query modification",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8931043B2",
+   "title": "System and method for determining and using local reputations of users and hosts to protect information in a network environment",
+   "assignee": "Mcafee Inc."
+  },
+  {
+   "id": "US10515076B1",
+   "title": "Generating query answers from a user's history",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10073845B2",
+   "title": "Estimating article publication dates and authors based on social media context",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10193865B2",
+   "title": "Converting mobile traffic between IP VPN and transport level VPN",
+   "assignee": "Mobile Iron, Inc."
+  },
+  {
+   "id": "US10249068B2",
+   "title": "User experience for multiple uploads of documents based on similar source material",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20240078107A1",
+   "title": "Performing quality-based action(s) regarding engineer-generated documentation associated with code and/or application programming interface",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US20020007285A1",
+   "title": "Method, apparatus and system for providing targeted information in relation to laboratory and other medical services",
+   "assignee": "Rappaport Alain T."
+  },
+  {
+   "id": "US20020016787A1",
+   "title": "Apparatus for retrieving similar documents and apparatus for extracting relevant keywords",
+   "assignee": "Matsushita Electric Industrial Co., Ltd."
+  },
+  {
+   "id": "US20020046203A1",
+   "title": "Method and apparatus for providing ratings of web sites over the internet",
+   "assignee": "The Sony Corporation/Sony Electronics Inc."
+  },
+  {
+   "id": "US20020065857A1",
+   "title": "System and method for analysis and clustering of documents for search engine",
+   "assignee": "Zbigniew Michalewicz"
+  },
+  {
+   "id": "US6457028B1",
+   "title": "Method and apparatus for finding related collections of linked documents using co-citation analysis",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20020152238A1",
+   "title": "System and method to provide information corresponding to hyperlinked text in an online HTML document",
+   "assignee": "Hayes Todd R."
+  },
+  {
+   "id": "US6499026B1",
+   "title": "Using hyperbolic trees to visualize data generated by patent-centric and group-oriented data processing",
+   "assignee": "Aurigin Systems, Inc."
+  },
+  {
+   "id": "US20030001873A1",
+   "title": "Process for creating and displaying a publication historiograph",
+   "assignee": "Eugene Garfield"
+  },
+  {
+   "id": "US6546388B1",
+   "title": "Metadata search results ranking system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030164849A1",
+   "title": "Systems and methods for facilitating the peer review process",
+   "assignee": "Iparadigms, Llc"
+  },
+  {
+   "id": "US20040059584A1",
+   "title": "Method for collecting and sharing knowledge in an organization",
+   "assignee": "Songyee Yoon"
+  },
+  {
+   "id": "US20040068697A1",
+   "title": "Method and apparatus for characterizing documents based on clusters of related words",
+   "assignee": "Georges Harik"
+  },
+  {
+   "id": "US20040078224A1",
+   "title": "Computer assisted and/or implemented process and system for searching and producing source-specific sets of search results and a site search summary box",
+   "assignee": "Merck & Co., Inc."
+  },
+  {
+   "id": "US6748387B2",
+   "title": "Flexible keyword searching",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20040194036A1",
+   "title": "Automated evaluation of overly repetitive word use in an essay",
+   "assignee": "Magdalena Wolska"
+  },
+  {
+   "id": "US20040199865A1",
+   "title": "System for job control of a document processing system and method for job control of document processing process",
+   "assignee": "Bie Carolus De"
+  },
+  {
+   "id": "US20040205539A1",
+   "title": "Method and apparatus for iterative merging of documents",
+   "assignee": "Mak Mingchi Stephen"
+  },
+  {
+   "id": "US20040205448A1",
+   "title": "Meta-document management system with document identifiers",
+   "assignee": "Grefenstette Gregory T."
+  },
+  {
+   "id": "US6823348B2",
+   "title": "File manager for storing several versions of a file",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040249801A1",
+   "title": "Universal search interface systems and methods",
+   "assignee": "Yahoo!"
+  },
+  {
+   "id": "US6920448B2",
+   "title": "Domain specific knowledge-based metasearch system and methods of using",
+   "assignee": "Agilent Technologies, Inc."
+  },
+  {
+   "id": "US20050165747A1",
+   "title": "Image-based document indexing and retrieval",
+   "assignee": "Bargeron David M."
+  },
+  {
+   "id": "US20050262430A1",
+   "title": "Systems and methods for comparing documents containing graphic elements",
+   "assignee": "Creo Inc."
+  },
+  {
+   "id": "US20060041590A1",
+   "title": "Document enhancement system and method",
+   "assignee": "King Martin T"
+  },
+  {
+   "id": "US20060059121A1",
+   "title": "Method and system for identifying an author of a paper",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060095857A1",
+   "title": "System, apparatus, and method for a singularity based user interface",
+   "assignee": "Torvinen Marko M"
+  },
+  {
+   "id": "US20060095421A1",
+   "title": "Method, apparatus, and program for searching for data",
+   "assignee": "Canon Kabushiki Kaisha"
+  },
+  {
+   "id": "US20060104515A1",
+   "title": "Automatic modification of WEB pages",
+   "assignee": "King Martin T"
+  },
+  {
+   "id": "US20060179036A1",
+   "title": "Methods and systems for displaying matching business objects",
+   "assignee": "Sap Aktiengesellschaft"
+  },
+  {
+   "id": "US20060224626A1",
+   "title": "Versioned file group repository",
+   "assignee": "Anand Lakshminath"
+  },
+  {
+   "id": "US20080077570A1",
+   "title": "Full Text Query and Search Systems and Method of Use",
+   "assignee": "Infovell, Inc."
+  },
+  {
+   "id": "US7386532B2",
+   "title": "System and method for managing versions",
+   "assignee": "Mathon Systems, Inc."
+  },
+  {
+   "id": "US7757168B1",
+   "title": "Meta-document and method of managing",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US8095876B1",
+   "title": "Identifying a primary version of a document",
+   "assignee": "Google Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US8522129B1",
+   "title": "Identifying a primary version of a document"
+  },
+  {
+   "id": "US8145617B1",
+   "title": "Generation of document snippets based on queries and search results"
+  },
+  {
+   "id": "CN100478949C",
+   "title": "Query rewriting with entity detection"
+  },
+  {
+   "id": "US6094649A",
+   "title": "Keyword searches of structured databases"
+  },
+  {
+   "id": "US8099423B2",
+   "title": "Hierarchical metadata generator for retrieval systems"
+  },
+  {
+   "id": "US8527491B2",
+   "title": "Expanded text excerpts"
+  },
+  {
+   "id": "KR101016683B1",
+   "title": "System and method for providing search results"
+  },
+  {
+   "id": "JP4574356B2",
+   "title": "Electronic document repository management and access system"
+  },
+  {
+   "id": "US20020129062A1",
+   "title": "Apparatus and method for cataloging data"
+  },
+  {
+   "id": "US20070143317A1",
+   "title": "Mechanism for managing facts in a fact repository"
+  },
+  {
+   "id": "US20070250501A1",
+   "title": "Search result delivery engine"
+  },
+  {
+   "id": "US20070198481A1",
+   "title": "Automatic object reference identification and linking in a browseable fact repository"
+  },
+  {
+   "id": "US20090089278A1",
+   "title": "Techniques for keyword extraction from urls using statistical analysis"
+  },
+  {
+   "id": "US8473487B1",
+   "title": "Document search in affiliated libraries"
+  },
+  {
+   "id": "US8423885B1",
+   "title": "Updating search engine document index based on calculated age of changed portions in a document"
+  },
+  {
+   "id": "US7636732B1",
+   "title": "Adaptive meta-tagging of websites"
+  },
+  {
+   "id": "CN107870915B",
+   "title": "Indication of search results"
+  },
+  {
+   "id": "US8713047B2",
+   "title": "System and method for providing definitions"
+  },
+  {
+   "id": "US7836108B1",
+   "title": "Clustering by previous representative"
+  },
+  {
+   "id": "US8661069B1",
+   "title": "Predictive-based clustering with representative redirect targets"
+  },
+  {
+   "id": "US8140525B2",
+   "title": "Information processing apparatus, information processing method and computer readable information recording medium"
+  },
+  {
+   "id": "US20110252313A1",
+   "title": "Document information selection method and computer program product"
+  },
+  {
+   "id": "US20080033953A1",
+   "title": "Method to search transactional web pages"
+  },
+  {
+   "id": "US8131752B2",
+   "title": "Breaking documents"
+  },
+  {
+   "id": "JP3543726B2",
+   "title": "Knowledge search service method and apparatus for supporting search of books and the like"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US10275434B1/en"
+}

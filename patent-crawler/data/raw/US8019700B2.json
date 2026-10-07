@@ -1,0 +1,1870 @@
+{
+ "id": "US8019700B2",
+ "title": "Detecting an intrusive landing page",
+ "abstract": "Intrusion features of a landing page associated with sponsored content are identified. A feature score for the landing page based on the identified intrusion features is generated, and if the feature score for the landing page exceeds a feature threshold, the landing page is classified as a candidate landing page. A sponsor account associated with the candidate landing page can be suspended, or sponsored content associated with the candidate landing page can be suspended.",
+ "inventors": [
+  "Niels Provos",
+  "Yunkai Zhou",
+  "Clayton W. Bavor, JR.",
+  "Eric L. Davis",
+  "Mark Palatucci",
+  "Kamal P. Nigam",
+  "Christopher K. Monson",
+  "Panayiotis Mavrommatis",
+  "Rachel Nakauchi"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2007-10-05",
+ "filing_date": "2007-10-05",
+ "publication_date": "2011-09-13",
+ "status": "Active",
+ "expiration": "2029-11-19",
+ "cpc": [
+  "H04L63/00",
+  "H04L63/14",
+  "H04L63/1441",
+  "H04L63/145",
+  "G06F21/00",
+  "G06F21/50",
+  "G06F21/55",
+  "G06F21/56",
+  "G06F21/562",
+  "G06F21/564",
+  "G06F21/57",
+  "G06F21/577",
+  "G06N20/00",
+  "H04L43/00",
+  "H04L43/08",
+  "H04L43/0876",
+  "H04L67/00",
+  "H04L67/01",
+  "H04L67/02",
+  "G06F2221/00",
+  "G06F2221/21",
+  "G06F2221/2119"
+ ],
+ "claims": [
+  {
+   "text": "1. A method, comprising: identifying a landing page associated with sponsored content; identifying malware intrusion features of the landing page, the malware intrusion features being characterized by one or more redirects, in response to an input to access the sponsored content, to an exploit server that is different from a server serving the sponsored content; generating a feature score for the landing page based on the identified malware intrusion features; determining that the feature score for the landing page exceeds a feature threshold; classifying the landing page as a candidate landing page when the feature score for the landing page exceeds the feature threshold; submitting the candidate landing page to an intrusion detection engine; receiving an intrusion score for the candidate landing page from the intrusion detection engine; and precluding the serving of the sponsored content associated with the candidate landing page when the intrusion score exceeds an intrusion threshold.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, wherein the sponsored content is an advertisement.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 2, wherein the malware intrusion features comprise at least one of one or more iFrame features, one or more uniform resource locator (URL) features, or one or more script features, and wherein each malware intrusion feature has an associated feature weight, and generating the intrusion score for the landing page based on the identified malware intrusion features comprises summing the feature weights.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 2, further comprising: identifying a sponsor account associated with the advertisement, the sponsor account including additional advertisements; identifying additional landing pages associated with the additional advertisements; generating feature scores for the additional landing pages based on the identified malware intrusion features; determining that the feature score for the landing page exceeds the feature threshold; classifying each additional landing page as an additional candidate landing page when the feature score for the additional landing page exceeds the feature threshold; accumulating the feature scores of the candidate landing page and the additional candidate landing pages to obtain an account score; assigning a risk category to the sponsor account based on the account score; and initiating one of a plurality of account remediation processes for the sponsor account based on the risk category.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 1, where the malware intrusion features are characterized by multiple redirects.",
+   "dependent": true
+  },
+  {
+   "text": "6. A method comprising: identifying a landing page associated with sponsored content; identifying intrusion features of the landing page; generating a feature score for the landing page based on the identified intrusion features; determining that the feature score for the landing page exceeds a feature threshold; classifying the landing rage as a candidate landing page when the feature score for the landing page exceeds the feature threshold; submitting the candidate landing page to an intrusion detection engine; receiving an intrusion score for the candidate landing page from the intrusion detection engine; precluding serving of the sponsored content associated with the candidate landing page when the intrusion score exceeds an intrusion threshold; and receiving an appeal request and in response to receiving the appeal request: re-submitting the candidate landing page to the intrusion detection engine; receiving another intrusion score for the candidate landing page from the intrusion detection engine; precluding the serving of the sponsored content associated with the candidate landing page when the other intrusion score exceeds the intrusion threshold; and allowing the serving of the sponsored content associated with the candidate landing page when the another intrusion score does not exceed the intrusion threshold.",
+   "dependent": false
+  },
+  {
+   "text": "7. The method of claim 6, further comprising: identifying a sponsor account associated with the sponsored content, the sponsor account including additional sponsored content; and precluding the serving of the additional sponsored content associated with the sponsor account when the intrusion score of the candidate landing page exceeds the intrusion threshold.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 7, further comprising: in response to receiving the appeal request: submitting additional landing pages associated with the additional sponsored content to the intrusion detection engine; receiving additional intrusion scores for the additional landing pages from the intrusion detection engine; and determining that the intrusion scores for the additional landing pages exceed the intrusion threshold.",
+   "dependent": true
+  },
+  {
+   "text": "9. The method of claim 8, further comprising precluding serving of advertisements associated with landing pages having intrusion scores that exceed the intrusion threshold.",
+   "dependent": true
+  },
+  {
+   "text": "10. The method of claim 8, further comprising precluding serving of advertisements associated with the sponsor account when an intrusion score for any of landing pages exceeds the intrusion threshold.",
+   "dependent": true
+  },
+  {
+   "text": "11. A system, comprising: a scoring engine comprising software instructions stored in computer readable medium and executable by a processing system, and upon such execution causes the processing system to: identify a landing page associated with sponsored content; identify malware intrusion features of the landing page, the malware intrusion features being characterized by one or more redirects, in response to an input to access the sponsored content, to an exploit server that is different from a server serving the sponsored content; generate a feature score for the landing page based on the identified malware intrusion features; determine that the feature score for the landing page exceeds a feature threshold; classify the landing page as a candidate landing page when the feature score for the landing page exceeds the feature threshold; and a malware evaluation engine comprising software instructions stored in computer readable medium and executable by a processing system, and upon such execution causes the processing system to: submit the candidate landing page to an intrusion detection engine; receive an intrusion score for the candidate landing page from the intrusion detection engine; and preclude the serving of the sponsored content associated with the candidate landing page when the intrusion score exceeds an intrusion threshold.",
+   "dependent": false
+  },
+  {
+   "text": "12. The system of claim 11, wherein the sponsored content is an advertisement.",
+   "dependent": true
+  },
+  {
+   "text": "13. The system of claim 12, wherein the malware evaluation engine comprises further software instructions stored in computer readable medium and executable by a processing system, and upon such execution causes the processing system to: identify a sponsor account associated with the advertisement, the sponsor account including additional advertisements; and preclude the serving of the additional advertisements associated with the sponsor account if the intrusion score of the candidate landing page exceeds the intrusion threshold.",
+   "dependent": true
+  },
+  {
+   "text": "14. The system of claim 13, further comprising: an appeal processing evaluation engine comprising software instructions stored in computer readable medium and executable by a processing system, and upon such execution causes the processing system to: receive an appeal request for a sponsor account associated with the landing page and in response to the appeal request cause the malware evaluation engine to: identify landing pages associated with the sponsor account; submit the landing pages to the intrusion detection engine; receive intrusion scores for the landing pages from the intrusion detection engine; and allow the serving of the advertisement and the additional advertisements when each of the intrusion scores does not exceed the intrusion threshold.",
+   "dependent": true
+  },
+  {
+   "text": "15. The system of claim 14, further comprising: a data store storing training landing pages associated with advertisements and testing landing pages associated with advertisements; and a machine learning engine comprising software instructions stored in computer readable medium and executable by a processing system, and upon such execution causes the processing system to: iteratively train a classification model on malware intrusion features of the training landing pages; iteratively test the classification model on the malware intrusion features of the testing landing pages until an occurrence of a testing cessation event; and store an association of feature weights and malware intrusion features in a classification model in response to the cessation event, the association of feature weights and malware intrusion features derived from the iterative training and testing, wherein the generation of the feature score for the landing page is based on the feature weights associated with the identified malware intrusion features stored in the classification model.",
+   "dependent": true
+  },
+  {
+   "text": "16. A system comprising: a malware evaluation engine comprising software instructions stored in computer readable medium and executable by a processing system, and upon such execution causes the processing system to: submit a candidate landing page to an intrusion detection engine, the candidate landing page associated with sponsored content; receive an intrusion score for the candidate landing page from the intrusion detection engine; and preclude serving of the sponsored content associated with the candidate landing page when the intrusion score of the candidate landing page exceeds an intrusion threshold; and an appeal processing evaluation engine comprising software instructions stored in computer readable medium and executable by the processing system, and upon such execution causes the processing system to: receive an appeal request for a sponsor account associated with the candidate landing page and in response to the appeal request cause the malware evaluation engine to: re-submit the candidate landing page to the intrusion detection engine; receive another intrusion score for the candidate landing page from the intrusion detection engine; preclude serving of the sponsored content associated with the candidate landing page when the another intrusion score exceeds the intrusion threshold; and allow serving of the sponsored content associated with the candidate landing page when the another intrusion score does not exceed the intrusion threshold.",
+   "dependent": false
+  },
+  {
+   "text": "17. A method, comprising: identifying a landing page associated with sponsored content; identifying malware intrusion features of the landing page, the malware intrusion features being characterized by one or more redirects, in response to an input to access the sponsored content, to an exploit server that is different from a server serving the sponsored content; evaluating the landing page to determine that a likelihood that the landing page includes malware exceeds a first threshold based on a presence of the malware intrusion features; when the likelihood that the landing page includes malware exceeds the first threshold, further evaluating the landing page, the further evaluating including performing at least one additional evaluation process on the landing page; and based on the further evaluation, classifying the landing page as one of including malware or not including malware.",
+   "dependent": false
+  },
+  {
+   "text": "18. The method of claim 17, further comprising: iteratively training a classification model on malware intrusion features of training landing pages; iteratively testing the classification model on the malware intrusion features of testing landing pages until an occurrence of a testing cessation event; and storing an association of feature weights and malware intrusion features in the classification model in response to the cessation event, the association of feature weights and malware intrusion features derived from the iterative training and testing and for facilitating the evaluation of the landing page.",
+   "dependent": true
+  },
+  {
+   "text": "19. A computer program product tangibly stored on a storage device, operable to cause data processing apparatus to perform operations comprising: identifying a landing page associated with sponsored content; identifying malware intrusion features of the landing page, the malware intrusion features being characterized by one or more redirects, in response to an input to access the sponsored content, to an exploit server that is different from a server serving the sponsored content; generating a feature score for the landing page based on the identified malware intrusion features; determining that the feature score for the landing page exceeds a feature threshold; classifying the landing page as a candidate landing page when the feature score for the landing page exceeds the feature threshold; submitting the candidate landing page to an intrusion detection engine; receiving an intrusion score for the candidate landing page from the intrusion detection engine; and precluding the serving of the sponsored content associated with the candidate landing page when the intrusion score exceeds an intrusion threshold.",
+   "dependent": false
+  }
+ ],
+ "description": "\n## TECHNICAL FIELD\n\n\nThe document relates to management of intrusive software.\n\n\n## BACKGROUND\n\n\nInteractive media (e.g., the Internet) has great potential for improving the targeting of sponsored content, e.g., advertisements (“ads”), to receptive audiences. For example, some websites provide information search functionality that is based on keywords entered by the user seeking information. This user query can be an indicator of the type of information of interest to the user. By comparing the user query to a list of keywords specified by an advertiser, it is possible to provide targeted ads to the user.\n\nAnother form of online advertising is ad syndication, which allows advertisers to extend their marketing reach by distributing ads to additional partners. For example, third party online publishers can place an advertiser's text or image ads on web properties with desirable content to drive online customers to the advertiser's website.\n\nThe ads, such as creatives that include several lines of text, images, or video clips, include links to landing pages. These landing pages are pages on advertiser websites or on syndicated publisher websites that users are directed to when the users click on the ads. Some of these landing pages, however, may include intrusive software, e.g., software, scripts, or any other entities that are deceptively, surreptitiously and/or automatically installed. Such software entities that are intrusively installed can be generally characterized as “malware,” a portmanteau of the words “malicious” and “software.” The software, however, need not take malicious action to be malware; any software that is intrusively installed can be considered malware, regardless of whether the actions taken by the software are malicious. Thus, in addition to Trojan Horses, viruses, and browser exploits, other software such as monitoring software can be considered malware. The malware can be present in the landing page intentionally or unintentionally. For example, an advertiser's site can be hacked and malware inserted directly onto the landing page; a malicious advertiser can insert malware into a landing page; a click-tracker can insert malware through a chain of redirects that lead to the final uniform resource locator (URL) of the landing page; an advertiser may place ads or gadgets on a page populated by third parties that insert malware onto the landing page; etc.\n\nOnce a landing page is known to have malware, an advertisement publisher can preclude the serving of the landing page. However, an advertisement publisher, e.g., Google, Inc., may have access to hundreds of millions of advertisements and corresponding landing pages associated with the advertisements. As could be understood, it may be it may be difficult to check/re-check each landing page in depth for the presence of malware.\n\n\n## SUMMARY\n\n\nDisclosed herein are apparatus, methods and systems for the detection and processing of malware in sponsored content. In an implementation, intrusion features of a landing page associated with sponsored content are identified. A feature score for the landing page based on the identified intrusion features is generated, and if the feature score for the landing page exceeds a feature threshold, the landing page is classified as a candidate landing page. The candidate landing page can be provided to a malware detector to determine whether malware is present in the landing page. In some implementations, a sponsor account associated with the candidate landing page can be suspended. In some implementations, an advertisement associated with the candidate landing page can be suspended.\n\nIn another implementation, a method includes partitioning landing pages associated with advertisements into training landing pages and testing landing pages. A classification model is iteratively trained on intrusion features of the training landing pages, and is iteratively tested on the intrusion features of the testing landing pages. The training and testing continues until the occurrence of a cessation event. An association of feature weights and intrusion features that are derived from the iterative training and testing are stored in the classification model in response to the cessation event.\n\nIn another implementation, a system includes a scoring engine including software instructions stored in computer readable medium and executable by a processing system. Upon execution, the processing system identifies a landing page associated with sponsored content and identifies intrusion features of the landing page. A feature score for the landing page is generated based on the identified intrusion features, and if the feature score for the landing page exceeds a feature threshold, the landing page is classified as a candidate landing page. The candidate landing page can be provided to a malware detector to determine whether malware is present in the landing page. In some implementations, a sponsor account associated with the candidate landing page can be suspended. In some implementations, an advertisement associated with the candidate landing page can be suspended.\n\nThe details of one or more embodiments of the subject matter described in this specification are set forth in the accompanying drawings and the description below. Other features, aspects, and advantages of the subject matter will become apparent from the description, the drawings, and the claims.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nFIG. 1 is a block diagram of an example online advertising system.\n\nFIG. 2 is a flow diagram of an example sub-syndication of sponsored content.\n\nFIG. 3 is a block diagram of an example sponsored content processing system.\n\nFIG. 4 is a block diagram of an example training process to build a classification model.\n\nFIG. 5 is a block diagram of another example sponsored content processing system that utilizes the classification model.\n\nFIG. 6 is a block diagram of another example sponsored content processing system.\n\nFIG. 7 is a flow diagram of an example process for identifying a candidate landing page for intrusion detection.\n\nFIG. 8 is a flow diagram of an example process for submitting a candidate landing page to an intrusion detection engine.\n\nFIG. 9 is a flow diagram of an example process for handling an appeal request.\n\nFIG. 10 is a flow diagram of another example process for handling an appeal request.\n\nFIG. 11 is a flow diagram of an example process for generating a classification model.\n\n\n## DETAILED DESCRIPTION\n\n\nFIG. 1 is a block diagram of an example online advertising system 100. In some implementations, one or more advertisers 102 can directly, or indirectly, enter, maintain, and track advertisement (“ad”) information in an advertising management system 104. Though reference is made to advertising, other forms of content, including other forms of sponsored content, can be delivered by the system 100. The ads may be in the form of graphical ads, such as banner ads, text only ads, image ads, audio ads, video ads, ads combining one of more of any of such components, etc. The ads may also include embedded information, such as a links, meta-information, and/or machine executable instructions. One or more publishers 106 may submit requests for ads to the system 104. The system 104 responds by sending ads to the requesting publisher 106 for placement on one or more of the publisher's web properties (e.g., websites and other network-distributed content). The ads can include embedding links landing pages, e.g., pages on the advertisers 102 websites, that a user is directed to when the user clicks an ad presented on a publisher website.\n\nOther entities, such as users 108 and the advertisers 102, can provide usage information to the system 104, such as, for example, whether or not a conversion or click-through related to an ad has occurred. This usage information can include measured or observed user behavior related to ads that have been served. The system 104 performs financial transactions, such as crediting the publishers 106 and charging the advertisers 102 based on the usage information.\n\nA computer network 110, such as a local area network (LAN), wide area network (WAN), the Internet, or a combination thereof, connects the advertisers 102, the system 104, the publishers 106, and the users 108.\n\nOne example of a publisher 106 is a general content server that receives requests for content (e.g., articles, discussion threads, music, video, graphics, search results, web page listings, information feeds, etc.), and retrieves the requested content in response to the request. The content server may submit a request for ads to an ad server in the system 104. The ad request may include a number of ads desired. The ad request may also include content request information. This information can include the content itself (e.g., page or other content document), a category corresponding to the content or the content request (e.g., arts, business, computers, arts-movies, arts-music, etc.), part or all of the content request, content age, content type (e.g., text, graphics, video, audio, mixed media, etc.), geo-location information, etc.\n\nIn some implementations, the content server can combine the requested content with one or more of the ads provided by the system 104. This combined content and ads can be sent to the user 108 that requested the content for presentation in a viewer (e.g., a browser or other content display system). The content server can transmit information about the ads back to the ad server, including information describing how, when, and/or where the ads are to be rendered (e.g., in HTML or JavaScript™).\n\nAnother example publisher 106 is a search service. A search service can receive queries for search results. In response, the search service can retrieve relevant search results from an index of documents (e.g., from an index of web pages). An exemplary search service is described in the article S. Brin and L. Page, “The Anatomy of a Large-Scale Hypertextual Search Engine,” Seventh International World Wide Web Conference, Brisbane, Australia and in U.S. Pat. No. 6,285,999. Search results can include, for example, lists of web page titles, snippets of text extracted from those web pages, and hypertext links to those web pages, and may be grouped into a predetermined number of (e.g., ten) search results.\n\nThe search service can submit a request for ads to the system 104. The request may include a number of ads desired. This number may depend on the search results, the amount of screen or page space occupied by the search results, the size and shape of the ads, etc. In some implementations, the number of desired ads will be from one to ten, or from three to five. The request for ads may also include the query (as entered or parsed), information based on the query (such as geo-location information, whether the query came from an affiliate and an identifier of such an affiliate), and/or information associated with, or based on, the search results. Such information may include, for example, identifiers related to the search results (e.g., document identifiers or “docIDs”), scores related to the search results (e.g., information retrieval (“IR”) scores), snippets of text extracted from identified documents (e.g., web pages), full text of identified documents, feature vectors of identified documents, etc. In some implementations, IR scores can be computed from, for example, dot products of feature vectors corresponding to a query and a document, page rank scores, and/or combinations of IR scores and page rank scores, etc.\n\nThe search service can combine the search results with one or more of the ads provided by the system 104. This combined information can then be forwarded to the user 108 that requested the content. The search results can be maintained as distinct from the ads, so as not to confuse the user between paid advertisements and presumably neutral search results. Finally, the search service can transmit information about the ad and when, where, and/or how the ad was to be rendered back to the system 104.\n\nAs can be appreciated from the foregoing, the advertising management system 104 can serve publishers 106, such as content servers and search services. The system 104 permits serving of ads targeted to documents served by content servers. For example, a network or inter-network may include an ad server serving targeted ads in response to requests from a search service with ad spots for sale. Suppose that the inter-network is the World Wide Web. The search service crawls much or all of the content. Some of this content will include ad spots (also referred to as “inventory”) available. More specifically, one or more content servers may include one or more documents. Documents may include web pages, email, content, embedded information (e.g., embedded media), meta-information and machine executable instructions, and ad spots available. The ads inserted into ad spots in a document can vary each time the document is served or, alternatively, can have a static association with a given document.\n\nIn one implementation, the advertisement management system 104 may include an auction process to select advertisements from the advertisers 102. The advertisers 102 may be permitted to select, or bid, an amount the advertisers are willing to pay for each click of an advertisement, e.g., a cost-per-click amount an advertiser pays when, for example, a user clicks on an advertisement. The cost-per-click can include a maximum cost-per-click, e.g., the maximum amount the advertiser is willing to pay for each click of advertisement based on a keyword, e.g., a word or words in a query. Other bid types, however, can also be used. Based on these bids, advertisements can be selected and ranked for presentation.\n\nIn some implementations, the system 104 includes an ad page malware detection system that can determine the likelihood that sponsored content (e.g., an ad's landing page) contains malware. Malware may include any type of computer contaminant, such as dishonest adware, computer viruses, spyware, Trojan horses, computer worms, or other such malicious, unelected and/or unwanted software. Specifically, malware can include any suspicious software installation that happens automatically upon landing on a webpage, such as an ad's landing page. In some implementations, the ad page malware detection system may cover the case where a user must click a link on the page (such as “free download”) for the malware to be installed. The software, however, need not take malicious action to be malware; any software that is intrusively installed can be considered malware, regardless of whether the actions taken by the software are malicious. Thus, in addition to Trojan Horses, viruses, worms, and browser exploits, other software that does not necessarily harm a computer system, such as monitoring software, start page hijacks, etc., can be considered malware.\n\nThe malware detection system can, for example, automatically test landing pages (e.g., a web page defined by a URL embedded or associated with sponsored content) for malware and take appropriate action when malware is detected. Such actions may follow pre-determined policies, such as to suspend an advertiser's account (e.g., an advertiser's account with Google AdSense or AdWords), “flag” the ad or ads associated with the landing page as malware-related, and help the end-user avoid the negative effects of such ads in the future. The malware detection system can provide a process for an advertiser to have its “flagged” ads re-checked and its accounts unsuspended. Moreover, if the malware detection system re-checks the landing pages of an advertiser's flagged ad or ads and determines that the associated landing pages are clean (e.g., free from malware), the advertiser's account can be reinstated (or cleared). In some implementations, the ads associated with the landing page can be suppressed completely, e.g., serving of the ad can be precluded.\n\nIn some implementations, the malware detection system may have the flexibility to suspend groups of ads, such as all ads in an ad group or ad campaign, or all ads with a common URL. For example, the malware detection system may determine that only a subset of an advertiser's ads contain malware, and thus suspend only those ads. Such determination may be based on common features shared by the ads' landing page.\n\nMalware may be encountered in an ad's landing page or redirect chain, or may originate in various ways. Specifically, the redirect chain can include the series of URLs that include the clicked ad (or destination URL), URLs that are instantiated by scripts, etc., as a result of the click on the ad, and the final URL of the ad's landing page. In some cases, an advertiser's site can be hacked and malware inserted directly onto the landing page. In another example, a malicious advertiser may purposely install or enable malware on its ad landing page. In a third example, a click-tracker can insert malware through the chain of redirects before the final URL is reached. In a fourth example, an advertiser may install ads and/or gadgets on its landing page that may be populated by third parties who insert malware. In these and other examples of malware, when a user clicks such an ad, the user's computer can be compromised by the installation of intrusive software.\n\nFor example, FIG. 2 is a flow diagram of an example sub-syndication of sponsored content. Consider an advertisement 202 on a popular web site 204. For example, the web site or web page in question may include a banner advertisement from a reputable advertising company 206 a. The user may click on the advertisement 202, for example, in a web browser executing on the user's home computer, PDA, or the like. The destination URL of the advertisement 202 may point to or initiate a single line of script (e.g., a first JavaScript) that references the ads company 206 a in a first geographic region 208. The first JavaScript in turn may generate second JavaScript to redirect through the URL of an ads company 206 b (e.g., another advertising company). The second JavaScript in turn may generate yet more JavaScript pointing to another ads company 206 c that may, for example, use geo-targeting for its ads. The geo-targeted ad may result in a single line of HTML containing an iFrame pointing to an ads company 206 d in another geographic region 210.\n\nWhen trying to retrieve the iFrame, the browser may be redirected, such as via a Location header, towards an IP address of an exploit server. For example, the IP address may be, for example, of the form xx.xx.xx.xx//, such as the IP address of an exploit server 212. The IP address served can include encrypted JavaScript which may enable the exploit server 212 to attempt multiple exploits against the user's browser. As a result, several malware binaries may be installed on the user's computer. The malware encountered and/or installed in this scenario may be unknown to the initial ads company 206 a. However, each redirection from the destination URL (e.g., ads company 206 a) to the landing page associated with sponsored content (e.g., on the exploit server 212) can give another party control over the content on the original web page. In this way, the sub-syndication of sponsored content, characterized here by several URL redirects, can lead a user to an undesired encounter with malware.\n\nDetecting malware may include the use of commercially available malware detection software or other such virus scanning software or systems. Malware may also be detected by monitoring system behaviors, such as monitoring the use of registry and system files after visiting a URL. For example, an intrusion detection engine may monitor the behavior of a browser on a virtual machine to determine whether malware is present.\n\nFIG. 3 is a block diagram of an example sponsored content processing system 300. Data related to the sponsored content can be stored in an ads data base 302. For example, the ads data base 302 may contain several forms of sponsored content, such as graphical ads, banner ads, text only ads, image ads, audio ads, video ads, ads combining one of more of any of such components, etc. The ads may be organized, for example, by keyword, ad campaign, URL or other content.\n\nThe system 300 includes a malware evaluator 304 that can be used to detect malware in a landing page associated with an ad, or in the ad itself. For example, the malware evaluator 304 may initially evaluate an ad's landing page for its likelihood to include malware, and if the landing page is considered likely to include malware, the malware evaluator 304 can submit the ad to a more thorough evaluation process. Such a two-step evaluation process can lead to efficiencies gained by using the more thorough malware evaluation process only on the candidate ads considered most likely to include malware.\n\nThe initial evaluation performed by the malware evaluator 304 may identify intrusion features of the ad's landing page or URLs in the redirect chain. The evaluation may inspect the ad for iFrame features, URL features, script features, etc. and compare such features against a repository of features that are known to be associated with landing pages that include malware. As a result of initial evaluation of the ad's landing page features, the malware evaluator 304 may generate a feature score that indicates the likelihood that the ad's landing page includes malware. For example, a higher score may mean that the ad's landing page is more likely to include malware. Any ads' landing pages having a feature score that exceeds a feature threshold can be classified as candidates for a more thorough malware evaluation process. In this way, the identification of features can facilitate reduction heuristics, allowing the system to significantly reduce the number of landing pages to a smaller set of candidate landing pages that may be subsequently evaluated by the more thorough malware evaluation process.\n\nIn some implementations, the malware evaluator 304 can use an intrusion detection engine 305 that implements a more thorough malware evaluation process. For example, the malware evaluator 304 can provide the intrusion detection engine 305 with a web page (e.g., the landing page of an ad) and receive an intrusion score for the web page. In other implementations, the malware evaluator 304 can include the intrusion detection engine 305.\n\nThe more thorough process can be initiated by the malware evaluator 304 when the malware evaluator submits the candidate landing page to the intrusion detection engine 305. The intrusion detection engine 305 may include, for example, a virtual machine via which the system 300 can load the ad in a browser, navigate to the ad's landing page (e.g., via one or more URL redirects), and execute one or more malware detection systems, such as commercially available computer malware and virus detection systems. During the process, the virtual machine also can, for example, monitor the use of system files and the creation of unauthorized processes. The intrusion detection engine 305 can generate an intrusion score and provide the intrusion score to the malware evaluator 304. The intrusion score can indicate the level of malware in the ad's landing page. If the intrusion score is sufficiently high, such as above a pre-defined intrusion threshold, the system 300 can flag the ad (e.g., in the ads data base 302) as being likely to contain malware in its landing page.\n\nAds that are flagged in the ads data base 302 may be precluded from being served to users, or the ads may be annotated in some way to indicate their likelihood of the ad's landing page including malware. In some implementations, the annotations may include an intrusion score that rates each of the ads' likelihood to be malware-related. As the result of determining that any part of an advertiser's sponsored content (e.g., a single ad's landing page) includes malware, the system 300 may flag some or all of the advertiser's ads. The system 300 may also suspend the account of the advertiser, such as to prevent the advertiser from submitting new ads. The system 300 may perform some actions automatically, such as when it is clear that ads are malware-related, e.g., a relatively high intrusion score. Other actions may be based on user decisions, such as after reviewing the results of malware evaluations.\n\nAn account manager 306 can receive the results of malware evaluations from the malware evaluator 304. The evaluations may include, for example, the sponsor's account information, the URLs of the destination and landing pages and any pages in the redirect chain. The evaluations can also include information identifying the reasons that the malware evaluator 304 identified the ad as malware-related. A user of the account manager 306 may be able to facilitate manual disposition of ads and/or accounts based on the evaluation. For example, a user may be able to suspend the account for an advertiser if one or more of the advertiser's ad landing page are discovered to include malware. In another example, a user may decide to flag one or more ads in an advertiser's ad campaign.\n\nA customer service representative (CSR) front end 308 can exist within the system 300 that allows advertisers to initiate an appeal process for flagged ads. For example, a customer (e.g., an advertiser) may have one or more landing pages corresponding to sponsored content that the malware evaluator 304 has determined include malware. After cleaning such sites from malware, for example, the advertiser may initiate an appeal of the ad. Such an appeal may be, for example, in a communication between the CSR front end 308 and the malware evaluator 304 and/or the account manager 306. The communication can include, for example, the advertiser's name and the URLs of the landing pages to be re-evaluated by the malware evaluator 304. If an advertiser's appeal of a flagged ad is successful, the system 300 can un-flag the ad. In some implementations, the system 300 may also reinstate the advertiser's account as the result of a successful appeal. In some implementations, when an advertiser appeals an ad, the system 300 can check all of the ads for the advertiser and only reinstate the advertiser's account (and un-flag the ad) if all of the advertiser's ads are clean.\n\nIn some implementations, the system 300 can include a tiered suspension account model. For example, based on the likelihood of the presence of malware in a landing page, the landing page can be categorized in various categories, or levels, of malware infection. Such categories may include, for example, “OK” (e.g., determined likely to be malware-free), “suspect” (e.g., may contain malware) or “confirmed” (e.g., very likely or certain to contain malware). The suspect category may be further categorized, such as with a rating based on an intrusion score.\n\nIn some implementations, malware detection scores may be accumulated with respect to an account, and an account itself can be “tiered” into risk categories, each of which is handled differently, ranging from automatic review, manual review, and automatic suspension. For example, the system 300 may automatically suspend an account when one or more ads are in the “confirmed” malware category, or may suspend an account when 5% or more of the ads are “suspect,” etc.\n\nIn one implementation, for example, the malware evaluator 308 can identify landing pages associated with a sponsor account having features scores that exceed a feature threshold. The feature scores for these landing pages can be accumulated to obtain an account score, and a risk category can be assigned to the sponsor account based on the account score. One of several account remediation processes for the sponsor account can be selected based on the risk category, e.g., automatic review, manual review, automatic suspension, partial suspension of only candidate landing pages, etc.\n\nDetection of potential malware can occur continuously, periodically, or aperiodically. For example, the ads database 302 can be continuously checked by the malware evaluator 304. In another example, the ads database 302 can be periodically checked by the malware evaluator, e.g., monthly or weekly. In yet another example, each advertisement that is added to the ads database 302 can be checked when the advertisement is added to the ads database 302. Other detection schedules can also be used.\n\nFIG. 4 is a block diagram of an example training process 400 to build a classification model 402. The classification model 402 can be used for evaluating features in a landing page associated with the ad, such as features that may indicate the likelihood that malware is present, e.g., small iFrames, obfuscated script, etc. In some implementations, the features may be assigned weights during the training process. Such feature-based evaluations may be used to reduce the number of URLs that are to be evaluated using a more robust evaluation process, such as a process implemented by the intrusion detection engine 305.\n\nThe training process 400 can be used to iteratively train the classification model 402 using intrusion features of the “training” landing pages content. At the same time, the process 400 can iteratively test the classification model 402 using intrusion features of the “testing” landing pages content. The iterative process 400 can continue until the occurrence of a testing cessation event, such as a determination that associations between the feature weights and intrusion features are stabilizing. Such a determination may be made, for example, by implementing a linear regression based model.\n\nIn an example general flow of the training process 400 for producing the classification model 402, processing can begin with the use of the ads 302. Information used for the training process 400 can be identified from the landing pages and URLs 404. The process 400 can further partition the landing pages and URLs 404 into “training” landing pages and “testing” landing pages. For example, a larger number of landing pages (e.g., 10,000) may be used as training examples to train the classification model 402, while a smaller number (e.g., 1,000) may be used to test the classification model 402.\n\nA feature extraction engine 406 can extract features from the landing pages and URLs 404. The features can, for example, be indicative of the likelihood that a landing page associated with an ad includes malware. For example, one or more malware-related (or intrusion) features can correspond to small iFrames that may be indicative of an attempt to embed other HTML documents (e.g., malware-related) inside a main document. Another example of an intrusion feature is a bad or suspicious URL, such as a URL that matches a URL on a known list of malware-infected domains. A third example of an intrusion feature is suspicious script language. For example, JavaScript or other scripting languages may have certain function calls or language elements that are known to be used in serving malware. Several other types of intrusion features may exist, such as the existence of multiple frames, scripts or iFrames appearing in unusual places (e.g., after the end of the HTML), or any other features that the training process 400 determines over time is a marker for likely malware infections.\n\nIn some implementations, the feature extraction engine 406 can include a list of features that are weighted. For example, a particular intrusion feature for a URL that is a known malware site may receive a higher weight than an intrusion feature that is less likely to be associated with malware. The weights of features may be adjusted over time as the classification model 402 is used to classify landing pages as to their likelihood of including malware.\n\nWeights may be cumulative, so that the overall likeliness that a landing page includes malware may be determined by adding, or otherwise combining the weights corresponding to the features detected. In some implementations, a feature's weight can be included in the sum for each occurrence of the corresponding feature that may be detected in a landing page. In other implementations, a feature's weight may be added to the total score once, regardless of the number of occurrences of the feature in the ad. Other evaluations based on feature weights can also be used.\n\nWhile many features may have a corresponding positive weight, other features may have a negative weight. For example, feature A, (e.g., corresponding to a likely malware-related function call), may have a weight of 2.5. At the same time, the presence of feature X may partially negate the likelihood that feature A is malicious, prompting the system 400 to assign a negative weight to feature X.\n\nA control evaluation 408 can be used in the training phase of the training process 400. The control evaluation 408 can include a human evaluation of ad landing pages. For example, the human review of the landing page for a particular ad may include an examination of the ad's features. The review may also provide an overall rating of the landing page's likelihood of including malware, such as extremely malware infected, semi-malware infected, etc.\n\nThe information generated by the control evaluation 408 can be referenced during a training phase that assigns feature weights to the features extracted by the feature extraction engine 406. For example, a machine learning engine 410 can assign features weights to the features to test the results of the control evaluation 408, for example, by examining similar features in other URLs (e.g., URLs from the “testing” landing pages). Specifically, the machine learning engine 410 can use features from the testing landing pages to iteratively refine the associations of feature weights and intrusion features.\n\nSuch refinement can be realized, for example, by a linear-regression based model. For example, the machine learning engine 410 may use training and testing landing pages partitioned in the landing pages and URLs 404. The machine learning engine 410 may, for example, adjust the feature weights based on the training and testing landing pages to generate feature scores for the testing landing pages. If the feature scores yield malware detection results that are close to the control evaluation results, the classification model can be considered trained. Conversely, if the feature scores yield malware detection results that are substantially different that the control evaluation results, the machine learning engine 410 can readjust the feature weights. For example, over several iterations the machine learning engine 410 may determine that feature X is weighted too high, and may thus decrease the feature weight associated with feature X.\n\nThe iterative training and testing of the classification model 402 on intrusion features of the training and testing landing pages can continue until the occurrence of a testing cessation event, e.g., a convergence of test results to the control evaluation 408, or until an iteration limit is reached. After the cessation event, the association of feature weights and intrusion features can be persisted in the classification model 402.\n\nOther processes to train the classification model 402 can also be used.\n\nFIG. 5 is a block diagram of another example sponsored content processing system 500 that utilizes the classification model 402. The system 500 includes a scoring engine 502 that uses the classification model 402 to score ads from an ad data base 504. For example, using the feature weights stored in the classification model 402, the scoring engine 502 can score features of ads' landing pages it processed from the ad data base 504. Any ads that are scored above a pre-defined threshold can be identified as candidate URLs 506.\n\nThe candidate URLs 506 can include information associated with the ad that may be needed for a thorough examination by a malware evaluator 508. For example, the candidate URLs 506 can include the ad's URL and account information of the advertiser that supplies the sponsored content. The ad's URL (or some other identifier for the ad) may be used, for example, to identify additional information for the ad in the ad data base 504 that may be needed by the malware evaluator 506. The ad's URL may also be used by the malware evaluator 506 to simulate selection of the ad in a user's browser. For example, the malware evaluator 506 can provide the landing page to the intrusion detection engine 305 which may load the URL into a virtual machine that includes virus detection software and that monitors the use of system files and the creation of unauthorized processes.\n\nIn some implementations, when the malware evaluator 508 determines that a candidate URL is infected with malware (e.g., based on a high intrusion score received from the intrusion detection engine 305), other related candidate URLs 506 may be assigned a similar score. For example, it may be clear that candidate URLs 506 having the same domain name are also just as likely to be infected. Such determination may be partially based on geographical factors, e.g., if the domain is from Russia, China or any other country statistically known to have higher rates of infected domains.\n\nFIG. 6 is a block diagram of another example sponsored content processing system 600. The system 600 includes an ad malware detection system 602 that can detect the likelihood of malware associated with advertisements in the ads database 604. The ad malware detection system 602 can also facilitate an appeal process by which advertisers may request the re-evaluation of ads that have been flagged as being associated with malware. In some implementations, the ad malware detection system 602 can comprise software instructions that execute continuously, for example, to use information from the ads 604 to identify malware in ads' landing pages on an ongoing basis. For example, the identification process may involve monitoring system behaviors, such as monitoring the use of registry and system files after a user visits a URL. In another example, the identification process may involve a scheduled examination of each advertiser's landing page URLs, or may involve one or individual landing page URLs that are considered likely to contain malware. Such processes can monitor for particular ad landing page features that may indicate the likelihood that malware is present. In other implementations, one or more components of the ad malware detection system 602 may be used in a brute force process to crawl the ads database 604 to examine landing page URLs for possible associations with malware. The determination that ads have associated malware may be based on individual ads, groups of ads, keywords, one or more related URLs, groups of ads within an advertiser's account, or some combination thereof.\n\nIn an implementation, information from the ads database 604 can be provided to an adgroup criteria features data base 606 and a URL features database 608. For example, the information in the databases 606 and 608 can include pertinent information from the ads, such as the URLs, keywords from the ads, the names of the associated advertisers, the account information of the advertisers, and the like. Provisioning of this information can, for example, obviate the need to store images, video, audio or other such ad-related information. Having the ad information local to the adgroup criteria features data base 606 and the URL features data base 608 can also provide the advantage of organizing and/or indexing the data for more efficient use within the ad malware detection system 602. Such information stored in the databases 606 and 608 can be sufficient to determine malware feature-based associations with a particular ad without having to crawl the ad's landing page. In another implementation, the system 600 can crawl the landing pages of ads and use the information available from the landing pages instead of (or in addition to) using the databases 606 and 608.\n\nThe adgroup criteria features data base 606 can contain information for one or more adgroups for an advertiser, keywords associated with the ads, product categorization information, account information for the advertiser, and other ad-related information used by the ad malware detection system 602. The URL features database 608 can contain the URL (e.g., the landing page URL) of each individual ad, the name of the advertiser, and any other information or indexes that may allow associated data in the adgroup criteria features data base 606 to be accessed.\n\nThe ad malware detection system 602 includes a sampler 610 that can serve as a first filter in identifying ads that may contain malware. Specifically, the sampler 610 can identify ads for which malware detection is recommended. The identification process can use ad-related information stored in the adgroup criteria features data base 606 and the URL features database 608. For example, the sampler 610 may search an ad for any of a set of per-determined ad content features identified in the adgroup criteria features data base 606.\n\nThe sampler 610 may use the classification model 402 described in reference to FIG. 4. For example, the sampler 610 may compare features of ads it processes from the data bases 606 and 608 with weighted features represented in the classification model 402. Based on the cumulative or combined feature weights of one or more features in an ad's landing page, the sampler 610 may determine that the ad's landing page exceeds a feature threshold. As such, the URL of the ad can be considered a candidate URL for more thorough malware detection.\n\nIn some implementations, the URL features database 608 may include obfuscation information that an obfuscation detector in the sampler 610 may use to screen HTML pages for obfuscated scripts, such as scripts written in JavaScript, VBScript, and the like. Such scripts can often contain an apparently gibberish collection of characters that, when the ad is clicked by the user, will rewrite itself to another URL string, then again to yet another string, and so on until the exploit code is written or downloaded onto a computer device. This level or re-writing that can occur along the redirect chain can make it difficult to identify the malicious HTML code.\n\nIn some implementations, the URL features database 608 may include Geo-location information. Such information may be used, for example, to geographically categorize the URLs used for ads. Often malware may be provided from certain countries, and thus analyzing the location information of embedded links may help in identifying a potential malware site. For example, a US-.com domain have an iFrame to a site in a geographically remote location known for a high incidence of malware may provide a strong signal of potential malware.\n\nWhen the sampler 610 has identified candidate ads that are suspected to contain malware, the sampler 610 can send the candidate URLs and account information to a malware hub 612. The malware hub 612 can serve as a central interface for receiving ads to be more thoroughly checked for malware, and as will be described below, for receiving appeals for ads flagged as containing malware. For any ad that the malware hub 612 is requested by the sampler 610 to review, the malware hub 612 can update a status database 614 with the ad's URL and corresponding tracking information, such as the account information of the advertiser associated with the ad. In some implementations, the information stored in the status database 614 can include information that the sampler 614 considered the reason for the more advanced malware detection. In some implementations, the reasons may be used to group ad statuses in the status database 614 in order to group them for more efficient processing.\n\nIn some implementations, the sampler 610 can also evaluate the relative age of domains and URLs for (or links to) those domains. The age of a domain can be used to identify suspected malware sites, as malware is often distributed from new sites. For example, new distribution sites are constantly being created and may exist for only several weeks before the sites are taken down. To determine the age of domains, the sampler 610 may use public or private lists of recently-activated domain names that may be available, for example, from domain registry clearing houses.\n\nIn some implementations, the malware hub 612 may serve as a central interface for receiving ad malware detection requests from other advertising management systems 104. For example, while the ad malware detection system 602 may be a component of Google's AdSense system, competing advertising management systems 104 may pay a fee to have ads under their control screened for malware. As such, the ad malware detection system 602 may serve as a clearinghouse for malware detection for several advertising management systems 104.\n\nA malware detector 616 can process the ads represented by entries in the status database 614. For example, the malware detector 616 may process one or more ads, using the URL and the account ID for each ad. If additional information for an ad is needed (e.g., that is not stored in the status database 614), the malware detector 616 can pull additional information for the ad from the ads database 604. Such information may include, for example, account information, or portions of the ad itself that may not have been provided to the sampler 610 for the initial first-filter screening.\n\nThe malware detector 616 can then cause a more thorough screening to be performed. In addition, the malware detector 616 can submit the URL to an intrusion detection engine, e.g., intrusion detection engine 305, that performs a more detailed malware evaluation, such as closely examining the “destination” URL, “final” URL, URLs in the redirect chain, and the ad's landing page (e.g., identified by the final URL).\n\nThe malware detector 616 may receive an intrusion score for the destination URL from the intrusion detection engine 305. For each landing page with an intrusion score above a pre-defined threshold, the ad malware detection system 602 can take one or more predefined actions, such as automatically flagging ads as malware-related and suspending the account for an advertiser, or providing such information to a user who may manually suspend the accounts of malicious advertisers and/or block their ads. The intrusion score threshold that the malware detector 616 may apply may be set conservatively high so as not to produce significant false positives.\n\nIn some implementations, an intrusion detection engine can be implemented or integrated with the malware detector 305.\n\nActions that occur when ad malware is detected can follow a pre-defined policy. For example, the advertiser's account may be suspended manually, and the advertiser may be notified. The ad associated with malware can be flagged to avoid serving the ad to users. The malware detector 616 may provide information regarding flagged ads, suspended accounts and the like to the status database 614. In some implementations, a process may run on a regular basis to use such information in the status database 614 to update the ads database 604.\n\nA customer front end 618 can serve as a graphical user interface (GUI) for a user, e.g., a customer service representative, to review any results of ad malware detections performed by the malware detector 616. For example, the results may list instances of specific landing pages and the reasons they are determined to contain malware. The instances may be grouped or sorted in various ways, such as by advertiser account, URL, etc.\n\nAn appeal process can allow the advertiser having a flagged ad to have the ad re-checked by the ad malware detection system 602. For example, the advertiser may rid the ad's final URL, or all URLs in the redirect chain, of malware after being notified that the ad's landing page contains malware, and then contact a customer service representative as part of the appeal process. The customer service representative can utilize the customer front end 618 to send appeal requests to the malware hub 612. Each appeal request can represent one or more ads for which the advertiser requests the ad malware detection system 602 to re-evaluate for malware content. For example, if the ad malware detection system 602 has previously flagged the advertiser's ad as malware-related, and the advertiser has cleaned the landing page URL(s) associated with the ad, the request may be to re-evaluate that specific ad.\n\nThe malware hub 612 can receive the appeal request and update an appeals data base 620. Specifically, pending and completed appeal requests may be stored in the appeals data base 620. The information for each ad stored in the appeals data base 620 may include, for example, the advertiser name, the advertiser's account information, the URL(s) associated with the ad's landing pages and URLs in the redirect chain, and any other information that may be used to process the appeal.\n\nTo process as appeal, the malware detector 616 may use a process similar to the process described above to initially evaluate an ad's landing page for malware. In some implementations, the appeal process may also automatically include the re-evaluation of the landing pages of all ads for the advertiser, all ads in an ad group, or any other such grouping that may be used to search for other malware-related ads that the advertiser may have.\n\nWhen processing an appeal, the malware detector 616 may use information for each ad that is stored in the appeals database 620. The malware detector 616 may use a similar process as described above to evaluate an ad's landing page, generate an intrusion score, and apply a threshold to determine if the ad's landing page is likely to have been cleared of malware. The results of ad landing page re-evaluations can be stored in the appeals data base 620. In some implementations, a process may run on a regular basis to use such information in the appeals data base 620 to update the ads database 604.\n\nIn one example scenario of a malware appeal, a customer may receive a notification, such as an email, stating that the customer's account has been suspended for malware. The notification may include details of where malware was found (e.g., destination URL, account information, etc.). The notification may also provide advice on how to remove the malware, and may direct follow-ups, for example, with malware customer support representatives. The customer may then clean their landing page and/or other URLs associated with the malware, and use the customer front end 618 to initiate the appeal process. If the malware detector 616 determines that the ad's landing page is now free of malware, the customer may receive a notification that the appeal was successful and that the account is now reinstated. However, if the malware detector 616 determines that the ad's landing page still includes malware, the customer may receive a notification that the appeal was denied, including detailed information about the malware detected. In some implementations, the notification process for malware detections and appeal results may be accomplished in groups, for example, such as not to overwhelm the customer with a high number of email notifications.\n\nIn some implementations, ads associated with a sponsor account are precluded on a per-ad basis, e.g., only ads having an intrusion score that exceeds an intrusion threshold are precluded from being served. Upon an appeal, the candidate landing page is re-submitted to the intrusion detection engine, and another intrusion score for the candidate landing page is received from the intrusion detection engine. The ad remains suspended or is reinstated depending on the intrusion score received during the appeal.\n\nIn some implementations, ads associated with a sponsor account are precluded on a per-account basis if any one ad in the account is determined to have an intrusion score that exceeds the intrusion threshold. Upon an appeal, all ads in the sponsor account are identified and checked for malware. The account remains suspended if any one of the landing pages associated with the sponsor account is determined to have an intrusion score that exceeds the intrusion threshold.\n\nFIG. 7 is a flow diagram of an example process 700 for identifying a candidate landing page for intrusion detection. For example, the process 700 may be implemented using software instructions stored in a computer readable medium and executed by a processing system. The candidate landing pages identified by the process 700 may be identified by the scoring engine 502 (see FIG. 5) and used by the malware detector 508. Such candidate pages can be a significantly smaller number of pages than the total collection of landing pages that the process 700 uses to identify candidate landing pages.\n\nStage 702 identifies a landing page associated with sponsored content. For example, the landing page may be the landing page for an ad that a user may see in a web browser after clicking on an ad. In general, the context of “landing pages” can include any content or headers, including redirects that may be encountered or seen by the user of a web browser following an ad click.\n\nStage 704 identifies intrusion features of the landing page. For example, the process 700 may use the scoring engine 502 in FIG. 5 to identify landing page features, such as one or more iFrame features, one or more URL features, and/or one or more script features. In another example, the sampler 610 described in reference to FIG. 6 may identify features from the adgroup criteria features data base 606 and the URL features database 608.\n\nStage 706 generates a feature score for the landing page based on the identified intrusion features. For example, the scoring engine 502 (see FIG. 5) may generate a feature score for an ad's landing page from the ad data base 504 using weighted scores from the classification model 402. In another example, the sampler 610 may generate a feature score based on features from the ad's landing page used from the features data base 606 and the URL features database 608.\n\nStage 708 determines if the feature score for the landing page exceeds a feature threshold. For example, the scoring engine 502 may determine if the feature score generated for the ad's landing page exceeds a pre-defined feature threshold. In another example, the sampler 610 may determine if the feature score generated for the ad exceeds a pre-defined feature threshold. Feature thresholds may be a numeric, for example. In some implementations, different feature thresholds may exist for different tiers of advertisers, such as tiers based on malware risk. For example, advertisers who are known to have little or no malware-related ads may have a higher threshold; or advertisers may request to have a lower threshold established in order to identify potential infected ads more easily to guard against a poor customer experience; etc.\n\nStage 710 classifies the landing page as a candidate landing page if the feature score for the landing page exceeds the feature threshold. For example, if the scoring engine 502 determines that the feature score generated for the ad's landing page exceeds the pre-defined feature threshold, the scoring engine 502 can output the corresponding candidate URLs 506. In another example, if the sampler 610 determines that the feature score generated for the ad's landing page exceeds the pre-defined feature threshold, the sampler 610 can provide the candidate URL to the malware hub 612.\n\nFIG. 8 is a flow diagram of an example process 800 for submitting a candidate landing page to an intrusion detection engine. For example, the candidate landing page submitted by the process 800 may be identified by the process 700. The process 800 may be implemented using software instructions stored in a computer readable medium and executed by a processing system.\n\nStage 802 submits the candidate landing page to an intrusion detection engine. For example, referring to FIG. 5, the system 500 may provide candidate URLs 506 to the malware evaluator 508, which may provide them to the intrusion detection engine 305. In another example, candidate URLs represented in the status data base 614 can be provided to the malware detector 616 (see FIG. 6).\n\nStage 804 receives an intrusion score for the candidate landing page from the intrusion detection engine. For example, referring to FIG. 6, the status data base 614 may receive the intrusion score from the malware detector 616. The intrusion score can correspond to the ad's landing page that the malware detector 616 processed from the status data base 614.\n\nStage 806 precludes the serving of the advertisement associated with the candidate landing page if the intrusion score exceeds an intrusion threshold. For example, if the intrusion score of the ad's landing page processed by the malware detector 616 exceeds an intrusion threshold, the malware detector 616 may update the status data base 614 with information that the corresponding ad is to be flagged. Such information in the status data base 614 may be used later to update the ads data base 604. Ads that are flagged in the ads data base 604 may be precluded in various ways, such as by marking the served ads (e.g., in a user's browser) as containing potential malware or by preventing the ads from being served. Preclusion in stage 806 may also include suspending the advertiser's account, or in a tiered account system, raising the malware risk rating for the advertiser.\n\nFIG. 9 is a flow diagram of an example process 900 for handling an appeal request. For example, the appeal request may be made by an advertiser after one or more of the advertiser's ads have been precluded, such as through the process 800. The process 900 may be implemented using software instructions stored in a computer readable medium and executed by a processing system.\n\nStage 902 receives an appeal request for the sponsor account. For example, the appeal may originate from the customer front end 618 of FIG. 6. The appeal request can be received, for example, by the malware hub 612 which may store information regarding the appeal request in the appeals data base 620.\n\nStage 904 re-submits the candidate landing page to an intrusion detection engine. For example, the system 600 may use information corresponding to the appeal that is stored in the appeals data base 620 to re-submit the candidate landing page to the malware detector 616, which can include or communicate with an intrusion detection engine.\n\nStage 906 receives another intrusion score of the candidate landing page from the intrusion detection engine. For example, as a result of the re-submission of stage 904, a new intrusion score for the ad can be generated and received. In general, this intrusion score may be lower for the ad's landing page, for example, if the advertiser who appealed the ad has since rid the ad's landing page of malware or provided a new landing page for the ad, e.g., by engaging a new publisher.\n\nStage 908 determines if the intrusion score exceeds an intrusion threshold. If the intrusion score exceeds the intrusion threshold, stage 910 precludes the serving of the advertisement associated with the candidate landing page if another intrusion score exceeds the intrusion threshold. For example, if the new intrusion score of the ad's landing page processed by the malware detector 616 exceeds the intrusion threshold, the malware detector 616 may update the appeals data base 620 with information that the corresponding ad is still associated with malware.\n\nIf the intrusion score does not exceed the intrusion threshold, then stage 912 allows the serving of the advertisement associated with the candidate landing page if another intrusion score does not exceed the intrusion threshold. For example, if the new intrusion score of the ad's landing page processed by the malware detector 616 does not exceed the intrusion threshold, the malware detector 616 may update the appeals data base 620 with information that the corresponding ad is now clean and may be served without restriction.\n\nFIG. 10 is a flow diagram of another example process 1000 for handling an appeal request. For example, the appeal request may be made by an advertiser after one or more of the advertiser's ads have been precluded, such as through the process 800. The process 1000 may be implemented using software instructions stored in a computer readable medium and executed by a processing system.\n\nStage 1002 identifies a sponsor account associated with the advertisement, the sponsor account including additional advertisements. For example, referring to FIG. 6, the sponsor account may be associated with an ad that the malware detector 616 determines the ad's landing page to be infected with malware. The account may be identified, for example, in the adgroup criteria features data base 606 for the URL features database 608.\n\nStage 1004 precludes the serving of the additional advertisements associated with the sponsor account if the intrusion score of the candidate landing page exceeds the intrusion threshold. For example, using the sponsor's account information identified in stage 1002, the malware detector 616 can preclude the serving of the advertiser's additional ads. In particular, under the business policy represented by the process 1000, once one ad for an advertiser is determined to be associated with malware, that ad and all others for the advertiser can be flagged (and precluded).\n\nStage 1006 receives an appeal request for the sponsor account. For example, the appeal may originate from a user executing the customer front end 618 (see FIG. 6). The appeal request can be received, for example, by the malware hub 612 which may store information regarding the appeal request in the appeals data base 620.\n\nStage 1008 submits the candidate landing page and additional landing pages associated with the additional advertisements to the intrusion detection engine. For example, the system 600 may use information corresponding to the appeal that is stored in the appeals data base 620 to submit all of the advertiser's candidate landing pages to the malware detector 616, which can include an intrusion detection engine or provide the landing page information to an intrusion detection engine. As part of the process, the account information corresponding to the candidate landing page may be used to identify other ads in the ads data base 604 that correspond to the advertiser's account. Specifically, the candidate landing pages can include the original candidate landing page and additional landing pages associated with the additional advertisements for the advertiser.\n\nStage 1010 receives another intrusion score of the candidate landing page and additional intrusion scores for the additional landing pages from the intrusion detection engine. For example, as a result of the malware detector 616 evaluating all of the candidate landing pages for the advertiser, intrusion scores corresponding to the landing pages can be generated. In particular, the intrusion scores may be stored in (or received by) the appeals data base 620. In some implementations, the intrusion scores of the additional landing pages may be stored in the status data base 614.\n\nStage 1012 determines if the intrusion scores for the landing pages exceed the intrusion threshold. For example, the malware detector 616 can determine which, if any, of the landing pages' intrusion scores received in stage 1010 exceed the intrusion threshold.\n\nStage 1014 precludes the serving of advertisements associated with the sponsor account if an intrusion score for any of the landing pages exceeds the intrusion threshold. For example, if any of the intrusion scores are determined by the malware detector 616 to exceed the intrusion threshold, the malware detector 616 may update the appeals data base 620 with information that the sponsor's ads (as a whole) are still include malware and can be precluded from being served.\n\nFIG. 11 is a flow diagram of an example process 1100 for generating a classification model. For example, the process 1100 may be used to generate the classification model 402. The process 1100 may be implemented using software instructions stored in a computer readable medium and executed by a processing system.\n\nStage 1102 partitions landing pages associated with advertisements into training landing pages and testing landing pages. For example, referring to FIG. 4, the landing pages and URLs 404 may be divided into training landing pages that can be used as training examples to train the classification model 402, and landing pages that may be used to test the classification model 402.\n\nStage 1104 iteratively trains a classification model on intrusion features of the training landing pages. For example, using features extracted by the feature extraction engine 406 from the training landing pages obtained from the landing pages and URLs 404, the system 400 can iteratively train the classification model 402. The training may be performed by a combination of the control evaluation 408 and the machine learning engine 410.\n\nStage 1106 iteratively tests the classification model on the intrusion features of the testing landing pages until the occurrence of a testing cessation event. For example, using features extracted by the feature extraction engine 406 from the testing landing pages obtained from the landing pages and URLs 404, the system 400 can iteratively test the classification model 402. The testing may be performed by the machine learning engine 410. During testing, associations between feature weights and intrusion features can be adjusted, such as by using a linear regression model. Stages 1104 and 1106 can be repeated iteratively, for example, until the occurrence of a testing cessation event, such as the determination that the feature weights are good enough.\n\nStage 1108 stores an association of feature weights and intrusion features in the classification model, the association of feature weights and intrusion features derived from the iterative training and testing. For example, the associations between feature weights and intrusion features that are iteratively generated by stages 1104 and 1106 can be stored in the classification model 402.\n\nThe apparatus, methods, flow diagrams, and structure block diagrams described in this patent document may be implemented in computer processing systems including program code comprising program instructions that are executable by the computer processing system. Other implementations may also be used. Additionally, the flow diagrams and structure block diagrams described in this patent document, which describe particular methods and/or corresponding acts in support of steps and corresponding functions in support of disclosed structural means, may also be utilized to implement corresponding software structures and algorithms, and equivalents thereof.\n\nThis written description sets forth the best mode of the invention and provides examples to describe the invention and to enable a person of ordinary skill in the art to make and use the invention. This written description does not limit the invention to the precise terms set forth. Thus, while the invention has been described in detail with reference to the examples set forth above, those of ordinary skill in the art may effect alterations, modifications and variations to the examples without departing from the scope of the invention.",
+ "cited_by": [
+  {
+   "id": "US20120265598A1",
+   "title": "Systems and Methods for Facilitating the Sale of Goods and/or Services Via Incentives",
+   "assignee": "Douglas Krone"
+  },
+  {
+   "id": "US20140189864A1",
+   "title": "Identifying web pages in malware distribution networks",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9215245B1",
+   "title": "Exploration system and method for analyzing behavior of binary executable programs",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9349134B1",
+   "title": "Detecting illegitimate network traffic",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9398031B1",
+   "title": "Malicious advertisement detection and remediation",
+   "assignee": "Dasient, Inc."
+  },
+  {
+   "id": "US9563776B2",
+   "title": "Intrusive software management",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9721096B2",
+   "title": "Dynamically optimizing performance of a security appliance",
+   "assignee": "Juniper Networks, Inc."
+  },
+  {
+   "id": "US10540497B2",
+   "title": "Method and apparatus for monitoring security of terminal system",
+   "assignee": "Tencent Technology (Shenzhen) Company Limited"
+  },
+  {
+   "id": "US11716348B2",
+   "title": "Malicious script detection",
+   "assignee": "Bluvector, Inc."
+  },
+  {
+   "id": "US8881282B1",
+   "title": "Systems and methods for malware attack detection and identification",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US8793787B2",
+   "title": "Detecting malicious network content using virtual environment components",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US8549638B2",
+   "title": "System and method of containing computer worms",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US8584239B2",
+   "title": "Virtual machine with dynamic data flow analysis",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US7587537B1",
+   "title": "Serializer-deserializer circuits formed from input-output circuit registers",
+   "assignee": "Altera Corporation"
+  },
+  {
+   "id": "US8539582B1",
+   "title": "Malware containment and security analysis on connection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9106694B2",
+   "title": "Electronic message analysis for malware detection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US8171553B2",
+   "title": "Heuristic based capture with replay to virtual machine",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US8375444B2",
+   "title": "Dynamic signature creation and enforcement",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US8528086B1",
+   "title": "System and method of detecting computer worms",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US8898788B1",
+   "title": "Systems and methods for malware attack prevention",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US8566946B1",
+   "title": "Malware containment on connection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9027135B1",
+   "title": "Prospective client identification using malware attack detection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US8561177B1",
+   "title": "Systems and methods for detecting communication channels of bots",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US8204984B1",
+   "title": "Systems and methods for detecting encrypted bot command and control communication channels",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US8713188B2",
+   "title": "Per-request control of DNS behavior",
+   "assignee": "Opendns, Inc."
+  },
+  {
+   "id": "US8009566B2",
+   "title": "Packet classification in a network security device",
+   "assignee": "Palo Alto Networks, Inc."
+  },
+  {
+   "id": "TWI331868B",
+   "title": "Detecting method of network invasion",
+   "assignee": "Univ Nat Pingtung Sci & Tech"
+  },
+  {
+   "id": "US10318730B2",
+   "title": "Detection and prevention of malicious code execution using risk scoring",
+   "assignee": "Bank Of America Corporation"
+  },
+  {
+   "id": "WO2009097610A1",
+   "title": "A vmm-based intrusion detection system",
+   "assignee": "Northeastern University"
+  },
+  {
+   "id": "US20090299862A1",
+   "title": "Online ad serving",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8850571B2",
+   "title": "Systems and methods for detecting malicious network content",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US8997219B2",
+   "title": "Systems and methods for detecting malicious PDF network content",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US8695091B2",
+   "title": "Systems and methods for enforcing policies for proxy website detection using advertising account ID",
+   "assignee": "Sophos Limited"
+  },
+  {
+   "id": "US9734125B2",
+   "title": "Systems and methods for enforcing policies in the discovery of anonymizing proxy communications",
+   "assignee": "Sophos Limited"
+  },
+  {
+   "id": "US8676989B2",
+   "title": "Robust domain name resolution",
+   "assignee": "Opendns, Inc."
+  },
+  {
+   "id": "US8769689B2",
+   "title": "Digital DNA sequence",
+   "assignee": "Hb Gary, Inc."
+  },
+  {
+   "id": "US8683584B1",
+   "title": "Risk assessment",
+   "assignee": "Dasient, Inc."
+  },
+  {
+   "id": "US8370938B1",
+   "title": "Mitigating malware",
+   "assignee": "Dasient, Inc."
+  },
+  {
+   "id": "US8555391B1",
+   "title": "Adaptive scanning",
+   "assignee": "Dasient, Inc."
+  },
+  {
+   "id": "US8607338B2",
+   "title": "Malicious advertisement management",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20110060569A1",
+   "title": "Real-Time, Model-Based Autonomous Reasoner and Method of Using the Same",
+   "assignee": "Ridgetop Group, Inc."
+  },
+  {
+   "id": "US8832829B2",
+   "title": "Network-based binary file extraction and analysis for malware detection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US8640241B2",
+   "title": "Data identification system",
+   "assignee": "Quatum Corporation"
+  },
+  {
+   "id": "US20110191853A1",
+   "title": "Security techniques for use in malicious advertisement management",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9892422B1",
+   "title": "Sales security integration",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US9129300B2",
+   "title": "Using external sources for sponsored search AD selection",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8707339B2",
+   "title": "System and method for detecting hacked modems",
+   "assignee": "CSC Holdings, LLC"
+  },
+  {
+   "id": "US10198734B2",
+   "title": "Creative quality validation",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US8595240B1",
+   "title": "Labeling objects by propagating scores in a graph",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9317680B2",
+   "title": "Method and system for protecting against unknown malicious activities by determining a reputation of a link",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US8700540B1",
+   "title": "Social event recommendations",
+   "assignee": "Eventbrite, Inc."
+  },
+  {
+   "id": "CN102034043B",
+   "title": "Malicious software detection method based on file static structure attributes",
+   "assignee": "四川大学"
+  },
+  {
+   "id": "US8521667B2",
+   "title": "Detection and categorization of malicious URLs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9130988B2",
+   "title": "Scareware detection",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8844031B1",
+   "title": "Detecting spam events in event management systems",
+   "assignee": "Eventbrite, Inc."
+  },
+  {
+   "id": "CN103942495B",
+   "title": "Procedure identification method and device based on machine learning",
+   "assignee": "北京奇虎科技有限公司"
+  },
+  {
+   "id": "US9058490B1",
+   "title": "Systems and methods for providing a secure uniform resource locator (URL) shortening service",
+   "assignee": "Symantec Corporation"
+  },
+  {
+   "id": "RU2460122C1",
+   "title": "System and method of raising security level of computer system",
+   "assignee": "Закрытое акционерное общество \"Лаборатория Касперского\""
+  },
+  {
+   "id": "US9047441B2",
+   "title": "Malware analysis system",
+   "assignee": "Palo Alto Networks, Inc."
+  },
+  {
+   "id": "US8695096B1",
+   "title": "Automatic signature generation for malicious PDF files",
+   "assignee": "Palo Alto Networks, Inc."
+  },
+  {
+   "id": "US8997220B2",
+   "title": "Automatic detection of search results poisoning attacks",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8397984B1",
+   "title": "System for on-site management of an event",
+   "assignee": "Eventbrite, Inc."
+  },
+  {
+   "id": "US8756178B1",
+   "title": "Automatic event categorization for event ticket network systems",
+   "assignee": "Eventbrite, Inc."
+  },
+  {
+   "id": "CN102801697B",
+   "title": "Malicious code detection method and system based on plurality of URLs (Uniform Resource Locator)",
+   "assignee": "北京安天电子设备有限公司"
+  },
+  {
+   "id": "US20130160120A1",
+   "title": "Protecting end users from malware using advertising virtual machine",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9519782B2",
+   "title": "Detecting malicious network content",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "CN103634366A",
+   "title": "Method and device for identifying network robot",
+   "assignee": "北京千橡网景科技发展有限公司"
+  },
+  {
+   "id": "US20150244737A1",
+   "title": "Detecting malicious advertisements using source code analysis",
+   "assignee": "Checkmarx Ltd."
+  },
+  {
+   "id": "US9292688B2",
+   "title": "System and method for automated machine-learning, zero-day malware detection",
+   "assignee": "Northrop Grumman Systems Corporation"
+  },
+  {
+   "id": "US11126720B2",
+   "title": "System and method for automated machine-learning, zero-day malware detection",
+   "assignee": "Bluvector, Inc."
+  },
+  {
+   "id": "KR101401949B1",
+   "title": "A System and a Method for Periodically checking spread and pass sites of Malicious Code",
+   "assignee": "한국인터넷진흥원"
+  },
+  {
+   "id": "KR101410838B1",
+   "title": "The grinder for solidity detergent",
+   "assignee": "최미선"
+  },
+  {
+   "id": "US8788487B2",
+   "title": "Querying features based on user actions in online systems",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US10572665B2",
+   "title": "System and method to create a number of breakpoints in a virtual machine via virtual machine trapping events",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9191402B2",
+   "title": "Domain classification based on client request behavior",
+   "assignee": "Opendns, Inc."
+  },
+  {
+   "id": "US9165142B1",
+   "title": "Malware family identification using profile signatures",
+   "assignee": "Palo Alto Networks, Inc."
+  },
+  {
+   "id": "US9009823B1",
+   "title": "Framework for efficient security coverage of mobile software applications installed on mobile devices",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US8990944B1",
+   "title": "Systems and methods for automatically detecting backdoors",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9176843B1",
+   "title": "Framework for efficient security coverage of mobile software applications",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9367681B1",
+   "title": "Framework for efficient security coverage of mobile software applications using symbolic execution to reach regions of interest within an application",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9195829B1",
+   "title": "User interface with real-time visual playback along with synchronous textual analysis log display and event/time index for anomalous behavior detection in applications",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9159035B1",
+   "title": "Framework for computer application analysis of sensitive information tracking",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9009822B1",
+   "title": "Framework for multi-phase analysis of mobile applications",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9824209B1",
+   "title": "Framework for efficient security coverage of mobile software applications that is usable to harden in the field code",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US8887291B1",
+   "title": "Systems and methods for data loss prevention for text fields",
+   "assignee": "Symantec Corporation"
+  },
+  {
+   "id": "US9565202B1",
+   "title": "System and method for detecting exfiltration content",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9104867B1",
+   "title": "Malicious content analysis using simulated user interaction without user involvement",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9626509B1",
+   "title": "Malicious content analysis with multi-version application support within single operating environment",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9355247B1",
+   "title": "File extraction from memory dump for malicious content analysis",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9430646B1",
+   "title": "Distributed systems and methods for automatically detecting unknown bots and botnets",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9311479B1",
+   "title": "Correlation and consolidation of analytic data for holistic view of a malware attack",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10713358B2",
+   "title": "System and method to extract and utilize disassembly features to classify software intent",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9251343B1",
+   "title": "Detecting bootkits resident on compromised computers",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "WO2014145805A1",
+   "title": "System and method employing structured intelligence to verify and contain threats at endpoints",
+   "assignee": "Mandiant, Llc"
+  },
+  {
+   "id": "US9178901B2",
+   "title": "Malicious uniform resource locator detection",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "CN103226583B",
+   "title": "A kind of method and apparatus of ad plug-in identification",
+   "assignee": "北京奇虎科技有限公司"
+  },
+  {
+   "id": "US9495180B2",
+   "title": "Optimized resource allocation for virtual machines within a malware content detection system",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9635039B1",
+   "title": "Classifying sets of malicious indicators for detecting command and control communications associated with malware",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9536091B2",
+   "title": "System and method for detecting time-bomb malware",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US8943594B1",
+   "title": "Cyber attack disruption through multiple detonations of received payloads",
+   "assignee": "Haystack Security LLC"
+  },
+  {
+   "id": "US10133863B2",
+   "title": "Zero-day discovery system",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9300686B2",
+   "title": "System and method for detecting malicious links in electronic messages",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9888016B1",
+   "title": "System and method for detecting phishing using password prediction",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9450840B2",
+   "title": "Domain classification using domain co-occurrence information",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "SG2013056148A",
+   "title": "A method and system for monitoring website defacements",
+   "assignee": "Banff Cyber Technologies Pte Ltd"
+  },
+  {
+   "id": "US20150052614A1",
+   "title": "Virtual machine trust isolation in a cloud environment",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9438615B2",
+   "title": "Security risk management",
+   "assignee": "BitSight Technologies, Inc."
+  },
+  {
+   "id": "US9736179B2",
+   "title": "System, apparatus and method for using malware analysis results to drive adaptive instrumentation of virtual machines to improve exploit detection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10192052B1",
+   "title": "System, apparatus and method for classifying a file as malicious using static scanning",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10089461B1",
+   "title": "Page replacement code injection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10515214B1",
+   "title": "System and method for classifying malware within content created during analysis of a specimen",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9628507B2",
+   "title": "Advanced persistent threat (APT) detection center",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9294501B2",
+   "title": "Fuzzy hash of behavioral results",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9171160B2",
+   "title": "Dynamically adaptive framework and method for classifying malware using intelligent static, emulation, and dynamic analyses",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9690936B1",
+   "title": "Multistage system and method for analyzing obfuscated content for malware",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9921978B1",
+   "title": "System and method for enhanced security of storage devices",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10223530B2",
+   "title": "System and method of protecting client computers",
+   "assignee": "Proofpoint, Inc."
+  },
+  {
+   "id": "US9189627B1",
+   "title": "System, apparatus and method for conducting on-the-fly decryption of encrypted objects for malware detection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9348742B1",
+   "title": "Detecting code alteration based on memory allocation",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US9747446B1",
+   "title": "System and method for run-time object classification",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9756074B2",
+   "title": "System and method for IPS and VM-based detection of suspicious objects",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9292686B2",
+   "title": "Micro-virtualization architecture for threat-aware microvisor deployment in a node of a network environment",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9262635B2",
+   "title": "Detection efficacy of virtual machine-based analysis with application specific events",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9241010B1",
+   "title": "System and method for network behavior detection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10242185B1",
+   "title": "Dynamic guest image creation and rollback",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9591015B1",
+   "title": "System and method for offloading packet processing and static analysis operations",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9223972B1",
+   "title": "Dynamically remote tuning of a malware content detection system",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9432389B1",
+   "title": "System, apparatus and method for detecting a malicious attack based on static analysis of a multi-flow object",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9973531B1",
+   "title": "Shellcode detection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9438623B1",
+   "title": "Computer exploit detection using heap spray pattern matching",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9594912B1",
+   "title": "Return-oriented programming detection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10084813B2",
+   "title": "Intrusion prevention and remedy system",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9398028B1",
+   "title": "System, device and method for detecting a malicious attack based on communcations between remotely hosted virtual machines and malicious web servers",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10805340B1",
+   "title": "Infection vector and malware tracking with an interactive user display",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10002252B2",
+   "title": "Verification of trusted threat-aware microvisor",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US11122058B2",
+   "title": "System and method for the automated detection and prediction of online threats",
+   "assignee": "Seclytics, Inc."
+  },
+  {
+   "id": "CN104134039B",
+   "title": "Checking and killing virus method, client, server and checking and killing virus system",
+   "assignee": "北京奇虎科技有限公司"
+  },
+  {
+   "id": "US9363280B1",
+   "title": "System and method of detecting delivery of malware using cross-customer data",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10671726B1",
+   "title": "System and method for malware analysis using thread-level event monitoring",
+   "assignee": "Fireeye Inc."
+  },
+  {
+   "id": "US10027689B1",
+   "title": "Interactive infection visualization for improved exploit detection and signature generation for malware and malware families",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9773112B1",
+   "title": "Exploit detection of malware and malware families",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9754106B2",
+   "title": "Systems and methods for classifying security events as targeted attacks",
+   "assignee": "Symantec Corporation"
+  },
+  {
+   "id": "US11416606B2",
+   "title": "Agent presence for self-healing",
+   "assignee": "Musarubra Us Llc"
+  },
+  {
+   "id": "JP6916112B2",
+   "title": "Network data characterization system and method",
+   "assignee": "ブルヴェクター, インコーポレーテッドBluvector, Inc."
+  },
+  {
+   "id": "US9692773B1",
+   "title": "Systems and methods for identifying detection-evasion behaviors of files undergoing malware analyses",
+   "assignee": "Symantec Corporation"
+  },
+  {
+   "id": "US10360371B1",
+   "title": "Systems and methods for protecting automated execution environments against enumeration attacks",
+   "assignee": "Symantec Corporation"
+  },
+  {
+   "id": "US9479531B1",
+   "title": "Systems and methods for accelerating malware analyses in automated execution environments",
+   "assignee": "Symantec Corporation"
+  },
+  {
+   "id": "US10135856B2",
+   "title": "Auto-tuning program analysis tools using machine learning",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10097574B2",
+   "title": "Auto-tuning program analysis tools based on user feedback",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9690933B1",
+   "title": "Framework for classifying an object as malicious with machine learning for deploying updated predictive models",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10075455B2",
+   "title": "Zero-day rotating guest image profile",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9934376B1",
+   "title": "Malware detection appliance architecture",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9838417B1",
+   "title": "Intelligent context aware user interaction for malware detection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9690606B1",
+   "title": "Selective system call monitoring",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10148693B2",
+   "title": "Exploit detection system",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9438613B1",
+   "title": "Dynamic content activation for automated analysis of embedded objects",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10474813B1",
+   "title": "Code injection technique for remediation at an endpoint of a network",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9483644B1",
+   "title": "Methods for detecting file altering malware in VM based analysis",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10417031B2",
+   "title": "Selective virtualization for security threat detection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9654485B1",
+   "title": "Analytics-based security monitoring system and method",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9594904B1",
+   "title": "Detecting malware based on reflection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9979748B2",
+   "title": "Domain classification and routing using lexical and semantic processing",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US10454950B1",
+   "title": "Centralized aggregation technique for detecting lateral movement of stealthy cyber-attacks",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10726127B1",
+   "title": "System and method for protecting a software component running in a virtual machine through virtual interrupts by the virtualization layer",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "CN106295337B",
+   "title": "Method, device and terminal for detecting malicious vulnerability files",
+   "assignee": "安一恒通（北京）科技有限公司"
+  },
+  {
+   "id": "US11113086B1",
+   "title": "Virtual system and method for securing external network connectivity",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "RU2618947C2",
+   "title": "Method of preventing program operation comprising functional undesirable for user",
+   "assignee": "Закрытое акционерное общество \"Лаборатория Касперского\""
+  },
+  {
+   "id": "US10642753B1",
+   "title": "System and method for protecting a software component running in virtual machine using a virtualization layer",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "CN106341377A",
+   "title": "Method and device for preventing Web server from being attacked",
+   "assignee": "威海捷讯通信技术有限公司"
+  },
+  {
+   "id": "US11379776B2",
+   "title": "System and method for validating data",
+   "assignee": "Innovian Corporation"
+  },
+  {
+   "id": "US10977597B2",
+   "title": "System and method for validating data",
+   "assignee": "Innovian Corporation"
+  },
+  {
+   "id": "US10715542B1",
+   "title": "Mobile application risk analysis",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US11012536B2",
+   "title": "Event management system for facilitating user interactions at a venue",
+   "assignee": "Eventbrite, Inc."
+  },
+  {
+   "id": "US10176321B2",
+   "title": "Leveraging behavior-based rules for malware family classification",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "CN105335869A",
+   "title": "Early warning method and system for advertisement monitoring",
+   "assignee": "精硕世纪科技（北京）有限公司"
+  },
+  {
+   "id": "US10033747B1",
+   "title": "System and method for detecting interpreter-based exploit attacks",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9825989B1",
+   "title": "Cyber attack early warning system",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10706149B1",
+   "title": "Detecting delayed activation malware using a primary controller and plural time controllers",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10817606B1",
+   "title": "Detecting delayed activation malware using a run-time monitoring agent and time-dilation logic",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10210329B1",
+   "title": "Method to detect application execution hijacking using memory protection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US9825976B1",
+   "title": "Detection and classification of exploit kits",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10601865B1",
+   "title": "Detection of credential spearphishing attacks using email analysis",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10284575B2",
+   "title": "Launcher for setting analysis environment variations for malware detection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10846117B1",
+   "title": "Technique for establishing secure communication between host and guest processes of a virtualization architecture",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10447728B1",
+   "title": "Technique for protecting guest processes using a layered virtualization architecture",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10108446B1",
+   "title": "Late load technique for deploying a virtualization layer underneath a running operating system",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10892968B2",
+   "title": "Systems and methods for latency reduction in content item interactions using client-generated click identifiers",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10050998B1",
+   "title": "Malicious message analysis system",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10621338B1",
+   "title": "Method to detect forgery and exploits using last branch recording registers",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10565378B1",
+   "title": "Exploit of privilege detection framework",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10133866B1",
+   "title": "System and method for triggering analysis of an object for malware in response to modification of that object",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10581874B1",
+   "title": "Malware detection system with contextual analysis",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US11552986B1",
+   "title": "Cyber-security framework for application of virtual features",
+   "assignee": "Fireeye Security Holdings Us Llc"
+  },
+  {
+   "id": "US9824216B1",
+   "title": "Susceptible environment detection system",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10601863B1",
+   "title": "System and method for managing sensor enrollment",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10785255B1",
+   "title": "Cluster configuration within a scalable malware detection system",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10616266B1",
+   "title": "Distributed malware detection system and submission workflow thereof",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10671721B1",
+   "title": "Timeout management services",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10826933B1",
+   "title": "Technique for verifying exploit/malware at malware detection appliance through correlation with endpoints",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10893059B1",
+   "title": "Verification and enhancement using detection systems located at the network periphery and endpoint devices",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10277650B1",
+   "title": "Parallel execution of request tracking and resource delivery",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10860715B2",
+   "title": "Method and apparatus for proactively identifying and mitigating malware attacks via hosted web assets",
+   "assignee": "Barracuda Networks, Inc."
+  },
+  {
+   "id": "US10169585B1",
+   "title": "System and methods for advanced malware detection through placement of transition events",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10462173B1",
+   "title": "Malware detection verification and enhancement by coordinating endpoint and malware detection systems",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10592678B1",
+   "title": "Secure communications between peers using a verified virtual trusted platform module",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US11050768B1",
+   "title": "Detecting compute resource anomalies in a group of computing resources",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US10181039B1",
+   "title": "Systems and methods for providing computing security by classifying organizations",
+   "assignee": "Symantec Corporation"
+  },
+  {
+   "id": "US10491627B1",
+   "title": "Advanced malware detection using similarity analysis",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10795991B1",
+   "title": "Enterprise search",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "CN106657016A",
+   "title": "Illegal user name recognition method and system",
+   "assignee": "北京奇艺世纪科技有限公司"
+  },
+  {
+   "id": "US10587647B1",
+   "title": "Technique for malware detection capability comparison of network security devices",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "CN106572122A",
+   "title": "Host security evaluation method and system based on network behavior feature correlation analysis",
+   "assignee": "哈尔滨安天科技股份有限公司"
+  },
+  {
+   "id": "US10552610B1",
+   "title": "Adaptive virtual machine snapshot update framework for malware behavioral analysis",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10581879B1",
+   "title": "Enhanced malware detection for generated objects",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10523609B1",
+   "title": "Multi-vector malware detection and analysis",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "CN106713335B",
+   "title": "Malicious software identification method and device",
+   "assignee": "山石网科通信技术股份有限公司"
+  },
+  {
+   "id": "US11303657B2",
+   "title": "Applying condensed machine learned models within a local network",
+   "assignee": "Cujo LLC"
+  },
+  {
+   "id": "TWI625642B",
+   "title": "Software risk evaluation system and method thereof",
+   "assignee": "廣達電腦股份有限公司"
+  },
+  {
+   "id": "US20200118158A1",
+   "title": "Advertising monitoring method, apparatus, and system",
+   "assignee": "Huawei Technologies Co., Ltd."
+  },
+  {
+   "id": "US10904286B1",
+   "title": "Detection of phishing attacks using similarity analysis",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10791138B1",
+   "title": "Subscription-based malware detection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10554507B1",
+   "title": "Multi-level control for enhanced resource and object evaluation management of malware detection system",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10902119B1",
+   "title": "Data extraction system for malware analysis",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10798112B2",
+   "title": "Attribute-controlled malware detection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "EP3401827A1",
+   "title": "Method and system of static and dynamic data flow analysis",
+   "assignee": "Checkmarx Ltd."
+  },
+  {
+   "id": "US10601848B1",
+   "title": "Cyber-security system and method for weak indicator detection and correlation to generate strong indicators",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10855700B1",
+   "title": "Post-intrusion detection of cyber-attacks during lateral movement within networks",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10503904B1",
+   "title": "Ransomware detection and mitigation",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10893068B1",
+   "title": "Ransomware file modification prevention technique",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "EP3662627B1",
+   "title": "Detecting changes to web page characteristics using machine learning",
+   "assignee": "British Telecommunications public limited company"
+  },
+  {
+   "id": "US10747872B1",
+   "title": "System and method for preventing malware evasion",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10805346B2",
+   "title": "Phishing attack detection",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "CN107995156A",
+   "title": "Pagejack processing method and processing device, storage medium, electronic equipment",
+   "assignee": "东软集团股份有限公司"
+  },
+  {
+   "id": "US11108809B2",
+   "title": "System and method for analyzing binary code for malware classification using artificial neural network techniques",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10616274B1",
+   "title": "Detecting cloaking of websites using model for analyzing URL redirects",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "EP3721342B1",
+   "title": "Software container application security",
+   "assignee": "British Telecommunications public limited company"
+  },
+  {
+   "id": "CN108171057B",
+   "title": "Malware detection method on Android platform based on feature matching",
+   "assignee": "西安电子科技大学"
+  },
+  {
+   "id": "US10853431B1",
+   "title": "Managing distribution of content items including URLs to external websites",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US11005860B1",
+   "title": "Method and system for efficient cybersecurity analysis of endpoint events",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US11240275B1",
+   "title": "Platform and method for performing cybersecurity analyses employing an intelligence hub with a modular architecture",
+   "assignee": "Fireeye Security Holdings Us Llc"
+  },
+  {
+   "id": "US11271955B2",
+   "title": "Platform and method for retroactive reclassification employing a cybersecurity-based global data store",
+   "assignee": "Fireeye Security Holdings Us Llc"
+  },
+  {
+   "id": "CN108183908B",
+   "title": "Advertisement link discovery method, system and storage medium based on network traffic",
+   "assignee": "哈尔滨安天科技集团股份有限公司"
+  },
+  {
+   "id": "US10764309B2",
+   "title": "Context profiling for malware detection",
+   "assignee": "Palo Alto Networks, Inc."
+  },
+  {
+   "id": "US11159538B2",
+   "title": "Context for malware forensics and detection",
+   "assignee": "Palo Alto Networks, Inc."
+  },
+  {
+   "id": "US10616255B1",
+   "title": "Detecting cloaking of websites using content model executing on a mobile device",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "CN108366071B",
+   "title": "URL (Uniform resource locator) abnormity positioning method and device, server and storage medium",
+   "assignee": "阿里巴巴集团控股有限公司"
+  },
+  {
+   "id": "US10257219B1",
+   "title": "Correlated risk in cybersecurity",
+   "assignee": "BitSight Technologies, Inc."
+  },
+  {
+   "id": "US10826931B1",
+   "title": "System and method for predicting and mitigating cybersecurity system misconfigurations",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US10956477B1",
+   "title": "System and method for detecting malicious scripts through natural language processing modeling",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US11003773B1",
+   "title": "System and method for automatically generating malware detection rule recommendations",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US11558401B1",
+   "title": "Multi-vector malware detection data sharing system for improved detection",
+   "assignee": "Fireeye Security Holdings Us Llc"
+  },
+  {
+   "id": "US10728268B1",
+   "title": "Methods and apparatus for intrusion prevention using global and local feature extraction contexts",
+   "assignee": "Trend Micro Incorporated"
+  },
+  {
+   "id": "US11128646B1",
+   "title": "Apparatus and method for cloud-based accelerated filtering and distributed available compute security processing",
+   "assignee": "Trend Micro Incorporated"
+  },
+  {
+   "id": "CN108650240B",
+   "title": "Account complaint auditing method and device and electronic equipment",
+   "assignee": "广州四三九九信息科技有限公司"
+  },
+  {
+   "id": "US11075930B1",
+   "title": "System and method for detecting repetitive cybersecurity attacks constituting an email campaign",
+   "assignee": "Fireeye, Inc."
+  },
+  {
+   "id": "US11314859B1",
+   "title": "Cyber-security system and method for detecting escalation of privileges within an access token",
+   "assignee": "FireEye Security Holdings, Inc."
+  },
+  {
+   "id": "US11228491B1",
+   "title": "System and method for distributed cluster configuration monitoring and management",
+   "assignee": "Fireeye Security Holdings Us Llc"
+  },
+  {
+   "id": "US11316900B1",
+   "title": "System and method for automatically prioritizing rules for cyber-threat detection and mitigation",
+   "assignee": "FireEye Security Holdings Inc."
+  },
+  {
+   "id": "US10223616B1",
+   "title": "System and method identification and classification of internet advertising",
+   "assignee": "Figleaf Limited"
+  },
+  {
+   "id": "US11182473B1",
+   "title": "System and method for mitigating cyberattacks against processor operability by a guest process",
+   "assignee": "Fireeye Security Holdings Us Llc"
+  },
+  {
+   "id": "US11763004B1",
+   "title": "System and method for bootkit detection",
+   "assignee": "Fireeye Security Holdings Us Llc"
+  },
+  {
+   "id": "US11347850B2",
+   "title": "Analyzing binary software code",
+   "assignee": "Blackberry Limited"
+  },
+  {
+   "id": "US11106791B2",
+   "title": "Determining security risks in binary software code based on network addresses",
+   "assignee": "Blackberry Limited"
+  },
+  {
+   "id": "US10984102B2",
+   "title": "Determining security risks in binary software code",
+   "assignee": "Blackberry Limited"
+  },
+  {
+   "id": "US10521583B1",
+   "title": "Systems and methods for remote detection of software through browser webinjects",
+   "assignee": "BitSight Technologies, Inc."
+  },
+  {
+   "id": "CN109753790A",
+   "title": "A kind of landing page monitoring method and system",
+   "assignee": "武汉极意网络科技有限公司"
+  },
+  {
+   "id": "US11368475B1",
+   "title": "System and method for scanning remote services to locate stored objects with malware",
+   "assignee": "Fireeye Security Holdings Us Llc"
+  },
+  {
+   "id": "US12074887B1",
+   "title": "System and method for selectively processing content after identification and removal of malicious content",
+   "assignee": "Musarubra Us Llc"
+  },
+  {
+   "id": "CN110109804B",
+   "title": "Method and device for monitoring abnormity of landing page of display information, readable medium and server",
+   "assignee": "北京字节跳动网络技术有限公司"
+  },
+  {
+   "id": "US20200387836A1",
+   "title": "Machine learning model surety",
+   "assignee": "Accenture Global Solutions Limited"
+  },
+  {
+   "id": "US11258806B1",
+   "title": "System and method for automatically associating cybersecurity intelligence to cyberthreat actors",
+   "assignee": "Mandiant, Inc."
+  },
+  {
+   "id": "US11556640B1",
+   "title": "Systems and methods for automated cybersecurity analysis of extracted binary string sets",
+   "assignee": "Mandiant, Inc."
+  },
+  {
+   "id": "US11392700B1",
+   "title": "System and method for supporting cross-platform data verification",
+   "assignee": "Fireeye Security Holdings Us Llc"
+  },
+  {
+   "id": "US10726136B1",
+   "title": "Systems and methods for generating security improvement plans for entities",
+   "assignee": "BitSight Technologies, Inc."
+  },
+  {
+   "id": "US11886585B1",
+   "title": "System and method for identifying and mitigating cyberattacks through malicious position-independent code execution",
+   "assignee": "Musarubra Us Llc"
+  },
+  {
+   "id": "US11032244B2",
+   "title": "Systems and methods for determining asset importance in security risk management",
+   "assignee": "BitSight Technologies, Inc."
+  },
+  {
+   "id": "US11637862B1",
+   "title": "System and method for surfacing cyber-security threats with a self-learning recommendation engine",
+   "assignee": "Mandiant, Inc."
+  },
+  {
+   "id": "US10614213B1",
+   "title": "Detecting malicious code existing in internet advertisements by ongoing sandbox monitoring",
+   "assignee": "Clean.io, Inc."
+  },
+  {
+   "id": "US10893067B1",
+   "title": "Systems and methods for rapidly generating security ratings",
+   "assignee": "BitSight Technologies, Inc."
+  },
+  {
+   "id": "WO2021168087A1",
+   "title": "Refactoring of static machine-readable codes",
+   "assignee": "The DTX Company"
+  },
+  {
+   "id": "US11347823B2",
+   "title": "Refactoring of static machine-readable codes",
+   "assignee": "The DTX Company"
+  },
+  {
+   "id": "EP3945441B1",
+   "title": "Detecting exploitable paths in application software that uses third-party libraries",
+   "assignee": "Checkmarx Ltd."
+  },
+  {
+   "id": "US11205105B1",
+   "title": "Machine-readable label generator",
+   "assignee": "The DTX Company"
+  },
+  {
+   "id": "US11799904B2",
+   "title": "Malware detection using inverse imbalance subspace searching",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US11593579B2",
+   "title": "Multiplexed quick response (“QR”) code experience derivation",
+   "assignee": "The DTX Company"
+  },
+  {
+   "id": "USD962966S1",
+   "title": "Display screen or portion thereof with a graphical user interface for a machine-readable label",
+   "assignee": "The DTX Company"
+  },
+  {
+   "id": "US11956212B2",
+   "title": "IoT device application workload capture",
+   "assignee": "Palo Alto Networks, Inc."
+  },
+  {
+   "id": "US11695701B2",
+   "title": "Dynamic communication system registry traffic control on a communication network",
+   "assignee": "Zipwhip, Llc"
+  },
+  {
+   "id": "US12353563B2",
+   "title": "Systems and methods for accelerating cybersecurity assessments",
+   "assignee": "BitSight Technologies, Inc."
+  },
+  {
+   "id": "US11599757B1",
+   "title": "Collectible machine-readable codes",
+   "assignee": "The DTX Company"
+  },
+  {
+   "id": "US12425437B2",
+   "title": "Systems and methods for precomputation of digital asset inventories",
+   "assignee": "BitSight Technologies, Inc."
+  },
+  {
+   "id": "US12212583B2",
+   "title": "IoT security event correlation",
+   "assignee": "Palo Alto Networks, Inc."
+  },
+  {
+   "id": "US11334779B1",
+   "title": "Dynamic embedding of machine-readable codes within video and digital media",
+   "assignee": "The DTX Company"
+  },
+  {
+   "id": "US12282564B2",
+   "title": "Systems and methods for assessment of cyber resilience",
+   "assignee": "BitSight Technologies, Inc."
+  },
+  {
+   "id": "US11741331B1",
+   "title": "Electronic tag with two scanning modalities",
+   "assignee": "The DTX Company"
+  },
+  {
+   "id": "US11734533B1",
+   "title": "Secure scanning of machine-readable codes",
+   "assignee": "The DTX Company"
+  },
+  {
+   "id": "US20240022579A1",
+   "title": "System to terminate malicious process in a data center",
+   "assignee": "Vmware, Inc."
+  },
+  {
+   "id": "US12166787B2",
+   "title": "System configured to detect and block the distribution of malicious content that is attributable to an entity",
+   "assignee": "Starguard, Inc."
+  },
+  {
+   "id": "US11709907B1",
+   "title": "Offline to online conversion linkage",
+   "assignee": "The DTX Company"
+  },
+  {
+   "id": "US12020114B1",
+   "title": "Real-time comprehensive quick response (“QR”) code testing for reliable scanning",
+   "assignee": "The DTX Company"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US6654725B1",
+   "title": "System and method for providing customized advertising on the World Wide Web",
+   "assignee": "Nec Corporation"
+  },
+  {
+   "id": "US20040143756A1",
+   "title": "Method of and system for detecting an anomalous operation of a computer system",
+   "assignee": "Munson John C."
+  },
+  {
+   "id": "US20050108227A1",
+   "title": "Method for scanning, analyzing and handling various kinds of digital information content",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060015404A1",
+   "title": "Service provider system and method for marketing programs",
+   "assignee": "Infinian Corporation"
+  },
+  {
+   "id": "US20060085854A1",
+   "title": "Method and system for detecting intrusive anomalous use of a software system using multiple detection algorithms",
+   "assignee": "Agrawal Subhash C"
+  },
+  {
+   "id": "US7111246B2",
+   "title": "User interface accorded to tiered object-related trust decisions",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7222127B1",
+   "title": "Large scale machine learning systems and methods",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070118903A1",
+   "title": "Web server apparatus and method for virus checking",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US6622134B1",
+   "title": "Method of constructing data classifiers and classifiers constructed according to the method",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "GB2365158A",
+   "title": "File analysis using byte distributions",
+   "assignee": "Content Technologies Ltd"
+  },
+  {
+   "id": "US7673342B2",
+   "title": "Detecting e-mail propagated malware",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US20030097591A1",
+   "title": "System and method for protecting computer users from web sites hosting computer viruses",
+   "assignee": "Khai Pham"
+  },
+  {
+   "id": "US20030188194A1",
+   "title": "Method and apparatus for real-time security verification of on-line services",
+   "assignee": "David Currie"
+  },
+  {
+   "id": "US7832011B2",
+   "title": "Method and apparatus for detecting malicious code in an information handling system",
+   "assignee": "Symantec Corporation"
+  },
+  {
+   "id": "US8688529B2",
+   "title": "System and method for associating requests with potential respondents to said requests",
+   "assignee": "Thomas M. Jacobs"
+  },
+  {
+   "id": "US7502156B2",
+   "title": "Variable reflectance mirrors and windows",
+   "assignee": "Gentex Corporation"
+  },
+  {
+   "id": "WO2006020095A2",
+   "title": "Security systems and services to provide identity and uniform resource identifier verification",
+   "assignee": "Geotrust, Inc."
+  },
+  {
+   "id": "US20060080735A1",
+   "title": "Methods and systems for phishing detection and notification",
+   "assignee": "Usa Revco, Llc"
+  },
+  {
+   "id": "US7287279B2",
+   "title": "System and method for locating malware",
+   "assignee": "Webroot Software, Inc."
+  },
+  {
+   "id": "US8806537B2",
+   "title": "Methods, systems, and computer program products for implementing interactive control of radio and other media",
+   "assignee": "At&T Intellectual Property I, L.P."
+  },
+  {
+   "id": "US20060130144A1",
+   "title": "Protecting computing systems from unauthorized programs",
+   "assignee": "Delta Insights, Llc"
+  },
+  {
+   "id": "US20060136374A1",
+   "title": "System and method for utilizing a search engine to prevent contamination",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8423413B2",
+   "title": "Advertisement approval",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060167948A1",
+   "title": "Detection of computer system malware",
+   "assignee": "Gian-Nicolas Pietravalle"
+  },
+  {
+   "id": "JP2006221242A",
+   "title": "Authentication information fraud prevention system, program and method",
+   "assignee": "Fujitsu Ltd"
+  },
+  {
+   "id": "EP1705547A1",
+   "title": "Spam prevention by legal user database and user authentication",
+   "assignee": "Alcatel"
+  },
+  {
+   "id": "US20060253584A1",
+   "title": "Reputation of an entity associated with a content item",
+   "assignee": "Dixon Christopher J"
+  },
+  {
+   "id": "US8561190B2",
+   "title": "System and method of opportunistically protecting a computer from malware",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8719396B2",
+   "title": "Fraud prevention and detection for online advertising",
+   "assignee": "Vibrant Media Limited"
+  },
+  {
+   "id": "US20070005652A1",
+   "title": "Apparatus and method for gathering of objectional web sites",
+   "assignee": "Electronics And Telecommunications Research Institute"
+  },
+  {
+   "id": "US20070124582A1",
+   "title": "System and Method for an NSP or ISP to Detect Malware in its Network Traffic",
+   "assignee": "Marvin Shannon"
+  },
+  {
+   "id": "US20070067842A1",
+   "title": "Systems and methods for collecting files related to malware",
+   "assignee": "Greene Michael P"
+  },
+  {
+   "id": "US20070130349A1",
+   "title": "Systems and methods for reputational analysis of network content",
+   "assignee": "Wong Meng W"
+  },
+  {
+   "id": "CN1971555A",
+   "title": "Method for testing and filtering links pointed to malicious website from return results of web searching",
+   "assignee": "王凤仙"
+  },
+  {
+   "id": "US7836500B2",
+   "title": "Computer virus and malware cleaner",
+   "assignee": "Eacceleration Corporation"
+  },
+  {
+   "id": "WO2007076715A1",
+   "title": "System and method of approving web pages and electronic messages",
+   "assignee": "Metaswarm (Hongkong) Ltd."
+  },
+  {
+   "id": "US8839418B2",
+   "title": "Finding phishing sites",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7933951B2",
+   "title": "Systems and methods for discerning and controlling communication traffic",
+   "assignee": "Paxfire, Inc."
+  },
+  {
+   "id": "US20090070873A1",
+   "title": "Safe web based interactions",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8019700B2",
+   "title": "Detecting an intrusive landing page",
+   "assignee": "Google Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US20200296115A1",
+   "title": "Detection of malware features in a content item"
+  },
+  {
+   "id": "US8856165B1",
+   "title": "Ranking of users who report abuse"
+  },
+  {
+   "id": "CN104040557B",
+   "title": "Online swindle detection dynamic grading aggregation system and method"
+  },
+  {
+   "id": "CN110945538B",
+   "title": "Automatic rule recommendation engine"
+  },
+  {
+   "id": "US12513053B2",
+   "title": "Heterogeneous graph clustering using a pointwise mutual information criterion"
+  },
+  {
+   "id": "US20060253584A1",
+   "title": "Reputation of an entity associated with a content item"
+  },
+  {
+   "id": "US20200007559A1",
+   "title": "Web Threat Investigation Using Advanced Web Crawling"
+  },
+  {
+   "id": "US20260081953A1",
+   "title": "Automated brand protection techniques"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8019700B2/en"
+}

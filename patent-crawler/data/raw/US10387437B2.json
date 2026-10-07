@@ -1,0 +1,444 @@
+{
+ "id": "US10387437B2",
+ "title": "Query rewriting using session information",
+ "abstract": "Methods, systems, and apparatus, including computer programs encoded on computer storage media, for natural language processing. One of the methods includes receiving a search query from a user during a user session; obtaining a plurality of prior search queries by the user received during the user session; generating a plurality of candidate query rewrites, wherein the candidate query rewrites are derived from the search query and the plurality of prior search queries by the user; scoring each candidate query rewrite, wherein scoring each candidate rewrite includes determining a quality of each candidate query rewrite based on an analysis of search results responsive to the candidate query rewrite; selecting a candidate query rewrite having a score that satisfies a threshold value; and providing search results responsive to the selected candidate query rewrite.",
+ "inventors": [
+  "Marcin M. Nowak-Przygodzki",
+  "Behshad Behzadi"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2014-09-15",
+ "filing_date": "2017-01-13",
+ "publication_date": "2019-08-20",
+ "status": "Active",
+ "expiration": "",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/20",
+  "G06F16/24",
+  "G06F16/245",
+  "G06F16/2457",
+  "G06F16/24578",
+  "G06F16/10",
+  "G06F16/14",
+  "G06F16/156",
+  "G06F16/242",
+  "G06F16/2425",
+  "G06F16/2453",
+  "G06F16/24534",
+  "G06F16/30",
+  "G06F16/33",
+  "G06F16/332",
+  "G06F16/3325",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/953",
+  "G06F16/9535"
+ ],
+ "claims": [
+  {
+   "text": "1. A method comprising: receiving a search query from a user during a current user session; obtaining a plurality of prior search queries by the user received during the current user session; determining whether a prior search query of the plurality of prior search queries by the user is related to the search query, wherein the determining includes: generating a plurality of candidate query rewrites of the received search query, wherein one or more candidate query rewrites comprise a combination of the received search query and a prior search query of the plurality of prior search queries by the user received during the current user session, scoring each candidate query rewrite, wherein scoring each candidate rewrite includes applying a plurality of scoring factors, and selecting a top scoring candidate query rewrite as relating the received search query and a particular prior search query received during the current user session in response to determining that the score satisfies a threshold value; and providing search results responsive to the selected candidate query rewrite.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, wherein combining the received search query with respective prior search queries comprises concatenating the search query with each prior search query of the plurality of search queries.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, wherein each prior search query includes a timestamp, and wherein scoring the candidate query rewrites includes weighting candidate rewrites based, in part, on the age of the corresponding prior query.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, wherein generating the plurality of candidate query rewrites further comprises identifying queries from a collection of queries from a plurality of users that are similar to the search query.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 1, wherein applying the plurality of scoring factors for each candidate query rewrite further comprises determining a measure of popularity for each candidate query rewrite based on a collection of queries from a plurality of users.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 1, wherein applying the plurality of scoring factors for each candidate query rewrite further comprises determining whether the search query includes a referential term of a particular type.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 6, wherein a score of a candidate query rewrite is increased in response to determining that the candidate query rewrite includes an entity of the particular type.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 1, wherein applying the plurality of scoring factors for each candidate query rewrite further comprises determining whether the search query includes terms highly correlated with particular entities.",
+   "dependent": true
+  },
+  {
+   "text": "9. The method of claim 8, wherein a score of a candidate query rewrite is increased in response to determining that the candidate query rewrite includes the entity highly correlated with the query term.",
+   "dependent": true
+  },
+  {
+   "text": "10. The method of claim 1, wherein applying the plurality of scoring factors for each candidate query rewrite further comprises determining a quality measure for each candidate query rewrite based on an analysis of search results responsive to the candidate query rewrite.",
+   "dependent": true
+  },
+  {
+   "text": "11. A system comprising: a user device; and one or more computers configured to interact with the user device and to perform operations comprising: receiving a search query from a user during a current user session; obtaining a plurality of prior search queries by the user received during the current user session; determining whether a prior search query of the plurality of prior search queries by the user is related to the search query, wherein the determining includes: generating a plurality of candidate query rewrites of the received search query, wherein one or more candidate query rewrites comprise a combination of the received search query and a prior search query of the plurality of prior search queries by the user received during the current user session, scoring each candidate query rewrite, wherein scoring each candidate rewrite includes applying a plurality of scoring factors, and selecting a top scoring candidate query rewrite as relating the received search query and a particular prior search query received during the current user session in response to determining that the score satisfies a threshold value; and providing search results responsive to the selected candidate query rewrite.",
+   "dependent": false
+  },
+  {
+   "text": "12. The system of claim 11, wherein combining the received search query with respective prior search queries comprises concatenating the search query with each prior search query of the plurality of search queries.",
+   "dependent": true
+  },
+  {
+   "text": "13. The system of claim 11, wherein each prior search query includes a timestamp, and wherein scoring the candidate query rewrites includes weighting candidate rewrites based, in part, on the age of the corresponding prior query.",
+   "dependent": true
+  },
+  {
+   "text": "14. The system of claim 11, wherein generating the plurality of candidate query rewrites further comprises identifying queries from a collection of queries from a plurality of users that are similar to the search query.",
+   "dependent": true
+  },
+  {
+   "text": "15. The system of claim 11, wherein applying the plurality of scoring factors for each candidate query rewrite further comprises determining a measure of popularity for each candidate query rewrite based on a collection of queries from a plurality of users.",
+   "dependent": true
+  },
+  {
+   "text": "16. The system of claim 11, wherein applying the plurality of scoring factors for each candidate query rewrite further comprises determining whether the search query includes a referential term of a particular type.",
+   "dependent": true
+  },
+  {
+   "text": "17. The system of claim 16, wherein a score of a candidate query rewrite is increased in response to determining that the candidate query rewrite includes an entity of the particular type.",
+   "dependent": true
+  },
+  {
+   "text": "18. The system of claim 11, wherein scoring applying the plurality of scoring factors for candidate query rewrite further comprises determining whether the search query includes terms highly correlated with particular entities.",
+   "dependent": true
+  },
+  {
+   "text": "19. The system of claim 11, wherein applying the plurality of scoring factors for each candidate query rewrite further comprises determining a quality measure for each candidate query rewrite based on an analysis of search results responsive to the candidate query rewrite.",
+   "dependent": true
+  },
+  {
+   "text": "20. One or more non-transitory computer-readable storage media encoded with instructions that, when executed by one or more computers, cause the one or more computers to perform operations comprising: receiving a search query from a user during a current user session; obtaining a plurality of prior search queries by the user received during the current user session; determining whether a prior search query of the plurality of prior search queries by the user is related to the search query, wherein the determining includes: generating a plurality of candidate query rewrites of the received search query, wherein one or more candidate query rewrites comprise a combination of the received search query and a prior search query of the plurality of prior search queries by the user received during the current user session, scoring each candidate query rewrite, wherein scoring each candidate rewrite includes applying a plurality of scoring factors, and selecting a top scoring candidate query rewrite relating the received search query and a particular prior search query received during the current user session in response to determining that the score satisfies a threshold value; and providing search results responsive to the selected candidate query rewrite.",
+   "dependent": false
+  }
+ ],
+ "description": "\n## CROSS REFERENCE TO RELATED APPLICATIONS\n\n\nThis application is a continuation of and claims priority to U.S. patent application Ser. No. 14/486,879, filed on Sep. 15, 2014, the entire contents of which are hereby incorporated by reference.\n\n\n## BACKGROUND\n\n\nThis specification relates to natural language processing.\n\nThe Internet provides access to a wide variety of resources, such as image files, audio files, video files, and web pages. A search system can identify resources in response to queries submitted by users and provide information about the resources in a manner that is useful to the users. The users can navigate through, e.g., select, search results to obtain information of interest.\n\n\n## SUMMARY\n\n\nIn general, one innovative aspect of the subject matter described in this specification can be embodied in methods that include the actions of receiving a search query from a user during a user session; obtaining a plurality of prior search queries by the user received during the user session; generating a plurality of candidate query rewrites, wherein the candidate query rewrites are derived from the search query and the plurality of prior search queries by the user; scoring each candidate query rewrite, wherein scoring each candidate rewrite includes determining a quality of each candidate query rewrite based on an analysis of search results responsive to the candidate query rewrite; selecting a candidate query rewrite having a score that satisfies a threshold value; and providing search results responsive to the selected candidate query rewrite. Other embodiments of this aspect include corresponding computer systems, apparatus, and computer programs recorded on one or more computer storage devices, each configured to perform the actions of the methods. For a system of one or more computers to be configured to perform particular operations or actions means that the system has installed on it software, firmware, hardware, or a combination of them that in operation cause the system to perform the operations or actions. For one or more computer programs to be configured to perform particular operations or actions means that the one or more programs include instructions that, when executed by data processing apparatus, cause the apparatus to perform the operations or actions.\n\nThe foregoing and other embodiments can each optionally include one or more of the following features, alone or in combination. In particular, one embodiment includes all the following features in combination. Generating the plurality of candidate query rewrites further includes concatenating the search query with each prior search query of the plurality of search queries. Each prior search query includes a timestamp, and wherein scoring the candidate query rewrites includes weighting candidate rewrites based, in part, on the age of the corresponding prior query. Generating the plurality of candidate query rewrites further includes identifying queries from a collection of queries from a plurality of users that are similar to the search query. Scoring each candidate query rewrite further includes determining a measure of popularity for each candidate query rewrite based on a collection of queries from a plurality of users. Scoring each candidate query rewrite further includes determining whether the search query includes a referential term of a particular type. A score of a candidate query rewrite is increased in response to determining that the candidate query rewrite includes an entity of the particular type. Scoring each candidate query rewrite further includes determining whether the search query includes terms highly correlated with particular entities. A score of a candidate query rewrite is increased in response to determining that the candidate query rewrite includes the entity highly correlated with the query term. Determining a quality of each candidate query rewrite based on an analysis of search results responsive to the candidate query rewrite includes obtaining search results responsive to each candidate query rewrite and determining a quality of the search results.\n\nThe subject matter described in this specification can be implemented in particular embodiments so as to realize one or more of the following advantages. Using prior user session queries to rewrite queries improves the likelihood of returning search results responsive to the user's intent.\n\nThe details of one or more embodiments of the subject matter of this specification are set forth in the accompanying drawings and the description below. Other features, aspects, and advantages of the subject matter will become apparent from the description, the drawings, and the claims.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nFIG. 1 is an illustration of a search session in an example search user interface.\n\nFIG. 2 is a block diagram of an example system.\n\nFIG. 3 is a flow diagram of an example process for query rewriting.\n\nLike reference numbers and designations in the various drawings indicate like elements.\n\n\n## DETAILED DESCRIPTION\n\n\nQuery rewriting is used to improve the likelihood of returning search results that are most relevant to the user's intended query. Search queries previously entered in a particular search session can be used in query rewriting of a current search query of the search session. For example, a user can submit a current query that is related to a one of the previously entered search queries of the session. A search system can determine which prior search query is related to the current query and use the prior query in query rewriting. The rewritten query can then be used by a search system to determine one or more search results to provide to the user.\n\nFIG. 1 is an illustration of a search session in an example search user interface. A search system provides a search user interface 102 a for displaying on a user device 106. The user interface 102 a includes a search box 104 a for receiving a query. The query can be a text query input by a user of the user device or a voice query entered using a microphone of the user device.\n\nIn the user session, the search system receives a first query from the user device 106 at time T1. In particular, the user provides the search query [Mudville Stadium]. Upon initiating the search, the search system identifies search results for resources responsive to the first query. The search system provides search results 110 responsive to the query [Mudville Stadium] for display in the user interface 102 a. For example, the search results 110 can include links to particular resources determined by the search system to be responsive to the first query.\n\nAt a time T2 in the user session, the search system receives a second query from the user device 106 in the search box 104 b of the user interface 102 b. In particular, the user provides the search query [Mudville nine]. Upon initiating the search, the search system identifies search results for resources responsive to the second query and provides search results 112 for display in the user interface 102 b.\n\nAt a time T3 in the user session, the search system receives a third query from the user device 106 in the search box 104 c of the user interface 102 c. In particular, the user provides the search query [Barack Obama]. Upon initiating the search, the search system identifies search results for resources responsive to the second query and provides search results 114 for display in the user interface 102 c.\n\nAt a time T4 in the user session, the search system receives a fourth query from the user device 106 in the search box 104 d of the user interface 102 d. In particular, the user provides the search query [what is the capacity]. The search system determines that the fourth query is related to an early query in the user session. In particular, the search system determines that the query [what is the capacity] is related to the first query [Mudville Stadium]. Techniques for determining that a currently received query is related to an earlier query in the user session are described below.\n\nIn response to determining that the fourth query is related to the first query in the user session, the search system rewrites the fourth query as [what is the capacity of Mudville Stadium]. Upon initiating the search using the rewritten query, which can be displayed in search box 104 e, the search system identifies search results for resources responsive to the rewritten query and provides search results 116 for display in the user interface 102 e.\n\nFIG. 2 is a block diagram of an example system 200. The system 200 provides search results relevant to submitted queries as can be implemented in an internet, an intranet, or another client and server environment. The system 200 is an example of an information retrieval system in which the systems, components, and techniques described below can be implemented.\n\nA user 202 can interact with a search system 214 through a client device 204. For example, the client 204 can be a computer coupled to the search system 214 through a local area network (LAN) or wide area network (WAN), e.g., the Internet. In some implementations, the search system 214 and the client device 204 can be one machine. For example, a user can install a desktop search application on the client device 204. The client device 204 will generally include a random access memory (RAM) 206 and a processor 208.\n\nThe user 202 can submit queries 210 to a search engine 230 within a search system 214. When the user 202 submits a query 210, the query 210 is transmitted through a network to the search system 214. The search system 214 can be implemented as, for example, computer programs running on one or more computers in one or more locations that are coupled to each other through a network.\n\nThe search system 214 further includes an index database 222 and a search engine 230. The search system 214 responds to an input query by generating search results 228, which are transmitted through the network to the client device 204 in a form that can be presented to the user 202 (e.g., as a search results web page to be displayed in a web browser running on the client device 204).\n\nWhen the query is received by the search engine 230, the search engine 230 identifies resources that match, or are responsive to, the query 210. The search engine 230 will generally include an indexing engine 220 that indexes resources (e.g., web pages, images, or news articles on the Internet) found in a corpus (e.g., a collection or repository of content), an index database 222 that stores the index information, and a ranking engine 252 (or other software) to rank the resources that match the query 210. The indexing and ranking of the resources can be performed using conventional techniques. The search engine 130 can transmit the search results 228 through the network to the client device 204 for presentation to the user 202.\n\nThe search system 230 also includes session logs 254. The session logs 254 maintain logs of queries submitted during user sessions including user sessions of user 202. A session can be defined in a number of different ways. For example, a session can include queries submitted within a specified time range from an initial query, e.g., all queries submitted within one hour of a first query. The session can also include queries submitted during a particular browser session, e.g., queries submitted while the browser application is running on the client device 204. The session can be associated with a particular user identifier or with a device identifier.\n\nThe search system 230 also includes a query rewriting engine 256. The query rewriting engine 256 can rewrite received queries based on various criteria. In particular, as described in this specification, the query rewriting engine 256 can use the log of the queries submitted during a user session to determine whether a received query 210 should be rewritten based on a related query in the session logs 254.\n\nFIG. 3 is a flow diagram of an example process 300 for query rewriting. For convenience, the process 300 will be described as being performed by a system of one or more computers, located in one or more locations, and programmed appropriately in accordance with this specification. For example, a search system, e.g., the search system 214 of FIG. 2, appropriately programmed, can perform the process 300.\n\nThe system receives a search query (302). A user can input the search query to a search user interface. For example, a user can access the search user interface using a search application or a browser application directed to a search interface. The search query can be part of a user search session including multiple prior search queries. The received search query may implicitly reference a prior query of the user session. For example, the received query, q: [what is the capacity] can refer to an earlier query about a building or facility. Similarly, the received query, q: [when is the next game] can refer to an earlier query about a particular sports team.\n\nThe system obtains prior search queries input during the user session (304). The prior search queries can be obtained, for example, from a query log that identifies queries as belonging to one or more particular sessions. For example, the obtained prior queries can be:\n\nq1: [Mudville Stadium]\n\nq2: [Mudville nine]\n\nq3: [Barack Obama]\n\nIn some implementations, the system determines whether threshold criteria are satisfied prior to obtaining prior search queries. For example, the system can apply one or more triggering rules. The rules can include, for example, determining whether the received query includes one or more terms that indicate contextual intent, e.g., use of pronoun or other referential term in the query, or whether the received query was a repeated query.\n\nEach prior search query of the user session also has an associated timestamp corresponding to the time when the search query was received. Therefore, each prior search query can be represented by tuples of the form (query, timestamp) such that the prior search queries can be represented as (q1, t1), . . . (qn, tn) were n is equal to the number of prior search queries.\n\nThe system generates candidate rewrites for the received search query (306). In some implementations, candidate rewrites are generated through combining each respective prior search query with the received search query. In some other implementations, natural language information can be used to generate candidate rewrites. Furthermore, search queries that are similar to one or more of the prior search queries and the search query can be used to generate candidate rewrites.\n\nCandidate rewrites can be generated according to a function that combines the prior search queries and the received search query and to output candidate rewrites. In particular, a collection of tuples (query, timestamp) can be represented as a set of prior search queries Q={(q1, t1, . . . , (qn, tnn)}. For example, for each element in Q and the received search query q, the function can be defined as: C((qi, ti), q)→{(qi, ti) q, r1), . . . , (qi, ti), q, r{Nqi})} that takes the input pair (query, timestamp) and received search query q, and generates Nqi rewrites, r, where Nqi is a integer.\n\nOne example of the function is a concatenation of each prior search query with the received search query, which generates Nqi rewrites where each is a combination of the received search query and one of the previous search queries. For example, in the above example search queries and the received search query [what is the capacity], the candidate rewrites under a concatenation function would be:\n\nr1: [Mudville stadium what is the capacity],\n\nr2: [Mudville nine what is the capacity], and\n\nr3: [Barack Obama what is the capacity].\n\nIn some implementations, additional information can be used to expand the generated candidate rewrites. For example, search query similarity can be used to generate grammars including search queries that are similar to the prior search queries and the received search query. Thus, for all queries that have a specified degree of similarity, e.g., using a suitable similarity measure, to the prior search queries qi and the received search query q, the concatenation of all new pairs is the output set Q={C((q1, t1), q)+C((q2, t2), q) . . . }.\n\nIn some implementations, the system identifies similar search queries based on similar search queries that are input by a collection of users to a search system, e.g., based on search query logs. For example, if users input a similar search query [Mudville stadium capacity] a threshold number of times in the search query log, i.e., the search query is sufficiently popular, the logged search query can be used as a candidate rewrite.\n\nIn some implementations, similar search queries are identified based on queries that use the same terms with our without stop-words, e.g., a, the, or that use similar types of terms in the queries. For example, the query [Mudville stadium what is the capacity] can be similar to the query [what is the capacity of Mudville stadium] and [Mudville stadium capacity] based on the use of common query terms. In some other implementations, particular query patterns can be used to identify similar queries. For example, query logs can indicate that [x capacity] is a common query pattern where X is a stadium/building/etc. Thus, if a current query is [capacity] and one of the previous queries identified an entity associated with a stadium, then candidates can be generated using the pattern.\n\nIn some other implementations, the system can use natural language information to generate similar search queries. For example, the use of a pronoun in the current search query can indicate that the pronoun can be replaced by a particular entity. Entities can be identified in the prior search queries and substituted into the current search query as candidate rewrites. For example, if the current received search query is [how old is he], the pronoun “he” indicates that the object is a person entity. If one of the prior search queries is [Barack Obama], the entity can be substituted to generate candidate rewrite [how old is Barack Obama]. Similarly, if the current received search query is [where is it] natural language analysis suggests that the “it” refers to a place or thing entity. Thus, if one of the prior search queries is [Golden Gate Bridge year built], the entity can be substituted to generate the candidate rewrite [where is Golden Gate Bridge].\n\nThe system scores each candidate rewrite (308). The system scores candidate rewrites according to one or more criteria. The one or more criteria can include: (i) the timestamp of the prior search queries associated with the respective candidate rewrites, (ii) a quality measure based on query results of the candidate rewrite, (iii) a popularity of the query rewrite, (iv) a use of referential terms, and (v) entities that commonly appear with particular query terms. Based on the one or more criteria, a scoring function S can be defined such that for a candidate set Q a scoring function S((qi, ti), q, r)→R assigns a score of the candidate rewrite given the inputs (qi, ti) and q.\n\nAs described above, each prior search query of the user session includes a timestamp indicating the time at which the prior search query was received. The timestamp can be used in scoring candidate rewrites. In particular, the system can provide a penalty weight in the scoring based on the age of the prior search query or similarly a boost for younger prior queries. Thus, the older the prior search query is, the less likely it is that a received search query refers to that prior search query. For example, a search query [Barack Obama] can be received at time T1 and a search query [Bill Clinton] can be received a later time T3. For a received search query at a time T5, [how old is he], the candidate rewrite [how old is Barack Obama] can be weighted adversely relative to the candidate rewrite [how old is Bill Clinton].\n\nThe quality measure can be used as a factor in the score for each candidate rewrite. The quality measure is based on search query results of the candidate rewrite. In particular, candidate rewrites can be submitted to a search engine. The results of each candidate rewrite can be analyzed to determine the quality measure. The analysis can include one or more of determining a number of returned search results, a determination of how often search results are selected by users, or a quality score associated with particular search results. Candidate rewrites that have a greater quality measure can be weighted more greatly given to the quality measure factor in scoring the candidate rewrite.\n\nA popularity of the query rewrite can be used as a factor in the score for each candidate rewrite. The popularity of the query rewrite is a measure of how many times the candidate rewrite occurs in a collection of search queries. For example, examining a search query log for a collection of users, the relative frequency of occurrence for each candidate rewrite can be determined. Candidate rewrites that occur with a higher frequency can have a weighted more greatly given to the popularity factor in the scoring of the candidate rewrite.\n\nThe use of referential terms can be used as a factor in the score for each candidate rewrite. In particular, the current search query can have a clear referential term, e.g., a third person pronoun or other referential terms such as “it” or “there”, and a prior search query in the session has a respective entity of a particular type, e.g., a person, a location. Candidate rewrites that combine the referential term with the corresponding entities of the particular referred type can be weighted more greatly in the scoring of the candidate rewrite.\n\nThe identification of entities that commonly appear with particular search query terms can be used as a factor in the score for each candidate rewrite. In particular, particular terms can be highly correlated to particular entities in search queries. For example, the term “capacity” can be highly correlated to a entities of the type “sports facilities,” the term “lyrics” can be highly correlated to entities of the type “song,” and the term “date of birth” can be highly correlated to entities of the type “people.” The received search query can include a term that is correlated in search queries, e.g., in a query log, that include a particular entity type. If an entity of the particular entity type also occurs in the prior user search queries of the user session, candidate rewrites generated with those entities can be weighted more greatly in the scoring of the candidate rewrite.\n\nThe system determines whether a threshold score is satisfied (310). In some implementations, the highest scoring candidate rewrite is determined and compared to a threshold score. In response to determining that the highest scoring candidate rewrite does not satisfy the threshold score, ‘no’ branch of 310, the system obtains search results responsive to the received query without rewriting based on prior search queries of the user session (312). The search results can be provided to the user device for presentation in a user search interface.\n\nIn response to determining that the highest scoring candidate rewrite does satisfy the threshold score, ‘yes’ branch of 310, the system selects the candidate rewrite (314) to rewrite the received search query and obtains search results responsive to the rewritten search query. The search results can be provided to the user device for presentation in a user search interface.\n\nEmbodiments of the subject matter and the functional operations described in this specification can be implemented in digital electronic circuitry, in tangibly-embodied computer software or firmware, in computer hardware, including the structures disclosed in this specification and their structural equivalents, or in combinations of one or more of them. Embodiments of the subject matter described in this specification can be implemented as one or more computer programs, i.e., one or more modules of computer program instructions encoded on a tangible non-transitory storage medium for execution by, or to control the operation of, data processing apparatus. The computer storage medium can be a machine-readable storage device, a machine-readable storage substrate, a random or serial access memory device, or a combination of one or more of them. Alternatively or in addition, the program instructions can be encoded on an artificially-generated propagated signal, e.g., a machine-generated electrical, optical, or electromagnetic signal, that is generated to encode information for transmission to suitable receiver apparatus for execution by a data processing apparatus.\n\nThe term “data processing apparatus” refers to data processing hardware and encompasses all kinds of apparatus, devices, and machines for processing data, including by way of example a programmable processor, a computer, or multiple processors or computers. The apparatus can also be, or further include, special purpose logic circuitry, e.g., an FPGA (field programmable gate array) or an ASIC (application-specific integrated circuit). The apparatus can optionally include, in addition to hardware, code that creates an execution environment for computer programs, e.g., code that constitutes processor firmware, a protocol stack, a database management system, an operating system, or a combination of one or more of them.\n\nA computer program, which may also be referred to or described as a program, software, a software application, a module, a software module, a script, or code, can be written in any form of programming language, including compiled or interpreted languages, or declarative or procedural languages; and it can be deployed in any form, including as a stand-alone program or as a module, component, subroutine, or other unit suitable for use in a computing environment. A program may, but need not, correspond to a file in a file system. A program can be stored in a portion of a file that holds other programs or data, e.g., one or more scripts stored in a markup language document, in a single file dedicated to the program in question, or in multiple coordinated files, e.g., files that store one or more modules, sub-programs, or portions of code. A computer program can be deployed to be executed on one computer or on multiple computers that are located at one site or distributed across multiple sites and interconnected by a data communication network.\n\nThe processes and logic flows described in this specification can be performed by one or more programmable computers executing one or more computer programs to perform functions by operating on input data and generating output. The processes and logic flows can also be performed by special purpose logic circuitry, e.g., an FPGA or an ASIC, or by a combination of special purpose logic circuitry and one or more programmed computers.\n\nComputers suitable for the execution of a computer program can be based on general or special purpose microprocessors or both, or any other kind of central processing unit. Generally, a central processing unit will receive instructions and data from a read-only memory or a random access memory or both. The essential elements of a computer are a central processing unit for performing or executing instructions and one or more memory devices for storing instructions and data. The central processing unit and the memory can be supplemented by, or incorporated in, special purpose logic circuitry. Generally, a computer will also include, or be operatively coupled to receive data from or transfer data to, or both, one or more mass storage devices for storing data, e.g., magnetic, magneto-optical disks, or optical disks. However, a computer need not have such devices. Moreover, a computer can be embedded in another device, e.g., a mobile telephone, a personal digital assistant (PDA), a mobile audio or video player, a game console, a Global Positioning System (GPS) receiver, or a portable storage device, e.g., a universal serial bus (USB) flash drive, to name just a few.\n\nComputer-readable media suitable for storing computer program instructions and data include all forms of non-volatile memory, media and memory devices, including by way of example semiconductor memory devices, e.g., EPROM, EEPROM, and flash memory devices; magnetic disks, e.g., internal hard disks or removable disks; magneto-optical disks; and CD-ROM and DVD-ROM disks.\n\nControl of the various systems described in this specification, or portions of them, can be implemented in a computer program product that includes instructions that are stored on one or more non-transitory machine-readable storage media, and that are executable on one or more processing devices. The systems described in this specification, or portions of them, can each be implemented as an apparatus, method, or electronic system that may include one or more processing devices and memory to store executable instructions to perform the operations described in this specification.\n\nTo provide for interaction with a user, embodiments of the subject matter described in this specification can be implemented on a computer having a display device, e.g., a CRT (cathode ray tube) or LCD (liquid crystal display) monitor, for displaying information to the user and a keyboard and a pointing device, e.g., a mouse or a trackball, by which the user can provide input to the computer. Other kinds of devices can be used to provide for interaction with a user as well; for example, feedback provided to the user can be any form of sensory feedback, e.g., visual feedback, auditory feedback, or tactile feedback; and input from the user can be received in any form, including acoustic, speech, or tactile input. In addition, a computer can interact with a user by sending documents to and receiving documents from a device that is used by the user; for example, by sending web pages to a web browser on a user's device in response to requests received from the web browser.\n\nEmbodiments of the subject matter described in this specification can be implemented in a computing system that includes a back-end component, e.g., as a data server, or that includes a middleware component, e.g., an application server, or that includes a front-end component, e.g., a client computer having a graphical user interface or a web browser through which a user can interact with an implementation of the subject matter described in this specification, or any combination of one or more such back-end, middleware, or front-end components. The components of the system can be interconnected by any form or medium of digital data communication, e.g., a communication network. Examples of communication networks include a local area network (LAN) and a wide area network (WAN), e.g., the Internet.\n\nThe computing system can include clients and servers. A client and server are generally remote from each other and typically interact through a communication network. The relationship of client and server arises by virtue of computer programs running on the respective computers and having a client-server relationship to each other. In some embodiments, a server transmits data, e.g., an HTML page, to a user device, e.g., for purposes of displaying data to and receiving user input from a user interacting with the user device, which acts as a client. Data generated at the user device, e.g., a result of the user interaction, can be received from the user device at the server.\n\nWhile this specification contains many specific implementation details, these should not be construed as limitations on the scope of any invention or on the scope of what may be claimed, but rather as descriptions of features that may be specific to particular embodiments of particular inventions. Certain features that are described in this specification in the context of separate embodiments can also be implemented in combination in a single embodiment. Conversely, various features that are described in the context of a single embodiment can also be implemented in multiple embodiments separately or in any suitable subcombination. Moreover, although features may be described above as acting in certain combinations and even initially claimed as such, one or more features from a claimed combination can in some cases be excised from the combination, and the claimed combination may be directed to a subcombination or variation of a subcombination.\n\nSimilarly, while operations are depicted in the drawings in a particular order, this should not be understood as requiring that such operations be performed in the particular order shown or in sequential order, or that all illustrated operations be performed, to achieve desirable results. In certain circumstances, multitasking and parallel processing may be advantageous. Moreover, the separation of various system modules and components in the embodiments described above should not be understood as requiring such separation in all embodiments, and it should be understood that the described program components and systems can generally be integrated together in a single software product or packaged into multiple software products.\n\nIn this specification the term “engine” will be used broadly to refer to a software based system or subsystem that can perform one or more specific functions. Generally, an engine will be implemented as one or more software modules or components, installed on one or more computers in one or more locations. In some cases, one or more computers will be dedicated to a particular engine; in other cases, multiple engines can be installed and running on the same computer or computers.\n\nParticular embodiments of the subject matter have been described. Other embodiments are within the scope of the following claims. For example, the actions recited in the claims can be performed in a different order and still achieve desirable results. As one example, the processes depicted in the accompanying figures do not necessarily require the particular order shown, or sequential order, to achieve desirable results. In some cases, multitasking and parallel processing may be advantageous.",
+ "cited_by": [
+  {
+   "id": "US20200228915A1",
+   "title": "Enabling a user to obtain a suitable head-related transfer function profile",
+   "assignee": "Qualcomm Incorporated"
+  },
+  {
+   "id": "US12039268B2",
+   "title": "Graph-based natural language optimization method and electronic apparatus",
+   "assignee": "Industrial Technology Research Institute"
+  },
+  {
+   "id": "US9852188B2",
+   "title": "Contextual search on multimedia content",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US11899728B2",
+   "title": "Methods, systems and techniques for ranking personalized and generic search query suggestions",
+   "assignee": "Yahoo Assets Llc"
+  },
+  {
+   "id": "US11836169B2",
+   "title": "Methods, systems and techniques for providing search query suggestions based on non-personal data and user personal data according to availability of user personal data",
+   "assignee": "Yahoo Assets Llc"
+  },
+  {
+   "id": "US11042590B2",
+   "title": "Methods, systems and techniques for personalized search query suggestions",
+   "assignee": "Verizon Media Inc."
+  },
+  {
+   "id": "US9684693B1",
+   "title": "On-device query rewriting",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US11086866B2",
+   "title": "Method and system for rewriting a query",
+   "assignee": "Verizon Media Inc."
+  },
+  {
+   "id": "CN109948014A",
+   "title": "A search method and server",
+   "assignee": "阿里巴巴集团控股有限公司"
+  },
+  {
+   "id": "US10885077B2",
+   "title": "Subquery generation from a query",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10387576B2",
+   "title": "Document preparation with argumentation support from a deep question answering system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US11210286B2",
+   "title": "Facet-based conversational search",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US11217247B2",
+   "title": "Determining whether to automatically resume first automated assistant session upon cessation of interrupting second session",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "CN112236765B",
+   "title": "Determining response content of a compound query based on a set of generated sub-queries",
+   "assignee": "谷歌有限责任公司"
+  },
+  {
+   "id": "CN109857926A",
+   "title": "The method and apparatus of information for rendering",
+   "assignee": "百度在线网络技术（北京）有限公司"
+  },
+  {
+   "id": "US11868355B2",
+   "title": "System and method for personalized retrieval of academic content in a hierarchical manner",
+   "assignee": "Indiavidual Learning Private Limited"
+  },
+  {
+   "id": "US11698904B2",
+   "title": "Query rewrite for low performing queries based on customer behavior",
+   "assignee": "Home Depot Product Authority, Llc"
+  },
+  {
+   "id": "US11422995B1",
+   "title": "Enhanced database and user interface incorporating predicted missing data",
+   "assignee": "Talenya Ltd."
+  },
+  {
+   "id": "CN113010652A",
+   "title": "Search sentence expansion method and device and electronic equipment",
+   "assignee": "大连云知惠科技有限公司"
+  },
+  {
+   "id": "US11947535B2",
+   "title": "Multicomputer system with machine learning engine for query optimization and dynamic data reorganization",
+   "assignee": "Bank Of America Corporation"
+  },
+  {
+   "id": "CN113505194B",
+   "title": "Training method and device for rewrite word generation model",
+   "assignee": "北京三快在线科技有限公司"
+  },
+  {
+   "id": "US20240205119A1",
+   "title": "Aggregating metrics of network elements of a software-defined network for different applications based on different aggregation criteria",
+   "assignee": "VMware LLC"
+  },
+  {
+   "id": "US12505148B2",
+   "title": "Dynamic depth document retrieval for enterprise language model systems",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US12321347B1",
+   "title": "Query performance improvement of a query for a database application using rewrite",
+   "assignee": "International Business Machines Corporation"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US20010037359A1",
+   "title": "System and method for a server-side browser including markup language graphical user interface, dynamic markup language rewriter engine and profile engine",
+   "assignee": "Mockett Gregory P."
+  },
+  {
+   "id": "US20050222977A1",
+   "title": "Query rewriting with entity detection",
+   "assignee": "Hong Zhou"
+  },
+  {
+   "id": "CN1750002A",
+   "title": "Method for providing research result",
+   "assignee": "孙斌"
+  },
+  {
+   "id": "US20060064411A1",
+   "title": "Search engine using user intent",
+   "assignee": "William Gross"
+  },
+  {
+   "id": "US20070168854A1",
+   "title": "User interface for presentation of solutions in multi-passenger multi-route travel planning",
+   "assignee": "De Marcken Carl G"
+  },
+  {
+   "id": "US20090043749A1",
+   "title": "Extracting query intent from query logs",
+   "assignee": "Garg Priyank S"
+  },
+  {
+   "id": "US7552112B2",
+   "title": "Discovering associative intent queries from search web logs",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7840538B2",
+   "title": "Discovering query intent from search queries and concept networks",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20100312778A1",
+   "title": "Predictive person name variants for web search",
+   "assignee": "Yumao Lu"
+  },
+  {
+   "id": "US20110082860A1",
+   "title": "Search Method, Apparatus and System",
+   "assignee": "Alibaba Group Holding Limited"
+  },
+  {
+   "id": "US20120136884A1",
+   "title": "Query expression conversion apparatus, query expression conversion method, and computer program product",
+   "assignee": "Toshiba Solutions Corporation"
+  },
+  {
+   "id": "CN102542012A",
+   "title": "Classifying results of search queries",
+   "assignee": "微软公司"
+  },
+  {
+   "id": "US20120254217A1",
+   "title": "Enhanced Query Rewriting Through Click Log Analysis",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20120290575A1",
+   "title": "Mining intent of queries from search log data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8442987B2",
+   "title": "Method and system for providing contents based on past queries",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8688667B1",
+   "title": "Providing intent sensitive search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20140143268A1",
+   "title": "Creating query suggestions based on processing of descriptive term in a partial query",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20150356136A1",
+   "title": "Retrieving context from previous sessions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "JP2010033664A",
+   "title": "Tray of optical disk device, and optical disk device provided with the same",
+   "assignee": "Hitachi-Lg Data Storage Inc"
+  }
+ ],
+ "similar": [
+  {
+   "id": "US9547690B2",
+   "title": "Query rewriting using session information"
+  },
+  {
+   "id": "US9031970B1",
+   "title": "Query autocompletions"
+  },
+  {
+   "id": "US8615514B1",
+   "title": "Evaluating website properties by partitioning user feedback"
+  },
+  {
+   "id": "US8832096B1",
+   "title": "Query-dependent image similarity"
+  },
+  {
+   "id": "AU2010286374B2",
+   "title": "Framework for selecting and presenting answer boxes relevant to user input as query suggestions"
+  },
+  {
+   "id": "AU2013222184B2",
+   "title": "Related entities"
+  },
+  {
+   "id": "US10592540B2",
+   "title": "Generating elements of answer-seeking queries and elements of answers"
+  },
+  {
+   "id": "US20170270159A1",
+   "title": "Determining query results in response to natural language queries"
+  },
+  {
+   "id": "US10324993B2",
+   "title": "Predicting a search engine ranking signal value"
+  },
+  {
+   "id": "US20180101534A1",
+   "title": "Accounting for Positional Bias in A Document Retrieval System Using Machine Learning"
+  },
+  {
+   "id": "EP3158472B1",
+   "title": "Generating contextual search presentations"
+  },
+  {
+   "id": "US8515986B2",
+   "title": "Query pattern generation for answers coverage expansion"
+  },
+  {
+   "id": "US10180964B1",
+   "title": "Candidate answer passages"
+  },
+  {
+   "id": "US20150370833A1",
+   "title": "Visual refinements in image search"
+  },
+  {
+   "id": "CN112823345A",
+   "title": "Ranking image search results using machine learning models"
+  },
+  {
+   "id": "US9424353B2",
+   "title": "Related entities"
+  },
+  {
+   "id": "US10691746B2",
+   "title": "Images for query answers"
+  },
+  {
+   "id": "US9811592B1",
+   "title": "Query modification based on textual resource context"
+  },
+  {
+   "id": "US9251202B1",
+   "title": "Corpus specific queries for corpora from search query"
+  },
+  {
+   "id": "CN106407316A",
+   "title": "Topic model-based software question and answer recommendation method and device"
+  },
+  {
+   "id": "US12223002B2",
+   "title": "Semantics-aware hybrid encoder for improved related conversations"
+  },
+  {
+   "id": "US8676812B1",
+   "title": "Dynamic weighting of indicator values for item scoring"
+  },
+  {
+   "id": "US11694033B2",
+   "title": "Transparent iterative multi-concept semantic search"
+  },
+  {
+   "id": "US20130117301A1",
+   "title": "Triggering social pages"
+  },
+  {
+   "id": "US8892597B1",
+   "title": "Selecting data collections to search based on the query"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US10387437B2/en"
+}

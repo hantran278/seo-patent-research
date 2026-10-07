@@ -1,0 +1,1438 @@
+{
+ "id": "US7831545B1",
+ "title": "Identifying the unifying subject of a set of facts",
+ "abstract": "A method and system for identifying a subject of a document and facts included within are described. A source document that includes facts and linking documents that include hyperlinks to the source document are identified. The anchor texts of the hyperlinks are identified and candidate labels are generated based on the anchor texts. One of the candidate labels is selected based on first predefined criteria and associated with the source document and/or the facts included within the source document.",
+ "inventors": [
+  "Jonathan T. Betz"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2005-05-31",
+ "filing_date": "2005-05-31",
+ "publication_date": "2010-11-09",
+ "status": "Expired - Fee Related",
+ "expiration": "2026-04-04",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/30",
+  "G06F16/31",
+  "G06F16/313",
+  "Y10S707/00",
+  "Y10S707/953",
+  "Y10S707/96"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer-implemented method of processing a set of documents for generating a facts database, comprising: at a system having one or more processors and memory storing one or more modules to be executed by the one or more processors; accessing a source document from a document host; extracting one or more facts from the source document, each fact including an attribute-value pair and a list of documents that include the fact; identifying a set of linking documents that have one or more links to the source document, wherein a respective link contains anchor text; generating a set of candidate labels from the anchor text of the linking documents; assigning a score to each candidate label based on a number of linking documents having the candidate label in the anchor text; selecting the candidate label with a highest score as a unifying subject of the one or more facts; and for the unifying subject, storing in the facts database an object distinct from the source document, wherein the object includes the unifying subject, one or more entries corresponding to the one or more facts extracted from the source document, and information associating the source document with at least one of the facts extracted from the source document and included in the object.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, further comprising: selecting one or more second labels of the candidate labels according to second predefined criteria; and associating the selected second labels with the source document and the one or more facts extracted from the source document.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, wherein selecting the candidate label comprises: for each of the set of candidate labels: determining a set of frequencies of one or more substrings of the respective candidate label; generating a frequency vector associated with the respective candidate label based on the set of frequencies; determining a centroid vector based on the frequency vectors of the candidate labels, wherein the selected candidate label is associated with the respective frequency vector having a shortest distance to the centroid vector.",
+   "dependent": true
+  },
+  {
+   "text": "4. A server system for processing a set of documents for generating a facts database, comprising: one or more processors; memory storing one or more programs to be executed by the one or more processors, the one or more programs including: a document identification module to access a source document from a document host; an extraction module to extract one or more facts from the source document, each fact including an attribute-value pair and a list of documents that include the fact; a linking document module to identify a set of linking documents, that have one or more links to the source document, wherein a respective link contains anchor text; and a label module having instructions to: generate a set of candidate labels from the anchor text of the linking documents; assign a score to each candidate label based on a number of linking documents having the candidate label in the anchor text; select the candidate label with a highest score as a unifying subject of the one or more facts; and for the unifying subject, store in the facts database an object distinct from the source document, wherein the object includes the unifying subject, one or more entries corresponding to the one or more facts extracted from the source document, and information associating the source document with at least one of the facts extracted from the source document and included in the object.",
+   "dependent": false
+  },
+  {
+   "text": "5. The system of claim 4, wherein the label selection instructions further include instructions to select one or more second labels of the candidate labels according to second predefined criteria; and wherein the label association instructions further include instructions to associate the selected second labels with the source document and the one or more facts extracted from the source document.",
+   "dependent": true
+  },
+  {
+   "text": "6. The system of claim 4, wherein the label selection instructions include instructions to: for each of the set of candidate labels: determine a set of frequencies of one or more substrings of the respective candidate label; generate a frequency vector associated with the respective candidate label based on the set of frequencies; and determine a centroid vector based on the frequency vectors of the candidate labels, wherein the selected candidate label is associated with the respective frequency vector having a shortest distance to the centroid vector.",
+   "dependent": true
+  },
+  {
+   "text": "7. A computer readable storage medium storing one or more computer programs executed by a computerized server system, the one or more computer programs comprising instructions to generate a facts database, the instructions including: instructions to access a source document from a document host; instructions to extract one or more facts from the source document, each fact including an attribute-value pair and a list of documents that include the fact; instructions to identify a set of linking documents that have one or more links to the source document, wherein a respective link contains anchor text; instructions to generate a set of candidate labels from the anchor text of the linking documents; instructions to select the candidate label with a highest score as a unifying subject of the one or more facts; and instructions to, for the unifying subject, store in the facts database an object distinct from the source document, wherein the object includes the unifying subject, one or more entries corresponding to the one or more facts extracted from the source document, and information associating the source document with at least one of the facts extracted from the source document and included in the object.",
+   "dependent": false
+  },
+  {
+   "text": "8. The computer readable storage medium of claim 7, further comprising instructions to: select one or more second labels of the candidate labels according to second predefined criteria; and associate the selected second labels with the source document and the one or more facts extracted from the source document.",
+   "dependent": true
+  },
+  {
+   "text": "9. The computer readable storage medium of claim 7, wherein the instructions for selecting the label comprise instructions to: for each of the set of candidate labels: determine a set of frequencies of one or more substrings of the respective candidate label; generate a frequency vector associated with the respective candidate label based on the set of frequencies; and determine a centroid vector based on the frequency vectors of the candidate labels, wherein the selected label is associated with the respective frequency.",
+   "dependent": true
+  },
+  {
+   "text": "10. A server system for processing a set of documents for generating a facts database, comprising: one or more processors; memory storing one or more programs to be executed by the one or more processors, the system including: means for accessing a source document from a document host; means for extracting one or more facts from the source document each fact including an attribute-value pair and a list of documents that include the fact; means for identifying a set of linking documents that have one or more links to the source document, wherein a respective link contains anchor text; means for generating a set of candidate labels from the anchor text of the linking documents; means for assigning a score to each candidate label based on a number of linking documents having the candidate label in the anchor text; means for selecting the candidate label with a highest score as a unifying subject of the one or more facts; and means for storing data in the memory, separate from the source document, the stored data comprising a representation of a three-way association among the one or more facts, the unifying subject of the one or more facts, and the source document; means, for the unifying subject, for storing in the facts database an object distinct from the source document, wherein the object includes the unifying subject, one or more entries corresponding to the one or more facts extracted from the source document, and information associating the source document with at least one of the facts extracted from the source document and included in the object.",
+   "dependent": false
+  }
+ ],
+ "description": "\n## RELATED APPLICATIONS\n\n\nThis application is related to the following applications, each of which is hereby incorporated by reference:\n\nU.S. patent application Ser. No. 11/097,688, “Corroborating Facts Extracted from Multiple Sources,” filed on Mar. 31, 2005;\n\nU.S. patent application Ser. No. 11/097,690, “Selecting the Best Answer to a Fact Query from Among a Set of Potential Answers,” filed on Mar. 31, 2005;\n\nU.S. patent application Ser. No. 11/097,689, “User Interface for Facts Query Engine with Snippets from Information Sources that Include Query Terms and Answer Terms,” filed on Mar. 31, 2005;\n\nU.S. patent application Ser. No. 11/024,784, “Supplementing Search Results with Information of Interest,” filed on Dec. 30, 2004;\n\nU.S. patent application Ser. No. 11/142,740, “Merging Objects in a Facts Database,” filed on May 31, 2005;\n\nU.S. patent application Ser. No. 11/142,853, “Learning Facts from Semi-Structured Text,” filed on May 31, 2005;\n\nU.S. patent application Ser. No. 11/142,748, “System for Ensuring the Internal Consistency of a Fact Repository,” filed on May 31, 2005.\n\n\n## TECHNICAL FIELD\n\n\nThe disclosed embodiments relate generally to fact databases. More particularly, the disclosed embodiments relate to identifying a subject for a source document and facts included in the document.\n\n\n## BACKGROUND\n\n\nThe World Wide Web (also known as the “Web”) and the web pages within the Web are a vast source of factual information. Users may look to web pages to get answers to factual questions, such as “what is the capital of Poland” or “what is the birth date of George Washington.” The factual information included in web pages may be extracted and stored in a fact database.\n\nWhen extracting facts, it is useful to know the subject with which a web page is associated, because any facts extracted from the web page are more likely than not associated with the same subject. If the subject is not known, not only are the extracted facts less useful, organization and management of the extracted facts in the fact database may become more complicated. However, the manner of labeling the subject may vary. For example, some web pages may indicate their subject in the main text of the web page, while some other web pages may indicate their subject in the HTML title text. The variety of manners of labeling the subject making the process of identifying the subject difficult.\n\n\n## SUMMARY\n\n\nAccording to an aspect of the invention, a method of processing a set of documents includes identifying a source document; identifying a set of linking documents that include links, with anchor text, to the source document; generating a set of candidate labels based on the respective anchor texts; selecting a first label of the candidate labels according to first predefined criteria; and associating the selected first label with the source document.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nFIG. 1 illustrates a network, according to some embodiments of the invention.\n\nFIG. 2 is a block diagram illustrating a source document and linking documents that include links to the source document, according to some embodiments of the invention.\n\nFIG. 3A is a flow diagram illustrating a process for associating a label with a source document and/or facts (as represented by attribute-value pairs) extracted from the source document, according to some embodiments of the invention.\n\nFIGS. 3B and 3C are flow diagrams illustrating processes for selecting a label to associate with a source document and/or attribute-value pairs, according to some embodiments of the invention.\n\nFIG. 4 illustrates a data structure for an object and associated facts in a fact repository, according to some embodiments of the invention.\n\nFIG. 5 illustrates a document processing system, according to some embodiments of the invention.\n\nLike reference numerals refer to corresponding parts throughout the drawings.\n\n\n## DESCRIPTION OF EMBODIMENTS\n\n\nA subject label may be identified for a source document and a set of facts extracted from the source document. A set of candidate labels are generated based on anchor texts of links to the source document that are included in one or more linking documents. One of the candidate labels is selected to be the label for the subject of the source document and of facts extracted from the source document. Additional candidate labels may be selected as secondary labels for the subject of the source document and of the facts extracted from the source document.\n\nFIG. 1 illustrates a network 100, according to some embodiments of the invention. Network 100 includes one or more document hosts 102 and a fact repository engine 106. The network 100 also includes one or more networks 104 that couple these components.\n\nThe document hosts 102 store documents and provide access to documents. A document may be any machine-readable data including any combination of text, graphics, multimedia content, etc. In some embodiments, a document may be a combination of text, graphics and possibly other forms of information written in the Hypertext Markup Language (HTML), i.e., a web page. A document may include one or more hyperlinks to other documents. A document may include one or more facts within its contents. A document stored in a document host 102 may be located and/or identified by a Uniform Resource Locator (URL), or Web address, or any other appropriate form of identification and/or location.\n\nEach document may also be associated with a page importance metric. The page importance metric of a document measures the importance, popularity or reputation of the document relative to other documents. In some embodiments, the page importance metric is the PageRank of the document. For more information on the PageRank metric and its computation, see, for example, Page et al., “The PageRank citation ranking: Bringing order to the web,” Stanford Digital Libraries Working Paper, 1998; Haveliwala, “Topic-sensitive PageRank,” 11th International World Wide Web Conference, Honolulu, Hi., 2002; Richardson and Domingos, “The Intelligent Surfer: Probabilistic Combination of Link and Content Information in PageRank,” volume 14. MIT Press, Cambridge, Mass., 2002; and Jeh and Widom, “Scaling personalized web search,” 12th International World Wide Web Conference, Budapest, Hungary, May 20-24, 2002; Brin and Page, “The Anatomy of a Large-Scale Hypertextual Search Engine,” 7th International World Wide Web Conference, Brisbane, Australia, 1998; and U.S. Pat. No. 6,285,999, each of which is hereby incorporated by reference in its entirety as background information.\n\nThe fact repository engine 106 includes an importer 108, a repository manager 110, a fact index 112, and a fact repository 114. The importer 108 extracts factual information from documents stored on document hosts 102. The importer 108 analyzes the contents of the documents stored in document host 102, determines if the contents include factual information and the subject or subjects with which the factual information are associated, and extracts any available factual information within the contents.\n\nThe repository manager 110 processes facts extracted by the importer 108. The repository manager 110 builds and manages the fact repository 114 and the fact index 112. The repository manager 110 receives facts extracted by the importer 108 and stores them in the fact repository 114. The repository manager 110 may also perform operations on facts in the fact repository 114 to “clean up” the data within the fact repository 114. For example, the repository manager 110 may look through the fact repository 114 to find duplicate facts (that is, facts that convey the exact same factual information) and merge them. The repository manager 110 may also normalize facts into standard formats. The repository manager 110 may also remove unwanted facts from the fact repository 114, such as facts meeting predefined objectionable content criteria (e.g., facts related to pornographic content).\n\nThe fact repository 114 stores factual information extracted from a plurality of documents that are located on the document hosts 102. In other words, the fact repository 114 is a database of factual information. A document from which a particular fact may be extracted is a source document (or “source”) of that particular fact. In other words, a source of a fact includes that fact within its contents. Source documents may include, without limitation, web pages. Within the fact repository 114, entities, concepts, and the like for which the fact repository 114 may have factual information stored are represented by objects. An object may have one or more facts associated with it. Each object is a collection of facts. In some embodiments, an object that has no facts associated with it (an empty object) may be viewed as a non-existent object within the fact repository 114. Within each object, each fact associated with the object is stored as an attribute-value pair. Each fact also includes a list of source documents that include the fact within its contents and from which the fact was extracted. Further details about objects and facts in the fact repository are described below, in relation to FIG. 4.\n\nThe fact index 112 provides an index to the fact repository 114 and facilitates efficient lookup of information in the fact repository 114. The fact index 112 may index the fact repository 114 based on one or more parameters. For example, the fact index 112 may have an index that maps unique terms (e.g., words, numbers and the like) to records or locations within the fact repository 114. More specifically, the fact index 112 may include entries mapping every term in every object name, fact attribute and fact value of the fact repository to records or locations within the fact repository.\n\nIt should be appreciated that each of the components of the fact repository engine 106 may be distributed over multiple computers. For example, the fact repository 114 may be deployed over N servers, with a mapping function such as the “modulo N” function being used to determine which facts are stored in each of the N servers. Similarly, the fact index 112 may be distributed over multiple servers, and the importer 108 and repository manager 110 may each be distributed over multiple computers. However, for convenience of explanation, we will discuss the components of the fact repository engine 106 as though they were implemented on a single computer.\n\nFIG. 2 is a block diagram illustrating a source document and linking documents that include links to the source document, according to some embodiments of the invention. The source document 202 is stored in a document host 102. The source document 202 is identified by the fact repository engine 106 as a document that includes factual information, within the contents of the source document 202, which may be extracted. The source document 202 may include content such as text, graphics, multimedia, etc. However, the content in the source document 202 that is of interest to the fact repository engine 106 is content that conveys factual information. The factual information in the source document 202 may be represented as one or more attribute-value pairs 220.\n\nOne or more linking documents 204, which are stored in one or more document hosts 102, may link to the source document 202. The links to the source document 202 are hyperlinks 206 within the linking documents 204. A linking document may include content such as text, graphics, multimedia, etc. A linking document may also include hyperlinks to documents other than to the source document 202. However, the hyperlink that is of interest to the fact repository engine 106 is the hyperlink to the source document 202.\n\nA hyperlink 206 (or “link”) includes a starting anchor tag 208, which includes one or more parameters (or markup attributes), and an ending anchor tag 218. The starting and ending anchor tags define, the hyperlink. A destination attribute 210 indicates that the hyperlink 206 is a source anchor that links to a destination document. The location value 212 of the destination attribute 210 specifies the location and/or identity of the destination document to which the hyperlink links. In FIG. 2, the destination document is the source document 202, and thus the location value 212 of each hyperlink 206 is the location or identifier of the source document 202. The starting anchor tag 208 may also include one or more additional parameters 214.\n\nBetween the starting anchor tag 208 and the ending anchor tag 218 is the anchor text 216. The anchor text 216 is textual content in the linking document 204 that becomes the source anchor to the destination document based on its location between the starting anchor tag 208 and the ending anchor tag 218. In other words, the anchor text 216 is the text in the linking document that becomes the hyperlink. The anchor text 216 may be of any length.\n\nThe anchor text 216 is text that is to be rendered for presentation to a user. The anchor text may be rendered by the client application differently from other text rendered for presentation to the user, in order to differentiate the hyperlink anchor text from normal text. For example, the anchor text may be underlined and/or have a different font color than normal text after rendering. The hyperlink, if clicked by a user, triggers a request (e.g., an HTTP request) for the source document.\n\nIn some embodiments, the linking document 204 is a document written in HTML. In a linking document written in HTML, there is text in the linking document that is rendered for presentation to a user when the linking document is rendered in a client application, such as a web browser. There is also text that “marks up” the text to be rendered but is otherwise invisible when the linking document is rendered by a client application, such as a web browser. These markup texts specify how the text that is to be rendered for presentation to a user is to be rendered in the client application. The markup text includes HTML tags and parameters associated with the HTML tags. In a source document 202 written in HTML, the starting anchor tag 208 is the HTML tag “,” and the ending anchor tag 218 is the HTML tag “”. The destination attribute 210 is the HTML attribute “href,” that is included in the starting anchor tag “.” The location value 212 of the destination attribute is the URL of the source document. The URL in the location value 212 may be an absolute URL or a relative URL. For example, a hyperlink 206 to a source document 202, where the starting anchor tag does not include additional parameters other than the destination attribute, may be “ABC.” In this example, “” is the starting anchor tag with a destination attribute and a location value, “” is the ending tag, and “ABC” is the anchor text of the hyperlink.\n\nFIG. 3A is a flow diagram illustrating a process for associating a label with a source document and/or facts extracted from the source document, according to some embodiments of the invention. A source document that includes one or more facts identifiable as attribute-value pairs (hereinafter “A-V pairs”) is identified (302). One or more linking documents that include links to the source document are identified (304). In some embodiments, a search engine may be queried to search for linking documents that include a link to the source document. In some other embodiments, one or more link maps may be consulted. The one or more link maps map the linkage between one or more documents stored in document hosts 102. The link maps may be located within the fact repository engine 106 or located at a search engine that is accessible to the fact repository engine 106.\n\nAnchor texts of the links to the source document are identified (306). From the identified linking documents, the anchor texts of the links to the source documents are identified. Each linking document is parsed to find the starting and ending anchor tags that define the hyperlink to the source document. The anchor text between the tags is identified and extracted.\n\nOne or more candidate labels are generated from the extracted anchor texts (308). In some embodiments, the label generation includes converting the extracted anchor texts to a canonical form by applying a set of transformations to the extracted anchor texts. For instance, the transformation may include removing punctuation marks from the anchor texts and converting them to all lower case characters. In some other embodiments, additional processing may be performed on the anchor texts to generate the candidate labels in canonical form. For example, the anchor texts may be processed to remove from anchor texts words that tend to be not useful as subject labels, or words of low value, such as “click here.” If an anchor text is made up entirely of low value words, it may be the case that the entire anchor text is eliminated and no candidate label is generated from that anchor text. Each generated candidate label is distinct from another; two anchor texts that are exactly the same (before or after conversion to canonical form) will yield one candidate label.\n\nA first label is selected from the candidate labels according to one or more first predefined criteria (310). The first predefined criteria are defined such that the selected first label is most representative of the anchor texts associated with the hyperlinks to the source document. Further details regarding the selection of the first label are described below, in relation to FIGS. 3B and 3C.\n\nThe selected first label is associated with the source document and/or any A-V pairs extracted from the source document (312). Before the first label is associated with the source document and/or A-V pairs, the first label may be processed to more resemble the corresponding anchor text (e.g., by reversing one or more of the transformations used to convert the anchor text to canonical form, or by applying a subset of these transformations to the original anchor text). The selected label becomes the label for the subject of the source document and/or of any A-V pairs extracted from the source document. Optionally, one or more second labels may be selected from the candidate labels based on one or more second predefined criteria (314). The second labels may also be associated with the source document and/or the A-V pairs (316).\n\nIn some embodiments, the selected first label, and any selected second labels, are associated with the source document and/or the A-V pairs extracted from the source document, by adding an entry or value to a corresponding data structure. In the context of the facts database used in some embodiments, the selected first label, and any selected second labels, are associated with the extracted A-V pairs by adding these labels as names to the object data structure 400 (FIG. 4) in which the A-V pairs are stored. Each name of an object is represented by either a fact entry 404 having a “name” attribute, or by a name entry. In some embodiments, the fact entry in which a selected label is stored may include in its sources field 420 (FIG. 4) the URL or identifier of the source document. In other words, the selected label is attributed to the source document. In some other embodiments, the fact entry in which a selected label is stored may include in its sources field 420 (FIG. 4) the URL or identifier of the linking document. In other words, the selected label is attributed to the linking document. In further other embodiments, the fact entry in which a selected label is stored may include in its sources field 420 (FIG. 4) the URLs or identifiers of the source document and the linking document. In other words, the selected label is attributed to both the source document and the linking document.\n\nFIG. 3B illustrates one process for selecting a label to associate with a source document and/or A-V pairs, according to some embodiments of the invention. In some embodiments, the first predefined criterion for selection of the first label is based on the number of linking documents that have links, to the source document, with anchor text corresponding to the candidate label. A score for each candidate label may be determined based on how many linking documents include a link, to the source document, with the corresponding anchor text. At block 310 of FIG. 3A (coming from block 308), a score is determined for each candidate label (322). In some embodiments, the score is simply a count of how many linking documents include a link, to the source document, with anchor text corresponding to the respective candidate label. For example, if three linking documents include a link to the source document with anchor text A, then the score of the candidate label corresponding to anchor text A is 3. The score is, in a sense, a vote for the particular candidate label by linking documents having links to the source document. In some embodiments, anchor text corresponding to a candidate label (or candidate label corresponding to anchor text) means that the anchor text, after applying a predefined set of transformations (e.g., removing punctuation marks and converting to all lower case), matches the candidate label exactly. In some other embodiments, the match required for the correspondence may be less stringent. For example, the candidate label may be a proper substring of the anchor text.\n\nIn some embodiments, the score may be weighted by the page importance metrics of the linking documents having the links to the source document. This may help bias the vote toward candidate labels generated from anchor texts extracted from more important documents. Thus, each “vote” in the score is multiplied by the page importance metric of the linking document corresponding to the vote. The weighted score is the sum of the page importance metrics of the linking documents that include the link, to the source document, with the corresponding anchor text:\n\nScore ⁡ ( candidate ⁢ ⁢ label ) = ∑ linking ⁢ ⁢ documents ⁢ P ⁡ ( linking ⁢ ⁢ document ) , where P (linking document) is the page importance metric of a linking document that includes a link, to the source document, with anchor text corresponding to the candidate label.\n\nThe candidate label with the highest score is selected as the first label (324). The process proceeds to block 312, as shown in FIG. 3A. If second labels are to be selected at block 314, the second predefined criteria are based on the scores of the candidate labels. In some embodiments, the second predefine criteria are that the any candidate label (not including the already selected first label) with a score above a predefined threshold may be selected as a second label. The predefined threshold may be a fixed score or a fixed percentage of the score of the selected first label. In some other embodiments, the second predefined criteria are that the M candidate labels with highest scores (not including the selected first label) are selected as second labels, where M is a fixed positive integer.\n\nFIG. 3C illustrates another process for selecting a label to associate with a source document and/or attribute-value pairs, according to some embodiments of the invention. In some embodiments, a first label may be selected based on a first predefined criterion of highest similarity to a “center” of the candidate labels generated for the source document. To determine the “center” of the candidate labels and to determine the similarity to the “center,” the candidate labels are embedded into a vector space.\n\nAt block 310 of FIG. 3A (coming from block 308), a frequency vector is generated for each candidate label (332). The frequency vector is a vector of numbers of occurrences (frequencies) of n-grams in a candidate label. An n-gram is an n-character substring of a given string, disregarding any white spaces. Thus, if the given string is “good day,” then the 3-grams (3-character substrings) of “good day” are “goo,” “ood,” “odd,” “dda,” and “day.” In other words, each n-gram is formed from an n-character sliding window along the length of the candidate label. The frequency vector of a candidate label includes frequencies of all possible n-grams. If the candidate labels are assumed to only include letters and no numbers or other punctuation, the frequency vector of a candidate label is a 26n dimensional space vector. For example, a frequency vector of 3-grams, a 263 dimensional space vector, has frequencies of “aaa” through “zzz” in the candidate label. If the candidate labels can include numerical digitals (0 to 9) and lower case letters, the frequency vector is a 363 dimensional space vector. In either case, most frequencies in a frequency vector are 0 and the only non-zero frequencies are the frequencies of n-grams that actually occur in the candidate label.\n\nFor each candidate label, n-grams of the candidate label are identified and frequencies of the n-grams within that candidate label are determined. A frequency vector for that candidate label is generated based on the determined frequencies. In some embodiments, the n-grams are 5-grams (i.e., a 5-character sliding window).\n\nAfter a frequency vector is generated for each candidate label, a centroid vector is determined (334). The centroid vector represents a “center,” an “average” of sorts, of the frequency vectors of the candidate labels. In some embodiments, the centroid vector is determined by normalizing the generated frequency vectors of the candidate labels (i.e., converting each frequency vector into a unit vector), adding the normalized frequency vectors, and normalizing the resulting vector sum. Because the centroid vector is a normalization of the resulting vector sum, the length of the centroid vector is 1. In some embodiments, each frequency vector, after normalization but before the addition, may be weighted (i.e., scalar multiplication) by the sum of the page importance metrics of linking documents (i.e., documents which have links to the source document) with anchor text corresponding to the candidate label associated with each respective frequency vector.\n\nThe candidate label with the corresponding frequency vector that has the shortest distance to the centroid vector is identified (336). That is, the candidate label corresponding to the frequency vector that is closest to the centroid vector is identified. The candidate label with the closest frequency vector is the most similar to the “center,” represented by the centroid vector. In some embodiments, the closeness of a frequency vector to the centroid vector is measured by the cosine distance (also called the cosine similarity):\n\ncos ⁢ ⁢ θ = f · c  f  ×  c  , where f·c is the dot product of frequency vector f and the centroid vector c, ∥f∥ is the length of frequency vector f, ∥c∥ is the length of the centroid vector c (which is 1 since the centroid vector is already normalized, as described above), θ is an angle between frequency vector f and the centroid vector c, and cos θ (the cosine of angle θ) is the cosine distance between the two vectors. A smaller θ (i.e., as θ approaches 0) means that f and c are closer to each other. Cos 0 is equal to 1, which is the largest positive number that cos θ can ever be. A frequency vector f that is closest to the centroid vector c will yield the largest positive cos θ (i.e., nearest to 1). Thus, the frequency vector that has the shortest distance to the centroid vector is the frequency vector that has the largest positive cosine distance value with respect to the centroid vector.\n\nThe candidate label with the frequency vector that is closest to the centroid vector is selected as the first label (336). The process proceeds to block 312, as shown in FIG. 3A. If second labels are to be selected at block 314, the second predefined criteria are based on the cosine distances of the frequency vectors of the candidate labels. In some embodiments, the second predefine criteria are that the any candidate label (not including the already selected first label) with a cosine distance above a predefined threshold may be selected as a second label. The predefined threshold may be a fixed cosine distance value or a fixed percentage of the cosine distance of the selected first label. In some other embodiments, the second predefined criteria are that the L candidate labels with highest positive cosine distances (not including the selected first label) are selected as second labels, where L is a fixed positive integer.\n\nFIG. 4 illustrates an exemplary data structure for an object within the fact repository 114, according to some embodiments of the invention. As described above, the fact repository 114 includes objects, each of which may include one or more facts. Each object 400 includes a unique identifier, such as the object ID 402. The object 400 includes one or more facts 404. Each fact 404 includes a unique identifier for that fact, such as a fact ID 410. Each fact 404 includes an attribute 412 and a value 414. For example, facts included in an object representing George Washington may include facts having attributes of “date of birth” and “date of death,” and the values of these facts would be the actual date of birth and date of death, respectively. A fact 404 may include a link 416 to another object, which is the object identifier, such as the object ID 402 of another object within the fact repository 114. The link 416 allows objects to have facts whose values are other objects. For example, for an object “United States,” there may be a fact with the attribute “president” whose value is “George W. Bush,”, with “George W. Bush” being another object in the fact repository 114. In some embodiments, the value field 414 stores the name of the linked object and the link 416 stores the object identifier of the linked object. In some other embodiments, facts 404 do not include a link field 416 because the value 414 of a fact 404 may store a link to another object.\n\nEach fact 404 also may include one or more metrics 418. The metrics may provide indications of the quality of the fact. In some embodiments, the metrics include a confidence level and an importance level. The confidence level indicates the likelihood that the fact is correct. The importance level indicates the relevance of the fact to the object, compared to other facts for the same object. The importance level may optionally be viewed as a measure of how vital a fact is to an understanding of the entity or concept represented by the object.\n\nEach fact 404 includes a list of sources 420 that include the fact and from which the fact was extracted. Each source may be identified by a Uniform Resource Locator (URL), or Web address, or any other appropriate form of identification and/or location, such as a unique document identifier.\n\nIn some embodiments, some facts may include an agent field 422 that identifies the module that extracted the fact. For example, the agent may be a specialized module that extracts facts from a specific source (e.g., the pages of a particular web site, or family of web sites) or type of source (e.g., web pages that present factual information in tabular form), or a module that extracts facts from free text in documents throughout the Web, and so forth.\n\nIn some embodiments, an object 400 may have one or more specialized facts, such as a name fact 406 and a property fact 408. A name fact 406 is a fact that conveys a name for the entity or concept represented by the object 400. For example, for an object representing the country Spain, there may be a fact conveying the name of the object as “Spain.” A name fact 406, being a special instance of a general fact 404, includes the same parameters as any other fact 404; it has an attribute, a value, a fact ID, metrics, sources, etc. The attribute 424 of a name fact 406 indicates that the fact is a name fact, and the value is the actual name. The name may be a string of characters. An object 400 may have one or more name facts, as many entities or concepts can have more than one name. For example, an object representing Spain may have name facts conveying the country's common name “Spain” and the official name “Kingdom of Spain.” As another example, an object representing the U.S. Patent and Trademark Office may have name facts conveying the agency's acronyms “PTO” and “USPTO” and the official name “United States Patent and Trademark Office.” If an object has one or more name facts, one of the name facts may be designated as a primary name and the other name facts may be designated as secondary names.\n\nIt should be appreciated that the first or second labels associated with A-V pairs extracted from a source document, as described above, may be made into name facts for the object with which the A-V pairs are associated. For example, the first label may be made into a name fact that serves as a primary name for the object and the second label(s) may be made into name facts that serve as secondary names for the object.\n\nA property fact 408 is a fact that conveys a statement about the entity or concept represented by the object 400 that may be of interest. For example, for the object representing Spain, a property fact may convey that Spain is a country in Europe. A property fact 408, being a special instance of a general fact 404, also includes the same parameters (such as attribute, value, fact ID, etc.) as other facts 404. The attribute field 426 of a property fact 408 indicates that the fact is a property fact, and the value field is a string of text that conveys the statement of interest. For example, for the object representing Spain, the value of a property fact may be the text string “is a country in Europe.” Some objects 400 may have one or more property facts while other objects may have no property facts.\n\nIt should be appreciated that the data structure illustrated in FIG. 4 and described above is merely exemplary. The data structure of the fact repository 114 may take on other forms. Other fields may be included in facts and some of the fields described above may be omitted. Additionally, each object may have additional special facts aside from name facts and property facts, such as facts conveying a type or category (for example, person, place, movie, actor, organization, etc.) for categorizing the entity or concept represented by the object. In some embodiments, an object's name(s) and/or properties may be represented by special records that have a different format than the general facts records 404 associated with the attribute-value pairs of an object.\n\nFIG. 5 is a block diagram illustrating a document processing system 500, according to some embodiments of the invention. The system 500 typically includes one or more processing units (CPU's) 502, one or more network or other communications interfaces 510, memory 512, and one or more communication buses 514 for interconnecting these components. The system 500 optionally may include a user interface 504 comprising a display device 506, keyboard 508 and pointer device 509, such as a mouse, track ball or touch sensitive pad. Memory 512 includes high-speed random access memory, such as DRAM, SRAM, DDR RAM or other random access solid state memory devices; and may include non-volatile memory, such as one or more magnetic disk storage devices, optical disk storage devices, flash memory devices, or other non-volatile solid state storage devices. Memory 512 may optionally include one or more storage devices remotely located from the CPU(s) 502. In some embodiments, memory 512 stores the following programs, modules and data structures, or a subset thereof:\n\nThe label scoring module 530 scores the candidate labels. In some embodiments, the “score” of a candidate label is a count (which may or may not be weighted) of linking documents that include a link, to the source document with the corresponding anchor text. In some other embodiments, the “score” of a candidate label is the cosine distance of a frequency vector, corresponding to the candidate label, to a centroid vector. In an exemplary embodiment, the label association module 534 inserts the selected labels into objects or records in a facts database, for instance by adding name facts 404 to an object 400 containing the A-V pairs with which a particular selected label is to be associated.\n\nThe system 500 also includes a fact storage system 536 for storing and indexing facts. As described above, in some embodiments each fact stored in the fact storage system 536 includes a corresponding list of sources from which the respective fact was extracted. In some embodiments, the system 500 includes a search engine 538 for locating documents. The search engine may include one or more link maps 540 and one or more page importance tables 542. In alternative embodiments, the link maps 540 and page importance tables 542 may be located in memory 512 of the document processing system. The link maps map the linkage of documents. The page importance tables lists documents and their corresponding page importance metrics.\n\nEach of the above identified elements may be stored in one or more of the previously mentioned memory devices, and corresponds to a set of instructions for performing a function described above. The above identified modules or programs (i.e., sets of instructions) need not be implemented as separate software programs, procedures or modules, and thus various subsets of these modules may be combined or otherwise re-arranged in various embodiments. In some embodiments, memory 512 may store a subset of the modules and data structures identified above. Furthermore, memory 512 may store additional modules and data structures not described above.\n\nAlthough FIG. 5 shows a “document processing system,” FIG. 5 is intended more as a functional description of the various features which may be present in a set of servers than as a structural schematic of the embodiments described herein. In practice, and as recognized by those of ordinary skill in the art, items shown separately could be combined and some items could be separated. For example, some items shown separately in FIG. 5 could be implemented on single servers and single items could be implemented by one or more servers. The actual number of servers used to implement a document processing system and how features are allocated among them will vary from one implementation to another, and may depend in part on the amount of data traffic that the system must handle during peak usage periods as well as during average usage periods.\n\nThe foregoing description, for purpose of explanation, has been described with reference to specific embodiments. However, the illustrative discussions above are not intended to be exhaustive or to limit the invention to the precise forms disclosed. Many modifications and variations are possible in view of the above teachings. The embodiments were chosen and described in order to best explain the principles of the invention and its practical applications, to thereby enable others skilled in the art to best utilize the invention and various embodiments with various modifications as are suited to the particular use contemplated.",
+ "cited_by": [
+  {
+   "id": "US20080103721A1",
+   "title": "Systems and methods for measuring behavior characteristics",
+   "assignee": "Institute For Information Industry"
+  },
+  {
+   "id": "US20090070298A1",
+   "title": "Iterators for Applying Term Occurrence-Level Constraints in Natural Language Searching",
+   "assignee": "Powerset, Inc."
+  },
+  {
+   "id": "US20090100056A1",
+   "title": "Method And Device For Extracting Web Information",
+   "assignee": "Tencent Technology (Shenzhen) Company Limited"
+  },
+  {
+   "id": "US20090292684A1",
+   "title": "Promoting websites based on location",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20120260160A1",
+   "title": "Display device for displaying a webpage and display method for same",
+   "assignee": "Samsung Electronics Co., Ltd."
+  },
+  {
+   "id": "US8645391B1",
+   "title": "Attribute-value extraction from structured documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20190325046A1",
+   "title": "Discovering schema using anchor attributes",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US10560349B2",
+   "title": "Data consistency of policy enforcement for distributed applications",
+   "assignee": "Salesforce.Com, Inc."
+  },
+  {
+   "id": "US10680958B2",
+   "title": "Policy enforcement as a service for third party platforms",
+   "assignee": "Salesforce.Com, Inc."
+  },
+  {
+   "id": "US10771353B2",
+   "title": "Policy enforcement as a service for third party platforms with asynchronous user tracking mechanisms",
+   "assignee": "Salesforce.Com, Inc."
+  },
+  {
+   "id": "US10778543B2",
+   "title": "Opaque interface for enclosed/wrapped asynchronous pushing and/or pulling data between policy enforcement as a service (PEaaS) components",
+   "assignee": "Salesforce.Com, Inc."
+  },
+  {
+   "id": "US20220292103A1",
+   "title": "Information service for facts extracted from differing sources on a wide area network",
+   "assignee": "Staffan Truvé"
+  },
+  {
+   "id": "US7895225B1",
+   "title": "Identifying potential duplicates of a document in a document corpus",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "MX384690B",
+   "title": "AUTO-INJECTOR SYSTEM.",
+   "assignee": "Avant Medical Corp"
+  },
+  {
+   "id": "US8177749B2",
+   "title": "Cassette for a hidden injection needle",
+   "assignee": "Avant Medical Corp."
+  },
+  {
+   "id": "US8052645B2",
+   "title": "System and method for an injection using a syringe needle",
+   "assignee": "Avant Medical Corp."
+  },
+  {
+   "id": "CA3021845C",
+   "title": "Autoinjector apparatus",
+   "assignee": "Amgen Inc."
+  },
+  {
+   "id": "CA2741212C",
+   "title": "Automated self-service user support based on ontology analysis",
+   "assignee": "Ibm Canada Limited - Ibm Canada Limitee"
+  },
+  {
+   "id": "CA2767676C",
+   "title": "Attribution using semantic analysis",
+   "assignee": "Ibm Canada Limited - Ibm Canada Limitee"
+  },
+  {
+   "id": "USD808010S1",
+   "title": "Injection device",
+   "assignee": "Amgen Inc."
+  },
+  {
+   "id": "USD898908S1",
+   "title": "Pharmaceutical product cassette for an injection device",
+   "assignee": "Amgen Inc."
+  },
+  {
+   "id": "US9235812B2",
+   "title": "System and method for automatic document classification in ediscovery, compliance and legacy information clean-up",
+   "assignee": "Msc Intellectual Properties B.V."
+  },
+  {
+   "id": "US9264387B2",
+   "title": "System and method for authorship disambiguation and alias resolution in electronic data",
+   "assignee": "Msc Intellectual Properties B.V."
+  },
+  {
+   "id": "EP2968775B1",
+   "title": "Drug cassette, autoinjector, and autoinjector system",
+   "assignee": "Amgen Inc."
+  },
+  {
+   "id": "TWI580451B",
+   "title": "Cassette for an injector and method of using an autoinjector apparatus having an autoinjector and a cassette",
+   "assignee": "安美基公司"
+  },
+  {
+   "id": "US9448992B2",
+   "title": "Natural language search results for intent queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "EP3284028A4",
+   "title": "Dynamic transaction card with emv interface and method of manufacturing",
+   "assignee": "Capital One Services, LLC"
+  },
+  {
+   "id": "US9990795B2",
+   "title": "Dynamic transaction card with EMV interface and method of manufacturing",
+   "assignee": "Capital One Services, Llc"
+  },
+  {
+   "id": "US10274983B2",
+   "title": "Extended business name categorization apparatus and method",
+   "assignee": "Yardi Systems, Inc."
+  },
+  {
+   "id": "US10275841B2",
+   "title": "Apparatus and method for efficient business name categorization",
+   "assignee": "Yardi Systems, Inc."
+  },
+  {
+   "id": "US10275708B2",
+   "title": "Criteria enhancement technique for business name categorization",
+   "assignee": "Yardi Systems, Inc."
+  },
+  {
+   "id": "US11216718B2",
+   "title": "Energy management system",
+   "assignee": "Yardi Systems, Inc."
+  },
+  {
+   "id": "US10268965B2",
+   "title": "Dictionary enhancement technique for business name categorization",
+   "assignee": "Yardi Systems, Inc."
+  },
+  {
+   "id": "US11954422B2",
+   "title": "Systems and methods for structure-based automated hyperlinking",
+   "assignee": "Rock Cube Holdings LLC"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5010478A",
+   "title": "Entity-attribute value database system with inverse attribute for selectively relating two different entities",
+   "assignee": "Deran Roger L"
+  },
+  {
+   "id": "US5475819A",
+   "title": "Distributed configuration profile for computing system",
+   "assignee": "Digital Equipment Corporation"
+  },
+  {
+   "id": "US5519608A",
+   "title": "Method for extracting from a text corpus answers to questions stated in natural language by using linguistic analysis and hypothesis generation",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5560005A",
+   "title": "Methods and systems for object-based relational distributed databases",
+   "assignee": "Actamed Corp."
+  },
+  {
+   "id": "US5574898A",
+   "title": "Dynamic software version auditor which monitors a process to provide a list of objects that are accessed",
+   "assignee": "Atria Software, Inc."
+  },
+  {
+   "id": "US5717951A",
+   "title": "Method for storing and retrieving information on a magnetic storage medium via data blocks of variable sizes",
+   "assignee": "Yabumoto; Kan W."
+  },
+  {
+   "id": "US5778373A",
+   "title": "Integration of an information server database schema by generating a translation map from exemplary files",
+   "assignee": "At&T Corp"
+  },
+  {
+   "id": "US5802299A",
+   "title": "Interactive system for authoring hypertext document collections",
+   "assignee": "Microtouch Systems, Inc."
+  },
+  {
+   "id": "US5822743A",
+   "title": "Knowledge-based information retrieval system",
+   "assignee": "1215627 Ontario Inc."
+  },
+  {
+   "id": "US5826258A",
+   "title": "Method and apparatus for structuring the querying and interpretation of semistructured information",
+   "assignee": "Junglee Corporation"
+  },
+  {
+   "id": "US5920859A",
+   "title": "Hypertext document retrieval system and method",
+   "assignee": "Idd Enterprises, L.P."
+  },
+  {
+   "id": "US5943670A",
+   "title": "System and method for categorizing objects in combined categories",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5987460A",
+   "title": "Document retrieval-assisting method and system for the same and document retrieval service using the same with document frequency and term frequency",
+   "assignee": "Hitachi, Ltd."
+  },
+  {
+   "id": "US6044366A",
+   "title": "Use of the UNPIVOT relational operator in the efficient gathering of sufficient statistics for data mining",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6052693A",
+   "title": "System for assembling large databases through information extracted from text sources",
+   "assignee": "Harlequin Group Plc"
+  },
+  {
+   "id": "US6112203A",
+   "title": "Method for ranking documents in a hyperlinked environment using connectivity and selective content analysis",
+   "assignee": "Altavista Company"
+  },
+  {
+   "id": "US6122647A",
+   "title": "Dynamic generation of contextual links in hypertext documents",
+   "assignee": "Perspecta, Inc."
+  },
+  {
+   "id": "US6134555A",
+   "title": "Dimension reduction using association rules for data mining application",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6212526B1",
+   "title": "Method for apparatus for efficient mining of classification models from databases",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "WO2001027713A2",
+   "title": "Method of categorization and indexing of information",
+   "assignee": "Milind Kotwal"
+  },
+  {
+   "id": "US6240546B1",
+   "title": "Identifying date fields for runtime year 2000 system solution process, method and article of manufacture",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US6289338B1",
+   "title": "Database analysis using a probabilistic ontology",
+   "assignee": "Manning & Napier Information Services"
+  },
+  {
+   "id": "US6311194B1",
+   "title": "System and method for creating a semantic web and its applications in browsing, searching, profiling, personalization and advertising",
+   "assignee": "Taalee, Inc."
+  },
+  {
+   "id": "US6349275B1",
+   "title": "Multiple concurrent language support system for electronic catalogue using a concept based knowledge representation",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20020038307A1",
+   "title": "Systems and methods for knowledge discovery in spatial data",
+   "assignee": "Zoran Obradovic"
+  },
+  {
+   "id": "US20020042707A1",
+   "title": "Grammar-packaged parsing",
+   "assignee": "Gang Zhao"
+  },
+  {
+   "id": "US20020065845A1",
+   "title": "Information retrieval system",
+   "assignee": "Eiichi Naito"
+  },
+  {
+   "id": "US20020083039A1",
+   "title": "Hierarchical data-driven search and navigation system and method for information retrieval",
+   "assignee": "Ferrari Adam J."
+  },
+  {
+   "id": "US6473898B1",
+   "title": "Method for compiling and selecting data attributes",
+   "assignee": "Pcorder.Com, Inc."
+  },
+  {
+   "id": "US20020169770A1",
+   "title": "Apparatus and method that categorize a collection of documents into a hierarchy of categories that are defined by the collection of documents",
+   "assignee": "Kim Brian Seong-Gon"
+  },
+  {
+   "id": "US20020178448A1",
+   "title": "Method and system for registering a user preference",
+   "assignee": "Te Kiefte Jan Benjamin"
+  },
+  {
+   "id": "US6502102B1",
+   "title": "System, method and article of manufacture for a table-driven automated scripting architecture",
+   "assignee": "Accenture Llp"
+  },
+  {
+   "id": "US20030018652A1",
+   "title": "Apparatus and accompanying methods for visualizing clusters of data and hierarchical cluster classifications",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20030069880A1",
+   "title": "Natural language query processing",
+   "assignee": "Ask Jeeves, Inc."
+  },
+  {
+   "id": "US20030078902A1",
+   "title": "Method, system, and program for maintaining a database of data objects",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US6567936B1",
+   "title": "Data clustering using error-tolerant frequent item sets",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6572661B1",
+   "title": "System and method for automated annotation of files",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US6584464B1",
+   "title": "Grammar template query system",
+   "assignee": "Ask Jeeves, Inc."
+  },
+  {
+   "id": "US20030120675A1",
+   "title": "Application instantiation based upon attributes and values stored in a meta data repository, including tiering of application layers, objects, and components",
+   "assignee": "Siebel Systems, Inc."
+  },
+  {
+   "id": "US20030149567A1",
+   "title": "Method and system for using natural language in computer resource utilization analysis via a communications network",
+   "assignee": "Tony Schmitz"
+  },
+  {
+   "id": "US6606625B1",
+   "title": "Wrapper induction by hierarchical data analysis",
+   "assignee": "University Of Southern California"
+  },
+  {
+   "id": "US20030154071A1",
+   "title": "Process for the document management and computer-assisted translation of documents utilizing document corpora constructed by intelligent agents",
+   "assignee": "Shreve Gregory M."
+  },
+  {
+   "id": "US20030177110A1",
+   "title": "Profile information recommendation method, program and apparatus",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US20030182310A1",
+   "title": "Method and apparatus for sociological data mining",
+   "assignee": "Elizabeth Charnock"
+  },
+  {
+   "id": "US20030195877A1",
+   "title": "Search query processing to provide category-ranked presentation of search results",
+   "assignee": "Ford James L."
+  },
+  {
+   "id": "US6665666B1",
+   "title": "System, method and program product for answering questions using a search engine",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6665837B1",
+   "title": "Method for identifying related pages in a hyperlinked database",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US20040003067A1",
+   "title": "System and method for enabling a user interface with GUI meta data",
+   "assignee": "Daniel Ferrin"
+  },
+  {
+   "id": "US20040024739A1",
+   "title": "System and method for implementing a knowledge management system",
+   "assignee": "Kanisa Inc."
+  },
+  {
+   "id": "US20040107125A1",
+   "title": "Business alliance identification in a web architecture",
+   "assignee": "Accenture Llp"
+  },
+  {
+   "id": "US6754873B1",
+   "title": "Techniques for finding related hyperlinked documents using link-based analysis",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040128624A1",
+   "title": "System and methods for an architectural framework for design of an adaptive, personalized, interactive content delivery system",
+   "assignee": "Sbc Technology Resources, Inc."
+  },
+  {
+   "id": "US20040153456A1",
+   "title": "Method and apparatus to visually present discussions for data mining purposes",
+   "assignee": "Elizabeth Charnock"
+  },
+  {
+   "id": "US20040167870A1",
+   "title": "Systems and methods for providing a mixed data integration service",
+   "assignee": "Attensity Corporation"
+  },
+  {
+   "id": "US20040177015A1",
+   "title": "System and method for extracting content for submission to a search engine",
+   "assignee": "Yaron Galai"
+  },
+  {
+   "id": "US6804667B1",
+   "title": "Filter for checking for duplicate entries in database",
+   "assignee": "Ncr Corporation"
+  },
+  {
+   "id": "US6823495B1",
+   "title": "Mapping tool graphical user interface",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20040255237A1",
+   "title": "Document search engine including highlighting of confident results",
+   "assignee": "Simon Tong"
+  },
+  {
+   "id": "WO2004114163A2",
+   "title": "Method and system for enhanced data searching",
+   "assignee": "Insightful Corporation"
+  },
+  {
+   "id": "US6850896B1",
+   "title": "Method and system for managing and providing sales data using world wide web",
+   "assignee": "Market-Touch Corporation"
+  },
+  {
+   "id": "US20050086222A1",
+   "title": "Semi-automatic construction method for knowledge base of encyclopedia question answering system",
+   "assignee": "Wang Ji H."
+  },
+  {
+   "id": "US6886005B2",
+   "title": "RDL search engine",
+   "assignee": "E-Numerate Solutions, Inc."
+  },
+  {
+   "id": "US6901403B1",
+   "title": "XML presentation of general-purpose data sources",
+   "assignee": "Quovadx, Inc."
+  },
+  {
+   "id": "US20050125311A1",
+   "title": "System and method for automated part-number mapping",
+   "assignee": "Ghassan Chidiac"
+  },
+  {
+   "id": "US20050149851A1",
+   "title": "Generating hyperlinks and anchor text in HTML and non-HTML documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20050149576A1",
+   "title": "Systems and methods for direct navigation to specific portion of target document",
+   "assignee": "Google Inc. A Delaware Corporation"
+  },
+  {
+   "id": "US20050187923A1",
+   "title": "Intelligent search and retrieval system and method",
+   "assignee": "Dow Jones Reuters Business Interactive, Llc"
+  },
+  {
+   "id": "US6957213B1",
+   "title": "Method of utilizing implicit references to answer a query",
+   "assignee": "Inquira, Inc."
+  },
+  {
+   "id": "US20060036504A1",
+   "title": "Dynamically classifying items for international delivery",
+   "assignee": "Allocca William W"
+  },
+  {
+   "id": "US7003719B1",
+   "title": "System, method, and software for inserting hyperlinks into documents",
+   "assignee": "West Publishing Company, Dba West Group"
+  },
+  {
+   "id": "US7003522B1",
+   "title": "System and method for incorporating smart tags in online content",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7020662B2",
+   "title": "Method and system for determining a directory entry's class of service based on the value of a specifier in the entry",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US20060074824A1",
+   "title": "Prediction by collective likelihood from emerging patterns",
+   "assignee": "Jinyan Li"
+  },
+  {
+   "id": "US20060074910A1",
+   "title": "Systems and methods of retrieving topic specific information",
+   "assignee": "Become, Inc."
+  },
+  {
+   "id": "US7051023B2",
+   "title": "Systems and methods for generating concept units from search queries",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20060152755A1",
+   "title": "Method, system and program product for managing document summary information",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7080073B1",
+   "title": "Method and apparatus for focused crawling",
+   "assignee": "Firstrain, Inc."
+  },
+  {
+   "id": "WO2006104951A1",
+   "title": "User interface for facts query engine with snippets from information sources that include query terms and answer terms",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7143099B2",
+   "title": "Historical data warehousing system",
+   "assignee": "Amdocs Software Systems Limited"
+  },
+  {
+   "id": "US7146536B2",
+   "title": "Fact collection for product knowledge management",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US20060293879A1",
+   "title": "Learning facts from semi-structured text",
+   "assignee": "Shubin Zhao"
+  },
+  {
+   "id": "US20070005639A1",
+   "title": "Categorization including dependencies between different category systems",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20070016890A1",
+   "title": "Configurator using structure to provide a user interface",
+   "assignee": "Stephan Brunner"
+  },
+  {
+   "id": "US7194380B2",
+   "title": "Classification using probability estimate re-sampling",
+   "assignee": "Chordiant Software Europe Limited"
+  },
+  {
+   "id": "US20070073768A1",
+   "title": "Interactive system for building and sharing one's own databank of wisdom bytes, such as words of wisdom, basic truths and/or facts and and feats, in one or more languages",
+   "assignee": "Goradia Gautam D"
+  },
+  {
+   "id": "US20070094246A1",
+   "title": "System and method for searching dates efficiently in a collection of web documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20070130123A1",
+   "title": "Content matching",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070143282A1",
+   "title": "Anchor text summarization for corroboration",
+   "assignee": "Betz Jonathan T"
+  },
+  {
+   "id": "US20070198480A1",
+   "title": "Query language",
+   "assignee": "Hogue Andrew W"
+  },
+  {
+   "id": "US20070198503A1",
+   "title": "Browseable fact repository",
+   "assignee": "Hogue Andrew W"
+  },
+  {
+   "id": "US20070198481A1",
+   "title": "Automatic object reference identification and linking in a browseable fact repository",
+   "assignee": "Hogue Andrew W"
+  },
+  {
+   "id": "US7277879B2",
+   "title": "Concept navigation in data storage systems",
+   "assignee": "Electronic Data Systems Corporation"
+  },
+  {
+   "id": "US20070271268A1",
+   "title": "Architecture for an indexer",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7302646B2",
+   "title": "Information rearrangement method, information processing apparatus and information processing system, and storage medium and program transmission apparatus therefor",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7305380B1",
+   "title": "Systems and methods for performing in-context searching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7363312B2",
+   "title": "Combining data descriptions",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US7493317B2",
+   "title": "Result-based triggering for presentation of online content",
+   "assignee": "Omniture, Inc."
+  },
+  {
+   "id": "US5133075A",
+   "title": "Method of monitoring changes in attribute values of object in an object-oriented database",
+   "assignee": "Hewlett-Packard Company"
+  },
+  {
+   "id": "US5694590A",
+   "title": "Apparatus and method for the detection of security violations in multilevel secure databases",
+   "assignee": "The Mitre Corporation"
+  },
+  {
+   "id": "US5546507A",
+   "title": "Apparatus and method for generating a knowledge base",
+   "assignee": "Unisys Corporation"
+  },
+  {
+   "id": "US5675785A",
+   "title": "Data warehouse which is accessed by a user using a schema of virtual tables",
+   "assignee": "Hewlett-Packard Company"
+  },
+  {
+   "id": "JP2809341B2",
+   "title": "Information summarizing method, information summarizing device, weighting method, and teletext receiving device.",
+   "assignee": "松下電器産業株式会社"
+  },
+  {
+   "id": "US5608903A",
+   "title": "Method and apparatus for moving subtrees in a distributed network directory",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US5717911A",
+   "title": "Relational database system and method with high availability compliation of SQL programs",
+   "assignee": "Tandem Computers, Inc."
+  },
+  {
+   "id": "US5793966A",
+   "title": "Computer system and computer-implemented process for creation and maintenance of online services",
+   "assignee": "Vermeer Technologies, Inc."
+  },
+  {
+   "id": "US5724571A",
+   "title": "Method and apparatus for generating query responses in a computer-based document retrieval system",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US6006221A",
+   "title": "Multilingual document retrieval system and method using semantic vector matching",
+   "assignee": "Syracuse University"
+  },
+  {
+   "id": "US5778378A",
+   "title": "Object oriented information retrieval framework mechanism",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5819210A",
+   "title": "Method of lazy contexted copying during unification",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5787413A",
+   "title": "C++ classes for a digital library",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "AUPO525497A0",
+   "title": "Network-based classified information systems",
+   "assignee": "Mills, Dudley John"
+  },
+  {
+   "id": "US6038560A",
+   "title": "Concept knowledge base search and retrieval system",
+   "assignee": "Oracle Corporation"
+  },
+  {
+   "id": "US5893093A",
+   "title": "Information search and retrieval with geographical coordinates",
+   "assignee": "The Sabre Group, Inc."
+  },
+  {
+   "id": "AU735024B2",
+   "title": "Scheduler for a software system",
+   "assignee": "British Telecommunications Public Limited Company"
+  },
+  {
+   "id": "JP2001511555A",
+   "title": "Generate software system",
+   "assignee": "ブリティッシュ・テレコミュニケーションズ・パブリック・リミテッド・カンパニー"
+  },
+  {
+   "id": "CA2296391C",
+   "title": "Visualisation in a modular software system",
+   "assignee": "British Telecommunications Public Limited Company"
+  },
+  {
+   "id": "US6073130A",
+   "title": "Method for improving the results of a search in a structured database",
+   "assignee": "At&T Corp."
+  },
+  {
+   "id": "US6442540B2",
+   "title": "Information retrieval apparatus and information retrieval method",
+   "assignee": "Kabushiki Kaisha Toshiba"
+  },
+  {
+   "id": "FI106089B",
+   "title": "Monitoring of a mobile terminal in a mobile communication system",
+   "assignee": "Sonera Oyj"
+  },
+  {
+   "id": "US6567846B1",
+   "title": "Extensible user interface for a distributed messaging framework in a computer network",
+   "assignee": "E.Piphany, Inc."
+  },
+  {
+   "id": "US6327574B1",
+   "title": "Hierarchical models of consumer attributes for targeting content in a privacy-preserving manner",
+   "assignee": "Encirq Corporation"
+  },
+  {
+   "id": "AU5181099A",
+   "title": "An index to a semi-structured database",
+   "assignee": "British Telecommunications Public Limited Company"
+  },
+  {
+   "id": "US6470330B1",
+   "title": "Database system with methods for estimation and usage of index page cluster ratio (IPCR) and data page cluster ratio (DPCR)",
+   "assignee": "Sybase, Inc."
+  },
+  {
+   "id": "FR2787957B1",
+   "title": "PROCESS FOR PROCESSING A REQUEST",
+   "assignee": "Inst Nat Rech Inf Automat"
+  },
+  {
+   "id": "US6377943B1",
+   "title": "Initial ordering of tables for database queries",
+   "assignee": "Oracle Corp."
+  },
+  {
+   "id": "US6565610B1",
+   "title": "Method and system for text placement when forming maps",
+   "assignee": "Navigation Technologies Corporation"
+  },
+  {
+   "id": "US6763496B1",
+   "title": "Method for promoting contextual information to display pages containing hyperlinks",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6263328B1",
+   "title": "Object oriented query model and process for complex heterogeneous database queries",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030195872A1",
+   "title": "Web-based information content analyzer and information dimension dictionary",
+   "assignee": "Paul Senn"
+  },
+  {
+   "id": "US6438543B1",
+   "title": "System and method for cross-document coreference",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6873982B1",
+   "title": "Ordering of database search results based on user feedback",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "EP1072987A1",
+   "title": "Geographic web browser and iconic hyperlink cartography",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6341306B1",
+   "title": "Web-based information retrieval responsive to displayed word identified by a text-grabbing algorithm",
+   "assignee": "Atomica Corporation"
+  },
+  {
+   "id": "CA2281331A1",
+   "title": "Database management system",
+   "assignee": "Cognos Incorporated"
+  },
+  {
+   "id": "US6845354B1",
+   "title": "Information retrieval system with a neuro-fuzzy structure",
+   "assignee": "Institute For Information Industry"
+  },
+  {
+   "id": "JP3888812B2",
+   "title": "Fact data integration method and apparatus",
+   "assignee": "富士通株式会社"
+  },
+  {
+   "id": "US6606659B1",
+   "title": "System and method for controlling access to internet sites",
+   "assignee": "Websense, Inc."
+  },
+  {
+   "id": "US6665659B1",
+   "title": "Methods and apparatus for distributing and using metadata via the internet",
+   "assignee": "James D. Logan"
+  },
+  {
+   "id": "US6584646B2",
+   "title": "Tilt hinge for office automation equipment",
+   "assignee": "Katoh Electrical Machinery Co., Ltd."
+  },
+  {
+   "id": "US6738767B1",
+   "title": "System and method for discovering schematic structure in hypertext documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6643641B1",
+   "title": "Web search engine with graphic snapshots",
+   "assignee": "Russell Snyder"
+  },
+  {
+   "id": "US7325201B2",
+   "title": "System and method for manipulating content in a hierarchical data-driven search and navigation system",
+   "assignee": "Endeca Technologies, Inc."
+  },
+  {
+   "id": "US6487495B1",
+   "title": "Navigation applications using related location-referenced keywords",
+   "assignee": "Navigation Technologies Corporation"
+  },
+  {
+   "id": "US6963876B2",
+   "title": "System and method for searching extended regular expressions",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7162499B2",
+   "title": "Linked value replication",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "GB0015233D0",
+   "title": "Indexing method and apparatus",
+   "assignee": "Canon Kk"
+  },
+  {
+   "id": "US7003506B1",
+   "title": "Method and system for creating an embedded search link document",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6578032B1",
+   "title": "Method and system for performing phrase/word clustering and cluster merging",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7080085B1",
+   "title": "System and method for ensuring referential integrity for heterogeneously scoped references in an information management system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6728728B2",
+   "title": "Unified binary model and methodology for knowledge representation and for data and information mining",
+   "assignee": "Israel Spiegler"
+  },
+  {
+   "id": "US6675159B1",
+   "title": "Concept-based search and retrieval system",
+   "assignee": "Science Applic Int Corp"
+  },
+  {
+   "id": "US7100082B2",
+   "title": "Check creation and maintenance for product knowledge management",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US6832218B1",
+   "title": "System and method for associating search results",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7493308B1",
+   "title": "Searching documents using a dimensional database",
+   "assignee": "A9.Com, Inc."
+  },
+  {
+   "id": "US6684205B1",
+   "title": "Clustering hypertext with applications to web searching",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "JP2002157276A",
+   "title": "Problem solving support method and system",
+   "assignee": "Hitachi Software Eng Co Ltd"
+  },
+  {
+   "id": "US7013308B1",
+   "title": "Knowledge storage and retrieval system and method",
+   "assignee": "Semscript Ltd."
+  },
+  {
+   "id": "US20020174099A1",
+   "title": "Minimal identification",
+   "assignee": "Anthony Raj"
+  },
+  {
+   "id": "US8402068B2",
+   "title": "System and method for collecting, associating, normalizing and presenting product and vendor information on a distributed network",
+   "assignee": "Half.Com, Inc."
+  },
+  {
+   "id": "US6693651B2",
+   "title": "Customer self service iconic interface for resource search results display and selection",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "EP1490790A2",
+   "title": "Dynamic natural language understanding",
+   "assignee": "Intelligate Ltd."
+  },
+  {
+   "id": "EP1410258A4",
+   "title": "System and method for knowledge retrieval, management, delivery and presentation",
+   "assignee": "Inc Nervana"
+  },
+  {
+   "id": "US7263656B2",
+   "title": "Method and device for scheduling, generating and processing a document comprising blocks of information",
+   "assignee": "Canon Kabushiki Kaisha"
+  },
+  {
+   "id": "JP3979499B2",
+   "title": "System and method for automatically recognizing vehicle number of monitored vehicle using monitoring vehicle",
+   "assignee": "ヒュンジャエ テック カンパニー リミテッド"
+  },
+  {
+   "id": "CA2354443A1",
+   "title": "Method and system for visually constructing xml schemas using an object-oriented model",
+   "assignee": "Ibm Canada Limited-Ibm Canada Limitee"
+  },
+  {
+   "id": "US6868411B2",
+   "title": "Fuzzy text categorizer",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6607151B2",
+   "title": "Ultra fine dead sea mineral compound and method of manufacture",
+   "assignee": "Morris Samelson"
+  },
+  {
+   "id": "US7058653B2",
+   "title": "Tree system diagram output method, computer program and recording medium",
+   "assignee": "Ricoh Company, Ltd."
+  },
+  {
+   "id": "CN1591410A",
+   "title": "Integrated data processing system",
+   "assignee": "无锡永中科技有限公司"
+  },
+  {
+   "id": "US6965900B2",
+   "title": "Method and apparatus for electronically extracting application specific multidimensional information from documents selected from a set of documents electronically extracted from a library of electronically searchable documents",
+   "assignee": "X-Labs Holdings, Llc"
+  },
+  {
+   "id": "US7096231B2",
+   "title": "Export engine which builds relational database directly from object model",
+   "assignee": "American Management Systems, Inc."
+  },
+  {
+   "id": "US7209906B2",
+   "title": "System and method for implementing a metrics engine for tracking relationships over time",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7398461B1",
+   "title": "Method for ranking web page search results",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US7165024B2",
+   "title": "Inferring hierarchical descriptions of a set of documents",
+   "assignee": "Nec Laboratories America, Inc."
+  },
+  {
+   "id": "US7043521B2",
+   "title": "Search agent for searching the internet",
+   "assignee": "Rockwell Electronic Commerce Technologies, Llc"
+  },
+  {
+   "id": "JP3896014B2",
+   "title": "Information collection system, information collection method, and program causing computer to collect information",
+   "assignee": "株式会社東芝"
+  },
+  {
+   "id": "DE60319509T2",
+   "title": "NETWORK SECURITY SYSTEM",
+   "assignee": "British Telecommunications P.L.C."
+  },
+  {
+   "id": "US6963880B1",
+   "title": "Schema evolution of complex objects",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US20040015481A1",
+   "title": "Patent data mining",
+   "assignee": "Kenneth Zinda"
+  },
+  {
+   "id": "US20040059726A1",
+   "title": "Context-sensitive wordless search",
+   "assignee": "Jeff Hunter"
+  },
+  {
+   "id": "US6886010B2",
+   "title": "Method for data and text mining and literature-based discovery",
+   "assignee": "The United States Of America As Represented By The Secretary Of The Navy"
+  },
+  {
+   "id": "US7096217B2",
+   "title": "Global query correlation attributes",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7181450B2",
+   "title": "Method, system, and program for use of metadata to create multidimensional cubes in a relational database",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040122846A1",
+   "title": "Fact verification system",
+   "assignee": "Ibm Corporation"
+  },
+  {
+   "id": "US7107528B2",
+   "title": "Automatic completion of dates",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7020666B2",
+   "title": "System and method for unknown type serialization",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8478645B2",
+   "title": "Method, system and software for digital media narrative personalization",
+   "assignee": "Sevenecho, Llc"
+  },
+  {
+   "id": "US20040243552A1",
+   "title": "Method, system, and apparatus for viewing data",
+   "assignee": "Dictaphone Corporation"
+  },
+  {
+   "id": "US8095544B2",
+   "title": "Method, system, and apparatus for validation",
+   "assignee": "Dictaphone Corporation"
+  },
+  {
+   "id": "EP1477892B1",
+   "title": "System, method, computer program product and article of manufacture for inputting data in a computer system",
+   "assignee": "Sap Se"
+  },
+  {
+   "id": "US9026901B2",
+   "title": "Viewing annotations across multiple applications",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7739588B2",
+   "title": "Leveraging markup language data for semantically labeling text strings and data and for providing actions based on semantically labeled text strings and data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060242180A1",
+   "title": "Extracting data from semi-structured text documents",
+   "assignee": "Graf James A"
+  },
+  {
+   "id": "US20050055365A1",
+   "title": "Scalable data extraction techniques for transforming electronic documents into queriable archives",
+   "assignee": "I.V. Ramakrishnan"
+  },
+  {
+   "id": "US7644076B1",
+   "title": "Clustering strings using N-grams",
+   "assignee": "Teradata Us, Inc."
+  },
+  {
+   "id": "US7496560B2",
+   "title": "Personalized searchable library with highlighting capabilities",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US7158980B2",
+   "title": "Method and apparatus for computerized extracting of scheduling information from a natural language e-mail",
+   "assignee": "Acer Incorporated"
+  },
+  {
+   "id": "US20050108630A1",
+   "title": "Extraction of facts from text",
+   "assignee": "Wasson Mark D."
+  },
+  {
+   "id": "US7756823B2",
+   "title": "Dynamic reference repository",
+   "assignee": "Lockheed Martin Corporation"
+  },
+  {
+   "id": "US7725498B2",
+   "title": "Techniques for identifying mergeable data",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7260573B1",
+   "title": "Personalizing anchor text scores in a search engine",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7716225B1",
+   "title": "Ranking documents based on user behavior and/or feature data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8051207B2",
+   "title": "Inferring server state in s stateless communication protocol",
+   "assignee": "Citrix Systems, Inc."
+  },
+  {
+   "id": "US20060047691A1",
+   "title": "Creating a document index from a flex- and Yacc-generated named entity recognizer",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "JP4587756B2",
+   "title": "Semiconductor integrated circuit device",
+   "assignee": "ルネサスエレクトロニクス株式会社"
+  },
+  {
+   "id": "WO2006036781A2",
+   "title": "Search engine using user intent",
+   "assignee": "Perfect Market Technologies, Inc."
+  },
+  {
+   "id": "US7809763B2",
+   "title": "Method(s) for updating database object metadata",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US7822768B2",
+   "title": "System and method for automating data normalization using text analytics",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7672971B2",
+   "title": "Modular architecture for entity normalization",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7953720B1",
+   "title": "Selecting the best answer to a fact query from among a set of potential answers",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060248456A1",
+   "title": "Assigning a publication date for at least one electronic document",
+   "assignee": "Ibm Corporation"
+  },
+  {
+   "id": "US20060259462A1",
+   "title": "System and Methodology for Real-time Content Aggregation and Syndication",
+   "assignee": "Sybase, Inc."
+  },
+  {
+   "id": "US20060277169A1",
+   "title": "Using the quantity of electronically readable text to generate a derivative attribute for an electronic file",
+   "assignee": "Lunt Tracy T"
+  },
+  {
+   "id": "US20070005593A1",
+   "title": "Attribute-based data retrieval and association",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "CA2545232A1",
+   "title": "Method and system for creating a taxonomy from business-oriented metadata content",
+   "assignee": "Cognos Incorporated"
+  },
+  {
+   "id": "US8666928B2",
+   "title": "Knowledge repository",
+   "assignee": "Evi Technologies Limited"
+  },
+  {
+   "id": "US7454398B2",
+   "title": "Support for object search",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7991797B2",
+   "title": "ID persistence through normalization",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7555471B2",
+   "title": "Data object visualization",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8700568B2",
+   "title": "Entity normalization via name normalization",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7698336B2",
+   "title": "Associating geographic-related information with objects",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7917154B2",
+   "title": "Determining mobile content for a social network based on location and time",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8108501B2",
+   "title": "Searching and route mapping based on a social network, location, and time",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "WO2009075689A2",
+   "title": "Methods of systems of using geographic meta-metadata in information retrieval and document displays",
+   "assignee": "Metacarta, Inc."
+  },
+  {
+   "id": "US8024281B2",
+   "title": "Alpha node hashing in a rule engine",
+   "assignee": "Red Hat, Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US8078573B2",
+   "title": "Identifying the unifying subject of a set of facts"
+  },
+  {
+   "id": "US7769579B2",
+   "title": "Learning facts from semi-structured text"
+  },
+  {
+   "id": "US7627571B2",
+   "title": "Extraction of anchor explanatory text by mining repeated patterns"
+  },
+  {
+   "id": "US8977953B1",
+   "title": "Customizing information by combining pair of annotations from at least two different documents"
+  },
+  {
+   "id": "US7333966B2",
+   "title": "Systems, methods, and software for hyperlinking names"
+  },
+  {
+   "id": "US9760570B2",
+   "title": "Finding and disambiguating references to entities on web pages"
+  },
+  {
+   "id": "US20020133483A1",
+   "title": "Systems and methods for computer based searching for relevant texts"
+  },
+  {
+   "id": "US20120117077A1",
+   "title": "Annotation Framework"
+  },
+  {
+   "id": "US20030210249A1",
+   "title": "System and method of automatic data checking and correction"
+  },
+  {
+   "id": "US20030028503A1",
+   "title": "Method and apparatus for automatically extracting metadata from electronic documents using spatial rules"
+  },
+  {
+   "id": "US9208229B2",
+   "title": "Anchor text summarization for corroboration"
+  },
+  {
+   "id": "US7590628B2",
+   "title": "Determining document subject by using title and anchor text of related documents"
+  },
+  {
+   "id": "US8682913B1",
+   "title": "Corroborating facts extracted from multiple sources"
+  },
+  {
+   "id": "US7792855B2",
+   "title": "Efficient storage of XML in a directory"
+  },
+  {
+   "id": "AU2011253689B2",
+   "title": "Systems, methods, and software for hyperlinking names"
+  },
+  {
+   "id": "AU2011253680A1",
+   "title": "Systems, methods, and software for hyperlinking names"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US7831545B1/en"
+}

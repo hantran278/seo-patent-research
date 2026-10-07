@@ -1,0 +1,1642 @@
+{
+ "id": "US8001118B2",
+ "title": "Methods and apparatus for employing usage statistics in document retrieval",
+ "abstract": "Methods and apparatus consistent with the invention provide improved organization of documents responsive to a search query. In one embodiment, a search query is received and a list of responsive documents is identified. The responsive documents are organized based in whole or in part on usage statistics.",
+ "inventors": [
+  "Jeffrey A. Dean",
+  "Benedict Gomes",
+  "Krishna Bharat",
+  "Georges Harik",
+  "Monika H. Henzinger"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2001-03-02",
+ "filing_date": "2001-03-02",
+ "publication_date": "2011-08-16",
+ "status": "Active",
+ "expiration": "2027-08-03",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/951"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer-implemented method of organizing a collection of documents, the computer implemented method comprising: identifying at a server a plurality of documents responsive to a search query; accessing at the server usage information associated with the plurality of documents, the usage information including, for each document, a frequency of visit value based on a number of times the document was visited during a time period and a unique visit value based on a number of unique visitors to the document; determining at the server, for each document, a usage score from the frequency of visit value and the unique visit value associated with the document; and organizing at the server the plurality of documents based, in part, on the usage scores for the documents.",
+   "dependent": false
+  },
+  {
+   "text": "2. An apparatus for organizing a collection of documents, comprising: memory hardware storing program instructions, and one or more processors in data communication with the memory hardware and configured to execute the program instructions, and upon execution the program instructions cause the one or more processors to perform operations comprising: identifying a plurality of documents responsive to a search query; accessing usage information associated with the plurality of documents, the usage information including, for each document, a frequency of visit value based on a number of times the document was visited and a unique visit value based on a number of unique visitors to the document; determining, for each document, a usage score from the frequency of visit value and the unique visit value associated with the document; and organizing the plurality of documents based, in part, on the usage scores for the documents.",
+   "dependent": false
+  },
+  {
+   "text": "3. A computer-implemented method comprising: identifying at a server a plurality of documents responsive to a search query, wherein the plurality of documents include at least one document visited by multiple distinct counted visitors during a time period; accessing, at the server, usage information associated with the plurality of documents, the usage information including, for each document, (i) a frequency of visit value based on a total number of times the respective document was visited by all counted visitors visiting the document during a time period, and (ii) a unique visit value based on a number of unique visitors among all counted visitors visiting the respective document during the time period; determining at the server, for each document, a usage score from the frequency of visit value and the unique visit value associated with the respective document; and organizing at the server the plurality of documents based, in part, on the usage scores for the documents.",
+   "dependent": false
+  },
+  {
+   "text": "4. An apparatus for organizing a collection of documents, comprising: memory hardware storing program instructions, and one or more processors in data communication with the memory hardware and configured to execute the program instructions, and upon execution the program instructions cause the one or more processors to perform operations comprising: identifying a plurality of documents responsive to a search query, wherein the plurality of documents include at least one document visited by multiple distinct counted visitors during a time period; accessing usage information associated with the plurality of documents, the usage information including, for each document, (i) a frequency of visit value based on a total number of times the respective document was visited by all counted visitors visiting the document during a time period, and (ii) a unique visit value based on a number of unique visitors among all counted visitors visiting the respective document during the time period; determining, for each document, a usage score from the frequency of visit value and the unique visit value associated with the respective document; and organizing the documents based, in part, on the usage scores for the documents.",
+   "dependent": false
+  },
+  {
+   "text": "5. The computer-implemented method of claim 1, further comprising: determining at the server, for each document, a path length score from a path of the document; wherein determining the usage score from the frequency of visit value and the unique visit value associated with the document comprises determining the usage score from the frequency of visit value and the unique visit value associated with the document and the path length score of the document.",
+   "dependent": true
+  },
+  {
+   "text": "6. The computer-implemented method of claim 1, wherein determining the usage score from the frequency of visit value and the unique visit value associated with the document comprises: determining a frequency of visit score based on the frequency of visit value and a maximum frequency of visit value; determining a unique user score based on the unique visit value and a maximum unique visit value; and determining the usage score from the frequency of visit score and the unique user score.",
+   "dependent": true
+  },
+  {
+   "text": "7. The computer-implemented method of claim 1, wherein, for each document: the frequency of visit value is equal to the number of times the document was visited during the time period; and the unique visit value is equal to the number of unique visitors to the document during the time period.",
+   "dependent": true
+  },
+  {
+   "text": "8. The computer-implemented method of claim 1, wherein, for each document, the frequency of visit value is equal to a percentage change based on the number times the document was visited during the time period and the number of times the document was visited during a previous time period.",
+   "dependent": true
+  },
+  {
+   "text": "9. The computer-implemented method of claim 1, wherein, for each document, the unique visit value is equal to a percentage change based on the number of unique visitors to the document during the time period and a number of unique visitors to the document during a previous time period.",
+   "dependent": true
+  },
+  {
+   "text": "10. The computer-implemented method of claim 1, wherein, for each document, the number of unique visitors to the document is determined from visitor statistics that exclude visits associated with automated agents.",
+   "dependent": true
+  },
+  {
+   "text": "11. The computer-implemented method of claim 1, wherein, for each document, the frequency of visit value is based on weighted visit counts, each visit count weighted based on a geographic location that is the geographic source of the visit.",
+   "dependent": true
+  },
+  {
+   "text": "12. The computer-implemented method of claim 1, wherein organizing the plurality of documents comprises organizing the plurality of documents in a descending order of relevance based on the usage scores for the documents and information retrieval scores that measure a relevance of the documents to the search query.",
+   "dependent": true
+  },
+  {
+   "text": "13. The apparatus of claim 2, wherein determining the usage score from the frequency of visit value and the unique visit value associated with the document comprises: determining a frequency of visit score based on the frequency of visit value and a maximum frequency of visit value; determining a unique user score based on the unique visit value and a maximum unique visit value; and determining the usage score from the frequency of visit score and the unique user score.",
+   "dependent": true
+  },
+  {
+   "text": "14. The computer-implemented method of claim 3, wherein determining the usage score from the frequency of visit value and the unique visit value associated with the document comprises: determining a frequency of visit score based on a log ratio of the frequency of visit value to a maximum frequency of visit value; determining the unique user score based on a ratio of the unique visit value to a maximum unique visit value; and determining the usage score from the frequency of visit score and the unique user score.",
+   "dependent": true
+  },
+  {
+   "text": "15. The computer-implemented method of claim 3, wherein, for each document: the frequency of visit value is equal to the number of times the document was visited during the time period; and the unique visit value is equal to the number of unique visitors to the document during the time period.",
+   "dependent": true
+  },
+  {
+   "text": "16. The computer-implemented method of claim 3, wherein, for each document: the frequency of visit value is equal to a percentage change based on the number times the document was visited during the time period and the number of times the document was visited during a previous time period; and the unique visit value is equal to a percentage change based on the number of unique visitors to the document during the time period and a number of unique visitors to the document during a previous time period.",
+   "dependent": true
+  },
+  {
+   "text": "17. The computer-implemented method of claim 3, wherein, for each document, the frequency of visit value is based on weighted visit counts, each visit count weighted based on a geographic location that is the geographic source of the visit.",
+   "dependent": true
+  },
+  {
+   "text": "18. The computer-implemented method of claim 3, wherein organizing the plurality of documents comprises organizing the plurality of documents in a descending order of relevance based on the usage scores for the documents and information retrieval scores that measure a relevance of the documents to the search query.",
+   "dependent": true
+  },
+  {
+   "text": "19. The computer-implemented method of claim 3, further comprising: determining at the server, for each document, a path length score from a path of the document; wherein determining the usage score from the frequency of visit value and the unique visit value associated with the document comprises determining the usage score from the frequency of visit value and the unique visit value associated with the document and the path length score of the document.",
+   "dependent": true
+  },
+  {
+   "text": "20. The apparatus of claim 4, wherein determining the usage score from the frequency of visit value and the unique visit value associated with the document comprises: determining a frequency of visit score based on a log ratio of the frequency of visit value to a maximum frequency of visit value; determining the unique user score based on a ratio of the unique visit value to a maximum unique visit value; and determining the usage score from the frequency of visit score and the unique user score.",
+   "dependent": true
+  },
+  {
+   "text": "21. The apparatus of claim 4, wherein, for each document, the frequency of visit value is based on weighted visit counts, each visit count weighted based on a geographic location that is the geographic source of the visit.",
+   "dependent": true
+  },
+  {
+   "text": "22. The apparatus of claim 4, wherein organizing the plurality of documents comprises organizing the plurality of documents in a descending order of relevance based on the usage scores for the documents and information retrieval scores that measure a relevance of the documents to the search query.",
+   "dependent": true
+  },
+  {
+   "text": "23. The apparatus of claim 4, wherein the program instructions cause the processor to perform operations comprising: determining, for each document, a path length score from a path of the document; and wherein determining the usage score from the frequency of visit value and the unique visit value associated with the document comprises determining the usage score from the frequency of visit value and the unique visit value associated with the document and the path length score of the document.",
+   "dependent": true
+  },
+  {
+   "text": "24. The computer-implemented method of claim 6, wherein: determining the frequency of visit score based on the frequency of visit value and the maximum frequency of visit value comprises determining the frequency of visit score based on a log ratio of the frequency of visit value to the maximum frequency of visit value; and determining the unique user score based on the unique visit value and the maximum unique visit value comprises determining the unique user score based on a ratio of the unique visit value to the maximum unique visit value.",
+   "dependent": true
+  },
+  {
+   "text": "25. The apparatus of claim 13, wherein: determining the frequency of visit score based on the frequency of visit value and the maximum frequency of visit value comprises determining the frequency of visit score based on a log ratio of the frequency of visit value to the maximum frequency of visit value; and determining the unique user score based on the unique visit value and the maximum unique visit value comprises determining the unique user score based on a log ratio of the unique visit value to the maximum unique visit value.",
+   "dependent": true
+  },
+  {
+   "text": "26. The apparatus of claim 13, wherein, for each document: the frequency of visit value is equal to a number of times the document was visited; and the unique visit value is equal to the number of unique visitors to the document.",
+   "dependent": true
+  },
+  {
+   "text": "27. The apparatus of claim 13, wherein the program instructions cause the processor to perform operations comprising: determining, for each document, a path length score from a path of the document; wherein determining the usage score from the frequency of visit value and the unique visit value associated with the document comprises determining the usage score from the frequency of visit value and the unique visit value associated with the document and the path length score of the document.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## BACKGROUND OF THE INVENTION\n\n\nA. Field of the Invention\n\nThe present invention relates generally to information search and retrieval and, more particularly, to employing usage data to improve information search and retrieval.\n\nB. Description of Related Art\n\nThe World Wide Web (“web”) contains a vast amount of information. Locating a desired portion of the information, however, can be challenging. This problem is compounded because the amount of information on the web and the number of new users inexperienced at web research are growing rapidly.\n\nPeople generally surf the web based on its link graph structure, often starting with high quality human-maintained indices or search engines. Human-maintained lists cover popular topics effectively but are subjective, expensive to build and maintain, slow to improve, and do not cover all esoteric topics.\n\nAutomated search engines, in contrast, locate web sites by matching search terms entered by the user to an indexed corpus of web pages. Generally, the search engine returns a list of web sites sorted based on relevance to the user's search terms. Determining the correct relevance, or importance, of a web page to a user, however, can be a difficult task. For one thing, the importance of a web page to the user is inherently subjective and depends on the user's interests, knowledge, and attitudes. There is, however, much that can be determined objectively about the relative importance of a web page.\n\nConventional methods of determining relevance are based on matching a user's search terms to terms indexed from web pages. More advanced techniques determine the importance of a web page based on more than the content of the web page. For example, one known method, described in the article entitled “The Anatomy of a Large-Scale Hypertextual Search Engine,” by Sergey Brin and Lawrence Page, assigns a degree of importance to a web page based on the link structure of the web page.\n\nEach of these conventional methods has shortcomings, however. Term-based methods are biased towards pages whose content or display is carefully chosen towards the given term-based method. Thus, they can be easily manipulated by the designers of the web page. Link-based methods have the problem that relatively new pages have usually fewer hyperlinks pointing to them than older pages, which tends to give a lower score to newer pages.\n\nThere exists, therefore, a need to develop other techniques for determining the importance of documents.\n\n\n## SUMMARY OF THE INVENTION\n\n\nSystems and methods consistent with the present invention address this and other needs by identifying compounds based on the overall context of a user query. One aspect of the present invention is directed to a method of organizing a set of documents by receiving a search query and identifying a plurality of documents responsive to the search query. Each identified document is assigned a score based on usage information, and the documents are organized based on the assigned scores.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nThe accompanying drawings, which are incorporated in and constitute a part of this specification, illustrate an embodiment of the invention and, together with the description, explain the invention. In the drawings,\n\nFIG. 1 is a diagram illustrating an exemplary network in which concepts consistent with the present invention may be implemented;\n\nFIG. 2 illustrates an exemplary client device;\n\nFIG. 3 illustrates a flow diagram, consistent with the invention, for organizing documents based on usage information;\n\nFIG. 4 illustrates a few techniques for computing the frequency of visits, consistent with the invention.\n\nFIG. 5 illustrates a few techniques for computing the number of users, consistent with the invention; and\n\nFIG. 6 depicts an exemplary method, consistent with the invention.\n\n\n## DETAILED DESCRIPTION\n\n\nThe following detailed description of the invention refers to the accompanying drawings. The detailed description does not limit the invention. Instead, the scope of the invention is defined by the appended claims and equivalents.\n\n\n## A. OVERVIEW\n\n\nIn one embodiment, a search query is received and a list of responsive documents is identified. The list of responsive documents may be based on a comparison between the search query and the contents of the documents, or by other conventional methods. Usage statistics are determined for each document, and the documents are organized based in whole or in part on the usage statistics. These usage statistics may include, for example, the number of visitors to the document (perhaps over a period of time), the frequency with which the document was visited (perhaps over a period of time), or other measures.\n\nA. Architecture\n\nFIG. 1 illustrates a system 100 in which methods and apparatus, consistent with the present invention, may be implemented. The system 100 may include multiple client devices 110 connected to multiple servers 120 and 130 via a network 140. The network 140 may include a local area network (LAN), a wide area network (WAN), a telephone network, such as the Public Switched Telephone Network (PSTN), an intranet, the Internet, or a combination of networks. Two client devices 110 and three servers 120 and 130 have been illustrated as connected to network 140 for simplicity. In practice, there may be more or less client devices and servers. Also, in some instances, a client device may perform the functions of a server and a server may perform the functions of a client device.\n\nThe client devices 110 may include devices, such mainframes, minicomputers, personal computers, laptops, personal digital assistants, or the like, capable of connecting to the network 140. The client devices 110 may transmit data over the network 140 or receive data from the network 140 via a wired, wireless, or optical connection.\n\nFIG. 2 illustrates an exemplary client device 110 consistent with the present invention. The client device 110 may include a bus 210, a processor 220, a main memory 230, a read only memory (ROM) 240, a storage device 250, an input device 260, an output device 270, and a communication interface 280.\n\nThe bus 210 may include one or more conventional buses that permit communication among the components of the client device 110. The processor 220 may include any type of conventional processor or microprocessor that interprets and executes instructions. The main memory 230 may include a random access memory (RAM) or another type of dynamic storage device that stores information and instructions for execution by the processor 220. The ROM 240 may include a conventional ROM device or another type of static storage device that stores static information and instructions for use by the processor 220. The storage device 250 may include a magnetic and/or optical recording medium and its corresponding drive.\n\nThe input device 260 may include one or more conventional mechanisms that permit a user to input information to the client device 110, such as a keyboard, a mouse, a pen, voice recognition and/or biometric mechanisms, etc. The output device 270 may include one or more conventional mechanisms that output information to the user, including a display, a printer, a speaker, etc. The communication interface 280 may include any transceiver-like mechanism that enables the client device 110 to communicate with other devices and/or systems. For example, the communication interface 280 may include mechanisms for communicating with another device or system via a network, such as network 140.\n\nAs will be described in detail below, the client devices 110, consistent with the present invention, may perform certain document retrieval operations. The client devices 110 may perform these operations in response to processor 220 executing software instructions contained in a computer-readable medium, such as memory 230. A computer-readable medium may be defined as one or more memory devices and/or carrier waves. The software instructions may be read into memory 230 from another computer-readable medium, such as the data storage device 250, or from another device via the communication interface 280. The software instructions contained in memory 230 cause processor 220 to perform search-related activities described below. Alternatively, hardwired circuitry may be used in place of or in combination with software instructions to implement processes consistent with the present invention. Thus, the present invention is not limited to any specific combination of hardware circuitry and software.\n\nThe servers 120 and 130 may include one or more types of computer systems, such as a mainframe, minicomputer, or personal computer, capable of connecting to the network 140 to enable servers 120 and 130 to communicate with the client devices 110. In alternative implementations, the servers 120 and 130 may include mechanisms for directly connecting to one or more client devices 110. The servers 120 and 130 may transmit data over network 140 or receive data from the network 140 via a wired, wireless, or optical connection.\n\nThe servers may be configured in a manner similar to that described above in reference to FIG. 2 for client device 110. In an implementation consistent with the present invention, the server 120 may include a search engine 125 usable by the client devices 110. The servers 130 may store documents (or web pages) accessible by the client devices 110 and may perform document retrieval and organization operations, as described below.\n\n\n## B. ARCHITECTURAL OPERATION\n\n\nFIG. 3 illustrates a flow diagram, consistent with the invention, for organizing documents based on usage information. At stage 310, a search query is received by search engine 125. The query may contain text, audio, video, or graphical information. At stage 320, search engine 125 identifies a list of documents that are responsive (or relevant) to the search query. This identification of responsive documents may be performed in a variety of ways, consistent with the invention, including conventional ways such as comparing the search query to the content of the document.\n\nOnce this set of responsive documents has been determined, it is necessary to organize the documents in some manner. Consistent with the invention, this may be achieved by employing usage statistics, in whole or in part.\n\nAs shown at stage 330, scores are assigned to each document based on the usage information. The scores may be absolute in value or relative to the scores for other documents. This process of assigning scores, which may occur before or after the set of responsive documents is identified, can be based on a variety of usage information. In a preferred implementation, the usage information comprises both unique visitor information and frequency of visit information, as described below in reference to FIGS. 4 and 5. The usage information may be maintained at client 110 and transmitted to search engine 125. The location of the usage information is not critical, however, and it could also be maintained in other ways. For example, the usage information may be maintained at servers 130, which forward the information to search engine 125; or the usage information may be maintained at server 120 if it provides access to the documents (e.g., as a web proxy).\n\nAt stage 340, the responsive documents are organized based on the assigned scores. The documents may be organized based entirely on the scores derived from usage statistics. Alternatively, they may be organized based on the assigned scores in combination with other factors. For example, the documents may be organized based on the assigned scores combined with link information and/or query information. Link information involves the relationships between linked documents, and an example of the use of such link information is described in the Brin & Page publication referenced above. Query information involves the information provided as part of the search query, which may be used in a variety of ways to determine the relevance of a document. Other information, such as the length of the path of a document, could also be used.\n\nIn one implementation, documents are organized based on a total score that represents the product of a usage score and a standard query-term-based score (“IR score”). In particular, the total score equals the square root of the IR score multiplied by the usage score. The usage score, in turn, equals a frequency of visit score multiplied by a unique user score multiplied by a path length score.\n\nThe frequency of visit score equals log 2(1+log(VF)/log(MAXVF). VF is the number of times that the document was visited (or accessed) in one month, and MAXVF is set to 2000. A small value is used when VF is unknown. If the unique user is less than 10, it equals 0.5*UU/10; otherwise, it equals 0.5*(1+UU/MAXUU). UU is the number of unique hosts/IPs that access the document in one month, and MAXUU is set to 400. A small value is used when UU is unknown. The path length score equals log(K−PL)/log(K). PL is the number of ‘/’ characters in the document's path, and K is set to 20.\n\nFIG. 4 illustrates a few techniques for computing the frequency of visits, consistent with the invention. The computation begins with a raw count 410, which could be an absolute or relative number corresponding to the visit frequency for the document. For example, the raw count may represent the total number of times that a document has been visited. Alternatively, the raw count may represent the number of times that a document has been visited in a given period of time (e.g., 100 visits over the past week), the change in the number of times that a documents has been visited in a given period of time (e.g., 20% increase during this week compared to the last week), or any number of different ways to measure how frequently a document has been visited. In one implementation, this raw count is used as the refined visit frequency 440, as shown by the path from 410 to 440.\n\nIn other implementations, the raw count may be processed using any of a variety of techniques to develop a refined visit frequency, with a few such techniques being illustrated in FIG. 4. As shown by 420, the raw count may be filtered to remove certain visits. For example, one may wish to remove visits by automated agents or by those affiliated with the document at issue, since such visits may be deemed to not represent objective usage. This filtered count 420 may then be used to calculate the refined visit frequency 440.\n\nInstead of, or in addition to, filtering the raw count, the raw count may be weighted based on the nature of the visit (430). For example, one may wish to assign a weighting factor to a visit based on the geographic source for the visit (e.g., counting a visit from Germany as twice as important as a visit from Antarctica). Any other type of information that can be derived about the nature of the visit (e.g., the browser being used, information concerning the user, etc.) could also be used to weight the visit. This weighted visit frequency 430 may then be used as the refined visit frequency 440.\n\nAlthough only a few techniques for computing the visit frequency are illustrated in FIG. 4, those skilled in the art will recognize that there exist other ways for computing the visit frequency, consistent with the invention.\n\nFIG. 5 illustrates a few techniques for computing the number of users, consistent with the invention. As with the techniques for computing visit frequency illustrated in FIG. 4, the computation begins with a raw count 510, which could be an absolute or relative number corresponding to the number of users who have visited the document. Alternatively, the raw count may represent the number of users that have visited a document in a given period of time (e.g., 30 users over the past week), the change in the number of users that have visited the document in a given period of time (e.g., 20% increase during this week compared to the last week), or any number of different ways to measure how many users have visited a document. The identification of the users may be achieved based on the user's Internet Protocol (IP) address, their hostname, cookie information, or other user or machine identification information. In one implementation, this raw count is used as the refined number of users 540, as shown by the path from 510 to 540.\n\nIn other implementations, the raw count may be processed using any of a variety of techniques to develop a refined user count, with a few such techniques being illustrated in FIG. 5. As shown by 520, the raw count may be filtered to remove certain users. For example, one may wish to remove users identified as automated agents or as users affiliated with the document at issue, since such users may be deemed to not provide objective information about the value of the document. This filtered count 520 may then be used to calculate the refined user count 540.\n\nInstead of, or in addition to, filtering the raw count, the raw count may be weighted based on the nature of the user (530). For example, one may wish to assign a weighting factor to a visit based on the geographic source for the visit (e.g., counting a user from Germany as twice as important as a user from Antarctica). Any other type of information that can be derived about the nature of the user (e.g., browsing history, bookmarked items, etc.) could also be used to weight the user. This weighted user information 530 may then be used as the refined user count 540.\n\nAlthough only a few techniques for computing the number of users are illustrated in FIG. 5, those skilled in the art will recognize that there exist other ways for computing the number of users, consistent with the invention. Similarly, although FIGS. 4 and 5 illustrate two types of usage information that may be used to organize documents, those skilled in the art will recognize that there exist other such type of information and techniques consistent with the invention.\n\nFurthermore, although FIGS. 4 and 5 illustrate determining usage information on a document-by-document basis, other techniques consistent with the information may be used to associate usage information with a document. For example, rather than maintaining usage information for each document, one could maintain usage information on a site-by-site basis. This site usage information could then be associated with some or all of the documents within that site.\n\nFIG. 6 depicts an exemplary method employing visit frequency information, consistent with the invention. FIG. 6 depicts three documents, 610, 620, and 630, which are responsive to a search query for the term “weather.” Document 610 is shown to have been visited 40 times over the past month, with 15 of those 40 visits being by automated agents. Document 620, which is linked to from document 610, is shown to have been visited 30 times over the past month, with 10 of those 30 visits coming from Germany. Document 630, which is linked to from documents 610 and 620, is shown to have been visited 4 times over the past month.\n\nUnder a conventional term frequency based search method, the documents may be organized based on the frequency with which the search query term (“weather”) appears in the document. Accordingly, the documents may be organized into the following order: 620 (three occurrences of “weather”), 630 (two occurrences of “weather’), and 610 (one occurrence of “weather’).\n\nUnder a conventional link-based search method, the documents may be organized based on the number of other documents that link to those documents. Accordingly, the documents may be organized into the following order: 630 (linked to by two other documents), 620 (linked to by one other document), and 610 (linked to by no other documents).\n\nMethods and apparatus consistent with the invention employ usage information to aid in organizing documents. Based purely on raw visit frequency, the documents may be organized into the following order: 610 (40 visits), 620 (30 visits), and 630 (4 visits). If these raw visit frequency number are refined to filter automated agents and to assign double weight to visits from Germany, the documents may be organized in the following order: 620 (effectively 40 visits, since the 10 from Germany count double), 610 (effectively 25 visits after filtering the 15 visits from automated agents), and 630 (effectively 4 visits).\n\nInstead of using the usage information alone, the usage information may be used in combination with the query information and/or the link information to develop the ultimate organization of the documents.\n\n\n## C. CONCLUSION\n\n\nThe foregoing description of preferred embodiments of the present invention provides illustration and description, but is not intended to be exhaustive or to limit the invention to the precise form disclosed. Modifications and variations are possible in light of the above teachings or may be acquired from practice of the invention. For example, although the preceding description generally discussed the operation of search engine 125 in the context of a search of documents on the world wide web, search engine 125 could be implemented on any corpus.\n\nIn accordance with 37 C.F.R. §1.121(b)(1)(iii) separate sheets with the replacement paragraphs, marked up to show all changes relative to the previous version of the paragraphs, is filed herewith.",
+ "cited_by": [
+  {
+   "id": "US20110173212A1",
+   "title": "Systems and methods for sorting search results",
+   "assignee": "Tuttle Timothy D"
+  },
+  {
+   "id": "US8195654B1",
+   "title": "Prediction of human ratings or rankings of information retrieval quality",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8328558B2",
+   "title": "Chinese / English vocabulary learning tool",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8548991B1",
+   "title": "Personalized browsing activity displays",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8909627B1",
+   "title": "Fake skip evaluation of synonym rules",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8959103B1",
+   "title": "Click or skip evaluation of reordering rules",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8965875B1",
+   "title": "Removing substitution rules based on user interactions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8965882B1",
+   "title": "Click or skip evaluation of synonym rules",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20150082135A1",
+   "title": "Method and system for generating comparable visual maps for browsing activity analysis",
+   "assignee": "Clicktale Ltd."
+  },
+  {
+   "id": "US9020927B1",
+   "title": "Determining resource quality based on resource competition",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9053129B1",
+   "title": "Content item relevance based on presentation data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9141672B1",
+   "title": "Click or skip evaluation of query term optionalization rule",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9146966B1",
+   "title": "Click or skip evaluation of proximity rules",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9152698B1",
+   "title": "Substitute term identification based on over-represented terms identification",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "WO1999045487A1",
+   "title": "Identifying the items most relevant to a current query based on items selected in connection with similar queries",
+   "assignee": "Amazon.Com, Inc."
+  },
+  {
+   "id": "US7124129B2",
+   "title": "Identifying the items most relevant to a current query based on items selected in connection with similar queries",
+   "assignee": "A9.Com, Inc."
+  },
+  {
+   "id": "JP4282030B2",
+   "title": "Data duplex control method and duplex storage subsystem",
+   "assignee": "株式会社日立製作所"
+  },
+  {
+   "id": "US6963867B2",
+   "title": "Search query processing to provide category-ranked presentation of search results",
+   "assignee": "A9.Com, Inc."
+  },
+  {
+   "id": "US8271316B2",
+   "title": "Consumer to business data capturing system",
+   "assignee": "Buzzmetrics Ltd"
+  },
+  {
+   "id": "US20010049707A1",
+   "title": "Systems and methods for generating intellectual property",
+   "assignee": "Tran Bao Q."
+  },
+  {
+   "id": "US7624172B1",
+   "title": "State change alerts mechanism",
+   "assignee": "Aol Llc"
+  },
+  {
+   "id": "US9736209B2",
+   "title": "State change alerts mechanism",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US7197470B1",
+   "title": "System and method for collection analysis of electronic discussion methods",
+   "assignee": "Buzzmetrics, Ltd."
+  },
+  {
+   "id": "US7185065B1",
+   "title": "System and method for scoring electronic messages",
+   "assignee": "Buzzmetrics Ltd"
+  },
+  {
+   "id": "WO2002037220A2",
+   "title": "Internet contextual communication system",
+   "assignee": "Contextweb"
+  },
+  {
+   "id": "KR100384899B1",
+   "title": "Method for seamless inter frequency hard handover in wireless telecommunication system",
+   "assignee": "한국전자통신연구원"
+  },
+  {
+   "id": "US7136845B2",
+   "title": "System and method for query refinement to enable improved searching based on identifying and utilizing popular concepts related to users' queries",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7296019B1",
+   "title": "System and methods for providing runtime spelling analysis and correction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6763362B2",
+   "title": "Method and system for updating a search engine",
+   "assignee": "Micron Technology, Inc."
+  },
+  {
+   "id": "US6978264B2",
+   "title": "System and method for performing a search and a browse on a query",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7853719B1",
+   "title": "Systems and methods for providing runtime universal resource locator (URL) analysis and correction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7035845B2",
+   "title": "Generic proxy for representing search engine partner",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7752072B2",
+   "title": "Method and system for providing advertising through content specific nodes over the internet",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8050970B2",
+   "title": "Method and system for providing filtered and/or masked advertisements over the internet",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040044571A1",
+   "title": "Method and system for providing advertising listing variance in distribution feeds over the internet to maximize revenue to the advertising distributor",
+   "assignee": "Bronnimann Eric Robert"
+  },
+  {
+   "id": "US7383258B2",
+   "title": "Method and apparatus for characterizing documents based on clusters of related words",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US8311890B2",
+   "title": "Method and system for dynamic textual ad distribution via email",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7428580B2",
+   "title": "Electronic message forwarding",
+   "assignee": "Aol Llc"
+  },
+  {
+   "id": "US7899862B2",
+   "title": "Dynamic identification of other users to an online user",
+   "assignee": "Aol Inc."
+  },
+  {
+   "id": "US7590696B1",
+   "title": "Enhanced buddy list using mobile device identifiers",
+   "assignee": "Aol Llc"
+  },
+  {
+   "id": "US7640306B2",
+   "title": "Reconfiguring an electronic message to effect an enhanced notification",
+   "assignee": "Aol Llc"
+  },
+  {
+   "id": "WO2004046867A2",
+   "title": "People lists",
+   "assignee": "America Online, Inc."
+  },
+  {
+   "id": "US8965964B1",
+   "title": "Managing forwarded electronic messages",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US8005919B2",
+   "title": "Host-based intelligent results related to a character stream",
+   "assignee": "Aol Inc."
+  },
+  {
+   "id": "US8701014B1",
+   "title": "Account linking",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US8122137B2",
+   "title": "Dynamic location of a subordinate user",
+   "assignee": "Aol Inc."
+  },
+  {
+   "id": "WO2004059514A1",
+   "title": "Systems and methods for enabling a user to find information of interest to the user",
+   "assignee": "American Type Culture Collection"
+  },
+  {
+   "id": "US7380204B2",
+   "title": "Infrastructure for generating web content",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7487185B2",
+   "title": "Technique for changing views of web content",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8055669B1",
+   "title": "Search queries improved based on query semantic information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040210639A1",
+   "title": "Identifying and using identities deemed to be known to a user",
+   "assignee": "Roy Ben-Yoseph"
+  },
+  {
+   "id": "US20060047579A1",
+   "title": "Acquisition and tracking tools in e-commerce advertising channels for telephonic sales markets",
+   "assignee": "Scott Dresden"
+  },
+  {
+   "id": "US20060190385A1",
+   "title": "Dynamic bidding, acquisition and tracking of e-commerce procurement channels for advertising and promotional spaces on wireless electronic devices",
+   "assignee": "Scott Dresden"
+  },
+  {
+   "id": "US7890363B2",
+   "title": "System and method of identifying trendsetters",
+   "assignee": "Hayley Logistics Llc"
+  },
+  {
+   "id": "US7885849B2",
+   "title": "System and method for predicting demand for items",
+   "assignee": "Hayley Logistics Llc"
+  },
+  {
+   "id": "US8140388B2",
+   "title": "Method for implementing online advertising",
+   "assignee": "Hayley Logistics Llc"
+  },
+  {
+   "id": "US7685117B2",
+   "title": "Method for implementing search engine",
+   "assignee": "Hayley Logistics Llc"
+  },
+  {
+   "id": "US8103540B2",
+   "title": "System and method for influencing recommender system",
+   "assignee": "Hayley Logistics Llc"
+  },
+  {
+   "id": "US7689432B2",
+   "title": "System and method for influencing recommender system & advertising based on programmed policies",
+   "assignee": "Hayley Logistics Llc"
+  },
+  {
+   "id": "US20050010392A1",
+   "title": "Traditional Chinese / simplified Chinese character translator",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050010391A1",
+   "title": "Chinese character / Pin Yin / English translator",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7653693B2",
+   "title": "Method and system for capturing instant messages",
+   "assignee": "Aol Llc"
+  },
+  {
+   "id": "US20050027547A1",
+   "title": "Chinese / Pin Yin / english dictionary",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "FR2859341A1",
+   "title": "METHOD FOR CONTROLLING EQUIPMENT CONNECTED TO A HETEROGENEOUS NETWORK AND APPARATUS IMPLEMENTING THE METHOD",
+   "assignee": "Thomson Licensing Sa"
+  },
+  {
+   "id": "US7454417B2",
+   "title": "Methods and systems for improving a search ranking using population information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7505964B2",
+   "title": "Methods and systems for improving a search ranking using related queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "DE10345065A1",
+   "title": "Aerosol formulation for inhalation containing an anticholinergic",
+   "assignee": "Boehringer Ingelheim Pharma Gmbh & Co. Kg"
+  },
+  {
+   "id": "US7693827B2",
+   "title": "Personalization of placed content ordering in search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7797316B2",
+   "title": "Systems and methods for determining document freshness",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "AU2006252227B2",
+   "title": "Document scoring based on link-based criteria",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "EP1777633A3",
+   "title": "Document scoring based on query analysis",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US7346839B2",
+   "title": "Information retrieval based on historical data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20050096980A1",
+   "title": "System and method for delivering internet advertisements that change between textual and graphical ads on demand by a user",
+   "assignee": "Ross Koningstein"
+  },
+  {
+   "id": "US7930206B2",
+   "title": "System and method for enabling an advertisement to follow the user to additional web pages",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8521725B1",
+   "title": "Systems and methods for improved searching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7937340B2",
+   "title": "Automated satisfaction measurement for web search",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8676790B1",
+   "title": "Methods and systems for improving search rankings using advertising data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7302645B1",
+   "title": "Methods and systems for identifying manipulated articles",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7333985B2",
+   "title": "Dynamic content clustering",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050131872A1",
+   "title": "Query recognizer",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7249319B1",
+   "title": "Smartly formatted print in toolbar",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7523109B2",
+   "title": "Dynamic grouping of content including captive data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7890526B1",
+   "title": "Incremental query refinement",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050216823A1",
+   "title": "Assigning textual ads based on article history",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7953631B1",
+   "title": "Paid inclusion listing enhancement",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7676553B1",
+   "title": "Incremental web crawler using chunks",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7502773B1",
+   "title": "System and method facilitating page indexing employing reference information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7516118B1",
+   "title": "Methods and systems for assisted network browsing",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8341017B2",
+   "title": "System and method for optimizing search result listings",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7444327B2",
+   "title": "System and method for automated optimization of search result relevance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050154717A1",
+   "title": "System and method for optimizing paid listing yield",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8375048B1",
+   "title": "Query augmentation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050165750A1",
+   "title": "Infrequent word index for document indexes",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7680770B1",
+   "title": "Automatic generation and recommendation of communities in a social network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8015119B2",
+   "title": "Methods and systems for the display and navigation of a social network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8010459B2",
+   "title": "Methods and systems for rating associated members in a social network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7293016B1",
+   "title": "Index partitioning based on document relevance for document indexes",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7472113B1",
+   "title": "Query preprocessing and pipelining",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7554544B2",
+   "title": "Just-in-time user interface layout",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8566422B2",
+   "title": "System and method for enabling identification of network users having similar interests and facilitating communication between them",
+   "assignee": "Uppfylla, Inc."
+  },
+  {
+   "id": "US7725414B2",
+   "title": "Method for developing a classifier for classifying communications",
+   "assignee": "Buzzmetrics, Ltd An Israel Corporation"
+  },
+  {
+   "id": "US7925657B1",
+   "title": "Methods and systems for adjusting a scoring measure based on query breadth",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9104689B2",
+   "title": "Method for synchronizing documents for disconnected operation",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050210009A1",
+   "title": "Systems and methods for intellectual property management",
+   "assignee": "Bao Tran"
+  },
+  {
+   "id": "US20050210008A1",
+   "title": "Systems and methods for analyzing documents over a network",
+   "assignee": "Bao Tran"
+  },
+  {
+   "id": "US7590619B2",
+   "title": "Search system using user behavior data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7533090B2",
+   "title": "System and method for rating electronic documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20050222900A1",
+   "title": "Selectively delivering advertisements based at least in part on trademark issues",
+   "assignee": "Prashant Fuloria"
+  },
+  {
+   "id": "US7840547B1",
+   "title": "Methods and systems for efficient query rewriting",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7639898B1",
+   "title": "Method and system for approving documents based on image similarity",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "USD537834S1",
+   "title": "Graphical user interface for a display screen",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US7697791B1",
+   "title": "Method and system for providing targeted documents based on concepts automatically identified therein",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20050267799A1",
+   "title": "System and method for enabling publishers to select preferred types of electronic documents",
+   "assignee": "Wesley Chan"
+  },
+  {
+   "id": "US7801738B2",
+   "title": "System and method for rating documents comprising an image",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US11409812B1",
+   "title": "Method and system for mining image searches to associate images with concepts",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US7996753B1",
+   "title": "Method and system for automatically creating an image advertisement",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8065611B1",
+   "title": "Method and system for mining image searches to associate images with concepts",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20050256848A1",
+   "title": "System and method for user rank search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7349901B2",
+   "title": "Search engine spam detection using external data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060041478A1",
+   "title": "Universal network market system",
+   "assignee": "Zhiliang Zheng"
+  },
+  {
+   "id": "US20050267809A1",
+   "title": "System, method and computer program product for presenting advertising alerts to a user",
+   "assignee": "Zhiliang Zheng"
+  },
+  {
+   "id": "US20050267810A1",
+   "title": "System, method and computer program product for organizing items for presentment to a user",
+   "assignee": "Zhiliang Zheng"
+  },
+  {
+   "id": "US20050267820A1",
+   "title": "System, method and computer program product for finding customer orientated advertisements",
+   "assignee": "Zhiliang Zheng"
+  },
+  {
+   "id": "US7716225B1",
+   "title": "Ranking documents based on user behavior and/or feature data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "EP1779214A4",
+   "title": "Method and system for automated intelligent electronic advertising",
+   "assignee": "Blake Bookstaff"
+  },
+  {
+   "id": "US7827176B2",
+   "title": "Methods and systems for endorsing local search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8005716B1",
+   "title": "Methods and systems for establishing a keyword utilizing path navigation information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7266548B2",
+   "title": "Automated taxonomy generation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8825639B2",
+   "title": "Endorsing search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7428530B2",
+   "title": "Dispersing search engine results by using page category information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7293017B2",
+   "title": "Presentation-level content filtering for a search result",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7363296B1",
+   "title": "Generating a subindex with relevant attributes to improve querying",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8620915B1",
+   "title": "Systems and methods for promoting personalized search results based on personal information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8078607B2",
+   "title": "Generating website profiles based on queries from webistes and user activities on the search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060041476A1",
+   "title": "System and method for providing an expert platform",
+   "assignee": "Zhiliang Zheng"
+  },
+  {
+   "id": "US20060041477A1",
+   "title": "System and method for providing targeted information to users",
+   "assignee": "Zhiliang Zheng"
+  },
+  {
+   "id": "US7606793B2",
+   "title": "System and method for scoping searches using index keys",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7523085B2",
+   "title": "Topical sentiments in electronically stored communications",
+   "assignee": "Buzzmetrics, Ltd An Israel Corporation"
+  },
+  {
+   "id": "US7680648B2",
+   "title": "Methods and systems for improving text segmentation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7996208B2",
+   "title": "Methods and systems for selecting a language for text segmentation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8595225B1",
+   "title": "Systems and methods for correlating document topicality and popularity",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8051096B1",
+   "title": "Methods and systems for augmenting a token lexicon",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8874570B1",
+   "title": "Search boost vector based on co-visitation information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8762280B1",
+   "title": "Method and system for using a network analysis system to verify content on a website",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060149710A1",
+   "title": "Associating features with entities, such as categories of web page documents, and/or weighting such features",
+   "assignee": "Ross Koningstein"
+  },
+  {
+   "id": "US8843536B1",
+   "title": "Methods and systems for providing relevant advertisements or other content for inactive uniform resource locators using search queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070189544A1",
+   "title": "Ambient sound responsive media player",
+   "assignee": "Outland Research, Llc"
+  },
+  {
+   "id": "US20060184800A1",
+   "title": "Method and apparatus for using age and/or gender recognition techniques to customize a user interface",
+   "assignee": "Outland Research, Llc"
+  },
+  {
+   "id": "US7657520B2",
+   "title": "Providing history and transaction volume information of a content source to users",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US8087068B1",
+   "title": "Verifying access to a network account over multiple user communication portals based on security criteria",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7757080B1",
+   "title": "User validation using cookies and isolated backup validation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "GB2424091A",
+   "title": "Ranking of images in the results of a search",
+   "assignee": "Alamy Ltd"
+  },
+  {
+   "id": "US20060206379A1",
+   "title": "Methods and apparatus for improving the matching of relevant advertisements with particular users over the internet",
+   "assignee": "Outland Research, Llc"
+  },
+  {
+   "id": "US20060224583A1",
+   "title": "Systems and methods for analyzing a user's web history",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US9256685B2",
+   "title": "Systems and methods for modifying search results based on a user's history",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060224608A1",
+   "title": "Systems and methods for combining sets of favorites",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US7631007B2",
+   "title": "System and method for tracking user activity related to network resources using a browser",
+   "assignee": "Scenera Technologies, Llc"
+  },
+  {
+   "id": "CA2605252A1",
+   "title": "System and method for efficiently tracking and dating content in very large dynamic document spaces",
+   "assignee": "Collage Analytics Llc"
+  },
+  {
+   "id": "US7516062B2",
+   "title": "Language converter with enhanced search capability",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20060241864A1",
+   "title": "Method and apparatus for point-and-send data transfer within an ubiquitous computing environment",
+   "assignee": "Outland Research, Llc"
+  },
+  {
+   "id": "US7744256B2",
+   "title": "LED array wafer lighting fixture",
+   "assignee": "Edison Price Lighting, Inc."
+  },
+  {
+   "id": "US20070011050A1",
+   "title": "Digital advertising system",
+   "assignee": "Steven Klopf"
+  },
+  {
+   "id": "US20070162342A1",
+   "title": "Digital advertising system",
+   "assignee": "Steven Klopf"
+  },
+  {
+   "id": "US7962504B1",
+   "title": "Sourcing terms into a search engine",
+   "assignee": "Aol Inc."
+  },
+  {
+   "id": "US7962462B1",
+   "title": "Deriving and using document and site quality signals from search query streams",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7725502B1",
+   "title": "Time-multiplexing documents based on preferences or relatedness",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9158855B2",
+   "title": "Extracting structured data from weblogs",
+   "assignee": "Buzzmetrics, Ltd"
+  },
+  {
+   "id": "US7903099B2",
+   "title": "Allocating advertising space in a network of displays",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080319950A1",
+   "title": "System for building a website",
+   "assignee": "Rivergy, Inc."
+  },
+  {
+   "id": "US20070016577A1",
+   "title": "System for building a website",
+   "assignee": "Rivergy, Inc."
+  },
+  {
+   "id": "US20070100779A1",
+   "title": "Method and system for extracting web data",
+   "assignee": "Ori Levy"
+  },
+  {
+   "id": "AU2006279694B2",
+   "title": "Method and system for placement and pricing of internet-based advertisements or services",
+   "assignee": "Contextweb, Inc."
+  },
+  {
+   "id": "US20080215614A1",
+   "title": "Pyramid Information Quantification or PIQ or Pyramid Database or Pyramided Database or Pyramided or Selective Pressure Database Management System",
+   "assignee": "Slattery Michael J"
+  },
+  {
+   "id": "US7499919B2",
+   "title": "Ranking functions using document usage statistics",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7917148B2",
+   "title": "Social musical media rating system and method for localized establishments",
+   "assignee": "Outland Research, Llc"
+  },
+  {
+   "id": "US8176101B2",
+   "title": "Collaborative rejection of media for physical establishments",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070073696A1",
+   "title": "Online data verification of listing data",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US7577522B2",
+   "title": "Spatially associated personal reminder system and method",
+   "assignee": "Outland Research, Llc"
+  },
+  {
+   "id": "US7895223B2",
+   "title": "Generating search results based on determined relationships between data objects and user connections to identified destinations",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US7603619B2",
+   "title": "Formatting a user network site based on user preferences and format performance data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070204010A1",
+   "title": "Remote Module Syndication System and Method",
+   "assignee": "Steven Goldberg"
+  },
+  {
+   "id": "US7725530B2",
+   "title": "Proxy server collection of data for module incorporation into a container document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7730109B2",
+   "title": "Message catalogs for remote modules",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US7730082B2",
+   "title": "Remote module incorporation into a container document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8185819B2",
+   "title": "Module specification for a module to be incorporated into a container document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9294334B2",
+   "title": "Controlling communication within a container document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7971137B2",
+   "title": "Detecting and rejecting annoying documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7451120B1",
+   "title": "Detecting novel document content",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7996396B2",
+   "title": "Identifying the items most relevant to a current query based on user activity with respect to the results of similar queries",
+   "assignee": "A9.Com, Inc."
+  },
+  {
+   "id": "US20070239533A1",
+   "title": "Allocating and monetizing advertising space in offline media through online usage and pricing model",
+   "assignee": "Susan Wojcicki"
+  },
+  {
+   "id": "US7647314B2",
+   "title": "System and method for indexing web content using click-through features",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "CN100524307C",
+   "title": "Method and device for establishing coupled relation between documents",
+   "assignee": "国际商业机器公司"
+  },
+  {
+   "id": "US8023927B1",
+   "title": "Abuse-resistant method of registering user accounts with an online service",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8954861B1",
+   "title": "Administrator configurable gadget directory for personalized start pages",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8185830B2",
+   "title": "Configuring a content document for users and user groups",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8407250B2",
+   "title": "Distribution of content document to varying users with security customization and scalability",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080046315A1",
+   "title": "Realizing revenue from advertisement placement",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US8732314B2",
+   "title": "Generation of contact information based on associating browsed content to user actions",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US7831472B2",
+   "title": "Methods and system for search engine revenue maximization in internet advertising",
+   "assignee": "Yufik Yan M"
+  },
+  {
+   "id": "US7660783B2",
+   "title": "System and method of ad-hoc analysis of data",
+   "assignee": "Buzzmetrics, Inc."
+  },
+  {
+   "id": "US9037581B1",
+   "title": "Personalized search result ranking",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080086741A1",
+   "title": "Audience commonality and measurement",
+   "assignee": "Quantcast Corporation"
+  },
+  {
+   "id": "US8661029B1",
+   "title": "Modifying search result ranking based on implicit user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8399573B2",
+   "title": "Polymer blend compositions",
+   "assignee": "Sabic Innovative Plastics Ip B.V."
+  },
+  {
+   "id": "US7958104B2",
+   "title": "Context based data searching",
+   "assignee": "O'donnell Shawn C"
+  },
+  {
+   "id": "US8938463B1",
+   "title": "Modifying search result ranking based on implicit user feedback and a model of presentation bias",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8694374B1",
+   "title": "Detecting click spam",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9092510B1",
+   "title": "Modifying search result ranking based on a temporal element of user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080306830A1",
+   "title": "System for rating quality of online visitors",
+   "assignee": "Cliquality, Llc"
+  },
+  {
+   "id": "KR100954624B1",
+   "title": "Method and system for providing content according to personal preference",
+   "assignee": "야후! 인크."
+  },
+  {
+   "id": "US8694511B1",
+   "title": "Modifying search result ranking based on populations",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9058608B2",
+   "title": "Placement attribute targeting",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8909655B1",
+   "title": "Time based ranking",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9348912B2",
+   "title": "Document length as a static relevance feature for ranking search results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9182932B2",
+   "title": "Systems and methods for printing content associated with a website",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "WO2009068072A1",
+   "title": "Scalable associative text mining network and method",
+   "assignee": "Kinkadee Systems Gmbh"
+  },
+  {
+   "id": "US8347326B2",
+   "title": "Identifying key media events and modeling causal relationships between key events and reported feelings",
+   "assignee": "The Nielsen Company (US)"
+  },
+  {
+   "id": "US8812493B2",
+   "title": "Search results ranking using editing distance and document information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9128945B1",
+   "title": "Query augmentation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8396865B1",
+   "title": "Sharing search engine relevance data between corpora",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9009146B1",
+   "title": "Ranking search results based on similar queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20100332531A1",
+   "title": "Batched Transfer of Arbitrarily Distributed Data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100332550A1",
+   "title": "Platform For Configurable Logging Instrumentation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8448057B1",
+   "title": "Audience segment selection",
+   "assignee": "Quantcast Corporation"
+  },
+  {
+   "id": "US8386601B1",
+   "title": "Detecting and reporting on consumption rate changes",
+   "assignee": "Quantcast Corporation"
+  },
+  {
+   "id": "US8447760B1",
+   "title": "Generating a related set of documents for an initial set of documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20110029516A1",
+   "title": "Web-Used Pattern Insight Platform",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8082247B2",
+   "title": "Best-bet recommendations",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8498974B1",
+   "title": "Refining search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8972391B1",
+   "title": "Recent interest based relevance scoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8874555B1",
+   "title": "Modifying scoring data based on historical changes",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8615514B1",
+   "title": "Evaluating website properties by partitioning user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8924379B1",
+   "title": "Temporal-based score adjustments",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8959093B1",
+   "title": "Ranking search results based on anchors",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10467655B1",
+   "title": "Protected audience selection",
+   "assignee": "Quantcast Corporation"
+  },
+  {
+   "id": "US8874727B2",
+   "title": "Methods, apparatus, and articles of manufacture to rank users in an online social network",
+   "assignee": "The Nielsen Company (Us), Llc"
+  },
+  {
+   "id": "US8738635B2",
+   "title": "Detection of junk in search result ranking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9623119B1",
+   "title": "Accentuating search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8832083B1",
+   "title": "Combining user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8346792B1",
+   "title": "Query generation using structural similarity between documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9002867B1",
+   "title": "Modifying ranking data based on document changes",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9152357B2",
+   "title": "Method and system for providing print content to a client",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US9137394B2",
+   "title": "Systems and methods for obtaining a resource",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US9286334B2",
+   "title": "Versioning of metadata, including presentation of provenance and lineage for versioned metadata",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9384193B2",
+   "title": "Use and enforcement of provenance and lineage constraints",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "WO2013059958A1",
+   "title": "Automatic selection of web page objects for printing",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US9418065B2",
+   "title": "Tracking changes related to a collection of documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9495462B2",
+   "title": "Re-ranking search results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9245428B2",
+   "title": "Systems and methods for haptic remote control gaming",
+   "assignee": "Immersion Corporation"
+  },
+  {
+   "id": "US9773214B2",
+   "title": "Content feed printing",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US9390383B2",
+   "title": "Method for an optimizing predictive model using gradient descent and conjugate residuals",
+   "assignee": "Georges Harik"
+  },
+  {
+   "id": "US9600777B2",
+   "title": "Configuring and optimizing computational structure for a machine learning application using a tuple of vectors",
+   "assignee": "Georges Harik"
+  },
+  {
+   "id": "US11429651B2",
+   "title": "Document provenance scoring based on changes between document versions",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9183499B1",
+   "title": "Evaluating quality based on neighbor features",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10169711B1",
+   "title": "Generalized engine for predicting actions",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US20150006526A1",
+   "title": "Determining Locations of Interest to a User",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9298831B1",
+   "title": "Approximating a user location",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "RU2610280C2",
+   "title": "Method for user authorization in a network and server used therein",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "RU2580432C1",
+   "title": "Method for processing a request from a potential unauthorised user to access resource and server used therein",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "US10082992B2",
+   "title": "Providing a print-ready document",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US10423638B2",
+   "title": "Cloud inference system",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US20240078107A1",
+   "title": "Performing quality-based action(s) regarding engineer-generated documentation associated with code and/or application programming interface",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5826261A",
+   "title": "System and method for querying multiple, distributed databases by selective sharing of local relative significance information for terms related to the query",
+   "assignee": "Spencer; Graham"
+  },
+  {
+   "id": "US5960383A",
+   "title": "Extraction of key sections from texts using automatic indexing techniques",
+   "assignee": "Digital Equipment Corporation"
+  },
+  {
+   "id": "US6006222A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6014665A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6029195A",
+   "title": "System for customized electronic identification of desirable objects",
+   "assignee": "Herz; Frederick S. M."
+  },
+  {
+   "id": "US6035294A",
+   "title": "Wide access databases and database systems",
+   "assignee": "Big Fat Fish, Inc."
+  },
+  {
+   "id": "US6078916A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6182067B1",
+   "title": "Methods and systems for knowledge management",
+   "assignee": "Knowledge Horizons Pty Ltd."
+  },
+  {
+   "id": "US6272507B1",
+   "title": "System for ranking search results from a collection of documents using spreading activation techniques",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US6311214B1",
+   "title": "Linking of computers based on optical sensing of digital data",
+   "assignee": "Digimarc Corporation"
+  },
+  {
+   "id": "US6360215B1",
+   "title": "Method and apparatus for retrieving documents based on information other than document content",
+   "assignee": "Inktomi Corporation"
+  },
+  {
+   "id": "US6405175B1",
+   "title": "Shopping scouts web site for rewarding customer referrals on product and price information with rewards scaled by the number of shoppers using the information",
+   "assignee": "David Way Ng"
+  },
+  {
+   "id": "US20020078045A1",
+   "title": "System, method, and program for ranking search results using user category weighting",
+   "assignee": "Rabindranath Dutta"
+  },
+  {
+   "id": "US6473752B1",
+   "title": "Method and system for locating documents based on previously accessed documents",
+   "assignee": "Micron Technology, Inc."
+  },
+  {
+   "id": "US6480837B1",
+   "title": "Method, system, and program for ordering search results using a popularity weighting",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6732088B1",
+   "title": "Collaborative searching by query induction",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US7062561B1",
+   "title": "Method and apparatus for utilizing the social usage learned from multi-user feedback to improve resource identity signifier mapping",
+   "assignee": "Richard Reisman"
+  },
+  {
+   "id": "US7085820B1",
+   "title": "System and method for reporting to a website owner user reactions to particular web pages of a website",
+   "assignee": "Opinionlab, Inc."
+  },
+  {
+   "id": "US5626261A",
+   "title": "Resin injector guide for windshield crack repair",
+   "assignee": "Glass Technology Inc."
+  },
+  {
+   "id": "JP3032195B1",
+   "title": "Coil bobbin for AC adapter",
+   "assignee": "株式会社タムラ製作所"
+  }
+ ],
+ "similar": [
+  {
+   "id": "US8352452B2",
+   "title": "Methods and apparatus for employing usage statistics in document retrieval"
+  },
+  {
+   "id": "JP4698737B2",
+   "title": "Ranking function using document usage statistics"
+  },
+  {
+   "id": "US8027974B2",
+   "title": "Method and system for URL autocompletion using ranked results"
+  },
+  {
+   "id": "US20060173556A1",
+   "title": "Methods and apparatus for using user gender and/or age group to improve the organization of documents retrieved in response to a search query"
+  },
+  {
+   "id": "US9081851B2",
+   "title": "Method and system for autocompletion using ranked results"
+  },
+  {
+   "id": "US6792419B1",
+   "title": "System and method for ranking hyperlinked documents based on a stochastic backoff processes"
+  },
+  {
+   "id": "US7840538B2",
+   "title": "Discovering query intent from search queries and concept networks"
+  },
+  {
+   "id": "US8321410B1",
+   "title": "Identification of semantic units from within a search query"
+  },
+  {
+   "id": "US8082244B2",
+   "title": "Systems and methods for determining document freshness"
+  },
+  {
+   "id": "US9734211B1",
+   "title": "Personalizing search results"
+  },
+  {
+   "id": "US20080256046A1",
+   "title": "System and method for prioritizing websites during a webcrawling process"
+  },
+  {
+   "id": "US20090144240A1",
+   "title": "Method and systems for using community bookmark data to supplement internet search results"
+  },
+  {
+   "id": "US7310633B1",
+   "title": "Methods and systems for generating textual information"
+  },
+  {
+   "id": "KR20070038146A",
+   "title": "Personalization of batch content sorting in search results"
+  },
+  {
+   "id": "JP2004213675A",
+   "title": "Search of structured document"
+  },
+  {
+   "id": "CN101454780A",
+   "title": "Method for Generating Website Profile Based on Monitoring User Behavior"
+  },
+  {
+   "id": "US9977816B1",
+   "title": "Link-based ranking of objects that do not include explicitly defined links"
+  },
+  {
+   "id": "US6941293B1",
+   "title": "Methods and apparatus for determining equivalent descriptions for an information need"
+  },
+  {
+   "id": "US7962462B1",
+   "title": "Deriving and using document and site quality signals from search query streams"
+  },
+  {
+   "id": "JP2004206492A",
+   "title": "Document display method and gateway device with link destination selection function using the same"
+  },
+  {
+   "id": "KR100371805B1",
+   "title": "Method and system for providing related web sites for the current visitting of client"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8001118B2/en"
+}

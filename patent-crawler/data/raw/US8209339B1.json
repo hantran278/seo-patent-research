@@ -1,0 +1,839 @@
+{
+ "id": "US8209339B1",
+ "title": "Document similarity detection",
+ "abstract": "A similarity detector detects similar or near duplicate occurrences of a document. The similarity detector determines similarity of documents by characterizing the documents as clusters each made up of a set of term entries, such as pairs of terms. A pair of terms, for example, indicates that the first term of the pair occurs before the second term of the pair in the underlying document. Another document that has a threshold level of term entries in common with a cluster is considered similar to the document characterized by the cluster.",
+ "inventors": [
+  "Simon Tong"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2003-06-17",
+ "filing_date": "2010-04-21",
+ "publication_date": "2012-06-26",
+ "status": "Expired - Fee Related",
+ "expiration": "",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/30",
+  "G06F16/31",
+  "G06F16/316",
+  "G06F16/319"
+ ],
+ "claims": [
+  {
+   "text": "1. A method performed by one or more server devices, the method comprising: receiving, using one or more processors associated with the one or more server devices, a document; selecting, using one or more processors associated with the one or more server devices, terms from the document to form a plurality of term pairs, where the selection is biased such that terms that appear closer to each other in the document have a greater probability of being included in the plurality of term pairs than terms that appear further from each other in the document; creating, using one or more processors associated with the one or more server devices, a cluster that includes the plurality of term pairs, where creating the cluster includes: sampling a quantity of the plurality of term pairs, where the quantity is determined based on a length of the document; and determining, using one or more processors associated with the one or more server devices, whether another document is similar to the document by comparing pairs of terms from the other document with the plurality of term pairs of the cluster.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, where the terms in each of the plurality of term pairs are ordered such that a first term, of each of the plurality of term pairs, comes before a second term, of each of the plurality of term pairs, in the document.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, further comprising: storing an inverted index including a plurality of clusters associated with a plurality of documents, where the inverted index comprises a list of the plurality of clusters that include a particular term pair of the plurality of term pairs.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, further comprising: storing a value, associated with the cluster, that indicates a quantity of term pairs included in the cluster.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 4, where the quantity of term pairs included in the cluster is based on a length of the document.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 1, where the selection is further biased such that terms with a lower frequency of occurrence within the document have a greater probability of being included in the plurality of term pairs than terms with a higher frequency of occurrence within the document.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 1, where the selection is further biased such that terms that appear within hypertext markup language (HTML) tags are excluded from inclusion in one of the plurality of term pairs.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 1, where the selection is further biased such that terms that appear in a pre-selected section of the document have a greater probability of being included in the plurality of term pairs than terms that appear in other sections of the document, where the pre-selected section includes the upper middle section of the document.",
+   "dependent": true
+  },
+  {
+   "text": "9. The method of claim 1, further comprising: selecting terms from the document to form n-ary term sets.",
+   "dependent": true
+  },
+  {
+   "text": "10. The method of claim 9, where a first term in a particular n-ary term set occurs in the document before a second term in the particular n-ary term set, and where a third term in the particular n-ary term set occurs in the document after both the first and second terms in the particular n-ary term set.",
+   "dependent": true
+  },
+  {
+   "text": "11. A server comprising: a memory to store instructions; and a processor to execute the instructions to: receive a document; select terms from the document to form a plurality of term pairs, where the selection of terms is weighted such that terms that appear closer to each other in the document have a higher probability of being included in the plurality of term pairs than terms that appear farther from each other in the document; create a cluster that includes the plurality of term pairs, where the cluster is created by sampling at least one of the plurality of term pairs, and a quantity of the plurality of term pairs that is sampled is determined based on a length of the document; and determine whether an input document is similar to the document by comparing pairs of terms from the input document with the plurality of term pairs in the cluster for the document.",
+   "dependent": false
+  },
+  {
+   "text": "12. The server of claim 11, where, when determining whether an input document is similar to the document, the processor executes instructions to: create the pairs of terms from the input document based on enumerating possible pairs of terms within the input document; and determine a quantity of matches between the enumerated pairs of terms and the plurality of term pairs of the cluster.",
+   "dependent": true
+  },
+  {
+   "text": "13. The server of claim 11, where, when determining whether an input document is similar to the document, the processor executes instructions to: enumerate, for a particular term within the input document, a plurality of pairs of terms, where each of the plurality of pairs of terms includes the particular term and another term that is within a particular distance of the particular term within the input document; and determine a quantity of matches between the enumerated pairs of terms and the plurality of term pairs of the cluster.",
+   "dependent": true
+  },
+  {
+   "text": "14. The server of claim 11, where the processor executes instructions to: store a plurality of clusters, where each cluster includes a plurality of term pairs and each cluster is associated with a different document.",
+   "dependent": true
+  },
+  {
+   "text": "15. The server of claim 14, where the processor executes instructions to: identify, for each of the pairs of terms from the input document, clusters that include a term pair that matches one of the pairs of terms from the input document.",
+   "dependent": true
+  },
+  {
+   "text": "16. The server of claim 15, where the processor executes instructions to: select the clusters that include more than a threshold number of term pairs that match with the pairs of terms from the input document; and provide an indication that the input document is similar to the documents associated with the selected clusters.",
+   "dependent": true
+  },
+  {
+   "text": "17. The server of claim 11, where, when determining whether an input document is similar to the document, the processor executes instructions to: determine a quantity of the pairs of terms from the input document that match with the plurality of term pairs of the cluster; calculate a similarity metric based on a percentage of the pairs of terms from the input document that match the plurality of term pairs of the cluster; and indicate that the input document is similar to the document associated with the cluster when the similarity metric is above a threshold.",
+   "dependent": true
+  },
+  {
+   "text": "18. A computer-readable memory device including instructions executable by at least one processor, the computer-readable memory device comprising: one or more instructions to receive a document; one or more instructions to select terms from the document to form a plurality of term pairs, where the selection is weighted such that terms that appear closer to each other in the document have a higher probability of being included in the plurality of term pairs than terms that appear farther from each other in the document; one or more instructions to create a cluster that includes the plurality of term pairs, where the one or more instructions to create the cluster include: one or more instructions to sample at least one of the plurality of term pairs, where a quantity of the plurality of term pairs that is sampled is determined based on a length of the document; and one or more instructions to determine that another document is similar to the document by comparing pairs of terms from the other document with the pairs of terms of the cluster.",
+   "dependent": false
+  },
+  {
+   "text": "19. The computer-readable memory device of claim 18, where the other document is an email message.",
+   "dependent": true
+  },
+  {
+   "text": "20. The computer-readable memory device of claim 19, further comprising: one or more instructions to block the email message from reaching an intended recipient when the other document is determined to be similar to the document.",
+   "dependent": true
+  },
+  {
+   "text": "21. The computer-readable memory device of claim 18, where the document and the other document are included in search results based on a search query, the computer-readable memory device further comprising: one or more instructions to remove the other document from the search results when the other document is determined to be similar to the document.",
+   "dependent": true
+  }
+ ],
+ "description": "This application is a continuation of U.S. patent application Ser. No. 10/462,690 filed Jun. 17, 2003, now U.S. Pat. No. 7,734,627, which is incorporated herein by reference.\n\n\n## BACKGROUND OF THE INVENTION\n\n\nA. Field of the Invention\n\nThe present invention relates generally to document processing and, more particularly, to comparing documents to find similar or near duplicate documents.\n\nB. Description of Related Art\n\nThere are a number of applications in which it may be desirable to be able to determine whether documents are similar or near duplicates of one another. Detecting spam email is one such application. Spam is unsolicited commercial email that is transmitted to multiple email accounts. To the receiver, spam is generally considered to be “junk email.”\n\nIn a typical spam episode, a single message is sent to thousands of email accounts. One known technique for removing spam from a network identifies spam based on its content. Thus, the network may be designed to recognize when many identical emails are being transmitted across the network. These identical emails can then be considered candidates for deletion before they arrive at the user email account.\n\nIn an effort to thwart automated spam detection and deletion, spam senders may slightly alter the text of each spam email by adding, removing, or replacing characters or superfluous sentences so as to defeat duplicate matching schemes. Thus, altered spam messages may be highly similar, but not identical, to one another.\n\nOther applications for which similar document detection may be useful include detection of plagiarism and duplicate document detection in search engines.\n\nThus, there is a need in the art for techniques that can more accurately detect similar or near duplicate documents.\n\n\n## SUMMARY OF THE INVENTION\n\n\nA document similarity detection technique consistent with the principles of the invention compares documents based on a set of relationships that define the relative order of terms within the documents.\n\nOne aspect of the invention is directed to a method for determining similarity of a document to a first set of documents. The method includes building a similarity model that defines a relative ordering of terms in the first set of documents, comparing an ordering of terms from the document to the similarity model, and generating similarity metrics that describe a degree of similarity between the document and the documents in the first set of documents based on the comparing of the ordering of terms.\n\nAnother aspect of the invention is directed to a similarity detection device. The device includes an inverted index that relates pairs of terms to clusters that contain the pairs of terms. The device further includes an enumeration component that generates pairs of terms for a received document and a pair lookup component that looks up the generated pairs in the inverted index to obtain clusters that contain the generated pairs. Further, the device includes a cluster selection component that selects those of the clusters obtained by the pair lookup component that are similar to the received document.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nThe accompanying drawings, which are incorporated in and constitute a part of this specification, illustrate the invention and, together with the description, explain the invention. In the drawings,\n\nFIG. 1 is a diagram illustrating an exemplary spam detection/elimination system implemented using concepts consistent with the invention;\n\nFIG. 2 is a diagram illustrating an exemplary implementation of a similarity detection component in the context of a web search engine;\n\nFIG. 3 is a block diagram conceptually illustrating operational components of the similarity detection component shown in FIGS. 1 and 2 when adding a new document to a similarity model;\n\nFIG. 4 is a diagram illustrating a cluster for an exemplary document;\n\nFIG. 5 is a diagram illustrating another exemplary cluster;\n\nFIG. 6 is a diagram illustrating an inverted index formed consistent with an aspect of the invention;\n\nFIG. 7 is a diagram illustrating an exemplary implementation of the table of pairs shown in FIG. 3;\n\nFIG. 8 is a flow chart illustrating the creation of a cluster by cluster creation component of FIG. 3 consistent with an aspect of the invention;\n\nFIG. 9 is a block diagram conceptually illustrating operational components of the similarity detection component when determining similarity of an input document consistent with an aspect of the invention; and\n\nFIG. 10 is a flow chart illustrating the operation of the similarity detection component when determining similarity of an input document.\n\n\n## DETAILED DESCRIPTION\n\n\nThe following detailed description of the invention refers to the accompanying drawings. The detailed description does not limit the invention. Instead, the scope of the invention is defined by the appended claims and equivalents.\n\nThere are many ways in which documents may be determined to be similar, duplicates or near duplicates.\n\nOne document similarity detection technique is a “shingle” method. In the shingle method, a small consecutive sequence of words within a document is called a shingle. Two documents are said to be similar if they have several shingles in common. One problem with using the shingle method in adversarial situations, such as spam email, is that an adversary can defeat the matching algorithm by performing local swaps, replacements, or deletions of words within a sentence without changing the meaning of the sentence. As an example of this, consider the sentence: “The quick brown fox jumped over the lazy dog,” which can be transformed to: “The brown quick fox jumped over a lazy dog.” These two sentences do not share a single shingle of length four. Thus, the shingle method may classify these two sentences as not nearly identical when semantically the sentences are near duplicates of one another. Accordingly, automated programs that randomly alter words at the sentence level (such as substituting words with close synonyms, switching consecutive adjectives, and other local transformations) can defeat the shingle method.\n\nAnother document similarity detection technique is based on considering a document as a vector of terms. For example, the sentence: “The quick brown fox jumped over the lazy dog,” could be considered as a vector having eight entries—one for each unique word in the sentence. Term vector approaches known in the art, however, throw out ordering information in the document. Throwing out the ordering information can make it easier to get false matches when trying to find near duplicate documents because documents with the same words but entirely different word orders will be considered identical even though the documents may not be similar.\n\nAs an example of the possible problems of a term vector approach to detecting similar documents, consider the following three sentences: (1) When the defendant won the plaintiff hit the judge, (2) The judge hit the defendant when the plaintiff won, and (3) When the plaintiff hit the judge the defendant won. In a simple implementation of term vector similarity, all three sentences would have the same weighted term vectors and would be considered exact duplicates. For spam email duplicate detection, false matches are highly undesirable because it is important to users that legitimate emails are not deleted.\n\nThe detection of near duplicate or highly similar documents is also useful in many other applications, such as detection of plagiarism, duplicate document detection in search engines, etc. For web search engines, in particular, duplicate documents can often be undesirable. Storing duplicate documents effects both the accuracy and efficiency of the search engine. Further, retrieving duplicate documents in response to a user's query may lower the number of valid responses provided to the user, thus lowering the quality of the response set.\n\nIn one aspect of the present invention, a similarity detection component detects similar or near-duplicate documents based on pairs of ordered terms defined for the documents. A document may be characterized as a cluster containing a number of pairs of words. Another document having a relatively high number of pairs in common with the cluster is potentially a similar or near-duplicate of the document characterized by the cluster. Of course, the choice of pairs of ordered terms merely illustrates one embodiment of the present invention, and the invention is equally applicable to other sets of information, e.g. triplets of terms, quadruples, etc. Similarly, terms may refer to words, phrases, sentences, or other units of information as applicable, and may also refer to punctuation, tags, such as HTML tags, or other information. As used herein, a document is to be broadly interpreted to include any machine-readable and machine-storable work product. A document may be an email, a file, a combination of files, one or more files with embedded links to other files, etc. The files may be of any type, such as text, audio, image, video, etc. In the context of the Internet, a common document is a Web page. Web pages often include content and may include embedded information (such as meta information, hyperlinks, etc.) and/or embedded instructions (such as Javascript, etc.).\n\n\n## SYSTEM OVERVIEW\n\n\nFIG. 1 is a diagram illustrating an exemplary spam detection/elimination system 100 implemented using concepts consistent with the invention. Spam detection/elimination may be performed by an internet service provider (ISP) 110 on behalf of its customers (users) 120-1 through 120-N (collectively referred to as users 120). ISP 110 may operate to connect users 120 to network 105. Network 105 may be, for example, a public network, such as the Internet. Email destined for one of users 120 is received by ISP 110 and forwarded to the appropriate user(s). Similarly, email transmitted from one of users 120 is received and forwarded by ISP 110 towards its final destination.\n\nISP 110 may include a spam filter 115, which may be implemented as a computer program stored on a computer-readable medium. Spam filter 115 may examine incoming email and delete messages that it determines to be spam. Spam filter 115 may make this determination based on results from a similarity detection component 117, which determines similarity between documents. If multiple emails transmitted through ISP 110 are determined by similarity detection component 117 to be highly similar or near duplicates of one another then spam filter 115 may consider these emails to be candidates for deletion. In some implementations, other features of the email messages, such as the transmitting domain name associated with the email messages, may be taken into account by spam filter 115 when determining whether to classify an email message as spam.\n\nAnother possible application of similarity detection component 117 is in the area of search engines. FIG. 2 is a diagram illustrating an exemplary implementation of similarity detection component 117 in the context of a web search engine. As shown in FIG. 2, a number of users 220-1 through 220-N (collectively referred to as users 220) may query a search engine 240 through a network 205. Network 205 may be a public network, such as the Internet.\n\nSearch engine 240 may be a program stored in a computer-readable medium that locates relevant information in response to search queries from users 220. In particular, users 220 send search queries to search engine 240, which responds by returning a list of relevant information to users 220. Typically, users 220 ask search engine 240 to locate web pages (i.e., documents) relating to a particular topic and stored at other devices or systems connected to network 205 (or another network). Search engine 240 may contain, or be coupled to, a database 245 that includes an index to the set of searchable web pages available though search engine 240.\n\nSearch engine 240 may use similarity detection component 117 in performing searches and/or in indexing the set of searchable web pages. Similar web pages detected by similarity detection component 117 may be used by search engine 240 in a number of ways. For example, highly similar web pages may not be separately stored in database 245. Alternatively, when returning results of a search to one of users 220, search engine 240 may use similarity detection component 117 to remove multiple references to nearly duplicate documents in the set of returned documents.\n\n\n## SIMILARITY DETECTION COMPONENT\n\n\nThe operation of similarity detection component 117 according to one embodiment of the invention will next be described in detail. In general, similarity detection component 117 may operate in one of two modes. In the first mode, similarity detection component 117 adds new documents to a similarity model. In a second mode, similarity detection component 117 receives a document and determines if the document is similar to any of the documents in the model.\n\nFIG. 3 is a block diagram conceptually illustrating operational components of similarity detection component 117 when adding a new document to the similarity model (first mode). As shown, similarity detection component 117 includes a cluster creation component 301, an inverted index 302, and a table of pairs 303. The similarity model may be considered as including the inverted index 302 and the table of pairs 303. In some implementations, table of pairs 303 may be omitted.\n\nCluster creation component 301 creates clusters Ci that describe documents. A cluster may be created for each of a number of documents i. Each cluster, Ci, may include one or more pairs of words from document i. Stated more formally C i=(u 0 ,v 0),(u 1 ,v 1), . . . ,(u n ,v n), where u and v represent terms in document i in which u comes before v, but the terms do not have to be consecutive. Thus, the pair (u0, v0) represents that document i contains the term u0 and the term v0 and that u0 occurs before v0. Generally, another document is said to be similar if it includes pairs that match the pairs in Ci. In other words, the other document is similar if it tends to contain words in the same order as those that appear in document i.\n\nFIG. 4 is a diagram illustrating a cluster for an exemplary document: “The quick brown fox jumped over the lazy dog.” As shown, the cluster created for this document includes four pairs 401-404. Pair 401 represents that the term “the” comes before the word “fox.” Pair 402 represents that the term “quick” comes before the term “jumped.” Pair 403 represents that the term “fox” comes before the term “lazy.” Pair 404 represents that the term “over” comes before the word “dog.” Another document is considered similar to this document if most of the constraints defined by pairs 401-404 are satisfied. Thus, the document “the brown quick fox jumped over a lazy dog” would be considered similar.\n\nAs another example of a cluster, consider the randomly sampled pairs shown in FIG. 5 for the document: “When the defendant won the plaintiff hit the judge.” For these pairs, the document “The judge hit the defendant when the plaintiff won” only matches one of the four pairs. Also, the document “When the plaintiff hit the judge the defendant won” only matches two of the pairs. Thus, neither of these two documents would be considered similar to the original.\n\nCluster creation component 301 may store each created pair for a cluster in inverted index 302. Inverted index 302 lists, for each pair, the clusters for which that pair was created. FIG. 6 is a diagram illustrating an exemplary portion of inverted index 302. Pairs 601-1 through 601-M are listed in inverted index 302. For each of pairs 601, index 302 includes a corresponding list 610-1 through 610-M of the clusters for which the particular pair 601 was created. For example, as shown in FIG. 6, pair 601-1 belongs to a number of clusters, including the clusters labeled C1 and C50.\n\nIn addition to maintaining inverted index 302, cluster creation component 301 may update table 303 when adding a new document to the similarity model. FIG. 7 is a diagram illustrating an exemplary implementation of table 303. As shown, table 303 may store the number of pairs that each cluster contains. Cluster creation component 301 may update table 303 whenever it creates a cluster for a document.\n\nThe creation of a cluster Ci by cluster creation component 301 will now be described in more detail with reference to the flow chart of FIG. 8. Cluster creation component 301 may begin by receiving the document from which it will generate a cluster, (Act 801), and then sampling the document to obtain the pairs for the cluster (Act 802).\n\nSampling the document to obtain the pairs can be performed using a number of different sampling techniques. The general goal is to create a useful representation of the document for the purpose of later determining similarity of the document to other documents. In one implementation, cluster creation component 301 randomly samples pairs of words from the input document. In one variation to this random sampling approach, the “random” sampling may be biased so that terms closer to each other have a greater chance of being included in a pair.\n\nThe number of pairs to sample for each cluster may be based on the length of the documents. Thus, clusters for longer documents may include more pairs.\n\nTerms that have a lower frequency of occurrence in a corpus are often more relevant to the meaning of a document than more common terms. Accordingly, in some implementations, cluster creation component 301 may include a bias that is more likely to sample less frequently occurring terms. On the other hand, terms that are very rare, such as random sequences of symbols used by spammers to thwart similarity detection schemes, may not be included in the pairs of a cluster. Thus, in one embodiment cluster creation component 301 may be biased to sample rare words but to avoid very rare words. One of ordinary skill in the art will recognize that a precise meaning of “rare” and “very rare” may be obtained for a particular application through experimentation and/or observation of the frequency of occurrence of various terms in the corpus.\n\nIn addition to avoiding very rare terms, other terms, such as terms within HTML tags, may be ignored when sampling a document.\n\nAs another possible variation on document sampling, cluster creation component 301, instead of creating clusters that include entries that are pairs, may create clusters from triple, quadruple, or n-ary cluster entries. Such n-ary cluster entries may be referred to as n-ary vectors. For a cluster made of three term sets, for example, each entry would represent that the first term occurs before the second term, which both occur before the third term.\n\nIn another variation on the document sampling, cluster creation component 301 may bias the sampling such that pairs that occur in a pre-selected section of the document such as the upper middle section of the document are preferred. Email spammers may place “junk” terms near the bottom or beginning of a document in an attempt to thwart similarity detection. However, too many “junk” terms placed near the upper middle section of an email, such as in the first few paragraphs of the email, can make the email difficult to read and the reader may lose interest in the email if he/she has to scan past multiple lines of random text before seeing the true message. Accordingly, by sampling pairs from the upper middle section of a document, the clusters generated by cluster creation component 301 may be more resistant to spammer counter-measures. Cluster creation component 301, after sampling the pairs for a cluster, may update inverted index 302 to reflect the new cluster (Act 803). Cluster creation component 301 may also update table 303 by adding an entry in table 303 for the new cluster (Act 804). The entry may indicate the number of pairs that were sampled for the cluster.\n\nThe above discussion of similarity detection component 117 described the operation of similarity detection component 117 when adding a new document to the similarity model. In the second mode of operation, similarity detection component 117 determines similarity of an input document based on the similarity model defined by inverted index 302.\n\nFIG. 9 is a block diagram conceptually illustrating operational components of similarity detection component 117 when determining similarity of an input document. As shown, in this mode of operation, similarity detection component 117 may include pair enumeration component 901, pair lookup component 902, cluster aggregation component 903, and cluster selection component 904.\n\nPair enumeration component 901 enumerates the pairs within the input document. In one implementation, pair enumeration component 901 may enumerate all possible pairs for the input document. In other implementations, the pairs may be enumerated within a fixed window size within the input document. In this implementation, for each word u within the input document, pair enumeration component 901 may enumerate all pairs of words that include u and that are within a fixed number of words (the window size) after u. The window may then be moved to the next word after u and the process repeated. For example, if a document includes the five consecutive words a, b, c, d, and e, and the window size is set to three, pair enumeration component 901 may begin by forming the pairs ab, ac, and ad. Pair enumeration component 901 may then move the sliding window to word b and enumerate the pairs bc, bd, and be. The window may then be moved again and this process repeated for each word in the document. Using a fixed window size can be beneficial for both accuracy and efficiency.\n\nFor each enumerated pair, pair lookup component 902 may look up the pair in inverted index 302 to determine the previously stored clusters that correspond to the pair. Cluster aggregation component 904 may keep track of each cluster that was looked-up for the input document, as well as the number of occurrences of that cluster. For example, a short input document, after enumeration by pair enumeration component 901, may be determined to contain 10 pairs. The 10 pairs may correspond to 30 different clusters in the similarity model. Some of the 30 different clusters may have been output multiple times from inverted index 302, which indicates that the input document has multiple pairs in common with the document corresponding to the cluster.\n\nCluster selection component 904 may select the most frequently occurring clusters stored by cluster aggregation component 903. These are the clusters that have the most pairs in common with the input document. The most frequently occurring clusters can be defined as an absolute number (e.g., the input document may contain 15 of the pairs in C10) or on a percentage basis (e.g., the input document may contain 90% of the pairs included in cluster C10) or by using any other measure.\n\nThe operation of similarity detection component 117 when determining similarity of an input document will now be described in more detail with reference to the flow chart shown in FIG. 10.\n\nSimilarity detection component 117 may begin by receiving a document for which a similarity determination is to be made (Act 1001). The received document will be called document B for purposes of this explanation. Pair enumeration component 901 may then enumerate pairs in document B (Act 1002). As previously mentioned, pair enumeration component may enumerate all possible pairs within document B or a subset of the possible pairs within document B. For example, all possible pairs of words (u,v) where u and v are within a fixed distance from each other in document B may be enumerated.\n\nFor each pair enumerated in Act 1002, pair lookup component 902 may use inverted index 302 to obtain the clusters that contain the pair (Act 1003). The total set of clusters, C(B), obtained by pair lookup component 902 may be maintained by cluster aggregation component 903 (Act 1004). Pair lookup component 902 may additionally tabulate the number of pairs that document B has in common with each cluster in C(B) (Act 1004).\n\nCluster selection component 904 may then use the information obtained in Act 1004 to determine a similarity metric that describes the similarity of document B to the documents that correspond to the clusters in C(B) (Act 1005). As mentioned, in one implementation, cluster selection component 904 may divide the number of pairs that document B has in common with a cluster to the number of pairs in that cluster to obtain the percentage of pairs that document B shares with the cluster. In another implementation, cluster selection component 904 may use the absolute number of pairs that document B has in common with the cluster as the similarity metric (e.g., B contains 15 of the pairs in cluster C10). Cluster selection component 904 may then compare the calculated similarity metrics for the clusters to a predetermined threshold value (Act 1006). Values above the threshold may indicate that the document B is a similar or near-duplicate document to the document corresponding to the cluster (Act 1007).\n\nLonger documents are more likely to contain word pairs in the correct ordering. In some implementations, in order to further determine whether a document is to be considered a similar or near-duplicate document, additional factors, such as document length or a comparison of term vectors for the input document and the documents in the similarity model may also be performed.\n\nAlthough the above discussion of duplicate or near duplicate document detection was primarily concerned with applications in spam email detection, other applications, such as plagiarism detection, are possible. In one plagiarism detection scheme, for example, a document A may be added to the similarity model by sampling pairs (or n-ary cluster entries), as previously described. Additionally, each paragraph or few paragraphs of document A (or other segments of document A) may be independently added to the similarity model as if it was an independent document. When adding paragraphs, the document from which the paragraph was excerpted from is also stored by the similarity model.\n\nWhen a new document B is to be checked for plagiarism, the new document may be compared as a whole to determine if it is similar, and also compared as segments, such as paragraphs, to determine if any of the segments are similar. A final plagiarism judgment on document B can then be made based on one or more of a number of factors, including: (1) how many matching clusters document B has with other documents in the similarity model, (2) how many paragraphs (or other segments) in document B are similar to other paragraphs inserted in the similarity model, and (3) how many similar paragraphs document B has to each document A in the model. Thus, item (1) can be used to determine whether document B is a near copy of another document. Item (2) can be used to determine whether document B includes paragraphs from several other different documents. Item (3) can be used to determine whether document B includes multiple paragraphs from the same document.\n\n\n## CONCLUSION\n\n\nThe similarity detection described above can detect similar or near duplicate occurrences of a document and is relatively robust in the face of deliberate attempts to thwart its operation. The similarity detection component determines similarity of documents by characterizing the documents as clusters each made up of a set of term pairs. Another document that has a threshold level of term pairs in common with a cluster may be considered similar to the document characterized by the cluster.\n\nIt will be apparent to one of ordinary skill in the art that aspects of the invention, as described above, may be implemented in many different forms of software, firmware, and hardware in the implementations illustrated in the figures. The actual software code or specialized control hardware used to implement aspects consistent with the present invention is not limiting of the present invention. Thus, the operation and behavior of the aspects were described without reference to the specific software code—it being understood that a person of ordinary skill in the art would be able to design software and control hardware to implement the aspects based on the description herein.\n\nThe foregoing description of preferred embodiments of the present invention provides illustration and description, but is not intended to be exhaustive or to limit the invention to the precise form disclosed. Modifications and variations are possible in light of the above teachings or may be acquired from practice of the invention.\n\nNo element, act, or instruction used in the description of the present application should be construed as critical or essential to the invention unless explicitly described as such. Also, as used herein, the article “a” is intended to include one or more items. Where only one item is intended, the term “one” or similar language is used.\n\nThe scope of the invention is defined by the claims and their equivalents.",
+ "cited_by": [
+  {
+   "id": "WO2014150593A1",
+   "title": "System and method for clustering data in input and output spaces",
+   "assignee": "Robert Bosch Gmbh"
+  },
+  {
+   "id": "WO2014169334A1",
+   "title": "Methods and systems for improved document comparison",
+   "assignee": "Contextual Systems Pty Ltd"
+  },
+  {
+   "id": "US9116974B2",
+   "title": "System and method for clustering data in input and output spaces",
+   "assignee": "Robert Bosch Gmbh"
+  },
+  {
+   "id": "US9148395B2",
+   "title": "Displaying message content differential in popup window",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "CN110825852A",
+   "title": "Long text-oriented semantic matching method and system",
+   "assignee": "四川长虹电器股份有限公司"
+  },
+  {
+   "id": "US10740554B2",
+   "title": "Method for detecting document similarity",
+   "assignee": "Istanbul Teknik Universitesi"
+  },
+  {
+   "id": "US12430695B2",
+   "title": "Information processing apparatus, control method, and program",
+   "assignee": "Nec Corporation"
+  },
+  {
+   "id": "US7734627B1",
+   "title": "Document similarity detection",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8423541B1",
+   "title": "Using saved search results for quality feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "JP4559295B2",
+   "title": "Data communication system and data communication method",
+   "assignee": "株式会社エヌ・ティ・ティ・ドコモ"
+  },
+  {
+   "id": "JP4639124B2",
+   "title": "Character input assist method and information processing apparatus",
+   "assignee": "キヤノン株式会社"
+  },
+  {
+   "id": "US8391614B2",
+   "title": "Determining near duplicate “noisy” data objects",
+   "assignee": "Equivio Ltd."
+  },
+  {
+   "id": "US8010538B2",
+   "title": "Methods and systems for reporting regions of interest in content files",
+   "assignee": "Black Duck Software, Inc."
+  },
+  {
+   "id": "US20100057559A1",
+   "title": "method of choosing advertisements to be shown to a search engine user",
+   "assignee": "Saar Wilf"
+  },
+  {
+   "id": "US20090064284A1",
+   "title": "Method and System for Access to Material on a Web Site",
+   "assignee": "Pado Metaware Ab"
+  },
+  {
+   "id": "US9323827B2",
+   "title": "Identifying key terms related to similar passages",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8122032B2",
+   "title": "Identifying and linking similar passages in a digital text corpus",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9081852B2",
+   "title": "Recommending terms to specify ontology space",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US7958136B1",
+   "title": "Systems and methods for identifying similar documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7930306B2",
+   "title": "System and method for near and exact de-duplication of documents",
+   "assignee": "Msc Intellectual Properties B.V."
+  },
+  {
+   "id": "US20090307003A1",
+   "title": "Social advertisement network",
+   "assignee": "Daniel Benyamin"
+  },
+  {
+   "id": "US8073818B2",
+   "title": "Co-location visual pattern mining for near-duplicate image retrieval",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8504550B2",
+   "title": "Social network message categorization systems and methods",
+   "assignee": "Citizennet Inc."
+  },
+  {
+   "id": "US8180773B2",
+   "title": "Detecting duplicate documents using classification",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7953679B2",
+   "title": "Scalable indexing for layout based document retrieval and ranking",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US8874663B2",
+   "title": "Comparing similarity between documents for filtering unwanted documents",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US8244711B2",
+   "title": "System, method and apparatus for information retrieval and data representation",
+   "assignee": "Chin Lung Fong"
+  },
+  {
+   "id": "US8380697B2",
+   "title": "Search and retrieval methods and systems of short messages utilizing messaging context and keyword frequency",
+   "assignee": "Citizennet Inc."
+  },
+  {
+   "id": "US8554854B2",
+   "title": "Systems and methods for identifying terms relevant to web pages using social network messages",
+   "assignee": "Citizennet Inc."
+  },
+  {
+   "id": "JP5656585B2",
+   "title": "Document creation support apparatus, document creation support method, and program",
+   "assignee": "キヤノン株式会社"
+  },
+  {
+   "id": "US8650195B2",
+   "title": "Region based information retrieval system",
+   "assignee": "Palle M Pedersen"
+  },
+  {
+   "id": "US8434134B2",
+   "title": "Providing an electronic document collection",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8615434B2",
+   "title": "Systems and methods for automatically generating campaigns using advertising targeting information based upon affinity information obtained from an online social network",
+   "assignee": "Citizennet Inc."
+  },
+  {
+   "id": "US8612293B2",
+   "title": "Generation of advertising targeting information based upon affinity information obtained from an online social network",
+   "assignee": "Citizennet Inc."
+  },
+  {
+   "id": "US9063927B2",
+   "title": "Short message age classification",
+   "assignee": "Citizennet Inc."
+  },
+  {
+   "id": "US9116879B2",
+   "title": "Dynamic rule reordering for message classification",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US20130006986A1",
+   "title": "Automatic Classification of Electronic Content Into Projects",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9519883B2",
+   "title": "Automatic project content suggestion",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9407463B2",
+   "title": "Systems and methods for providing a spam database and identifying spam communications",
+   "assignee": "Aol Inc."
+  },
+  {
+   "id": "US9002892B2",
+   "title": "Systems and methods for trend detection using frequency analysis",
+   "assignee": "CitizenNet, Inc."
+  },
+  {
+   "id": "CN102279893B",
+   "title": "Many-to-many automatic analysis method of document group",
+   "assignee": "索意互动（北京）信息技术有限公司"
+  },
+  {
+   "id": "US8793201B1",
+   "title": "System and method for seeding rule-based machine learning models",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US8856640B1",
+   "title": "Method and apparatus for applying revision specific electronic signatures to an electronically stored document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9275026B2",
+   "title": "Constrained digital text reader",
+   "assignee": "Quillsoft Ltd."
+  },
+  {
+   "id": "US9053497B2",
+   "title": "Systems and methods for targeting advertising to groups with strong ties within an online social network",
+   "assignee": "CitizenNet, Inc."
+  },
+  {
+   "id": "US8843493B1",
+   "title": "Document fingerprint",
+   "assignee": "Narus, Inc."
+  },
+  {
+   "id": "US11308037B2",
+   "title": "Automatic collaboration",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US9529916B1",
+   "title": "Managing documents based on access context",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9384285B1",
+   "title": "Methods for identifying related documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9495341B1",
+   "title": "Fact correction and completion during document drafting",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN103207905B",
+   "title": "A kind of method of calculating text similarity of based target text",
+   "assignee": "大连理工大学"
+  },
+  {
+   "id": "US9514113B1",
+   "title": "Methods for automatic footnote generation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9842113B1",
+   "title": "Context-based file selection",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9529791B1",
+   "title": "Template and content aware document and template editing",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9703763B1",
+   "title": "Automatic document citations by utilizing copied content for candidate sources",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9984166B2",
+   "title": "Systems and methods of de-duplicating similar news feed items",
+   "assignee": "Salesforce.Com, Inc."
+  },
+  {
+   "id": "US10592841B2",
+   "title": "Automatic clustering by topic and prioritizing online feed items",
+   "assignee": "Salesforce.Com, Inc."
+  },
+  {
+   "id": "CN105975547B",
+   "title": "Based on content web document detection method approximate with position feature",
+   "assignee": "武汉大学"
+  },
+  {
+   "id": "US11094335B1",
+   "title": "Systems and methods for automatic detection of plagiarized spoken responses",
+   "assignee": "Educational Testing Service"
+  },
+  {
+   "id": "TWI621952B",
+   "title": "Comparison table automatic generation method, device and computer program product of the same",
+   "assignee": "財團法人資訊工業策進會"
+  },
+  {
+   "id": "US10997560B2",
+   "title": "Systems and methods to improve job posting structure and presentation",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10607273B2",
+   "title": "System for determining and displaying relevant explanations for recommended content",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US9996523B1",
+   "title": "System for real-time autosuggestion of related objects",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US20180181609A1",
+   "title": "System for De-Duplicating Job Postings",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20180276206A1",
+   "title": "System and method for updating a knowledge repository",
+   "assignee": "Hcl Technologies Limited"
+  },
+  {
+   "id": "CN107085568B",
+   "title": "Text similarity distinguishing method and device",
+   "assignee": "腾讯科技（深圳）有限公司"
+  },
+  {
+   "id": "CN107025218B",
+   "title": "A text deduplication method and device",
+   "assignee": "腾讯科技（深圳）有限公司"
+  },
+  {
+   "id": "US11372945B2",
+   "title": "Restructuring pages having similar content",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US11410130B2",
+   "title": "Creating and using triplet representations to assess similarity between job description documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US11222054B2",
+   "title": "Low-complexity methods for assessing distances between pairs of documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US11238865B2",
+   "title": "Function performance based on input intonation",
+   "assignee": "Lenovo (Singapore) Pte. Ltd."
+  },
+  {
+   "id": "US11521084B2",
+   "title": "Anomaly detection in a data processing system",
+   "assignee": "Nxp B.V."
+  },
+  {
+   "id": "US11501551B2",
+   "title": "Document processing optimization",
+   "assignee": "Optum Services (Ireland) Limited"
+  },
+  {
+   "id": "JP2022145157A",
+   "title": "Information processing apparatus and information processing program",
+   "assignee": "富士フイルムビジネスイノベーション株式会社"
+  },
+  {
+   "id": "CN121117212B",
+   "title": "A method and apparatus for identifying report filling units based on multi-level clustering",
+   "assignee": "北京久其软件股份有限公司"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US3644898A",
+   "title": "Information association through logical functions derived from language",
+   "assignee": "United Aircraft Corp"
+  },
+  {
+   "id": "US4131947A",
+   "title": "Random access digital sorter",
+   "assignee": "Armstrong Philip N"
+  },
+  {
+   "id": "US4358824A",
+   "title": "Office correspondence storage and retrieval system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US4691341A",
+   "title": "Method of transferring digital information and street lighting control system",
+   "assignee": "General Electric Company"
+  },
+  {
+   "id": "US4823306A",
+   "title": "Text search system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US4839853A",
+   "title": "Computer information retrieval using latent semantic structure",
+   "assignee": "Bell Communications Research, Inc."
+  },
+  {
+   "id": "US5278980A",
+   "title": "Iterative technique for phrase query formation and an information retrieval system employing same",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5297039A",
+   "title": "Text search system for locating on the basis of keyword matching and keyword relationship matching",
+   "assignee": "Mitsubishi Denki Kabushiki Kaisha"
+  },
+  {
+   "id": "US5321833A",
+   "title": "Adaptive ranking system for information retrieval",
+   "assignee": "Gte Laboratories Incorporated"
+  },
+  {
+   "id": "US5325444A",
+   "title": "Method and apparatus for determining the frequency of words in a document without document image decoding",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5369714A",
+   "title": "Method and apparatus for determining the frequency of phrases in a document without document image decoding",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5390259A",
+   "title": "Methods and apparatus for selecting semantically significant images in a document image without decoding image content",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5418951A",
+   "title": "Method of retrieving documents that concern the same topic",
+   "assignee": "The United States Of America As Represented By The Director Of National Security Agency"
+  },
+  {
+   "id": "US5442778A",
+   "title": "Scatter-gather: a cluster-based method and apparatus for browsing large document collections",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5442546A",
+   "title": "System and method for automatically generating translation templates from a pair of bilingual sentences",
+   "assignee": "Hitachi, Ltd."
+  },
+  {
+   "id": "US5491760A",
+   "title": "Method and apparatus for summarizing a document without document image decoding",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5495607A",
+   "title": "Network management system having virtual catalog overview of files distributively stored across network domain",
+   "assignee": "Conner Peripherals, Inc."
+  },
+  {
+   "id": "US5544049A",
+   "title": "Method for performing a search of a plurality of documents for similarity to a plurality of query words",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5576954A",
+   "title": "Process for determination of text relevancy",
+   "assignee": "University Of Central Florida"
+  },
+  {
+   "id": "US5619709A",
+   "title": "System and method of context vector generation and retrieval",
+   "assignee": "Hnc, Inc."
+  },
+  {
+   "id": "US5640553A",
+   "title": "Relevance normalization for documents retrieved from an information retrieval system in response to a query",
+   "assignee": "Infonautics Corporation"
+  },
+  {
+   "id": "US5652898A",
+   "title": "Dictionary memory for text processing using word frequency and word recency occurrence information",
+   "assignee": "Hitachi, Ltd."
+  },
+  {
+   "id": "US5675819A",
+   "title": "Document information retrieval using global word co-occurrence patterns",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5805771A",
+   "title": "Automatic language identification method and system",
+   "assignee": "Texas Instruments Incorporated"
+  },
+  {
+   "id": "US5867811A",
+   "title": "Method, an apparatus, a system, a storage device, and a computer readable medium using a bilingual database including aligned corpora",
+   "assignee": "Canon Research Centre Europe Ltd."
+  },
+  {
+   "id": "US5909677A",
+   "title": "Method for determining the resemblance of documents",
+   "assignee": "Digital Equipment Corporation"
+  },
+  {
+   "id": "US5913185A",
+   "title": "Determining a natural language shift in a computer document",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5913208A",
+   "title": "Identifying duplicate documents from search results without comparing document content",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5926812A",
+   "title": "Document extraction and comparison method with applications to automatic personalized database searching",
+   "assignee": "Mantra Technologies, Inc."
+  },
+  {
+   "id": "US5963940A",
+   "title": "Natural language information retrieval system and method",
+   "assignee": "Syracuse University"
+  },
+  {
+   "id": "US5963925A",
+   "title": "Electronic statement presentment system",
+   "assignee": "Visa International Service Association"
+  },
+  {
+   "id": "US5999945A",
+   "title": "Method for organizing files associated with a job ticket used in a network printing system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6052198A",
+   "title": "Method for organizing raster image processor files associated with a job ticket used in a network printing system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6098033A",
+   "title": "Determining similarity between words",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6112021A",
+   "title": "Markov model discriminator using negative examples",
+   "assignee": "Mitsubishi Electric Information Technology Center America, Inc, (Ita)"
+  },
+  {
+   "id": "US6119124A",
+   "title": "Method for clustering closely resembling data objects",
+   "assignee": "Digital Equipment Corporation"
+  },
+  {
+   "id": "US6154753A",
+   "title": "Document management system and method for business quality modeling",
+   "assignee": "Cable & Wireless, Inc."
+  },
+  {
+   "id": "US6161130A",
+   "title": "Technique which utilizes a probabilistic classifier to detect \"junk\" e-mail by automatically updating a training and re-training the classifier based on the updated training set",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6169999B1",
+   "title": "Dictionary and index creating system and document retrieval system",
+   "assignee": "Matsushita Electric Industrial Co., Ltd."
+  },
+  {
+   "id": "US6185576B1",
+   "title": "Defining a uniform subject classification system incorporating document management/records retention functions",
+   "assignee": "Mcintosh Lowrie"
+  },
+  {
+   "id": "US6192360B1",
+   "title": "Methods and apparatus for classifying text and for building a text classifier",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20020024532A1",
+   "title": "Dynamic personalization method of creating personalized user profiles for searching a database of information",
+   "assignee": "Wylci Fables"
+  },
+  {
+   "id": "US6477534B1",
+   "title": "Method and system for generating a statistical summary of a database using a join synopsis",
+   "assignee": "Lucent Technologies, Inc."
+  },
+  {
+   "id": "US20030084043A1",
+   "title": "Join synopsis-based approximate query answering",
+   "assignee": "Swarup Acharya"
+  },
+  {
+   "id": "US6564210B1",
+   "title": "System and method for searching databases employing user profiles",
+   "assignee": "Virtual Self Ltd."
+  },
+  {
+   "id": "US20030093698A1",
+   "title": "System and apparatus for limiting access to secure data through a portable computer to a time set with the portable computer connected to a base computer",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6621930B1",
+   "title": "Automatic categorization of documents based on textual content",
+   "assignee": "Elron Software, Inc."
+  },
+  {
+   "id": "US20030182310A1",
+   "title": "Method and apparatus for sociological data mining",
+   "assignee": "Elizabeth Charnock"
+  },
+  {
+   "id": "US6654739B1",
+   "title": "Lightweight document clustering",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6687696B2",
+   "title": "System and method for personalized search, information filtering, and for generating recommendations utilizing statistical latent class models",
+   "assignee": "Recommind Inc."
+  },
+  {
+   "id": "US6711568B1",
+   "title": "Method for estimating coverage of web search engines",
+   "assignee": "Krishna Asur Bharat"
+  },
+  {
+   "id": "US20040162814A1",
+   "title": "Method for automatic discovery of query language features of web sites",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6990628B1",
+   "title": "Method and apparatus for measuring similarity among electronic documents",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20060161395A1",
+   "title": "Event customization",
+   "assignee": "Beam Jeffrey S"
+  },
+  {
+   "id": "US7188106B2",
+   "title": "System and method for aggregating ranking results from various sources to improve the results of web searching",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7239409B2",
+   "title": "Remote access to print job retention",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US7318066B2",
+   "title": "System and method for generating automatic user interface for arbitrarily complex or large databases",
+   "assignee": "Michael Philip Kaufman"
+  },
+  {
+   "id": "US7346604B1",
+   "title": "Method for ranking hypertext search results by analysis of hyperlinks from expert documents and keyword scope",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US7350187B1",
+   "title": "System and methods for automatically creating lists",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7734627B1",
+   "title": "Document similarity detection",
+   "assignee": "Google Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US8650199B1",
+   "title": "Document similarity detection"
+  },
+  {
+   "id": "US8244720B2",
+   "title": "Ranking blog documents"
+  },
+  {
+   "id": "CA2508060C",
+   "title": "Search engine spam detection using external data"
+  },
+  {
+   "id": "US8175339B1",
+   "title": "Scoring items"
+  },
+  {
+   "id": "JP5053211B2",
+   "title": "Inbound content filtering with automatic inference detection"
+  },
+  {
+   "id": "US8650197B2",
+   "title": "Authoritative document identification"
+  },
+  {
+   "id": "US20050262210A1",
+   "title": "Email analysis using fuzzy matching of text"
+  },
+  {
+   "id": "US6480838B1",
+   "title": "System and method for searching electronic documents created with optical character recognition"
+  },
+  {
+   "id": "US20080130998A1",
+   "title": "Identification of similar images"
+  },
+  {
+   "id": "WO2008144457A2",
+   "title": "Efficient retrieval algorithm by query term discrimination"
+  },
+  {
+   "id": "AU2011204929B2",
+   "title": "Ranking blog documents"
+  },
+  {
+   "id": "CN115617940B",
+   "title": "A document detection method, apparatus, and storage medium"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8209339B1/en"
+}

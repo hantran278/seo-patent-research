@@ -1,0 +1,1653 @@
+{
+ "id": "US8452746B2",
+ "title": "Detecting spam search results for context processed search queries",
+ "abstract": "A programmable search engine system is programmable by a variety of different entities, such as client devices and vertical content sites to customize search results for users. Context files store instructions for controlling the operations of the programmable search engine. The context files are processed by various context processors, which use the instructions therein to provide various pre-processing, post-processing, and search engine control operations. Spam related and biased contexts and search results are identified using offline and query time processing stages, and the context files from vertical content providers associated with such spam and biased contexts and results are excluded from processing on direct user queries.",
+ "inventors": [
+  "Ramanathan V. Guha"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2005-08-10",
+ "filing_date": "2010-04-30",
+ "publication_date": "2013-05-28",
+ "status": "Expired - Fee Related",
+ "expiration": "",
+ "cpc": [
+  "G06Q30/00",
+  "G06Q30/02",
+  "G06Q30/0241",
+  "G06Q30/0251",
+  "G06Q30/0255",
+  "G06Q30/0256",
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/951"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer-implemented method, comprising: receiving a search query input and identification of a context file from a third-party content provider, wherein the third-party content provider is configured to receive the search query input from a client device and is configured to determine the identification of the context file based on the search query input; processing the context file to identify one or more commands for processing the search query input and one or more commands for processing search results wherein one or more of the commands for processing the search query input each specifies a respective precondition for evaluation of another of the commands for processing the search query input; processing the search query input according to the one or more commands for processing the search query input to produce one or more context processed search queries; obtaining a plurality of search results responsive to the context processed search queries; processing the search results according to the one or more commands for processing search results to produce a plurality of context processed search results; analyzing, for each of one or more of the context processed search results of the plurality of context processed search results, whether a corresponding entry in an annotation file refers to spam; removing from the plurality of context processed search results one or more of the context processed search results that each have a corresponding entry in the annotation file that refers to spam to create a plurality of modified search results; and providing the modified search results to the client device.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, wherein the context file refers to one or more related context files, and wherein processing the search query input according to the one or more commands for processing the search query input further comprises: processing the search query input according to one or more additional commands for processing the search query input in the one or more related context files.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, wherein processing the search query input according to the one or more commands for processing the search query input further comprises: evaluating a property value of a query with respect to a predefined property; or modifying the search query input.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, wherein each of the entries in the annotation file comprises a respective link to a respective web page, the method further comprising determining whether the respective web page contains spam.",
+   "dependent": true
+  },
+  {
+   "text": "5. A system comprising: one or more computers; and a computer-readable medium coupled to the one or more computers having instructions stored thereon which, when executed by the one or more computers, cause the one or more computers to perform operations comprising: receiving a search query input and identification of a context file from a third-party content provider, wherein the third-party content provider is configured to receive the search query input from a client device and is configured to determine the identification of the context file based on the search query inputs; processing the context file to identify one or more commands for processing the search query input and one or more commands for processing search results wherein one or more of the commands for processing the search query input each specifies a respective precondition for evaluation of another of the commands for processing the search query input; processing the search query input according to the one or more commands for processing the search query input to produce one or more context processed search queries; obtaining a plurality of search results responsive to the context processed search queries; processing the search results according to the one or more commands for processing search results to produce a plurality of context processed search results; analyzing, for each of one or more of the context processed search results, whether a corresponding entry in an annotation file refers to spam; and removing from the plurality of context processed search results one or more of the context processed search results that each have a corresponding entry in the annotation file that refers to spam to create a plurality of modified search results; and providing the modified search results to the client device.",
+   "dependent": false
+  },
+  {
+   "text": "6. The system of claim 5, wherein the context file refers to one or more related context files, and wherein processing the search query input according to the one or more commands for processing the search query input further comprises; processing the search query input according to one or more additional commands for processing the search query input in the one or more related context files.",
+   "dependent": true
+  },
+  {
+   "text": "7. The system of claim 5, wherein processing the search query input according to the one or more commands for processing the search query input further comprises: evaluating a property value of a query with respect to a predefined property; or modifying the search query input.",
+   "dependent": true
+  },
+  {
+   "text": "8. The system of claim 5, wherein each of the entries in the annotation file comprises a respective link to a respective web page, the method further comprising determining whether the respective web page contains spam.",
+   "dependent": true
+  },
+  {
+   "text": "9. A computer storage medium encoded with a computer program, the program comprising instructions that when executed by one or more computers cause the one or more computers to perform operations comprising: receiving a search query input and identification of a context file from a third-party content provider, wherein the third-party content provider is configured to receive the search query input from a client device and is configured to determine the identification of the context file based on the search query input; processing the context file to identify one or more commands for processing the search query input and one or more commands for processing search results wherein one or more of the commands for processing the search query input each specifies a respective precondition for evaluation of another of the commands for processing the search query input; processing the search query input according to the one or more commands for processing the search query input to produce one or more context processed search queries; obtaining a plurality of search results responsive to the context processed search queries; processing the search results according to the one or more commands for processing search results to produce a plurality of context processed search results; analyzing, for each of one or more of the context processed search results of the plurality of context processed search results, whether a corresponding entry in an annotation file refers to spam; and removing from the plurality of context processed search results one or more of the context processed search results that each have a corresponding entry in the annotation file that refers to spam to create a plurality of modified search results; and providing the modified search results to the client device.",
+   "dependent": false
+  },
+  {
+   "text": "10. The computer storage medium of claim 9, wherein the context file refers to one or more related context files, and wherein processing the search query input according to the one or more commands for processing the search query input further comprises: processing the search query input according to one or more additional commands for processing the search query input in the one or more related context files.",
+   "dependent": true
+  },
+  {
+   "text": "11. The computer storage medium of claim 9, wherein processing the search query input according to the one or more commands for processing the search query input further comprises: evaluating a property value of a query with respect to a predefined property; or modifying the search query input.",
+   "dependent": true
+  },
+  {
+   "text": "12. The method of claim 1, wherein the annotations comprise labels, the method further comprising: receiving a selection of one of the labels; and generating new search results, wherein the new search results are associated with metadata that includes the label.",
+   "dependent": true
+  },
+  {
+   "text": "13. The method of claim 1, wherein processing the search query input according to the one or more commands for processing the search query input further comprises: selecting a document collection for searching with the search query input; establishing a parameter of a search engine for processing the search query input; or filtering the search results to include only search results of a designated type in the context processing search results.",
+   "dependent": true
+  },
+  {
+   "text": "14. The system of claim 8, wherein the annotations comprise labels and the operations further comprise: receiving a selection of one of the labels; and generating new search results, wherein the new search results are associated with metadata that includes the label.",
+   "dependent": true
+  },
+  {
+   "text": "15. The system of claim 5, wherein processing the search query input according to the one or more commands for processing the search query input further comprises: selecting a document collection for searching with the search query input; establishing a parameter of a search engine for processing the search query input; or filtering the search results to include only search results of a designated type in the context processing search results.",
+   "dependent": true
+  },
+  {
+   "text": "16. The computer storage medium of claim 9, wherein each of the entries in the annotation file comprises a respective link to a respective web page, the method further comprising determining whether the respective web page contains spam.",
+   "dependent": true
+  },
+  {
+   "text": "17. The computer storage medium of claim 16, wherein the annotations comprise labels and the operations further comprise: receiving a selection of one of the labels; and generating new search results, wherein the new search results are associated with metadata that includes the label.",
+   "dependent": true
+  },
+  {
+   "text": "18. The computer storage medium of claim 9, wherein processing the search query input according to the one or more commands for processing the search query input further comprises: selecting a document collection for searching with the search query input; establishing a parameter of a search engine for processing the search query input; or filtering the search results to include only search results of a designated type in the context processing search results.",
+   "dependent": true
+  },
+  {
+   "text": "19. The method of claim 1, wherein determining that one or more of the context processed search results that have corresponding entries in the annotation file refer to spam further comprises: identifying a related context file containing a plurality of annotations; and determining which of the annotations refer to spam.",
+   "dependent": true
+  },
+  {
+   "text": "20. The system of claim 5, wherein determining that one or more of the context processed search results that have corresponding entries in the annotation file refer to spam further comprises: identifying a related context file containing a plurality of annotations; and determining which of the annotations refer to spam.",
+   "dependent": true
+  },
+  {
+   "text": "21. The computer storage medium of claim 9, wherein determining that one or more of the context processed search results that have corresponding entries in the annotation file refer to spam further comprises: identifying a related context file containing a plurality of annotations; and determining which of the annotations refer to spam.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## CROSS REFERENCE TO RELATED APPLICATIONS\n\n\nThis is a continuation of application of, and claims benefit under 35 U.S.C. §120 to U.S. patent application Ser. No. 11/202,382, which was filed on Aug. 10, 2005, the entire contents of which are hereby incorporated by reference.\n\nThis application is related to the following patent applications, the disclosures of which are incorporated herein by reference:\n\n\n## FIELD OF INVENTION\n\n\nThis invention relates in general to search engines, and more particularly, to search engines that are programmable by clients, hosts, and other devices and systems that make use of the search engine's services.\n\n\n## BACKGROUND OF INVENTION\n\n\nThe development of information retrieval systems has predominantly focused on improving the overall quality of the search results presented to the user. The quality of the results has typically been measured in terms of precision, recall, or other quantifiable measures of performance. Information retrieval systems, or ‘search engines’ in the context of the Internet and World Wide Web, use a wide variety of techniques to improve the quality and usefulness of the search results. These techniques address every possible aspect of search engine design, from the basic indexing algorithms and document representation, through query analysis and modification, to relevance ranking and result presentation, methodologies too numerous to fully catalog here.\n\nRegardless of the particular implementation technique—the fundamental architectural assumption for search engines has that the search engine's operational model is fixed and non-alterable by entities external to the system itself. That is, the search engine operates essentially as a “black box”, which receives a search query, processes the query using a complex, yet preprogrammed search algorithm and relevance ranking model, and provides the search results. Even where the details of the search algorithm are publicly disclosed, the search engine itself still operates only according to this algorithm, and nothing more.\n\nAn inherent problem in the design of search engines is that the relevance of search results to a particular user depends on factors that are highly dependent on the user's intent in conducting the search—that is why they are conducting the search—as well as the user's circumstances—the facts pertaining to the user's information need. Thus, given the same query by two different users, a given set of search results can be relevant to one user and irrelevant to another, entirely because of the different intent and information needs. Most attempts at solving the problem of inferring a user's intent typically depend on relatively weak indicators, such as static user preferences, or predefined methods of query reformulation that are nothing more than educated guesses about what the user is interested in based on the query terms. Approaches such as these cannot fully capture user intent because such intent is itself highly variable and dependent on numerous situational facts that cannot be extrapolated from typical query terms.\n\nConsider, for example a user query for “Canon Digital Rebel”, which is the name of a currently popular digital camera. From the query alone it is impossible to determine the user's intent, for example, whether the user is interested in purchasing such a camera, or whether the user owns this camera already and needs technical support, or whether the user is interested in comparing the camera with competitive offerings, or whether the user is interested in learning to use this camera. That is, the user's situational facts (e.g., whether or not they own the camera currently, their level of expertise in the subject area), and their information need (e.g., the type, form, level of detail, of the request information) cannot themselves be reliably determined by either analysis of query terms, or resort to previously stored preference data about the user.\n\nAnother method of inferring intent is the tracking and analysis of prior user queries to build a model of the user's interests. Thus, some search engines store search queries by individual users, and then attempt to determine the user's interests based on frequency of key words appearing in the search queries, as well as which search results the user accesses. One problem with this approach is the assumption that queries accurately reflect a user's interests, either short term or long term. Another is that it assumes that there is a direct and identifiable relationship between a given information need, say shopping for a digital camera, and the particular query terms used to find information relevant to that need. That assumption however is incorrect, as the same query terms can be used by the same (or different users) having quite different information needs.\n\nPerhaps because in part of the inability of contemporary search engines to consistently find information that satisfies the user's information need, and not merely the user's query terms, users frequently turn to websites that offer highly specialized information about particular topics. These websites are typically constructed by individuals, groups, or organizations that have expertise in the particular subject area (e.g., knowledge about digital cameras). Such sites—referred to herein as vertical content sites—often include specifically created content that provides in-depth information about the topic, as well organized collections of links to other related sources of information. For example, a website devoted to digital cameras typically includes product reviews, guidance on how to purchase a digital camera, as well as links to camera manufacturer's sites, price comparison engines, other sources of expert opinion and the like. In addition, the domain experts often have considerable knowledge about which other resources available on the internet are of value and which are not. Using his or her expertise, the content developer can at best structure the site content to address the variety of different information needs of users.\n\nHowever, while such vertical content sites provide extensive useful information that the user can access to address a particular current information need, the problem remains that when the user returns to a general search engine to further search for relevant information, none of the expertise provided by the vertical content site is made available to the search engine. Many vertical content sites provide a search field from which the user can access a general search engine. This field is merely used to pass a user's search query back to the general search engine. However, none of the expertise that is expressed in the vertical content site is directly available to the general search engine as part of the user's query in order to provide more meaningful search results. The expert content developer has no formal, programmatic way of passing information to the general search engine that expresses their expertise in their particular knowledge site.\n\nIn other words, there are no contemporary search engines that can be programmed by external entities—such as vertical content sites—during the search process itself, in way that can enhance the search process with the expertise of the content developer of the vertical content site.\n\n\n## SUMMARY\n\n\nA user's query is processed using context information that describes any combination of pre-processing operations (conducted prior to query execution) and post-processing operations (conducted on the search results from query execution). The pre-processing operations include operations to revise, modify or expand the query, to select one or more document collections on which to conduct the search, to set various search algorithm parameters for evaluating the query, or any other type of operation that can refine, improve, or otherwise enhance the quality of the user's search query. The context processed query is then executed by a search engine to obtain a set of search results. The post-processing operations applied to the search results include operations to filter, organize, and annotate the search results as well as provide links to related contexts for other types of information or information needs. The context processing operations can be provided by a programmable search engine site, by a vertical content provider site, or by a client device. The context processing operations are controlled by context files that include commands, parameters, and instructions. The context files may be stored at the programmable search engine site, at various vertical content providers, or at client device. Context files from multiple different sources can be used jointly. Context processing can also be limited to either pre-processing, or post-processing. The selection of which context files to apply to a given user query or a set of search results can be based on the query, the user, the client device, the vertical content site from which the query was received. The selection may be based as well on one or more subscriptions that a user has to particular vertical content providers, or popularity or reputation of a vertical content provider.\n\nSpam related and biased context files, and their associated vertical content providers are also identified. An offline processing stage identifies spam related context files using a spam filter to evaluate various sites and pages selected by a vertical content provider for inclusion in its context files. The context files from vertical content providers identified as being spam related are excluded from usage during subsequent processing of user search queries directly received by the programmable search engine. A query time processing stage applies a spam filter to the search results from a context processed query. Search results that are identified as spam are excluded from the context processed search results provided to the user. In addition, other context related content, including links and annotations, from this spam related vertical content provided are also removed from the search results. The query time processing stage also preferably includes a bias detection filter that identifies biased search results. The biased search results are identified by a distance measure between the search results from the context processed query, and native search results. Biased search results are also filtered from the results provided to the user.\n\nThe invention also has embodiments in computer program products, systems, user interfaces, and computer implemented methods for facilitating the described functions and behaviors.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nFIG. 1 illustrates a page from a host domain having a search field for accessing the programmable search engine.\n\nFIG. 2 illustrates the results of a search from the host domain.\n\nFIG. 3 illustrates a further page accessed from the search results page.\n\nFIG. 4 illustrates a generalized system architecture for the programmable search engine.\n\nFIG. 5 illustrates a first system architecture for a programmable search engine.\n\nFIG. 6 illustrates a second system architecture for a programmable search engine.\n\nFIG. 7 illustrates a third system architecture for a programmable search engine.\n\nFIG. 8 illustrates a combined system architecture for a programmable search engine.\n\nFIG. 9 illustrates a simple example of a set of context files.\n\nFIG. 10 illustrates offline spam filtering of context files.\n\nFIG. 11 illustrates query time filtering of context files.\n\nThe figures depict various embodiments of the present invention for purposes of illustration only. One skilled in the art will readily recognize from the following discussion that alternative embodiments of the illustrated and described structures, methods, and functions may be employed without departing from the principles of the invention.\n\n\n## DETAILED DESCRIPTION\n\n\n\n## Introduction to Programmable Search\n\n\nReferring now to FIGS. 1-3, there is shown an example of the user experience in using a programmable search system in accordance with an embodiment of the present invention. In FIG. 1 there is shown a page 100 from a host site, digitalslr.org, which is an example of a vertical content site, here the field of digital cameras, as its content and organization reflects the viewpoint and knowledge and of the entity that provides the site content. A vertical content site can be on any topic, and offer any type of information, and thus is not limited in that regard. For example, vertical content sites include sites on particular technologies or products (e.g., digital cameras or computers), political websites, blogs, community forums, news organizations, personal websites, industry associations, just to a name a few. What vertical content sites offer is a particular perspective and understanding of the world, one that may be of interest and value to some users. This perspective and understanding can be expressed, at least in part, by the content provider's organization and selection of content, as well as commentary, analysis or links to other content (e.g., commentary on other sites on the Internet). Indeed, one valuable aspect of vertical content sites is the particular collection of links to other sites that the content developer has judged to be useful in some regard, either for its depth, expertise, viewpoint, or the like. That is, users in general find value in the judgments of vertical content providers as to the usefulness of other sources of information on the Internet.\n\nThe host site includes a web server for serving pages, like page 100, to client devices. The pages are stored in some repository, such as a database, file directories, or the like. Thus, for example, the page 100 includes commentary on the latest camera offerings from various companies, as well as a link 102 to another site with relevant information about digital cameras. Of interest in this example is the search field 104, which allows the user to search the Internet using a general search engine system (not shown), such as the Google® search engine provided by Google, Inc. of Mountain View, Calif. (of course in other embodiments, other search engines may be used, even if they are not nearly as powerful and sophisticated as Google). The user enters a search query in the search field 104. Here, the query is “Nikon d100”.\n\nSelecting the search button 106 results in the web server transmitting the search query to the search engine system, using existing web protocols. In this example embodiment, in addition to the search query, the host site web server transmits a context file to the search engine system (alternatively, the web server can transmit a link to the context file, or simply a context file identifier). The context file includes data that the search engine system uses to control the operation of the search engine itself in processing the search query and in presenting the search results, in effect, programming the search engine's operation. Thus, the context file, as will be further detailed below, can be understood as a set of instructions to the search engine system for processing a particular search query. The instructions can control three aspects of the search process: 1) pre-query processing operations; 2) search engine control information; 3) post-query processing operations. Among other aspects, a context file may include descriptions of (or links to) related context files, which likewise provide further programmatic control of the search engine system.\n\nFIG. 2 illustrates an example a search results page 200 that is provided back to the user's client device, following processing of the context file and the search query. This page 200 includes a set of search results 202 that satisfy the search query, as well as additional information. First, there is displayed a name of the current context 208 that has been provided to the search engine system; the name is simply a description the vertical content site developer's has given to express the type of information need or contextual circumstances that pertains to the current search query. Here, for example the current context 208 is for a “Camera Model”, since the search query matched a specific camera model name as determined by processing of the context file. This context operates as the entry point for a user seeking information about a particular camera model.\n\nSecond, a number of links 204 are provided as navigational aids to further pages that address different possible information needs of the user. Each of these links 204 is associated with a related context file, which will provide further instructions to the search engine system to tailor further stages in the search process for a specific information need, and thereby construct the desired pages. For example, the first link “If you are trying to decide which camera to buy” addresses a specific type of user information need—information about how to purchase a camera, comparisons between camera, pricing information, and the like—that derives from a specific type of user intent, the intent to purchase a camera. The second link “Where to buy this camera from . . . ” addresses a different and more specific information need, the location of vendors for that particular camera. The last link “If you already own one . . . ” address yet entirely different type of information need, that is for information that a current own would want, such as technical support and service information, information that is not relevant to the two previous information needs.\n\nThird, the page 200 includes links 206 to other related contexts as well, such as “More Manufacturer Pages”, “More Guides”, “More Reviews”, and so forth. These links each invoke a particular context in which the vertical knowledge provider has characterized particular sites and pages, and then defined a filter for the search engine to select pages with the matching characteristics when processing the reformulated search query.\n\nFor example, the vertical knowledge provider has here previously identified a number of different sites or pages on the internet as being variously manufacturer sites, product review, buying guides, and so forth (e.g., according to the type of site). The vertical knowledge provider can label (or tag) a site with any number of category labels. The labels can describe any characteristic that the vertical content provider deems of interest, including topical (e.g., cameras, medicine, sports), type (e.g., manufacturer, academic, blog, government), level of discourse (e.g., lay, expert, professional, pre-teen), quality of content (poor, good, excellent), numerical rating, and so forth. The ontology (i.e., set of labels) used by the vertical knowledge provider can be either proprietary (e.g., internally developed) or public, or a combination thereof.\n\nFor example, the vertical site provider has previously identified a number of sites as containing product reviews, and has stored this information in a context file. The link 206 to “More reviews” automatically would control the system engine system to use this context file to filter the search results during post-processing to those pages that are from sites characterized as product reviews, and satisfying the reformulated query.\n\nFourth, the page 200 includes various annotations 210 in conjunction with various ones of the search results. These annotations 210 provide the user with the viewpoint or opinion of the vertical knowledge provider about the particular search result, as to any aspect of that search result that the provider considers significant, such as what the identified search result is about, how useful it is, or the like.\n\nThe placement, naming, and sequencing of the various links 204, 206 are themselves defined in the context files. This gives the vertical knowledge content provider almost complete control over the organization and presentation of the search results, which in and of itself represents that provider's particular perspective and determination of what are the user's likely information needs, and how the search results should be organized to satisfy those needs, and which related contexts should appear in response to each level of search by the user.\n\nFIG. 3 illustrates an example page 300 that is provided to the user as a result of clicking on the first link 204, “If you are trying to decide which camera to buy.” The context file associated with this link 204 is processed, and a second search is performed on the search query. This page 300 shows the context name 308 “Choosing a camera”, which again reflects the selected information need of the user. The search results 302 in this context are more specifically tailored to assisting the user in evaluating digital cameras and selecting a satisfactory one. Notice, for example, the first search result is to a buying guide for digital cameras, and that there are no search results shows shown here to technical support pages.\n\nAbove the search results 302 are links 304 to further related contexts based on information needs, such as “Review, sample photographs”, “Other similar cameras to consider”, and “Relevant product news”. Again, these links have associated context files that will control the search engine system to provide search results that are relevant to the described information needs for these contexts. Next to the search results are additional links 306, which are also to related contexts, and for example to further professional and user reviews of digital cameras, sample photographs, and other information particularly relevant to evaluating a camera for purchase.\n\nThe user can thus continue to access additional related context through the various links 304, 306, each time obtaining search results that have been processed according to the context files associated with the selected links. In this way, the user can essentially search the Internet using the powerful capabilities of a general search engine, yet obtaining the benefit of the knowledge, expertise, and perspective of the provider of the vertical content site. Vertical content site providers benefit from this approach as it allows them to further share their knowledge and perspective with users. Vertical content providers are no longer limited to the information that they can either create themselves, provide links to, or comment upon.\n\nWith the capabilities of the present invention, vertical content providers can define any variety of context files to meet any type of information need that users may have. The providers of the general search engine system are no longer burdened with the task of themselves organizing and categorizing content (as is conventionally done in various directories and portals), but instead can rely upon the much deeper and vaster pool of vertical content providers—hundreds of millions or more—as compared with the limited pool of editors that may organize content directories or categorize other websites for a general search engine. Indeed, no individual search engine provider could possibly employ the number of individuals with sufficient breadth and depth of experience, knowledge, or perspectives to itself provide the scope and variety of contexts that exists across the entire Internet community. Instead, the present invention provides any vertical content site provider with the capability to programmatically control the general search engine system on behalf of a user conducting a search.\n\nThe foregoing example is but one possible use of the present invention, and many more applications and usages will become apparent in the following discussion.\n\nIn another manifestation, the context file need not change the order in which the initial results are presented, but only annotate the results with the labels (e.g., tags) that apply to them. Clicking on the label issues a new search, which is restricted to the results having metadata matching the label. In yet another manifestation, these annotations need not be labels but links to relevant pages on other sites.\n\nIn yet another manifestation, the query need not originate at the vertical content site, but at the search engine's site, but use the knowledge provided by the vertical content site. In this embodiment, the user indicates to the search engine, either while using the vertical content site or through a sign up process similar to that used to subscribe to RSS feeds that the user would like to apply the vertical content site's contexts while conducting searches of a particular type.\n\nSystem Overview\n\nGeneral System Architecture for a Programmable Search Engine\n\nFIGS. 4 through 8 illustrate a number of different system architectures in which the present invention can be employed. These architectures generally vary in terms of which entities provide the context files and which entities processes the context files to control the search process and search result presentation. In general, the context files can be provided by any system entity (e.g., any of a client device, a host vertical site, or the search engine system), and can likewise by processed by any system entity, or any combination there.\n\nReferring first then to FIG. 4, there is shown a generic system architecture. In this system architecture, there is a client device 402, a vertical content server 406, context server 430, a context processor 420, and a programmable search engine (PSE) 450.\n\nThe client 402 can be any type of client, including any type of computer (e.g., desktop computer, workstation, notebook, mainframe, terminal, etc.), handheld device (personal digital assistant, cellular phone, etc.), or the like. The client device 402 need only have the capability to communicate over a network (e.g. Internet, telephony, LAN, WAN, or combination thereof) with the PSE 450. Typically, a client device 402 will support a browser application, and the appropriate networking applications and components, all of which are known to those of skill in the art. The client device 402 may include as well a search engine interface that also it to directly query the PSE 450.\n\nThe user of the client 402 constructs and transmits a search query to the PSE 450, via the content server 406, which includes a search engine interface (SEI) 409. This interface can be in part, as illustrated in FIG. 1, via a search query field on a host site that includes the content server 406, along with an underlying link to initiate processing of the input text and forwarding the results thereof to the PSE 450. The content server 406 selects an appropriate context file, as identified by a context ID. The selection of the context file can be based on the query itself, the client device 402, the user identification, default selection parameters, user site behavior (e.g., page accesses, dwell times, clicks) or other information programmatically available to the content server 406. The context ID may be a URL, a unique context name, a numerical ID, or some other form of reference to the context file. The content server 406 transmits the query along with the context ID to the context processor 420. Alternatively, content server 406 can provide the identified context file directly to the context processor. Depending on the embodiment, the content server 406 may also be responsible for serving content pages to the client device 402.\n\nThe context processor 420 uses the context ID to obtain the identified context file from the context server 430. The context processor 420 may also pass an identifier of the client device 402 (e.g., IP address, browser type, operating system, device type), the user (e.g., user ID), or host domain from which the search query is received, or the search query itself, to obtain further context files from the context server 430.\n\nAs discussed above, a context file (or collection of context files) can include three types of programmatic information that can be used by the context processor 420 and/or PSE 450 to control the search process. These are: 1) pre-query processing operations; 2) search engine control data; 3) post-query processing operations. This programmatic information will be discussed as part of the operational flow.\n\nThe context processor 420 processes the context files to perform various pre-processing operations, to programmatically generate a reformulated query. These pre-processing operations may be performed independently or in any combination to obtain a reformulated query. These include the following:\n\na) Query revision: the modification, addition, or deletion of or one or more terms of the original query. Such modifications include correcting spelling errors, including replacing query terms, adding query terms (as conjuncts, or as disjuncts) or deletion of query terms (e.g. stop word removal). The added or replaced terms may broaden or narrow the scope of a query.\n\nb) Creation of additional queries: For example, given an original search query of “digital SLR”, an additional query may be “digital camera”. These types of query reformulations are expressed in the context file as a series of query rewrite rules. The query rewrite rules generally define an output query (or query term) based on matching one or more terms of the original query (e.g., replace “digicam” with “digital camera”). Other rules may be applied automatically as defaults, without being conditioned on the terms of the query.\n\nThe second type of control information processed by the context processor 420 are search engine control data. These include:\n\na) selection of one or more search engines for processing the reformulated search query. The PSE 450 may include any number of different search engines, each of which is optimized for certain types of searches. For example, different search engines are typically used for text searches, image searches, and audio searches. A search engine typically will generate an information retrieval score for various documents in terms of their relevance to the search query. A context file can specify which search engine(s) is to be used (e.g., by identification of a particular URL for the search engine). The context processor 420 extracts this identified search engine, and constructs the appropriate query string using the reformulated query.\n\nb) selection of one or more document collections for searching. A search engine system will typically have access to multiple different document collections, which can be searched jointly, or individually. The provider of the context file may instruct the PSE 450 to use one or more specific document collections for a particular search. For example, a vertical content site for healthcare professional, may receive a search for “migraine”, and instruct the search engine system to search the PubMed database provided by the National Library of Medicine, rather than a more general search of the Internet. This constraint better tailors the results to the medical literature most likely to be relevant to the information need of a healthcare professional, rather than the typical results to such a query on the Internet. The context file can specify which document collections are to be used (e.g., by specification of a database, index, or other context repository). The context processor 420 extracts this information from the context file as well, and passes it the selected search engine as a parameter.\n\nc) specification of search engine parameters for use during query processing. Most search engine algorithms operate under a large number of parameterized controls when generating information retrieval scores, such as threshold values for scoring query term matches, iteration cycles, waiting of links, terms and other query or document attributes. Normally, these parameters are not accessible to entities outside of the search engine system, but rather are fixed by the search engine provider. However, in some embodiments of the present invention, the search engine system may be configured to receive and use any of these types of parameters, thereby giving further incremental programmatic control of the search engine to the vertical knowledge developments. Again, the context processor 420 extracts these parameters from the context file and passes them to the PSE 450 as parameters.\n\nThe context processed query, which includes the reformulated query and the search engine control data (if any) that are specified in the context file, is thus provided to the PSE 450. If multiple queries are constructed during pre-processing, the context processor sends each of the multiple queries and their associated search engine control data (which may be individually varied for each additional query).\n\nThe PSE 450 processes the reformulated query using the search engine control data (if any) to obtain a set of context processed search results, and provides these search results back to the context processor 420. If multiple queries are processed, then the PSE 450 can merge the results from these searches.\n\nThe context processor 420 then provides various post-processing operations, which again may be performed independently or conjointly. The results of this post-processing made part of the context processed search results. The post-processing operations include:\n\na) filtering the context processed search results using filters specified in the identified context. The context file may specify one or more filters that the context processor 420 can apply to further limit the documents that are included in the search results. These filters are expressed in terms of rules that match metadata with particular metadata associated each search result. The metadata can include both native metadata to the document, such the document type, date, author, site, size, or labeled metadata associated with the document, that is the labeled characteristics provided by the vertical content provider (or others).\n\nFor example, the filters may be defined to exclude documents of certain types (either physical types, e.g., image files, or logical types, e.g., “reviews”), from particular sites or internet domains (e.g., documents from the .biz or .gov domain), websites, or of a certain vintage (e.g., documents published before Mar. 3, 2005). Referring back then to the example of FIG. 3, the link 306 for “More Professional reviews” would invoke a filters defined to select only documents labeled as “professional”, “product reviews”. Again, these labels can be provided by the vertical knowledge content provider from which the original query was sourced, or from some other source. These options will be more fully discussed below.\n\nb) ranking of the context processed search results using ranking parameters specified in the context file. The PSE 450 includes a ranking function that ranks the search results based on the respective information retrieval scores. The context file can include ranking parameters, such as weighting factors to increase or decreases the IR scores for particular types of documents, for documents from selected sources. The ranking function may also operate on identifiable native or labeled metadata. For example, the rankings can be adjusted based on length of document, publication date, or document format just to name a few. Alternatively, the ranking may be adjusted based on labeled metadata, such ranking by expressed “rank” value, or by as increasing the native ranking of documents labeled as “expert” by a weight factor, or increasing the ranking of documents having a some specified quality measure of “10”. The context processor 420 can use these ranking parameters to rank the documents in the search results.\n\nc) clustering of the search results using clustering parameters. The context processor 420 may also cluster (group) the search results according to parameters provided in the context file. The parameters can specific clustering based on native or labeled metadata. Thus, all documents labeled as “professional reviews” can be clustered together; or all documents where are image files can be clustered, or documents from a given domain (e.g., all documents from xxxx.com).\n\nd) providing navigational links in the context processed search results to additional contexts. As illustrated in FIGS. 2 and 3, the context processor may also provide links that can be accessed to invoke additional searches for further refinements of the information needs of the user. Each such related context link invokes another cycle of pre-processing and/or post-processing by the context processor 420 and if so instructed, another cycle of query processing by the PSE 450.\n\ne) annotating the context processed search results using annotations specified in the identified context. As illustrated in FIGS. 2 and 3, the context file may also provide specific annotations 210 that can be included with any of the search results.\n\nThe context processor 420 then provides the context processed search results to the client device 402. As noted, the user can access any of the related context links, or perform entirely new queries, again making use of any context files that are selected based on such queries.\n\nThe client device 402 may also query the PSE 450 directly, either through its search engine interface 403, or simply by going to the website of the PSE 450 entering the query directly there. In this scenario, context processing is still handled by the context processor 420 in manner described above.\n\nProgrammable Search Engine System Based Context Processing\n\nReferring now to FIG. 5, there is a shown a system architecture in which the context processing operations are provided by the PSE system itself. In this embodiment again there is a client device 502 including a browser 503, along with a host vertical content site 504, and a PSE system 500. The vertical content site 504 includes a vertical content server 506 (e.g., a web and/or application server) and vertical content files 505 (e.g., a database or directory of web pages). Also present are vertical context files 507. The vertical content site 504 also includes a search interface 509 to the PSE system 500, such as a search field and search button as illustrated in FIG. 1. The user accesses the vertical content site 504 using the browser 503, and from that site can enter a search query to be processed by the PSE system 500. The vertical content server 506 processes the search query to determine a context ID for an appropriate context file, and transmits the search query and context ID to the PSE system 500. For example, the context ID can be transmits as a parameter in a URL to the PSE system 500. The vertical content site 504 also includes a number of conventional components (e.g. firewalls, router, load balancers, etc.) not shown here in order to not obscure the relevant details of the embodiment.\n\nThe PSE system 500 includes a number of components. A front end server 552 provides the basic interface for receiving search queries. The front end server 552 extracts the context ID and query, and passes that to a context processor 520. The front end server 552 may also provide an identifier of the client device or the user to the context processor 520. The context processor 520 provides the context ID and query, to the context server 530. The context server 530 uses the context ID to retrieve a context file from a repository of cached context files 540. The context files are received from any vertical content site 504, including the illustrated site 504, via a registration interface 560. This allows any provider of a vertical content site 504 to define the context files that are to be used for handling queries from their site and upload such context files for storage by the PSE system 500. Alternatively, the context files are extracted from the vertical content sites 504 by a context file web crawler 580. The registration and crawling methods may be used together. One implementation would be for the vertical content site 504 to first register its context files 507, which includes putting the site address on a crawl list. Subsequently, the crawler 580 crawls the site 504 to obtain any updates to the context files 507. Caching of the context files ensures very high speed processing of the context files at query time, since context processor 520 does not need to retrieve the context files from the remotely vertical content site 504, and thereby does not incur network latency (or problems with the vertical content site being unavailable).\n\nThe context server 530 may also obtain context files from a repository of global context files 542. These context files can be derived from data mining on the cached context files 540, provided by the provider of the PSE system 500, or any combination thereof.\n\nThe context server 530 provides the retrieved context file(s) to the context processor 520. The context processor 520 performs the appropriate pre-processing operations (if any) as defined in the context file to generate the reformulated query, and establish the search engine control data as set forth above, as part of the context processed query. The search engine 550 receives the context processed query, including reformulated query and search engine control data, and executes a search on same to provide a set of context processed search query results. These results are passed back to the context processor 520, which performs the post-processing operations on the search results as defined in the context file, to further modify the context processed search results. These processed results are then transmitted back to the client device 502.\n\nThis architecture provides various benefits. First, as pointed it provides for high speed access to the context files and eliminates reliance on the availability of the remote vertical content sites to serve their context files on demand.\n\nSecond, collection and aggregation of the context files 520 allows for various systemic to be achieved from analysis of the context files. It must be appreciated that over time, the number of vertical content providers employing context files will easily reach millions if not hundreds of millions, given the breadth and depth of the Internet. There are currently over 200,000,000 Internet sites, and that number is increasing at a rate of more than 10% per year. Even if only 1% of vertical content providers used context files, that would exceed 2,000,000 such collections of context files, providing a very rich repository of information.\n\nSpecifically, the following types of information may be aggregated from the collected context files. The rules used to define the query pre-processing operations can be accumulated and used to identify the most frequently used rules for various query terms. To a large extent this type of information is more reliable, having been essentiality voted on by a large population of interested providers, as opposed to rules designed by a very small team of editors.\n\nSimilarly, analysis of the search engine control yields identification of most frequently used search engines, indices, and parameters for particular queries or types of queries. Analysis of the query post-processing operations also identifies the most frequently used annotations, related contexts, ranking and filtering operations.\n\nAs mentioned above the context files includes label metadata used by the vertical knowledge content providers to describe the characteristics of any site or page on the Internet. In one embodiment, these labels are selected from a publicly provided ontology, so that vertical knowledge content providers use the same set of labels to characterize the content of the Internet. The ontology of labels can describe categories and instances of any type. The ontology includes, for example, topics, information types, information sources, user types, and rating scales, just to name a few possible aspects of the ontology. Accordingly, from the cached context files 540 a categorization of Internet content can be derived and validated. By way of simple example, all Internet sites labeled as type “buying guide” and category “digital camera” can be extracted from the cached context files 540. A directory of these digital camera buying guides can then be constructed, for example by selecting those sites having that have a minimum number of appearances in the context files. This approach again leverages the collective judgment of the vertical content providers—that is, the wisdom of crowds—as to the nature, type, and quality of content on the Internet.\n\nFrom the foregoing, the PSE system 500 can extract and establish a collection of globally optimized context files, where the query pre-processing rules, search engine control data, and query post-processing rules are derived from statistically analysis of cached context files for the frequency, distribution, variability and other measures of the usage of context information.\n\nOne scenario for this architecture is to support direct search queries with post-query context processing. In this embodiment, a user query is received directly from the client device 502, without first being passed through a vertical content provider site 504. The user's search query can be received directly at the website of the PSE system 500 (e.g., via search query page), or a search interface in browser toolbar, application, or system extension (e.g., a search interface on the user's desktop). In any event, the user's search query is handled without context based preprocessing, (that is query modification based on a vertical content provider's context files), though internal adjustment of the search query may be performed as part of native search operations. However, the search results are then post-processed with one or more context files, to provide the various types of navigational links, related context links, and/or annotations on search results as described and illustrated in FIGS. 2 and 3.\n\nAnother beneficial aspect of this architecture is that analysis of the context files also allows for integration of advertisement purchases based on contexts. That is, advertisers can bid for placement of their advertisements in specific contexts, rather than by specific query terms. For example, an advertiser may bid for placement of an advertisement for its digital camera when the context file for a query indicates that the user is shopping for a particular camera model, but not when the user is seeking technical support. This allows advertisers to more precisely focus their advertising efforts based on the user's information needs—which have been expressly described by the context files, rather than merely inferred from the query terms.\n\nVertical Content Provider Based Context Processing\n\nReferring now to FIG. 6, there is shown an embodiment of a system architecture in which the context processing is provided by the vertical content site itself. In this embodiment again there is a client device 602 including a browser 603, along with a host vertical content site 604, and a general search engine system 600. The vertical host vertical content site 604 includes a vertical content server 606 and vertical content files 605 (e.g., a database or directory of web pages). The vertical content site 606 also includes a search interface 609 to the search engine system 600, such as a search field and search button as illustrated in FIG. 1. The user accesses the vertical content site 604 and from that site can enter a search query to be processed by the search engine system 600.\n\nIn this embodiment, the vertical content site 604 also includes various components for context processing, including a vertical context processor 620 and local vertical context files 607. As before, vertical content server 606 receives a search query from the client device 602, e.g., via the browser 603, and processes the search query to determine a context ID for an appropriate context file. This information is now provided to the vertical context processor 620. The context processor 620 passes the context ID (and optionally the client device ID, user ID, and query) to the context server 630. The context server 630 uses the context ID to retrieve a context file from the vertical context files 607.\n\nThe context server 630 provides the retrieved context file(s) to the context processor 620. The context processor 620 performs the appropriate pre-processing operations as defined in the context file to generate the context process search query (including the search engine control data as set forth above). The vertical context processor 620 then invokes the search engine 650 to process the context processed query.\n\nThe search engine 650 receives the reformulated query and search engine control data, and executes the search accordingly, generating the context processed search results. These results are passed back to the context processor 620, which performs the post-processing operations on the search results as defined in the context file, to further modify the context processed search results. These processed results are then transmitted back to the client device 602.\n\nThe context processor 620 may also provide some or all of the search engine control data to the search engine, depending whether the search engine 650 exposes an application programming interface. In some embodiment, where the search engine 650 is closed, then the context processor 620 simply passes the queries to the search engine 650 and operates on the results. In this embodiment, the context processor 620 itself would use at least some of the search engine control data, for example, selection of which search engine to use. This gives the vertical content site provider control as to which search engines 650 to use with which types of user queries.\n\nClient Based Context Processing\n\nReferring now to FIG. 7, there is shown an embodiment of a system architecture in which the context processing is provided by the client device site. In this embodiment again there is a client device 702 including a browser 703, along with a host vertical content site 704, and a general search engine system 700.\n\nAs before, the vertical host vertical content site 704 includes a vertical content server 706 and vertical content files 705 (e.g., a database or directory of web pages). The vertical content site 706 also includes a search engine interface 709 to the search engine system 700, such as a search field and search button as illustrated in FIG. 1. The user accesses the vertical content site 704 using the browser 703 and from that site can enter a search query to be processed by the search engine system 700.\n\nIn this embodiment, the client device 702 includes the various components for context processing. First, the client device 702 includes a browser 703, for accessing the vertical content site 704 as well as any other available site on the network. The client 702 includes a vertical context processor 720, which can operate a plug-in to the browser 703, or Java applet. Here, the once the user makes the query via the vertical content server 706, that query is also provided to the vertical context processor 720. The context processor 720 again processes the search query to determine a context ID for an appropriate context file. Since the operation is local to the browser, the context processor 720 can use the context ID to retrieve a context file from the user context files 707.\n\nThe context processor 720 then performs the appropriate pre-processing operations as defined in the context file to generate the context processed query. The vertical context processor 720 then invokes the search engine 750 to process the context processes query. The search engine 750 receives the context processed query, and retrieves search results, forming the context processed results. These results are passed back to the context processor 720, which performs the post-processing operations on the search results as defined in the context file, to further modify the context processed search results. These processed results are then passed back to the browser 703.\n\nAn advantage of this architecture is that it allows the user to establish and user their own context files. Just as individual vertical content providers have their individual expertise and viewpoint, so to do individual users. Thus, a user may define context files to categorize and label particular websites, for example, identifying the site that she considers most authoritative or useful for particular topics. The user can also define query pre-processing operations, or more likely import such operations from others (e.g., experts in various topical domains) who publish context files for this purpose. Similarly, the user can define post-processing operations that allow for customization in the presentation of results, including arrangement of results into clusters or grouping that the user feels most comfortable with. For example, a user can define a personal context file in which search results are always clustered into academic (.edu), government (.gov), retail shopping (sites having metadata or text indicative of online purchasing), and image files.\n\nUnified Architecture for Mutual Context Processing\n\nThe various architectures illustrated in FIGS. 4-7 can all operate concurrently with different types of the individual systems operating together. FIG. 8 illustrates this system architecture for mutual and concurrent context processing. All of the system elements communicate via a network 892, such as the Internet.\n\nFirst, the PSE system 800 includes a complete set of components as described with respect to FIG. 4. The operative features of these components have been previously described and so are not repeated here.\n\nNext, three types of client devices 802 are in operation. Client device 802 a simply has a browser 803 by which it accesses various sites on the Internet. Client device 802 b includes a browser 803, as well as user context files 807, which can be passed to any available context processor 820 for processing in conjunction with a search query provided by the user.\n\nClient device 802 c includes a browser 803 and user context files 807, as a well its own context processor 820. This enables the client 802 c to perform local context processing on the user's search query prior to sending the query to the search engine, as well as performing post-processing operations after receiving the search results. This client's browser 803 also includes a search engine interface 809, enabling direct querying of the PSE system 800. It is contemplated (but not illustrated) that the other clients 802 a and 802 b may also include search engine interfaces 809, for example, in the toolbar of their respective browsers 803.\n\nThe three types of different vertical content sites 804 are also shown. Vertical content site 804 a includes a content server 806, along with a search engine interface 809 to the PSE system 800, as previously described. The server forwards a user's query (from any type of the client devices 802) to the PSE system 800, providing as well the context ID associated with the user's current context (along with any context related information received from the client device). The site does not need to store its own context files, as these can be stored at the PSE system 800 in the cached context file database 840.\n\nFor this type of vertical content site 804 a, the PSE system 800 provides all of the context processing operations. Here, the site 804 a does not provide any specific context ID information. As a result, the PSE system 800 can provide its own context identification mechanisms, for example based on the site 804 a, the client 802, the query terms, or the like. Using the context information, the context server 830 retrieves the appropriate global context files 842, and the context processor 820 uses these files for the context processing operations, including pre-processing of the search query, control of the search engine operation and parameters, and post-query processing. The programmable search engine site 800 passes the context processed search results back to the requesting client, either directly, or within the scope of the vertical content site 804 b, e.g., using framing techniques.\n\nAs with vertical content site 804 a, vertical content site 804 c includes its own content server 806 search engine interface 809, vertical content files 805, as well as local vertical context files 807. This site 804 b receives a search query from a client device 802, and forwards the query along with the context ID for the query context to the PSE system 800. The site's vertical context files 807 are cached in the PSE system's cached context files 840. The PSE system 800 receives the context ID, and uses its context server 830 to retrieve the associated context files for site 804 b from the cached context files 840. The context server 830 may also retrieve any applicable global context file 842. The PSE context processor 830 then processes the retrieved context files, generates the context processed search query and processes the queries via the search engine 850. The context processed search results are the further post-processed by the PSE context processor 820, again in accordance with either the site's context files or the global context files 842 (including where appropriate a combination thereof).\n\nThe last type of vertical content site 802 c includes its own content server 806 search engine interface 809, vertical content files 805, local vertical context files 807, as well as a local, vertical context processor 820. The local context processor 820 receives the user's search query, along with the context ID for the user's context, and using the referenced context files performs the appropriate pre-processing operations on the query prior to transmitting it to the PSE system 800, along with the search engine control data specified by the context files.\n\nHere, the PSE system 100 can provide various levels of services to the vertical content site 804 c. Minimally, the programmable search engine system 800 can process the received context processed queries, and execute these queries accordingly via the search engine 850, providing the context processed search results back to the local context processor 820 for further modification. The local context processor 820 for the vertical content site 804 c provides further post-processing operations specified by the identified context, and then forward the final set of context processed search results to the client device 802.\n\nAlternatively, the PSE system 800 can perform some specific context processing operations as instructed by the local context server 820, whether pre-processing, or post processing, or control of the search engine operations. For example, the local context processor 820 may perform the pre-processing operations to reform the queries, but then use the search engine control data to specify which document collections and search algorithms the search engine 850 should use. In addition, the PSE system 800 may also add its own layer of context processing based on its global context files 842, including generation of additional reformulated queries, control of the search engine 850, and post-processing of search results prior to returning them to the vertical content site's local context processor 820. The vertical content site 804 c can forward the context processed search results to the client device 802 directly, or can invoke another layer of post-processing operations by the local context processor 820, perhaps to further fine tune the organization, commenting, or navigation features thereof.\n\nThe PSE system 800 can provide context processing directly to user queries input at the PSE site from any of the client devices 802. The user's search query can be received directly at the website of the PSE system 800 (e.g., via search query page), or a search interface in browser toolbar, application, or system extension (e.g., a search interface on the user's desktop). Since the user's query is not coming from a vertical content provider, the PSE system 800's context processing can use the global context files 842, including those for annotating search results with links to potentially useful context for the user.\n\nThe degree of context processing for direct queries can be varied, to include either pre-processing or post-processing individually, or together. One embodiment of direct query handling is providing a context-based post-processing on the search results, without context based preprocessing (e.g., query modification). Here, the user's search is received and executed without pre-processing based on the context files of a specific vertical content provider (though some internal adjustment of the query and selection of search indices may be employed to provide the most relevant search results). As described with respect to FIG. 5, the search results are then post-processed with one or more context files, to provide the various types of navigational links, related context links, and/or annotations on search results as described and illustrated in FIGS. 2 and 3.\n\nThe post-processing operations in this scenario can use either global context files 842, or can be based on the context files of any number or selection of the vertical content providers. In one embodiment, a user can identify which the vertical content provider whose context files are to be used for context processing. Identification can be done via a subscription model, in which the user subscribes to have such context processing done for her or her queries, for example via a subscription interface (e.g., page) at the website of the vertical content provider, which then forwards an identifier of the user or the user's client device to the PSE 800. A user may subscriber to a particular vertical content provider in order to have that provider's expertise, perspective or viewpoint applied to the user's search queries and results, without the user having to always enter a query from that vertical content provider's site.\n\nFor this embodiment, the PSE system 800 includes a user account database 890, which stores for each user various types of personal preferences for searches, including the subscriptions to particular vertical content providers. The PSE 800 also provides a registration interface (allowing the user to register with the PSE system 800 for storing search preferences, subscription information, and other user settings), and a login interface for the user to login and have the user's settings applied to the user's queries. Direct queries received from the user and/or the user's client device 802 are identified by the PSE 800 and then the appropriate context files to which the user subscribed are used for context processing. In another embodiment, similar to the foregoing, subscription-based context processing is provided for direct user queries for both pre-processing and post-processing operations.\n\nThe selection of which vertical content providers' context files are to be used (whether for pre-processing, post-processing or both) can be based on other factors beyond a user's subscriptions, as some users may not have subscribed to any particular vertical content provider. In one embodiment, the selection is based on a popularity measure for each vertical content provider whose context files are included in the cached repository. The popularity measure can be based on web access statistics, like number of unique visitors to a vertical content provider's site each month (or other time period), number of hits to such site, number of current subscribers to the vertical content provider. These and other statistical measures can be combined into a popularity measure. Alternatively, or additional, the selection can be based on a reputation measure (or rank), where the reputation of each vertical content provider is judged and rated by users.\n\nIn summary, the foregoing provides a general overview of the operations and various system architectures useful with the present invention. As can be seen, the present invention can be practiced in a number of different and complementary embodiments. The capability of the present invention enable any system entity to provide context files, context processing (or both) results in both tremendous flexibility and power. The flexibility (e.g., any system entity can provide various levels of operative support, and cooperate with any other system entity) allows for rapid, widespread and easy implementation of the present invention. The context files and context processing capability can be readily implemented in any vertical content site and in any client. The power of the system derives in part from such widespread distribution and implementation: the more context files and context processing is adopted, the more contextual information can be accumulated and leveraged, for example in the global context files. This enables the PSE system to continually refine and adapt its capabilities to the information needs of the wide variety of users. Further, the widespread use of context files by vertical content developers continually expands the range of information needs and perspectives that can be satisfied, as well as the depth and quality of that information that is used to satisfy such needs.\n\nContexts\n\nOverview of Context File Implementation\n\nReferring now to FIG. 9 there is shown a simple example of a set of context files as might be developed by a vertical content provider for a digital camera related website. This simplified example is used only to illustrate some of the basic aspects of context files, and not as definitive statement of their characteristics.\n\nIn this example, the vertical content provider has provided a variety of context files that suit different types of information needs, and different types of available resources. Context files 902 are illustrative of contexts defined for various types of users of digital cameras, such as a professional user searching for a digital camera, a consumer searching for a digital camera, and an owner who already has such a camera. Each of these types of users has different information needs and typically different approaches to evaluating the information she obtains. For example, a professional user is typically most concerned with technical performance issues such as picture quality, durability, and compatibility with an existing set of professional equipment, whereas a consumer user is typically concerned with ease of use, convenience and price. Both of these types of users are seeking information during their purchase process that is quite different from an existing owner. An owner is not typically interested in obtaining further opinions or evaluations of a product, but rather information pertaining to its use, technical support, service, or warranty issues.\n\nEach of these three user type context files 902 contain instructions that enable a context processor to respond to a specific query according to the expected information needs of the user. Thus, the context file 902 d for the professional user may include query revision rules to modify a received query such as “Nikon camera” to “Nikon DX2”, which is a current model of a professional digital SLR, and one deemed by the content provider to be of most interest to the professional user. By contrast, the context file 902 e for the consumer user may include query revision rules to modify this same query to “Nikon Coolpix 7600”, again a current model of the Nikon cameras, and determined by the content provider to be the best Nikon camera for a typical consumer user. Continuing this example then, the vertical content site would pass the consumer context file 902 e to a context processor along with the user query of “Nikon camera”, and the context processor would use the query modification rules to generate the appropriate revised query for execution.\n\nThe arrangement and interrelationship of the context files is highly flexible and is decided by the particular vertical content provider. Each of the context files 902 can point to any number of other context files 902 in an arbitrary graph manner, as best determined by the content provider. For example, the consumer user context file 902 e references two other context files, the “Looking for a Camera” context files 902 h, and the “Shopping for a Camera” context file 902 i. These context files more precisely focus on serving the user's intention, the former focusing on the information needs when a user is still looking for a camera and in need of information to evaluate potential products. The latter context is appropriate when a particular camera has been selected and the user is now shopping for the camera based on price, availability, and other factors. Again, each of these context files 902 references different and more selective contexts. Thus, the “Looking for a Camera” context file 902 h references a group of context files 902 k pertaining to various types of reviews of digital cameras. The “Shopping for a Camera” context file 902 i references context files 902 m, 9021 for comparing prices, and for comparing vendors. The context files 902 can also be arranged hierarchically through a series of directories.\n\nAs previously discussed, a context file may include query revision rules, and search engine control information that enables the context processor to programmatically tailor the user's query to the information needed, as indicated by the context. For example, once the user enters the “Looking for a Camera” context, that context file 902 h may contain search control data that selects specific websites that contain consumer oriented camera reviews, as deemed appropriate by the vertical content provider. This control data would thus be used by the search engine system to select one or more document collections for targeting the query (or revised queries) thereto.\n\nSimilarly, the “Shopping for a Camera” context file 902 i would include search control data that selects various price comparison engines to obtain current market prices on a given camera. These examples illustrate how selection of a context can programmatically vary the search query and search control data and parameters in order to better suit the user's information needs.\n\nIt is important to further point out here that the specific editorial decisions reflected in each context file 902—how to revise a query based on whether the user is a professional or a consumer, or which sites to search depending on whether the context is shopping or looking—are made by each vertical content provider individually. This gives each vertical content provider—such as those with expertise in a particular field, such as digital cameras—the ability to define the contexts as they see fit, thereby using their own judgment, expertise, knowledge, and opinions to make the various determinations. Each vertical content provider can define very detailed and precisely crafted contexts, each of which can specifically control the operations of the programmable search engine in responding to a search query. Users ultimately benefit from this individuated capability because the vertical content providers to create a dynamic information “market”: a market not merely for content itself, but for perspective, experience, and knowledge. That is, vertical content providers now offer users the ability to “search the world” through their own point of view, as suggested in FIG. 1 by the text “Search the web with digitalslr.org.”\n\nSite/Page Annotation File\n\nOne mechanism for encapsulating the expertise and judgment of each vertical content provider is, at least in part, the site/page annotation file 900. This context file 900 includes information variously categorizing or describing characteristics of sites or pages on the Internet. Each entry in the site/page annotation file 900 provides an identifier of a site or page, e.g., a URL, along with a number of tags or token identifying attributes, characteristics, weightings, or other qualitative or quantitative values. The tags can be explicitly typed (e.g., as pairs), or implicitly typed based on order and data format. A URL can specify a site or page completely, or in part as a URL prefix, for some portion of a web site. Such an annotation file 900 can be provided using existing standard formats such as RSS (RDF Site Summary or Really Simple Syndication).\n\nThe following are some examples of the contents of a site/page annotation file:\n\nurl, http://www.dealtime.com/xPR-Nikon_D100~RD- 81887137412, descriptor, Review/NegativeReview, rank, 6, comment, “Professional Photographer lists various shortcoming and compatibility problems” url, http://www.dealtime.com/xPR-Nikon_D100~RD- 81887137412, descriptor, Review/ProfessionalPhotographerReview, rank, 0, comment, “Professional Photographer is less thrilled than many others about the D100” url, http://www.dpreview.com/reviews/read_opinion_text.asp? prodkey=nikon_d100&opinion=15851, descriptor, Action, rank, 0, comment, “Short review on using the D100 for sports photography” url, http://nikonimaging.com/global/news/, descriptor, News, rank, 3, comment, “Nikon's web site. Lots of info, but hard to navigate” url, http://www.kenrockwell.com/tech/2dig.htm, descriptor, Guide, rank, 0, comment, “Explains Digital SLRs vs Point and Shoots” url, http://www.luminous- landscape.com/tutorials/nikon-sn.shtml, descriptor, Review/ProfessionalPhotographerReview, rank, 8, comment, “Extremely detailed, very technical, comparative review” url, http://www.photographyreview.com/, descriptor, Review, rank, 6, comment, “Good all around site for photography buffs” url, gallery.photographyreview.com/showphoto, descriptor, Photos, rank, 8, comment, “Good showcase of great photography with a wide range of cameras” url, http://www.olympusamerica.com/, descriptor, Manufacturer, rank, 10, comment, “Olympus's web site. Well organized and informative”\n\nIn this embodiment of a site/page annotation file 900, each entry is a set of pairs, as follows:\n\nURL: provides the network address for where the site or page is located. Note that both specific pages within sites can be identified, as well as home pages for large sites.\n\nDescriptor: a semantic label describing the site or page. The content provider is free to use any labels he or she chooses, since the query processing and post processing operations are written in terms of rules that can operate on these same descriptors. In the above example, the vertical content provider has labeled various sites/pages to their content type (e.g., “Negative review” or “News” or “Photos”), as well as to the type of entity which provides the information (e.g., “Manufacturer”). Again, these descriptors are merely illustrative, and the selection of which particular descriptors are used to describe a site will be dependent in at least in part on the particular category or topic for the subject matter of the domain.\n\nReferring back then first entry here is for a specifically identified page on a remote site (dealtime.com) that contains a “negative review” of the Nikon D100 camera\n\nThe preprocessing and post processing operations can use the tags as conditions for evaluation. For example, a post processing rule in the “Negative Reviews” context file 902 n would select for inclusion in the search results that had a tag “Negative Review/NegativeReview”. The various tags shown above—Manufacturer, Guide, Photos, etc.—are merely illustrative of the scope and variety that can be used. The ability to tag any site or page with a semantic label allows for very powerful pre-processing and post processing operations by the context processor.\n\nIn one embodiment, there is provided a common ontology of tags which can be used, either exclusively or in conjunction with a set of private tags defined by vertical content provider. The ontology includes a hierarchy of categories of information and content on Internet. One useful ontology is provided by the Open Directory Project, found at dmoz.org. All or a portion of such an ontology can be used for the tags. The ontology can be public, as in the OPD, or proprietary, or a combination of both.\n\nRank: Each entry can have a rank (or “score”, “weight”, etc.) a figure of merit as to the importance, quality, accuracy, usefulness, and the like of the particular page or site. This value is provided by the vertical content provider, again based on his or her own judgment and perspective. The rank value further allows the context processor to selectively include (or exclude) search results that have certain rank values, or to rank individual search results by this value as well.\n\nComment: Each entry can have a comment, explanation or description that the vertical content provider can use to further describe the page to the user. The comment allows the vertical content provider to further articulate the relationship between the page and the user's information need.\n\nNote further, that a given site or page can have multiple entries in the site/page annotation file 900, each with its own descriptors, and other tags. For example, the first two entries above are for the same page, but with different descriptors, ranks, comments and so forth. When more than one entry matches a given URL, depending on the use, either both or the most specific entry is applied.\n\nThe URL, Descriptor, Rank, and Comment fields are illustrative of the types of information that can be included in the site/page annotation file 900. The vertical content provider can define any number of other or additional attributes, and then define complementary pre-processing and post-processing rules that operate on such attributes. For example, other attributes that can be included in the site/page annotation file include:\n\nContent Type: a designation of the type of site or page, such as guide, scientific article, government report, white paper, thesis, blog, and so forth.\n\nSource Type: a designation of the source of the document, which maybe the same or different than the Tag. For example: government, commercial, non-profit, educational, personal, and so forth. An “Organization” attribute may serve a similar purpose.\n\nLocation: a designation of the country, state, country or other geographic region relevant to the page, using names, standard abbreviations, postal codes, geo-codes, or the like.\n\nUser Type: a designation of the intended type of user or audience for the site or page. For example, lay person, expert, homemaker, student, singles, married, elderly, and so forth.\n\nThe foregoing descriptors are themselves instances or specializations of a generic attribute type ‘tag’. Accordingly, vertical content providers can choose to simply use the “tag” designation in association with a property value (e.g., tag, “Manufacturer”), or may use some specialization of tag, such as those listed above, or a combination of both approaches. This feature further enhances the flexibility and the extensibility of the present invention.\n\nAny given page or site can have multiple different entries in the site/page annotation file. For example, the first two entries in the above list are for the same page, but have different tags, the first being a Negative Review, and the second being a Professional Photographer Review, different ranks, and different comments. This allows the vertical content provider to express the relevance of a give site for a particular context, rather than being limited to a single inclusion.\n\nKnowledge Base\n\nA second mechanism for capturing the knowledge and expertise of the vertical content provider is the knowledge base file 904. The knowledge base file 904 is used to describe specific knowledge of concepts, facts, events, persons, and like. This information is encoded in a graph of object classes and instances thereof. A simple knowledge base file 904 could be as follows:\n\nD100 Nikon D100 Nikon Nikon SLR Japan 2003 6mp EOS300D Digital Rebel Canon Canon SLR Japan 2003 6.5mp\n\nThis knowledge base defines the class of “CameraModel”, used to identify individual types of cameras. Each class had a class id, as shown. A class can then be a subclass of another class. Hence, the class “DigitalSLRCamera” is a subclass of the “CameraModel” class.\n\nInstances of a class can then be defined as well. Here, two different instances of the class “DigitalSLRCamera” are defined by giving it a specific id, here “NikonD100” and “CanonDigitalRebel”, and a listing of a variety of properties, such as their name, manufacturer, location of manufacture, model year, and so forth. The properties for each class are determined by the provider of the knowledge base file 904, such as the vertical content provider.\n\nThe programmable search engine may maintain its own global knowledge base file as part of its global context files. This global knowledge base can provide an extensive database encapsulating a vast array of knowledge, concepts, facts, and so forth, as extracted from content on the Internet, provided by experts or editors, or any taken from existing databases. Vertical content providers can then make use of this global knowledge base by providing preprocessing and post processing operations that make use of such knowledge base information, as further described below.\n\nPre-Processing and Post Processing Context Processing Operations\n\nThe context files 902 use a script or markup language to define the various pre-processing, search engine control, and post-processing operations. The various elements of the language are as follows:\n\n(i) Object Evaluation\n\nThe knowledge base file 904 can be used to evaluate whether particular objects have defined properties or attributes. In general, there are three basic types of objects that can be evaluated related to the knowledge base: queries, users, and search results. The form of the evaluation commands are generally the same.\n\nThe query evaluation commands for evaluating terms using the knowledge base file 904 are as follows:\n\nproperty_value class_id query_term\n\nThe first type of term based evaluation is used to evaluate whether the concept expressed by one or more query terms matches some object in the knowledge base file that has the specified property with the specified property_value. The context processor processes this command by traversing the knowledge base file 904 (as a graph, for example) until it finds an object having a property with the matching property value. For example, assume the knowledge base file 904 portion described above, and the query evaluation command:\n\nNikon\n\nand the input search query “D100”.\n\nHere, the query term “D100” matches the name of a camera instance in the knowledge base file 904. The context processor than checks whether the Manufacturer property of that instance is “Nikon”. Since it is, the query “D100” is said to denote a camera manufactured by Nikon, even if that is not specifically disclosed in the query term itself. Accordingly the query evaluation command is satisfied, and the context processor would then take an appropriate action that was dependent on this evaluation. As will be further illustrated below, a variety of different commands to the context processor can be made conditional based on the evaluation of the query evaluation command.\n\nThe second type of query evaluation command is query.denot.InstanceOf. This command is evaluated to determine whether a particular query indicates that an instance of a class has been described in the query, rather than property. For example, consider the query evaluation command:\n\nDigitalSLRCamera\n\nwhere the user query is “8 mp SLR”.\n\nHere, the query is decomposed into terms “8 mp” and “SLR”, and these are checked against the property values for the objects in the knowledge base file. In this example, these properties match the properties for the Nikon D100 camera, satisfying the query evaluation command. Again, the context processor would undertake whatever command was conditioned on the evaluation command.\n\nThe last type of query evaluation command query_term is the simplest. The query evaluation command is satisfied if an input search query term matches the query_term.\n\nAs noted above, the context files may use combination of query evaluation commands as conditional triggers for further context processing. Example of these will be further described below.\n\nAs with the evaluation of queries, so too can users and search results be evaluated for their properties, with respect to any defined class in the knowledge base file. Thus, the attributes of user can be evaluated with the following command\n\nproperty_value\n\nwhere property refers to any available property of the user, such as user name, login, account number, location, IP address, site activity and history (e.g., clicks, focus, page dwell time) and so forth. Some of these properties can be locally available from the knowledge base file 904. Alternatively, the property information can be extracted (e.g., queried) from any accessible legacy database (e.g., a customer database, account database, registration database, or other data source), which exports an appropriate programmatic interface. Other properties, such as site activity, are made available from site tracking tools that monitor each user's activity at the vertical content site.\n\nUsers can also be evaluated for membership in classes, using the following:\n\nclass_id\n\nHere, a class of users (e.g., “Professional”) can be defined in the knowledge base file 904, and the properties of the current user compared by the context processor against the properties of an identified class for match in values. If a property match is found, the user is deemed a member of the class.\n\nSimilarly, any search result can be evaluated as well, as to its properties, as defined in either the source/page annotation file 900 (or alternatively, in its metatags). Here, the evaluation command would take the form:\n\ntag_value class_id As a default may be abbreviated to .\n\nIn the first command, a given search result (or set thereof) can be evaluated with respect to its properties, such as content type, date, source, user type, etc. This outcome of the evaluation can be used to control further context processing. Similarly, search results can be evaluated using the second command syntax to determine if they are instances of various classes defined in the knowledge base file 904.\n\nThese following context processing operations can be executed unconditionally, or conditionally based on any of the foregoing types of evaluation operations (e.g., evaluations of query terms, users, or search results).\n\n(ii) Query Modification\n\nThere are two basic types of query modification rules, those that augment or add terms to a query, and those that replace query terms. The following is example syntax for the query modifier command:\n\nThe type attribute defines either an augmentation or replacement type query modification. The value attribute includes the query term that is to be added to the user's original input search query, or that is to replace the input search query. The query attribute is optional. If present, then the context processor scans the search query and replaces the any term matching the query term with the replacement term. This is useful, for example, to correct misspellings, expand abbreviations (or contrawise use abbreviations in place of terms), and other in place adjustments. If the query attribute is missing, then the entry query string is replaced by the replacement term. Of course, the replacement term can include any number of terms.\n\nQuery modification can made conditional on any of the evaluation commands. For example:\n\nDigitalSLRCamera\n\nThis example would reformulate a query, say the query “D100” to include another query “Digital SLR” since the term “D100” denotes an instance of a digital SLR camera, according to the knowledge base file 904.\n\nAs another example:\n\nprofessional\n\nIn this example, assume again the user's query is “D100.” Here, the properties of the current user are evaluated. If the user is determined to be “professional”, based on properties available from the browser, site activity history, login and password, etc. For example, if the user access a number of pages in the vertical content site dedicated to professional or expert level information (e.g., detailed technical pages), then the user may be inferred to be a “professional” user, even though no other information is known about the user's identity. In this case, the query is reformulated to include the term “professional reviews” even though the user did not include these terms in the query.\n\nThese are but a few examples of a how a vertical content provider can extend and improve the user's queries based on his own expertise and the flexible context processing operations.\n\n(iii) References to Related Contexts\n\nA context file 902 can reference or include another context file 902, as described above, to form an arbitrary graph of connections. Several elements are used for referencing context files.\n\nA context file can include another context file, as follows:\n\nThe include command references another context file 902 as being included in the current context file. The context processor will read the included context file and process all of the instructions therein. Pathname identifies the location of included context file 902. Included context files 902 can be used for any type of context processing operation.\n\nA context file can also identify a related context file, as follows:\n\ncontext description and context description\n\nThe relContext command identifies a related context for the current context file. The relContext command can be used in both pre-processing and post-processing operations. Examples of the use of related contexts in post-processing operations are illustrated in FIG. 9, and in FIGS. 2 and 3. The context description is anchor text that the user will see in the browser. When selected, the identified related context file is retrieved and processed. The first type of related context command is used to define related contexts for varying types of information needs. FIG. 2 illustrates this type of related context via related context links 204. The first link 204 there is associated with a related context file 902 (e.g., context file 902 h) that includes the following instructions:\n\nIf you are trying to decide which camera to buy . . .\n\nThis command is processed by the context processor when the link 204 on the anchor text is selected, and the corresponding context file “cameras/chooseCamera” is retrieved and processed. The resulting page is illustrated in FIG. 3.\n\nThe relContext command may also be used with the various types of evaluation commands, to make the reference to the related context conditional. For example:\n\nDigitalSLRCamera If you are trying to decide which camera to buy ...\n\nHere, the related context DigitalSLRCamera is accessed here only if the query.denote command evaluates true, that is where the query terms denote an instance of a model of digital camera listed in the knowledge base file 904. Similar conditional evaluations can be based on the properties of the user or the properties of the search results.\n\nThe second type of related context command is used to define related contexts that appear as annotations in conjunction with search results. This type of related context is illustrated in FIG. 2 by related context links 206. For example, the related context file 902 h that generated FIG. 2 also includes the following instructions:\n\nMore Manufacturer Pages\n\nHere, the anchor text “More Manufacturer Pages” is then linked to the associated context file 902, which contains further instructions to searching and displaying pages for digital camera manufacturers.\n\nThe relContext command takes as an href any valid URL, and thus, can also reference any available Internet site. For example, the relContext command can directly link to an online encyclopedia or dictionary to provide an annotation for a search result that would provide a detailed explanation of the result.\n\nIn pre-processing operations, a second type of cross reference to related context is used, context redirection. The command format for the context redirection command is as follows:\n\nredirection condition*\n\nAgain, pathname indicates the location of another context file to be processed if certain redirection conditions are met. The redirection conditions (one or more as indicated by “*”) can be based on any available information about the query (e.g., query terms, or information dependent thereon), the user (e.g., IP address, login, site click through history, prior purchases), or other programmatically available information.\n\nIn one embodiment the redirection conditions can be based on the any evaluation commands previously discussed:\n\nproperty_value class_id query_term property_value class_id tag_value class_id\n\nFor example, assume the knowledge base file 904 portion described above. Further, assume the redirection command:\n\nNikon and the input search query “D100”.\n\nAs above, the query evaluation command is positively evaluated, since the query term “D100” matches the name of a camera instance in the knowledge base file 904, which instance has the Manufacturer property value “Nikon”. The context processor thus executes the context redirection command and accesses the context file “Nikon_cameras” for further processing. This capability allows the vertical content provider to his or her own knowledge base to analyze queries and reformulate them on behalf of the user.\n\nThe user evaluation user.InstanceOf can likewise be used to redirect context processing based on the particular user properties. For example, consider the redirection command:\n\nProfessional_User\n\nHere, the properties of the user can be ascertained from the knowledge base file 904, and other information as described (e.g., site history). If the user is determined to be a professional user, then the context processor accesses and processes the NegativeProfessionalReviews context file.\n\nAs mentioned, any number of redirection conditions (e.g. evaluations) can be used together in a context redirection command such as:\n\n6mp 6mp 8mp 2005 which would effect the context redirection only when all of the redirection conditions are satisfied, e.g., for a query containing the terms which denote digital SLR with between 6 mp and 8 mp, for the 2005 model year.\n\nThe context redirection is particularly powerful when combined with the query modification rules, previously discussed. A vertical content provider can define a number of context redirections based on query terms, each of redirects the context processor to an appropriate context file, depending on say, whether the query denotes shopping for a camera versus seeking customer warranty information. In the respective target context files, specific query modification rules would then be processed to reformulate the query as most appropriate given the identified context.\n\n(iv) Restriction\n\nIn post processing operations, the context files can be used to control the scope, number, or types of results and entries that are provided to the user. To this end, the context files can include conditional instructions that define various types of restrictions (e.g., filters). These restrictions are provided by the restriction command. This command has the following syntax:\n\nrestriction condition* restriction action*\n\nThe restriction condition operates in a similar manner to the redirection condition previously discussed. Here, the restriction condition is evaluated with respect to the attributes (tags), if any, associated with the search results, as compared to the entries in the site/page annotation file. Any attribute (or set of attributes) can be used as restriction conditions, such as the type, source, year, location, of a document or page, to name but a few. The context processor receives the search results (here a set of candidate search results) from the search engine, and compares each candidate result (be it a site, page, media page, document, etc.) with the entries listed in the site/page annotation file 900. Only those candidate results which are listed in the annotation file 904 and have the specified matching attributes are included in the context processed search results. The restriction count is an optional parameter and indicates how many of the matching results are to be included in the context processed search results. If left out, then all matching results are included.\n\nThe restriction action is an optional parameter that specifies a further action to take if the restriction condition is met. This action includes, for example, annotating the search results with a link to a related context (using the relContext command), such as links 206 illustrated in FIG. 2.\n\nConsider the following example:\n\nReview 5+ More Review Guide 5+ More Guides\n\nAssume that the search query was a general query on “digital cameras”, and that the search results returned 1,000,000 pages covering everything from manufacturers and retailers of digital cameras, to online user forums and services for printing photographs. Since the user's search was quite general, the vertical content provider can use the post processing to provide a selection of a number of different types of search results, as illustrated, for example in FIG. 2. In processing the above code example then, the first restriction command causes the context processor to select the first two search results that have matching entries (i.e., matching URLs or portions thereof) in the site/page annotation file 900 and include the descriptor “Review”. The context processor also uses the restriction action for the related context, to annotate these two search results with a link to related context file “Reviews”, with the link labeled “More reviews.” FIG. 2 shows an example of such annotation link 206.\n\nThe second restriction causes the context processor to select the first two search results that have matching entries in the site/page annotation file and include the descriptor “Guide.” The context processor would then use the restriction action to annotate these results with a link to the related context file “Guides.”\n\nAs mentioned previously, the context processing operations can undertaken by multiple different entities in the system, including at the client device, the vertical content site, and the programmable search engine, each using their own locally available context files. Thus, all of the above describe features can be effectively integrated within and between different system entities. For example, a vertical context provider can define a context file that defines various context redirections using the redirection condition based on the global knowledge base files. This enables the vertical content provider to leverage the global knowledge base, but add their own personal perspective and judgment to its underlying facts.\n\nIn post processing operations, the context file 900 can be used to control just the annotations that appear on a search result, without changing the actual order of the search results. To this end, the context files 900 can include conditional instructions that define various types of annotations. These annotations are provided by the annotate command. This command has the following syntax:\n\nannotation condition* annotation action*\n\nThe annotation condition operates in a similar manner to the restriction condition previously discussed. Here, the annotation condition is evaluated with respect to the attributes (tags), if any, associated with the search results, as compared to the entries in the site/page annotation file. Any attribute (or set of attributes) can be used as annotation conditions, such as the type, source, year, location, of a document or page, to name but a few. The context processor receives the search results from the search engine, and compares each result (be it a site, page, media page, document, etc.) with the entries listed in the site/page annotation file 900. Results that satisfy the condition are annotated with the annotation action. Unlike the Restriction command, the Annotate command does not cause any search result to appear or not appear in the search results. Annotate commands can be used by themselves or in combination with any of the other commands, including Restrictions.\n\nIn a very simple implementation, the context file is left implicit and only consists of Annotation commands, where each result that is assigned a tag/label/armotation by the annotation files is annotated with that label/annotation. Further, the user may be ‘subscribed’ to a number of annotation files or ‘feeds’, all of which are applied to the user's search results. In a further twist, the user can also indicate that he would like the feeds used by another user to also be applied to him.\n\n(v) Search Engine Control Data\n\nFinally, context files 902 can contain instructions that control the operation of the programmable search engine itself in terms the selection of which particular document collections to be searched, and various algorithmic or parametric settings for the search engine. Selection of a document collection for searching is provided by the following command:\n\n//other context operations//\n\nThe corpus command takes as its argument a reference to the name (or ULR) or a selected document collection. The document collection name is mapped (either locally, or by the programmable search engine) to document collection and corresponding index available to the programmable search engine (e.g. particular index in the content server/index 870).\n\nThe corpus command can be made conditional using any of the foregoing described evaluation commands, as well as including any of the restriction, redirection, related context, and so forth. For example, a particular document collection may be selected where the query is determined using the evaluation commands to include certain keywords or instances of objects in the knowledge base. Thus, a query that is evaluated to include a query term denoting a scientific term, like “Heloderma suspectum”, or a medical term, would then cause a selection of an appropriate scientific literature database.\n\nControl of search engine parameters is via the SearchControlParams operations. In general, most modern search engines use a number of different attributes of a search query and the individual indexed documents (e.g., frequencies of terms in URL, anchor text, body, page rank etc.) to determine which documents best satisfy the query. The documents are then ranked accordingly. A ranking function is essentially a weighted combination of the various attributes. Normally, the weights of the attributes are fixed, or at least not externally controllable by third parties. The SearchControlParam however gives vertical content providers access to these weights. The syntax is as follows:\n\nweight weight ...\n\nHere, attribute-name is the name of the particular attribute used by the search engine to calculate a relevance ranking. The specific attribute names are disclosed by the programmable search engine provider, since they are internal to that provider's own engine. Typical attributes, as indicated above including term frequency in URL, term frequency in body, term frequency in anchor text, term frequency in markup, page rank. The SearchControlParams operator can work with any exposed attribute or parametric control of a programmable search engine, and thus the foregoing are understood to be merely exemplary. The weights used in this operator can be either normalized or non-normalized, and in the latter case, the input weights can be internally normalized by the context processor or by the search engine itself. A vertical content provider need not specify weights for all the attributes the search engine uses, but only those of interest to the provider of the context file.\n\nThe context files may take various embodiments. In the some embodiments, the context files are individual files stored in a file system. In other embodiments, the context files are stored in a database system, again as either separate files, or of database entries, tables or other structures. For example, a context file in database embodiment may be stored as a collection of context records for a identified source (e.g., a specific vertical content provider), a type (e.g., knowledge base, site/page annotation, etc.), associated commands (e.g., evaluation, restriction, redirection, relation, annotation, etc.), and remaining attributes and conditions. Accordingly, no limitation is imposed on the underlying implementation of the context files by the present invention.\n\nDetecting Biased Contexts\n\nAs described above in connection with FIG. 8, the PSE system 800 provides context processing for queries directly received from client devices, that is, queries that are not forwarded via a search engine interface from a vertical content provider. In handling such queries, the PSE system 800 makes use of the global context files 842, and can also use the cached context files 840 as a source of global context information, for example to annotate results, provide links to related contexts or other sites, and to restrict search results to particular groups. Because the global context files 842 can derive context processing operations from the cached context files, it is expected that some third parties will attempt to manipulate the PSE system 800 to provide biased or “spam” type results to user's queries.\n\nFor example, a user searching for “digital cameras reviews” may receive a set of search results that include links (e.g., such as related context links 306) to related contexts provided by third parties such as reviews and other technical information. However, the provider of the context files may program its links 306 to include links to certain product vendors (e.g., those who have paid for such inclusion), using any variety of the query modification commands (e.g., replacing the “digital camera reviews” query with the name of the vendor), related context commands, or redirection commands. As a result, when the user accesses the related context links 306, the user receives “spam results”. While such results may be desirable when the user's query is provided from a vertical content provider site, it is desirable to detect such biased contexts when the user is accessing the PSE system 800 directly and thereby prevent unscrupulous spamming of user queries.\n\nA number of different mechanisms can be used individually or together to detect biased and spam related context files and vertical content providers. These include the following.\n\nFirst, an offline analysis of the context files obtained from each vertical content provider is performed to identify sites or pages known to be spam-related. FIG. 10 illustrates the basic processing model for offline analysis. Some content providers will use their own site/page annotation file 800 when defining pre-processing or post processing operations, for example for annotating links 306 next to search results or defining restrictions operations. Other content providers will use a third parties site/page annotation file 800 (that is, one located in a different host system).\n\nAccordingly, each a site/page annotation file received from a vertical content provider 804 (whether by crawling from context file crawler 880 or by registration interface 860) is processed with a spam filter 892. The spam filter 892 analyzes each of the pages listed in the annotation file to determine whether the page is a spam page. The spam filter 892 may be dynamic (e.g., algorithmic determination of spam from content analysis) or static (e.g., comparison of the page with a list of known spam pages). Spam filter that may be used here include those described in U.S. patent application Ser. Nos. 10/921,381 and 11/004,250, incorporated by reference above. If a significant portion (e.g., more than 40%) of the pages listed in a site/page annotation file of a particular vertical content provider is determined by the spam filter to be spam, then one of two actions can be taken. First, if the site/page annotation file is provided by the vertical content provider itself, then this vertical content provider is deemed a biased vertical content provider, and its context files are not used for further direct context processing as part of the global context files 842. As a result, search results from direct queries to the PSE system will not include links, annotation, or other content from this particular vertical content provider. Alternatively, if the site/page annotation file is source from another domain, then instead the specific documents deemed to be spam are stripped during post-processing from search results or links provided by this context file.\n\nThis first stage of offline processing thus operates to detect and eliminate vertical content providers and/or context files that are known to be spam related.\n\nA second stage is spam and bias detection during direct query processing. FIG. 11 illustrates the basic processing model for query time analysis. In some embodiments, it is beneficial to distinguish between spam related results (and contexts) and biased results (and contexts). Spam results may be characterized (without limitation) as commercially influenced communications that are not reflective of the user's actual interests; biased results may be characterized (again, without limitation) as being sufficiently different in content from search results produced by objective search models.\n\nAccordingly, in one aspect of query processing, spam-related context files are identified, particularly those that include query modification commands that result in a spam query, and hence heavily spam oriented search results. Here, the query 1100 is received from the client device 802, and context processing is applied. The search engine 850 executes the search on the context processed query 1102, as described above. Some portion of the search results 1106 resulting from context processing using a particular vertical content provider's context files are processed with a spam filter 892 to determine an average spam score for the context processed search results 1106. For example, the top 10% or top 1,000 search results can be processed with a spam filter 892. In one embodiment, an average spam score is computed by the spam filter 892 from the spam score of such search result. If the average spam score is over a predetermined threshold (dependent on the particular spam filter), then the vertical content provider is identified as a spam content provider. In another embodiment, the percentage of search results determined to be spam is compared with a predetermined threshold (e.g., 40%) and if this percentage exceeds the threshold then the vertical content provider is again identified as a spam content provider. In either embodiment, the spam search results, as well links, annotations, or other context related content from the vertical content provider's context files are not included in the filtered results 1112.\n\nIn the second aspect of query processing, biased search results are identified. Here, bias results are those that are not necessarily spam results, but rather are sufficiently different from non-context processed search results that the vertical content provider is deemed to be biased in its manipulation of the context files.\n\nIn this second aspect, the search results resulting from the context processed query 1106 are compared by a bias detection algorithm 894 with the search results 1108 from the original (or native) search query 1104 to determine a distance measure between the two sets of the search results. The native search results are assumed to be unbiased and being most relevant to the original search query. If the two sets of search results are identical, then the distance between the result sets is zero, and the provider of the context files is deemed to be unbiased. However, if the distance measure between the two sets of search results is significant (e.g., over threshold amount), the vertical content provider is deemed biased. In this case, the provider's context files are not used in post-processing, and thus the filtered results 1112 will not include any links, annotations, or other context related contents from the provider.\n\nThe distance measure for measuring the distance between the native and context processed search results can be any number of set comparison measures. One distance measure is the percentage of context processed search results that are the same as native search results. Variations in the required degree of sameness can be used, resulting in different distance measures. Thus, the sameness criteria can be flexibly defined to range from being the same identical documents/pages, to being from the same host site, to being different versions of the same document/page on the same or different sites.\n\nOther variations of the spam detection at query processing may also be used. In one embodiment, instead of comparing the average spam score with a predetermined threshold, the average spam score is instead compared with an average spam score of the search results from a native (non-context processed) search. If the average spam score for the context processed search results is significantly higher than the native spam score, then the context file is deemed biased, and is not used for post processing the search results.\n\nThe present invention has been described in particular detail with respect to one possible embodiment. Those of skill in the art will appreciate that the invention may be practiced in other embodiments. First, the particular naming of the components, capitalization of terms, the attributes, data structures, or any other programming or structural aspect is not mandatory or significant, and the mechanisms that implement the invention or its features may have different names, formats, or protocols. Further, the system may be implemented via a combination of hardware and software, as described, or entirely in hardware elements. Also, the particular division of functionality between the various system components described herein is merely exemplary, and not mandatory; functions performed by a single system component may instead be performed by multiple components, and functions performed by multiple components may instead be performed by a single component.\n\nSome portions of above description present the features of the present invention in terms of algorithms and symbolic representations of operations on information. These algorithmic descriptions and representations are the means used by those skilled in the data processing arts to most effectively convey the substance of their work to others skilled in the art. These operations, while described functionally or logically, are understood to be implemented by computer programs. Furthermore, it has also proven convenient at times, to refer to these arrangements of operations as modules or by functional names, without loss of generality.\n\nUnless specifically stated otherwise as apparent from the above discussion, it is appreciated that throughout the description, discussions utilizing terms such as “calculating” or “determining” or “identifying” or the like, refer to the action and processes of a computer system, or similar electronic computing device, that manipulates and transforms data represented as physical (electronic) quantities within the computer system memories or registers or other such information storage, transmission or display devices.\n\nCertain aspects of the present invention have been described using commands, mnemonics, tokens, formats, syntax, and other programming conventions. The particular selection of the names, formats, syntax, and like are merely illustrative, and not limiting. Those of skill in the art can readily construct alternative names, formats, syntax rules, and so forth for defining context files and programming the operations a programmable search engine via context processing.\n\nCertain aspects of the present invention include process steps and instructions described herein in the form of an algorithm. It should be noted that the process steps and instructions of the present invention could be embodied in software, firmware or hardware, and when embodied in software, could be downloaded to reside on and be operated from different platforms used by real time network operating systems.\n\nThe present invention also relates to an apparatus for performing the operations herein. This apparatus may be specially constructed for the required purposes, or it may comprise a general-purpose computer selectively activated or reconfigured by a computer program stored on a computer readable medium that can be accessed by the computer. Such a computer program may be stored in a computer readable storage medium, such as, but is not limited to, any type of disk including floppy disks, optical disks, CD-ROMs, magnetic-optical disks, read-only memories (ROMs), random access memories (RAMs), EPROMs, EEPROMs, magnetic or optical cards, or any type of media suitable for storing electronic instructions, and each coupled to a computer system bus.\n\nThe algorithms and operations presented herein are not inherently related to any particular computer or other apparatus. Various general-purpose systems may also be used with programs in accordance with the teachings herein, or it may prove convenient to construct more specialized apparatus to perform the required method steps. The required structure for a variety of these systems will be apparent to those of skill in the art, along with equivalent variations. In addition, the present invention is not described with reference to any particular programming language. It is appreciated that a variety of programming languages may be used to implement the teachings of the present invention as described herein, and any references to specific languages are provided for disclosure of enablement and best mode of the present invention.\n\nFinally, it should be noted that the language used in the specification has been principally selected for readability and instructional purposes, and may not have been selected to delineate or circumscribe the inventive subject matter. Accordingly, the disclosure of the present invention is intended to be illustrative, but not limiting, of the scope of the invention, which is set forth in the following claims.",
+ "cited_by": [
+  {
+   "id": "US20080301139A1",
+   "title": "Search Ranger System and Double-Funnel Model For Search Spam Analyses and Browser Protection",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080301116A1",
+   "title": "Search Ranger System And Double-Funnel Model For Search Spam Analyses and Browser Protection",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20120246134A1",
+   "title": "Detection and analysis of backlink activity",
+   "assignee": "Brightedge Technologies, Inc."
+  },
+  {
+   "id": "US8972401B2",
+   "title": "Search spam analysis and detection",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20150081691A1",
+   "title": "Adaptive user interface for real-time search relevance feedback",
+   "assignee": "Surf Canyon Incorporated"
+  },
+  {
+   "id": "US9063970B1",
+   "title": "Method and apparatus for concept-based ranking of natural language discourse",
+   "assignee": "NetBase Solutions, Inc."
+  },
+  {
+   "id": "US11144950B2",
+   "title": "Information delivery method and apparatus, server, and storage medium",
+   "assignee": "Tencent Technology (Shenzhen) Company Limited"
+  },
+  {
+   "id": "US7716199B2",
+   "title": "Aggregating context data for programmable search engines",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7693830B2",
+   "title": "Programmable search engine",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070038614A1",
+   "title": "Generating and presenting advertisements based on context data for programmable search engines",
+   "assignee": "Guha Ramanathan V"
+  },
+  {
+   "id": "US7743045B2",
+   "title": "Detecting spam related and biased contexts for programmable search engines",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7711679B2",
+   "title": "Phrase-based detection of duplicate documents in an information retrieval system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7567959B2",
+   "title": "Multiple index based information retrieval system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7580921B2",
+   "title": "Phrase identification in an information retrieval system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7702618B1",
+   "title": "Information retrieval system for archiving multiple document versions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8244720B2",
+   "title": "Ranking blog documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9058406B2",
+   "title": "Management of multiple advertising inventories using a monetization platform",
+   "assignee": "Millennial Media, Inc."
+  },
+  {
+   "id": "US7676394B2",
+   "title": "Dynamic bidding and expected value",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8131271B2",
+   "title": "Categorization of a mobile user profile based on browse behavior",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US9471925B2",
+   "title": "Increasing mobile interactivity",
+   "assignee": "Millennial Media Llc"
+  },
+  {
+   "id": "US9076175B2",
+   "title": "Mobile comparison shopping",
+   "assignee": "Millennial Media, Inc."
+  },
+  {
+   "id": "US20110106614A1",
+   "title": "Mobile User Characteristics Influenced Search Results",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US10038756B2",
+   "title": "Managing sponsored content based on device characteristics",
+   "assignee": "Millenial Media LLC"
+  },
+  {
+   "id": "US8688671B2",
+   "title": "Managing sponsored content based on geographic region",
+   "assignee": "Millennial Media"
+  },
+  {
+   "id": "US7702318B2",
+   "title": "Presentation of sponsored content based on mobile transaction event",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8364540B2",
+   "title": "Contextual targeting of content using a monetization platform",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US7769764B2",
+   "title": "Mobile advertisement syndication",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8503995B2",
+   "title": "Mobile dynamic advertisement creation and placement",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8666376B2",
+   "title": "Location based mobile shopping affinity program",
+   "assignee": "Millennial Media"
+  },
+  {
+   "id": "US9201979B2",
+   "title": "Syndication of a behavioral profile associated with an availability condition using a monetization platform",
+   "assignee": "Millennial Media, Inc."
+  },
+  {
+   "id": "US7577665B2",
+   "title": "User characteristic influenced search results",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8103545B2",
+   "title": "Managing payment for sponsored content presented to mobile communication facilities",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8819659B2",
+   "title": "Mobile search service instant activation",
+   "assignee": "Millennial Media, Inc."
+  },
+  {
+   "id": "US8311888B2",
+   "title": "Revenue models associated with syndication of a behavioral profile using a monetization platform",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US9703892B2",
+   "title": "Predictive text completion for a mobile communication facility",
+   "assignee": "Millennial Media Llc"
+  },
+  {
+   "id": "US8229914B2",
+   "title": "Mobile content spidering and compatibility determination",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8989718B2",
+   "title": "Idle screen advertising",
+   "assignee": "Millennial Media, Inc."
+  },
+  {
+   "id": "US20080214155A1",
+   "title": "Integrating subscription content into mobile search results",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US10592930B2",
+   "title": "Syndication of a behavioral profile using a monetization platform",
+   "assignee": "Millenial Media, LLC"
+  },
+  {
+   "id": "US8660891B2",
+   "title": "Interactive mobile advertisement banners",
+   "assignee": "Millennial Media"
+  },
+  {
+   "id": "US7660581B2",
+   "title": "Managing sponsored content based on usage history",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8364521B2",
+   "title": "Rendering targeted advertisement on mobile communication facilities",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8209344B2",
+   "title": "Embedding sponsored content in mobile applications",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8832100B2",
+   "title": "User transaction history influenced search results",
+   "assignee": "Millennial Media, Inc."
+  },
+  {
+   "id": "US10911894B2",
+   "title": "Use of dynamic content generation parameters based on previous performance of those parameters",
+   "assignee": "Verizon Media Inc."
+  },
+  {
+   "id": "US8805339B2",
+   "title": "Categorization of a mobile user profile based on browse and viewing behavior",
+   "assignee": "Millennial Media, Inc."
+  },
+  {
+   "id": "US7752209B2",
+   "title": "Presenting sponsored content on a mobile communication facility",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8302030B2",
+   "title": "Management of multiple advertising inventories using a monetization platform",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8238888B2",
+   "title": "Methods and systems for mobile coupon placement",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8812526B2",
+   "title": "Mobile content cross-inventory yield optimization",
+   "assignee": "Millennial Media, Inc."
+  },
+  {
+   "id": "US8615719B2",
+   "title": "Managing sponsored content for delivery to mobile communication facilities",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8195133B2",
+   "title": "Mobile dynamic advertisement creation and placement",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US7912458B2",
+   "title": "Interaction analysis and prioritization of mobile content",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US20110313853A1",
+   "title": "System for targeting advertising content to a plurality of mobile communication facilities",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US8175585B2",
+   "title": "System for targeting advertising content to a plurality of mobile communication facilities",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US8509750B2",
+   "title": "System for targeting advertising content to a plurality of mobile communication facilities",
+   "assignee": "Jumptap, Inc."
+  },
+  {
+   "id": "US7475069B2",
+   "title": "System and method for prioritizing websites during a webcrawling process",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20070271245A1",
+   "title": "System and method for searching a database",
+   "assignee": "Rolf Repasi"
+  },
+  {
+   "id": "US20080005070A1",
+   "title": "Non-Repetitive Web Searching",
+   "assignee": "Bellsouth Intellectual Property Corporation"
+  },
+  {
+   "id": "US8571187B2",
+   "title": "Methods and apparatuses for dynamically recognizing terms utilized within electronic mail messages",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US20080104042A1",
+   "title": "Personalized Search Using Macros",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080147710A1",
+   "title": "Generating web pages utilizing user-defined search parameters",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080222725A1",
+   "title": "Graph structures and web spam detection",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7930303B2",
+   "title": "Calculating global importance of documents based on global hitting times",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7853589B2",
+   "title": "Web spam page classification using query-dependent data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7788254B2",
+   "title": "Web page analysis using multiple graphs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7941391B2",
+   "title": "Link spam detection using smooth classification function",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080294619A1",
+   "title": "System and method for automatic generation of search suggestions based on recent operator behavior",
+   "assignee": "Hamilton Ii Rick Allen"
+  },
+  {
+   "id": "CN101779180B",
+   "title": "Method and device for context-based content recommendation",
+   "assignee": "贝诺特公司"
+  },
+  {
+   "id": "US8117223B2",
+   "title": "Integrating external related phrase information into a phrase-based indexing information retrieval system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7801876B1",
+   "title": "Systems and methods for customizing behavior of multiple search engines",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9015130B1",
+   "title": "Automatic adjustment of email filters based on browser history and telecommunication records",
+   "assignee": "Avaya Inc."
+  },
+  {
+   "id": "US8244752B2",
+   "title": "Classifying search query traffic",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8126908B2",
+   "title": "Creation and enrichment of search based taxonomy for finding information from semistructured data",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20100240900A1",
+   "title": "Dispersible carbon nanospheres and methods for making same",
+   "assignee": "Headwaters Technology Innovation, Llc"
+  },
+  {
+   "id": "US8423392B2",
+   "title": "Trusted participants of social network providing answers to questions through on-line conversations",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8935284B1",
+   "title": "Systems and methods for associating website browsing behavior with a spam mailing list",
+   "assignee": "Symantec Corporation"
+  },
+  {
+   "id": "US8577915B2",
+   "title": "Method of and system for conducting personalized federated search and presentation of results therefrom",
+   "assignee": "Veveo, Inc."
+  },
+  {
+   "id": "US9300701B2",
+   "title": "Social circles in social networks",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8606769B1",
+   "title": "Ranking a URL based on a location in a search engine results page",
+   "assignee": "Conductor, Inc."
+  },
+  {
+   "id": "US20120197816A1",
+   "title": "Product review bias identification and recommendations",
+   "assignee": "Electronic Entertainment Design And Research"
+  },
+  {
+   "id": "US9311404B2",
+   "title": "Obscuring search results to increase traffic to network sites",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8433697B2",
+   "title": "Flexible metadata composition",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9053087B2",
+   "title": "Automatic semantic evaluation of speech recognition results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8612436B1",
+   "title": "Reverse engineering circumvention of spam detection algorithms",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8868536B1",
+   "title": "Real time map spam detection",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9201964B2",
+   "title": "Identifying related entities",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9043248B2",
+   "title": "Learning rewrite rules for search database systems using query logs",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9336312B2",
+   "title": "Vertical-based query optionalizing",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US9483581B2",
+   "title": "Evaluation of substitution contexts",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9245026B1",
+   "title": "Increasing the relevancy of search results across categories",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US9253511B2",
+   "title": "Systems and methods for performing multi-modal video datastream segmentation",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "RU2670494C2",
+   "title": "Method for processing search requests, server and machine-readable media for its implementation",
+   "assignee": "Общество С Ограниченной Ответственностью \"Яндекс\""
+  },
+  {
+   "id": "US9836765B2",
+   "title": "System and method for context-aware recommendation through user activity change detection",
+   "assignee": "Kibo Software, Inc."
+  },
+  {
+   "id": "CN104239485B",
+   "title": "A kind of dark chain detection method in internet based on statistical machine learning",
+   "assignee": "中国科学院计算机网络信息中心"
+  },
+  {
+   "id": "US10007719B2",
+   "title": "Compensating for individualized bias of search users",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US10007730B2",
+   "title": "Compensating for bias in search results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US10402414B2",
+   "title": "Scalable system and method for weighted similarity estimation in massive datasets revealed in a streaming fashion",
+   "assignee": "Nec Corporation"
+  },
+  {
+   "id": "US10402410B2",
+   "title": "Contextualizing knowledge panels",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "CN104951539B",
+   "title": "Internet data center's harmful information monitoring system",
+   "assignee": "成都艾尔普科技有限责任公司"
+  },
+  {
+   "id": "US11042596B2",
+   "title": "Preserving contextual relevance of content",
+   "assignee": "Verizon Media Inc."
+  },
+  {
+   "id": "US11263550B2",
+   "title": "Audit machine learning models against bias",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US11397731B2",
+   "title": "Method and system for interactive keyword optimization for opaque search engines",
+   "assignee": "B. G. Negev Technologies And Applications Ltd., At Ben-Gurion University"
+  },
+  {
+   "id": "CN111159356B",
+   "title": "Knowledge graph construction method based on teaching content",
+   "assignee": "重庆和贯科技有限公司"
+  },
+  {
+   "id": "US12164527B2",
+   "title": "Search result annotations",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US11538072B2",
+   "title": "Integration of retail services with search engine",
+   "assignee": "Ncr Corporation"
+  },
+  {
+   "id": "US20220164402A1",
+   "title": "Enhancing the accuracy of search results",
+   "assignee": "Flipkart Internet Private Limited"
+  },
+  {
+   "id": "US12013874B2",
+   "title": "Bias detection",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US11829423B2",
+   "title": "Determining that a resource is spam based upon a uniform resource locator of the webpage",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5659766A",
+   "title": "Method and apparatus for inferring the topical content of a document based upon its lexical content without supervision",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5724521A",
+   "title": "Method and apparatus for providing electronic advertisements to end users in a consumer best-fit pricing manner",
+   "assignee": "Intel Corporation"
+  },
+  {
+   "id": "US5724567A",
+   "title": "System for directing relevance-ranked data objects to computer users",
+   "assignee": "Apple Computer, Inc."
+  },
+  {
+   "id": "US5752238A",
+   "title": "Consumer-driven electronic information pricing mechanism",
+   "assignee": "Intel Corporation"
+  },
+  {
+   "id": "US5754939A",
+   "title": "System for generation of user profiles for a system for customized electronic identification of desirable objects",
+   "assignee": "Herz; Frederick S. M."
+  },
+  {
+   "id": "US5794210A",
+   "title": "Attention brokerage",
+   "assignee": "Cybergold, Inc."
+  },
+  {
+   "id": "US5809242A",
+   "title": "Electronic mail system for displaying advertisement at local computer received from remote system while the local computer is off-line the remote system",
+   "assignee": "Juno Online Services, L.P."
+  },
+  {
+   "id": "US5848396A",
+   "title": "Method and apparatus for determining behavioral profile of a computer user",
+   "assignee": "Freedom Of Information, Inc."
+  },
+  {
+   "id": "US5878429A",
+   "title": "System and method of governing delivery of files from object databases",
+   "assignee": "Ipivot, Inc."
+  },
+  {
+   "id": "US5887133A",
+   "title": "System and method for modifying documents sent over a communications network",
+   "assignee": "Health Hero Network"
+  },
+  {
+   "id": "US5933811A",
+   "title": "System and method for delivering customized advertisements within interactive communication systems",
+   "assignee": "Paul D. Angles"
+  },
+  {
+   "id": "US5948061A",
+   "title": "Method of delivery, targeting, and measuring advertising over networks",
+   "assignee": "Double Click, Inc."
+  },
+  {
+   "id": "US5974398A",
+   "title": "Method and apparatus enabling valuation of user access of advertising carried by interactive information and entertainment services",
+   "assignee": "At&T Corp."
+  },
+  {
+   "id": "US6012053A",
+   "title": "Computer system with user-controlled relevance ranking of search results",
+   "assignee": "Lycos, Inc."
+  },
+  {
+   "id": "US6112202A",
+   "title": "Method and system for identifying authoritative information resources in an environment with content-based links between information resources",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6134532A",
+   "title": "System and method for optimal adaptive matching of users to most relevant entity and information in real-time",
+   "assignee": "Aptex Software, Inc."
+  },
+  {
+   "id": "US6137911A",
+   "title": "Test classification system and method",
+   "assignee": "The Dialog Corporation Plc"
+  },
+  {
+   "id": "US6138113A",
+   "title": "Method for identifying near duplicate pages in a hyperlinked database",
+   "assignee": "Altavista Company"
+  },
+  {
+   "id": "US6144944A",
+   "title": "Computer system for efficiently selecting and providing information",
+   "assignee": "Imgis, Inc."
+  },
+  {
+   "id": "US6154737A",
+   "title": "Document retrieval system",
+   "assignee": "Matsushita Electric Industrial Co., Ltd."
+  },
+  {
+   "id": "US6182050B1",
+   "title": "Advertisements distributed on-line using target criteria screening with method for maintaining end user privacy",
+   "assignee": "Acceleration Software International Corporation"
+  },
+  {
+   "id": "US6195698B1",
+   "title": "Method for selectively restricting access to computer systems",
+   "assignee": "Compaq Computer Corporation"
+  },
+  {
+   "id": "US6199067B1",
+   "title": "System and method for generating personalized user profiles and for utilizing the generated user profiles to perform adaptive internet searches",
+   "assignee": "Mightiest Logicon Unisearch, Inc."
+  },
+  {
+   "id": "US6216112B1",
+   "title": "Method for software distribution and compensation with replenishable advertisements",
+   "assignee": "William H. Fuller"
+  },
+  {
+   "id": "US6243375B1",
+   "title": "Internet-audiotext electronic communications system with multimedia based matching",
+   "assignee": "Gregory J. Speicher"
+  },
+  {
+   "id": "US6253189B1",
+   "title": "System and method for completing advertising time slot transactions",
+   "assignee": "At&T Corp."
+  },
+  {
+   "id": "US6269361B1",
+   "title": "System and method for influencing a position on a search result list generated by a computer network search engine",
+   "assignee": "Goto.Com"
+  },
+  {
+   "id": "US20010014868A1",
+   "title": "System for the automatic determination of customized prices and promotions",
+   "assignee": "Frederick Herz"
+  },
+  {
+   "id": "US6279036B1",
+   "title": "Method and apparatus for detecting actual viewing or electronic advertisements",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US6285987B1",
+   "title": "Internet advertising system",
+   "assignee": "Engage, Inc."
+  },
+  {
+   "id": "US6289342B1",
+   "title": "Autonomous citation indexing and literature browsing using citation context",
+   "assignee": "Nec Research Institute, Inc."
+  },
+  {
+   "id": "US20010032252A1",
+   "title": "System and method for linking online resources to print media and authoring tool for same",
+   "assignee": "Durst Robert T."
+  },
+  {
+   "id": "US6308202B1",
+   "title": "System for targeting information to specific users on a computer network",
+   "assignee": "Webtv Networks, Inc."
+  },
+  {
+   "id": "US6324519B1",
+   "title": "Advertisement auction system",
+   "assignee": "Expanse Networks, Inc."
+  },
+  {
+   "id": "US6327590B1",
+   "title": "System and method for collaborative ranking of search results employing user and group profiles derived from document collection content analysis",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6327574B1",
+   "title": "Hierarchical models of consumer attributes for targeting content in a privacy-preserving manner",
+   "assignee": "Encirq Corporation"
+  },
+  {
+   "id": "US6334109B1",
+   "title": "Distributed personalized advertisement system and method",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6338066B1",
+   "title": "Surfaid predictor: web-based system for predicting surfer behavior",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6343274B1",
+   "title": "Apparatus and method for merchant-to-consumer advertisement communication system",
+   "assignee": "Hewlett-Packard"
+  },
+  {
+   "id": "US6349307B1",
+   "title": "Cooperative topical servers with automatic prefiltering and routing",
+   "assignee": "U.S. Philips Corporation"
+  },
+  {
+   "id": "US20020024532A1",
+   "title": "Dynamic personalization method of creating personalized user profiles for searching a database of information",
+   "assignee": "Wylci Fables"
+  },
+  {
+   "id": "US6356898B2",
+   "title": "Method and system for summarizing topics of documents browsed by a user",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6360221B1",
+   "title": "Method and apparatus for the production, delivery, and receipt of enhanced e-mail",
+   "assignee": "Neostar, Inc."
+  },
+  {
+   "id": "US20020038348A1",
+   "title": "Distributed globally accessible information network",
+   "assignee": "Malone Michael K."
+  },
+  {
+   "id": "US6366298B1",
+   "title": "Monitoring of individual internet usage",
+   "assignee": "Netzero, Inc."
+  },
+  {
+   "id": "US6366956B1",
+   "title": "Relevance access of Internet information services",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6370527B1",
+   "title": "Method and apparatus for searching distributed networks using a plurality of search devices",
+   "assignee": "At&T Corp."
+  },
+  {
+   "id": "US20020049635A1",
+   "title": "Multiple advertising",
+   "assignee": "Khanh Mai"
+  },
+  {
+   "id": "US20020053078A1",
+   "title": "Method, system and computer program product for producing and distributing enhanced media downstreams",
+   "assignee": "Alex Holtz"
+  },
+  {
+   "id": "US6385619B1",
+   "title": "Automatic user interest profile generation from structured document access information",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6401075B1",
+   "title": "Methods of placing, purchasing and monitoring internet advertising",
+   "assignee": "Global Network, Inc."
+  },
+  {
+   "id": "US20020073079A1",
+   "title": "Method and apparatus for searching a database and providing relevance feedback",
+   "assignee": "Merijn Terheggen"
+  },
+  {
+   "id": "US20020078045A1",
+   "title": "System, method, and program for ranking search results using user category weighting",
+   "assignee": "Rabindranath Dutta"
+  },
+  {
+   "id": "US20020087535A1",
+   "title": "Apparatus and a method for facilitating searching",
+   "assignee": "Aaron Kotcheff"
+  },
+  {
+   "id": "US20020099685A1",
+   "title": "Document retrieval system; method of document retrieval; and search server",
+   "assignee": "Hitachi, Ltd."
+  },
+  {
+   "id": "US20020103834A1",
+   "title": "Method and apparatus for analyzing documents in electronic form",
+   "assignee": "Thompson James C."
+  },
+  {
+   "id": "US20020112035A1",
+   "title": "System and method for performing content experience management",
+   "assignee": "Carey Brian M."
+  },
+  {
+   "id": "US20020116641A1",
+   "title": "Method and apparatus for providing automatic e-mail filtering based on message semantics, sender's e-mail ID, and user's identity",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20020120619A1",
+   "title": "Automated categorization, placement, search and retrieval of user-contributed items",
+   "assignee": "High Regard, Inc."
+  },
+  {
+   "id": "US6446061B1",
+   "title": "Taxonomy generation for document collections",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20020123912A1",
+   "title": "Internet contextual communication system",
+   "assignee": "Contextweb"
+  },
+  {
+   "id": "US6449657B2",
+   "title": "Internet hosting system",
+   "assignee": "Namezero.Com, Inc."
+  },
+  {
+   "id": "US6453327B1",
+   "title": "Method and apparatus for identifying and discarding junk electronic mail",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US6460034B1",
+   "title": "Document knowledge base research and retrieval system",
+   "assignee": "Oracle Corporation"
+  },
+  {
+   "id": "US20020165849A1",
+   "title": "Automatic advertiser notification for a system for providing place and price protection in a search result list generated by a computer network search engine",
+   "assignee": "Singh Narinder Pal"
+  },
+  {
+   "id": "US20020169760A1",
+   "title": "System and method for providing place and price protection in a search result list generated by a computer network search engine",
+   "assignee": "Cheung Dominic Dough-Ming"
+  },
+  {
+   "id": "US6487538B1",
+   "title": "Method and apparatus for local advertising",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US20020198882A1",
+   "title": "Content personalization based on actions performed during a current browsing session",
+   "assignee": "Linden Gregory D."
+  },
+  {
+   "id": "US6505196B2",
+   "title": "Method and apparatus for improving access to literature",
+   "assignee": "Clinical Focus, Inc."
+  },
+  {
+   "id": "US6519571B1",
+   "title": "Dynamic customer profile management",
+   "assignee": "Accenture Llp"
+  },
+  {
+   "id": "US20030037041A1",
+   "title": "System for automatic determination of customized prices and promotions",
+   "assignee": "Pinpoint Incorporated"
+  },
+  {
+   "id": "US6526403B1",
+   "title": "Method, computer program product, and system for rewriting database queries in a heterogenous environment",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030040959A1",
+   "title": "Method and apparatus for conducting transactions on an automated teller machine",
+   "assignee": "Fei Calvin H."
+  },
+  {
+   "id": "US20030046161A1",
+   "title": "Methods and apparatus for ordering advertisements based on performance information and price information",
+   "assignee": "Kamangar Salar Arta"
+  },
+  {
+   "id": "US20030055831A1",
+   "title": "Search engine",
+   "assignee": "S.L.I. Systems, Inc."
+  },
+  {
+   "id": "US20030065774A1",
+   "title": "Peer-to-peer based distributed search architecture in a networked environment",
+   "assignee": "Donald Steiner"
+  },
+  {
+   "id": "US6560600B1",
+   "title": "Method and apparatus for ranking Web page search results",
+   "assignee": "Alta Vista Company"
+  },
+  {
+   "id": "US20030088562A1",
+   "title": "System and method for obtaining keyword descriptions of records from a large database",
+   "assignee": "Craig Dillon"
+  },
+  {
+   "id": "US6567800B1",
+   "title": "System and method for searching information stored on a network",
+   "assignee": "At&T Corp."
+  },
+  {
+   "id": "US20030097357A1",
+   "title": "System and method for manipulating content in a hierarchical data-driven search and navigation system",
+   "assignee": "Ferrari Adam J."
+  },
+  {
+   "id": "US20030101182A1",
+   "title": "Method and system for smart search engine and other applications",
+   "assignee": "Omri Govrin"
+  },
+  {
+   "id": "US6584468B1",
+   "title": "Method and apparatus to retrieve information from a network",
+   "assignee": "Ninesigma, Inc."
+  },
+  {
+   "id": "US6584492B1",
+   "title": "Internet banner advertising process and apparatus having scalability",
+   "assignee": "Americom Usa"
+  },
+  {
+   "id": "US6601061B1",
+   "title": "Scalable information search and retrieval including use of special purpose searching resources",
+   "assignee": "Surfwax, Inc."
+  },
+  {
+   "id": "US20030149937A1",
+   "title": "Method and system for optimum placement of advertisements on a webpage",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US20030191737A1",
+   "title": "Indexing system and method",
+   "assignee": "Steele Robert James"
+  },
+  {
+   "id": "US20030204502A1",
+   "title": "System and method for rapid computation of PageRank",
+   "assignee": "Tomlin John Anthony"
+  },
+  {
+   "id": "US20030204501A1",
+   "title": "Method and system for improving reliability of search engine information",
+   "assignee": "Moon Sung Ub"
+  },
+  {
+   "id": "US20030208478A1",
+   "title": "Directory services searching system and methods",
+   "assignee": "Computer Associates Think, Inc."
+  },
+  {
+   "id": "US20030208482A1",
+   "title": "Systems and methods of retrieving relevant information",
+   "assignee": "Kim Brian S."
+  },
+  {
+   "id": "US6654725B1",
+   "title": "System and method for providing customized advertising on the World Wide Web",
+   "assignee": "Nec Corporation"
+  },
+  {
+   "id": "US6665656B1",
+   "title": "Method and apparatus for evaluating documents with correlating information",
+   "assignee": "Motorola, Inc."
+  },
+  {
+   "id": "US6665838B1",
+   "title": "Web page thumbnails and user configured complementary information provided from a server",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6665837B1",
+   "title": "Method for identifying related pages in a hyperlinked database",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US20030233345A1",
+   "title": "System and method for personalized information retrieval based on user expertise",
+   "assignee": "Igor Perisic"
+  },
+  {
+   "id": "US6681223B1",
+   "title": "System and method of performing profile matching with a structured document",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6684205B1",
+   "title": "Clustering hypertext with applications to web searching",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040024752A1",
+   "title": "Method and apparatus for search ranking using human input and automated ranking",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20040044571A1",
+   "title": "Method and system for providing advertising listing variance in distribution feeds over the internet to maximize revenue to the advertising distributor",
+   "assignee": "Bronnimann Eric Robert"
+  },
+  {
+   "id": "US6704729B1",
+   "title": "Retrieval of relevant information categories",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20040059712A1",
+   "title": "Serving advertisements using information associated with e-mail",
+   "assignee": "Dean Jeffrey A."
+  },
+  {
+   "id": "US20040059708A1",
+   "title": "Methods and apparatus for serving relevant advertisements",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20040068527A1",
+   "title": "Method and apparatus for facilitating use of hypertext links on the World Wide Web",
+   "assignee": "Smith Julius O."
+  },
+  {
+   "id": "US6721713B1",
+   "title": "Business alliance identification in a web architecture framework",
+   "assignee": "Andersen Consulting Llp"
+  },
+  {
+   "id": "US20040073485A1",
+   "title": "Method for an on-line promotion server",
+   "assignee": "Informlink, Inc."
+  },
+  {
+   "id": "US20040093327A1",
+   "title": "Serving advertisements based on content",
+   "assignee": "Darrell Anderson"
+  },
+  {
+   "id": "US6751600B1",
+   "title": "Method for automatic categorization of items",
+   "assignee": "Commerce One Operations, Inc."
+  },
+  {
+   "id": "US20040122912A1",
+   "title": "Method and apparatus for automatic document generation based on annotation",
+   "assignee": "Kim Jae Hong"
+  },
+  {
+   "id": "US6772200B1",
+   "title": "System for providing non-intrusive dynamic content to a client device",
+   "assignee": "Intel Corporation"
+  },
+  {
+   "id": "US6804659B1",
+   "title": "Content based web advertising",
+   "assignee": "Ricoh Company Ltd."
+  },
+  {
+   "id": "US20040210639A1",
+   "title": "Identifying and using identities deemed to be known to a user",
+   "assignee": "Roy Ben-Yoseph"
+  },
+  {
+   "id": "US20040249709A1",
+   "title": "Method and system for dynamic textual ad distribution via email",
+   "assignee": "Donovan Kevin Rjb"
+  },
+  {
+   "id": "US6848077B1",
+   "title": "Dynamically creating hyperlinks to other web documents in received world wide web documents based on text terms in the received document defined as of interest to user",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050022008A1",
+   "title": "Origination/destination features and lists for spam prevention",
+   "assignee": "Goodman Joshua T."
+  },
+  {
+   "id": "US20050021397A1",
+   "title": "Content-targeted advertising using collected user behavior data",
+   "assignee": "Cui Yingwei Claire"
+  },
+  {
+   "id": "US20050022114A1",
+   "title": "Meta-document management system with personality identifiers",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6859802B1",
+   "title": "Image retrieval based on relevance feedback",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050050222A1",
+   "title": "URL based filtering of electronic communications and web pages",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050050097A1",
+   "title": "Determining and/or using location information in an ad system",
+   "assignee": "Leslie Yeh"
+  },
+  {
+   "id": "US20050065844A1",
+   "title": "System and method for managing an advertising campaign on a network",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050071741A1",
+   "title": "Information retrieval based on historical data",
+   "assignee": "Anurag Acharya"
+  },
+  {
+   "id": "US20050076014A1",
+   "title": "Determining and/or using end user local time information in an ad system",
+   "assignee": "Sumit Agarwal"
+  },
+  {
+   "id": "US20050080771A1",
+   "title": "Search enhancement system with information from a selected source",
+   "assignee": "Fish Edmund J."
+  },
+  {
+   "id": "US20050080772A1",
+   "title": "Using match confidence to adjust a performance threshold",
+   "assignee": "Jeremy Bem"
+  },
+  {
+   "id": "US6892181B1",
+   "title": "System and method for improving the effectiveness of web advertising",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6892354B1",
+   "title": "Method of advertising on line during a communication link idle time",
+   "assignee": "Sony Corporation"
+  },
+  {
+   "id": "US20050114306A1",
+   "title": "Integrated searching of multiple search sources",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050114198A1",
+   "title": "Using concepts for ad targeting",
+   "assignee": "Ross Koningstein"
+  },
+  {
+   "id": "US20050131762A1",
+   "title": "Generating user information for use in targeted advertising",
+   "assignee": "Krishna Bharat"
+  },
+  {
+   "id": "US20050131935A1",
+   "title": "Sector content mining system using a modular knowledge base",
+   "assignee": "O'leary Paul J."
+  },
+  {
+   "id": "US6912505B2",
+   "title": "Use of product viewing histories of users to identify related products",
+   "assignee": "Amazon.Com, Inc."
+  },
+  {
+   "id": "US20050160107A1",
+   "title": "Advanced search, file system, and intelligent assistant agent",
+   "assignee": "Ping Liang"
+  },
+  {
+   "id": "US6922685B2",
+   "title": "Method and system for managing partitioned data resources",
+   "assignee": "Mci, Inc."
+  },
+  {
+   "id": "US20050216434A1",
+   "title": "Variable personalization of search results in a search engine",
+   "assignee": "Haveliwala Taher H"
+  },
+  {
+   "id": "US20050222901A1",
+   "title": "Determining ad targeting information and/or ad creative information using past search queries",
+   "assignee": "Sumit Agarwal"
+  },
+  {
+   "id": "US20050240580A1",
+   "title": "Personalization of placed content ordering in search results",
+   "assignee": "Zamir Oren E"
+  },
+  {
+   "id": "US20050256867A1",
+   "title": "Search systems and methods with integration of aggregate user annotations",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050256866A1",
+   "title": "Search system and methods with integration of user annotations from a trust network",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050278321A1",
+   "title": "Systems, methods and computer readable media for performing a domain-specific metasearch, and visualizing search results therefrom",
+   "assignee": "Aditya Vailaya"
+  },
+  {
+   "id": "US20060004748A1",
+   "title": "Search engine spam detection using external data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060026147A1",
+   "title": "Adaptive search engine",
+   "assignee": "Cone Julian M"
+  },
+  {
+   "id": "US20060026013A1",
+   "title": "Search systems and methods using in-line contextual queries",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7013323B1",
+   "title": "System and method for developing and interpreting e-commerce metrics by utilizing a list of rules wherein each rule contain at least one of entity-specific criteria",
+   "assignee": "Cyveillance, Inc."
+  },
+  {
+   "id": "US20060069667A1",
+   "title": "Content evaluation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060069616A1",
+   "title": "Determining advertisements using user behavior information such as past navigation information",
+   "assignee": "David Bau"
+  },
+  {
+   "id": "US20060080321A1",
+   "title": "System and method for processing requests for contextual information",
+   "assignee": "Whenu.Com, Inc."
+  },
+  {
+   "id": "US20060085750A1",
+   "title": "Intelligent web based help system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20060095416A1",
+   "title": "Link-based spam detection",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20060095336A1",
+   "title": "Systems and methods for determining bid value for content items to be placed on a rendered page",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060122957A1",
+   "title": "Method and system to detect e-mail spam using concept categorization of linked content",
+   "assignee": "Johnny Chen"
+  },
+  {
+   "id": "US20060136383A1",
+   "title": "Method and system enabling Web content searching from a remote set-top control interface or device",
+   "assignee": "Alcatel"
+  },
+  {
+   "id": "US20060149708A1",
+   "title": "Search method and system and system using the same",
+   "assignee": "Lavine Steven D"
+  },
+  {
+   "id": "US20060149624A1",
+   "title": "Generating and/or serving local area advertisements, such as advertisements for devices with call functionality",
+   "assignee": "Shumeet Baluja"
+  },
+  {
+   "id": "US20060167857A1",
+   "title": "Systems and methods for contextual transaction proposals",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20060184500A1",
+   "title": "Using content analysis to detect spam web pages",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060218146A1",
+   "title": "Interactive user-controlled relevance ranking of retrieved information in an information search system",
+   "assignee": "Elan Bitan"
+  },
+  {
+   "id": "US7117358B2",
+   "title": "Method and system for filtering communication",
+   "assignee": "Tumbleweed Communications Corp."
+  },
+  {
+   "id": "US20060242147A1",
+   "title": "Categorizing objects, such as documents and/or clusters, with respect to a taxonomy and data structures derived from such categorization",
+   "assignee": "David Gehrking"
+  },
+  {
+   "id": "US20060248072A1",
+   "title": "System and method for spam identification",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060265498A1",
+   "title": "Detection and prevention of spam",
+   "assignee": "Yehuda Turgeman"
+  },
+  {
+   "id": "US20070038614A1",
+   "title": "Generating and presenting advertisements based on context data for programmable search engines",
+   "assignee": "Guha Ramanathan V"
+  },
+  {
+   "id": "US20070038616A1",
+   "title": "Programmable search engine",
+   "assignee": "Guha Ramanathan V"
+  },
+  {
+   "id": "US20070038603A1",
+   "title": "Sharing context data across programmable search engines",
+   "assignee": "Guha Ramanathan V"
+  },
+  {
+   "id": "US20070038601A1",
+   "title": "Aggregating context data for programmable search engines",
+   "assignee": "Guha Ramanathan V"
+  },
+  {
+   "id": "US20070038600A1",
+   "title": "Detecting spam related and biased contexts for programmable search engines",
+   "assignee": "Guha Ramanathan V"
+  },
+  {
+   "id": "US20070055642A1",
+   "title": "Method of managing websites registered in search engine and a system thereof",
+   "assignee": "Young Kwan Kim"
+  },
+  {
+   "id": "US7206778B2",
+   "title": "Text search ordered along one or more dimensions",
+   "assignee": "Knova Software Inc."
+  },
+  {
+   "id": "US7240049B2",
+   "title": "Systems and methods for search query processing using trend analysis",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20080005064A1",
+   "title": "Apparatus and method for content annotation and conditional annotation retrieval in a search context",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20080065611A1",
+   "title": "Method and system for searching and monitoring internet trademark usage",
+   "assignee": "Markmonitor Inc."
+  },
+  {
+   "id": "US7346605B1",
+   "title": "Method and system for searching and monitoring internet trademark usage",
+   "assignee": "Markmonitor, Inc."
+  },
+  {
+   "id": "US7346606B2",
+   "title": "Rendering advertisements with documents having one or more topics using user topic interest",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20080170260A1",
+   "title": "Output transform brokerage service",
+   "assignee": "Michael Haller"
+  },
+  {
+   "id": "US7509344B1",
+   "title": "Method for detecting link spam in hyperlinked databases",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7565630B1",
+   "title": "Customization of search results for search queries received from third party sites",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7631072B2",
+   "title": "Method and system for controlling and auditing content/services systems",
+   "assignee": "Thomson Licensing"
+  },
+  {
+   "id": "WO1997017774A1",
+   "title": "Selective advertisement presentation",
+   "assignee": "Seiko Communications Systems, Inc."
+  },
+  {
+   "id": "WO1997026729A2",
+   "title": "Automated collaborative filtering in world wide web advertising",
+   "assignee": "Robinson Gary B"
+  },
+  {
+   "id": "AU3770500A",
+   "title": "A method of realtime allocation of ad space on a web page based on a bidding protocol",
+   "assignee": "Experclick, Inc."
+  },
+  {
+   "id": "AU6054600A",
+   "title": "Electronic market maker of electronic attention",
+   "assignee": "Colorstamps, Inc."
+  },
+  {
+   "id": "AU2748901A",
+   "title": "Context matching system and method",
+   "assignee": "Yellowbrix, Inc."
+  },
+  {
+   "id": "US6455764B2",
+   "title": "Inbred corn plant WQDS7 and seeds thereof",
+   "assignee": "Dekalb Genetics Corporation"
+  }
+ ],
+ "similar": [
+  {
+   "id": "US7743045B2",
+   "title": "Detecting spam related and biased contexts for programmable search engines"
+  },
+  {
+   "id": "US8316040B2",
+   "title": "Programmable search engine"
+  },
+  {
+   "id": "US8051063B2",
+   "title": "Aggregating context data for programmable search engines"
+  },
+  {
+   "id": "CA2618567C",
+   "title": "Generating and presenting advertisements based on context data for programmable search engines"
+  },
+  {
+   "id": "US20070038603A1",
+   "title": "Sharing context data across programmable search engines"
+  },
+  {
+   "id": "US10268641B1",
+   "title": "Search result ranking based on trust"
+  },
+  {
+   "id": "US7801896B2",
+   "title": "Database access system"
+  },
+  {
+   "id": "US8768772B2",
+   "title": "System and method for selecting advertising in a social bookmarking system"
+  },
+  {
+   "id": "US7548914B2",
+   "title": "System and method for providing active tags"
+  },
+  {
+   "id": "US8014997B2",
+   "title": "Method of search content enhancement"
+  },
+  {
+   "id": "US9311402B2",
+   "title": "System and method for invoking functionalities using contextual relations"
+  },
+  {
+   "id": "CN100401292C",
+   "title": "Systems and methods for search query processing using trend analysis"
+  },
+  {
+   "id": "US20100306249A1",
+   "title": "Social network systems and methods"
+  },
+  {
+   "id": "US20090292674A1",
+   "title": "Parameterized search context interface"
+  },
+  {
+   "id": "US20050065774A1",
+   "title": "Method of self enhancement of search results through analysis of system logs"
+  },
+  {
+   "id": "US20070198506A1",
+   "title": "System and method for context-based knowledge search, tagging, collaboration, management, and advertisement"
+  },
+  {
+   "id": "US20070067217A1",
+   "title": "System and method for selecting advertising"
+  },
+  {
+   "id": "CA2714924A1",
+   "title": "Response relevance determination for a computerized information search and indexing method, software and device"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8452746B2/en"
+}

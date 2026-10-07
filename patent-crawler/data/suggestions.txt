@@ -1,0 +1,903 @@
+24	US8909655B1	Time based ranking
+24	US9501506B1	Indexing system
+24	US9483568B1	Indexing system
+24	US6754873B1	Techniques for finding related hyperlinked documents using link-based analysis
+23	US7925655B1	Query scheduling using hierarchical tiers of index servers
+22	US7702614B1	Index updating using segment swapping
+21	US8972391B1	Recent interest based relevance scoring
+21	US8832083B1	Combining user feedback
+20	US8396865B1	Sharing search engine relevance data between corpora
+20	US8924379B1	Temporal-based score adjustments
+20	US7743045B2	Detecting spam related and biased contexts for programmable search engines
+19	US7222127B1	Large scale machine learning systems and methods
+19	US8959093B1	Ranking search results based on anchors
+19	US9623119B1	Accentuating search results
+19	US8042112B1	Scheduler for search engine crawler
+18	US8694374B1	Detecting click spam
+18	US8447760B1	Generating a related set of documents for an initial set of documents
+17	US7254580B1	System and method for selectively searching partitions of a database
+16	US7505964B2	Methods and systems for improving a search ranking using related queries
+15	US6526440B1	Ranking search results by reranking the results based on local inter-connectivity
+15	US7636714B1	Determining query term synonyms within query context
+15	US8065296B1	Systems and methods for determining a quality of provided items
+14	US7260573B1	Personalizing anchor text scores in a search engine
+14	US6678681B1	Information extraction from a database
+14	US7756887B1	System and method for modulating search relevancy using pointer activity monitoring
+14	US7987185B1	Ranking custom search results
+14	US8117223B2	Integrating external related phrase information into a phrase-based indexing information retrieval system
+13	US7971137B2	Detecting and rejecting annoying documents
+12	US7725452B1	Scheduler for search engine crawler
+12	US7716199B2	Aggregating context data for programmable search engines
+12	US8346792B1	Query generation using structural similarity between documents
+12	US8966407B2	Expandable homepage modules
+12	US8060497B1	Framework for evaluating web search scoring functions
+12	US7610282B1	Rank-adjusted content items
+11	US7769579B2	Learning facts from semi-structured text
+11	US8832132B1	Personalizing search queries based on user membership in social network communities
+11	US7925649B2	Method, system, and graphical user interface for alerting a computer user to new results for a prior search
+11	US9128945B1	Query augmentation
+11	US7580929B2	Phrase-based personalization of searches in an information retrieval system
+11	US8086599B1	Method and apparatus for automatically identifying compunds
+10	US8819000B1	Query modification
+10	US7302645B1	Methods and systems for identifying manipulated articles
+10	US8010459B2	Methods and systems for rating associated members in a social network
+10	US8015019B1	Methods and systems for providing a document
+10	US8019875B1	Systems and methods for indicating a user state in a social network
+10	US8548995B1	Ranking of documents based on analysis of related documents
+10	US8676790B1	Methods and systems for improving search rankings using advertising data
+10	US8983970B1	Ranking content using content and content authors
+10	US9223868B2	Deriving and using interaction profiles
+10	US10402457B1	Methods and systems for correlating connections between users and links between articles
+10	US8060405B1	Methods and systems for correlating connections between users and links between articles
+9	US7587387B2	User interface for facts query engine with snippets from information sources that include query terms and answer terms
+9	US8347202B1	Determining geographic locations for place names in a fact repository
+9	US8812435B1	Learning objects and facts from documents
+9	US8621215B1	Methods and systems for creating monetary accounts for members in a social network
+9	US9141672B1	Click or skip evaluation of query term optionalization rule
+9	US8412780B2	Methods and systems for providing current email addresses and contact information for members within a social network
+9	US7693827B2	Personalization of placed content ordering in search results
+9	US8078607B2	Generating website profiles based on queries from webistes and user activities on the search results
+9	US9870572B2	System and method of providing information based on street address
+9	US8332408B1	Date-based web page annotation
+9	US8868536B1	Real time map spam detection
+9	US8001136B1	Longest-common-subsequence detection for common synonyms
+9	US8412699B1	Fresh related search suggestions
+8	US7953720B1	Selecting the best answer to a fact query from among a set of potential answers
+8	US8682913B1	Corroborating facts extracted from multiple sources
+8	US8996470B1	System for ensuring the internal consistency of a fact repository
+8	US7693830B2	Programmable search engine
+8	US8548991B1	Personalized browsing activity displays
+8	US8874570B1	Search boost vector based on co-visitation information
+8	US8909627B1	Fake skip evaluation of synonym rules
+8	US8959103B1	Click or skip evaluation of reordering rules
+8	US8965882B1	Click or skip evaluation of synonym rules
+8	US8965875B1	Removing substitution rules based on user interactions
+8	US9146966B1	Click or skip evaluation of proximity rules
+8	US9152698B1	Substitute term identification based on over-represented terms identification
+8	US8538810B2	Methods and systems for member-created advertisement in a member network
+8	US9558233B1	Determining a quality measure for a resource
+8	US8359309B1	Modifying search result ranking based on corpus search statistics
+8	US9110975B1	Search result inputs using variant generalized queries
+8	US8176055B1	Content entity management
+8	US8745056B1	Spam detection for user-generated multimedia items based on concept clustering
+8	US8752184B1	Spam detection for user-generated multimedia items based on keyword stuffing
+8	US8171020B1	Spam detection for user-generated multimedia items based on appearance in popular queries
+8	US9471606B1	Obtaining information to provide to users
+8	US8892422B1	Phrase identification in a sequence of words
+7	US9208229B2	Anchor text summarization for corroboration
+7	US7831545B1	Identifying the unifying subject of a set of facts
+7	US8386495B1	Augmented resource graph for scoring resources
+7	US9189526B1	Freshness based ranking
+7	US7516118B1	Methods and systems for assisted network browsing
+7	US7970766B1	Entity type assignment
+7	US7797316B2	Systems and methods for determining document freshness
+7	US8620915B1	Systems and methods for promoting personalized search results based on personal information
+7	US9256685B2	Systems and methods for modifying search results based on a user's history
+7	US7568148B1	Methods and apparatus for clustering news content
+7	US7966321B2	Presentation of local results
+7	US8037086B1	Identifying common co-occurring elements in lists
+7	US8442984B1	Website quality signal generation
+6	US8204856B2	Database replication
+6	US7966291B1	Fact-based object merging
+6	US8117195B1	Providing blog posts relevant to search results
+6	US7305380B1	Systems and methods for performing in-context searching
+6	US7827176B2	Methods and systems for endorsing local search results
+6	US7925657B1	Methods and systems for adjusting a scoring measure based on query breadth
+6	US8423541B1	Using saved search results for quality feedback
+6	US8533226B1	System and method for verifying and revoking ownership rights with respect to a website in a website indexing system
+6	US8645393B1	Ranking clusters and resources in a cluster
+6	US8825639B2	Endorsing search results
+6	US8972394B1	Generating a related set of documents for an initial set of documents
+6	US8015119B2	Methods and systems for the display and navigation of a social network
+6	US9037581B1	Personalized search result ranking
+6	US7933897B2	Entity display priority in a distributed geographic information system
+6	US8738377B2	Predicting and learning carrier phrases for speech input
+6	US9348925B2	Locally significant search queries
+6	US9436758B1	Methods and systems for partitioning documents having customer feedback and support content
+6	US8005822B2	Location in search queries
+6	US8086690B1	Determining geographical relevance of web documents
+6	US8082242B1	Custom search
+5	US7565630B1	Customization of search results for search queries received from third party sites
+5	US8666964B1	Managing items in crawl schedule
+5	US8386459B1	Scheduling a recrawl
+5	US7680770B1	Automatic generation and recommendation of communities in a social network
+5	US7774782B1	Limiting requests by web crawlers to a web host
+5	US7991797B2	ID persistence through normalization
+5	US8005716B1	Methods and systems for establishing a keyword utilizing path navigation information
+5	US8051096B1	Methods and systems for augmenting a token lexicon
+5	US8239350B1	Date ambiguity resolution
+5	US8244689B2	Attribute entropy as a signal in object normalization
+5	US8255948B1	Demographic classifiers from media content
+5	US8645394B1	Ranking clusters and resources in a cluster
+5	US8738643B1	Learning synonymous object names from anchor texts
+5	US8843536B1	Methods and systems for providing relevant advertisements or other content for inactive uniform resource locators using search queries
+5	US8924465B1	Content sharing based on social graphing
+5	US9020927B1	Determining resource quality based on resource competition
+5	US9858317B1	Ranking communities based on members
+5	US7565345B2	Integration of multiple query revision models
+5	US9323827B2	Identifying key terms related to similar passages
+5	US8762326B1	Personalized hot topics
+5	US9081831B2	Methods and systems for presenting document-specific snippets
+5	US8577893B1	Ranking based on reference contexts
+5	US8538970B1	Personalizing search results
+5	US7657520B2	Providing history and transaction volume information of a content source to users
+5	US7788132B2	Reviewing the suitability of Websites for participation in an advertising network
+5	US7844603B2	Sharing user distributed search results
+5	US7933890B2	Propagating useful information among related web pages, such as web pages of a website
+5	US8965874B1	Dynamic aggregation of users
+5	US8510285B1	Using pre-search triggers
+5	US9916396B2	Methods and systems for content-based search
+5	US8954438B1	Structured metadata extraction
+5	US9195717B2	Image result provisioning based on document classification
+5	US9110852B1	Methods and systems for extracting information from text
+5	US9256682B1	Providing search results based on sorted properties
+5	US8949228B2	Identification of new sources for topics
+5	US9218819B1	Customizing actions based on contextual data and voice-based inputs
+5	US10055462B2	Providing search results using augmented search queries
+5	US9875242B2	Dynamic current results for second device
+5	US10255300B1	Automatically extracting profile feature attribute data from event data
+5	US9015043B2	Choosing recognized text from a background environment
+5	US7577655B2	Systems and methods for improving the ranking of news articles
+5	US8131751B1	Algorithms for selecting subsequences
+5	US7966309B2	Providing relevance-ordered categories of information
+5	US8326858B2	Synchronization of fixed and mobile data
+5	US9390143B2	Recent interest based relevance scoring
+4	US8145617B1	Generation of document snippets based on queries and search results
+4	US8051104B2	Editing a network of interconnected concepts
+4	US8069175B2	Delegating authority to evaluate content
+4	US7451130B2	System and method for providing preferred country biasing of search results
+4	US7627613B1	Duplicate document detection in a web crawler system
+4	US7509315B1	Managing URLs
+4	US7774328B2	Browseable fact repository
+4	US7136875B2	Serving advertisements based on content
+4	US7523099B1	Category suggestions relating to a search
+4	US7730054B1	Systems and methods for providing searchable prior history
+4	US7814085B1	System and method for determining a composite score for categorized search results
+4	US7818208B1	Accurately estimating advertisement performance
+4	US8224964B1	System and method of accessing a document efficiently through multi-tier web caching
+4	US8386453B2	Providing search information relating to a document
+4	US8392429B1	Informational book query
+4	US8788490B1	Link based locale identification for domains and domain content
+4	US9178848B1	Identifying affiliated domains
+4	US9443022B2	Method, system, and graphical user interface for providing personalized recommendations of popular search queries
+4	US9934516B1	Communicating information relating to a network resource
+4	US10061817B1	Social ranking for apps
+4	US10600090B2	Query feature based data structure retrieval of predicted values
+4	US10013152B2	Content selection disambiguation
+4	US8001118B2	Methods and apparatus for employing usage statistics in document retrieval
+4	US7680796B2	Determining and/or using location information in an ad system
+4	US7716161B2	Methods and apparatus for serving relevant advertisements
+4	US7401072B2	Named URL entry
+4	US8086619B2	System and method for providing search query refinements
+4	US7454417B2	Methods and systems for improving a search ranking using population information
+4	US7437364B1	System and method of accessing a document efficiently through multi-tier web caching
+4	US7680648B2	Methods and systems for improving text segmentation
+4	US7996208B2	Methods and systems for selecting a language for text segmentation
+4	US8392440B1	Online de-compounding of query terms
+4	US8260785B2	Automatic object reference identification and linking in a browseable fact repository
+4	US8631001B2	Systems and methods for weighting a search query result
+4	US7987195B1	Dynamic determination of location-identifying search phrases
+4	US9177074B2	System and method for confirming authorship of documents
+4	US8352499B2	Serving advertisements using user request information and user information
+4	US8056128B1	Systems and methods for detecting potential communications fraud
+4	US8661012B1	Ensuring that a synonym for a query phrase does not drop information present in the query phrase
+3	US7565139B2	Image-based search engine for mobile phones with camera
+3	US7818324B1	Searching indexed and non-indexed resources for content
+3	US8005720B2	Applying scanned information to identify content
+3	US8429103B1	Native machine learning service for user adaptation on a mobile platform
+3	US7917528B1	Contextual display of query refinements
+3	US8126874B2	Systems and methods for generating statistics from search engine query logs
+3	US7792837B1	Entity name recognition
+3	US7925610B2	Determining a meaning of a knowledge item using document-based information
+3	US8175914B1	Automatic adjustment of advertiser bids to equalize cost-per-conversion among publishers for an advertisement
+3	US9224103B1	Automatic annotation for training and evaluation of semantic analysis engines
+3	US7827170B1	Systems and methods for demoting personalized search results based on personal information
+3	US8832088B1	Freshness-based ranking
+3	US8417697B2	Permitting users to remove documents
+3	US8745067B2	Presenting comments from various sources
+3	US8572109B1	Query translation quality confidence
+3	US8577910B1	Selecting relevant languages for query translation
+3	US8577909B1	Query translation using bilingual search refinements
+3	US8538957B1	Validating translations using visual similarity between visual media search results
+3	US8127220B1	Scoring links in a document
+3	US7213198B1	Link based clustering of hyperlinked documents
+3	US7296016B1	Systems and methods for performing point-of-view searching
+3	US7363291B1	Methods and apparatus for increasing efficiency of electronic document delivery to users
+3	US7386438B1	Identifying language attributes through probabilistic analysis
+3	US7451398B1	Providing capitalization correction for unstructured excerpts
+3	US7552400B1	System and method for navigating within a graphical user interface without using a pointing device
+3	US7555428B1	System and method for identifying compounds through iterative analysis
+3	US7587391B1	Method and apparatus for generating a preference ranking
+3	US7587309B1	System and method for providing text summarization for use in web-based content
+3	US7673253B1	Systems and methods for inferring concepts for association with content
+3	US7716223B2	Variable personalization of search results in a search engine
+3	US7930400B1	System and method for managing multiple domain names for a website in a website indexing system
+3	US7979417B1	Embedded communication of link information
+3	US8090736B1	Enhancing search results using conceptual document relationships
+3	US8122018B2	System and method for generating creatives
+3	US8136025B1	Assigning document identification tags
+3	US8166046B1	Link filter
+3	US8165915B1	Advertisement customization
+3	US8166028B1	Method, system, and graphical user interface for improved searching via user-specified annotations
+3	US8200694B1	Identification of implicitly local queries
+3	US8204818B1	Hybrid online auction
+3	US8224689B1	Estimating inventory, user behavior, and/or cost and presentation attributes for an advertisement for use with an advertising system
+3	US8271328B1	User-based advertisement positioning using markov models
+3	US8296279B1	Identifying results through substring searching
+3	US8352465B1	Grouping of image search results
+3	US8438469B1	Embedded review and rating information
+3	US8589391B1	Method and system for generating web site ratings for a user
+3	US8650175B2	User interface for facts query engine with snippets from information sources that include query terms and answer terms
+3	US8676922B1	Automatic proxy setting modification
+3	US8732187B1	Link-based ranking of objects that do not include explicitly defined links
+3	US8775924B1	Processing web pages based on content quality
+3	US8812651B1	Systems and methods for client cache awareness
+3	US8825759B1	Recommending posts to non-subscribing users
+3	US8903812B1	Query independent quality signals
+3	US8984147B1	Velocity based content delivery
+3	US8990193B1	Method, system, and graphical user interface for improved search result displays via user-specified annotations
+3	US9026511B1	Call connection via document browsing
+3	US9053129B1	Content item relevance based on presentation data
+3	US9098582B1	Identifying relevant document languages through link context
+3	US9110568B2	Browser tab management
+3	US9213754B1	Personalizing content items
+3	US9542451B2	Mobile application search ranking
+3	US9729352B1	Assisting participation in a social network
+3	US9760644B2	Embedding event creation link in a document
+3	US9858590B1	Determining better ad selection, scoring, and/or presentation techniques
+3	US7844610B2	Delegated authority evaluation system
+3	US8131702B1	Systems and methods for browsing historical content
+3	US8996514B1	Mobile to non-mobile document correlation
+3	US8930393B1	Referent based search suggestions
+3	US9158857B2	Identifying landing pages for images
+3	US7346606B2	Rendering advertisements with documents having one or more topics using user topic interest
+3	US8140965B2	Identifying related information given content and/or presenting related information in association with content-related advertisements
+3	US7836391B2	Document search engine including highlighting of confident results
+3	US8856163B2	System and method for providing a user interface with search query broadening
+3	US7606798B2	Methods and systems for improving a search ranking using location awareness
+3	US7747632B2	Systems and methods for providing subscription-based personalization
+3	US8065184B2	Estimating ad quality from observed user behavior
+3	US7827060B2	Using estimated ad qualities for ad filtering, ranking and promotion
+3	US9898627B2	Secure and extensible pay per action online advertising
+3	US8086624B1	Determining proximity to topics of advertisements
+3	US8019700B2	Detecting an intrusive landing page
+3	US8412749B2	Populating a structured presentation with new values
+3	US7028029B2	Adaptive computation of ranking
+3	US8321278B2	Targeted advertisements based on user profiles and page profile
+3	US8407239B2	Multi-stage query processing system and method for use with tokenspace repository
+3	US8849835B1	Reconciling data
+3	US8332415B1	Determining spam in information collected by a source
+3	US9529907B2	Hold back and real time ranking of results in a streaming matching system
+3	US10275485B2	Retrieving context from previous sessions
+3	US7031961B2	System and method for searching and recommending objects from a categorically organized information repository
+3	US8086953B1	Identifying transient portions of web pages
+3	US8250080B1	Filtering in search engines
+3	US8868541B2	Scheduling resource crawls
+3	US8612414B2	Grouped search query refinements
+3	US8364668B2	User interfaces for a document search engine
+3	US9436709B1	Content discovery in a topical community
+3	US9521182B1	Systems and methods related to identifying authorship of internet content
+3	US9866579B1	Adaptive risk mitigation engine to facilitate safe interactions between entities
+3	US9767169B1	Enhancing search results for improved readability
+3	US8838587B1	Propagating query classifications
+3	US8301639B1	Location based query suggestion
+3	US8751520B1	Query suggestions with high utility
+3	US9116957B1	Substitute term scoring
+3	US10007731B2	Deduplication in search results
+3	US8898150B1	Collecting image search event information
+2	US7421432B1	Hypertext browser assistant
+2	US7523096B2	Methods and systems for personalized network searching
+2	US8595225B1	Systems and methods for correlating document topicality and popularity
+2	US9053177B1	Sitelinks based on visual location
+2	US11409740B2	Anticipatory pre-execution of data queries
+2	US7769751B1	Method and apparatus for classifying documents based on user inputs
+2	US9135346B2	Index data for native applications
+2	US10409818B1	Populating streams of content
+2	US8495483B1	Using text surrounding hypertext links when indexing and generating page summaries
+2	US9116952B1	Query refinements using search data
+2	US10592540B2	Generating elements of answer-seeking queries and elements of answers
+2	US8549008B1	Determining section information of a digital volume
+2	US8359300B1	System and method for displaying both localized search results and internet search results
+2	US8949277B1	Semantic geotokens
+2	US12566796B1	Query-dependent generative descriptions for videos provided via a search result
+2	US10303684B1	Resource scoring adjustment based on entity selections
+2	US11663201B2	Generating query variants using a trained generative model
+2	US8275790B2	System and method of accessing a document efficiently through multi-tier web caching
+2	US8762373B1	Personalized search result ranking
+2	US9235849B2	Generating user information for use in targeted advertising
+2	US9684676B1	Method for searching media
+2	US8560493B2	Determining and/or using end user local time information in an ad system
+2	US7451129B2	System and method for providing preferred language ordering of search results
+2	US8306972B2	Ordering of search results based on language and/or country of the search results
+2	US8255417B2	System and method for providing definitions
+2	US8438154B2	Generating information for online advertisements from internet data and traditional media data
+2	US8595071B2	Using enhanced ad features to increase competition in online advertising
+2	US7647299B2	Serving advertisements using a search of advertiser web information
+2	US11042886B2	Systems and methods for determining user actions
+2	US8706551B2	Systems and methods for determining user actions
+2	US8041601B2	System and method for automatically targeting web-based advertisements
+2	US8185543B1	Video image-based querying for video content
+2	US7694212B2	Systems and methods for providing a graphical display of search activity
+2	US7783631B2	Systems and methods for managing multiple user accounts
+2	US7801881B1	Sitemap generating client for web crawler
+2	US7996391B2	Systems and methods for providing search results
+2	US8326689B2	Flexible advertising system which allows advertisers with different value propositions to express such value propositions to the advertising system
+2	US8010480B2	Selecting high quality text within identified reviews for display in review snippets
+2	US7827052B2	Systems and methods for reputation management
+2	US8489614B2	Ranking academic event related search results using event member metrics
+2	US8060567B2	Method, system, graphical user interface, and data structure for creating electronic calendar entries from email messages
+2	US8041730B1	Using geographic data to identify correlated geographic synonyms
+2	US7725453B1	Custom search index
+2	US8065275B2	Systems and methods for cache optimization
+2	US8046355B2	Word decompounder
+2	US8145630B1	Session-based dynamic search snippets
+2	US8209330B1	Ordering image search results
+2	US8582801B2	Assisting the authoring of posts to an asymmetric social network
+2	US8724910B1	Selection of representative images
+2	US8527597B2	Determining message prominence
+2	US7634716B1	Techniques for finding related hyperlinked documents using link-based analysis
+2	US8438142B2	Suggesting and refining user input based on original user input
+2	US9779140B2	Ranking signals for sparse corpora
+2	US11231826B2	Annotations in software applications for invoking dialog system functions
+2	US8818971B1	Processing bulk deletions in distributed databases
+2	US9146980B1	Temporal content selection
+2	US9424345B1	Contextual content distribution
+2	US8620929B2	Context based resource relevance
+2	US10353964B2	Evaluating semantic interpretations of a search query
+2	US9009144B1	Dynamically identifying and removing potential stopwords from a local search query
+2	US8296257B1	Comparing models
+2	US8584013B1	Temporal layers for presenting personalization markers on imagery
+2	US8180725B1	Method and apparatus for selecting links to include in a probabilistic generative model for text
+2	US8799285B1	Automatic advertising campaign structure suggestion
+2	US8229959B1	Sharable search result labels
+2	US9002866B1	Generating context-based spell corrections of entity names
+2	US7865497B1	Sitemap generation where last modified time is not available to a network crawler
+2	US8856115B1	Framework for suggesting search terms
+2	US8898173B1	Ranking location search results based on multiple distance measures
+2	US9706352B2	System and method for determining a boundary of a geographic area
+2	US8671106B1	Indicators for entities corresponding to search suggestions
+2	US7797274B2	Online content collaboration model
+2	US8181197B2	System and method for voting on popular video intervals
+2	US8566353B2	Web-based system for collaborative generation of interactive videos
+2	US8826117B1	Web-based system for video editing
+2	US8533146B1	Identification of over-clustered map features
+2	US8862492B1	Identifying unreliable contributors of user-generated content
+2	US8700580B1	Moderation of user-generated content
+2	US9319371B1	Management of commercial messages in a social network
+2	US8832116B1	Using mobile application logs to measure and maintain accuracy of business information
+2	US11544750B1	Overlaying content items with third-party reviews
+2	US9336330B2	Associating entities based on resource associations
+2	US9143823B2	Providing suggestions for optimizing videos to video owners
+2	US9529785B2	Detecting relationships between edits and acting on a subset of edits
+2	US9465505B1	Reputation based collaboration session
+2	US9811830B2	Method, medium, and system for online fraud prevention based on user physical location data
+2	US9971752B2	Systems and methods for resolving privileged edits within suggested edits
+2	US9348803B2	Systems and methods for providing just-in-time preview of suggestion resolutions
+2	US10873616B1	Providing content to co-located devices with enhanced presentation characteristics
+2	US9860578B2	Methods, systems, and media for recommending collaborators of media content based on authenticated media content input
+2	US8122032B2	Identifying and linking similar passages in a digital text corpus
+2	US7958136B1	Systems and methods for identifying similar documents
+2	US8434134B2	Providing an electronic document collection
+2	US8856640B1	Method and apparatus for applying revision specific electronic signatures to an electronically stored document
+2	US11308037B2	Automatic collaboration
+2	US9529916B1	Managing documents based on access context
+2	US9384285B1	Methods for identifying related documents
+2	US9495341B1	Fact correction and completion during document drafting
+2	US9514113B1	Methods for automatic footnote generation
+2	US9842113B1	Context-based file selection
+2	US9529791B1	Template and content aware document and template editing
+2	US9703763B1	Automatic document citations by utilizing copied content for candidate sources
+2	US9015142B2	Identifying listings of multi-site entities based on user behavior signals
+2	US8423350B1	Segmenting text for searching
+2	US8761512B1	Query by image
+2	US9483581B2	Evaluation of substitution contexts
+2	US9690847B2	Selecting content using query-independent scores of query segments
+2	US10402410B2	Contextualizing knowledge panels
+2	US8538982B2	Framework for selecting and presenting answer boxes relevant to user input as query suggestions
+2	US8631030B1	Query suggestions with high diversity
+2	US8548981B1	Providing relevance- and diversity-influenced advertisements including filtering
+2	US9390139B1	Presentation of content items in view of commerciality
+2	US9152634B1	Balancing content blocks associated with queries
+2	US8468083B1	Advertisement topic diversification and ranking
+2	US7558769B2	Identifying clusters of similar reviews and displaying representative reviews from multiple clusters
+2	US10997227B2	Systems and methods for processing a natural language query in data tables
+2	US10061851B1	Encouraging inline person-to-person interaction
+2	US10795926B1	Suppressing personally objectionable content in search results
+2	US9424360B2	Ranking events
+2	US9852224B2	Promoting preferred content in a search query
+2	US7707157B1	Document near-duplicate detection
+2	US9824079B1	Providing actions for mobile onscreen content
+2	US9965559B2	Providing automatic actions for mobile onscreen content
+2	US9703541B2	Entity action suggestion on a mobile device
+2	US10970646B2	Action suggestions for user-selected content
+2	US10178527B2	Personalized entity repository
+2	US10055390B2	Simulated hyperlinks on a mobile device based on user intent and a centered selection of text
+2	US10535005B1	Providing contextual actions for mobile onscreen content
+2	US11237696B2	Smart assist for repeated actions
+2	US6529903B2	Methods and apparatus for using a modified index to provide search results in response to an ambiguous search query
+2	US8392449B2	Resource search operations
+2	US9235654B1	Query rewrites for generating auto-complete suggestions
+2	US10216694B2	Generic scheduling
+2	US7567976B1	Merging objects in a facts database
+2	US7716140B1	Methods and systems for controlling access to relationship information in a social network
+2	US7333976B1	Methods and systems for processing contact information
+2	US9229974B1	Classifying queries
+2	US9116918B1	Methods, systems, and media for interpreting queries
+2	US9547644B2	Presenting translations of text depicted in images
+2	US8346815B2	Dynamic image display area and image display within web search results
+2	US8452795B1	Generating query suggestions using class-instance relationships
+2	US9418156B2	Providing local data with search results
+2	US9720896B1	Synthesizing union tables from the web
+2	US8504437B1	Dynamically selecting and presenting content relevant to user input
+2	US8930350B1	Autocompletion using previously submitted query data
+2	US10713261B2	Generating insightful connections between graph entities
+2	US9235653B2	Discovering entity actions for an entity graph
+2	US9342622B2	Two-phase construction of data graphs from disparate inputs
+2	US9798829B1	Data graph interface
+2	US10002117B1	Translating annotation tags into suggested markup
+2	US9659056B1	Providing an explanation of a missing fact estimate
+2	US8135712B1	Posting questions from search queries
+1	US9213745B1	Methods, systems, and media for ranking content items using topics
+1	US10467300B1	Topical resource recommendations for a displayed resource
+1	US12579158B1	Dynamic organization of search results
+1	US8799257B1	Searching based on audio and/or visual features of documents
+1	US9141906B2	Scoring concept terms using a deep network
+1	US9026516B1	Interest-based keywords for prominent entity and by location
+1	US8843477B1	Onsite and offsite search ranking results
+1	US9146972B2	Ranking of presentation modes for particular content
+1	US9348922B2	Ranking channels in search
+1	US9225794B2	Adaptive DNS pre-resolution
+1	US8676783B1	Method and apparatus for managing a backlog of pending URL crawls
+1	US9965521B1	Determining a transition probability from one or more past activity indications to one or more subsequent activity indications
+1	US9436742B1	Ranking search result documents based on user attributes
+1	US9805142B2	Ranking suggestions based on user attributes
+1	US10515076B1	Generating query answers from a user's history
+1	US11017037B2	Obtaining responsive information from multiple corpora
+1	US8688667B1	Providing intent sensitive search results
+1	US9852188B2	Contextual search on multimedia content
+1	US9684693B1	On-device query rewriting
+1	US10885077B2	Subquery generation from a query
+1	US11217247B2	Determining whether to automatically resume first automated assistant session upon cessation of interrupting second session
+1	US8131736B1	System and method for navigating documents
+1	US9274863B1	Latency reduction in distributed computing systems
+1	US9092338B1	Multi-level caching event lookup
+1	US8108383B2	Enhanced search results
+1	US8453058B1	Crowd-sourced audio shortcuts
+1	US8612226B1	Determining advertisements based on verbal inputs to applications on a computing device
+1	US9318107B1	Hotword detection on multiple devices
+1	US9424841B2	Hotword detection on multiple devices
+1	US9653075B1	Voice commands across devices
+1	US10032452B1	Multimodal transmission of packetized data
+1	US8510764B1	Method and system for deep links in application contexts
+1	US10579687B2	Providing native application search results with web search results
+1	US12361215B2	Performing machine learning tasks using instruction-tuned neural networks
+1	US12511325B2	Reranking documents based on graph representations of the documents
+1	US7801899B1	Mixing items, such as ad targeting keyword suggestions, from heterogeneous sources
+1	US8433512B1	Enhanced identification of interesting points-of-interest
+1	US8538973B1	Directions-based ranking of places returned by local search queries
+1	US9098589B1	Geographic annotation of electronic resources
+1	US11475277B2	Accurate and interpretable classification with hard attention
+1	US8332396B1	Resource geotopicality measures
+1	US8396888B2	Location-based searching using a search area that corresponds to a geographical location of a computing device
+1	US8417721B1	Using geographic data to identify correlated geographic synonyms
+1	US8819004B1	Ranking image search results using hover data
+1	US9098511B1	Watch time based ranking
+1	US10397056B2	Optimized digital component analysis system
+1	US11609949B2	Methods, systems, and media for modifying search results based on search query risk
+1	US12572573B2	Session-based user awareness in large language models
+1	US11947923B1	Multimedia content management for large language model(s) and/or other generative model(s)
+1	US12266065B1	Visual indicators of generative model response details
+1	US7765209B1	Indexing and retrieval of blogs
+1	US7734610B2	Decentralised web annotation
+1	US7685144B1	Dynamically autocompleting a data entry
+1	US7634463B1	Automatically generating and maintaining an address book
+1	US9009065B2	Promoting content from an activity stream
+1	US9589303B2	Selective presentation of content types and sources in search
+1	US8793235B2	System and method for improving access to search results
+1	US8719244B1	Methods and systems for retrieval of information items and associated sentence fragments
+1	US9084025B1	System and method for displaying both multimedia events search results and internet search results
+1	US11263400B2	Identifying entity attribute relations
+1	US12608562B2	Providing personalized prompts to users based on documents in cloud storage
+1	US7991762B1	Managing URLs
+1	US8037055B2	Sitemap generating client for web crawler
+1	US8189685B1	Ranking video articles
+1	US8326866B1	Using geographic data to identify correlated geographic synonyms
+1	US8346607B1	Automatic adjustment of advertiser bids to equalize cost-per-conversion among publishers for an advertisement
+1	US8346791B1	Search augmentation
+1	US8380707B1	Session-based dynamic search snippets
+1	US8392441B1	Synonym generation using online decompounding and transitivity
+1	US8515896B2	Intrusive software management
+1	US8549032B1	Determining proximity to topics of advertisements
+1	US8566331B1	Ordering image search results
+1	US8924436B1	Populating a structured presentation with new values
+1	US9015159B1	Method for searching media
+1	US9356901B1	Determining message prominence
+1	US9367756B2	Selection of representative images
+1	US9485285B1	Assisting the authoring of posts to an asymmetric social network
+1	US9569550B1	Custom search index
+1	US10282756B2	Managing revenue sharing bids
+1	US10482503B2	Suggesting and/or providing ad serving constraint information
+1	US10504153B2	Using the utility of configurations in ad serving decisions
+1	US10963891B2	Secure conversion tracking
+1	US11386466B2	Content item selection criteria generation
+1	US8316040B2	Programmable search engine
+1	US8756210B1	Aggregating context data for programmable search engines
+1	US9779179B2	Referent based search suggestions
+1	US9892132B2	Determining geographic locations for place names in a fact repository
+1	US8082244B2	Systems and methods for determining document freshness
+1	US8528084B1	Systems and methods for detecting potential communications fraud
+1	US8452758B2	Methods and systems for improving a search ranking using related queries
+1	US8781898B1	Location query targeting
+1	US7533090B2	System and method for rating electronic documents
+1	US10387512B2	Deriving and using interaction profiles
+1	US9460209B1	Identifying non-search actions based on a search query
+1	US8494900B2	Adjusting ad costs using document performance or document collection performance
+1	US7865399B2	Distributed electronic commerce system with centralized point of purchase
+1	US8386335B1	Cross-referencing comments
+1	US11023520B1	Background audio identification for query disambiguation
+1	US9767158B1	Ranking algorithms using unique bucketing identifiers
+1	US8176414B1	Document division method and system
+1	US8380705B2	Methods and systems for improving a search ranking using related queries
+1	US8719260B2	Identifying the unifying subject of a set of facts
+1	US9305102B2	Systems and methods for providing personalized search results based on prior user interactions
+1	US9323866B1	Query completions in the context of a presented document
+1	US8694512B1	Query suggestions
+1	US9135271B1	Finding similar cities using geo-related queries
+1	US8478773B1	Interpreting search queries
+1	US8515973B1	Identifying geographic features from query prefixes
+1	US9753945B2	Systems, methods, and computer-readable media for interpreting geographical search queries
+1	US10282444B2	Disambiguating join paths for natural language queries
+1	US9111282B2	Method and system for identifying business records
+1	US8959084B2	Identifying locations
+1	US8463774B1	Universal scores for location search queries
+1	US8694489B1	Map spam detection
+1	US9030499B2	Custom labeling of a map based on content
+1	US9547989B2	Reporting road event data and sharing with other vehicles
+1	US9747346B1	Attention spots in a map interface
+1	US8990224B1	Detecting document text that is hard to read
+1	US10459989B1	Providing result-based query suggestions
+1	US8375042B1	Index-side synonym generation
+1	US11423029B1	Index-side stem-based variant generation
+1	US9037591B1	Storing term substitution information in an index
+1	US8510312B1	Automatic metadata identification
+1	US9411862B1	Systems and methods for dynamic sharding of hierarchical data
+1	US7350187B1	System and methods for automatically creating lists
+1	US10997560B2	Systems and methods to improve job posting structure and presentation
+1	US10607273B2	System for determining and displaying relevant explanations for recommended content
+1	US9996523B1	System for real-time autosuggestion of related objects
+1	US8898152B1	Sharing search engine relevance data
+1	US9152714B1	Selecting score improvements
+1	US8762363B1	Adding synonym rules based on historic data
+1	US8812302B2	Techniques for inserting diacritical marks to text input via a user device
+1	US10311096B2	Online image analysis
+1	US8868565B1	Calibrating click duration according to context
+1	US9135307B1	Selectively generating alternative queries
+1	US10496649B1	Personalized suggestions based on past queries
+1	US7853622B1	Video-related recommendations using link structure
+1	US7840563B2	Collective ranking of digital content
+1	US9237386B2	Aiding discovery of program content by providing deeplinks into most interesting moments via social media
+1	US9401947B1	Methods, systems, and media for presenting comments based on correlation with content
+1	US8799773B2	Aspect-based sentiment summarization
+1	US9201928B2	Assessing quality of reviews based on online reviewer generated content
+1	US7987188B2	Domain-specific sentiment classification
+1	US8515828B1	Providing product recommendations through keyword extraction from negative reviews
+1	US9311363B1	Personalized entity rankings
+1	US9317873B2	Automatic verification of advertiser identifier in advertisements
+1	US11115529B2	System and method for providing and managing third party content with call functionality
+1	US10469424B2	Network based data traffic latency reduction
+1	US7801876B1	Systems and methods for customizing behavior of multiple search engines
+1	US8423392B2	Trusted participants of social network providing answers to questions through on-line conversations
+1	US9300701B2	Social circles in social networks
+1	US8612436B1	Reverse engineering circumvention of spam detection algorithms
+1	US12164527B2	Search result annotations
+1	US8442331B2	Capturing text from rendered documents using supplemental information
+1	US8799303B2	Establishing an interactive environment for rendered documents
+1	US10635723B2	Search engines and systems with handheld document data capture devices
+1	US8521772B2	Document enhancement system and method
+1	US7990556B2	Association of a portable scanner with input/output and storage devices
+1	US9143638B2	Data capture from rendered documents using handheld device
+1	US9116890B2	Triggering actions in response to optically or acoustically capturing keywords from a rendered document
+1	US8621349B2	Publishing techniques for adding value to a rendered document
+1	US8793162B2	Adding information or functionality to a rendered document via association with an electronic counterpart
+1	US8146156B2	Archive of text captures from rendered documents
+1	US9008447B2	Method and system for character recognition
+1	US8713418B2	Adding value to a rendered document
+1	US8620083B2	Method and system for character recognition
+1	US9460346B2	Handheld device for capturing text from both a document printed on paper and a document displayed on a dynamic display device
+1	US8489624B2	Processing techniques for text capture from a rendered document
+1	US8874504B2	Processing techniques for visual capture data from a rendered document
+1	US8346620B2	Automatic modification of web pages
+1	US8418055B2	Identifying a document by performing spectral analysis on the contents of the document
+1	US8447066B2	Performing actions based on capturing information from rendered documents, such as documents under copyright
+1	US9081799B2	Using gestalt information to identify locations in printed information
+1	US9323784B2	Image search using text-based elements within the contents of images
+1	US8543577B1	Cross-channel clusters of information
+1	US9684690B2	Flights search
+1	US8756218B1	Query classification based on search engine results
+1	US9430571B1	Generating travel queries in response to free text queries
+1	US10922326B2	Triggering knowledge panels
+1	US9305307B2	Selecting content associated with a collection of entities
+1	US10242112B2	Search result filters from resource content
+1	US7908287B1	Dynamically autocompleting a data entry
+1	US9043304B1	Determining geographic areas of interest for a query
+1	US9552375B2	Geocoding of images based on search queries
+1	US10289648B2	Enforcing category diversity
+1	US9355158B2	Modifying search results based on selection of one of the search results
+1	US9348945B2	Modifying search results based on dismissal action associated with one or more of the search results
+1	US9940362B2	Predicting user needs for a particular context
+1	US10909124B2	Predicting intent of a search for a particular context
+1	US8214350B1	Pre-computed impression lists
+1	US8489604B1	Automated resource selection process evaluation
+1	US9256688B2	Ranking content items using predicted performance
+1	US9767196B1	Content selection
+1	US11170014B2	Method and system for preview of search engine processing
+1	US6941293B1	Methods and apparatus for determining equivalent descriptions for an information need
+1	US9529793B1	Resolving pronoun ambiguity in voice queries
+1	US9672530B2	Supporting voting-based campaigns in search
+1	US11062368B1	Selecting online content using offline data
+1	US8769397B2	Embedding macros in web pages with advertisements
+1	US8954427B2	Search result previews
+1	US8566425B1	Identifying social profiles of entities
+1	US8655913B1	Method for locating web elements comprising of fuzzy matching on attributes and relative location/position of element
+1	US8924850B1	Speeding up document loading
+1	US9971746B2	Identifying information using referenced text
+1	US9201929B1	Ranking a search result document based on data usage to load the search result document
+1	US9477767B1	Demotion of already observed search query completions
+1	US9836528B1	Data constrained resource access
+1	US10013496B2	Indexing actions for resources
+1	US10051029B1	Publisher specified load time thresholds for online content items
+1	US9760547B1	Monetization of online content
+1	US8731939B1	Routing queries based on carrier phrase registration
+1	US8676804B1	Managing information about entities using observations generated from user modified values
+1	US8706732B1	Managing information about entities using clusters of received observations
+1	US9582588B2	Methods and systems for providing custom crawl-time metadata
+1	US8972375B2	Adapting content repositories for crawling and serving
+1	US7979425B2	Server-side match
+1	US8145712B2	Methods and systems for developing an instant messaging network
+1	US8156100B2	Methods and apparatus for employing usage statistics in document retrieval
+1	US8229957B2	Categorizing objects, such as documents and/or clusters, with respect to a taxonomy and data structures derived from such categorization
+1	US9031898B2	Presentation of search results based on document structure
+1	US8316292B1	Identifying multiple versions of documents
+1	US9507858B1	Selectively merging clusters of conceptually related words in a generative model for text
+1	US8229942B1	Identifying negative keywords associated with advertisements
+1	US8667532B2	Content recognition for targeting video advertisements
+1	US8433611B2	Selection of advertisements for placement with content
+1	US9064024B2	Bundle generation
+1	US8572087B1	Content identification
+1	US9824372B1	Associating advertisements with videos
+1	US9152708B1	Target-video specific co-watched video clusters
+1	US9026479B1	Predicting user interests
+1	US8869208B2	Computing similarity between media programs
+1	US9245024B1	Contextual-based serving of content segments in a video delivery system
+1	US9659097B1	Propagating query classifications
+1	US9569438B1	Ranking content using content and content authors
+1	US10198153B1	Ordering items for switching
+1	US11275807B2	React to location changes on web pages
+1	US7565423B1	System and method of accessing a document efficiently through multi-tier web caching
+1	US8180760B1	Organization system for ad campaigns
+1	US8732569B2	Predicting user navigation events
+1	US8788711B2	Redacting content and inserting hypertext transfer protocol (HTTP) error codes in place thereof
+1	US9769285B2	Access to network content
+1	US8650139B2	Predicting user navigation events
+1	US9584579B2	Method and system for providing page visibility information
+1	US9946792B2	Access to network content
+1	US8392411B2	Automatic routing of search results
+1	US9063983B1	Detecting name-triggering queries
+1	US9959296B1	Providing suggestions within a document
+1	US9251141B1	Entity identification model training
+1	US9881010B1	Suggestions based on document topics
+1	US9607032B2	Updating text within a document
+1	US9311069B2	Search in application launcher
+1	US9589033B1	Presenting results from multiple search engines
+1	US9342597B1	Associating an event attribute with a user based on a group of electronic messages associated with the user
+1	US9449095B1	Revising search queries
+1	US9165028B1	Ranking modifications of a previous query
+1	US11914660B2	Collaborative search sessions through an automated assistant
+1	US7886032B1	Content retrieval from sites that use session identifiers
+1	US8037073B1	Detection of bounce pad sites
+1	US8095530B1	Detecting common prefixes and suffixes in a list of strings
+1	US9083583B1	Latency reduction via adaptive speculative preconnection
+1	US8903946B1	Reduction in redirect navigation latency via speculative preconnection
+1	US8700583B1	Dynamic tiermaps for large online databases
+1	US10235454B1	Generating playlist inclusive canonical network addresses
+1	US7739314B2	Scalable user clustering based on set similarity
+1	US8762358B2	Query language determination using query terms and interface language
+1	US7778994B2	Computer-implemented interactive, virtual bookshelf system and method
+1	US7657514B2	Content identification expansion
+1	US9009153B2	Systems and methods for identifying a named entity
+1	US8595228B1	Preferred sites
+1	US10142441B2	Search result annotations
+1	US9092529B1	Social search endorsements
+1	US9792330B1	Identifying local experts for local search
+1	US8126882B2	Credibility of an author of online content
+1	US11568004B2	Comparative search within user-generated content
+1	US9659065B1	Ranking search results based on current or past presences
+1	US9280580B1	Customizing search
+1	US9183257B1	Using web ranking to resolve anaphora
+1	US7437353B2	Systems and methods for unification of search results
+1	US8201081B2	Systems and methods for processing inoperative document links
+1	US9317605B1	Presenting forked auto-completions
+1	US8635212B1	Floating ranking of product results
+1	US8996516B2	Adjacent search results exploration
+1	US9984684B1	Inducing command inputs from high precision and high recall data
+1	US7933984B1	Systems and methods for detecting click spam
+1	US7783644B1	Query-independent entity importance in books
+1	US8589399B1	Assigning terms of interest to an entity
+1	US10318567B2	Providing knowledge panels with search results
+1	US10318581B2	Video metadata association recommendation
+1	US11914661B2	Integration of web and media snippets into map applications
+1	US7730074B1	Accelerated large scale optimization
+1	US9349134B1	Detecting illegitimate network traffic
+1	US8706550B1	External-signal influence on content item performance
+1	US10255319B2	Searchable index
+1	US8521526B1	Disambiguation of a spoken query term
+1	US10565256B2	Contextually disambiguating queries
+1	US8452763B1	Extracting and scoring class-instance pairs
+1	US8538916B1	Extracting instance attributes from text
+1	US9830379B2	Name disambiguation using context terms
+1	US9245022B2	Context-based person search
+1	US9442905B1	Detecting neighborhoods from geocoded web documents
+1	US9501499B2	Methods and systems for creating image-based content based on text-based content
+1	US9727617B1	Systems and methods for searching quotes of entities using a database
+1	US8768870B1	Training a model using parameter server shards
+1	US9015245B1	Experience sharing with commenting
+1	US9213185B1	Display scaling based on movement of a head-mounted display
+1	US9146993B1	Content keyword identification
+1	US9141916B1	Using embedding functions with a deep network
+1	US9210399B1	Wearable device with multiple position support
+1	US9037464B1	Computing numeric representations of words in a high-dimensional space
+1	US9269048B1	Distribution shared content based on a probability
+1	US9514404B1	Using embedding functions with a deep network
+1	US10068557B1	Generating music with deep neural networks
+1	US10769191B2	Classifying data objects
+1	US10366324B2	Neural network for processing graph data
+1	US10324993B2	Predicting a search engine ranking signal value
+1	US10373049B2	Generating an output for a neural network output layer
+1	US11222258B2	Load balancing for memory channel controllers
+1	US8484222B1	Method and apparatus for identifying a standalone location
+1	US8666989B1	Adaptive distributed indexing of local adverts
+1	US8958817B1	Weighted-distance spatial indexing
+1	US7437351B2	Method for searching media
+1	US7136854B2	Methods and apparatus for providing search results in response to an ambiguous search query
+1	US8195665B1	Dynamic bitwise sharding of live stream comment groups
+1	US9400789B2	Associating resources with entities
+1	US8458196B1	System and method for determining topic authority
+1	US9058812B2	Method and system for coding an information signal using pitch delay contour adjustment
+1	US8103676B2	Classifying search results to determine page elements
+1	US9405775B1	Ranking videos based on experimental data
+1	US8954420B1	Methods and systems for improving a search ranking using article information
+1	US8612411B1	Clustering documents using citation patterns
+1	US8631076B1	Methods and systems for associating instant messenger events
+1	US8099407B2	Methods and systems for processing media files
+1	US8386728B1	Methods and systems for prioritizing a crawl
+1	US7412708B1	Methods and systems for capturing information
+1	US8275839B2	Methods and systems for processing email messages
+1	US7941439B1	Methods and systems for information capture
+1	US8346777B1	Systems and methods for selectively storing event data
+1	US7725508B2	Methods and systems for information capture and retrieval
+1	US7680888B1	Methods and systems for processing instant messenger messages
+1	US8161053B1	Methods and systems for eliminating duplicate events
+1	US7581227B1	Systems and methods of synchronizing indexes
+1	US7664751B2	Variable user interface based on document access privileges
+1	US7603355B2	Variably controlling access to content
+1	US9262446B1	Dynamically ranking entries in a personal data book
+1	US8175875B1	Efficient indexing of documents with similar content
+1	US8606787B1	Social network node clustering system and method
+1	US8527516B1	Identifying similar digital text volumes
+1	US8582872B1	Place holder image detection via image clustering
+1	US9536016B2	On-disk multimap
+1	US8843465B2	Distributing content
+1	US8392394B1	Merging search results
+1	US10803391B2	Modeling personal entities on a mobile device using embeddings
+1	US10318562B2	Triggering application information
+1	US9129008B1	Sentiment-based classification of media content
+1	US8990700B2	Rating and review interface
+1	US11514353B2	Generating, using a machine learning model, request agnostic interaction scores for electronic communications, and utilization of same
+1	US11941678B1	Search with machine-learned model-generated queries
+1	US12086857B2	Search with machine-learned model-generated queries
+1	US8868591B1	Modifying a user query to improve the results
+1	US9870131B2	Exploring information by topic
+1	US9336277B2	Query suggestions based on search data
+1	US8504584B1	Systems and methods for providing search query refinements
+1	US8005842B1	Inferring attributes from search queries
+1	US8392823B1	Systems and methods for detecting hidden text and hidden links
+1	US9501460B1	Detecting and processing invisible elements within a web page
+1	US10110701B2	Structured entity information page
+1	US9239931B2	Identifying shared content stored by a service
+1	US8661023B1	Optimizing search query logic to speed retrieval
+1	US10102291B1	Computerized systems and methods for building knowledge bases using context clouds
+1	US10140286B2	Optimized graph traversal
+1	US9542450B1	Selecting content using entity properties
+1	US9998472B2	Search personalization and an enterprise knowledge graph
+1	US10326768B2	Access control for enterprise knowledge
+1	US9311168B1	Deeplinking to multiple native applications
+1	US10289625B2	Providing context facts
+1	US7451120B1	Detecting novel document content
+1	US9477376B1	Prioritizing content based on user frequency
+1	US9679018B1	Document ranking based on entity frequency
+1	US9569547B2	Generating a news timeline
+1	US9489112B2	Recommended news edition on a map using geo entities
+1	US7593740B2	Location-based social software for mobile devices
+1	US8311950B1	Detecting content on a social network using browsing patterns
+1	US8442965B2	Query language identification
+1	US9026592B1	Promoting user interaction based on user activity in social networking services
+1	US9183259B1	Selecting content based on social significance
+1	US8843491B1	Ranking and ordering items in stream
+1	US9177065B1	Quality score for posts in social networking services
+1	US9357022B1	Measuring effectiveness of social networking activity
+1	US9454519B1	Promotion and demotion of posts in social networking services
+1	US9503411B1	Ranking posts based on a prioritized list of recipients
+1	US9411856B1	Overlay generation for sharing a website
+1	US9355425B2	Soft posting to social activity streams
+1	US9547697B2	Aggregating interactions for content items
+1	US9576007B1	Index and query serving for low latency search of large graphs
+1	US9870403B1	Estimating social content interactions
+1	US8204897B1	Interactive search querying
+1	US8412728B1	User interface (UI) for presentation of match quality in auto-complete suggestions
+1	US7836044B2	Anticipated query generation and processing in a search engine
+1	US10291565B2	Incorporating selectable application links into conversations with personal assistant modules
+1	US10824630B2	Search and retrieval of structured information cards
+1	US8700610B1	Systems and methods for providing news alerts
+1	US9111218B1	Method and system for remediating topic drift in near-real-time classification of customer feedback
+1	US9002848B1	Automatic incremental labeling of document clusters
+1	US8972404B1	Methods and systems for organizing content
+1	US9110984B1	Methods and systems for constructing a taxonomy based on hierarchical clustering
+1	US8977620B1	Method and system for document classification
+1	US9367814B1	Methods and systems for classifying data using a hierarchical taxonomy
+1	US10291665B1	Increasing a visibility of a content item with a comment by a close contact
+1	US9727644B1	Determining a quality score for a content item
+1	US9665657B2	Dynamically picking content from social shares to display in a user interface
+1	US10185780B1	Resharing content items
+1	US9443518B1	Text transcript generation from a communication session
+1	US8612211B1	Speech recognition and summarization
+1	US11269879B2	Optimal query scheduling according to data freshness requirements
+1	US10459955B1	Determining geographic locations for place names
+1	US7512620B2	Data structure for incremental search
+1	US8285697B1	Feedback enhanced attribute extraction
+1	US7739212B1	System and method for updating facts in a fact repository
+1	US8645391B1	Attribute-value extraction from structured documents
+1	US9116996B1	Reverse question answering
+1	US9870554B1	Managing documents based on a user's calendar
+1	US9672251B1	Extracting facts from documents
+1	US10346448B2	System and method for classifying an alphanumeric candidate identified in an email message
+1	US7664734B2	Systems and methods for generating multiple implicit search queries
+1	US8812520B1	Augmented resource graph for scoring resources
+1	US8484192B1	Media search broadening
+1	US8005826B1	Identifying media content in queries
+1	US8631440B2	Program guide user interface
+1	US8655862B1	System and method for query re-issue in search engines
+1	US8209331B1	Context sensitive ranking
+1	US8244749B1	Generating sibling query refinements
+1	US8583675B1	Providing result-based query suggestions
+1	US8868472B1	Confidence scoring in predictive modeling
+1	US8762389B1	Synonym identification based on search quality
+1	US9152700B2	Applying query based image relevance models
+1	US7672971B2	Modular architecture for entity normalization
+1	US11580170B2	Machine learning based automatic audience segment in ad targeting
+1	US7917480B2	Document compression system and method for use with tokenspace repository
+1	US8631006B1	System and method for personalized snippet generation
+1	US8239751B1	Data from web documents in a spreadsheet
+1	US8560468B1	Learning expected values for facts
+1	US9173092B1	Base station data embedded for transmission within information provided to a user device
+1	US12536233B1	AI-generated content page tailored to a specific user
+1	US8359326B1	Contextual n-gram analysis

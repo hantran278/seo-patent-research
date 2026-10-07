@@ -1,0 +1,488 @@
+{
+ "id": "US8554759B1",
+ "title": "Selection of documents to place in search index",
+ "abstract": "A system may identify a collection of documents, predict a utility score for each document in the collection of documents, and create a ranked list of the documents based on the predicted utility scores for the documents. The system may also select a number of the documents in the ranked list of documents, index the selected documents, and store the index.",
+ "inventors": [
+  "Thomas M. Annau",
+  "Charles Garrett",
+  "Sharmila Subramaniam",
+  "Sanjay Joshi",
+  "Rosemary Emery-Montemerlo",
+  "Aaron A. D'Souza",
+  "Jonathan D. Wilson",
+  "Christopher W. Fraser"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2008-01-30",
+ "filing_date": "2012-08-16",
+ "publication_date": "2013-10-08",
+ "status": "Expired - Fee Related",
+ "expiration": "",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/20",
+  "G06F16/22",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/958"
+ ],
+ "claims": [
+  {
+   "text": "1. A device comprising: a memory to store instructions; and a processor to execute the instructions to: determine, for each document of a plurality of documents, information identifying a measure of quality of the document as a search result for one or more search queries, the information, identifying the measure of quality of a particular document in the plurality of documents, being determined based on: a probability that the particular document will be selected at least a threshold number of times during a particular time period when the particular document is presented as a search result, the probability that the particular document will be selected being based on a position of the particular document in a ranked list of search results, and a probability that the particular document will be presented as a search result at least a threshold number of times during a particular time period, store, in an index, information regarding one or more documents of the plurality of documents based on the measure of quality of each document of the one or more documents, predict, based on the information determined for each document of the plurality of-documents, a measure of quality of at least one other document as a search result for a particular search query, and determine whether to store, in the index, information regarding the at least one other document based on the measure of quality of the at least one other document.",
+   "dependent": false
+  },
+  {
+   "text": "2. The device of claim 1, where the processor is further to: generate rules, for a model, based on the information determined for each document of the plurality of documents, and where, when predicting the measure of quality of the at least one other document, the processor is further to: predict, using the rules generated for the model, the measure of quality of the at least one other document.",
+   "dependent": true
+  },
+  {
+   "text": "3. The device of claim 2, where the processor is further to: determine document features associated with each document of the plurality of documents, where, when generating the rules, the processor is to: generate the rules, for the model, further based on the document features associated with each document of the plurality of documents.",
+   "dependent": true
+  },
+  {
+   "text": "4. The device of claim 3, where the document features associated with at least one document, of the plurality of documents, include one or more of: a file type associated with the at least one document, information identifying a host or a domain associated with the at least one document, or information associated with a length of the at least one document, where, when generating the rules, the processor is to: generate the rules, for the model, further based on the one or more of the file type associated with the at least one document, the information identifying the host or the domain associated with the at least one document, or the information associated with a length of the at least one document.",
+   "dependent": true
+  },
+  {
+   "text": "5. The device of claim 1, where the processor is further to: store the information regarding the at least one other document in the index based on the measure of quality of the at least one other document.",
+   "dependent": true
+  },
+  {
+   "text": "6. The device of claim 3, where the document features associated with at least one document, of the plurality of documents, include one or more of: a file type associated with the at least one document, information identifying a host or a domain associated with the at least one document, information associated with a length of the at least one document, a language of the at least one document, an encoding type associated with the at least one document, or a link-based score associated with the at least one document, where, when generating the rules, the processor is to: generate the rules, for the model, further based on the one or more of the file type associated with the at least one document, the information identifying the host or the domain associated with the at least one document, the information associated with the length of the at least one document, the language of the at least one document, the encoding type associated with the at least one document, or the link-based score associated with the at least one document.",
+   "dependent": true
+  },
+  {
+   "text": "7. The device of claim 1, where the processor is further to: update the index using information regarding one or more other documents.",
+   "dependent": true
+  },
+  {
+   "text": "8. A non-transitory computer-readable medium storing instructions, the instructions comprising: one or more instructions which, when executed by one or more processors, cause the one or more processors to determine information identifying a measure of quality of each document, of a plurality of documents, as a search result for one or more search queries, the information, identifying the measure of quality of a particular document in the plurality of documents, being determined based on: a probability that the particular document will be selected at least a threshold number of times during a particular time period when the particular document is presented as a search result, and a probability that the particular document will be presented as a search result at least a threshold number of times during a particular time period; one or more instructions which, when executed by the one or more processors, cause the one or more processors to select one or more documents of the plurality of documents, each document, of the one or more documents, being selected based on the measure of quality of the document; one or more instructions which, when executed by the one or more processors, cause the one or more processors to store, in an index, information regarding the one or more documents, the information regarding the one or more documents being stored in the index based on the measure of quality of each document of the one or more documents; one or more instructions which, when executed by the one or more processors, cause the one or more processors to predict, based on the information identifying the measure of quality of each document of the one or more documents, a measure of quality of at least one other document as a search result for a particular search query; and one or more instructions which, when executed by the one or more processors, cause the one or more processors to determine whether to store, in the index, information regarding the at least one other document based on the measure of quality of the at least one other document.",
+   "dependent": false
+  },
+  {
+   "text": "9. The non-transitory computer-readable medium of claim 8, the instructions further comprising: one or more instructions which, when executed by the one or more processors, cause the one or more processors to update the index using information regarding one or more other documents.",
+   "dependent": true
+  },
+  {
+   "text": "10. The non-transitory computer-readable medium of claim 8, where the one or more instructions to determine the information identifying the measure of quality of the particular document include: one or more instructions which, when executed by the one or more processors, cause the one or more processors to determine the information identifying the measure of quality of the particular document further based on rules generated, for a model, based on a plurality of search queries and corresponding search results.",
+   "dependent": true
+  },
+  {
+   "text": "11. The non-transitory computer-readable medium of claim 8, the instructions further comprising: one or more instructions which, when executed by the one or more processors, cause the one or more processors to store information regarding the at least one other document, in the index, based on the measure of quality of the at least one other document.",
+   "dependent": true
+  },
+  {
+   "text": "12. The non-transitory computer-readable medium of claim 8, the instructions further comprising: one or more instructions which, when executed by the one or more processors, cause the one or more processors to generate rules, for a model, based on the information identifying the measure of quality of each document of the plurality of documents, and where the one or more instructions to predict the measure of quality of the at least one other document include: one or more instructions which, when executed by the one or more processors, cause the one or more processors to predict, using the rules generated for the model, the measure of quality of the at least one other document.",
+   "dependent": true
+  },
+  {
+   "text": "13. The non-transitory computer-readable medium of claim 12, the instructions further comprising: one or more instructions which, when executed by the one or more processors, cause the one or more processors to determine document features associated with each document of the plurality of documents, where the one or more instructions to generate the rules for the model include: one or more instructions which, when executed by the one or more processors, cause the one or more processors to generate the rules, for the model, further based on the document features associated with each document of the plurality of documents.",
+   "dependent": true
+  },
+  {
+   "text": "14. The non-transitory computer-readable medium of claim 13, where the document features, associated with a document of the plurality of documents, include one or more of a language of the document, an encoding type associated with the document, or a link-based score associated with the document, where the one or more instructions to generate rules for the model include: one or more instructions which, when executed by the one or more processors, cause the one or more processors to generate the rules, for the model, further based on the one or more of the language of the document, the encoding type associated with the document, or the link-based score associated with the document.",
+   "dependent": true
+  },
+  {
+   "text": "15. A method comprising: determining, by one or more processors and for each document of a plurality of documents, information identifying a measure of quality of the document as a search result for one or more search queries, the information, identifying the measure of quality of a particular document in the plurality of documents, being determined based on: a probability that the particular document will be selected at least a threshold number of times during a particular time period when the particular document is presented as a search result, and a probability that the particular document will be presented as a search result at least a threshold number of times during a particular time period; storing, by the one or more processors and in an index, information regarding one or more documents of the plurality of documents based on the measure of quality of each document of the one or more documents; predicting, by the one or more processors and based on the information determined for each document of the one or more documents, a measure of quality of at least one other document as a search result for a particular search query; and determining, by the one or more processors and based on the measure of quality of the at least one other document, whether to include information regarding the at least one other document in the index.",
+   "dependent": false
+  },
+  {
+   "text": "16. The method of claim 15, further comprising: storing, after storing the information regarding the one or more documents, the information regarding the at least one other document, in the index, based on the measure of quality of the at least one other document.",
+   "dependent": true
+  },
+  {
+   "text": "17. The method of claim 15, further comprising: generating rules, for a model, based on the information identifying the measure of quality of each document of the plurality of documents, and where predicting the measure of quality of the at least one other document includes: predicting, using the rules generated for the model, the measure of quality of the at least one other document.",
+   "dependent": true
+  },
+  {
+   "text": "18. The method of claim 15, further comprising: determining document features associated with each document of the plurality of documents, where generating the rules includes: generating the rules, for the model, further based on the document features associated with each document of the plurality of documents.",
+   "dependent": true
+  },
+  {
+   "text": "19. The method of claim 18, where the document features associated with at least one document, of the plurality of documents, include one or more of: a file type associated with the at least one document, information identifying a host or a domain associated with the at least one document, or information associated with a length of the at least one document, where generating the rules includes: generating the rules, for the model, further based on the one or more of the file type associated with the at least one document, the information identifying the host or the domain associated with the at least one document, or the information associated with the length of the at least one document.",
+   "dependent": true
+  },
+  {
+   "text": "20. The method of claim 18, where the document features associated with at least one document, of the plurality of documents, include one or more of: a language of the at least one document, an encoding type associated with the at least one document, or a link-based score associated with the at least one document, where generating the rules includes: generating the rules, for the model, further based on the one or more of the language of the at least one document, the encoding type associated with the at least one document, or the link-based score associated with the at least one document.",
+   "dependent": true
+  },
+  {
+   "text": "21. The method of claim 15, further comprising: updating the index using information regarding one or more other documents.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## RELATED APPLICATION\n\n\nThis application is a continuation of U.S. patent application Ser. No. 12/022,187, filed on Jan. 30, 2008, the disclosure of which is incorporated by reference herein in its entirety.\n\n\n## BACKGROUND\n\n\nThe World Wide Web (“web”) contains a vast amount of information that is ever-changing. Existing web-based information retrieval systems use web crawlers to identify information on the web. For example, a web crawler may receive feeds of documents from webmasters.\n\nA web crawler may also exploit the link-based structure of the web to browse the web in a methodical, automated manner. A web crawler may start with addresses (e.g., Uniform Resource Locators (URLs)) of links to visit. For each address on the list, the web crawler may visit the document associated with the address. The web crawler may identify outgoing links within the visited document and add addresses associated with these links to the list of addresses.\n\nAn indexer creates an index of the documents identified by the web crawler. A problem that indexers face is how to select documents to place in the index. The amount of space in the index is limited. Also, some documents might not be worth the cost (monetary and/or time) of indexing and serving. Therefore, only a subset of the documents identified by the web crawler get placed in the index.\n\n\n## SUMMARY\n\n\nAccording to one aspect, a method may include identifying a collection of documents; predicting a utility score for each document in the collection of documents; creating a ranked list of the documents based on the predicted utility scores for the documents; selecting a number of the documents in the ranked list of documents; indexing the selected documents to create an index; and storing the index.\n\nAccording to another aspect, a system, which may be implemented within one or more computer devices, may include means for generating rules for a model based on a number of search queries previously submitted by users, search results that were provided to the users, and information regarding the users' interest in certain ones of the search results. The system may also include means for identifying a collection of documents, means for predicting a measure of quality of each document in the collection of documents as a search result for users' search queries based on the model, and means for creating a ranked list of the documents based on the predicted measures of quality of the documents. The system may also include means for selecting a number of the documents in the ranked list of documents, means for indexing the selected documents to create an index, and means for storing the index.\n\nAccording to yet another aspect, a system, which may be implemented within one or more computer devices, may include one or more memories connected to one or more processors. The one or more processors may identify a collection of documents, predict a measure of quality of each document in the collection of documents as a search result for users' search queries, and create a ranked list of the documents based on the predicted measures of quality for the documents. The one or more processors may also select a number of the documents in the ranked list of documents, index the selected documents to create an index, and store the index in the one or more memories.\n\nAccording to a further aspect, a method may include identifying a set of documents that were previously included in an index; determining, for each of the documents, a utility score that reflects a measure of quality of the document as a search result for users' search queries; determining a set of document features associated with each of the documents; generating, based on the sets of document features and the utility scores, model rules for a model that maps the sets of document features to the utility scores; and storing the model.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nThe accompanying drawings, which are incorporated in and constitute a part of this specification, illustrate one or more embodiments described herein and, together with the description, explain these embodiments. In the drawings:\n\nFIG. 1 is a diagram of an overview of an exemplary implementation described herein;\n\nFIG. 2 is a diagram of an exemplary network in which systems and methods described herein may be implemented;\n\nFIG. 3 is a diagram of exemplary components of the crawler/indexer system of FIG. 2;\n\nFIG. 4 is a diagram of exemplary functional components of the crawler/indexer system of FIG. 2;\n\nFIG. 5 is a diagram of exemplary functional components of the crawler engine of FIG. 4;\n\nFIG. 6 is a diagram of exemplary functional components of the model generator engine of FIG. 4;\n\nFIG. 7 is a flowchart illustrating an exemplary process for generating a model;\n\nFIG. 8 is a diagram of exemplary functional components of the indexing engine of FIG. 4; and\n\nFIG. 9 is a flowchart illustrating an exemplary process for selecting documents for an index.\n\n\n## DETAILED DESCRIPTION\n\n\nThe following detailed description refers to the accompanying drawings. The same reference numbers in different drawings may identify the same or similar elements. Also, the following detailed description does not limit the invention.\n\n\n## Overview\n\n\nIn the description to follow, reference will be made to “documents.” A “document,” as the term is used herein, is to be broadly interpreted to include any machine-readable and machine-storable work product. A document may include, for example, an e-mail, a web site, a file, a combination of files, one or more files with embedded links to other files, a news group posting, a blog, a business listing, an electronic version of printed text, a web advertisement, an image, a database record, etc. In the context of the Internet, a common document is a web page. Web pages often include textual information and may include embedded information (such as meta information, images, links, etc.) and/or embedded instructions (such as Javascript, etc.).\n\nFIG. 1 is a diagram of an overview of an exemplary implementation described herein. As shown in FIG. 1, a network of documents may be identified by a crawler (often referred to as a “spider”). The identified documents may be fed to an indexer. The indexer may select documents to include in an index. There may be different indices for different types of documents. An “index,” as used herein may include a single index or a main index of a group of indices. Each of one or more indexers may create one or more indices, where a search query may choose documents from one or more of the indices. Each of these indices may be tiered with, for example, a top tier index and one or more lower tier indices. Documents from the top tier index may be served on every search and documents from the lower tier index/indices may be served only for certain searches. Also, the top tier index may be refreshed more often than the lower tier index/indices.\n\nBecause the devices serving the index may have a limited amount of storage space, not all of the documents can be placed in the index. Additionally, it may be desirable, for certain reasons, to exclude certain documents from the index. Therefore, the indexer must decide which documents to include in the index and which documents to exclude. It would be beneficial for the index to include documents that would likely satisfy users' search queries. In implementations described herein, the indexer may predict the probability that documents will satisfy users' search queries and include certain ones of these documents in the index based on their predicted probability that the documents will satisfy users' search queries.\n\n\n## Exemplary Network Configuration\n\n\nFIG. 2 is a diagram of an exemplary network 200 in which systems and methods described herein may be implemented. Network 200 may include multiple document hosts 210 connected to a crawler/indexer system 220 via a network 230. Four document hosts 210 and a single crawler/indexer system 220 have been illustrated as connected to network 230 for simplicity. In practice, there may be more, fewer, or a different arrangement of document hosts 210 and/or crawler/indexer systems 220.\n\nDocument hosts 210 may include entities that store and/or manage documents. An “entity” may be defined as a device, such as a stationary or portable computer, a personal digital assistant (PDA), a telephone device, or another type of computation or communication device, a thread or process running on one of these devices, and/or an object executable by one of these devices.\n\nCrawler/indexer system 220 may include an entity that crawls, processes, indexes, and/or maintains documents. For example, crawler/indexer system 220 may crawl a corpus of documents (e.g., web documents), index the documents, and/or store information associated with the documents in a repository of documents. While crawler/indexer system 220 is shown as a single entity, it may be possible for crawler/indexer system 220 to be implemented as two or more separate (and possibly distributed) entities.\n\nNetwork 230 may include a local area network (LAN), a wide area network (WAN), a telephone network, such as the Public Switched Telephone Network (PSTN) or a cellular network, an intranet, the Internet, or a combination of networks. Document hosts 210 and crawler/indexer system 220 may connect to network 230 via wired and/or wireless connections. The connections may either be direct or indirect connections.\n\n\n## Exemplary Crawler/Indexer System Architecture\n\n\nFIG. 3 is a diagram of exemplary components of crawler/indexer system 220. Crawler/indexer system 220 may include a bus 310, a processor 320, a main memory 330, a read only memory (ROM) 340, a storage device 350, an input device 360, an output device 370, and a communication interface 380. Bus 310 may include a path that permits communication among the components of crawler/indexer system 220.\n\nProcessor 320 may include a processor, a microprocessor, or processing logic that may interpret and execute instructions. Main memory 330 may include a random access memory (RAM) or another type of dynamic storage device that may store information and instructions for execution by processor 320. ROM 340 may include a ROM device or another type of static storage device that may store static information and instructions for use by processor 320. Storage device 350 may include a magnetic and/or optical recording medium and its corresponding drive.\n\nInput device 360 may include a component that permits an operator to input information to crawler/indexer system 220, such as a keyboard, a mouse, a pen, voice recognition and/or biometric mechanisms, etc. Output device 370 may include a component that outputs information to the operator, including a display, a printer, a speaker, etc. Communication interface 380 may include any transceiver-like mechanism that enables crawler/indexer system 220 to communicate with other devices and/or systems. For example, communication interface 380 may include components for communicating with another device or system via a network, such as network 230.\n\nCrawler/indexer system 220 may perform certain operations, as will be described in detail below. Crawler/indexer system 220 may perform these operations in response to processor 320 executing software instructions contained in a computer-readable medium, such as memory 330. A computer-readable medium may be defined as a physical or logical memory device.\n\nThe software instructions may be read into memory 330 from another computer-readable medium, such as storage device 350, or from another device via communication interface 380. The software instructions contained in memory 330 may cause processor 320 to perform processes that will be described later. Alternatively, hardwired circuitry may be used in place of or in combination with software instructions to implement processes described herein. Thus, implementations described herein are not limited to any specific combination of hardware circuitry and software.\n\n\n## Exemplary Crawler/Indexer System Functional Components\n\n\nFIG. 4 is a diagram of exemplary functional components of crawler/indexer system 220. Crawler/indexer system 220 may include a crawler engine 410, a model generator engine 420, and an indexing engine 430 connected to a database 440. In one implementation, crawler engine 410, model generator engine 420, and/or indexing engine 430 may be implemented by software and/or hardware within crawler/indexer system 220. In another implementation, crawler engine 410, model generator engine 420, and/or indexing engine 430 may be implemented by software and/or hardware within another device or a group of devices separate from or including crawler/indexer system 220.\n\nCrawler engine 410 may receive feeds of documents from one or more webmasters. Alternatively, or additionally, crawler engine 410 may operate from a list of addresses to fetch the corresponding documents from a corpus of documents (e.g., the web). Crawler engine 410 may extract the addresses (e.g., URLs) associated with outgoing links in the documents and add the addresses to the list of addresses to be crawled. Crawler engine 410 may also store information associated with the documents, such as all or part of the documents, in database 440.\n\nModel generator engine 420 may analyze historical search logs associated with documents that were previously included in an index created by indexing engine 430. Based on its analysis of the historical search logs, model generator engine 420 may build a model, such as model 425, that predicts the probability that a document will satisfy a search query if that document is included in the index.\n\nIndexing engine 430 may operate upon documents identified by crawler engine 410 and the model built by model generator engine 420. For example, indexing engine 430 may use model 425 to predict the probability that each of the documents will satisfy a search query if that document is included in the index. Indexing engine 430 may rank the documents based on their predicted probabilities and select a number of the top-ranked documents for inclusion in the index.\n\nDatabase 440 may be embodied within a single memory device or within multiple (possibly distributed) memory devices. Database 440 may receive information from and/or provide information to crawler engine 410, model generator engine 420, and/or indexing engine 430. Database 440 may also receive information from and/or provide information to other components within or external to crawler/indexer system 220 (not shown in FIG. 4).\n\nDatabase 440 may store various information, such as the list of addresses used by crawler engine 410, and/or information associated with documents identified by crawler engine 410. For example, database 440 may store all or a portion of the content of the identified documents and/or features associated with the documents. Exemplary features that might be stored in database 440 for a document include: the language of the document; the encoding type associated with the document; the file type associated with the document; the host, domain, top-level domain, or organization associated with the document; a link-based score associated with the document; a length, compressed length, or a ratio of the compressed length to the original size of the document; and/or if the document was previously included in the index, information regarding how the document performed while in the index.\n\nDatabase 440 may also, or alternatively, store historical search logs containing information regarding prior searches, such as search queries that were submitted, search results that were presented, and/or information that reflects users' interest in the search results. Crawler/indexer system 220 may operate in conjunction with a search engine. The search engine may provide crawler/indexer system 220 with information for the historical search logs. The information for the historical search logs may be obtained from a server operating the search engine and/or from a toolbar application (or the like) operating on a client. In one embodiment, crawler/indexer system 220 is only permitted a view of database 440 that hides individual user information.\n\nDatabase 440 may also, or alternatively, store the index generated by indexing engine 430, information regarding which documents were previously included in the index, and/or a predicted probability that was determined for documents that are and/or were included in the index.\n\n\n## Exemplary Crawler Engine Functional Components\n\n\nFIG. 5 is a diagram of exemplary functional components of crawler engine 410. In one implementation, crawler engine 410 may be implemented by software and/or hardware within crawler/indexer system 220. In another implementation, crawler engine 410 may be implemented by software and/or hardware within another device or a group of devices separate from or including crawler/indexer system 220.\n\nCrawler engine 410 may include fetch bots 510 and content manager 530. A fetch bot 510 may fetch a document from a corpus of documents and provide the fetched document to content manager 530. Fetch bots 510 may operate from a list of addresses provided by content manager 530.\n\nContent manager 530 may parse a document fetched by a fetch bot 510 to identify the outgoing links that the fetched document contains. Content manager 530 may add addresses associated with the outgoing links to a list of addresses that it maintains. Content manager 530 may provide addresses from the list to fetch bots 510 as instructions for fetch bots 510 to fetch (i.e., crawl) the corresponding documents. Content manager 530 may also store information associated with the fetched documents (e.g., all or part of the fetched documents, features associated with the fetched documents, etc.) in database 440 (FIG. 4).\n\n\n## Exemplary Model Generator Engine Functional Components\n\n\nFIG. 6 is a diagram of exemplary functional components of model generator engine 420. In one implementation, model generator engine 420 may be implemented by software and/or hardware within crawler/indexer system 220. In another implementation, model generator engine 420 may be implemented by software and/or hardware within another device or a group of devices separate from or including crawler/indexer system 220.\n\nModel generator engine 420 may include a model generator 610 that may generate model 425 based on historical search logs. FIG. 7 is a flowchart illustrating an exemplary process for generating model 425. In one implementation, the exemplary process of FIG. 7 may be performed by model generator engine 420. In another implementation, the exemplary process of FIG. 7 may be performed by one or more other components, possibly in conjunction with model generator engine 420.\n\nAs shown in FIG. 7, the process may begin with identification of a set of documents that were previously included in the index (block 710). As described above, database 440 may store information regarding which documents were previously included in the index. In one implementation, this information may identify only those documents that were included in the index when the index was created or last updated. In an alternative implementation, the information may identify documents that were included in the index during each of multiple prior instances in time. Model generator engine 420 may identify all or a subset of the documents that were previously included in the index.\n\nA utility score may be calculated for each of the documents in the set (block 720). The utility score for a document may be defined as a function of a measure of quality of the document as a search result for users' search queries, where high quality documents satisfy users' search queries more often than low quality documents. The specifics of this function may vary, but should consistently treat documents. For example, the utility scores for high quality documents should consistently be higher than the utility scores for low quality documents.\n\nIn one implementation, the function used to determine the utility score for a document may be based on the probability that the document will be selected (e.g., clicked on by a user) (i.e., “selection data”) at least once per day when presented as a search result. In another implementation, the function may be based on the probability that the document will be presented as a search result (i.e., “impression data”) at least once per day. In yet another implementation, the function may be based on the probability that the document will be selected (“selection data”) or presented (“impression data”) as a search result at least once during each time period, where the time period is shorter or longer than a day.\n\nIn a further implementation, the function may be based on the probability that the document will be selected (“selection data”) or presented (“impression data”) as a search result more than a threshold number of times (where the threshold is greater than one) during a period of time shorter than, equal to, or longer than a day. In another implementation, the function may be based on another measure of how good a result the document is to users' search queries, such as survey information (e.g., asking users to rate documents as to particular topics), vote buttons (e.g., users' selection of a rating button on a web browser toolbar that indicates whether the users like or dislike the documents), the total number of times a document satisfies a search query, and/or the total number of users for which the document satisfies a search query. In yet another implementation, the function may be based on other factors or a combination of factors.\n\nFor the implementations described hereinafter, the function used to determine the utility score will be described in terms of the probability that the document will be selected at least once per day when presented as a search result. It should be understood, however, that one or more of the other factors described above could be used.\n\nModel generator engine 420 may determine the number of selections that each of the identified documents received when the identified documents were included in the index. In one implementation, model generator engine 420 may obtain the actual number of selections, which may be stored in the historical search logs. In another implementation, model generator engine 420 may estimate the number of selections. For example, instead of using the actual number of selections (which might not be complete because the information might not always be available), the number of selections may be estimated based on the positions of the identified documents in ranked lists of search results, which may be available in the historical search logs. For example, a relationship may exist between a document's position in a ranked list of search results and the number of selections that that document typically receives. A document in a first (top-most) position in a ranked list of search results typically may be selected 40% of the time; a document in a second (next-to-top-most) position in the ranked list typically may be selected 20% of the time; and so on. This information may be used to estimate the number of selections that the identified documents received.\n\nModel generator engine 420 may generate the utility score for each of the identified documents based on the number of selections that the identified document received when the identified document was included in the index. For example, the number of selections that an identified document received may be used to generate a probability that the identified document would be presented as a search result and selected if the identified document is included in the index. The utility score for the identified document may be equal to, or derived from, the probability value.\n\nModel rules, based on document features and utility scores, may be generated to predict utility scores for new documents (block 730). The utility scores and document features associated with the identified documents may be used as training data for a statistical model (e.g., model 425) whose input may include features associated with a new document and whose output may include a prediction of a utility score for the new document. In one implementation, model generator engine 420 may use a logistic regression technique to generate model 425. In another implementation, model generator engine 420 may use another technique that can map an input to an output, such as a random forest technique or a neural network.\n\nExemplary document features that may be used as inputs to model 425 may include the language of the document; the encoding type associated with the document; the file type associated with the document; the host, domain, top-level domain, or organization associated with the document; a link-based score associated with the document; a length, compressed length, or a ratio of the compressed length to the original size of the document; and/or if the document was previously included in the index, the document's previous utility score. In other implementations, additional, different, or combinations of document features may be used as inputs, such as other features derived from the actual document contents and/or statistics associated with host(s) or domain(s) associated with the documents.\n\nModel generator engine 420 may test model 425 using another set of documents previously included in the index (i.e., a set of documents different from the set of documents used for the training data). For example, model generator engine 420 may determine utility scores for these documents based on the information in the historical search logs. Model generator engine 420 may then input document features associated with these documents into model 425 to obtain predicted utility scores for the documents. Model generator engine 420 may analyze the performance of model 425 based on a comparison of the utility scores and the predicted utility scores.\n\n\n## Exemplary Indexing Engine Functional Components\n\n\nFIG. 8 is a diagram of exemplary functional components of indexing engine 430. In one implementation, indexing engine 430 may be implemented by software and/or hardware within crawler/indexer system 220. In another implementation, indexing engine 430 may be implemented by software and/or hardware within another device or a group of devices separate from or including crawler/indexer system 220.\n\nIndexing engine 430 may include document scorer 810 and indexer 820. Document scorer 810 may determine utility scores for a collection of documents being considered for inclusion in the index. Document scorer 810 may rank the documents based on the documents' utility scores and select a number of the top-ranked documents for inclusion in the index. Indexer 820 may create the index based on the selected documents.\n\nFIG. 9 is a flowchart illustrating an exemplary process for selecting documents for an index. In one implementation, the exemplary process of FIG. 9 may be performed by indexing engine 430. In another implementation, the exemplary process of FIG. 9 may be performed by one or more other components, possibly in conjunction with indexing engine 430.\n\nAs shown in FIG. 9, the process may begin with a collection of documents being identified (block 910). For example, indexing engine 430 may identify documents that were previously identified by crawler engine 410. Indexing engine 430 may consider these documents for the index. Indexing engine 430 may periodically create, or recreate, the index. Any of the documents previously included in the index may be candidates to remain in or to be removed from the index. Any of the documents previously not included in the index may be candidates to be included in the index.\n\nA utility score may be predicted for each of the documents (block 920). For example, indexing engine 430 may determine document features for each of the documents. In one implementation, indexing engine 430 may obtain the document features from database 440. Indexing engine 430 may input the document features, for each of the documents, into model 425 to obtain a predicted utility score for the document.\n\nA ranked list of documents may be created based on the predicted utility scores (block 930). Indexing engine 430 may use one or more techniques to rank the documents for the ranked list. In one implementation, indexing engine 430 may rank the documents solely based on the documents' utility scores. Thus, documents with higher predicted probabilities of being selected when presented as search results may appear higher in the ranked list than documents with lower predicted probabilities of being selected when presented as search results.\n\nIn another implementation, indexing engine 430 may consider the documents' cost of being included in the index when ranking the documents. In one implementation, a document's cost may be a function of the amount of space required to index the document. For example, a document takes up a certain amount of space in the index based on the number of words and other ancillary data associated with the document. The size of the index is limited. Therefore, the number of documents that can be included in the index is a function of the amount of space required to index the documents. In this case, a final utility score (UF) for a document may be a function of the document's predicted utility score and the document's cost. Indexing engine 430 may rank the documents based on the documents' final utility scores.\n\nIn yet another implementation, indexing engine 430 may consider how the documents previously performed in the index when ranking the documents. For example, the historical search logs may record performance information regarding the number of selections of the documents when these documents were previously included in the index. A performance score may be generated based on the number of selections of the documents for only the last time that the documents were included in the index, or for multiple times that the documents were previously included in the index. For longer time periods, the performance score may reflect a pattern of performance for the documents. The performance score may be used to adjust the utility scores of the documents. In this case, a final utility score (UF) for a document may be a function of the document's predicted utility score and the document's performance score. Indexing engine 430 may rank the documents based on the documents' final utility scores.\n\nIn a further implementation, indexing engine 430 may consider the contents of the documents when ranking the documents. For example, the words and phrases included in a document may be considered when determining whether to select the document for the index. A content score may be generated for each of the documents based on whether the document's content contains words that relate to a hot topic, a topic frequently sought by users, a topic not frequently sought by users, or a rare topic covered by few documents. For example, it might be beneficial to include a document relating to a hot topic, a topic frequently sought by users, and/or a rare topic in the index, but not a document relating to a topic not frequently sought by users. In this case, a final utility score (UF) for a document may be a function of the document's predicted utility score and the document's content score. Indexing engine 430 may rank the documents based on the documents' final utility scores.\n\nIn another implementation, indexing engine 430 may consider the freshness of the documents when ranking the documents. For example, it may be determined whether a crawled document being considered for the index matches in content the corresponding “live” document currently available on the network. A match score may be generated that indicates whether the crawled document matches the live document. The match score may penalize a crawled document that does not match the corresponding live document. In this case, a final utility score (UF) for a document may be a function of the document's predicted utility score and the document's match score. Indexing engine 430 may rank the documents based on the documents' final utility scores.\n\nIn yet another implementation, indexing engine 430 may consider a measure of the importance of the documents when ranking the documents. For example, an importance score may be determined for a document based on, for example, the document's link-based score. Several techniques exist for determining a document's link-based score, such as the PageRank® algorithm. In this case, a final utility score (UF) for a document may be a function of the document's predicted utility score and the document's importance score. Indexing engine 430 may rank the documents based on the documents' final utility scores.\n\nIn a further implementation, indexing engine 430 may consider a combination of the above-identified factors when ranking the documents. Alternatively, indexing engine 430 may consider one or more of the above-identified factors alone (i.e., without using the utility scores) when ranking the documents.\n\nDocuments for the index may be selected from the ranked list (block 940). For example, indexing engine 430 may select a number of the top-ranked documents in the ranked list for inclusion in the index. In one implementation, certain documents may be removed from the ranked list prior to selecting a number of the top-ranked documents. For example, indexing engine 430 may remove documents that have been identified as spam from the ranked list. Several techniques exist for identifying a document as spam, such as by analyzing the links to/from the document, analyzing the host or domain with which the document is associated, etc.\n\nAlternatively, or additionally, indexing engine 430 may remove documents associated with web sites on a blacklist from the ranked list. For example, web sites might be inspected (automatically or manually) to determine whether these web sites should definitely not be included in the index. Potentially malicious web sites, such as link farms, page or site hijackers, web sites using keyword stuffing, hidden or invisible unrelated text, or meta tag stuffing, etc., may be placed on a blacklist, which means that the documents associated with these web sites should definitely not be included in the index.\n\nAlternatively, or additionally, indexing engine 430 may remove documents that are duplicates of documents already included in the ranked list. Indexing duplicate documents may waste space in the index that could be used to index a potentially useful document.\n\nIn another implementation, indexing engine 430 may automatically select certain documents for inclusion in the index regardless of the documents' positions within the ranked list. Due to the limited size of the index, the automatic selection of these documents may cause the number of the top-ranked documents selected from the ranked list to be reduced.\n\nFor example, indexing engine 430 may compare the documents in the ranked list to a whitelist. Web sites might be inspected (automatically or manually) to determine whether these web sites should definitely be included in the index. Important web sites, such as Amazon.com, Google.com, CNET.com, ESPN.com, and other very popular web sites, may be placed on a whitelist, which means that the documents associated with these web sites should definitely be included in the index. Indexing engine 430 may identify documents associated with the web sites in the whitelist and automatically select the identified documents for inclusion in the index, regardless of the documents' position within the ranked list.\n\nAdditionally, or alternatively, indexing engine 430 may operate under a set of quotas. Quotas may be necessary to avoid self-fulfilling prophecies. For example, a search engine may currently receive few search queries for documents in a particular language. As a result, these documents may have low utility scores and, therefore, may not be selected for the index. When users try searching for documents in that particular language, they may find very few results. Thus, they may abandon the search engine, leading to even fewer searches for documents in the particular language. A language quota may solve this problem by ensuring that at least a minimum number of documents in that language are selected for inclusion in the index. This may improve the quality of searches for documents in that language and, thus, the users' search experience.\n\nQuotas may be used for any of a number of reasons. For example, a quota may be set for a particular language to ensure that at least a minimum number of documents in that language are present in the index. Additionally, or alternatively, a quota may be set for particular geographic regions. For example, English-language documents may originate from different regions of the world but the documents in these different regions may be associated with quite different topics. Additionally, or alternatively, a quota may be set at a host or domain level to ensure that at least a minimum number of documents from that host or domain are present in the index. Additionally, or alternatively, a quota may be set for a number of low utility scoring documents. It may be beneficial to intentionally include some low utility scoring documents in the index to assist in training model 425. One reason to include these low utility scoring documents in the index is that if they are not included, it may be forgotten the next time that model 425 is trained that these documents were poor performers. Another reason is that if the index only includes good performing documents, then model 425 may begin to believe that all documents are good performing documents. A further reason is that if model 425 determines that a certain class of documents are poor performers, then model 425 may develop a blind spot for them—meaning that if these documents later turn into good performers, model 425 may not recognize them as such and, thus, these documents may continue to be excluded from the index.\n\nThe selected documents may be indexed (block 950). For example, indexing engine 430 may take the text or other data of the selected documents, extract individual terms or other data from the text of the selected documents, and sort those terms or other data (e.g., alphabetically) in an index. Other techniques for extracting and indexing content, that are more complex than simple word-level indexing, may also or alternatively be used, including techniques for indexing XML data, images, videos, etc. Each entry in the index may contain a term or other data stored in association with a list of documents in which the term or other data appears and the location within the document(s) where the term or other data appears. The index may be stored in a memory, such as database 440.\n\nIn one implementation, as mentioned above, the index may include multiple index tiers. The processes described herein may be applied across index tiers or may be applied separately to individual index tiers. Further, information regarding which index tier in which a document was placed may be maintained (e.g., in database 440) and used in subsequent rankings of the documents.\n\n\n## CONCLUSION\n\n\nImplementations described herein may provide techniques for selecting documents for an index. These techniques may be useful in several respects: to remove documents from the index, to determine which document to newly place in the index, and/or to remember which documents were good performers and poor performers over time.\n\nThe foregoing description provides illustration and description, but is not intended to be exhaustive or to limit the invention to the precise form disclosed. Modifications and variations are possible in light of the above teachings or may be acquired from practice of the invention.\n\nFor example, while series of blocks have been described with regard to FIGS. 7 and 9, the order of the blocks may be modified in other implementations. Further, non-dependent blocks may be performed in parallel.\n\nAlso, while it has been described that a model is generated to predict documents' utility scores, this need not be the case. In another implementation, actual utility scores (determined from the historical search logs) may be used instead of predicted utility scores.\n\nIt may also be beneficial to customize an index to a particular region of the world. For example, an index may be created specifically for users in Europe. In this case, search logs relating to European traffic may be used to select documents for the index.\n\nAs used herein, the term “component,” is intended to be broadly interpreted to refer to hardware, software, or a combination of hardware and software.\n\nWhile it has been described that the utility scores for high quality documents should be consistently higher than the utility scores for low quality documents, this need not be the case. In another implementation, the utility scores for high quality documents can be consistently lower than the utility scores for low quality documents. The techniques described herein may be modified accordingly.\n\nIt will be apparent that systems and methods, as described above, may be implemented in many different forms of software, firmware, and hardware in the implementations illustrated in the figures. The actual software code or specialized control hardware used to implement these systems and methods is not limiting of the invention. Thus, the operation and behavior of the systems and methods were described without reference to the specific software code—it being understood that software and control hardware can be designed to implement the systems and methods based on the description herein.\n\nEven though particular combinations of features are recited in the claims and/or disclosed in the specification, these combinations are not intended to limit the invention. In fact, many of these features may be combined in ways not specifically recited in the claims and/or disclosed in the specification.\n\nNo element, act, or instruction used in the present application should be construed as critical or essential to the invention unless explicitly described as such. Also, as used herein, the article “a” is intended to include one or more items. Where only one item is intended, the term “one” or similar language is used. Further, the phrase “based on” is intended to mean “based, at least in part, on” unless explicitly stated otherwise.",
+ "cited_by": [
+  {
+   "id": "US20160188667A1",
+   "title": "Systems and methods for enhancing search results by way of updating search indices",
+   "assignee": "Rovi Guides, Inc."
+  },
+  {
+   "id": "US20230004570A1",
+   "title": "Systems and methods for generating document score adjustments",
+   "assignee": "Canva Pty Ltd"
+  },
+  {
+   "id": "US11709909B1",
+   "title": "Systems and methods for maintaining a sitemap",
+   "assignee": "Walmart Apollo, Llc"
+  },
+  {
+   "id": "CN102023991A",
+   "title": "Method and device for updating indexes on terminal and sorting search results on the basis of updated indexes",
+   "assignee": "中兴通讯股份有限公司"
+  },
+  {
+   "id": "US9201965B1",
+   "title": "System and method for providing speech recognition using personal vocabulary in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US8990083B1",
+   "title": "System and method for generating personal vocabulary from network data",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US8935274B1",
+   "title": "System and method for deriving user expertise based on data propagating in a network environment",
+   "assignee": "Cisco Technology, Inc"
+  },
+  {
+   "id": "US8489604B1",
+   "title": "Automated resource selection process evaluation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9342582B2",
+   "title": "Selection of atoms for search engine retrieval",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9195745B2",
+   "title": "Dynamic query master agent for query execution",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9424351B2",
+   "title": "Hybrid-distribution model for search engine indexes",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9529908B2",
+   "title": "Tiering of posting lists in search engine index",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9031839B2",
+   "title": "Conference transcription based on conference data",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US8667169B2",
+   "title": "System and method for providing argument maps based on activity in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US9465795B2",
+   "title": "System and method for providing feeds based on activity in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US9589056B2",
+   "title": "User information needs based data selection",
+   "assignee": "Microsoft Technology Licensing Llc"
+  },
+  {
+   "id": "US8620136B1",
+   "title": "System and method for media intelligent recording in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US8909624B2",
+   "title": "System and method for evaluating results of a search query in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US9015142B2",
+   "title": "Identifying listings of multi-site entities based on user behavior signals",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8886797B2",
+   "title": "System and method for deriving user expertise based on data propagating in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US9015174B2",
+   "title": "Likefarm determination",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8831403B2",
+   "title": "System and method for creating customized on-demand video reports in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US9588835B2",
+   "title": "Enterprise level data element review systems and methodologies",
+   "assignee": "Varonis Systems, Inc."
+  },
+  {
+   "id": "US9256688B2",
+   "title": "Ranking content items using predicted performance",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9767196B1",
+   "title": "Content selection",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9280780B2",
+   "title": "Systems and methods of generating and using a bitmap index",
+   "assignee": "Umbel Corporation"
+  },
+  {
+   "id": "US9824079B1",
+   "title": "Providing actions for mobile onscreen content",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US9965559B2",
+   "title": "Providing automatic actions for mobile onscreen content",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10529031B2",
+   "title": "Method and systems of implementing a ranked health-content article feed",
+   "assignee": "Sai Suresh Ganesamoorthi"
+  },
+  {
+   "id": "US9703541B2",
+   "title": "Entity action suggestion on a mobile device",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN105100061B",
+   "title": "Network address kidnaps the method and device of detection",
+   "assignee": "小米科技有限责任公司"
+  },
+  {
+   "id": "US11868354B2",
+   "title": "Apparatus, system, and method for responding to a user-initiated query with a context-based response",
+   "assignee": "Motorola Solutions, Inc."
+  },
+  {
+   "id": "US10324895B2",
+   "title": "Generating index entries in source files",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10970646B2",
+   "title": "Action suggestions for user-selected content",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10178527B2",
+   "title": "Personalized entity repository",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10055390B2",
+   "title": "Simulated hyperlinks on a mobile device based on user intent and a centered selection of text",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US9489410B1",
+   "title": "Bitmap index including internal metadata storage",
+   "assignee": "Umbel Corporation"
+  },
+  {
+   "id": "US9607104B1",
+   "title": "Systems and methods of using a bitmap index to determine bicliques",
+   "assignee": "Umbel Corporation"
+  },
+  {
+   "id": "US10409818B1",
+   "title": "Populating streams of content",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10535005B1",
+   "title": "Providing contextual actions for mobile onscreen content",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US11237696B2",
+   "title": "Smart assist for repeated actions",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US11170014B2",
+   "title": "Method and system for preview of search engine processing",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US11948164B2",
+   "title": "Automatically measuring quality scores for connected components using machine learning models",
+   "assignee": "Walmart Apollo, Llc"
+  },
+  {
+   "id": "US12481781B2",
+   "title": "System and method for managing access to data stored in a data management system",
+   "assignee": "Dell Products L.P."
+  },
+  {
+   "id": "US12282489B2",
+   "title": "System and method for enrichment of stored data",
+   "assignee": "Dell Products L.P."
+  },
+  {
+   "id": "US12536182B2",
+   "title": "System and method for managing data by processing search queries",
+   "assignee": "Dell Products L.P."
+  },
+  {
+   "id": "US12524560B2",
+   "title": "Multifactor authentication based on user experiences",
+   "assignee": "Dell Products L.P."
+  },
+  {
+   "id": "US12411888B2",
+   "title": "System and method for managing user accessibility based on data in a data management system",
+   "assignee": "Dell Products L.P."
+  },
+  {
+   "id": "US12332857B2",
+   "title": "Automated garbage collection based on contextual analysis driven by NLP audio",
+   "assignee": "Dell Products L.P."
+  },
+  {
+   "id": "US12488043B2",
+   "title": "System and method for managing storage of data in a set of storage tiers",
+   "assignee": "Dell Products L.P."
+  },
+  {
+   "id": "US12216707B1",
+   "title": "System and method for managing storage space in a data management system",
+   "assignee": "Dell Products L.P."
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5920854A",
+   "title": "Real-time document collection search engine with phrase indexing",
+   "assignee": "Infoseek Corporation"
+  },
+  {
+   "id": "US20040117367A1",
+   "title": "Method and apparatus for content representation and retrieval in concept model space",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040186827A1",
+   "title": "Systems and methods for interactive search query refinement",
+   "assignee": "Anick Peter G."
+  },
+  {
+   "id": "US20050071465A1",
+   "title": "Implicit links search enhancement system and method for search engines using implicit links generated by mining user access patterns",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060287993A1",
+   "title": "High scale adaptive search systems and methods",
+   "assignee": "Microsoft Corporation"
+  }
+ ],
+ "similar": [
+  {
+   "id": "US8255386B1",
+   "title": "Selection of documents to place in search index"
+  },
+  {
+   "id": "US7499940B1",
+   "title": "Method and system for URL autocompletion using ranked results"
+  },
+  {
+   "id": "US7636714B1",
+   "title": "Determining query term synonyms within query context"
+  },
+  {
+   "id": "US9081851B2",
+   "title": "Method and system for autocompletion using ranked results"
+  },
+  {
+   "id": "US8244750B2",
+   "title": "Related search queries for a webpage and their applications"
+  },
+  {
+   "id": "US7536382B2",
+   "title": "Query rewriting with entity detection"
+  },
+  {
+   "id": "KR101361182B1",
+   "title": "Systems for and methods of finding relevant documents by analyzing tags"
+  },
+  {
+   "id": "US9104772B2",
+   "title": "System and method for providing tag-based relevance recommendations of bookmarks in a bookmark and tag database"
+  },
+  {
+   "id": "US20150046422A1",
+   "title": "Method and System for Autocompletion for Languages Having Ideographs and Phonetic Characters"
+  },
+  {
+   "id": "US7797316B2",
+   "title": "Systems and methods for determining document freshness"
+  },
+  {
+   "id": "US20150172299A1",
+   "title": "Indexing and retrieval of blogs"
+  },
+  {
+   "id": "US20110307432A1",
+   "title": "Relevance for name segment searches"
+  },
+  {
+   "id": "KR20080044915A",
+   "title": "Ranking Blog Articles"
+  },
+  {
+   "id": "US8423885B1",
+   "title": "Updating search engine document index based on calculated age of changed portions in a document"
+  },
+  {
+   "id": "WO2009079875A1",
+   "title": "Systems and methods for extracting phrases from text"
+  },
+  {
+   "id": "US9424340B1",
+   "title": "Detection of proxy pad sites"
+  },
+  {
+   "id": "US8521746B1",
+   "title": "Detection of bounce pad sites"
+  },
+  {
+   "id": "US9305088B1",
+   "title": "Personalized search results"
+  },
+  {
+   "id": "US8595225B1",
+   "title": "Systems and methods for correlating document topicality and popularity"
+  },
+  {
+   "id": "KR20080048128A",
+   "title": "Web page search ranking method and system"
+  },
+  {
+   "id": "KR20080048129A",
+   "title": "Web page search ranking method and system using ISP DS server"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8554759B1/en"
+}

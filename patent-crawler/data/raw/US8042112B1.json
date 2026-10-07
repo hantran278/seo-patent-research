@@ -1,0 +1,941 @@
+{
+ "id": "US8042112B1",
+ "title": "Scheduler for search engine crawler",
+ "abstract": "A search engine crawler includes a distributed set of schedulers that are associated with one or more segments of document identifiers (e.g., URLs) corresponding to documents on a network (e.g., WWW). Each scheduler handles the scheduling of document identifiers (for crawling) for a subset of the known document identifiers. Using a starting set of document identifiers, such as the document identifiers crawled (or scheduled for crawling) during the most recent completed crawl, the scheduler removes from the starting set those document identifiers that have been unreachable in each of the last X crawls. Other filtering mechanisms may also be used to filter out some of the document identifiers in the starting set. The resulting list of document identifiers is written to a scheduled output file for use in a next crawl cycle.",
+ "inventors": [
+  "Huican Zhu",
+  "Maximilian Ibel",
+  "Anurag Acharya",
+  "Howard Bradley Gobioff"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2003-07-03",
+ "filing_date": "2004-06-30",
+ "publication_date": "2011-10-18",
+ "status": "Expired - Fee Related",
+ "expiration": "2028-10-07",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/951"
+ ],
+ "claims": [
+  {
+   "text": "1. A scheduler system for a search engine crawler, comprising: a memory for storing a set of document identifiers corresponding to documents on a network and associated status data collected during one or more previous crawls by the search engine crawler; and a plurality of schedulers configured to select a subset of the document identifiers for crawling, at least some of the schedulers configured to compute priority scores for the subset of document identifiers and to schedule for crawling at least a portion of the subset of document identifiers based on the priority scores and status data; wherein the scheduling includes removing from the subset one or more document identifiers that were unreachable in a plurality of consecutive prior crawls or had download errors in a plurality of consecutive prior crawls; and wherein at least some of the schedulers are configured to: select one or more document identifiers whose corresponding documents will be reused based on historical status data; and retrieve and index documents corresponding to the selected document identifiers, wherein the documents are retrieved from a repository distinct from web hosts corresponding to the document identifiers.",
+   "dependent": false
+  },
+  {
+   "text": "2. The system of claim 1, wherein the document identifiers stored in the memory are divided into multiple segments, and wherein each of a plurality of schedulers is configured to schedule a partition of the document identifiers that includes document identifiers assigned to each of the multiple segments.",
+   "dependent": true
+  },
+  {
+   "text": "3. The system of claim 1, further comprising an unscheduled document identifier file for storing the document identifiers not scheduled for crawling by one or more of the plurality of schedulers.",
+   "dependent": true
+  },
+  {
+   "text": "4. The system of claim 1, wherein each of the plurality of schedulers is configured to sort document identifiers by priority scores and schedule a predefined number N of the sorted document identifiers having highest priority scores.",
+   "dependent": true
+  },
+  {
+   "text": "5. The system of claim 1, wherein the priority scores are calculated using a priority function given by Priority Scorei=page_importancei*boost factor, where the subscript i denotes an ith document identifier and the boost factor is a scalar that is used to demote or promote the priority score of the document identifier.",
+   "dependent": true
+  },
+  {
+   "text": "6. A method of scheduling a search engine crawler using a scheduler system, comprising: at a server with one or more processors and memory, and one or more programs stored in the memory that execute on the one or more processors: selecting a first subset of document identifiers from a set of document identifiers corresponding to documents on a network; computing priority scores for the first subset of document identifiers; forming a second subset of document identifiers based on the priority scores and status data collected during one or more previous crawls by the search engine crawler and by removing from the first subset one or more document identifiers identified as unreachable in a plurality of prior crawls or associated with download errors in a plurality of prior crawls; scheduling for crawling the second subset of document identifiers; selecting one or more document identifiers from the second subset whose corresponding documents will be reused based on historical status data and retrieving and indexing documents corresponding to the selected document identifiers, wherein the documents are retrieved from a repository distinct from web hosts corresponding to the document identifiers.",
+   "dependent": false
+  },
+  {
+   "text": "7. The method of claim 6, further comprising: applying at least one exception filter to at least a plurality of the document identifiers to identify document identifiers to be excluded from a next crawl.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 6, further comprising: removing document identifiers from the second subset in accordance with one or more scheduler limits.",
+   "dependent": true
+  },
+  {
+   "text": "9. The method of claim 6, further comprising: storing unscheduled document identifiers for crawling at a later time.",
+   "dependent": true
+  },
+  {
+   "text": "10. The method of claim 6, further comprising: sorting the first subset of document identifiers by priority scores; and scheduling a portion of the sorted document identifiers to be crawled.",
+   "dependent": true
+  },
+  {
+   "text": "11. The method of claim 6, wherein the document identifiers are Uniform Resource Locators (URLs) and the documents are located on the World Wide Web (WWW).",
+   "dependent": true
+  },
+  {
+   "text": "12. The method of claim 6, wherein the priority scores are calculated using a priority function given by Priority Scorei=page_importancei*boost factor, where the subscript i denotes an ith document identifier and the boost factor is a scalar that is used to demote or promote the priority score of the document identifier.",
+   "dependent": true
+  },
+  {
+   "text": "13. The method of claim 6, wherein the step of selecting document identifiers to be reused further comprises: comparing scores computed for document identifiers against predetermined thresholds; and selecting document identifiers whose corresponding documents will be reused based on the results of the comparison.",
+   "dependent": true
+  },
+  {
+   "text": "14. The method of claim 6, wherein the historical status data includes data indicating whether a particular document associated with a document identifier has changed during a predefined time period.",
+   "dependent": true
+  },
+  {
+   "text": "15. A non-transitory computer-readable medium having stored thereon instructions, which when executed by a processor in a scheduler system for a search engine crawler, cause the processor to perform the operations of: selecting a first subset of document identifiers from a set of document identifiers corresponding to documents on a network; computing priority scores for the first subset of document identifiers; forming a second subset of document identifiers based on the priority scores and status data collected during one or more previous crawls by the search engine crawler and by removing from the first subset one or more document identifiers identified as unreachable in a plurality of prior crawls or associated with download errors in a plurality of prior crawls; scheduling for crawling the second subset of document identifiers; identifying one or more document identifiers from the second subset whose corresponding documents will be reused based on historical status data and retrieving documents corresponding to the identified document identifiers, wherein the documents are retrieved from a repository distinct from web hosts corresponding to the document identifiers.",
+   "dependent": false
+  },
+  {
+   "text": "16. The computer-readable medium of claim 15, further comprising instructions for applying at least one exception filter to at least a plurality of the document identifiers to identify document identifiers to be excluded from a next crawl.",
+   "dependent": true
+  },
+  {
+   "text": "17. The computer-readable medium of claim 15, further comprising instructions for removing document identifiers from the second subset in accordance with one or more scheduler limits.",
+   "dependent": true
+  },
+  {
+   "text": "18. The computer-readable medium of claim 15, further comprising instructions for storing unscheduled document identifiers for crawling at a later time.",
+   "dependent": true
+  },
+  {
+   "text": "19. The computer-readable medium of claim 15, further comprising instructions for: sorting the first subset of document identifiers by priority scores; and scheduling a portion of the sorted document identifiers to be crawled.",
+   "dependent": true
+  },
+  {
+   "text": "20. The computer-readable medium of claim 15, wherein the document identifiers are Uniform Resource Locators (URLs) and the documents are located on the World Wide Web (WWW).",
+   "dependent": true
+  },
+  {
+   "text": "21. The computer-readable medium of claim 15, wherein the priority scores are calculated using a priority function given by Priority Scorei=page_importancei*boost factor, where the subscript i denotes an ith document identifier and the boost factor is a scalar that is used to demote or promote the priority score of the document identifier.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## RELATED APPLICATIONS\n\n\nThis application is a continuation-in-part of U.S. patent application Ser. No. 10/614,113, filed Jul. 3, 2003, now U.S. Pat. No. 7,308,643, which application is incorporated by reference herein in its entirety.\n\nThis application is related to U.S. patent application Ser. No. 10/882,955, “Document Reuse In a Search Engine Crawler”, filed Jun. 30, 2004, which application is incorporated by reference herein in its entirety.\n\n\n## TECHNICAL FIELD\n\n\nThe disclosed embodiments relate generally to search engine crawlers for use in computer network systems, and in particular to a scheduler for a search engine crawler.\n\n\n## BACKGROUND\n\n\nA search engine is a tool that identifies documents, typically stored on hosts distributed over a network, that satisfy search queries specified by users. Web search engines work by storing information about a large number of web pages (hereinafter also referred to as “pages” or “documents”), which they retrieve from the World Wide Web (WWW). These documents are retrieved by a web crawler. The web crawler follows links found in crawled documents so as to discover additional documents to download. The contents of the downloaded documents are indexed, mapping the terms in the documents to identifiers of the documents. The resulting index is configured to enable a search to identify documents matching the terms in search queries. Some search engines also store all or part of the document itself, in addition to the index entries. When a user submits a search query having one or more terms, the search engine searches the index for documents that satisfy the query, and provides a listing of matching documents, typically including for each listed document the URL, the title of the document, and in some search engines a portion of document's text deemed relevant to the query.\n\nWhile web pages can be manually selected for crawling, this becomes impracticable as the number of web pages grows. Moreover, to keep within the capacity limits of the crawler, automated selection mechanisms are needed to determine not only which web pages to crawl, but which web pages to avoid crawling. For instance, as of the end of 2003, the WWW is believed to include well in excess of 10 billion distinct documents or web pages, while a search engine may have a crawling capacity that is less than half as many documents.\n\n\n## SUMMARY\n\n\nA search engine crawler includes a set of schedulers that are associated with one or more segments of document identifiers (e.g., URLs) corresponding to documents on a network (e.g., WWW). Each scheduler handles the scheduling of document identifiers (for crawling) for a subset of the known document identifiers. Using a starting set of document identifiers, such as the document identifiers crawled (or scheduled for crawling) during the most recent completed crawl, the scheduler removes from the starting set those document identifiers that have been unreachable in one or more previous crawls. Other filtering mechanisms may also be used to filter out some of the document identifiers in the starting set.\n\nPriority scores are computed for each remaining document identifier based on predetermined criteria (e.g., a page importance score of the document). In some embodiments, the predetermined criteria include a boost function that boosts the priority scores of pages matching predefined boost criteria. The document identifiers are sorted in accordance with their priority scores, and then the document identifiers having the N top priority scores are selected for scheduling, where N is a predefined or previously selected value. N is typically less than the crawling capacity of a corresponding web crawler, because a portion of the web crawler's capacity is reserved for crawling documents discovered during the course of a crawl.\n\nIn some embodiments, the set of N document identifiers is further reduced by applying a set of predefined capacity limits to the N document identifiers. For instance, the set of predefined capacity limits may include limits on the number of documents in any one domain, limits on the number of documents having a common host limits on documents having particular file types, and so on.\n\nIn some embodiments, the resulting list of document identifiers is written to a scheduled output file for use in a next crawl cycle. The document identifiers rejected on the basis of low priority scores, capacity limits and the like are optionally written to an unscheduled output file, which may be used, for instance, as a source of document identifiers for a low priority background crawl.\n\nIn some embodiments, a scheduler system for a search engine crawler includes a memory for storing a set of document identifiers corresponding to documents on a network and associated status data collected during one or more previous crawls by the search engine crawler. A plurality of schedulers are configured to select a subset of the document identifiers for crawling. The schedulers are configured to compute priority scores for at least some of the subset of document identifiers and to schedule for crawling at least one of the subset of document identifiers based on the priority scores and status data.\n\nIn some embodiments, a method of scheduling a search engine crawler includes selecting a first subset of document identifiers from a set of document identifiers corresponding to documents on a network. Priority scores are computed for the subset of document identifiers. The subset of document identifiers are then scheduled for crawling based on the priority scores and status data collected during one or more previous crawls by the search engine crawler.\n\nIn some embodiments, a computer-readable medium includes instructions, which when executed by a processor in a scheduler system for a search engine crawler, cause the processor to perform various operations. These operations include selecting a first subset of document identifiers from a set of document identifiers corresponding to documents on a network. Priority scores for the subset of document identifiers are computed. The subset of document identifiers are scheduled for crawling based on the priority scores and status data collected during one or more previous crawls by the search engine crawler.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nFIG. 1A illustrates a data structure for storing URLs.\n\nFIG. 1B illustrates the assignment of schedulers to URL partitions containing one or more segments.\n\nFIG. 2 is a block diagram illustrating a web crawler system for processing crawled web pages including a central URL scheduler.\n\nFIG. 3 is a block diagram illustrating a web crawler system for processing web pages including a set of URL schedulers.\n\nFIG. 4A is a conceptual block diagram of a web crawler system.\n\nFIG. 4B is a block diagram of a history log file.\n\nFIG. 4C is a flow diagram of a process for determining which URLs to be download and which to reuse from a database of previously downloaded documents when crawling a set of URLs.\n\nFIG. 4D is a block diagram of a reuse server for a web crawler system.\n\nFIG. 5 illustrates a URL fingerprint hashing process for accessing records in a URL status file.\n\nFIG. 6 illustrates the format of a schedule output file.\n\nFIG. 7 is a block diagram of a URL scheduler for a URL manager system.\n\nFIG. 8 is flow diagram of a URL scheduler process.\n\n\n## DESCRIPTION OF EMBODIMENTS\n\n\n\n## Overview of Crawler System with Centralized URL Scheduler\n\n\nFIG. 1A illustrates a data structure 100 for storing document identifiers (e.g., web page URLs) into segments 112. In some embodiments, the data structure 100 includes a sequence of segments 112 a, . . . , 112 n. Each segment 112 includes a number of URLs representing a portion of the web page address space that has been (or will be) used by a web crawler system.\n\nFIG. 1B illustrates the assignment of a set of URL schedulers to segments of a data structure. Note that each scheduler 1, . . . , N is assigned to a URL partition, which includes a portion of each of the segments 1 to Q. For Example, scheduler 1 will schedule URLs contained in segments 1, . . . , Q, which collectively form URL partition 1. The schedulers 302 are described more fully with respect to FIG. 3.\n\nFIG. 2 is a simplified block diagram of a web crawler system 200, which crawls URLs stored in the data structure 100. In some embodiments, there are a number of different URL sources used to populate the data structure 100, including direct submission 203 of URLs by users of the search engine system 200, or submissions (e.g., time-based submissions) from third parties who have agreed to provide links to documents as they are published, updated or changed. Another source of URLs is through discovery of outgoing links on crawled pages.\n\nThe URL scheduler 202 determines which URLs will be crawled in each epoch, and stores that information in the data structure 100. In some embodiments, the URL scheduler 202 allocates URLs to segments of the data structure, where the segments correspond to the epochs. In these embodiments, the URL scheduler 202 also determines which URLs within each segment are to be crawled, as will be described in more detail below.\n\nThe controller 201 selects a segment 112 for crawling. The selected segment 112 is referred to hereinafter as the “active segment.” Typically, at the start of each epoch, the controller 201 selects a different segment 112 as the active segment so that, over the course of several epochs, all the segments 112 a, . . . , n are selected for crawling in a round-robin manner.\n\nA query-independent score (also called a document score) is computed for each URL by URL page rankers 222. The page rankers 222 compute a page importance score for a given URL. In some embodiments, the page importance score is computed by considering not only the number of URLs that reference a given URL but also the page importance score of such referencing URLs. Page importance score data is provided to URL managers 204, which pass a page importance score for each URL to URL server 206, robots 208, and content processing servers 210. One example of a page importance score is PageRank, which is used the page importance metric used in the Google search engine. An explanation of the computation of PageRank is found in U.S. Pat. No. 6,285,999, which is incorporated by reference herein in its entirety.\n\nFrom time to time, the URL server 206 requests URLs from the URL managers 204. In response, the URL managers 204 provide the URL server 206 with URLs obtained from data structure 100. The URL server 206 then distributes URLs from the URL managers 204 to crawlers 208 (hereinafter also called “robots” or “bots”) to be crawled. A robot 208 is a server that retrieves documents at the URLs provided by the URL server 206. The robots 208 use various known protocols to download pages associated with URLs (e.g., HTTP, HTTPS, Gopher, FTP, etc.).\n\nPages obtained from URLs that have been crawled by robots 208 are delivered to content processing servers 210, which perform a number of tasks. In some embodiments, these tasks include indexing the content of the pages, generating records of the outbound links in the pages, detecting duplicate pages, and creating various log records to record information about the crawled pages. In one embodiment, these log records are stored in log files, including link logs 214, history logs 218, and status logs 212. The link logs 214 include a link record for each document obtained from a URL by a robot 208 and passed to the content processing servers 210. Each link log 214 record identifies all the links (e.g., URLs, also called outbound links) that are found in the document associated with the record and the text that surrounds the link. The information in the link logs 214 is used by the content processing servers 210 to create link maps 220. The records in the link map 220 are similar to records in the link logs 214 with the exception that text is stripped and the records are keyed by a “fingerprint” of the normalized value of the source URL. In some embodiments, a URL fingerprint is a 64-bit integer determined by applying a hash function or other one way function to a URL. The bit-length of the URL fingerprint may be longer or shorter than 64 bits in other embodiments. The records in each link map 220 may optionally be sorted or keyed by a fingerprint. The link maps 220 are used by the page rankers 222 to adjust the page importance score of URLs within data structure 100. Preferably, such page importance scores persist between epochs.\n\n\n## URL Scheduling\n\n\n\n## Overview of Web Crawler System with URL Schedulers\n\n\nFIG. 3 is a simplified block diagram illustrating a web crawler system 300 for processing web pages including URL schedulers 302. Note that portions of the web crawler system 300 not directly involved in the operation of the URL schedulers 302 and URL managers 304 are represented by the content processing servers 210. Also, note that the controller 201, page rankers 222, content processing servers 210, URL server 206 and robots 208 operate in a manner previously described with respect to the web crawler system 200 shown in FIG. 2. In contrast to the web crawler system 200, which employs a centralized URL scheduler 202, the web crawler system 300 employs a number of URL schedulers 302-1, . . . , 302-N, which are run prior to each segment being crawled. Each scheduler 302 is coupled to a corresponding URL manager 304-1, . . . , 304-N, which is responsible for managing the distribution of URLs to URL server 306. The URL schedulers 302 are adapted to receive URL lists 319 containing URLs to be scheduled for crawling. The URL lists 319 are generated, at least in part, from URL status tables 505, as described below.\n\n\n## URL Reuse\n\n\nReferring to the lower half of FIG. 3, a reuse server 307 populates a reuse table 309 with historical data received from history logs 218 generated by the content processing servers 210 during previous crawls. The reuse table 309 identified URLs that are to be retrieved from data repositories rather than downloaded from the WWW in the next crawl. In some embodiments, the decision to reuse a URL is based on whether the content of the document corresponding to the URL has changed in the last N crawls. For example, if a content checksum for a document remains unchanged over the last N crawls, then the URL associated with the document will be included in the reuse table 309 along with the number of days since the document was last modified. In other embodiments, a limit is placed on the number of times a particular URL is reused. For example, after a URL has been reused three times in a row it is no longer a candidate for reuse. In still other embodiments, the top x % (e.g., 2%) of URLs based on page importance scores will not be reused because of the importance that the search index contain the most recent version of these documents, as well as the high probability that their content will change between crawls. Table I below is an example of a reuse table 309 for a scheduler system 300.\n\nTABLE I Reuse Table Example URL URL Record No. Fingerprint (FP) Reuse Type If Modified Since . . . 1 2123242 REUSE 2 2323232 REUSE IF NOT Feb. 5, 2004 MODIFIED SINCE 3 3343433 DOWNLOAD . . . . . . . . . . . .\n\nIn some embodiments, the reuse table 309 includes a record for each URL and each URL record includes at least three fields. The first field includes the URL fingerprint (FP) and the second field includes a Reuse Type flag indicating whether the URL associated with the URL FP is to be reused, or downloaded, or conditionally reused. If the Reuse Type flag is set to REUSE, then the document associated with the URL FP will be retrieved from a data repository. If the Reuse Type flag is set to DOWNLOAD, then the document will be downloaded in the next crawl cycle. If the Reuse Type Flag is set to REUSE IF NOT MODIFIED SINCE, the third field specifies a date or a date and time or a timestamp value. When the Reuse Type Flag is set to this conditional value, and the document associated with the URL was “modified since” the time and date specified in the reuse table 309, then the document will be downloaded by a robot in the next crawl cycle. Otherwise, the document associated with URL will be retrieved form a data depository. The reuse/download scheduling process is described more fully with respect to FIGS. 4A-4D.\n\nFIG. 4A is a conceptual diagram of a web crawler system. All of the components of the system have been previously described, except the two databases 350, 352. The first database 350 is the World Wide Web or other network of documents, and thus is not part of the web crawler system. The second database 352 is a local repository of documents previously downloaded from the first database 350, during either the current or previous crawls. The robots 208 crawl scheduled documents, the addresses or URLs of which are provided to the robots by the URL Server 206. Each scheduled document is crawled either from the first database 350 or the local second database 352, based on information specified in the reuse table 309.\n\nFIG. 4B depicts a portion of the data structure of a history log file 218 and a history log record 432. In some embodiments, each history log record 432 contains only a subset of the fields shown in FIG. 4B, and may contain other fields as well. In the embodiment shown, the history log file 218 contains a set of history log records 432, each of which stores information concerning a particular crawl attempt of a particular document. Each history record 432 includes the following fields:\n\nSome of the fields of the history record 432 are unused, or undefined, in the event that the crawl attempt is unsuccessful, or if the crawl attempt is a reuse of the document from a local document repository.\n\n\n## Reuse/Download Scheduling Process\n\n\nFIG. 4C is a flow diagram of a process for determining whether to download (e.g., from the WWW) or reuse (e.g., retrieve from a repository) a document corresponding to a URL in the next crawl. In some embodiments, the process is performed by the reuse server 307 once per M URL segments. As shown in Table I, each URL is associated with a URL record stored in the reuse table 309. Each URL record includes a Reuse Type flag for determining whether a document will be downloaded or retrieved from a data repository in the next crawl cycle.\n\nThe process begins by retrieving 400 from a URL manager 304 a list of URLs downloaded in the last crawl and selecting 402 a URL to process. If 404 the page importance score for the URL is greater than a first predetermined threshold (e.g., a threshold associated with the top x % of page importance scores), then its Reuse Type flag is set 416 to DOWNLOAD and stored 414 in the reuse table 309. The URL page importance score used in steps 404 and 406 can be obtained from the page rankers 222, or can be retrieved from the URL history log 218, or it can be obtained by obtaining the historical page importance score for the URL for a predefined number of prior crawls and then performing a predefined filtering function on those values to obtain the URL page importance score.\n\nIf the page importance score of the URL is not above the first predefined threshold, its page importance score is compared against a second predetermined threshold. If 406 the page importance score is greater than the second predetermined threshold (e.g., in the top y % of page ranks), and the last crawl of the document was from the web (i.e., was not a reuse of the document from a local document repository) 407, then the date and time of the current version of the URL is determined 418, the Reuse Type flag is set 420 to REUSE UNLESS MODIFIED SINCE and the determined date and time are also stored in Reuse table entry for the URL. When this URL is scheduled for crawling, the robot assigned this URL will establish a connection to the host to determine the date and time of the last update to the document at the URL. If the update date and time are after the date and time specified in the reuse table, the robot downloads the document from the host server. Otherwise, the robot reuses the document from a document repository.\n\nOn the other hand, if 406 the page importance score is greater than the second predetermined threshold (e.g., in the top y % of page importance scores), and the last crawl of the document was not from the web (i.e., was a reuse of the document from a local document repository) 407, then the Reuse Type Flag is set 416 to Download. After setting the Reuse Type flag, the URL record is stored 414 in the reuse table 309 and another URL is selected 402 from the URL list for processing.\n\nIf 404, 406, the page importance score for the URL does not exceed the predetermined thresholds, and if 408 the content of the document associated with the URL has changed at least one over a predefined period (e.g., the 45 day period ending at the time of the last scheduled crawl of the URL), then the Reuse Type flag is set 422 to DOWNLOAD. In some embodiments, the history logs 218 include a content checksum 440 for the content of a document each time it is downloaded by a robot. By comparing the content checksums for two or more of the downloads of the URL during a predefined period of time, the reuse server can determine if the document at the URL has changed during that predefined period. After setting the Reuse Type flag, the URL record is stored 414 in the reuse table 309 and another URL is selected 402 from the URL list for processing.\n\nIf 408 the content of the URL has remained unchanged for the entire predefined period, and if 410 the URL was reused in all of the last Y crawls, then the Reuse Type flag is set 412 to DOWNLOAD. Otherwise, the Reuse Type flag is set 424 to REUSE. For example, if Y=3, then a URL is reused at most three time in a row. On the other hand, once a document qualifies for reuse, it will be reused for Y successive crawls, after which the reuse server will enabling the document to be downloaded. After setting the Reuse Type flag, the URL record is stored 414 in the reuse table 309 and another URL is selected 402 from the URL list for processing.\n\nIn other embodiments, various aspects of the reuse scheduling process may differ from those shown in FIG. 4C and described above. For instance, in some embodiments, all known URLs are assigned a Reuse Type of either Download or Reuse. In these embodiments, the Reuse Type of Reuse If Not Modified Since is not used.\n\n\n## Reuse Server\n\n\nFIG. 4D is a block diagram of a computer system configured to operate as the reuse server 307. Since reuse scheduling is performed only occasionally, the computer system 307 may well be used for other tasks as well. For the purposes of the present discussion, however, we are concerned only about the computer system while it is configured for use as a reuse scheduler 307.\n\nThe reuse scheduler 307 includes one or more processing units (CPU's) 472, one or more network or other communications interfaces 480, memory 482, and one or more communication buses 484 for interconnecting these components. The system 307 may optionally include a user interface 474, for instance a display 476 and a keyboard 478. Memory 912 may include high speed random access memory and may also include non-volatile memory, such as one or more magnetic disk storage devices. Memory 482 may include mass storage that is remotely located from the central processing unit(s) 472.\n\nThe memory 482 stores an operating system 486 (e.g., Linux or Unix), a network communication module 480, a system initialization module 490 and a reuse scheduler module 492. The operating system 486 generally includes procedures for handling various basic system services and for performing hardware dependent tasks. The network communication module 488 is used for connecting the system 307 to other servers or computers in the web crawler system 300 (FIG. 3) and possibly to other servers or computers via one or more communication networks (wired or wireless), such as the Internet, other wide area networks, local area networks, metropolitan area networks, and the like. The system initialization module 490 initializes other modules and data structures stored in memory 484 required for the appropriate operation of the system 307.\n\nThe operation of the reuse scheduler module 492 was described above with respect to FIG. 4C. The reuse scheduler module 492 includes reuse scheduler software 494, which is used to implement the main logic of the reuse server, a history log analyzer 496, and the reuse table 309. The history log analyzer 496 is configured to analyze the information in one or more history log file(s) 218 to determine (A) whether the content of a particular URL has remain unchanged for a predefined or specified period of time, and (B) whether a particular URL has been reused Y times in a row.\n\n\n## URL FP Mapping and Schedule Output File Format\n\n\nFIG. 5 illustrates a URL FP hashing process for accessing records containing data used in the distributed scheduler process described with respect to FIG. 8. In some embodiments, the URL FP is an N-bit number (where N is a value or a bit length) that is generated from the corresponding URL by first normalizing 500 the URL text (e.g., converting host names to lower case, and canonicalization—rewriting the URL, if necessary, in canonical form) and then passing the normalized URL text through a hash function 502 to produce a URL fingerprint. The URL fingerprint is then passed through a hash map 504, which ensures that the URL fingerprint is well distributed across the entire space of possible numbers. The hash map 504 maps the URL fingerprint to a corresponding record 508 in the URL status file 506. In some embodiments, the URL records 508 include a page importance score, a prior crawl status and a segment ID. In other embodiments, URL records 508 can include more or fewer fields than shown in FIG. 5, as needed, depending upon the architecture of the system 300.\n\nA page importance score is assigned to a URL FP at the time the document download operation is performed or attempted. The page importance score can change over time, as the set of pages having links to the page corresponding to URL FP changes, and as the page importance scores of these referring pages change. The prior crawl status can include multiple fields, including without limitation an error field and an unreachable field. The error field records information associated with a download error. An example of an error is “HTTP Error 4xx,” which may indicate that the web page does not exist, or that access is not authorized, or some other error. In some embodiments, the error field indicates the number of consecutive times an attempt to download the URL resulted in an error. The unreachable field records information associated with a URL being unreachable (e.g., because the host server is busy). For example, the unreachable field can include the number of consecutive times the URL was unreachable in previous crawls. The segment ID identifies the particular crawl segment associated with the URL FP at the time that the document download operation was performed or attempted.\n\nIn some embodiments, information about document download errors and unreachable URLs is stored in one or more separate files (hereinafter called URL Error Files). For example, for each complete segment crawl, a first file may be created for each URL scheduler that indicates all the URLs scheduled by that URL scheduler which resulted in downloading error, and a second file may be created for each URL scheduler that indicates all the URLs scheduled by that URL scheduler that were determined to be unreachable. The information in these files is then used by the URL scheduler while determining which URLs to schedule for downloading in a next crawl cycle.\n\nFIG. 6 illustrates the format of a schedule output file 600. In some embodiments, the result of the scheduler process shown in FIG. 8 is a schedule output file 600, which is provided by a scheduler 302 to its corresponding URL manager 304. The scheduler output file 600 includes records 600 a, . . . , 600 n, each identifying a URL to be crawled and, optionally, including additional information (e.g., page importance score, source tag, etc.).\n\n\n## URL Scheduler Computer System\n\n\nFIG. 7 is a block diagram of a computer system 700 configured to operate as one of the URL schedulers. Since URL schedule is performed only occasionally, the computer system 700 may well be used for other tasks as well. For the purposes of the present discussion, however, we are concerned only about the computer system 700 while it is configured for use as a URL scheduler.\n\nThe URL scheduler 700 includes one or more processing units (CPU's) 702, one or more network or other communications interfaces 710, memory 712, and one or more communication buses 714 for interconnecting these components. The system 700 may optionally include a user interface 704, for instance a display 706 and a keyboard 708. Memory 712 may include high speed random access memory and may also include non-volatile memory, such as one or more magnetic disk storage devices. Memory 712 may include mass storage that is remotely located from the central processing unit(s) 702. Memory 712, or one or more of the storage devices (e.g., one or more non-volatile storage devices) in memory 712, includes a computer readable storage medium.\n\nThe memory 712 stores an operating system 716 (e.g., Linux or Unix), a network communication module 718, a system initialization module 720 and a URL scheduler module 722. The operating system 716 generally includes procedures for handling various basic system services and for performing hardware dependent tasks. The network communication module 718 is used for connecting the system 700 to other servers or computers in the web crawler system 300 (FIG. 3) and possibly to other servers or computers via one or more communication networks (wired or wireless), such as the Internet, other wide area networks, local area networks, metropolitan area networks, and the like. The system initialization module 720 initializes other modules and data structures stored in memory 714 required for the appropriate operation of the system 700.\n\nThe memory 712 also includes a URL scheduler module 722, which is used to implement various aspects of the disclosed embodiments, as described below with respect to FIG. 8. The scheduler module 722 includes scheduler software 724, which is used to implement the various aspects of the scheduler system 700, together with various data structures and functions. In some embodiments, the data structures and functions include a URL list 726 (e.g., one per segment), a schedule output file 600, a priority score function 730, scheduler limit(s) 732, a hash function 502, a URL FP hash map 504, a URL status file 506, exception filter(s) 738, and a Unscheduled URLs file 740. The data structures may optionally include one or more URL Error Files 736, for storing information about errors and unreachable URLs encountered in one or more prior crawl epochs. The use of these data structures and functions is described with respect to FIG. 8.\n\n\n## Scheduler Operation\n\n\nFIG. 8 is a flow diagram of a URL scheduling process implemented by a scheduler module N corresponding to a URL manager N and segment Y. For each segment Y to be crawled, the scheduler 724 retrieves 802 a starting point URL list 726 from URL manager N for segment Y. The URL list 726 includes URLs in segment Y that were scheduled for crawling during a prior crawl cycle. As described with respect to FIG. 5, the URLs are passed through the hash function 733 to generate URL fingerprints which are passed through the hash map 734 to access URL records in the URL status file 506. At this point in the process, the prior crawl status fields (e.g., unreachable and error fields) in the URL status file 506 can be used to identify URLs that were unreachable in each of the last X crawls (e.g., the last two crawls) or that associated with download errors in each of the last X crawls. Alternately, in some embodiments prior crawl error information is retrieved from separate URL Error Files. The identified URLs are removed 804 from the starting URL list 726. In some embodiments, one or more exception filters 738 can be applied 806 to the URL list 726 to eliminate URLs. For example, in some embodiments URLs associated with customer complaints or spammers, as well as URLs that do not belong in segment Y, are deleted from the URL list 726. In other embodiment, more or fewer exception filters are applied to the URL list, to remove URLs from the initial URL list.\n\nAfter deleting URLs from the URL list 726, the page importance scores for the remaining URLs are used to compute 808 priority scores using a priority score function 730, which in some embodiments is given by Priority Scorei=page_importancei*boost factor, (1) where the subscript i denotes an ith URL and the boost factor is a scalar (e.g., a number larger or smaller than 1.0) that is used to demote or promote the priority score of the URL. For example, the boost factor can be used to promote URLs of homepages of major companies (e.g., Fortune 100) or popular news sites (e.g., CNN). Note that more or fewer priority scores can be computed using a variety of priority functions, as needed, depending upon the architecture of the scheduling system 300.\n\nAfter computing 808 the priority scores for the URLs, the URLs are sorted 810 by priority score and the top N sorted URLs are selected 812 as candidates to be crawled. In some embodiments, the number N may be a predefined number, related to the URL handling capacity of the web crawling system during each epoch. For example, N may be equal to a predefined percentage (e.g., 65% or 75% or 80%) of the URL handling capacity of the web crawling system during an epoch.\n\nIn some embodiments, one or more scheduler limits 732 (e.g., capacity limits) can be applied 814 to the selected URLs. Some examples of scheduler limits 732 include values that represent the maximum number of URLs that can be scheduled on a host-by-host, domain and/or group basis. For example, there may be hardware or software limits on the number of URLs that a particular host machine can process in a crawl cycle or epoch. There may also be limits on the number of URLs having a particular domain name or that are associated with a particular file type (e.g., CGI files). Note that any number and types of scheduler limits 732 can be applied to the selected URLs, as needed, depending upon the architecture of the scheduler system 300.\n\nAfter applying 814 the scheduler limits 732 (if any), the selected URLs are written 816 to a schedule output file 728, as shown in FIG. 6. In some embodiments, only URLs are written 816 to the schedule output file 728. In other embodiments, the URLs are written 816 to the schedule output file 728, together with other information (e.g., page importance score, source tag, etc.), as needed, depending upon the architecture of the scheduler system 300. In some embodiments, the URLs that were not written 816 to the schedule output file 728 because they were eliminated due to the scheduler limits 732, are optionally written 818 to an unscheduled URL file 740.\n\nReferring again to FIG. 3, the schedule output file 728 produced by the URL scheduler of FIG. 7 is used by a corresponding to URL manager 304. In particular, the URLs listed in the schedule output file 728 are provided to the URL server 306 over the course of a crawl epoch, for either downloading or reuse, as specified by the reuse table 309. Additional URLs discovered during the course of the crawl are also provided by the URL manager 304 to the URL server 306 using additional mechanisms that are not the subject of this document.\n\nThe foregoing description, for purpose of explanation, has been described with reference to specific embodiments. However, the illustrative discussions above are not intended to be exhaustive or to limit the invention to the precise forms disclosed. Many modifications and variations are possible in view of the above teachings. The embodiments were chosen and described in order to best explain the principles of the invention and its practical applications, to thereby enable others skilled in the art to best utilize the invention and various embodiments with various modifications as are suited to the particular use contemplated.",
+ "cited_by": [
+  {
+   "id": "US20100017850A1",
+   "title": "Methods and systems to fingerprint textual information using word runs",
+   "assignee": "Workshare Technology, Inc."
+  },
+  {
+   "id": "US20100124354A1",
+   "title": "Methods and systems for image fingerprinting",
+   "assignee": "Workshare Technology, Inc."
+  },
+  {
+   "id": "US20100169305A1",
+   "title": "Information retrieval system for archiving multiple document versions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20110022960A1",
+   "title": "Methods and systems for comparing presentation slide decks",
+   "assignee": "Workshare Technology, Inc."
+  },
+  {
+   "id": "US20110258176A1",
+   "title": "Minimizing Visibility of Stale Content in Web Searching Including Revising Web Crawl Intervals of Documents",
+   "assignee": "Carver Anton P T"
+  },
+  {
+   "id": "US20120159385A1",
+   "title": "Snipping tool",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8386460B1",
+   "title": "Managing URLs",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8386459B1",
+   "title": "Scheduling a recrawl",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20130086130A1",
+   "title": "Executor for software configuration automation",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "WO2013082419A1",
+   "title": "Promotion code validation apparatus and method",
+   "assignee": "YSL Ventures, Inc."
+  },
+  {
+   "id": "US8489628B2",
+   "title": "Phrase-based detection of duplicate documents in an information retrieval system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8555080B2",
+   "title": "Methods and systems for protect agents using distributed lightweight fingerprints",
+   "assignee": "Workshare Technology, Inc."
+  },
+  {
+   "id": "US8560550B2",
+   "title": "Multiple index based information retrieval system",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20130346472A1",
+   "title": "Redirecting From a Cloud Service to a Third Party Website to Save Costs Without Sacrificing Security",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US8631027B2",
+   "title": "Integrated external related phrase information into a phrase-based indexing information retrieval system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8666964B1",
+   "title": "Managing items in crawl schedule",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8707313B1",
+   "title": "Scheduler for search engine crawler",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN103870329A",
+   "title": "Distributed crawler task scheduling method based on weighted round-robin algorithm",
+   "assignee": "同济大学"
+  },
+  {
+   "id": "US8775403B2",
+   "title": "Scheduler for search engine crawler",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20140278880A1",
+   "title": "Matching a Coupon to A Specific Product",
+   "assignee": "Retailmenot. Inc."
+  },
+  {
+   "id": "US20140324815A1",
+   "title": "Search infrastructure representing hosting client devices",
+   "assignee": "Broadcom Corporation"
+  },
+  {
+   "id": "US9002777B1",
+   "title": "Systems and methods for handling data",
+   "assignee": "Emc Corporation"
+  },
+  {
+   "id": "US9092636B2",
+   "title": "Methods and systems for exact data match filtering",
+   "assignee": "Workshare Technology, Inc."
+  },
+  {
+   "id": "US9170990B2",
+   "title": "Method and system for document retrieval with selective document comparison",
+   "assignee": "Workshare Limited"
+  },
+  {
+   "id": "US9613340B2",
+   "title": "Method and system for shared document approval",
+   "assignee": "Workshare Ltd."
+  },
+  {
+   "id": "US9948676B2",
+   "title": "System and method for securing documents prior to transmission",
+   "assignee": "Workshare, Ltd."
+  },
+  {
+   "id": "US10025759B2",
+   "title": "Methods and systems for monitoring documents exchanged over email applications",
+   "assignee": "Workshare Technology, Inc."
+  },
+  {
+   "id": "US10133723B2",
+   "title": "System and method for determining document version geneology",
+   "assignee": "Workshare Ltd."
+  },
+  {
+   "id": "US10353978B2",
+   "title": "URL normalization",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "US10574729B2",
+   "title": "System and method for cross platform document sharing",
+   "assignee": "Workshare Ltd."
+  },
+  {
+   "id": "US10783326B2",
+   "title": "System for tracking changes in a collaborative document editing environment",
+   "assignee": "Workshare, Ltd."
+  },
+  {
+   "id": "US10880359B2",
+   "title": "System and method for cross platform document sharing",
+   "assignee": "Workshare, Ltd."
+  },
+  {
+   "id": "US10911492B2",
+   "title": "System and method for securing documents prior to transmission",
+   "assignee": "Workshare Ltd."
+  },
+  {
+   "id": "US10949479B2",
+   "title": "Retrieval of content using link-based search",
+   "assignee": "ModeSens Inc."
+  },
+  {
+   "id": "US10963584B2",
+   "title": "Method and system for collaborative editing of a remotely stored document",
+   "assignee": "Workshare Ltd."
+  },
+  {
+   "id": "US11030163B2",
+   "title": "System for tracking and displaying changes in a set of related electronic documents",
+   "assignee": "Workshare, Ltd."
+  },
+  {
+   "id": "US11182551B2",
+   "title": "System and method for determining document version geneology",
+   "assignee": "Workshare Ltd."
+  },
+  {
+   "id": "US11327947B1",
+   "title": "System for identifying, tagging, and monitoring data flow in a system environment",
+   "assignee": "Bank Of America Corporation"
+  },
+  {
+   "id": "CN114761945A",
+   "title": "Efficient crawling using path scheduling and applications thereof",
+   "assignee": "维达数据方案公司"
+  },
+  {
+   "id": "US20220292142A1",
+   "title": "Automated web page accessing",
+   "assignee": "GAP Intelligence"
+  },
+  {
+   "id": "US11567907B2",
+   "title": "Method and system for comparing document versions encoded in a hierarchical representation",
+   "assignee": "Workshare, Ltd."
+  },
+  {
+   "id": "US11763013B2",
+   "title": "Transaction document management system and method",
+   "assignee": "Workshare, Ltd."
+  },
+  {
+   "id": "US12198789B2",
+   "title": "Efficient crawling using path scheduling, and applications thereof",
+   "assignee": "Veda Data Solutions, Inc."
+  },
+  {
+   "id": "US20110307467A1",
+   "title": "Distributed web crawler architecture",
+   "assignee": "Stephen Severance"
+  },
+  {
+   "id": "US10127281B2",
+   "title": "Dynamic hash table size estimation during database aggregation processing",
+   "assignee": "Sap Se"
+  },
+  {
+   "id": "US10055480B2",
+   "title": "Aggregating database entries by hashing",
+   "assignee": "Sap Se"
+  },
+  {
+   "id": "US9846743B2",
+   "title": "Systems, methods, and interfaces for analyzing webpage portions",
+   "assignee": "Thomson Reuters Global Resources Unlimited Company"
+  },
+  {
+   "id": "US9690847B2",
+   "title": "Selecting content using query-independent scores of query segments",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "CN106503017A",
+   "title": "A kind of distributed reptile system task grasping system and method",
+   "assignee": "摩贝（上海）生物科技有限公司"
+  },
+  {
+   "id": "CN107463669B",
+   "title": "Method and device for analyzing webpage data crawled by crawler",
+   "assignee": "深圳市华傲数据技术有限公司"
+  },
+  {
+   "id": "CN109829094A",
+   "title": "Distributed reptile system",
+   "assignee": "钟祥博谦信息科技有限公司"
+  },
+  {
+   "id": "CN110955414A",
+   "title": "Custom data acquisition system and method",
+   "assignee": "电子科技大学"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5634062A",
+   "title": "System for managing hypertext node information and link information",
+   "assignee": "Fuji Xerox Co., Ltd."
+  },
+  {
+   "id": "US5801702A",
+   "title": "System and method for adding network links in a displayed hierarchy",
+   "assignee": "Terrabyte Technology"
+  },
+  {
+   "id": "US5832494A",
+   "title": "Method and apparatus for indexing, searching and displaying data",
+   "assignee": "Libertech, Inc."
+  },
+  {
+   "id": "US5898836A",
+   "title": "Change-detection tool indicating degree and location of change of internet documents by comparison of cyclic-redundancy-check(CRC) signatures",
+   "assignee": "Netmind Services, Inc."
+  },
+  {
+   "id": "US6003060A",
+   "title": "Method and apparatus to share resources while processing multiple priority data flows",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6012087A",
+   "title": "Unique-change detection of dynamic web pages using history tables of signatures",
+   "assignee": "Netmind Technologies, Inc."
+  },
+  {
+   "id": "US6049804A",
+   "title": "Method and apparatus for segmenting a database",
+   "assignee": "Filetek, Inc."
+  },
+  {
+   "id": "US6189019B1",
+   "title": "Computer system and computer-implemented process for presenting document connectivity",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6243091B1",
+   "title": "Global history view",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "WO2001050320A1",
+   "title": "Minimal impact crawler",
+   "assignee": "Auctionwatch.Com, Inc."
+  },
+  {
+   "id": "US6263350B1",
+   "title": "Method and system for leasing storage",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US6263364B1",
+   "title": "Web crawler system using plurality of parallel priority level queues having distinct associated download priority levels for prioritizing document downloading and maintaining document freshness",
+   "assignee": "Alta Vista Company"
+  },
+  {
+   "id": "US6269370B1",
+   "title": "Web scan process",
+   "assignee": "Infoseek Corporation"
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "WO2001086507A1",
+   "title": "Relevant search rankings using high refresh-rate distributed crawling",
+   "assignee": "The Johns Hopkins University"
+  },
+  {
+   "id": "US6321265B1",
+   "title": "System and method for enforcing politeness while scheduling downloads in a web crawler",
+   "assignee": "Altavista Company"
+  },
+  {
+   "id": "US6336123B2",
+   "title": "Hierarchical based hyper-text document preparing and management apparatus",
+   "assignee": "Matsushita Electric Industrial Co., Ltd."
+  },
+  {
+   "id": "US20020010682A1",
+   "title": "Information archival and retrieval system for internetworked computers",
+   "assignee": "Johnson Rodney D."
+  },
+  {
+   "id": "US20020023158A1",
+   "title": "Method and apparatus for implementing search and channel features in an enterprise-wide computer system",
+   "assignee": "Polizzi Kathleen Riddell"
+  },
+  {
+   "id": "US6351755B1",
+   "title": "System and method for associating an extensible set of data with documents downloaded by a web crawler",
+   "assignee": "Alta Vista Company"
+  },
+  {
+   "id": "US6377984B1",
+   "title": "Web crawler system using parallel queues for queing data sets having common address and concurrently downloading data associated with data set in each queue",
+   "assignee": "Alta Vista Company"
+  },
+  {
+   "id": "US20020052928A1",
+   "title": "Computer method and apparatus for collecting people and organization information from Web sites",
+   "assignee": "Eliyon Technologies Corporation"
+  },
+  {
+   "id": "US20020065827A1",
+   "title": "Method and apparatus for workgroup information replication",
+   "assignee": "David Christie"
+  },
+  {
+   "id": "US6404446B1",
+   "title": "Multi-node user interface component and method thereof for use in displaying visual indication of search results",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20020073188A1",
+   "title": "Method and apparatus for partitioning system management information for a server farm among a plurality of leaseholds",
+   "assignee": "Rawson Freeman Leigh"
+  },
+  {
+   "id": "US20020087515A1",
+   "title": "Data acquisition system",
+   "assignee": "Swannack Christopher Martyn"
+  },
+  {
+   "id": "US6418453B1",
+   "title": "Network repository service for efficient web crawling",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6418433B1",
+   "title": "System and method for focussed web crawling",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6424966B1",
+   "title": "Synchronizing crawler with notification source",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20020099602A1",
+   "title": "Method and system to provide web site schedules",
+   "assignee": "Paul Moskowitz"
+  },
+  {
+   "id": "US20020129062A1",
+   "title": "Apparatus and method for cataloging data",
+   "assignee": "Wood River Technologies, Inc."
+  },
+  {
+   "id": "US20030061260A1",
+   "title": "Resource reservation and priority management",
+   "assignee": "Timesys Corporation"
+  },
+  {
+   "id": "US6547829B1",
+   "title": "Method and system for detecting duplicate documents in web crawls",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20030131005A1",
+   "title": "Method and apparatus for automatic pruning of search engine indices",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6594662B1",
+   "title": "Method and system for gathering information resident on global computer networks",
+   "assignee": "Netshadow, Inc."
+  },
+  {
+   "id": "US20030158839A1",
+   "title": "System and method for determining relevancy of query responses in a distributed network search mechanism",
+   "assignee": "Yaroslav Faybishenko"
+  },
+  {
+   "id": "US6631369B1",
+   "title": "Method and system for incremental web crawling",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6638314B1",
+   "title": "Method of web crawling utilizing crawl numbers",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6701350B1",
+   "title": "System and method for web page filtering",
+   "assignee": "Nortel Networks Limited"
+  },
+  {
+   "id": "US20040044962A1",
+   "title": "Relevant search rankings using high refresh-rate distributed crawling",
+   "assignee": "Green Jacob William"
+  },
+  {
+   "id": "US20040064442A1",
+   "title": "Incremental search engine",
+   "assignee": "Popovitch Steven Gregory"
+  },
+  {
+   "id": "US6751612B1",
+   "title": "User query generate search results that rank set of servers where ranking is based on comparing content on each server with user query, frequency at which content on each server is altered using web crawler in a search engine",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20040128285A1",
+   "title": "Dynamic-content web crawling through traffic monitoring",
+   "assignee": "Jacob Green"
+  },
+  {
+   "id": "US6763362B2",
+   "title": "Method and system for updating a search engine",
+   "assignee": "Micron Technology, Inc."
+  },
+  {
+   "id": "US6772203B1",
+   "title": "Updating data objects for dynamic application caching",
+   "assignee": "Pivia, Inc."
+  },
+  {
+   "id": "US20040225644A1",
+   "title": "Method and apparatus for search engine World Wide Web crawling",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040225642A1",
+   "title": "Method and apparatus for web crawler data collection",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050071766A1",
+   "title": "Systems and methods for client-based web crawling",
+   "assignee": "Brill Eric D."
+  },
+  {
+   "id": "US20050086206A1",
+   "title": "System, Method, and service for collaborative focused crawling of documents on a network",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050154746A1",
+   "title": "Content presentation and management system associating base content and relevant additional content",
+   "assignee": "Yahoo!, Inc."
+  },
+  {
+   "id": "US20050192936A1",
+   "title": "Decision-theoretic web-crawling and predicting web-page change",
+   "assignee": "Meek Christopher A."
+  },
+  {
+   "id": "US6950874B2",
+   "title": "Method and system for management of resource leases in an application framework system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6952730B1",
+   "title": "System and method for efficient filtering of data set addresses in a web crawler",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US20060036605A1",
+   "title": "System and method for storage power, thermal and acoustic management in server systems",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060069663A1",
+   "title": "Ranking results for network search query",
+   "assignee": "Eytan Adar"
+  },
+  {
+   "id": "US7043473B1",
+   "title": "Media tracking system and method",
+   "assignee": "Widevine Technologies, Inc."
+  },
+  {
+   "id": "US7047491B2",
+   "title": "Electronic information management system for abstracting and reporting document information",
+   "assignee": "Schubert Daniel M"
+  },
+  {
+   "id": "US7080073B1",
+   "title": "Method and apparatus for focused crawling",
+   "assignee": "Firstrain, Inc."
+  },
+  {
+   "id": "US7089233B2",
+   "title": "Method and system for searching for web content",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7139747B1",
+   "title": "System and method for distributed web crawling",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US7148991B2",
+   "title": "Job scheduling system for print processing",
+   "assignee": "Fuji Xerox Co., Ltd."
+  },
+  {
+   "id": "US7171619B1",
+   "title": "Methods and apparatus for accessing document content",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US7200592B2",
+   "title": "System for synchronizing of user's affinity to knowledge",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7231606B2",
+   "title": "Method and system for testing websites",
+   "assignee": "Software Research, Inc."
+  },
+  {
+   "id": "US7260543B1",
+   "title": "Automatic lease renewal with message gates in a distributed computing environment",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US7308643B1",
+   "title": "Anchor tag indexing in a web crawler system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7343412B1",
+   "title": "Method for maintaining and managing dynamic web pages stored in a system cache and referenced objects cached in other data stores",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7346839B2",
+   "title": "Information retrieval based on historical data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7447777B1",
+   "title": "Switching system",
+   "assignee": "Extreme Networks"
+  },
+  {
+   "id": "US7725452B1",
+   "title": "Scheduler for search engine crawler",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7769742B1",
+   "title": "Web crawler scheduler that utilizes sitemaps from websites",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "FR2448979B1",
+   "title": "DEVICE FOR DEPOSITING INK DROPS ON A SUPPORT",
+   "assignee": "Havas Machines"
+  },
+  {
+   "id": "KR940010649A",
+   "title": "Printer and Photo Paper",
+   "assignee": "오오가 노리오"
+  },
+  {
+   "id": "JPH07164656A",
+   "title": "Recording unit structure and recording device",
+   "assignee": "Sony Corp"
+  },
+  {
+   "id": "JP3368147B2",
+   "title": "Printhead and printing equipment",
+   "assignee": "キヤノン株式会社"
+  },
+  {
+   "id": "US6836768B1",
+   "title": "Method and apparatus for improved information representation",
+   "assignee": "Surfnotes"
+  },
+  {
+   "id": "US6418452B1",
+   "title": "Network repository service directory for efficient web crawling",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6883135B1",
+   "title": "Proxy server using a statistical model",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7236976B2",
+   "title": "System and method for scheduling events and associated products and services",
+   "assignee": "Aramark Corporation"
+  },
+  {
+   "id": "US6910071B2",
+   "title": "Surveillance monitoring and automated reporting method for detecting data changes",
+   "assignee": "The Aerospace Corporation"
+  },
+  {
+   "id": "US6754651B2",
+   "title": "Mining of generalized disjunctive association rules",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "EP1410258A4",
+   "title": "System and method for knowledge retrieval, management, delivery and presentation",
+   "assignee": "Inc Nervana"
+  },
+  {
+   "id": "US6993534B2",
+   "title": "Data store for knowledge-based data mining system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040064432A1",
+   "title": "Method and system for maintaining documents",
+   "assignee": "Oetringer Eugen H."
+  },
+  {
+   "id": "US7213047B2",
+   "title": "Peer trust evaluation using mobile agents in peer-to-peer networks",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US7627613B1",
+   "title": "Duplicate document detection in a web crawler system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8042112B1",
+   "title": "Scheduler for search engine crawler",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8136025B1",
+   "title": "Assigning document identification tags",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7240064B2",
+   "title": "Search engine with hierarchically stored indices",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "EP1691766A4",
+   "title": "Systems and methods for altering vestibular biology",
+   "assignee": "Mitchell Eugene Tyler"
+  },
+  {
+   "id": "US20050210008A1",
+   "title": "Systems and methods for analyzing documents over a network",
+   "assignee": "Bao Tran"
+  },
+  {
+   "id": "US20050216522A1",
+   "title": "Multi-tier document management system",
+   "assignee": "Integrated Data Corporation"
+  },
+  {
+   "id": "US20070214133A1",
+   "title": "Methods for filtering data and filling in missing data using nonlinear inference",
+   "assignee": "Edo Liberty"
+  },
+  {
+   "id": "US7437364B1",
+   "title": "System and method of accessing a document efficiently through multi-tier web caching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7565423B1",
+   "title": "System and method of accessing a document efficiently through multi-tier web caching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8224964B1",
+   "title": "System and method of accessing a document efficiently through multi-tier web caching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7987172B1",
+   "title": "Minimizing visibility of stale content in web searching including revising web crawl intervals of documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7475069B2",
+   "title": "System and method for prioritizing websites during a webcrawling process",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8180760B1",
+   "title": "Organization system for ad campaigns",
+   "assignee": "Google Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US10216847B2",
+   "title": "Document reuse in a search engine crawler"
+  },
+  {
+   "id": "US8775403B2",
+   "title": "Scheduler for search engine crawler"
+  },
+  {
+   "id": "US8136025B1",
+   "title": "Assigning document identification tags"
+  },
+  {
+   "id": "US7984054B2",
+   "title": "Representative document selection for sets of duplicate documents in a web crawler system"
+  },
+  {
+   "id": "US10210256B2",
+   "title": "Anchor tag indexing in a web crawler system"
+  },
+  {
+   "id": "US6263364B1",
+   "title": "Web crawler system using plurality of parallel priority level queues having distinct associated download priority levels for prioritizing document downloading and maintaining document freshness"
+  },
+  {
+   "id": "US6952730B1",
+   "title": "System and method for efficient filtering of data set addresses in a web crawler"
+  },
+  {
+   "id": "US6351755B1",
+   "title": "System and method for associating an extensible set of data with documents downloaded by a web crawler"
+  },
+  {
+   "id": "KR100971863B1",
+   "title": "System and method for coordinated indexing of network documents"
+  },
+  {
+   "id": "US6061679A",
+   "title": "Creating and searching a data structure ordered by ranges of key masks associated with the data structure"
+  },
+  {
+   "id": "US7028029B2",
+   "title": "Adaptive computation of ranking"
+  },
+  {
+   "id": "US7987172B1",
+   "title": "Minimizing visibility of stale content in web searching including revising web crawl intervals of documents"
+  },
+  {
+   "id": "US8620926B2",
+   "title": "Using a hashing mechanism to select data entries in a directory for use with requested operations"
+  },
+  {
+   "id": "US20050086192A1",
+   "title": "Method and apparatus for improving the integration between a search engine and one or more file servers"
+  },
+  {
+   "id": "US11308066B1",
+   "title": "Optimized database partitioning"
+  },
+  {
+   "id": "CN1202257A",
+   "title": "System and method for locating web pages and computer network files"
+  },
+  {
+   "id": "CN121333737A",
+   "title": "Automated penetration testing strategies determine the methods, devices, equipment, media, and products."
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8042112B1/en"
+}

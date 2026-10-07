@@ -1,0 +1,863 @@
+{
+ "id": "US8805867B2",
+ "title": "Query rewriting with entity detection",
+ "abstract": "A system receives a search query, determines whether the received search query includes an entity name, and determines whether the entity name is associated with a common word or phrase. When the entity name is associated with a common word or phrase, the system generates a link to a rewritten query, performs a search based on the received search query to obtain first search results, and provides the first search results and the link to the rewritten query. When the entity name is not associated with a common word or phrase, the system rewrites the received search query to include a restrict identifier associated with the entity name, generates a link to the received search query, performs a search based on the rewritten search query to obtain second search results, and provides the second search results and the link to the received search query.",
+ "inventors": [
+  "Hong Zhou",
+  "Krishna Bharat",
+  "Michael Schmitt",
+  "Michael Curtiss",
+  "Marissa Mayer"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2004-03-31",
+ "filing_date": "2013-05-24",
+ "publication_date": "2014-08-12",
+ "status": "Expired - Lifetime",
+ "expiration": "",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/903",
+  "G06F16/90335",
+  "G06F16/95",
+  "G06F16/951",
+  "Y10S707/00",
+  "Y10S707/99931",
+  "Y10S707/99933",
+  "Y10S707/99934",
+  "Y10S707/99935",
+  "Y10S707/99941",
+  "Y10S707/99944",
+  "Y10S707/99945"
+ ],
+ "claims": [
+  {
+   "text": "1. A method comprising: receiving, by one or more devices, a first search query that includes a particular search query term; determining, by the one or more devices, that the particular search query term corresponds to one of a plurality of words or phrases stored in a data structure; modifying, by the one or more devices, the first search query to obtain a second search query, the second search query being different than the first search query, and the second search query including information that restricts a search, performed based on the second search query, to a particular domain; causing, by the one or more devices, a search to be performed based on the first search query to obtain search results; obtaining, by the one or more devices, the search results after the search has been performed; and providing, by the one or more devices, the search results and a link to the second search query.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, further comprising: detecting selection of the link to the second search query; causing another search to be performed based on the second search query to obtain other search results; and obtaining the other search results after the other search has been performed.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, where the plurality of words or phrases corresponds to a plurality of common words or phrases.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, where determining that the particular search query term corresponds to one of the plurality of words or phrases includes: comparing the particular search query term to a dictionary of words and phrases.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 1, further comprising: analyzing a corpus of documents; and identifying words or phrases that occur, in the corpus of document, more than a threshold amount of times.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 5, where determining that the particular search query term corresponds to one of the plurality of words or phrases includes: comparing the particular search query term to the words or phrases that occur more than the threshold amount of times.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 1, further comprising: obtaining a plurality of terms from a plurality of sources; and identifying a domain associated with each term of the plurality of terms, where the particular domain corresponds to a domain associated with one of the plurality of terms.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 7, where the plurality of sources includes at least one of: one or more online directories, one or more group postings, or a corpus of documents.",
+   "dependent": true
+  },
+  {
+   "text": "9. A system comprising: one or more devices to: receive a first search query that includes a particular search query term; determine that the particular search query term corresponds to one of a plurality of words or phrases stored in a data structure; modify the first search query to obtain a second search query, the second search query being different than the first search query, and the second search query including information that restricts a search, performed based on the second search query, to a particular domain; cause a search to be performed based on the first search query to obtain search results; obtain the search results after the search has been performed; and provide the search results and a link to the second search query.",
+   "dependent": false
+  },
+  {
+   "text": "10. The system of claim 9, where the one or more devices are further to: analyze a corpus of documents; and identify words or phrases that occur, in the corpus of document, more than a threshold amount of times, where the plurality of words or phrases includes the words or phrases that occur more than the threshold amount of times.",
+   "dependent": true
+  },
+  {
+   "text": "11. The system of claim 10, where, when determining that the particular search query term corresponds to one of the plurality of words or phrases, the one or more devices are to: compare the particular search query term to the words or phrases that occur more than the threshold amount of times.",
+   "dependent": true
+  },
+  {
+   "text": "12. The system of claim 9, where, when determining that the particular search query term corresponds to one of the plurality of words or phrases, the one or more devices are to: compare the particular search query term to a dictionary of words and phrases.",
+   "dependent": true
+  },
+  {
+   "text": "13. The system of claim 9, where the one or more devices are further to: detect selection of the link to the second search query; cause another search to be performed based on the second search query to obtain other search results; obtain the other search results after the other search has been performed; and provide the other search results.",
+   "dependent": true
+  },
+  {
+   "text": "14. The system of claim 9, where the one or more devices are further to: obtain a plurality of terms; and identify a domain associated with each term of the plurality of terms, where the particular domain corresponds to a domain associated with one of the plurality of terms.",
+   "dependent": true
+  },
+  {
+   "text": "15. The system of claim 14, where the plurality of terms is obtained from at least one of: one or more online directories, one or more group postings, or a corpus of documents.",
+   "dependent": true
+  },
+  {
+   "text": "16. The system of claim 9, where the particular domain corresponds to one of: a domain associated with a particular news sources, a domain associated with a particular store, a domain associated with a particular brand, a domain associated with a particular manufacturer, a domain associated with a particular product category, a domain associated with a particular product model, a domain associated with a particular location, a domain associated with a particular individual, or a domain associated with a particular organization.",
+   "dependent": true
+  },
+  {
+   "text": "17. A non-transitory computer-readable medium storing instructions, the instructions comprising: one or more instructions which, when executed by one or more processors, cause the one or more processors to receive a first search query that includes a particular search query term; one or more instructions which, when executed by the one or more processors, cause the one or more processors to determine that the particular search query term corresponds to one of a plurality of words or phrases stored in a data structure; one or more instructions which, when executed by the one or more processors, cause the one or more processors to modify the first search query to obtain a second search query, the second search query being different than the first search query, and the second search query including information that restricts a search, performed based on the second search query, to a particular domain; one or more instructions which, when executed by the one or more processors, cause the one or more processors to cause a search to be performed based on the first search query to obtain search results; one or more instructions which, when executed by the one or more processors, cause the one or more processors to obtain the search results after the search has been performed; and one or more instructions which, when executed by the one or more processors, cause the one or more processors to provide the search results and a link to the second search query.",
+   "dependent": false
+  },
+  {
+   "text": "18. The non-transitory computer-readable medium of claim 17, the instructions further comprising: one or more instructions which, when executed by the one or more processors, cause the one or more processors to detect selection of the link to the second search query; one or more instructions which, when executed by the one or more processors, cause the one or more processors to cause another search to be performed based on the second search query to obtain other search results; one or more instructions which, when executed by the one or more processors, cause the one or more processors to obtain the other search results after the other search has been performed; and one or more instructions which, when executed by the one or more processors, cause the one or more processors to provide the other search results.",
+   "dependent": true
+  },
+  {
+   "text": "19. The non-transitory computer-readable medium of claim 17, where the one or more instructions to determine that the particular search query term corresponds to one of the plurality of words or phrases include at least one of: one or more instructions which, when executed by the one or more processors, cause the one or more processors to compare the particular search query term to words or phrases that occur more than a threshold amount in a corpus of documents; or one or more instructions which, when executed by the one or more processors, cause the one or more processors to compare the particular search query term to a dictionary of words and phrases.",
+   "dependent": true
+  },
+  {
+   "text": "20. The non-transitory computer-readable medium of claim 17, where the particular domain corresponds to one of: a domain associated with a particular news sources, a domain associated with a particular store, a domain associated with a particular brand, a domain associated with a particular manufacturer, a domain associated with a particular product category, a domain associated with a particular product model, a domain associated with a particular location, a domain associated with a particular individual, or a domain associated with a particular organization.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## RELATED APPLICATIONS\n\n\nThis application is a continuation of U.S. patent application Ser. No. 13/367,114, filed Feb. 6, 2012, which is a continuation of U.S. patent application Ser. No. 12/420,696, filed Apr. 8, 2009 (now U.S. Pat. No. 8,112,432), which is a continuation of U.S. patent application Ser. No. 10/813,572, filed Mar. 31, 2004 (now U.S. Pat. No. 7,536,382). The contents of these applications are incorporated herein by reference.\n\n\n## BACKGROUND OF THE INVENTION\n\n\n1. Field of the Invention\n\nSystems and methods consistent with the principles of the invention relate generally to information retrieval and, more particularly, to rewriting of search queries based on detection of the names of certain entities in the queries.\n\n2. Description of Related Art\n\nThe World Wide Web (“web”) contains a vast amount of information. Search engines assist users in locating desired portions of this information by cataloging web documents. Typically, in response to a user's request, a search engine returns links to documents relevant to the request.\n\nSearch engines may base their determination of the user's interest on search terms (called a search query) provided by the user. The goal of a search engine is to identify links to relevant results based on the search query. Typically, the search engine accomplishes this by matching the terms in the search query to a corpus of pre-stored web documents. Web documents that contain the user's search terms are considered “hits” and are returned to the user.\n\nSome search engines permit a user to restrict a search to a set of related documents, such as documents associated with the same web site, by including special characters or terms in the search query. Oftentimes, however, users forget to include these special characters/terms or do not know about them.\n\n\n## SUMMARY OF THE INVENTION\n\n\nAccording to one aspect consistent with the principles of the invention, a method may include receiving a search query, determining whether the received search query includes an entity name, and determining whether the entity name is associated with a common word or phrase. The method may also include selectively rewriting the received search query based on whether the entity name is determined to be associated with a common word or phrase, performing a search based on the received search query or the rewritten search query to obtain search results, and presenting the search results.\n\nAccording to another aspect, a system may include means for receiving a search query, means for determining whether the received search query includes an entity name, and means for determining whether the entity name is associated with a common word or phrase. The system may also include means for rewriting the received search query when it is determined that the entity name is associated with a common word or phrase, means for performing a search based on the rewritten search query to obtain search results, and means for providing the search results.\n\nAccording to yet another aspect, a system includes a memory and a processor connected to the memory to receive a search query, determine whether the received search query includes an entity name, and selectively rewrite the received search query to obtain a rewritten search query when it is determined that the received search query includes an entity name.\n\nAccording to a further aspect, a method may include determining a set of entity names, determining whether each of the entity names is associated with a common word or phrase, and generating a table of the entity names that are associated with common words or phrases.\n\nAccording to another aspect, a method may include receiving a search query, determining whether the received search query includes an entity name, and determining whether the entity name is associated with a common word or phrase. When the entity name is associated with a common word or phrase, the method may include generating a link to a rewritten query, performing a search based on the received search query to obtain first search results, and providing the first search results and the link to the rewritten query. When the entity name is not associated with a common word or phrase, the method may include rewriting the received search query to include a restrict identifier associated with the entity name, generating a link to the received search query, performing a search based on the rewritten search query to obtain second search results, and providing the second search results and the link to the received search query.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nThe accompanying drawings, which are incorporated in and constitute a part of this specification, illustrate an embodiment of the invention and, together with the description, explain the invention. In the drawings,\n\nFIG. 1 is a diagram of an exemplary network in which systems and methods consistent with the principles of the invention may be implemented;\n\nFIG. 2 is an exemplary diagram of a client and/or server of FIG. 1 according to an implementation consistent with the principles of the invention;\n\nFIG. 3 is an exemplary functional block diagram of a portion of a server of FIG. 1 according to an implementation consistent with the principles of the invention;\n\nFIG. 4 is an exemplary diagram of a list of candidate strings according to an implementation consistent with the principles of the invention;\n\nFIG. 5 is a flowchart of exemplary processing for generating a list of candidate strings according to an implementation consistent with the principles of the invention;\n\nFIG. 6 is a flowchart of exemplary processing for selectively rewriting a query according to an implementation consistent with the principles of the invention;\n\nFIGS. 7 and 8 are diagrams of an automatic query rewrite example in a news context according to an implementation consistent with the principles of the invention; and\n\nFIGS. 9-11 are diagrams of a query rewrite suggestion example in the news context according to an implementation consistent with the principles of the invention.\n\n\n## DETAILED DESCRIPTION\n\n\nThe following detailed description of the invention refers to the accompanying drawings. The same reference numbers in different drawings may identify the same or similar elements. Also, the following detailed description does not limit the invention.\n\n\n## Overview\n\n\nSystems and methods consistent with the principles of the invention may rewrite search queries or generate suggestion links to rewritten search queries upon detection of the names of certain entities. An “entity,” as used herein, may refer to anything that can be tagged as being associated with certain documents. Examples of entities may include news sources, stores, such as online stores, product categories, brands or manufacturers, specific product models, condition (e.g., new, used, refurbished, etc.), authors, artists, people, places, and organizations.\n\nSome entity names are unambiguous and uniquely identify particular entities. A large number of names, however, are somewhat ambiguous or generic, making it more difficult to identify the entities to which they are intended to correspond when included in users' search queries. Systems and methods consistent with the principles of the invention provide mechanisms for determining the entities to which entity names correspond and selectively rewriting users' search queries based on the entity names. Accordingly, a user's search query may be restricted to a search of document(s) associated with the entity that the user intended in the search.\n\n\n## Exemplary Network Configuration\n\n\nFIG. 1 is an exemplary diagram of a network 100 in which systems and methods consistent with the principles of the invention may be implemented. Network 100 may include multiple clients 110 connected to multiple servers 120-140 via a network 150. Network 150 may include a local area network (LAN), a wide area network (WAN), a telephone network, such as the Public Switched Telephone Network (PSTN), an intranet, the Internet, a memory device, or a combination of networks. Two clients 110 and three servers 120-140 have been illustrated as connected to network 150 for simplicity. In practice, there may be more or fewer clients and servers. Also, in some instances, a client may perform the functions of a server and a server may perform the functions of a client.\n\nClients 110 may include client components. A component may be defined as a device, such as a wireless telephone, a personal computer, a personal digital assistant (PDA), a lap top, or another type of computation or communication device, a thread or process running on one of these devices, and/or an object executable by one of these device. Servers 120-140 may include server components that gather, process, search, and/or maintain documents in a manner consistent with the principles of the invention. Clients 110 and servers 120-140 may connect to network 150 via wired, wireless, and/or optical connections.\n\nIn an implementation consistent with the principles of the invention, server 120 may include a search engine 125 usable by clients 110. Server 120 may crawl a corpus of documents (e.g., web pages), index the documents, and store information associated with the documents in a repository of crawled documents. Servers 130 and 140 may store or maintain documents that may be crawled by server 120. While servers 120-140 are shown as separate entities, it may be possible for one or more of servers 120-140 to perform one or more of the functions of another one or more of servers 120-140. For example, it may be possible that two or more of servers 120-140 are implemented as a single server. It may also be possible for a single one of servers 120-140 to be implemented as two or more separate (and possibly distributed) devices.\n\nA “document,” as the term is used herein, is to be broadly interpreted to include any machine-readable and machine-storable work product. A document may include an e-mail, a web site, a file, a combination of files, one or more files with embedded links to other files, a news group posting, a blog, a web advertisement, etc. In the context of the Internet, a common document is a web page. Web pages often include textual information and may include embedded information (such as meta information, images, hyperlinks, etc.) and/or embedded instructions (such as Javascript, etc.). A “link,” as the term is used herein, is to be broadly interpreted to include any reference to or from a document.\n\n\n## Exemplary Client/Server Architecture\n\n\nFIG. 2 is an exemplary diagram of a client or server component (hereinafter called “client/server component”), which may correspond to one or more of clients 110 and servers 120-140, according to an implementation consistent with the principles of the invention. The client/server component may include a bus 210, a processor 220, a main memory 230, a read only memory (ROM) 240, a storage device 250, an input device 260, an output device 270, and a communication interface 280. Bus 210 may include a path that permits communication among the elements of the client/server component.\n\nProcessor 220 may include a conventional processor or microprocessor, or another type of processing logic that interprets and executes instructions. Main memory 230 may include a random access memory (RAM) or another type of dynamic storage device that stores information and instructions for execution by processor 220. ROM 240 may include a conventional ROM device or another type of static storage device that stores static information and instructions for use by processor 220. Storage device 250 may include a magnetic and/or optical recording medium and its corresponding drive.\n\nInput device 260 may include a conventional mechanism that permits an operator to input information to the client/server component, such as a keyboard, a mouse, a pen, voice recognition and/or biometric mechanisms, etc. Output device 270 may include a conventional mechanism that outputs information to the operator, including a display, a printer, a speaker, etc. Communication interface 280 may include any transceiver-like mechanism that enables the client/server component to communicate with other devices and/or systems. For example, communication interface 280 may include mechanisms for communicating with another device or system via a network, such as network 150.\n\nAs will be described in detail below, the client/server component, consistent with the principles of the invention, may perform certain searching-related operations. The client/server component may perform these operations in response to processor 220 executing software instructions contained in a computer-readable medium, such as memory 230. A computer-readable medium may be defined as a physical or logical memory device and/or carrier wave.\n\nThe software instructions may be read into memory 230 from another computer-readable medium, such as data storage device 250, or from another device via communication interface 280. The software instructions contained in memory 230 may cause processor 220 to perform processes that will be described later. Alternatively, hardwired circuitry may be used in place of or in combination with software instructions to implement processes consistent with the principles of the invention. Thus, implementations consistent with the principles of the invention are not limited to any specific combination of hardware circuitry and software.\n\n\n## Exemplary Server\n\n\nFIG. 3 is an exemplary functional block diagram of a portion of server 120 according to an implementation consistent with the principles of the invention. According to one implementation, one or more of the functions described below may be performed by search engine 125. According to another implementation, one or more of these functions may be performed by a component external to server 120, such as a computer associated with server 120 or one of servers 130 and 140.\n\nServer 120 may include an entity identification unit 310 and a query processing unit 320 connected to a repository. The repository may include information associated with documents that were previously crawled and stored, for example, by server 120.\n\nEntity identification unit 310 may generate a list of entity names. Entity identification unit 310 may obtain an initial set of entity names for entities in a particular context (e.g., names of news sources in the news source context or store names in the store context). There are many ways that entity identification unit 310 can obtain the initial set of entity names in a particular context. For example, entity identification unit 310 may obtain entity names from online directories, lists, group postings, by analyzing a corpus of documents, etc.\n\nFor each of these names, entity identification unit 310 may also identify an entity identifier, such as a homepage domain name or a category identifier, associated with the name. For example, if the name was Washington Post, then the associated entity identifier might be washingtonpost.com. Entity identification unit 310 may identify the associated entity identifier from, for example, an analysis of the document information in the repository.\n\nEntity identification unit 310 may then process the entity names to produce a list of variations of the names. Entity identification unit 310 may apply several transformations to the name and/or its entity identifier, such as: using the entity name as is; using the entity identifier as is; removing modifiers, such as “a,” “the,” “inc,” “inc.,” “co,” and “co.” from the entity name; replacing spaces with hyphens or underscores, or vice versa, within the entity name; removing apostrophes from the entity name; interchanging “and” and “&” in the entity name and/or the entity identifier; removing “and” and “&” from the entity name and/or the entity identifier; removing the initial “www.” and/or the trailing “.com” from the entity identifier; and/or treating periods in the entity identifier with no spaces on either side of them as spaces or deleting the periods. Other or different transformations may also be used.\n\nEntity identification unit 310 may form these name variations into a list of candidate strings. FIG. 4 is an exemplary diagram of a list of candidate strings 400 according to an implementation consistent with the principles of the invention. Candidate string list 400 might include a number of entries (candidate strings) associated with the various versions of entity names and their associated entity identifiers. An entry in list 400 might include an entity name field 410 and an entity ID field 420. Entity name field 410 may include a variation of an entity name or its associated entity identifier. Entity ID field 420 may include information that uniquely identifies the entity corresponding to the entity name in entity name field 410, such as a domain, a URL, or a category identifier. An example of an entry for the news source Washington Post might include “washington post” in entity name field 410 and “www.washingtonpost.com” in entity ID field 420.\n\nReturning to FIG. 3, query processing unit 320 may process the list of candidate strings to determine whether a search query should be automatically rewritten or whether rewriting of a query should be suggested. For example, query processing unit 320 may determine whether a query includes an entity name or any variation thereof. Query processing unit 320 may check the terms of the query against list of candidate strings 400 (FIG. 4). In one implementation, query processing unit 320 may check whether a word, or phrase (hereinafter “term” will be used to encompass both a “word” and a “phrase”), at the left or right most position of the query matches one of the candidate strings. In another implementation, query processing unit 320 may check whether any term in the query matches one of the candidate strings.\n\nIf a term matches one of the candidate strings, query processing unit 320 may optionally determine whether a word in the query that neighbors the term indicates that no further processing of the query should occur. For example, query processing unit 320 may determine whether a word that neighbors the term (e.g., is adjacent to or near the term) forms a common phrase with the term, such that the combination of this word with the term forms a phrase that should not be decomposed.\n\nTo illustrate this, assume that the query includes the words “time travel” and the term “time” has been identified as an entity name. The user who provided the query may have meant two things. First, the user may want to find information on the phrase “time travel.” Alternatively, the user may want to find information on “travel” from the news source “Time.” In this case, query processing unit 320 may recognize the phrase “time travel” as a common phrase and determine that the phrase should not be decomposed.\n\nQuery processing unit 320 may identify common phrases from an exhaustive list of phrases. The list of phrases may be obtained from a number of sources. One such source may include the repository of documents. For example, documents in the repository may be analyzed to identify phrases that appear more than a threshold number of times in different documents.\n\nWhen query processing unit 320 determines that no further processing of the query should occur, then query processor 320 may perform a search using the original query and present the search results to the user. In this case, query processing unit 320 may optionally include a link to a rewritten query with the search results. The rewritten query may restrict the search to the entity identifier (e.g., domain) associated with the entity name (or variation) in the query.\n\nWhen query processing unit 320 determines that further processing of the query should occur, then query processing unit 320 may determine whether the term is associated with a common word or phrase. There are several ways that query processing unit 320 may determine whether the term is associated with a common word or phrase. For example, query processing unit 320 may compare the term to a dictionary of English words and phrases. Alternatively, query processing unit 320 may use an inverse document frequency (IDF) weighting technique or a conventional linguistic modeling technique. One such technique may involve analyzing a corpus of documents and creating a hash table based on the terms in the documents. For example, each term in a document may be identified and hashed. The count value in the corresponding entry in the hash table may then be incremented. Once the corpus has been analyzed, the count values may reflect which terms occurred more often and which terms occurred less often. Query processing unit 320 may identify terms that have occurred more than a threshold amount as common terms.\n\nIf query processing unit 320 determines that the query term is not associated with a common word or phrase, then query processing unit 320 may rewrite the query. The rewritten query may be based on the identification of an entity name and restrict the query to a search associated with the entity name. For example, if a user query includes “washingtonpost,” then the query may be rewritten to “source:washingtonpost” to indicate that the search is to be restricted to the entity identifier (domain) associated with the news source Washington Post. The “source:” may correspond to a restrict identifier in the news context that indicates that the search should be restricted to the news source that follows it. Similar restrict identifiers may be used in other contexts.\n\nQuery processing unit 320 may then perform a search based on the rewritten query and present results to the user. Query processing unit 320 may also offer a query link associated with the original query to the user. The query link, if selected by the user, may cause query processing unit 320 to perform a search based on the original query (i.e., without restricting the search to a particular entity).\n\nIf query processing unit 320 determines that the query term is associated with a common word or phrase, then query processing unit 320 may use the original query to perform a search (i.e., without restricting the search to a particular entity). Query processing unit 320 may also generate a query link associated with a rewritten query. Query processing unit 320 may rewrite the query, as described above, and provide a link to this rewritten query to the user. The query link, if selected by the user, may cause query processing unit 320 to perform a search based on the rewritten query.\n\n\n## Exemplary Processing\n\n\nFIG. 5 is a flowchart of exemplary processing for generating a list of candidate strings according to an implementation consistent with the principles of the invention. Processing may begin with obtaining a list of entity names for a particular context (act 510). For each of the entity names, a corresponding entity identifier may also be identified (act 520). Several techniques exist for identifying entity names and/or entity identifiers for the list. For example, entity names and/or entity identifiers may be identified from online directories, lists, group postings, by analyzing a corpus of documents, etc.\n\nA list of candidate strings may then be produced by transforming the entity names and/or entity identifiers (act 530). For example, the list of candidate strings for a particular entity name and its associated entity identifier may include the entity name as is, the entity identifier as is, the entity name without modifiers (e.g., “a,” “the,” “inc,” “inc.,” “co,” and “co.”), the entity name with spaces replaced with hyphens or underscores, and vice versa, the entity name without apostrophes, the entity name and/or entity identifier with “and” replaced with “&,” and vice versa, the entity name and/or entity identifier without “and” and “&,” the entity identifier without an initial “www.” and/or a trailing “.com,” and the entity identifier with a period with no spaces on either side of it replaced with spaces or deleted. Other or different transformations may also be used. One such list of candidate strings is illustrated in FIG. 4.\n\nFIG. 6 is a flowchart of exemplary processing for selectively rewriting a search query according to an implementation consistent with the principles of the invention. Processing may begin with receiving a search query from a user (act 610). The search query may contain one or more terms, which may or may not include the name of an entity.\n\nThe search query may be evaluated to identify possible entity names based on the list of candidate strings (act 620). For example, a term of the search query may be compared to the entity names, which include the variations of the entity names, in the list of candidate strings. In one implementation, the terms at the left-most position and/or right-most position within the search query may be evaluated to determine whether they correspond to one of the entity names in the list of candidate strings. In another implementation, each term of the query may be evaluated.\n\nIf a term in the search query matches one of the entity names, it may then optionally be determined whether the search query should be further processed (act 630). For example, it may be determined whether a word in the search query that neighbors the entity name forms a common phrase with the entity name, such that the combination of this word with the entity name forms a phrase that should not be decomposed. Common phrases may be identified from an exhaustive list of phrases, as described above.\n\nWhen it is determined that no further processing of the query should occur, such as when a word in the search query forms a common phrase with the entity name, a search using the original query may be performed and the search results presented to the user. Optionally, a link to a rewritten query may be presented with the search results. The rewritten query may restrict the search to the entity identifier (e.g., domain) associated with the entity name in the query.\n\nWhen it is determined that further processing of the query should occur, then it may be determined whether the entity name is associated with a common word or phrase (act 640). For example, the entity name may be compared to a dictionary of English words and phrases to determine whether it is associated with a common word or phrase. Alternatively, an IDF weighting technique or a conventional linguistic may be used, as described above.\n\nIn one implementation, portions of act 640 may be performed beforehand to generate a table of entity names that are common words or phrases. In this case, the determination of whether the entity name is associated with a common word or phrase may be performed by a simple table lookup operation.\n\nIf it is determined that the entity name is not associated with a common word or phrase, then the query may be rewritten to restrict the query to a search associated with the entity name (act 650). For example, the query may be rewritten to include a restrict identifier associated with a particular context. The restrict identifier may thereby restrict a search associated with the query to a search associated with the entity name. A search may then be performed based on the rewritten query.\n\nA query link may also be generated that links to the original query (i.e., without restricting the search to a particular entity name) (act 660). The query link may be beneficial in those instances where the user did not intend a search based on the rewritten query.\n\nIf it is determined that the entity name is associated with a common word or phrase, then a query link to a rewritten query may be generated (act 670). For example, the query may be rewritten, as described above. Selection of the query link by the user may cause a search to be performed based on the rewritten query. A search may then be performed using the original query (i.e., without restricting the search to a particular entity name) (act 680).\n\nThe search, which may be performed based on the rewritten query, if applicable, or the original query, if applicable, may identify documents that are relevant to the rewritten/original query. For example, a repository of documents may be searched to identify documents that include one or more terms of the query. The resulting documents may form search results that may be presented to the user (act 690). In one implementation, the search results might take the form of links to the documents.\n\n\n## Automatic Query Rewrite Example—News Context\n\n\nFIGS. 7 and 8 are diagrams of an automatic query rewrite example in the news context according to an implementation consistent with the principles of the invention. As shown in FIG. 7, a user may enter a search query via a graphical user interface associated with a search engine, such as search engine 125 (FIG. 1). In this example, the user enters the search query “george bush msnbc.” Assume that the term “msnbc” identifies the news source msnbc.com and, thus, is included in the list of candidate strings (e.g., see FIG. 4).\n\nSearch engine 125 may identify “msnbc” as an entity name. Assume that search engine 125 determines that the phrase “bush msnbc” and/or the phrase “george bush msnbc” are not common phrases. Search engine 125 may then evaluate the entity name “msnbc” to determine whether it is associated with a common word or phrase. In this case, search engine 125 determines that “msnbc” is not associated with a common word or phrase. Search engine 125 may then rewrite the query to “george bush source:msnbc,” as shown in FIG. 8.\n\nSearch engine 125 performs a search of a repository for documents (e.g., news documents) associated with the source msnbc.com that are relevant to the rewritten query. There are many ways to determine document relevancy. For example, documents that contain one or more of the search terms of the rewritten query may be identified as relevant. Documents that include a greater number of the search toms may be identified as more relevant than documents that include a fewer number of the search terms.\n\nSearch engine 125 may then present the relevant documents to the user as search results. As shown in FIG. 8, each search result may include a link 810 to a corresponding document, a news source identifier along with an indicator of when the document was created 820, and a brief description 830 of the corresponding document. Search engine 125 may also provide a query link 850 to the original query entered by the user. In this case, query link 850 may correspond to a query associated with a search for the search term “george,” the search term “bush,” and/or the search term “msnbc.”\n\n\n## Suggest Query Rewrite Example—News Context\n\n\nFIGS. 9-11 are diagrams of a query rewrite suggestion example in the news context according to an implementation consistent with the principles of the invention. As shown in FIG. 9, a user may enter a search query via a graphical user interface associated with a search engine, such as search engine 125 (FIG. 1). In this example, the user enters the search query “time korea.” Assume that the term “time” identifies the news source time.com and, thus, is included in the list of candidate strings (e.g., see FIG. 4).\n\nSearch engine 125 may identify “time” as an entity name. Assume that search engine 125 determines that the phrase “time korea” is not a common phrase. Search engine 125 may then evaluate the entity name “time” to determine whether it is associated with a common word or phrase. In this case, search engine 125 determines that “time” is associated with a common word or phrase. Search engine 125 may then rewrite the query to “korea source:time” and generate a link 1010 (“Search News Source Time for Korea”) to the rewritten query, as shown in FIG. 10.\n\nSearch engine 125 performs a search of a repository for documents (e.g., news documents) that are relevant to the original search query. As described above, there are many ways to determine document relevancy. For example, documents that contain one or more of the search terms of the rewritten query may be identified as relevant. Documents that include a greater number of the search terms may be identified as more relevant than documents that include a fewer number of the search terms. In this case, search engine 125 searches for documents that include the search terms “time” and/or “korea.”\n\nSearch engine 125 may then present the relevant documents to the user as search results. As shown in FIG. 10, each search result may include a link 1020 to a corresponding document, a news source identifier along with an indicator of when the document was created 1030, and a brief description 1040 of the corresponding document. Because the search was not limited to the news source Time, the search results are associated with a number of different news sources (e.g., the New York Times, British Broadcasting Corporation (BBC), and Atlanta Journal Constitution).\n\nIf the user selects link 1010 associated with the rewritten query, search engine 125 performs a search of the repository for documents (e.g., news documents) associated with the news source time.com that are relevant to the rewritten query. Search engine 125 may then present the relevant documents to the user as search results. As shown in FIG. 11, each search result may include a link 1110 to a corresponding document, a news source identifier along with a date indicator 1120 corresponding to the date on which the document was created, and a brief description 1130 of the corresponding document. Optionally, search engine 125 may also provide a link 1150 to the original query entered by the user. In this case, link 1150 may correspond to a query associated with a search for the search term “time” and/or the search term “korea.”\n\n\n## Conclusion\n\n\nSystems and methods consistent with the principles of the invention may selectively rewrite search queries upon detection of the names of certain entities.\n\nThe foregoing description of preferred embodiments of the present invention provides illustration and description, but is not intended to be exhaustive or to limit the invention to the precise form disclosed. Modifications and variations are possible in light of the above teachings or may be acquired from practice of the invention.\n\nFor example, it has been described that query processing unit 320 may perform a search based on the original or rewritten search query. In other implementations, query processing unit 320 may not perform the search, but may provide the original or rewritten search query to a search engine, such as search engine 125 (FIG. 1) to perform the search and provide the search results.\n\nAlso, while series of acts have been described with regard to FIGS. 5 and 6, the order of the acts may be modified in other implementations consistent with the principles of the invention. Further, non-dependent acts may be performed in parallel.\n\nIn one implementation, server 120 may perform most, if not all, of the acts described with regard to the processing of FIGS. 5 and/or 6. In another implementation consistent with the principles of the invention, one or more, or all, of the acts may be performed by another component, such as another server 130 and/or 140 or client 110.\n\nIt will also be apparent to one of ordinary skill in the art that aspects of the invention, as described above, may be implemented in many different forms of software, firmware, and hardware in the implementations illustrated in the figures. The actual software code or specialized control hardware used to implement aspects consistent with the principles of the invention is not limiting of the present invention. Thus, the operation and behavior of the aspects were described without reference to the specific software code—it being understood that one of ordinary skill in the art would be able to design software and control hardware to implement the aspects based on the description herein.\n\nNo element, act, or instruction used in the present application should be construed as critical or essential to the invention unless explicitly described as such. Also, as used herein, the article “a” is intended to include one or more items. Where only one item is intended, the term “one” or similar language is used. Further, the phrase “based on” is intended to mean “based, at least in part, on” unless explicitly stated otherwise.",
+ "cited_by": [
+  {
+   "id": "US7996419B2",
+   "title": "Query rewriting with entity detection",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7536382B2",
+   "title": "Query rewriting with entity detection",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8131647B2",
+   "title": "Method and system for providing annotations of a digital work",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US9275052B2",
+   "title": "Providing annotations of a digital work",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US20070043736A1",
+   "title": "Smart find",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070067291A1",
+   "title": "System and method for negative entity extraction technique",
+   "assignee": "Kolo Brian A"
+  },
+  {
+   "id": "US8352449B1",
+   "title": "Reader device content indexing",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US20070239735A1",
+   "title": "Systems and methods for predicting if a query is a name",
+   "assignee": "Glover Eric J"
+  },
+  {
+   "id": "US7483894B2",
+   "title": "Methods and apparatus for entity search",
+   "assignee": "Platformation Technologies, Inc"
+  },
+  {
+   "id": "US8001114B2",
+   "title": "Methods and apparatuses for dynamically searching for electronic mail messages",
+   "assignee": "Wilson Chu"
+  },
+  {
+   "id": "US8725565B1",
+   "title": "Expedited acquisition of a digital item following a sample presentation of the item",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US9672533B1",
+   "title": "Acquisition of an item based on a catalog presentation of items",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US7865817B2",
+   "title": "Invariant referencing in digital works",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US7751807B2",
+   "title": "Method and system for a hosted mobile management service architecture",
+   "assignee": "Oomble, Inc."
+  },
+  {
+   "id": "US8024400B2",
+   "title": "Method and system for transferring content from the web to mobile devices",
+   "assignee": "Oomble, Inc."
+  },
+  {
+   "id": "US9665529B1",
+   "title": "Relative progress and event indicators",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US7716224B2",
+   "title": "Search and indexing on a user device",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US8059126B2",
+   "title": "System and method for indicating special characters to be interpreted literally",
+   "assignee": "Computer Associates Think, Inc."
+  },
+  {
+   "id": "US20080293450A1",
+   "title": "Consumption of Items via a User Device",
+   "assignee": "Ryan Thomas A"
+  },
+  {
+   "id": "US8195655B2",
+   "title": "Finding related entity results for search queries",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8046339B2",
+   "title": "Example-driven design of efficient record matching queries",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7987176B2",
+   "title": "Mixed initiative semantic search",
+   "assignee": "Sap Ag"
+  },
+  {
+   "id": "EP2201484A4",
+   "title": "Cross-language search",
+   "assignee": "Google Inc"
+  },
+  {
+   "id": "CN101132420B",
+   "title": "Link overwriting method and device based on SSL VPN",
+   "assignee": "杭州华三通信技术有限公司"
+  },
+  {
+   "id": "US8326847B2",
+   "title": "Graph search system and method for querying loosely integrated data",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8423889B1",
+   "title": "Device specific presentation control for electronic book reader devices",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US8161036B2",
+   "title": "Index optimization for ranking using a linear model",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8171031B2",
+   "title": "Index optimization for ranking using a linear model",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9087032B1",
+   "title": "Aggregation of highlights",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US8378979B2",
+   "title": "Electronic device with haptic feedback",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US8832584B1",
+   "title": "Questions on highlighted passages",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "CN101887436B",
+   "title": "Retrieval method and device",
+   "assignee": "阿里巴巴集团控股有限公司"
+  },
+  {
+   "id": "US8692763B1",
+   "title": "Last screen rendering for electronic book reader",
+   "assignee": "John T. Kim"
+  },
+  {
+   "id": "US8346795B2",
+   "title": "System and method for guiding entity-based searching",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US8392411B2",
+   "title": "Automatic routing of search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN102262632B",
+   "title": "Method and system for processing text",
+   "assignee": "国际商业机器公司"
+  },
+  {
+   "id": "US9158846B2",
+   "title": "Entity detection and extraction for entity cards",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "CN102314435A",
+   "title": "Method for searching webpage content and system",
+   "assignee": "腾讯科技（深圳）有限公司"
+  },
+  {
+   "id": "US9043296B2",
+   "title": "System of providing suggestions based on accessible and contextual information",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9495322B1",
+   "title": "Cover display",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US8977625B2",
+   "title": "Inference indexing",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8799312B2",
+   "title": "Efficient label acquisition for query rewriting",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9158741B1",
+   "title": "Indicators for navigating digital works",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US9665643B2",
+   "title": "Knowledge-based entity detection and disambiguation",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9864817B2",
+   "title": "Determination of relationships between collections of disparate media types",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "CN118467593A",
+   "title": "Method, system and device for identifying related entities",
+   "assignee": "谷歌有限责任公司"
+  },
+  {
+   "id": "US9063983B1",
+   "title": "Detecting name-triggering queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9229974B1",
+   "title": "Classifying queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8862609B2",
+   "title": "Expanding high level queries",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9047278B1",
+   "title": "Identifying and ranking attributes of entities",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9116918B1",
+   "title": "Methods, systems, and media for interpreting queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9646062B2",
+   "title": "News results through query expansion",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9436918B2",
+   "title": "Smart selection of text spans",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US20150178289A1",
+   "title": "Identifying Semantically-Meaningful Text Selections",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10324964B2",
+   "title": "Method and systems for enhanced ontology assisted querying of data stores",
+   "assignee": "Massachusetts Institute Of Technology"
+  },
+  {
+   "id": "US9959296B1",
+   "title": "Providing suggestions within a document",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US9251141B1",
+   "title": "Entity identification model training",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9881010B1",
+   "title": "Suggestions based on document topics",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9607032B2",
+   "title": "Updating text within a document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10838995B2",
+   "title": "Generating distinct entity names to facilitate entity disambiguation",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9824079B1",
+   "title": "Providing actions for mobile onscreen content",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US9965559B2",
+   "title": "Providing automatic actions for mobile onscreen content",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US9547690B2",
+   "title": "Query rewriting using session information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9703541B2",
+   "title": "Entity action suggestion on a mobile device",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN106557480B",
+   "title": "Implementation method and device for query rewriting",
+   "assignee": "阿里巴巴集团控股有限公司"
+  },
+  {
+   "id": "US10970646B2",
+   "title": "Action suggestions for user-selected content",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10178527B2",
+   "title": "Personalized entity repository",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10055390B2",
+   "title": "Simulated hyperlinks on a mobile device based on user intent and a centered selection of text",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10535005B1",
+   "title": "Providing contextual actions for mobile onscreen content",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US11237696B2",
+   "title": "Smart assist for repeated actions",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US11640436B2",
+   "title": "Methods and systems for query segmentation",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US11443004B1",
+   "title": "Data extraction and optimization using artificial intelligence models",
+   "assignee": "Foundrydc, Llc"
+  },
+  {
+   "id": "JP7354019B2",
+   "title": "Information processing device, information processing method, and program",
+   "assignee": "ヤフー株式会社"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5555408A",
+   "title": "Knowledge based information retrieval system",
+   "assignee": "Hitachi, Ltd."
+  },
+  {
+   "id": "US5640553A",
+   "title": "Relevance normalization for documents retrieved from an information retrieval system in response to a query",
+   "assignee": "Infonautics Corporation"
+  },
+  {
+   "id": "US5675819A",
+   "title": "Document information retrieval using global word co-occurrence patterns",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5765147A",
+   "title": "Query rewrite for extended search capabilities",
+   "assignee": "International Business Machines Corportion"
+  },
+  {
+   "id": "US5771378A",
+   "title": "Associative text search and retrieval system having a table indicating word position in phrases",
+   "assignee": "Reed Elsevier, Inc."
+  },
+  {
+   "id": "US5797136A",
+   "title": "Optional quantifiers in relational and object-oriented views of database systems",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6006225A",
+   "title": "Refining search queries by the suggestion of correlated terms from prior searches",
+   "assignee": "Amazon.Com"
+  },
+  {
+   "id": "US6134540A",
+   "title": "System, method, and program for applying query rewrite technology to object building",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6151624A",
+   "title": "Navigating network resources based on metadata",
+   "assignee": "Realnames Corporation"
+  },
+  {
+   "id": "US6185558B1",
+   "title": "Identifying the items most relevant to a current query based on items selected in connection with similar queries",
+   "assignee": "Amazon.Com, Inc."
+  },
+  {
+   "id": "US6230158B1",
+   "title": "Method for indexing duplicate records of information of a database",
+   "assignee": "Altavista Company"
+  },
+  {
+   "id": "US20010037329A1",
+   "title": "Execution of database queries including filtering",
+   "assignee": "Huffman Paul C."
+  },
+  {
+   "id": "EP1160686A2",
+   "title": "A method of searching the internet and an internet search engine",
+   "assignee": "Godado.Com Ltd."
+  },
+  {
+   "id": "US20020002552A1",
+   "title": "Method and apparatus for a GIS based search engine utilizing real time advertising",
+   "assignee": "Schultz Troy L."
+  },
+  {
+   "id": "US6397211B1",
+   "title": "System and method for identifying useless documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6411950B1",
+   "title": "Dynamic query expansion",
+   "assignee": "Compaq Information Technologies Group, Lp"
+  },
+  {
+   "id": "US6418434B1",
+   "title": "Two stage automated electronic messaging system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6424980B1",
+   "title": "Integrated retrieval scheme for retrieving semi-structured documents",
+   "assignee": "Nippon Telegraph And Telephone Corporation"
+  },
+  {
+   "id": "US20020099694A1",
+   "title": "Full-text relevancy ranking",
+   "assignee": "Diamond Theodore George"
+  },
+  {
+   "id": "US20020099720A1",
+   "title": "Directory search using additional information and resources",
+   "assignee": "Pradeep Bansal"
+  },
+  {
+   "id": "US20020111945A1",
+   "title": "System for interfacing an application program with diverse databases",
+   "assignee": "Young William J."
+  },
+  {
+   "id": "US20020120712A1",
+   "title": "Providing information to a user based on the user's search patterns",
+   "assignee": "Seth Maislin"
+  },
+  {
+   "id": "US20020129026A1",
+   "title": "Process for accessing information via a communications network",
+   "assignee": "Reardon Patrick O."
+  },
+  {
+   "id": "DE10134128A1",
+   "title": "Method of obtaining search result from search request in search engine by outputting search term sets from search requests started previously",
+   "assignee": "Siemens Ag"
+  },
+  {
+   "id": "US6460029B1",
+   "title": "System for improving search text",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20020161752A1",
+   "title": "Apparatus for and method of searching",
+   "assignee": "Hutchison William J."
+  },
+  {
+   "id": "US20020169595A1",
+   "title": "Method for retrieving answers from an information retrieval system",
+   "assignee": "Yevgeny Agichtein"
+  },
+  {
+   "id": "US20030033324A1",
+   "title": "Returning databases as search results",
+   "assignee": "Golding Andrew R."
+  },
+  {
+   "id": "US20030046311A1",
+   "title": "Dynamic search engine and database",
+   "assignee": "Ryan Baidya"
+  },
+  {
+   "id": "US20030055831A1",
+   "title": "Search engine",
+   "assignee": "S.L.I. Systems, Inc."
+  },
+  {
+   "id": "US20030088547A1",
+   "title": "Method and apparatus for providing comprehensive search results in response to user queries entered over a computer network",
+   "assignee": "Hammond Joel K."
+  },
+  {
+   "id": "US6564210B1",
+   "title": "System and method for searching databases employing user profiles",
+   "assignee": "Virtual Self Ltd."
+  },
+  {
+   "id": "US6564213B1",
+   "title": "Search query autocompletion",
+   "assignee": "Amazon.Com, Inc."
+  },
+  {
+   "id": "US6578022B1",
+   "title": "Interactive intelligent searching with executable suggestions",
+   "assignee": "Icplanet Corporation"
+  },
+  {
+   "id": "US6615209B1",
+   "title": "Detecting query-specific duplicate documents",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030233224A1",
+   "title": "Method and system for enhanced data searching",
+   "assignee": "Insightful Corporation"
+  },
+  {
+   "id": "US6671681B1",
+   "title": "System and technique for suggesting alternate query expressions based on prior user selections and their query strings",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6735585B1",
+   "title": "Method for search engine generating supplemented search not included in conventional search result identifying entity data related to portion of located web page",
+   "assignee": "Altavista Company"
+  },
+  {
+   "id": "US6772150B1",
+   "title": "Search query refinement using related search phrases",
+   "assignee": "Amazon.Com, Inc."
+  },
+  {
+   "id": "US20040225681A1",
+   "title": "Information system",
+   "assignee": "Chaney Donald Lewis"
+  },
+  {
+   "id": "US20050033711A1",
+   "title": "Cost-benefit approach to automatically composing answers to questions by extracting information from large unstructured corpora",
+   "assignee": "Horvitz Eric J."
+  },
+  {
+   "id": "US20050071255A1",
+   "title": "Method and apparatus for search scoring",
+   "assignee": "Xuejun Wang"
+  },
+  {
+   "id": "US20050131872A1",
+   "title": "Query recognizer",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050149507A1",
+   "title": "Systems and methods for identifying an internet resource address",
+   "assignee": "Nye Timothy G."
+  },
+  {
+   "id": "US6931401B2",
+   "title": "Methods and apparatus for high-speed approximate sub-string searches",
+   "assignee": "Paracel, Inc."
+  },
+  {
+   "id": "US20050222976A1",
+   "title": "Query rewriting with entity detection",
+   "assignee": "Karl Pfleger"
+  },
+  {
+   "id": "US20050222975A1",
+   "title": "Integrated full text search system and method",
+   "assignee": "Nayak Tapas K"
+  },
+  {
+   "id": "US20060282412A1",
+   "title": "Method and apparatus for context based querying",
+   "assignee": "Verizon Data Services Inc."
+  },
+  {
+   "id": "US7165063B2",
+   "title": "Context quantifier transformation in XML query rewrite",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7333976B1",
+   "title": "Methods and systems for processing contact information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7379933B1",
+   "title": "Union all rewrite for aggregate queries with grouping sets",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US7409383B1",
+   "title": "Locating meaningful stopwords or stop-phrases in keyword-based retrieval systems",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7483894B2",
+   "title": "Methods and apparatus for entity search",
+   "assignee": "Platformation Technologies, Inc"
+  },
+  {
+   "id": "US7536382B2",
+   "title": "Query rewriting with entity detection",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7630986B1",
+   "title": "Secure data interchange",
+   "assignee": "Pinpoint, Incorporated"
+  },
+  {
+   "id": "US7698331B2",
+   "title": "Matching and ranking of sponsored search listings incorporating web search technology and web content",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7818315B2",
+   "title": "Re-ranking search results based on query log",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7840547B1",
+   "title": "Methods and systems for efficient query rewriting",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20110082860A1",
+   "title": "Search Method, Apparatus and System",
+   "assignee": "Alibaba Group Holding Limited"
+  },
+  {
+   "id": "US8112422B2",
+   "title": "Computer systems, methods and computer program products for data anonymization for aggregate query answering",
+   "assignee": "At&T Intellectual Property I, L.P."
+  },
+  {
+   "id": "US8239378B2",
+   "title": "Document scoring based on query analysis",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US120712A",
+   "title": "Improvement in screw-die presses",
+   "assignee": ""
+  },
+  {
+   "id": "US55831A",
+   "title": "Improved car for transporting petroleum",
+   "assignee": ""
+  },
+  {
+   "id": "US46311A",
+   "title": "Improved machine for making metallic tubes",
+   "assignee": ""
+  },
+  {
+   "id": "US6654813B1",
+   "title": "Dynamically categorizing entity information",
+   "assignee": "Alta Vista Company"
+  }
+ ],
+ "similar": [
+  {
+   "id": "US8452799B2",
+   "title": "Query rewriting with entity detection"
+  },
+  {
+   "id": "US9773055B2",
+   "title": "Query rewriting with entity detection"
+  },
+  {
+   "id": "US10452718B1",
+   "title": "Locating meaningful stopwords or stop-phrases in keyword-based retrieval systems"
+  },
+  {
+   "id": "US8515952B2",
+   "title": "Systems and methods for determining document freshness"
+  },
+  {
+   "id": "US8024178B1",
+   "title": "Automatic completion of fragments of text"
+  },
+  {
+   "id": "US8554759B1",
+   "title": "Selection of documents to place in search index"
+  },
+  {
+   "id": "US20150172299A1",
+   "title": "Indexing and retrieval of blogs"
+  },
+  {
+   "id": "US8977630B1",
+   "title": "Personalizing search results"
+  },
+  {
+   "id": "US8140449B1",
+   "title": "Detecting novel document content"
+  },
+  {
+   "id": "US8423885B1",
+   "title": "Updating search engine document index based on calculated age of changed portions in a document"
+  },
+  {
+   "id": "US8024337B1",
+   "title": "Systems and methods for determining query similarity by query distribution comparison"
+  },
+  {
+   "id": "US7886217B1",
+   "title": "Identification of web sites that contain session identifiers"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8805867B2/en"
+}

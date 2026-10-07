@@ -1,0 +1,238 @@
+{
+"US10339190B2": {
+  "relevance": "cao",
+  "mech": "- Với query dạng câu hỏi ('Ai là người đầu tiên leo Everest?'), Google xác định **loại entity** cần trả lời (người, địa điểm…).\n- Lấy top kết quả tìm kiếm và dữ liệu đã xử lý trước của từng trang: danh sách **entity được nhắc tới trong trang**.\n- Entity thuộc đúng loại **xuất hiện nhiều nhất trong top kết quả** được chọn làm câu trả lời.",
+  "seo": "- Câu trả lời trực tiếp trên SERP được **tổng hợp từ nội dung các trang top** → cách trang của bạn nhắc tên entity ảnh hưởng tới câu trả lời Google đưa ra.\n- Nhắc entity bằng **tên đầy đủ, rõ ràng** (không chỉ đại từ, viết tắt) giúp Google nhận diện.",
+  "audit": [
+    "Kiểm tra trang trả lời câu hỏi 'ai/cái gì/ở đâu' có nêu tên entity trả lời rõ ràng ngay đầu nội dung",
+    "Dùng tên chuẩn của entity (khớp Wikipedia/Knowledge Graph) ít nhất một lần, không chỉ viết tắt"
+  ],
+  "leak": "Leak có dữ liệu entity gắn với từng tài liệu (nhóm `webrefEntities` — entity được nhận diện trong trang kèm điểm tin cậy/topicality)."
+},
+"US9336211B1": {
+  "relevance": "trung bình",
+  "mech": "- Khi query liên quan tới một entity, Google hiển thị **entity summary** (Knowledge Panel: ảnh, tên, thuộc tính) kèm lựa chọn tìm kiếm thêm.\n- Với mỗi entity, Google xác định **'entity search query'** — query cho kết quả tốt nhất về entity đó (ví dụ tên + loại để phân biệt).",
+  "seo": "- Doanh nghiệp/thương hiệu là một entity: cần có Knowledge Panel với thông tin chính xác.\n- Query chuẩn của entity thường là tên + loại (ví dụ 'ABC công ty luật') → trang chủ nên xếp #1 cho query này.",
+  "audit": [
+    "Tìm tên thương hiệu trên Google: có Knowledge Panel không, thông tin (logo, mô tả, địa chỉ, mạng xã hội) có đúng không",
+    "Kiểm tra schema Organization/LocalBusiness: name, logo, sameAs (link tới các hồ sơ chính thức)"
+  ],
+  "leak": ""
+},
+"US9390174B2": {
+  "relevance": "trung bình",
+  "mech": "- Xác định entity trong query và **loại entity**; lấy danh sách **thuộc tính** của loại đó từ Knowledge Graph, xếp hạng thuộc tính.\n- Chọn thuộc tính phù hợp query và **cách trình bày** tương ứng (bảng, danh sách, carousel…).\n- Nhận diện **khái niệm bổ nghĩa** như từ so sánh nhất ('cao nhất', 'lớn nhất') → xác định thuộc tính dùng để xếp hạng.",
+  "seo": "- Query dạng 'X lớn nhất', 'top X theo Y' được trả lời bằng dữ liệu Knowledge Graph → nội dung cần có **số liệu/thuộc tính cụ thể**, có cấu trúc (bảng).",
+  "audit": [
+    "Với nội dung dạng 'top/lớn nhất/tốt nhất': có bảng số liệu rõ ràng theo thuộc tính so sánh không"
+  ],
+  "leak": ""
+},
+"US10235423B2": {
+  "relevance": "trung bình",
+  "mech": "- Kết quả lấy từ Knowledge Graph được chấm bằng **nhiều chỉ số** (độ phổ biến, số liên kết, mức liên quan…), một số **độc lập với query**.\n- **Trọng số của từng chỉ số phụ thuộc loại entity** (ví dụ phim: độ phổ biến gần đây; thành phố: dân số).",
+  "seo": "- Mức nổi bật của entity (được nhắc nhiều, có nhiều quan hệ) ảnh hưởng thứ hạng trong các kết quả dạng entity (carousel, danh sách).",
+  "audit": [],
+  "leak": ""
+},
+"US9275152B2": {
+  "relevance": "trung bình",
+  "mech": "- Khi query về entity A (loại 1) và có entity loại 2 quan hệ với A, Google kiểm tra: đủ nhiều kết quả tìm kiếm **nhắc tới A** và đủ nhiều kết quả có **loại 2 là loại liên quan** → hiển thị danh sách entity loại 2 (ví dụ diễn viên của phim).",
+  "seo": "- Nội dung trên web (top kết quả) **quyết định** Google có hiển thị entity liên quan hay không → viết về entity kèm các entity liên quan tự nhiên giúp củng cố quan hệ.",
+  "audit": [
+    "Nội dung về entity chính có nhắc tới các entity liên quan quan trọng (người sáng lập, sản phẩm, địa điểm) không"
+  ],
+  "leak": ""
+},
+"US10108700B2": {
+  "relevance": "trung bình",
+  "mech": "- Google tìm **dữ liệu còn thiếu** trong Knowledge Graph (thuộc tính chưa có giá trị của một entity).\n- Tự động tạo query từ entity + thuộc tính thiếu, gửi vào hệ thống hỏi đáp/tìm kiếm, và **dùng câu trả lời từ web để lấp đầy** Knowledge Graph.",
+  "seo": "- Knowledge Graph được bổ sung từ nội dung web → trang có **fact rõ ràng về entity** (năm thành lập, trụ sở, người sáng lập, sản phẩm) là nguồn để Google cập nhật.",
+  "audit": [
+    "Trang Giới thiệu có các fact chính của doanh nghiệp trình bày rõ ràng, nhất quán với Wikipedia/Wikidata/hồ sơ khác",
+    "Cân nhắc tạo/cập nhật mục Wikidata cho doanh nghiệp (nếu đủ điều kiện)"
+  ],
+  "leak": ""
+},
+"US9898554B2": {
+  "relevance": "trung bình",
+  "mech": "- So query với các **mẫu query** (template gồm phần biến và phần cố định). Nếu query khớp mẫu không phải câu hỏi, Google suy ra mẫu tương đương dạng câu hỏi → xác định query là **câu hỏi ngầm** (ví dụ 'chiều cao tháp Eiffel' = 'tháp Eiffel cao bao nhiêu').",
+  "seo": "- Nhiều query không có từ để hỏi vẫn được xử lý như câu hỏi → nên trả lời trực tiếp (featured snippet) cả với các từ khoá dạng cụm danh từ.",
+  "audit": [
+    "Với từ khoá dạng 'thuộc tính + entity' (giá, chiều cao, thời gian…): trang có câu trả lời trực tiếp 1–2 câu ở đầu không"
+  ],
+  "leak": ""
+},
+"US8843466B1": {
+  "relevance": "trung bình",
+  "mech": "- Query liệt kê **thuộc tính** của một loại entity (ví dụ các triệu chứng → bệnh; diễn viên → phim).\n- Google lấy kết quả tìm kiếm, đếm số lần **tên các entity cùng loại** xuất hiện trong từng trang, tổng hợp điểm → chọn entity phù hợp nhất để trả lời.",
+  "seo": "- Nội dung liên kết **thuộc tính ↔ entity** rõ ràng (triệu chứng của bệnh X, phim của đạo diễn Y) giúp trang góp phần vào câu trả lời.",
+  "audit": [],
+  "leak": ""
+},
+"US9135238B2": {
+  "relevance": "cao",
+  "mech": "- Dùng knowledge base dạng bài viết (Wikipedia) để **phân biệt entity trùng tên** ('Python' là rắn, ngôn ngữ lập trình hay phim?).\n- So **ngữ cảnh quanh tên** trong query với nội dung bài viết của từng entity; dùng thêm redirect, trang phân biệt nghĩa, hyperlink, danh mục.",
+  "seo": "- Tên thương hiệu trùng với từ thông dụng/entity khác cần **ngữ cảnh rõ ràng** để Google nhận đúng.\n- Các từ đi kèm (ngành, địa điểm, sản phẩm) giúp phân biệt.",
+  "audit": [
+    "Nếu tên thương hiệu trùng từ thông dụng: kiểm tra Google có nhận diện đúng entity không (tìm tên thương hiệu → Knowledge Panel/kết quả có đúng không)",
+    "Luôn nhắc tên thương hiệu kèm ngữ cảnh ngành/địa điểm trong title, trang Giới thiệu, schema (description, knowsAbout)"
+  ],
+  "leak": ""
+},
+"US9760570B2": {
+  "relevance": "cao",
+  "mech": "- Quy trình **lặp** để tìm trang web nhắc tới một entity:\n  1. Mô hình ban đầu dùng các đặc trưng (fact của entity) để tìm tài liệu nhắc tới entity.\n  2. Đo tần suất các đặc trưng khác trong các tài liệu đó → xây mô hình thứ hai tốt hơn.\n  3. Lặp lại; đồng thời **trích thêm fact mới** về entity từ các tài liệu đã xác định.",
+  "seo": "- Google nhận diện 'trang này nói về entity X' qua **sự đồng xuất hiện của các fact đặc trưng** (tên + địa chỉ + người sáng lập + sản phẩm…).\n- Nhất quán thông tin (NAP, mô tả) trên nhiều trang web giúp Google gom đúng các nhắc tới về doanh nghiệp.",
+  "audit": [
+    "Kiểm tra tính nhất quán của thông tin doanh nghiệp trên web: tên, địa chỉ, số điện thoại, mô tả, người đại diện",
+    "Các trang nhắc tới thương hiệu (báo chí, danh bạ) có kèm fact đặc trưng để phân biệt không"
+  ],
+  "leak": ""
+},
+"US9710549B2": {
+  "relevance": "trung bình",
+  "mech": "- Các đối tượng (entity) được tạo từ fact trích xuất trên web; nhiều đối tượng có thể cùng chỉ một entity.\n- **Chuẩn hoá tên** (bỏ khác biệt viết hoa, ký tự, tiền tố…), nhóm các đối tượng cùng tên chuẩn hoá, so sánh các fact khác → **gộp đối tượng trùng**.",
+  "seo": "- Tên thương hiệu viết không nhất quán ('ABC Corp', 'Công ty ABC', 'ABC JSC') có thể tạo ra nhiều entity rời rạc → thông tin bị phân tán.",
+  "audit": [
+    "Chuẩn hoá một tên thương hiệu chính và dùng thống nhất; liệt kê tên khác trong schema (alternateName)"
+  ],
+  "leak": ""
+},
+"US10068022B2": {
+  "relevance": "cao",
+  "mech": "- Xác định **entity chủ đề (topical entity)** — chủ đề chính — của một trang:\n  1. Lấy các entity xuất hiện trong trang.\n  2. Với mỗi entity, tạo query và xem trang có **xếp hạng cao** trong kết quả không.\n  3. Kiểm tra entity có xuất hiện trong **title hoặc URL** của trang không.\n- Entity thoả các điều kiện → chủ đề chính của trang.",
+  "seo": "- Mỗi trang nên có **một entity chủ đề rõ ràng**, xuất hiện trong **title và URL**.\n- Trang nói lan man nhiều entity mà không có entity trung tâm khó được xác định chủ đề.",
+  "audit": [
+    "Mỗi trang chủ lực: xác định 1 entity chủ đề; entity này có nằm trong title, H1 và URL không",
+    "Chạy Google Natural Language API (hoặc công cụ tương tự) trên nội dung → entity có salience cao nhất có đúng là chủ đề mong muốn không"
+  ],
+  "leak": "Leak có điểm topicality cho entity trong tài liệu (nhóm `webrefEntities`), khớp với khái niệm topical entity."
+},
+"US9047278B1": {
+  "relevance": "cao",
+  "mech": "- Phân tích log query: tách mỗi query thành **phần entity** + **hậu tố** ('iPhone 15' + 'giá', 'Hà Nội' + 'thời tiết').\n- Đếm số lượt tìm cho mỗi cặp entity–hậu tố và cho **cả loại entity** (mọi điện thoại + 'giá').\n- Chấm điểm hậu tố → xác định **thuộc tính người dùng quan tâm nhất** về một entity/loại entity → dùng để hiển thị tóm tắt các thông tin được hỏi nhiều nhất.",
+  "seo": "- Google biết người dùng hay hỏi gì về từng loại entity → nội dung về entity nên **bao phủ các thuộc tính được tìm nhiều nhất** của loại đó.\n- Đây là cơ sở cho khái niệm 'attribute coverage' trong semantic SEO.",
+  "audit": [
+    "Với entity chủ đề của trang: thu thập các hậu tố phổ biến (Google Autocomplete, People Also Ask, Ahrefs 'Also rank for') → trang có trả lời các thuộc tính này không",
+    "So sánh độ bao phủ thuộc tính với top 3 đối thủ"
+  ],
+  "leak": ""
+},
+"US10331706B1": {
+  "relevance": "trung bình",
+  "mech": "- Phát hiện **entity mới** chưa có trong Knowledge Graph: từ mỗi tài liệu tạo một đồ thị nhỏ (entity + fact), gom cụm theo tên và loại, chia nhỏ theo các quan hệ quyết định (như ngày sinh).\n- Entity được xác minh khi **đủ fact được chứng thực chéo từ nhiều tài liệu** (nhiều domain) → thêm vào Knowledge Graph.",
+  "seo": "- Để doanh nghiệp/người/sản phẩm trở thành entity: cần **nhiều nguồn độc lập** (khác domain) nêu cùng các fact nhất quán.",
+  "audit": [
+    "Liệt kê các nguồn độc lập đang nhắc tới thương hiệu kèm fact (báo, danh bạ, hiệp hội, hồ sơ mạng xã hội) — càng nhiều nguồn nhất quán càng tốt",
+    "Đảm bảo fact quyết định (năm thành lập, trụ sở, người sáng lập) giống nhau ở mọi nguồn"
+  ],
+  "leak": ""
+},
+"US11403288B2": {
+  "relevance": "thấp",
+  "mech": "- Trả lời query ngôn ngữ tự nhiên bằng cách ánh xạ query vào mẫu, ánh xạ từ khoá vào entity trong đồ thị, rồi đi theo **đường đi** (quan hệ) có xác suất cao nhất trong đồ thị để tìm entity trả lời. Mô hình học đường đi từ văn bản web + đồ thị.",
+  "seo": "- Câu trả lời dạng 'X của Y' đến từ quan hệ trong Knowledge Graph → nội dung nêu rõ quan hệ giữa các entity giúp Google học quan hệ.",
+  "audit": [],
+  "leak": ""
+},
+"US9558186B2": {
+  "relevance": "trung bình",
+  "mech": "- Trích fact từ tài liệu 1 → dùng làm 'hạt giống'. Tìm tài liệu 2 chứa cùng cặp thuộc tính–giá trị, xác định **mẫu trình bày** (ví dụ 'Thuộc tính: Giá trị' trong bảng), rồi dùng mẫu để trích **các fact khác** từ tài liệu 2.",
+  "seo": "- Thông tin trình bày dạng **cặp thuộc tính: giá trị** (bảng thông số, infobox) dễ được Google trích thành fact.",
+  "audit": [
+    "Trang sản phẩm/entity có bảng thông số dạng 'thuộc tính – giá trị' bằng HTML thật (table/dl), không phải ảnh"
+  ],
+  "leak": ""
+},
+"US20230177360A1": {
+  "relevance": "trung bình",
+  "mech": "- Tìm **fact độc đáo/thú vị** về entity: chọn tài liệu có dấu hiệu 'fact thú vị', tách câu nhắc tới entity (loại câu đã là fact cấu trúc), gom cụm câu cùng ý, chọn câu đại diện được nhiều nguồn ủng hộ và viết tốt.\n- Hiển thị khi query về entity.",
+  "seo": "- Nội dung có **thông tin độc đáo, được viết rõ ràng thành câu độc lập** (không cần ngữ cảnh) có thể được trích hiển thị trên SERP.\n- Liên quan khái niệm information gain.",
+  "audit": [
+    "Nội dung về entity có chứa fact độc đáo/ít phổ biến (số liệu riêng, câu chuyện, chi tiết) được viết thành câu tự đứng được không"
+  ],
+  "leak": ""
+},
+"US7769579B2": {
+  "relevance": "trung bình",
+  "mech": "- Từ các fact hạt giống của một entity, tìm tài liệu chứa đủ số fact hạt giống, xác định **mẫu ngữ cảnh** chung, và nếu tài liệu có đủ nhiều nội dung khớp mẫu thì **trích thêm fact** (học fact từ văn bản bán cấu trúc — bảng, danh sách).",
+  "seo": "- Trang có cấu trúc lặp nhất quán (bảng thông số, danh sách thuộc tính) giúp Google học và trích fact.",
+  "audit": [],
+  "leak": ""
+},
+"US8812435B1": {
+  "relevance": "trung bình",
+  "mech": "- Từ một entity và tài liệu có **title chứa tên entity** + nội dung chứa fact của nó, Google học **mẫu title** và **mẫu nội dung**; áp dụng cho các tài liệu cùng mẫu (cùng template) để tạo entity mới và gắn fact.",
+  "seo": "- Website có template nhất quán (title '[Tên sản phẩm] – [Thương hiệu]', bảng thông số cùng cấu trúc) giúp Google tự động trích entity và fact hàng loạt.",
+  "audit": [
+    "Kiểm tra title và bố cục các trang cùng loại (sản phẩm, địa điểm, hồ sơ) có nhất quán theo một mẫu không"
+  ],
+  "leak": ""
+},
+"US7953720B1": {
+  "relevance": "trung bình",
+  "mech": "- Với query hỏi fact, tìm các câu trả lời khả dĩ trong kho fact, chấm điểm, tìm câu trả lời **mâu thuẫn** tốt nhất.\n- Chỉ hiển thị câu trả lời nếu điểm vượt ngưỡng **và vượt câu trả lời mâu thuẫn một khoảng đủ lớn** (được nhiều nguồn ủng hộ hơn).",
+  "seo": "- Google chỉ hiển thị fact khi **đồng thuận giữa các nguồn** rõ ràng → thông tin sai lệch với số đông khó được chọn; thông tin đúng cần được nhiều nguồn xác nhận.",
+  "audit": [],
+  "leak": ""
+},
+"US8682913B1": {
+  "relevance": "cao",
+  "mech": "- Fact (cặp thuộc tính–giá trị) về một chủ thể được trích từ **nhiều nguồn**.\n- Fact được **chứng thực** khi: thuộc tính xuất hiện đủ nhiều nguồn (yêu cầu 1) và giá trị được đủ nhiều nguồn xác nhận (yêu cầu 2).\n- Chỉ fact được chứng thực mới được cập nhật trạng thái tin cậy trong kho fact.",
+  "seo": "- **Nhất quán thông tin trên nhiều nguồn** là điều kiện để Google tin fact về doanh nghiệp/sản phẩm/người.\n- Thông tin mâu thuẫn giữa website, Google Business Profile, danh bạ, mạng xã hội làm giảm độ tin cậy.",
+  "audit": [
+    "Lập bảng đối chiếu fact chính (tên, địa chỉ, SĐT, giờ mở cửa, năm thành lập, người sáng lập) trên website, GBP, Facebook, LinkedIn, danh bạ, báo chí",
+    "Sửa mọi điểm không nhất quán"
+  ],
+  "leak": ""
+},
+"US7831545B1": {
+  "relevance": "trung bình",
+  "mech": "- Xác định **chủ thể** của một tài liệu chứa fact bằng **anchor text của các link trỏ tới tài liệu** đó: tạo nhãn ứng viên từ anchor text, chọn nhãn được nhiều trang dùng nhất làm chủ thể.",
+  "seo": "- Anchor text trỏ tới trang Giới thiệu/trang entity (thường là tên thương hiệu) quyết định Google hiểu trang đó nói về entity nào.",
+  "audit": [
+    "Anchor text của backlink trỏ tới trang chủ/Giới thiệu có dùng đúng tên thương hiệu không"
+  ],
+  "leak": ""
+},
+"US7970766B1": {
+  "relevance": "thấp",
+  "mech": "- Gán **loại entity** cho đối tượng chưa rõ loại bằng mô hình học từ các thuộc tính (fact) của đối tượng đã biết loại (ví dụ có 'ngày sinh' + 'quốc tịch' → người).",
+  "seo": "- Bộ thuộc tính trình bày về entity giúp Google xác định loại → schema với @type đúng hỗ trợ việc này.",
+  "audit": [
+    "Kiểm tra @type trong schema đúng loại entity (Organization, LocalBusiness con, Person, Product…)"
+  ],
+  "leak": ""
+},
+"US7966291B1": {
+  "relevance": "thấp",
+  "mech": "- Gộp các đối tượng cùng chỉ một entity: nhóm theo giá trị fact, so sánh từng cặp tìm bằng chứng nên/không nên gộp (cùng loại, chung fact hiếm vs khác thuộc tính duy nhất), dựng đồ thị bằng chứng rồi gộp.",
+  "seo": "- Fact hiếm, đặc trưng (mã số thuế, địa chỉ cụ thể) là bằng chứng mạnh để Google gộp đúng các nhắc tới về doanh nghiệp.",
+  "audit": [],
+  "leak": ""
+},
+"US8244689B2": {
+  "relevance": "thấp",
+  "mech": "- Xác định hai đối tượng trùng nhau bằng cách cộng **entropy** (lượng thông tin) của các fact trùng khớp: khớp fact hiếm (entropy cao) có sức nặng hơn khớp fact phổ biến.",
+  "seo": "- Tương tự US7966291: fact đặc trưng giúp nhận diện entity.",
+  "audit": [],
+  "leak": ""
+},
+"US8954438B1": {
+  "relevance": "trung bình",
+  "mech": "- Trích **metadata có cấu trúc** từ nhiều host: dùng mẫu tên entity để lấy tên, dùng quy tắc heuristic để trích danh sách phần tử (ví dụ danh sách tập phim, danh sách sản phẩm), kiểm chứng với danh sách tham chiếu, rồi tạo mẫu để trích tiếp.",
+  "seo": "- Danh sách có cấu trúc HTML rõ ràng (ul/ol/table) dễ được Google trích và kiểm chứng.",
+  "audit": [],
+  "leak": ""
+},
+"US9110852B1": {
+  "relevance": "thấp",
+  "mech": "- Phân tích cú pháp câu thành cây theo từ loại, tìm **đường đi trong cây nối entity và giá trị** (ví dụ 'X được thành lập năm Y'), rồi dùng các đường đi này để trích cặp entity–giá trị từ văn bản khác.",
+  "seo": "- Câu viết **đơn giản, rõ chủ–vị** ('Công ty X được thành lập năm 2010 tại Hà Nội') dễ được trích thành fact hơn câu phức tạp.",
+  "audit": [
+    "Viết các fact quan trọng thành câu đơn rõ ràng (chủ ngữ là entity, động từ, giá trị)"
+  ],
+  "leak": ""
+}
+}

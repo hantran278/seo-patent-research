@@ -1,0 +1,2090 @@
+{
+ "id": "US8078607B2",
+ "title": "Generating website profiles based on queries from webistes and user activities on the search results",
+ "abstract": "In a method of profiling a website, an information server receives multiple search queries from a website submitted by different users. Different search results responsive to the search queries are provided to the requesting users. The information server monitors activities of the users on the search results and generates a profile for the website using the search queries and the user activities. When the information server receives a same search query from two different websites, it identifies a plurality of information items associated with the search query. The information server uses profiles of the two websites to customize the information items into two different orders and serves the information items to the two websites in the two different orders.",
+ "inventors": [
+  "Bilgehan Uygar Oztekin",
+  "Adam J. Klein",
+  "Taher H. Haveliwala",
+  "Glen Jeh",
+  "Sepandar D. Kamvar"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2006-03-30",
+ "filing_date": "2006-03-30",
+ "publication_date": "2011-12-13",
+ "status": "Active",
+ "expiration": "2028-07-31",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/953",
+  "G06F16/9535",
+  "G06F16/9536"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer-implemented method of providing search results, comprising: at a server associated with a search engine: receiving from first and second websites distinct from the search engine, a same search query, wherein the search query is submitted by a first user visiting the first website from a first client and by a second user visiting the second website from a second client; identifying a plurality of information items associated with the search query; and responsive to the search query received from the first website, providing to the first user visiting the first website from the first client a first subset of the information items in a first order, and responsive to the search query received from the first website, providing to the second user visiting the second website from the second client a second subset of the information items in a second order distinct from the first order, wherein the first order is determined, at least in part, by a first website profile associated with the first website and the second order is determined, at least in part, by a second website profile associated with the second website, wherein the first website profile is associated with a first website identifier of the first website and the search query received from the first website is associated with the first website identifier, and the second website profile is associated with a second website identifier of the second website that is distinct from the first website identifier, and the search query received from the second website is associated with the second website identifier, wherein the first website profile is related to a search history of the first website, the search history of the first website including search queries submitted by multiple users visiting the first website from respective clients, search results responsive to the search queries, and user activities by the multiple users visiting the first website on the search results, and the second website profile is related to a search history of the second website, the search history of the second website including search queries submitted by multiple users visiting the second website from respective clients, search results responsive to the search queries, and user activities by the multiple users visiting the second website on the search results.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, including generating the first and second website profiles for the first and second websites in accordance with their respective search histories.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, wherein the information items include at least one advertisement.",
+   "dependent": true
+  },
+  {
+   "text": "4. A computer-implemented method of providing search results, comprising: at a server associated with a search engine: receiving from first and second webpages of a website distinct from the search engine, multiple ones of a same search query, wherein the search query is submitted by a first user visiting the first webpage from a first client and by a second user visiting the second webpage from a second client; identifying a plurality of information items associated with the search query; and responsive to the search query received from the first webpage, providing to the first user visiting the first webpage from the first client a first subset of the information items in a first order, and responsive to the search query received from the first webpage, providing to the second user visiting the second webpage from the second client a second subset of the information items in a second order distinct from the first order; wherein the first order is determined, at least in part, by a first webpage profile associated with the first webpage and the second order is determined, at least in part, by a second webpage profile associated with the second webpage; wherein the first webpage profile is associated with a first webpage identifier of the first webpage and the search query received from the first webpage is associated with the first webpage identifier, and the second profile is associated with a second webpage identifier of the second webpage that is distinct from the first webpage identifier, and the search query received from the second webpage is associated with the second webpage identifier; wherein the first webpage profile is related to a search history of the first webpage, the search history of the first webpage including search queries submitted by multiple users visiting the first webpage from respective clients, search results responsive to the search queries, and user activities by the multiple users visiting the first webpage on the search results, and the second webpage profile is related to a search history of the second webpage, the search history of the second webpage including search queries submitted by multiple users visiting the second webpage from respective clients, search results responsive to the search queries, and user activities by the multiple users visiting the second webpage on the search results.",
+   "dependent": false
+  },
+  {
+   "text": "5. The method of claim 4, including generating the first and second webpage profiles for the first and second webpages in accordance with their respective search histories.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 4, wherein the information items include at least one advertisement.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 4, including generating the first webpage profile for the first webpage using user activities on search results responsive to the search queries submitted by the multiple users visiting the first webpage, wherein the generated first webpage profile is associated with the first webpage identifier and is used by the search engine to rank search results provided to respective users of the first webpage in response to future search queries from the first webpage, and generating the second webpage profile for the second webpage using user activities on search results responsive to the search queries submitted by the multiple users visiting the second webpage, wherein the generated second webpage profile is associated with the second webpage identifier and is used by the search engine to rank search results provided to respective users of the second webpage in response to future search queries from the second webpage.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 1, including generating the first website profile for the first website using user activities on search results responsive to the search queries submitted by the multiple users visiting the first website, wherein the generated first website profile is associated with the first website identifier and is used by the search engine to rank search results provided to respective users of the first website in response to future search queries from the first website, and generating the second website profile for the second website using user activities on search results responsive to the search queries submitted by the multiple users visiting the second website, wherein the generated second website profile is associated with the second website identifier and is used by the search engine to rank search results provided to respective users of the second website in response to future search queries from the second website.",
+   "dependent": true
+  },
+  {
+   "text": "9. A computer system associated with a search engine for providing search results, comprising: memory; one or more processors; and one or more programs, stored in the memory and executed by the one or more processors, the one or more programs including: instructions for receiving from first and second websites distinct from the search engine, a same search query, wherein the search query is submitted by a first user visiting the first website from a first client and by a second user visiting the second website from a second client; instructions for identifying a plurality of information items associated with the search query; and instructions for responding to the search query received from the first website by providing to the first user visiting the first website from the first client a first subset of the information items in a first order and responding to the search query received from the second website by providing to the second user visiting the second website from the second client a second subset of the information items in a second order distinct from the first order; wherein the first order is determined, at least in part, by a first website profile associated with the first website and the second order is determined, at least in part, by a second website profile associated with the second website, wherein the first website profile is associated with a first website identifier of the first website and the search query received from the first website is associated with the first website identifier, and the second website profile is associated with a second website identifier of the second website that is distinct from the first website identifier, and the search query received from the second website is associated with the second website identifier, wherein the first website profile is related to a search history of the first website, the search history of the first website including search queries submitted by multiple users visiting the first website from respective clients, search results responsive to the search queries, and user activities by the multiple users visiting the first website on the search results, and the second website profile is related to a search history of the second website, the search history of the second website including search queries submitted by multiple users visiting the second website from respective clients, search results responsive to the search queries, and user activities by the multiple users visiting the second website on the search results.",
+   "dependent": false
+  },
+  {
+   "text": "10. The computer system of claim 9, wherein the one or more programs further include instructions for generating the first and second website profiles for the first and second websites in accordance with their respective search histories.",
+   "dependent": true
+  },
+  {
+   "text": "11. The computer system of claim 9, wherein the information items include at least one advertisement.",
+   "dependent": true
+  },
+  {
+   "text": "12. The computer system of claim 9, wherein the one or more programs further include: instructions for generating the first website profile for the first website using user activities on search results responsive to the search queries submitted by the multiple users visiting the first website, wherein the generated first website profile is associated with the first website identifier and is used by the search engine to rank search results provided to respective users of the first website in response to future search queries from the first website, and instructions for generating the second website profile for the second website using user activities on search results responsive to the search queries submitted by the multiple users visiting the second website, wherein the generated second website profile is associated with the second website identifier and is used by the search engine to rank search results provided to respective users of the second website in response to future search queries from the second website.",
+   "dependent": true
+  },
+  {
+   "text": "13. A non-transitory computer readable storage medium for use in conjunction with a computer system associated with a search engine, the computer readable storage medium storing one or more programs for execution by the computer system, the one or more programs comprising: instructions for receiving from first and second websites distinct from the search engine, a same search query, wherein the search query is submitted by a first user visiting the first website from a first client and by a second user visiting the second website from a second client; instructions for identifying a plurality of information items associated with the search query; and instructions for responding to the search query received from the first website by providing to the first user visiting the first website from the first client a first subset of the information items in a first order and responding to the search query received from the second website by providing to the second user visiting the second website from the second client a second subset of the information items in a second order distinct from the first order; wherein the first order is determined, at least in part, by a first website profile associated with the first website and the second order is determined, at least in part, by a second website profile associated with the second website, wherein the first website profile is associated with a first website identifier of the first website and the search query received from the first website is associated with the first website identifier, and the second website profile is associated with a second website identifier of the second website that is distinct from the first website identifier, and the search query received from the second website is associated with the second website identifier, wherein the first website profile is related to a search history of the first website, the search history of the first website including search queries submitted by multiple users visiting the first website from respective clients, search results responsive to the search queries, and user activities by the multiple users visiting the first website on the search results, and the second website profile is related to a search history of the second website, the search history of the second website including search queries submitted by multiple users visiting the second website from respective clients, search results responsive to the search queries, and user activities by the multiple users visiting the second website on the search results.",
+   "dependent": false
+  },
+  {
+   "text": "14. The non-transitory computer readable storage medium of claim 13, further including instructions for generating the first and second website profiles for the first and second websites in accordance with their respective search histories.",
+   "dependent": true
+  },
+  {
+   "text": "15. The non-transitory computer readable storage medium of claim 13, wherein the information items include at least one advertisement.",
+   "dependent": true
+  },
+  {
+   "text": "16. The non-transitory computer readable storage medium of claim 13, wherein the one or more programs further include: instructions for generating the first website profile for the first website using user activities on search results responsive to the search queries submitted by the multiple users visiting the first website, wherein the generated first website profile is associated with the first website identifier and is used by the search engine to rank search results provided to respective users of the first website in response to future search queries from the first website, and instructions for generating the second website profile for the second website using user activities on search results responsive to the search queries submitted by the multiple users visiting the second website, wherein the generated second website profile is associated with the second website identifier and is used by the search engine to rank search results provided to respective users of the second website in response to future search queries from the second website.",
+   "dependent": true
+  },
+  {
+   "text": "17. A computer system associated with a search engine for providing search results, comprising: memory; one or more processors; and one or more programs, stored in the memory and executed by the one or more processors, the one or more programs including: instructions for receiving from first and second webpages of a website distinct from the search engine, multiple ones of a same search query, wherein the search query is submitted by a first user visiting the first webpage from a first client and by a second user visiting the second webpage from a second client; instructions for identifying a plurality of information items associated with the search query; and instructions for responding to the search query received from the first webpage by providing to the first user visiting the first webpage from the first client a first subset of the information items in a first order and responding to the search query received from the second webpage by to the second user visiting the second webpage from the second client a second subset of the information items in a second order distinct from the first order; wherein the first order is determined, at least in part, by a first webpage profile associated with the first webpage and the second order is determined, at least in part, by a second webpage profile associated with the second webpage; wherein the first webpage profile is associated with a first webpage identifier of the first webpage and the search query received from the first webpage is associated with the first webpage identifier, and the second profile is associated with a second webpage identifier of the second webpage that is distinct from the first webpage identifier, and the search query received from the second webpage is associated with the second webpage identifier; wherein the first webpage profile is related to a search history of search queries submitted by multiple users visiting the first webpage from respective clients and the second webpage profile is related to a search history of search queries submitted by multiple users visiting the second webpage from respective clients wherein the first webpage profile is related to a search history of the first webpage, the search history of the first webpage including search queries submitted by multiple users visiting the first webpage from respective clients, search results responsive to the search queries, and user activities by the multiple users visiting the first webpage on the search results, and the second webpage profile is related to a search history of the second webpage, the search history of the second webpage including search queries submitted by multiple users visiting the second webpage from respective clients, search results responsive to the search queries, and user activities by the multiple users visiting the second webpage on the search results.",
+   "dependent": false
+  },
+  {
+   "text": "18. The computer system of claim 17, further generating the first and second webpage profiles for the first and second webpages in accordance with their respective search histories.",
+   "dependent": true
+  },
+  {
+   "text": "19. The computer system of claim 17, wherein the information items include at least one advertisement.",
+   "dependent": true
+  },
+  {
+   "text": "20. The computer system of claim 17, wherein the one or more programs further include: instructions for generating the first webpage profile for the first webpage using user activities on search results responsive to the search queries submitted by the multiple users visiting the first webpage, wherein the generated first webpage profile is associated with the first webpage identifier and is used by the search engine to rank search results provided to respective users of the first webpage in response to future search queries from the first webpage, and instructions for generating the second webpage profile for the second webpage using user activities on search results responsive to the search queries submitted by the multiple users visiting the second webpage, wherein the generated second webpage profile is associated with the second webpage identifier and is used by the search engine to rank search results provided to respective users of the second webpage in response to future search queries from the second webpage.",
+   "dependent": true
+  },
+  {
+   "text": "21. A non-transitory computer readable storage medium for use in conjunction with a computer system associated with a search engine, the computer readable storage medium storing one or more programs for execution by the computer system, the one or more programs comprising: instructions for receiving from first and second webpages of a website distinct from the search engine, multiple ones of a same search query, wherein the search query is submitted by a first user visiting the first webpage from a first client and by a second user visiting the second webpage from a second client; instructions for identifying a plurality of information items associated with the search query; and instructions for responding to the search query received from the first webpage by providing to the first user visiting the first webpage from the first client a first subset of the information items in a first order and responding to the search query received from the second webpage by to the second user visiting the second webpage from the second client a second subset of the information items in a second order distinct from the first order; wherein the first order is determined, at least in part, by a first webpage profile associated with the first webpage and the second order is determined, at least in part, by a second webpage profile associated with the second webpage; wherein the first webpage profile is associated with a first webpage identifier of the first webpage and the search query received from the first webpage is associated with the first webpage identifier, and the second profile is associated with a second webpage identifier of the second webpage that is distinct from the first webpage identifier, and the search query received from the second webpage is associated with the second webpage identifier; wherein the first webpage profile is related to a search history of the first webpage, the search history of the first webpage including search queries submitted by multiple users visiting the first webpage from respective clients, search results responsive to the search queries, and user activities by the multiple users visiting the first webpage on the search results, and the second webpage profile is related to a search history of the second webpage, the search history of the second webpage including search queries submitted by multiple users visiting the second webpage from respective clients, search results responsive to the search queries, and user activities by the multiple users visiting the second webpage on the search results.",
+   "dependent": false
+  },
+  {
+   "text": "22. The non-transitory computer readable storage medium of claim 21, further generating the first and second webpage profiles for the first and second webpages in accordance with their respective search histories.",
+   "dependent": true
+  },
+  {
+   "text": "23. The non-transitory computer readable storage medium of claim 21, wherein the information items include at least one advertisement.",
+   "dependent": true
+  },
+  {
+   "text": "24. The non-transitory computer readable storage medium of claim 21, wherein the one or more programs further include: instructions for generating the first webpage profile for the first webpage using user activities on search results responsive to the search queries submitted by the multiple users visiting the first webpage, wherein the generated first webpage profile is associated with the first webpage identifier and is used by the search engine to rank search results provided to respective users of the first webpage in response to future search queries from the first webpage, and instructions for generating the second webpage profile for the second webpage using user activities on search results responsive to the search queries submitted by the multiple users visiting the second webpage, wherein the generated second webpage profile is associated with the second webpage identifier and is used by the search engine to rank search results provided to respective users of the second webpage in response to future search queries from the second webpage.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## RELATED APPLICATIONS\n\n\nThis application is related to U.S. patent application Ser. No.10/890,854, filed Jul. 13, 2004, entitled “Personalization of Placed Content Ordering in Search Results,” which is hereby incorporated by reference.\n\nThis application also is related to U.S. patent application Ser. No. 10/869,492, filed Jun. 15, 2004, entitled “Customization of Search Results for Search Queries Received from Third Party Sites,” which is hereby incorporated by reference.\n\n\n## FIELD OF THE INVENTION\n\n\nThe present invention relates generally to the field of a search engine in a computer network system, in particular to system and method of generating a profile for a website and using the profile to customize rankings of search results in response to search queries submitted from the website.\n\n\n## BACKGROUND OF THE INVENTION\n\n\nSearch engines are a powerful tool of locating and retrieving documents from the Internet (or an intranet). Many websites include at least one search box on their webpages. The search box on a particular webpage typically enables users to submit search queries to search for documents at the website associated with the webpage, or to search for document on the Internet. However, most websites do not have an exclusive, dedicated search engine system for processing these search queries. This is especially true if the search box enables searches of the entire Internet for relevant documents. Rather, the search queries are re-directed to and processed by a third-party search engine (e.g., www.google.com). The third-party search engine generates search results responsive to the search queries (e.g., by searching a database of documents) and returns the search results to the requesting users.\n\nTraditionally, the search results produced by the third-party search engine are independent of the website from which a search query is submitted. For example, the search engine generates the same search result for the search query “apple” irrespective of whether the search query is from the website of an online retail electronics store frequented by Apple computer users or an online shopping website hosted by a grocery store. Clearly visitors to these two websites have different interests and should receive different search results. As a result, the search results returned for the search query “apple” are likely to include results of little interest to visitors to these respective websites.\n\nA similar issue could arise for a website that includes multiple search boxes associated with different webpages. For instance, a sports news website may have one webpage covering domestic news and another one devoted to international news. A user entering the term “football” into the search box on the domestic news webpage is probably interested in news related to American football, while a user entering the same term “football” into the search box on the international news webpage is probably more interested in news about soccer (which is known as “football” outside the United States). Similar issues may arise if a sports news website has different webpages covering news for different sports, and search boxes in each of these pages. Thus, when a search engine ignores the webpages from which a search query is submitted, users do not receive search results best tailored to their distinct interests.\n\nIn view of the aforementioned, it would be desirable to have a search engine that can customize its search results in accordance with the websites (or webpages) from which the corresponding search queries are submitted so as to highlight information items in the search results that are most likely to be of interest to the users who submit the search queries. Further, it would be desirable for such a system to operate without explicit input from a user with regard to the user's personal preferences and interests and therefore free the user from concerns over exposing private information.\n\n\n## SUMMARY\n\n\nIn a method of profiling a website, an information server receives multiple search queries from a website submitted by different users. Different search results responsive to the search queries are provided to the requesting users. The information server monitors activities of the users on the search results and generates a profile for the website using the search queries and the user activities.\n\nIn a method of providing website-dependent search results, an information server receives a same query from two websites and identifies a plurality of information items associated with the search query. The information server uses profiles of the two websites to customize the information items into two different orders and serves the information items to the two websites in the two different orders. The two website profiles are related to the search histories of the two websites.\n\nThe present invention, including website profile construction and search results re-ordering and/or scoring, can be implemented on either the client side or the server side of a client-server network environment.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nThe aforementioned features and advantages of the invention as well as additional features and advantages thereof will be more clearly understood hereinafter as a result of a detailed description of preferred embodiments of the invention when taken in conjunction with the drawings.\n\nFIG. 1 is a block diagram of an exemplary distributed system that includes a plurality of websites and clients requesting information from an information server in accordance with some embodiments of the present invention.\n\nFIG. 2 is a flow diagram of a process for generating a website (or webpage) profile using search queries, search results and user activities associated with the website (or webpage) in accordance with some embodiments of the present invention.\n\nFIG. 3 is a block diagram of a process for updating a website (or webpage) profile by merging an incremental website (or webpage) profile into the website (or webpage) profile in accordance with some embodiments of the present invention.\n\nFIG. 4 is a prophetic example of a curve characterizing the popularity distribution of search queries submitted from a website (or webpage).\n\nFIG. 5 is a block diagram illustrating how the process of creating a website profile is divided into multiple sub-processes in accordance with some embodiments of the present invention.\n\nFIG. 6A is a block diagram of an exemplary category map that may be used for generating category-based website profiles in accordance with some embodiments of the present invention.\n\nFIG. 6B is a block diagram of an exemplary data structure that may be used for storing category-based website profiles in accordance with some embodiments of the present invention.\n\nFIG. 7 is a block diagram of an exemplary data structure that may be used for storing term-based website profiles in accordance with some embodiments of the present invention.\n\nFIG. 8 is a block diagram of an exemplary data structure that may be used for storing link-based website profiles in accordance with some embodiments of the present invention.\n\nFIG. 9 is a flow diagram of a process for generating website-dependent search results using website profiles in accordance with some embodiments of the present invention.\n\nFIG. 10 is a block diagram of exemplary data structures that may be used for storing category-based, term-based, and link-based boost factors for documents in the search results in accordance with some embodiments of the present invention.\n\nFIG. 11 is a flow diagram of another process for generating website-dependent search results using website profiles in accordance with some embodiments of the present invention.\n\nFIG. 12 is a block diagram of an exemplary information server in accordance with some embodiments of the present invention.\n\nLike reference numerals refer to corresponding parts throughout the several views of the drawings.\n\n\n## DESCRIPTION OF EMBODIMENTS\n\n\nFor illustrative purposes, the embodiments discussed below only include systems and methods that generate a website profile based on the search history associated with the website and then use the website profile to rank search results in response to search queries submitted from the website. However, it will be apparent to one skilled in the art will that the underlying principles discussed below can be easily extended to create webpage profiles and generate webpage-dependent search results using the webpage profiles.\n\nFIG. 1 is a block diagram of an exemplary environment 100 for implementing some embodiments of the present invention. One or more websites 102 and clients 103 can be connected to a communication network 104. The communication network 104 can be connected to an information server 106. The information server 106 may include a front end server 120, a search engine 122, a document profiler 125, a website profiler 129, a search result ranker 126, a document profile database 123, a content database 124, a search history database 127, and a website profile database 128.\n\nIn some embodiments, the information server 106 contains a subset or superset of the elements illustrated in FIG. 1. Although FIG. 1 shows the information server 106 as a number of discrete items, the figure is intended more as a functional description of the various features which may be present in the information server 106 rather than a structural schematic of the various embodiments. In practice, items shown separately could be combined and some items could be further separated, as would be recognized by one of ordinary skill in the art of designing such systems. For example, the four different databases 123, 124, 127, and 128 shown separately in the figure could be implemented by a single database server. The actual number of computers constituting the information server 106 and the allocation of features among the computers will vary from one implementation to another, and may depend in part on the amount of traffic that the information server 106 must handle during peak usage periods as well as during average usage periods.\n\nA website 102 is typically a collection of webpages associated with a domain name on the Internet. Each website (or webpage) has a universal resource locator (URL) that uniquely identifies the location of the website (or webpage) on the Internet. Any visitor can visit the website by entering its URL in a browser window. A website can be hosted by a web server exclusively owned by the owner of the domain name or by an Internet service provider wherein its web server manages multiple websites associated with different domain names. For illustrative purposes, the website 102 includes two webpages 114 and 116, each having an associated search box 115 and 117, respectively. From the search box 115 (or 117), a visitor to the webpage 114 (or 116) can search the website 102 or the entire Internet for relevant information by entering a search query into the search box. Depending on the context, the term “website” as used in this document refers to a logical location (e.g., an Internet or intranet location) identified by a URL, or it refers to a web server hosting the website represented by the URL, or both.\n\nA client 103 can be any of a number of devices (e.g., a computer, an internet kiosk, a personal digital assistant, a cell phone, a gaming device, a desktop computer, or a laptop computer) and can include a client application 132, a client assistant 134, and/or client memory 136. The client application 132 can be a software application that permits a user to interact with the client 103 and/or network resources to perform one or more tasks. For example, the client application 132 can be a browser (e.g., Firefox) or other type of application that permits a user to search for, browse, and/or use resources (e.g., webpages and web services) at the website 102 from the client 103 and/or accessible via the communication network 104. The client assistant 134 can be a software application that performs one or more tasks related to monitoring or assisting a user's activities with respect to the client application 132 and/or other applications. For instance, the client assistant 134 assists a user at the client 103 with browsing for resources (e.g., files) hosted by the website 102; processes information (e.g., search results) received from the information server 106; and monitors the user's activities on the search results. In some embodiments the client assistant 134 is part of the client application 132, available as a plug-in or extension to the client application 132 (provided, for example, from various online sources), while in other embodiments the client application is a stand-alone program separate from the client application 132. In some embodiments the client assistant 134 is embedded in one or more webpages or other documents downloaded from one or more servers, such as the information server 106. Client memory 136 can store information such as webpages, documents received from the information server 106, system information, and/or information about a user, among other things.\n\nThe communication network 104 can be any wired or wireless local area network (LAN) and/or wide area network (WAN), such as an intranet, an extranet, or the Internet. It is sufficient that the communication network 104 provide communication capability between the websites 102, the clients 103 and the information server 106. In some embodiments, the communication network 104 uses the HyperText Transport Protocol (HTTP) to transport information using the Transmission Control Protocol/Internet Protocol (TCP/IP). The HTTP permits client computers to access various resources available via the communication network 104. The various embodiments of the invention, however, are not limited to the use of any particular protocol. The term “resource” as used throughout this specification refers to any piece of information or service that is accessible via a URL and can be, for example, a webpage, a document, a database, an image, a computational object, a search engine, or other online information service.\n\nIn order to receive website-dependent search results, a user from a client 103 first sends to a website 102 a request for a webpage. The website responds by identifying the requested webpage and returns it to the requesting client 103. The webpage may include a document of interest to the user (e.g., a newspaper article). The webpage may also include a search box (e.g., at or near the top of the webpage). While or after browsing the content of the webpage, the user may be interested in getting more information. To do so, the user can enter a search query into the search box and submit the search query to the website 102. The search query may include one or more query terms.\n\nAs noted above, many websites do not have a dedicated search engine. Their search requests are actually handled by a third-party search engine. In some embodiments, upon receipt of the search query, the website 102 generates and sends a search request to the information server 106. In some other embodiments, the client 103 generates and sends the search request directly to the information server 106 without routing the request through the website 102. In either case, the search request includes the search query and unique identifiers of the requesting website 102 and the requesting client 103.\n\nWithin the information server 106, the front end server 120 is configured to handle a variety of requests from the websites 102 and the clients 103 via their respective connections with the communication network 104. As shown in FIG. 1, the front end server 120 is connected to the search engine 122 and the search engine 122 is connected to the content database 124, respectively. The content database 124 stores a large number of indexed documents retrieved from different websites. Alternately, or in addition, the content database 124 stores an index of documents stored at various websites. In one embodiment, each indexed document is assigned a page rank according to the document's link structure. The page rank serves as a query-independent measure of the document's importance.\n\nThe front end server 120 passes the search request onto the search engine 122. The search engine 122 then communicates with the content database 124 to select a plurality of documents in response to the search request. The search engine 122 assigns a generic ranking score to each document based on the document's page rank, the text associated with the document, and the search query.\n\nThe search engine 122 is also connected to the document profile database 123. The document profile database 123 stores a document profile for each indexed document in the content database 124. Both the document profile database 123 and the content database 124 are connected to the document profiler 125. For each document in the content database 124, the document profiler generates a document profile by analyzing the content of the document and its link structure. The generation of document profiles is independent of the operation of the search engine 122. In one embodiment, the document profiler 125 is invoked to generate a document profile whenever the information server 106 identifies a new document or a new version of an existing document on the Internet. In another embodiment, the document profiler 125 is invoked periodically to generate document profiles for all new files identified during a predetermined time period. In some embodiments, instead of being two separate entities, the document profile database 123 and the content database 124 are merged together so that a document and its associated profile can be located by a single database query.\n\nThere is a connection from the search engine 122 to the search result ranker 126. Through this connection, the search engine 122 sends the identified documents and their associated document profiles to the search result ranker 126. The search result ranker 126 has a connection to the website profile database 128. Like the document profile database 123, the website profile database 128 stores a large number of website profiles including the profile of the requesting website 102. Using the requesting website 102's profile, the search result ranker 126 converts the generic ranking score of each identified document into a website-dependent ranking score. The documents are then re-ordered in accordance with their respective website-dependent ranking scores. Next, the search result ranker 126 creates a search result in accordance with the updated order of the documents, the search result including multiple document links, one for each document. The search result, or a portion of the search result (e.g., information identifying the top 10, 15 or 20 results) is returned to the requesting client 103 and displayed to the user through the client application 132. The user, after browsing the search result, may click one or more document links in the search result to download and view one or more documents identified by the search result.\n\nWhile the above description divided tasks among the search engine 122, search result ranker 126 and front end server 120 in a particular way, this particular division of tasks is exemplary, and other divisions may be used in other embodiments of the present invention. For instance, the website profile (of the website from which a search query is received) may be transmitted with the search query to the search engine 122, and the search engine 122 may use that information to compute website specific document scores for ranking the search results. In effect, this would merge the search result ranker 126 into the search engine 122. In yet other embodiments, other divisions of tasks may be used.\n\nAn important aspect of the process of serving website-dependent search results is the generation and maintenance of the website profiles stored in the website profile database 128. A website profile should reflect the interests of the users of the associated website, and in many embodiments the website profile will be unique to its associated website. For example, a consumer electronics website should have a website profile that boosts webpages related to electronic products while an on-line grocery store website should have a website profile that promotes webpages related to farm produces.\n\nIn most embodiments, a website profile is not static, because a static website profile is unlikely to result in the information server 106 serving the most relevant search results to users of the associated website. Instead, a website profile is updated from time to time, (e.g., periodically) so as to re-align the website profile with the current interest of the users of the website. While some website profiles may remain virtually static for long periods of time (e.g., websites serving a small, static population of users who submit searches from the website on only a very narrow range of topics), many website profiles will vary over time as the users of the website changes and as the interests of the website's users varies over time.\n\nThere are similarities between a website profile and a user profile. Both profiles can be used to finely tune the search results generated by the search engine. Both need information about at least one user's search history in order to capture the user's dynamic search interest. But there are also significant differences between the two types of profiles. A typical user profile is generated by analyzing an individual user's search history. This user profile is only used to modulate search results responsive to search queries submitted by the same user. For the same search query, two different users may receive different search results from the same search engine if they have different user profiles. In contrast, a website profile is generated by analyzing the search history of multiple users while visiting the website so as to characterize the multiple users' interests. This website profile can be used to modulate search results responsive to search queries submitted by any user from the same website, including new users of the website who made no prior “contribution” to the website profile. Therefore, the same user submitting the same search query from two different websites may receive different search results if the two websites have different website profiles.\n\nThe website profile also has an important advantage over the user profile in terms of protecting a user's privacy. A user profile is associated with an individual user. To create the user profile, the individual user, either explicitly or implicitly (e.g., by monitoring or logging search queries and other online activities of the user), needs to complete a survey of his or her personal preferences. This survey indicates what information items may be of interest to the user. Further, the user must have an account at a website or a search engine system and the user must log into his or her account to invoke the user profile to personalize the search results. In contrast, the creation and usage of the website profile does not require any personal information from any user. A website profile is associated with a website, not an individual user. Any individual user's activity at the website is attributed to all the users of the website. A user does not need to log into his or her account at the website in order to use the website profile. As long as a search query is submitted from the website, the information server automatically “personalizes” the corresponding search result in accordance with the website profile.\n\nAs shown in FIG. 1, the website profiler 129 is responsible for generating and updating website profiles. In order to capture the current user interest associated with a particular website, the website profiler 129 needs to have access to the users search history at the website. The users search history includes the search queries submitted by users while visiting the website, the search results responsive to the search queries, and the user activities on the search results (e.g., selection of a document link, sometimes called “clicking” on a search result, or mouse hovering time over a document link).\n\nFor example, when the front end server 120 receives a search query from a website, it submits a copy of the search query to the search engine 122 to solicit a search result. In addition, the front end server 120 sends another copy of the search query to the search history database 127. The search history database 127 then generates a record, the record including at least the search query and an identifier of the website from which the search query was received.\n\nThe search result ranker 126 prepares a search result responsive to the search query. The search result (i.e., information representing at least a portion of the search result) is sent back to the requesting client through the front end server 120. A copy of the search result, or a portion of the search result, is also stored in the search history database 127 together with the search query record. The client assistant 134 at the requesting client monitors the requesting user's activities on the search result, e.g., recording the user's selection(s) of the document links in the search result and/or the mouse hovering time on different document links. In some embodiments, the client assistant 134 or the website profiler 129 determines the document “dwell time” for a document selected by the user, by determining the amount of time between user selection of the corresponding document link and the user exiting from the document. In some embodiments, the client assistant 134 includes executable instructions, stored in the webpage(s) containing the search result, which monitor the user's actions with respect to the search results and transmit information about the monitored user actions back to the information server 106. The information server 106, in turn, stores information about these user activities is transferred back to the information server 106 and stored in the search history database 127 for subsequent use.\n\nFor example, the website profiler 129 records the moment that a user submits a search query (t0), the moment that the user clicks the first document link in the corresponding search result (t1), and the moment that the user clicks the second document link in the search result (t2), etc. The differences between two consecutive moments (e.g., t1−t0 or t2−t1) are reasonable approximations of the amount of time spent viewing the search result or the document whose link was selected by the user. In some embodiments the website profiler 129 has no information about the user's dwell time for the last document in the search result that the user selects for viewing. In some other embodiments (e.g., where at least some users “opt in” to a version of the client assistant that collects additional information about the users' online activities), the website profiler 129 also receives click and timestamp information for user actions after the user finishes viewing documents from a search result. Continuing the above example, the website profiler 129 further records the moment that the user submits a second query (t3), the moment the user selects a document from the second search results (t4), and so on. Furthermore, the website profiler 129 may record the moment (t5) when the user either closes the browser window that was being used to view search results and documents listed in the search results or navigates away from the website from which the query was received. This additional information enables the website profiler 129 to determine the user dwell time for all search result documents (i.e., documents listed in search results) viewed by a user, which in turn enables the website profiler 129 to generate a more accurate website profile for a website.\n\nBased on a website's search history information, the website profiler 129 generates a website profile. FIG. 2 is a flow diagram of a process for generating a website profile using the website's search history in accordance with some embodiments of the present invention. Initially, the website profiler 129 identifies search queries submitted from the website (210). While in most cases, this will include all search queries submitted from the website, in the case of very popular or busy websites, the identified search queries may comprise a subset or sampling of the submitted search queries. Search queries submitted from a website during a predetermined time period presumably represent the general interest of users using the website. The search queries are especially relevant to capture dynamic user interests that vary by time. In connection with the search queries, the website profiler 129 identifies the corresponding search results (215). In some embodiments, the search results are served to the requesting users with an embedded client assistant 134 that sends information about the user activities on the search results to the website profiler 127. Using the information sent by the client assistants, the website profiler identifies user activities on the search results (230). Identified user activities may include user clicks on document links in search results. In another example, identified user activities may include mouse hovering time on the document links. Generally speaking, a user clicks a document link if the user is interested in the document's content. Similarly, the fact that the mouse moves onto a particular document link and stays there for a substantial amount of time indicates that this document is relevant to the user's interest. In some embodiments, information about the mouse hovering time may be unavailable.\n\nFrom the user activities on different search results, the website profiler 129 can identify documents selected by the website users. In some embodiments, the website profiler 129 visits the content database 124 to retrieve the profiles of the corresponding documents (235). As noted above, each identified document may have a profile (e.g., a category profile) that was previously generated. If any of the identified documents do not yet have profiles, those documents can be ignored, or the website profiler may call upon the document profiler 125 to produce document profiles for those documents. A website profile is then generated from the retrieved document profiles (240). The website profile may include one or more of the following: a weighted listing or vector of categories (sometimes called a category-profile), key terms from the search queries and/or user visited documents (sometimes called a term profile), and information about the links to the user visited documents (sometimes called a link profile). This website profile is stored in the website profile database 128. The search result ranker 126 can retrieve the website profile to re-order the ranks of the documents within a search result.\n\nIn some other embodiments, operations 235 and 240 are replaced by a clustering operation in which user selected documents are clustered purely based on the fact that the same user clicks their associated links. Alternatively, the website profiler directly matches a document's URL against a known set of URLs associated with a particular category. In either case, the website profiler 129 does not need to access the documents' contents in order to generate the website profile.\n\nIn yet other embodiments, operations 230 through 240 are replaced by a process that maps the queries submitted from a website to a set of categories. The categorization of queries can be based on the terms in the queries themselves, or by accessing the profiles of the top N search results (e.g., the top 5, 10, 15 or 20 search results), merging those document profiles to produce a query profile for each query, and merging the query profiles, weighted in accordance with their frequency of submission by the users of the website's search box(es) to generate a website profile. As discussed below with reference to FIG. 4, this process may exclude queries that are deemed to be unlikely to be related to the primary interests of the website's users.\n\nAs noted above, a website profile is updated from time to time in order to keep track of the current interests of the users visiting the website (245). In some embodiments, a website profile is updated at a predetermined time interval (e.g., every week or every day). In some other embodiments, a website profile is updated whenever the number of new search queries at the website reaches a threshold value since a last (i.e., most recent) update. Whenever it is time to update the website profile, the website profiler 129 repeats the aforementioned process to update the website profile.\n\nIn some embodiments, different websites attract substantially different magnitudes of traffic and therefore should be treated differently in terms of profile updating. For instance, a popular website may receive tens of thousands of hits per day while a less popular website may have a much lower hit rate. The search history database 126 may allocate amounts of storage space for different websites. As a result, the volume of search history associated with the popular website does not exhaust its designated space and the less popular website does not waste too much space before their next scheduled profile updating.\n\nSome websites are so popular that it is impractical to store in the search history database 127 all the search history for the purpose of profile updating. For example, an on-line bookstore may have a significantly large number of visitors when a new bestseller is released. There are two issues with a website having a significant traffic during a short time period. First, the website's profile may be biased by this traffic peak. Special care may be required to make sure that the website profile has an appropriate balance between the short-term and long-term interests of the website users. Second, the search history database 127 may not have the space to store all the search history. One approach to solve this issue is to intentionally ignore some of the search queries, search results and user activities. This may be accomplished by sampling the search queries, search results and/or user activities so as to produce an unbiased sample of the search history. While the extent of the sampling may vary from one embodiment to another, experiments suggest that a search history encompassing several months of user activities will have sufficient data to generate a reliable website profile, for most websites, so long as (A) the sampling is done in a manner that avoids significant biases, and (B) it includes user activity data corresponding to a few weeks of representative search history.\n\nAlternatively, the space shortage issue can be solved by generating a series of incremental website profiles for different portions of the search history and merging the incremental website profiles into the website profile. As shown in FIG. 3, the website profiler 129 first generates an incremental profile 311 for the search history section 301. Each search history section 301, 303, 305 may include a predefined quantity of search history information, or it may include search history information for a predefined length of time (e.g., an hour), or it may a portion of the search history selected in accordance with predefined selection criteria. The process of generating an incremental website profile is similar to the process discussed above in connection with FIG. 2. The incremental profile 311 is equivalent to the search history section 301 in terms of characterizing the interests of the website users. Once the incremental profile 311 has been created, the corresponding search history section 301 in the database can be overwritten by new entries entering the database. Similarly, the search history section 303 can be overwritten after the incremental profile 313 is generated. After the creation of the incremental profile 315, the website profiler 129 can create the new website profile 337 by merging the incremental profiles 311, 313, and 315 into the old website profile 331. In sum, the website profiler 129 is able to take into account the entire search history by creating incremental website profiles for search history sections 301, 303, and 305 and by merging an existing website profile with incremental profiles 311, 313, and 315.\n\nA website profile is used for “personalizing” or “flavoring” search results responsive to search queries submitted from a specific website. An underlying assumption in the present specification is that these search queries are, more or less, related to the topics covered by the website. For example, to a golfing website, the search query “Tiger Woods” is reasonably relevant while the search query “Britney Spears” is probably irrelevant at all. But it is quite possible for a user to enter a very popular term like “Britney Spears” into the search box on the golfing website. This is especially true if the search box can be used to search the entire Internet. If not carefully filtered out, the search history associated with these popular, but irrelevant, terms may seriously “contaminate” the website profile and twist the search results in an unexpected direction. Another source of contamination of the website profile is query terms that, although relevant, have very low popularity. Special treatment may be necessary to make sure that user activities with respect to very low popularity query terms do not significantly bias the search results.\n\nFIG. 4 is an exemplary curve 400 characterizing the popularity distribution of search queries submitted from a website. All the search queries are divided into three categories by the two thresholds 415 and 425. The leftmost category 410 includes those search queries that are “abnormally” popular, but less relevant, to the website. The search query “Britney Spears” being submitted by a golfing website's search window is an example of a search query in this category. The website profiler 129 should eliminate or at least reduce the influence of the search history associated with these queries on the website profile by giving them relatively low weights. The middle category 420 includes those search queries that are reasonably popular and relevant to the website. The search history corresponding to these search queries should be granted higher weights to make a major contribution to the website profile. Finally, the rightmost category 430 includes those queries that only appear in the website's search box occasionally. They should be treated in a manner similar to the queries in the leftmost category 410.\n\nThere are multiple factors determining the contribution of a search query (or a corresponding search result) in the middle category 420 to the website profile. For example, the popularity of the search query and the amount of user activities on the search result affect the contribution of the search query and the search result on the website profile. Time is another important factor. In some embodiments, recent search history plays a more prominent role than less recent search history in the formation of the website profile. One skilled in the art can easily apply similar principles to other aspects of the search history associated with the website.\n\nFIG. 5 is a block diagram illustrating how the process of creating a website profile is divided into multiple sub-processes in accordance with some embodiments of the present invention. As noted above, it is a non-trivial process to create a profile 530 for a website using its search history. The search history involves different types of information from different sources, such as the search queries 501 submitted by users from the website, the search results 503 generated by the search engine in response to the search queries, and the user activities 505 on the search results. In some embodiments, this process is further divided into multiple sub-processes. Each sub-process produces a specific type of website profile characterizing the interests of the website users from a particular perspective. They are:\n\nIn some embodiments, the website profile 530 includes only a subset of the profiles 531, 533, 535. For example, the website profile 530 may include the term-based profile 533 and the category-based profile 531, but not the link-based profile 535. In some embodiments, the website profile 530 includes a plurality of profiles, at least one of which is a combination of two or more of the aforementioned profiles 531, 533, 535. In some other embodiments, the category-based, term-based and/or link-based profiles are further processed to generate a refined category-based (or cluster-based) profile. In yet some other embodiments, this refined category-based (or cluster-based) profile appears in the form of multiple category-based (or cluster-based) sub-profiles to characterize different aspects of the website.\n\nThe category-based profile 531 may be constructed, for instance, by mapping search history items (e.g., search queries, content terms, and/or user-selected documents) to categories, and then aggregating the resulting sets of the categories and weighting the categories. The categories may be weighted based on their frequency of occurrence in the search history items. In addition, the categories may be weighted based on the relevance of the search history items to the categories. The search history items accumulated over a period of time may be treated as a group for mapping into weighted categories. Other suitable ways of mapping the search history into weighted categories may also be used.\n\nFIG. 6A illustrates a hierarchal category map 600 according to the Open Directory Project (http://dmoz.org/). Starting from the root level of map 600, documents are organized under several major topics, such as “Art”, “News”, “Sports”, etc. These major topics are often too broad to delineate the specific interest of a website user. They are further divided into multiple more specific sub-topics. For example, the topic “Art” may comprise the sub-topics like “Movie”, “Music”, and “Literature” and the sub-topic “Music” may further comprise sub-sub-topics like “Lyrics”, “News”, and “Reviews.” Note that each topic (or sub-topic) is associated with a unique category identifier like 1.1 for “Art”, 1.4.2.3 for “Talk Show”, and 1.6.1 for “Basketball.”\n\nThe categories shown in FIG. 6A are only for illustrative purposes. One skilled in the art will appreciate that there are many other ways of categorizing documents. For example, different concepts can be extracted from the contents of the documents and different categories of relevant information are grouped in accordance with these concepts. The interests of users of a particular website may be associated with multiple categories at different levels, each having a weight indicative of the category's relevance to the users' interest. The categories and their associated weights can be determined from analyzing the search history associated with the website.\n\nFIG. 6B is a block diagram of an exemplary data structure, a category-based website profile table 650, which may be used for storing category-based website profiles in accordance with some embodiments of the present invention. The category-based profile table 650 includes a table 640 having a plurality of records 642, each record including a WEBSITE_ID, a FLAVOR_ID and a pointer pointing to another data structure, such as table 660-1. A website may have one or more flavors to better serve different user groups. For example, the website “WEBSITE_1” has at least two different flavors, “FLAVOR_1” and “FLAVOR_2.” These two different “flavors” may correspond to different search boxes on different webpages. In other words, the introduction of different flavors for a website refines the interests of the website users. This is particularly useful for a popular website serving a broad spectrum of customers. Table 660-1 includes two columns, CATEGORY_ID and WEIGHT. The CATEGORY_ID column contains a category's identifier as shown in FIG. 6A, and the value in the WEIGHT column indicates the relevance of the category to the interests of the website users.\n\nIn some embodiments, the search history items are automatically classified into different clusters. Clusters are usually more dynamic than categories. As noted above, categories are typically pre-generated. Search history items associated with different websites are classified against the same set of categories. In contrast, there may not be a predefined set of clusters for a particular website. The search history items associated with the website fall into an automatically generated set of clusters. Therefore, clusters may be better tailored to characterize the interests and preferences of the users of the website. For convenience, many discussions of the present invention use categories as an example. But it will be clear to one skilled in the art that the underlying algorithms are also applicable to clusters with no or little adjustment.\n\nThe website profile based upon the category map 600 is a topic-oriented implementation. The items in a category-based profile can also be organized in other ways. In one embodiment, the interests of the website users can be categorized based on the formats of the documents identified by the website users, such as HTML, plain text, PDF, Microsoft Word, etc. Different formats may have different weights. In another embodiment, the interests of the website users can be categorized according to the types of the identified documents, e.g., an organization's homepage, a person's homepage, a research paper, or a news group posting, each type having an associated weight. Documents can also be categorized by document origin, for instance the country associated with each document's host. In yet another embodiment, two or more of the above-identified category-based profiles may co-exist, with each one reflecting a respective aspect of the interests of the website users.\n\nFIG. 7 is a block diagram of an exemplary data structure, a term-based profile table 700, which may be used for storing term-based website profiles in accordance with some embodiments of the present invention. The table 700 includes a plurality of records 710, each record corresponding to a website's term-based profile. A term-based profile record 710 includes a plurality of columns including a WEBSITE_ID column 720 and multiple columns of (TERM, WEIGHT) pairs 740. The WEBSITE_ID column stores a website identifier. Each (TERM, WEIGHT) pair 740 includes a term of typically one to three words that is deemed relevant to the interests of the website users and a weight associated with the term indicating the relevance of the term. The weight of a term is not necessarily a positive value. A negative weight suggests that the website users disfavor documents including this term in the search results.\n\nBesides term-based and category-based profiles, another type of website profile is referred to as a link-based profile. As discussed above, the page rank of a document is based on the link structure that connects the document to other documents on the Internet. A document having more links pointing to it is often assigned a higher page rank and is therefore deemed more popular by the search engine. Link information of documents selected by a website's users can be used to infer the interests of the website's users. In one embodiment, a list of preferred URLs is identified for the website users by analyzing the click rate of these URLs. Each preferred URL may be further weighted according to the mouse hovering time by the website users at the URL. In another embodiment, a list of preferred web hosts is identified for the website users by analyzing the users' visit rate at different web hosts. When two or more preferred URLs are related to the same web host, the weights of the two or more URLs may be combined as the weight of the web host.\n\nFIG. 8 is a block diagram of an exemplary data structure that may be used for storing link-based website profiles in accordance with some embodiments of the present invention. The link-based profile table 800 includes a table 810 that includes a plurality of records 820, each record including a WEBSITE_ID and a pointer pointing to another data structure, such as table 810-1. Table 810-1 may include two columns, LINK_ID 830 and WEIGHT 840. The LINK_ID 830 may be associated with a preferred URL or host. The actual URL/host may be stored in the table instead of the LINK_ID, however it is preferable to store the LINK_ID to save storage space.\n\nA preferred list of URLs and/or hosts includes URLs and/or hosts that have been directly identified by the website users. The preferred list of URLs and/or host may further extend to URLs and/or hosts indirectly identified by using methods such as collaborative filtering or bibliometric analysis, which are known to one of ordinary skill in the art. In one embodiment, the indirectly identified URLs and/or host include URLs or hosts that have links to/from the directly identified URLs and/or hosts. These indirectly identified URLs and/or hosts are weighted by the distance between them and the directly identified URLs or hosts. For example, when a directly identified URL or host has a weight of 1, URLs or hosts that are one link away may have a weight of 0.5, URLs or hosts that are two links away may have a weight of 0.25, etc. This procedure can be further refined by reducing the weight of links that are not related to the topic of the original URL or host, e.g., links to copyright pages or web browser software that can be used to view the documents associated with the user-selected URL or host. Irrelevant Links can be identified based on their context or their distribution. For example, copyright links often use specific terms (e.g., “copyright” and “All rights reserved” are commonly used terms in the anchor text of a copyright link); and links to a website from many unrelated websites may suggest that this website is not topically related (e.g., links to the Internet Explorer website are often included in unrelated websites). The indirect links can also be classified according to a set of topics and links with very different topics may be excluded or be assigned a low weight.\n\nThe three types of website profiles discussed above are generally complimentary to one another since different profiles characterize the interests of the website users from different vantage points. However, this does not mean that one type of website profile, e.g., the category-based profile, is incapable of playing a role that is typically played by another type of website profile. By way of example, a preferred URL or host in a link-based profile is often associated with a specific topic, e.g., finance.yahoo.com is a URL focusing on financial news. Therefore, what is achieved by a link-based profile that comprises a list of preferred URLs or hosts may also be achievable, at least in part, by a category-based profile that has a set of categories that cover the same topics covered by preferred URLs or hosts.\n\nFIG. 9 is a flow diagram of a process for generating website-dependent search results using the various types of website profiles in accordance with some embodiments of the present invention. Initially, the search engine 122 receives a search query from a website 102 submitted by a user through a client 103 (910). In response, the search engine 122 may optionally generate a query strategy (915). For example, the search query is normalized so as to be in proper form for further processing, and/or the search query may be modified in accordance with predefined criteria so as to automatically broaden or narrow the scope of the search query. Next, the search engine 122 submits the search query (or the query strategy, if one is generated) to the content database 124. The content database 124 identifies a set of documents that match the search query (920), each document having a generic ranking score that depends on the document's page rank and the search query. All three operations (910, 915 and 920) are typically conducted by the search engine 122.\n\nIn some embodiments, the requesting website's identifier is embedded in the search query. Based on the website identifier, the search result ranker 126 identifies the website's profile in the website profile database 128 (925). Next, the search result ranker 126 analyzes each identified document to determine one or more boost factors using the website profile (935) and then assigns the document a website-dependent ranking score using the document's generic ranking score and the boost factors (940). The search result ranker 126 iterates the process for every identified document (942). Finally, the search result ranker 126 re-orders the list of documents according to their website-dependent ranking scores (945) and sends a search result including links to the list of documents to the requesting client 103.\n\nIn some embodiments, the analysis of an identified document at 935 includes determining a correlation between the document's content and the website's profile. Furthermore, in some embodiments, this operation includes accessing a previously computed document profile for the document and then determining a correlation between the document profile and the website's profile. In some embodiments, determining the correlation includes one or more operations that are “dot product” computations, which determine the extent of overlap, if any, between the document profile and the website's profile.\n\nFIG. 10 is a block diagram of exemplary data structures that may be used for storing category-based, term-based, and link-based boost factors for documents in the search results in accordance with some embodiments of the present invention. For each candidate document, each identified by a respective DOC_ID, category-based document information table 1010 includes a plurality of identified categories and associated weights, term-based document information table 1030 includes multiple pairs of relevant terms and associated weights, and link-based document information table 1050 includes a set of links and corresponding weights.\n\nThe rightmost column of each of the three tables (1010, 1030 and 1050) stores the boost factor (i.e., a computed score) of a document when the document is evaluated using one specific type of website profile. A document's boost factor can be determined by combining the weights of the items associated with the document. For instance, a category-based or term-based boost factor may be computed as follows. The users of a website may favor documents related to science with a weight of 0.6, and disfavor documents related to business with a weight of −0.2. Thus, when a science document matches a search query, it will be boosted over a business document. In general, the document topic classification may not be exclusive. A candidate document may be classified as being a science document with probability of 0.8 and a business document with probability of 0.4. A link-based boost factor may be computed based on the relative weights allocated to the preferred URLs or hosts in the link-based profile. In one embodiment, the term-based profile rank can be determined using known techniques, such as the term frequency-inverse document frequency (TF-IDF). The term frequency of a term is a function of the number of times the term appears in a document. The inverse document frequency is an inverse function of the number of documents in which the term appears within a collection of documents. For example, very common terms like “word” occur in many documents and consequently are assigned a relatively low inverse document frequency, while less common terms like “photograph” and “microprocessor” are assigned a relatively high inverse document frequency.\n\nIn some embodiments, when a search engine generates a search result in response to a search query, a candidate document D that satisfies the search query is assigned a query score, QueryScore, in accordance with the search query. This query score is then modulated by document D's page rank, PageRank, to generate a generic ranking score, GenericScore, that is expressed as GenericScore=QueryScore*PageRank.\n\nThis generic ranking score may not appropriately reflect document D's relevance to a particular website's users if the users' interest is dramatically different from that of a random user of the search engine. The relevance of document D to the website users can be accurately characterized by a set of boost factors, based on the correlation between document D's content and the website's term-based profile, herein called the TermBoostFactor, the correlation between one or more categories associated with document D and the website's category-based profile, herein called the CategoryBoostFactor, and the correlation between the URL and/or host of document D and the website's link-based profile, herein called the LinkBoostFactor. Therefore, document D may be assigned a website-dependent ranking score that is a function of both the document's generic ranking score and the various website profile-based boost factors. In one embodiment, this website-dependent ranking score can be expressed as: WebsiteScore=GenericScore*(TermBoostFactor+CategoryBoostFactor+LinkBoostFactor).\n\nIn another embodiment, in which the website profile is a single profile, the website-dependent ranking score can be expressed as: WebsiteScore=GenericScore*BoostFactor where the “BoostFactor” is based on the correlation between document D's content and the website's profile.\n\nFIG. 11 is a flow diagram of another process for generating website-dependent search results using website profiles in accordance with some embodiments of the present invention. Unlike the embodiment discussed above in connection with FIG. 9, the generic query strategy is modulated by the website's profile to create a website-dependent query strategy (1125, 1165). For example, relevant terms from the website profile may be added to the search query with associated weights. In various embodiments, the website-dependent query strategy is created by the search engine 122, the front end server 120, or the search result ranker 126, respectively. In some other embodiments, the requesting website 102 has a copy of its profile generated by the website profiler 129 and the website-dependent query strategy is created by the requesting website 102. Next, the search engine 122 searches the content database 124 using the website-dependent query strategy (1170). As a result, the documents identified by the content database 124 are implicitly ordered by their associated website-dependent ranking score (1175).\n\nSome embodiments include a computer program product for use in conjunction with a computer system associated with a search engine. The computer program product may comprise a computer readable storage medium and a computer program mechanism embedded therein. In some embodiments, the computer program mechanism includes instructions for receiving from a website distinct from the search engine multiple search queries submitted by users; instructions for providing to the requesting users search results responsive to the search queries; instructions for monitoring activities of the users on the search results; and instructions for generating a profile for the website using the search queries from the website and the user activities on the search results.\n\nReferring to FIG. 12, an exemplary information server 1200 typically includes one or more processing units (CPU's) 1202, one or more network or other communications interfaces 1210, memory 1212, and one or more communication buses 1014 for interconnecting these components. The communication buses 1014 may include circuitry (sometimes called a chipset) that interconnects and controls communications between system components. The system 1200 may optionally include a user interface, for instance a display and a keyboard. Memory 1212 may include high speed random access memory and may also include non-volatile memory, such as one or more magnetic disk storage devices. Memory 1212 may include mass storage that is remotely located from the CPU's 1202. In some embodiments, memory 1212 stores the following programs, modules and data structures, or a subset or superset thereof:\n\nIn some embodiments, the information server 106 may not have access to all the search history associated with a website. For example, there may be an agreement between a website 102 and the information server 106 with respect to the search queries submitted from the website 102. According to the agreement, when a user visiting the website 1027 submits a search query to the information server 106, the information server 106 is required to send the corresponding search result to the website 102 rather than the requesting user at a client 103. The website 102 may modify the search result, e.g., attaching advertisements or other information to the search result, and then serves the modified search result to the requesting user at the client 103.\n\nIn this scenario, the information server 106 may have no information identifying the requesting user and the client 103, and may also be unable to monitor the user's activities on the search result. For example, the information server 106 may not receive any information identifying the document links in the search result that have been clicked by the user. Similarly, the information server 106 may not receive any information identifying the document links over which the user moves his or her mouse link and the corresponding mouse hovering time. In other words, the information server 106 has very limited or no exposure to the activities of the website users on the search results. Therefore, the information server 106 has to rely on the user activities on the search results from other venues to generate the website profile.\n\nIn some embodiments, by examining the search queries submitted from different website, the information server 106 may identify another website similar to the website in question. Two websites are deemed similar if a predefined number or percentage of search queries submitted from the two websites is identical. It is also reasonable to infer that users of the two similar websites may have similar interests and therefore the user activities associated with one website are a reasonable proxy of the user activities associated with the other one. If the information server 106 can access the user activities associated with one of the two websites (e.g., there is no agreement to deliver the search results to the website), the information server 106 can use the same user activities to create the profile for other website.\n\nWhen there is no other website similar to the website in question, the information server 106 may utilize monitored user activities associated with search queries submitted directly to the search engine (e.g., search queries submitted using a toolbar search box or a webpage associated with the information server 106) as the proxy of a particular website. However, the only search queries for which such “general user population” information will be used are queries that were submitted from the website in question. For instance, the search query “golf courses in mountain view” may be submitted both to a golf-focused website, and to a general purpose search engine. Profile information developed from general user population clicks on the search result of this search query (as well as general use population clicks on the search results of other search queries submitted both from the website in question and from other users of the search engine) are used to generate the profile for a respective website by combining or aggregating the general user statistical information for the queries received from the respective website. The website profile obtained in this way will typically differ significantly from a group profile of the entire user community of the search engine, and therefore the website profile generated in this way will be a reasonable approximation of the website profile that would be generated if user activity information were available for search results returned by the search engine in response to search queries submitted from the website.\n\nIn some embodiments, the website profiles can also be used to select advertisements for search queries submitted from different websites. Different advertisements are treated in a way similar to different documents. For example, an advertisement may have a set of key terms. A correlation of this set of key terms with a term-based profile (or a category-based profile, or both) associated with a website produces a booster factor for the advertisement. This boost factor may be used to promote or demote the particular advertisement in response to a search query submitted from the website. For example, when the information server 106 receives a search query “world cup 2006” from a website or webpage devoted to soccer news, it may promote those advertisements covering soccer gears, ticket sale for the 2006 FIFA World Cup Germany, and hotel reservations at the German cities hosting the soccer game. etc.\n\nThe foregoing description, for purpose of explanation, has been described with reference to specific embodiments. However, the illustrative discussions above are not intended to be exhaustive or to limit the invention to the precise forms disclosed. Many modifications and variations are possible in view of the above teachings. The embodiments were chosen and described in order to best explain the principles of the invention and its practical applications, to thereby enable others skilled in the art to best utilize the invention and various embodiments with various modifications as are suited to the particular use contemplated.",
+ "cited_by": [
+  {
+   "id": "US20100023514A1",
+   "title": "Tokenization platform",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20100131835A1",
+   "title": "System and methods for inferring intent of website visitors and generating and packaging visitor information for distribution as sales leads or market intelligence",
+   "assignee": "Srihari Kumar"
+  },
+  {
+   "id": "US20110184951A1",
+   "title": "Providing query suggestions",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20120265754A1",
+   "title": "Managing copies of data",
+   "assignee": "Rajiv Kottomtharayil"
+  },
+  {
+   "id": "US20130297582A1",
+   "title": "Peer sharing of personalized views of detected information based on relevancy to a particular user's personal interests",
+   "assignee": "Eli Zukovsky"
+  },
+  {
+   "id": "US9092378B2",
+   "title": "Restoring computing environments, such as autorecovery of file systems at certain points in time",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US9128883B2",
+   "title": "Data storage resource allocation by performing abbreviated resource checks based on relative chances of failure of the data storage resources to determine whether data storage requests would fail",
+   "assignee": "Commvault Systems, Inc"
+  },
+  {
+   "id": "US9164850B2",
+   "title": "System and method for archiving objects in an information store",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US9262226B2",
+   "title": "Data storage resource allocation by employing dynamic methods and blacklisting resource request pools",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US9274803B2",
+   "title": "Storage of application specific profiles correlating to document versions",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US9405803B2",
+   "title": "Ranking signals in mixed corpora environments",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9444811B2",
+   "title": "Using an enhanced data agent to restore backed up data across autonomous storage management systems",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US9459968B2",
+   "title": "Single index to query multiple backup formats",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US9633216B2",
+   "title": "Application of information management policies based on operation with a geographic entity",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US9648100B2",
+   "title": "Cross-system storage management for transferring data across autonomous information management systems",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US9740574B2",
+   "title": "Load balancing across multiple data paths",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US9766825B2",
+   "title": "Browse and restore for block-level backups",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US9785304B2",
+   "title": "Linking customer profiles with household profiles",
+   "assignee": "Bank Of America Corporation"
+  },
+  {
+   "id": "US9823978B2",
+   "title": "User-level quota management of data objects stored in information management systems",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US9922117B2",
+   "title": "Contextual search input from advisors",
+   "assignee": "Bank Of America Corporation"
+  },
+  {
+   "id": "US9940409B2",
+   "title": "Contextual search tool",
+   "assignee": "Bank Of America Corporation"
+  },
+  {
+   "id": "US10157184B2",
+   "title": "Data previewing before recalling large data files",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US10169121B2",
+   "title": "Work flow management for an information management system",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US10198324B2",
+   "title": "Data protection scheduling, such as providing a flexible backup window in a data protection system",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US10459882B2",
+   "title": "Image level copy or restore, such as image level restore without knowledge of data object metadata",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US10572445B2",
+   "title": "Transferring or migrating portions of data objects, such as block-level data migration or chunk-based data migration",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US10691326B2",
+   "title": "Document scale and position optimization",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10776329B2",
+   "title": "Migration of a database management system to cloud storage",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US10789387B2",
+   "title": "Graphical representation of an information management system",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US10795927B2",
+   "title": "On-demand metadata extraction of clinical image data",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US10838821B2",
+   "title": "Migrating content and metadata from a backup system",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US10891069B2",
+   "title": "Creating local copies of data stored in online data repositories",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US11074140B2",
+   "title": "Live browsing of granular mailbox data",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US11249858B2",
+   "title": "Point-in-time backups of a production application made accessible over fibre channel and/or ISCSI as data sources to a remote application by representing the backups as pseudo-disks operating apart from the production application and its host",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US11294768B2",
+   "title": "Live browsing of backed up data residing on cloned disks",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US11308034B2",
+   "title": "Continuously run log backup with minimal configuration and resource usage from the source machine",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US11321195B2",
+   "title": "Hypervisor-independent reference copies of virtual machine payload data based on block-level pseudo-mount",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US11416341B2",
+   "title": "Systems and methods to reduce application downtime during a restore operation using a pseudo-storage device",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US11436038B2",
+   "title": "Hypervisor-independent block-level live browse for access to backed up virtual machine (VM) data and hypervisor-free file-level recovery (block- level pseudo-mount)",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US11573866B2",
+   "title": "Evaluation and reporting of recovery readiness in a data storage management system",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US20230047383A1",
+   "title": "User interfaces for surfacing web browser history data",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "WO2024086134A1",
+   "title": "Document scoring system",
+   "assignee": "Massachusetts Institute Of Technology"
+  },
+  {
+   "id": "US11971784B2",
+   "title": "Recovery Point Objective (RPO) driven backup scheduling in a data storage management system",
+   "assignee": "Commvault Systems, Inc."
+  },
+  {
+   "id": "US12346395B2",
+   "title": "Browser-based navigation suggestions for task completion",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US7152031B1",
+   "title": "Construction, manipulation, and comparison of a multi-dimensional semantic space",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US20090234718A1",
+   "title": "Predictive service systems using emotion detection",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US7565630B1",
+   "title": "Customization of search results for search queries received from third party sites",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9047388B2",
+   "title": "System, method, and software application for displaying data from a web service in a visual map",
+   "assignee": "Mindjet Llc"
+  },
+  {
+   "id": "US20090228447A1",
+   "title": "System, method, and solfware application for enabling a user to search an external domain within a visual mapping interface",
+   "assignee": "Creekbaum William J"
+  },
+  {
+   "id": "GB0506618D0",
+   "title": "A method of supplying information articles at a website and system for supplying such articles",
+   "assignee": "Wine Science Ltd"
+  },
+  {
+   "id": "US20060252775A1",
+   "title": "Methods for reducing levels of disease associated proteins",
+   "assignee": "Henderson Samuel T"
+  },
+  {
+   "id": "US7925649B2",
+   "title": "Method, system, and graphical user interface for alerting a computer user to new results for a prior search",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7631263B2",
+   "title": "Methods, systems, and computer program products for characterizing links to resources not activated",
+   "assignee": "Scenera Technologies, Llc"
+  },
+  {
+   "id": "US9443022B2",
+   "title": "Method, system, and graphical user interface for providing personalized recommendations of popular search queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8103703B1",
+   "title": "System and method for providing content-specific topics in a mind mapping system",
+   "assignee": "Mindjet Llc"
+  },
+  {
+   "id": "US7685199B2",
+   "title": "Presenting information related to topics extracted from event classes",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7849079B2",
+   "title": "Temporal ranking of search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7577718B2",
+   "title": "Adaptive dissemination of personalized and contextually relevant information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8117197B1",
+   "title": "Adaptive user interface for real-time search relevance feedback",
+   "assignee": "Surf Canyon, Inc."
+  },
+  {
+   "id": "EP2095313A4",
+   "title": "Method and device for managing subscriber connection",
+   "assignee": "Cvon Innovations Ltd"
+  },
+  {
+   "id": "US20100274661A1",
+   "title": "Optimization of advertising campaigns on mobile networks",
+   "assignee": "Cvon Innovations Ltd"
+  },
+  {
+   "id": "US8661029B1",
+   "title": "Modifying search result ranking based on implicit user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "GB2440990B",
+   "title": "Message scheduling system",
+   "assignee": "Cvon Innovations Ltd"
+  },
+  {
+   "id": "US9715543B2",
+   "title": "Personalization techniques using image clouds",
+   "assignee": "Aol Inc."
+  },
+  {
+   "id": "US8892780B2",
+   "title": "Management of shared storage I/O resources",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "AU2008236708A1",
+   "title": "System and method for customized search engine and search result optimization",
+   "assignee": "Grape Technology Group Inc."
+  },
+  {
+   "id": "US20100100536A1",
+   "title": "System and Method for Evaluating Network Content",
+   "assignee": "Robin Daniel Chamberlain"
+  },
+  {
+   "id": "US20080270228A1",
+   "title": "System for displaying advertisements associated with search results",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9396261B2",
+   "title": "System for serving data that matches content related to a search results page",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20080288310A1",
+   "title": "Methodologies and systems for mobile marketing and advertising",
+   "assignee": "Cvon Innovation Services Oy"
+  },
+  {
+   "id": "US8935718B2",
+   "title": "Advertising management method and system",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US7984068B2",
+   "title": "Providing profile information to partner content providers",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7818320B2",
+   "title": "Enhanced search results based on user feedback relating to search result abstracts",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20080313146A1",
+   "title": "Content search service, finding content, and prefetching for thin client",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8099401B1",
+   "title": "Efficiently indexing and searching similar data",
+   "assignee": "Emc Corporation"
+  },
+  {
+   "id": "KR101415022B1",
+   "title": "Method and apparatus for information recommendation using hybrid algorithm",
+   "assignee": "삼성전자주식회사"
+  },
+  {
+   "id": "US8505046B2",
+   "title": "Targeted online, telephone and television advertisements based on cross-service subscriber profiling",
+   "assignee": "At&T Intellectual Property I, L.P."
+  },
+  {
+   "id": "GB2452789A",
+   "title": "Selecting information content for transmission by identifying a keyword in a previous message",
+   "assignee": "Cvon Innovations Ltd"
+  },
+  {
+   "id": "US20090089246A1",
+   "title": "System and method for history clustering",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8965888B2",
+   "title": "Evaluating appropriateness of content",
+   "assignee": "Sony Computer Entertainment America Llc"
+  },
+  {
+   "id": "GB2453810A",
+   "title": "System, Method and Computer Program for Modifying Communications by Insertion of a Targeted Media Content or Advertisement",
+   "assignee": "Cvon Innovations Ltd"
+  },
+  {
+   "id": "US8626823B2",
+   "title": "Page ranking system employing user sharing data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090132366A1",
+   "title": "Recognizing and crediting offline realization of online behavior",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8464270B2",
+   "title": "Dependency management with atomic decay",
+   "assignee": "Red Hat, Inc."
+  },
+  {
+   "id": "US8832255B2",
+   "title": "Using status inquiry and status response messages to exchange management information",
+   "assignee": "Red Hat, Inc."
+  },
+  {
+   "id": "US20090157801A1",
+   "title": "System and method for integrating external system data in a visual mapping system",
+   "assignee": "Richard Barber"
+  },
+  {
+   "id": "US20090157616A1",
+   "title": "System and method for enabling a user to search and retrieve individual topics in a visual mapping system",
+   "assignee": "Richard Barber"
+  },
+  {
+   "id": "US8161396B2",
+   "title": "System and method for facilitating collaboration and communication in a visual mapping system by tracking user presence in individual topics",
+   "assignee": "Mindjet Llc"
+  },
+  {
+   "id": "US7984035B2",
+   "title": "Context-based document search",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7797314B2",
+   "title": "Adaptive searching",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8775416B2",
+   "title": "Adapting a context-independent relevance function for identifying relevant search results",
+   "assignee": "Yahoo!Inc."
+  },
+  {
+   "id": "US8244721B2",
+   "title": "Using related users data to enhance web search",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20090210391A1",
+   "title": "Method and system for automated search for, and retrieval and distribution of, information",
+   "assignee": "Hall Stephen G"
+  },
+  {
+   "id": "EP2105846A1",
+   "title": "Method of recommending content items",
+   "assignee": "Sony Corporation"
+  },
+  {
+   "id": "US8751481B2",
+   "title": "Adaptive multi-channel content selection with behavior-aware query analysis",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "JP5089482B2",
+   "title": "Information processing apparatus, data processing method, and program",
+   "assignee": "キヤノン株式会社"
+  },
+  {
+   "id": "US8510262B2",
+   "title": "Promoting websites based on location",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "KR100987330B1",
+   "title": "Multi-concept network creation system and method based on user web usage information",
+   "assignee": "성균관대학교산학협력단"
+  },
+  {
+   "id": "US9183323B1",
+   "title": "Suggesting alternative query phrases in query results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8538958B2",
+   "title": "System and method for context map generation",
+   "assignee": "Satyam Computer Services Limited Of Mayfair Centre"
+  },
+  {
+   "id": "US20100076786A1",
+   "title": "Computer System and Computer-Implemented Method for Providing Personalized Health Information for Multiple Patients and Caregivers",
+   "assignee": "H.Lee Moffitt Cancer Center And Research Institute, Inc."
+  },
+  {
+   "id": "WO2010022459A1",
+   "title": "System and/or method for linking network content",
+   "assignee": "Rob Chamberlain"
+  },
+  {
+   "id": "US20100070891A1",
+   "title": "System and method for configuring an application via a visual map interface",
+   "assignee": "Creekbaum William J"
+  },
+  {
+   "id": "EP2350875A1",
+   "title": "Storage-side storage request management",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US8868831B2",
+   "title": "Caching data between a database server and a storage system",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US9772798B2",
+   "title": "Method and system for implementing workload management by monitoring disk utilizations",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US20100082434A1",
+   "title": "Personalized search results to multiple people",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US9064021B2",
+   "title": "Data source attribution system",
+   "assignee": "Liveramp, Inc."
+  },
+  {
+   "id": "US9396455B2",
+   "title": "System, method, and software application for enabling a user to view and interact with a visual map in an external application",
+   "assignee": "Mindjet Llc"
+  },
+  {
+   "id": "US8645837B2",
+   "title": "Graphical user interface for managing services in a distributed computing system",
+   "assignee": "Red Hat, Inc."
+  },
+  {
+   "id": "US8713016B2",
+   "title": "Method and apparatus for organizing segments of media assets and determining relevance of segments to a query",
+   "assignee": "Comcast Interactive Media, Llc"
+  },
+  {
+   "id": "US11531668B2",
+   "title": "Merging of multiple data sets",
+   "assignee": "Comcast Interactive Media, Llc"
+  },
+  {
+   "id": "US8386475B2",
+   "title": "Attribution analysis and correlation",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US8301622B2",
+   "title": "Identity analysis and correlation",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US8296297B2",
+   "title": "Content analysis and correlation",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US8275766B2",
+   "title": "Systems and methods for detecting network resource interaction and improved search result reporting",
+   "assignee": "Tynt Multimedia Inc."
+  },
+  {
+   "id": "US8595228B1",
+   "title": "Preferred sites",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20100185612A1",
+   "title": "Method for Producing an Ordered Search List",
+   "assignee": "Hotchalk Inc."
+  },
+  {
+   "id": "US8352319B2",
+   "title": "Generating user profiles",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8176043B2",
+   "title": "Ranking search results",
+   "assignee": "Comcast Interactive Media, Llc"
+  },
+  {
+   "id": "US20100250479A1",
+   "title": "Intellectual property discovery and mapping systems and methods",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US8185544B2",
+   "title": "Generating improved document classification data using historical search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20120046995A1",
+   "title": "Anonymous crowd comparison",
+   "assignee": "Waldeck Technology, Llc"
+  },
+  {
+   "id": "US8122041B2",
+   "title": "Sharing and collaboration of search findings",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100318538A1",
+   "title": "Predictive searching and associated cache management",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20110153425A1",
+   "title": "Knowledge based search engine",
+   "assignee": "James Mercs"
+  },
+  {
+   "id": "US20100331075A1",
+   "title": "Using game elements to motivate learning",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8979538B2",
+   "title": "Using game play elements to motivate learning",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8392267B1",
+   "title": "System, method, and software application for dynamically generating a link to an online procurement site within a software application",
+   "assignee": "Mindjet Llc"
+  },
+  {
+   "id": "US8635255B2",
+   "title": "Methods and systems for automatically customizing an interaction experience of a user with a media content application",
+   "assignee": "Verizon Patent And Licensing Inc."
+  },
+  {
+   "id": "US9892730B2",
+   "title": "Generating topic-specific language models",
+   "assignee": "Comcast Interactive Media, Llc"
+  },
+  {
+   "id": "US8280869B1",
+   "title": "Sharing intermediate results",
+   "assignee": "Teradata Us, Inc."
+  },
+  {
+   "id": "US9201973B2",
+   "title": "Computerized system and method for tracking the geographic relevance of website listings and providing graphics and data regarding the same",
+   "assignee": "Geodex Llc"
+  },
+  {
+   "id": "US8135735B2",
+   "title": "Computerized system and method for tracking the geographic relevance of website listings and providing graphics and data regarding the same",
+   "assignee": "Geodex, Llc"
+  },
+  {
+   "id": "US20110015921A1",
+   "title": "System and method for using lingual hierarchy, connotation and weight of authority",
+   "assignee": "Minerva Advisory Services, Llc"
+  },
+  {
+   "id": "US8909683B1",
+   "title": "Method and system for communicating with internet resources to identify and supply content for webpage construction",
+   "assignee": "Open Invention Network, Llc"
+  },
+  {
+   "id": "US20110035375A1",
+   "title": "Building user profiles for website personalization",
+   "assignee": "Ron Bekkerman"
+  },
+  {
+   "id": "US8620929B2",
+   "title": "Context based resource relevance",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN101996215B",
+   "title": "Information matching method and system applied to e-commerce website",
+   "assignee": "阿里巴巴集团控股有限公司"
+  },
+  {
+   "id": "US8498974B1",
+   "title": "Refining search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "KR20110031087A",
+   "title": "Dynamic interlinking method of resources driven by link cloud and user / community",
+   "assignee": "인터내셔널 비지네스 머신즈 코포레이션"
+  },
+  {
+   "id": "US9201965B1",
+   "title": "System and method for providing speech recognition using personal vocabulary in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US8990083B1",
+   "title": "System and method for generating personal vocabulary from network data",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US8972391B1",
+   "title": "Recent interest based relevance scoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8204892B2",
+   "title": "Performance boost for sort operations",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US20110106885A1",
+   "title": "Methods and apparatus for supporting multiple party login into a single session",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US8560608B2",
+   "title": "Crowd formation based on physical boundaries and other rules",
+   "assignee": "Waldeck Technology, Llc"
+  },
+  {
+   "id": "US8805838B1",
+   "title": "Systems and methods for automatic item classification",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US20120063367A1",
+   "title": "Crowd and profile based communication addresses",
+   "assignee": "Waldeck Technology, Llc"
+  },
+  {
+   "id": "US8849785B1",
+   "title": "Search query reformulation using result term occurrence count",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8301364B2",
+   "title": "Method of operating a navigation system to provide geographic location information",
+   "assignee": "Navteq B.V."
+  },
+  {
+   "id": "US20110191171A1",
+   "title": "Search engine output-associated bidding in online advertising",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "TWI616761B",
+   "title": "Information matching method and system applied to e-commerce website",
+   "assignee": "Alibaba Group Holding Ltd"
+  },
+  {
+   "id": "US8620849B2",
+   "title": "Systems and methods for facilitating open source intelligence gathering",
+   "assignee": "Lockheed Martin Corporation"
+  },
+  {
+   "id": "US9645996B1",
+   "title": "Method and device for automatically generating a tag from a conversation in a social networking website",
+   "assignee": "Open Invention Network Llc"
+  },
+  {
+   "id": "US8930351B1",
+   "title": "Grouping of users",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9317613B2",
+   "title": "Large scale entity-specific resource classification",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20110264796A1",
+   "title": "Search and navigational rating system for online social environment",
+   "assignee": "Ganz"
+  },
+  {
+   "id": "US20110270850A1",
+   "title": "Prioritization of Resources based on User Activities",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9697500B2",
+   "title": "Presentation of information describing user activities with regard to resources",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8898217B2",
+   "title": "Content delivery based on user terminal events",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US8935274B1",
+   "title": "System and method for deriving user expertise based on data propagating in a network environment",
+   "assignee": "Cisco Technology, Inc"
+  },
+  {
+   "id": "US8370330B2",
+   "title": "Predicting content and context performance based on performance history of users",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US8504419B2",
+   "title": "Network-based targeted content delivery based on queue adjustment factors calculated using the weighted combination of overall rank, context, and covariance scores for an invitational content item",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "EP2397952A1",
+   "title": "Profile based content retrieval for recommender systems",
+   "assignee": "Axel Springer Digital TV Guide GmbH"
+  },
+  {
+   "id": "US9623119B1",
+   "title": "Accentuating search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8515980B2",
+   "title": "Method and system for ranking search results based on categories",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US9020922B2",
+   "title": "Search engine optimization at scale",
+   "assignee": "Brightedge Technologies, Inc."
+  },
+  {
+   "id": "US8510309B2",
+   "title": "Selection and delivery of invitational content based on prediction of user interest",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US8640032B2",
+   "title": "Selection and delivery of invitational content based on prediction of user intent",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US8577915B2",
+   "title": "Method of and system for conducting personalized federated search and presentation of results therefrom",
+   "assignee": "Veveo, Inc."
+  },
+  {
+   "id": "CN101957847B",
+   "title": "Searching system and implementation method thereof",
+   "assignee": "百度在线网络技术（北京）有限公司"
+  },
+  {
+   "id": "US8364672B2",
+   "title": "Concept disambiguation via search engine search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8332426B2",
+   "title": "Indentifying referring expressions for concepts",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20120158712A1",
+   "title": "Inferring Geographic Locations for Entities Appearing in Search Queries",
+   "assignee": "Sushrut Karanjkar"
+  },
+  {
+   "id": "US9465795B2",
+   "title": "System and method for providing feeds based on activity in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US8667169B2",
+   "title": "System and method for providing argument maps based on activity in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US20120166428A1",
+   "title": "Method and system for improving quality of web content",
+   "assignee": "Yahoo! Inc"
+  },
+  {
+   "id": "US8972412B1",
+   "title": "Predicting improvement in website search engine rankings based upon website linking relationships",
+   "assignee": "Go Daddy Operating Company, LLC"
+  },
+  {
+   "id": "US8370365B1",
+   "title": "Tools for predicting improvement in website search engine rankings based upon website linking relationships",
+   "assignee": "Go Daddy Operating Company, LLC"
+  },
+  {
+   "id": "US8996495B2",
+   "title": "Method and system for ranking search results based on category demand normalized using impressions",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US8620136B1",
+   "title": "System and method for media intelligent recording in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US11841912B2",
+   "title": "System for applying natural language processing and inputs of a group of users to infer commonly desired search results",
+   "assignee": "Twittle Search Limited Liability Company"
+  },
+  {
+   "id": "US8326862B2",
+   "title": "Systems and methods for facilitating enhancements to search engine results",
+   "assignee": "Alan Mark Reznik"
+  },
+  {
+   "id": "US8819009B2",
+   "title": "Automatic social graph calculation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9477574B2",
+   "title": "Collection of intranet activity data",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8909624B2",
+   "title": "System and method for evaluating results of a search query in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US9552425B2",
+   "title": "System and method for determining query aspects at appropriate category levels",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US9298776B2",
+   "title": "System and method for mining category aspect information",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US8812483B2",
+   "title": "System and method for optimizing web searching and scheduling of service providers",
+   "assignee": "Julien Bieren"
+  },
+  {
+   "id": "US10346856B1",
+   "title": "Personality aggregation and web browsing",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8886797B2",
+   "title": "System and method for deriving user expertise based on data propagating in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US9185152B2",
+   "title": "Bidirectional communication on live multimedia broadcasts",
+   "assignee": "Ustream, Inc."
+  },
+  {
+   "id": "US8954423B2",
+   "title": "Using reading levels in responding to requests",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "KR101783721B1",
+   "title": "Group targeting system and group targeting method using range ip",
+   "assignee": "네이버 주식회사"
+  },
+  {
+   "id": "US8751591B2",
+   "title": "Systems and methods of adjusting contact importance for a computing device",
+   "assignee": "Blackberry Limited"
+  },
+  {
+   "id": "US9189550B2",
+   "title": "Query refinement in a browser toolbar",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8898164B1",
+   "title": "Consumption history privacy",
+   "assignee": "Quantcast Corporation"
+  },
+  {
+   "id": "EP2639714A4",
+   "title": "Information collection device, system, method, and program",
+   "assignee": "Nec Corp"
+  },
+  {
+   "id": "US9292504B2",
+   "title": "Context generation from active viewing region for context sensitive searching",
+   "assignee": "Verizon Patent And Licensing Inc."
+  },
+  {
+   "id": "US8862597B2",
+   "title": "Providing contextually-relevant content",
+   "assignee": "Sap Portals Israel Ltd"
+  },
+  {
+   "id": "US8983948B1",
+   "title": "Providing electronic content based on a composition of a social network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN103186619B",
+   "title": "A kind of method and apparatus of the evaluation search result based on non click operation information",
+   "assignee": "北京百度网讯科技有限公司"
+  },
+  {
+   "id": "US8930339B2",
+   "title": "Search engine performance evaluation using a task-based assessment metric",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "DE102012100470A1",
+   "title": "Method of compiling documents",
+   "assignee": "Nektoon Ag"
+  },
+  {
+   "id": "US9201964B2",
+   "title": "Identifying related entities",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US8831403B2",
+   "title": "System and method for creating customized on-demand video reports in a network environment",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US20130204863A1",
+   "title": "System and Method for Displaying Search Results",
+   "assignee": "Rod Rigole"
+  },
+  {
+   "id": "US9311650B2",
+   "title": "Determining search result rankings based on trust level values associated with sellers",
+   "assignee": "Alibaba Group Holding Limited"
+  },
+  {
+   "id": "US10147146B2",
+   "title": "Tailoring social elements of virtual environments",
+   "assignee": "Disney Enterprises, Inc."
+  },
+  {
+   "id": "US20140143250A1",
+   "title": "Centralized Tracking of User Interest Information from Distributed Information Sources",
+   "assignee": "Xen, Inc."
+  },
+  {
+   "id": "US20130290458A1",
+   "title": "Contextual peer based guidance systems and methods",
+   "assignee": "Margaret E. Morris"
+  },
+  {
+   "id": "US8930392B1",
+   "title": "Simulated annealing in recommendation systems",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20130332521A1",
+   "title": "Systems and methods for compiling media information based on privacy and reliability metrics",
+   "assignee": "United Video Properties, Inc."
+  },
+  {
+   "id": "US9141504B2",
+   "title": "Presenting status data received from multiple devices",
+   "assignee": "Apple Inc."
+  },
+  {
+   "id": "US9535996B1",
+   "title": "Selecting content objects for recommendation based on content object collections",
+   "assignee": "deviantArt, Inc."
+  },
+  {
+   "id": "US8938438B2",
+   "title": "Optimizing search engine ranking by recommending content including frequently searched questions",
+   "assignee": "Go Daddy Operating Company, LLC"
+  },
+  {
+   "id": "US9436765B2",
+   "title": "System for deep linking and search engine support for web sites integrating third party application and components",
+   "assignee": "Wix.Com Ltd."
+  },
+  {
+   "id": "US9779140B2",
+   "title": "Ranking signals for sparse corpora",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10152500B2",
+   "title": "Read mostly instances",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US20140280576A1",
+   "title": "Determining activities relevant to groups of individuals",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10887421B2",
+   "title": "Relevant secondary-device content generation based on associated internet protocol addressing",
+   "assignee": "Tubi, Inc."
+  },
+  {
+   "id": "US10594763B2",
+   "title": "Platform-independent content generation for thin client applications",
+   "assignee": "adRise, Inc."
+  },
+  {
+   "id": "US20140351059A1",
+   "title": "Interactive advertising",
+   "assignee": "adRise, Inc."
+  },
+  {
+   "id": "US10356461B2",
+   "title": "Adaptive multi-device content generation based on associated internet protocol addressing",
+   "assignee": "adRise, Inc."
+  },
+  {
+   "id": "CN103441860A",
+   "title": "Recommendation method and device of internet service",
+   "assignee": "阿里巴巴集团控股有限公司"
+  },
+  {
+   "id": "CN104156359B",
+   "title": "Interior chain information recommends method and device",
+   "assignee": "腾讯科技（深圳）有限公司"
+  },
+  {
+   "id": "US20160117391A1",
+   "title": "Presentation of ranked image query results to a client",
+   "assignee": "Yandex Europe Ag"
+  },
+  {
+   "id": "US9195703B1",
+   "title": "Providing context-relevant information to users",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9330209B1",
+   "title": "Characterizing an entity in an identifier space based on behaviors of unrelated entities in a different identifier space",
+   "assignee": "Quantcast Corporation"
+  },
+  {
+   "id": "US20150212710A1",
+   "title": "Card interface for managing domain search results",
+   "assignee": "Go Daddy Operating Company, LLC"
+  },
+  {
+   "id": "US9729327B2",
+   "title": "Computer-based optimization of digital signature generation for records based on eventual selection criteria for products and services",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9767178B2",
+   "title": "Multi-instance redo apply",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "CN103810241B",
+   "title": "Filter method and device that a kind of low frequency is clicked on",
+   "assignee": "北京奇虎科技有限公司"
+  },
+  {
+   "id": "US9465878B2",
+   "title": "System and method for depicting backlink metrics for a website",
+   "assignee": "Go Daddy Operating Company, LLC"
+  },
+  {
+   "id": "US9460219B2",
+   "title": "Selection and rating of locations and related content based on user categorization",
+   "assignee": "Gogobot, Inc."
+  },
+  {
+   "id": "US9852208B2",
+   "title": "Discovering communities and expertise of users using semantic analysis of resource access logs",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20150271211A1",
+   "title": "Rights management policies with nontraditional rights control",
+   "assignee": "Konica Minolta Laboratory U.S.A., Inc."
+  },
+  {
+   "id": "US9824079B1",
+   "title": "Providing actions for mobile onscreen content",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US9965559B2",
+   "title": "Providing automatic actions for mobile onscreen content",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10489407B2",
+   "title": "Dynamic modifications of results for search interfaces",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US11250081B1",
+   "title": "Predictive search",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "CN104361092A",
+   "title": "Searching method and device",
+   "assignee": "百度在线网络技术（北京）有限公司"
+  },
+  {
+   "id": "CN104462357B",
+   "title": "The method and apparatus for realizing personalized search",
+   "assignee": "百度在线网络技术（北京）有限公司"
+  },
+  {
+   "id": "US10127285B2",
+   "title": "Customizable ranking of search engine results in multi-tenant architecture",
+   "assignee": "Ariba, Inc."
+  },
+  {
+   "id": "US10061817B1",
+   "title": "Social ranking for apps",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10715612B2",
+   "title": "Identifying users' identity through tracking common activity",
+   "assignee": "Oath Inc."
+  },
+  {
+   "id": "US10970646B2",
+   "title": "Action suggestions for user-selected content",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10678788B2",
+   "title": "Columnar caching in tiered storage",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US10747752B2",
+   "title": "Space management for transactional consistency of in-memory objects on a standby database",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US11657037B2",
+   "title": "Query execution against an in-memory standby database",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US10055390B2",
+   "title": "Simulated hyperlinks on a mobile device based on user intent and a centered selection of text",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "ITUB20156079A1",
+   "title": "METHOD TO DETECT WEB TRACKING SERVICES",
+   "assignee": "Torino Politecnico"
+  },
+  {
+   "id": "KR102604450B1",
+   "title": "Method and apparatus for storing log of access based on kewords",
+   "assignee": "삼성전자주식회사"
+  },
+  {
+   "id": "US10698771B2",
+   "title": "Zero-data-loss with asynchronous redo shipping to a standby database",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US10535005B1",
+   "title": "Providing contextual actions for mobile onscreen content",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10891291B2",
+   "title": "Facilitating operations on pluggable databases using separate logical timestamp services",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "WO2018093961A1",
+   "title": "Systems and methods for digital presence profiler service",
+   "assignee": "Cofame, Inc."
+  },
+  {
+   "id": "US11475006B2",
+   "title": "Query and change propagation scheduling for heterogeneous database systems",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US11237696B2",
+   "title": "Smart assist for repeated actions",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US10423638B2",
+   "title": "Cloud inference system",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US20180336280A1",
+   "title": "Customized search based on user and team activities",
+   "assignee": "Linkedin Corporation"
+  },
+  {
+   "id": "US10691722B2",
+   "title": "Consistent query execution for big data analytics in a hybrid database",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US10489425B2",
+   "title": "User clustering based on query history",
+   "assignee": "Salesforce.Com, Inc."
+  },
+  {
+   "id": "US11023551B2",
+   "title": "Document processing based on proxy logs",
+   "assignee": "Accenture Global Solutions Limited"
+  },
+  {
+   "id": "US11501006B2",
+   "title": "Leveraging natural language processing to refine access control within collections",
+   "assignee": "Hyundai Motor Company"
+  },
+  {
+   "id": "CN110232281B",
+   "title": "Leverage natural language processing to improve access control within collections",
+   "assignee": "现代自动车株式会社"
+  },
+  {
+   "id": "US11216786B2",
+   "title": "System and method for dispatching intelligent invitations to users within a network",
+   "assignee": "Kavita Ramchandani Snyder"
+  },
+  {
+   "id": "US20200104783A1",
+   "title": "Task-based action generation",
+   "assignee": "Evernote Corporation"
+  },
+  {
+   "id": "US11170002B2",
+   "title": "Integrating Kafka data-in-motion with data-at-rest tables",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US11500930B2",
+   "title": "Method, apparatus and computer program product for generating tiered search index fields in a group-based communication platform",
+   "assignee": "Slack Technologies, Llc"
+  },
+  {
+   "id": "US11218443B2",
+   "title": "Dynamic IP address categorization systems and methods",
+   "assignee": "Coupang Corp."
+  },
+  {
+   "id": "US11914601B2",
+   "title": "Re-ranking device",
+   "assignee": "Ntt Docomo, Inc."
+  },
+  {
+   "id": "US11061980B2",
+   "title": "System and method for integrating content into webpages",
+   "assignee": "Capital One Services, Llc"
+  },
+  {
+   "id": "US11379532B2",
+   "title": "System and method for generating a recommendation",
+   "assignee": "The Toronto-Dominion Bank"
+  },
+  {
+   "id": "US11507576B2",
+   "title": "Method and system to efficiently analyze and improve database queries",
+   "assignee": "T-Mobile Usa, Inc."
+  },
+  {
+   "id": "US10987592B1",
+   "title": "Systems and methods to correlate user behavior patterns within an online game with psychological attributes of users",
+   "assignee": "12traits, Inc."
+  },
+  {
+   "id": "US12353424B2",
+   "title": "Intuitive content search results suggestion system",
+   "assignee": "Tubi, Inc."
+  },
+  {
+   "id": "US20220121549A1",
+   "title": "Systems and methods for rendering unified and real-time user interest profiles",
+   "assignee": "Oath Inc."
+  },
+  {
+   "id": "US11775599B2",
+   "title": "System and method for displaying customized search results based on past behaviour",
+   "assignee": "Shopify Inc."
+  },
+  {
+   "id": "US11206263B1",
+   "title": "Systems and methods to determine content to present based on interaction information of a given user",
+   "assignee": "12traits, Inc."
+  },
+  {
+   "id": "US11727424B2",
+   "title": "Systems and methods to correlate user behavior patterns within digital application environments with psychological attributes of users to determine adaptations to the digital application environments",
+   "assignee": "Solsten, Inc."
+  },
+  {
+   "id": "US12022138B2",
+   "title": "Model serving for advanced frequency management",
+   "assignee": "Tubi, Inc."
+  },
+  {
+   "id": "US12019637B2",
+   "title": "Systems and methods for altering a graphical user interface based on exploration of search query ranking",
+   "assignee": "Walmart Apollo, Llc"
+  },
+  {
+   "id": "US12114043B2",
+   "title": "Systems and methods to identify taxonomical classifications of target content for prospective audience",
+   "assignee": "Solsten, Inc."
+  },
+  {
+   "id": "US20230410187A1",
+   "title": "Systems and methods for dynamically controlling display of search results",
+   "assignee": "Shopify Inc."
+  },
+  {
+   "id": "EP4390722A1",
+   "title": "Processing a search query",
+   "assignee": "Amadeus S.A.S."
+  },
+  {
+   "id": "US12499459B2",
+   "title": "System and method for real-time customer segment-based personalization including dynamic segment switching",
+   "assignee": "BloomReach, Inc."
+  },
+  {
+   "id": "US12511337B2",
+   "title": "Systems and methods for reinforcing search engine behavior using federated learning",
+   "assignee": "Wesco Distribution, Inc."
+  },
+  {
+   "id": "US12511327B1",
+   "title": "Systems and method for dynamically altering media in slideshows",
+   "assignee": "Bret Patrick O'Rourke"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5724567A",
+   "title": "System for directing relevance-ranked data objects to computer users",
+   "assignee": "Apple Computer, Inc."
+  },
+  {
+   "id": "US5754939A",
+   "title": "System for generation of user profiles for a system for customized electronic identification of desirable objects",
+   "assignee": "Herz; Frederick S. M."
+  },
+  {
+   "id": "US6012051A",
+   "title": "Consumer profiling system with analytic decision processor",
+   "assignee": "America Online, Inc."
+  },
+  {
+   "id": "EP1050830A2",
+   "title": "System and method for collaborative ranking of search results employing user and group profiles",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6182068B1",
+   "title": "Personalized search methods",
+   "assignee": "Ask Jeeves, Inc."
+  },
+  {
+   "id": "EP1107128A1",
+   "title": "Apparatus and method for checking the validity of links in a computer network",
+   "assignee": "Hyundai Electronics Industries Co., Ltd."
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US20010037407A1",
+   "title": "System and method for managing user-specific data",
+   "assignee": "Zvetan Dragulev"
+  },
+  {
+   "id": "US6338066B1",
+   "title": "Surfaid predictor: web-based system for predicting surfer behavior",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6385619B1",
+   "title": "Automatic user interest profile generation from structured document access information",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20020073065A1",
+   "title": "Document retrieval method and system and computer readable storage medium",
+   "assignee": "Yasuhiko Inaba"
+  },
+  {
+   "id": "US20020091736A1",
+   "title": "Component models",
+   "assignee": "Decis E-Direct, Inc."
+  },
+  {
+   "id": "US6421675B1",
+   "title": "Search engine",
+   "assignee": "S. L. I. Systems, Inc."
+  },
+  {
+   "id": "US20020123988A1",
+   "title": "Methods and apparatus for employing usage statistics in document retrieval",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020138331A1",
+   "title": "Method and system for web page personalization",
+   "assignee": "Hosea Devin F."
+  },
+  {
+   "id": "US20020198882A1",
+   "title": "Content personalization based on actions performed during a current browsing session",
+   "assignee": "Linden Gregory D."
+  },
+  {
+   "id": "US20030014399A1",
+   "title": "Method for organizing records of database search activity by topical relevance",
+   "assignee": "Hansen Mark H."
+  },
+  {
+   "id": "US20030023715A1",
+   "title": "System and method for logical view analysis and visualization of user behavior in a distributed computer network",
+   "assignee": "David Reiner"
+  },
+  {
+   "id": "US6535888B1",
+   "title": "Method and system for providing a visual search directory",
+   "assignee": "Oxelis, Inc."
+  },
+  {
+   "id": "US20030149937A1",
+   "title": "Method and system for optimum placement of advertisements on a webpage",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US6606619B2",
+   "title": "Computer processes for selecting nodes to call to attention of a user during browsing of a hierarchical browse structure",
+   "assignee": "Amazon.Com, Inc."
+  },
+  {
+   "id": "WO2003107127A2",
+   "title": "System and method for personalized information retrieval based on user expertise",
+   "assignee": "Entopia, Inc."
+  },
+  {
+   "id": "US20040034652A1",
+   "title": "System and method for personalized search, information filtering, and for generating recommendations utilizing statistical latent class models",
+   "assignee": "Thomas Hofmann"
+  },
+  {
+   "id": "US20040044571A1",
+   "title": "Method and system for providing advertising listing variance in distribution feeds over the internet to maximize revenue to the advertising distributor",
+   "assignee": "Bronnimann Eric Robert"
+  },
+  {
+   "id": "US6807574B1",
+   "title": "Method and apparatus for content personalization over a telephone interface",
+   "assignee": "Tellme Networks, Inc."
+  },
+  {
+   "id": "US6836773B2",
+   "title": "Enterprise web mining system and method",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US20040267806A1",
+   "title": "Promoting and/or demoting an advertisement from an advertising spot of one type to an advertising spot of another type",
+   "assignee": "Chad Lester"
+  },
+  {
+   "id": "WO2005001719A1",
+   "title": "Document search engine including highlighting of confident results",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US6868525B1",
+   "title": "Computer graphic display visualization system and method",
+   "assignee": "Alberti Anemometer Llc"
+  },
+  {
+   "id": "US20050060389A1",
+   "title": "System and method for evaluating a capacity of a streaming media server for supporting a workload",
+   "assignee": "Ludmila Cherkasova"
+  },
+  {
+   "id": "US20050071741A1",
+   "title": "Information retrieval based on historical data",
+   "assignee": "Anurag Acharya"
+  },
+  {
+   "id": "US20050071328A1",
+   "title": "Personalization of web search",
+   "assignee": "Lawrence Stephen R."
+  },
+  {
+   "id": "US6895406B2",
+   "title": "Dynamic personalization method of creating personalized user profiles for searching a database of information",
+   "assignee": "Seaseer R&D, Llc"
+  },
+  {
+   "id": "US20050108406A1",
+   "title": "System and method for dynamically generating a customized menu page",
+   "assignee": "Dynalab Inc."
+  },
+  {
+   "id": "WO2005055015A2",
+   "title": "Click-through re-ranking of images and other data",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US6912505B2",
+   "title": "Use of product viewing histories of users to identify related products",
+   "assignee": "Amazon.Com, Inc."
+  },
+  {
+   "id": "US20050144193A1",
+   "title": "Systems and methods for determining document freshness",
+   "assignee": "Monika Henzinger"
+  },
+  {
+   "id": "US6917938B2",
+   "title": "Collaborative context information management system",
+   "assignee": "Ideapivot Corporation"
+  },
+  {
+   "id": "US6934748B1",
+   "title": "Automated on-line experimentation to measure users behavior to treatment for a set of content elements",
+   "assignee": "Memetrics Holdings Pty Limited"
+  },
+  {
+   "id": "US20050222981A1",
+   "title": "Systems and methods for weighting a search query result",
+   "assignee": "Lawrence Stephen R"
+  },
+  {
+   "id": "US6959319B1",
+   "title": "System and method for automatically personalizing web portals and web services based upon usage history",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050240580A1",
+   "title": "Personalization of placed content ordering in search results",
+   "assignee": "Zamir Oren E"
+  },
+  {
+   "id": "US20060004711A1",
+   "title": "System and method for ranking search results based on tracked user preferences",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060026147A1",
+   "title": "Adaptive search engine",
+   "assignee": "Cone Julian M"
+  },
+  {
+   "id": "WO2006014562A1",
+   "title": "Database search system and method of determining a value of a keyword in a search",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US20060064411A1",
+   "title": "Search engine using user intent",
+   "assignee": "William Gross"
+  },
+  {
+   "id": "US20060074883A1",
+   "title": "Systems, methods, and interfaces for providing personalized search and information access",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7031961B2",
+   "title": "System and method for searching and recommending objects from a categorically organized information repository",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20060112079A1",
+   "title": "System and method for generating personalized web pages",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20060161553A1",
+   "title": "Systems and methods for providing user interaction based profiles",
+   "assignee": "Tiny Engine, Inc."
+  },
+  {
+   "id": "US20070067297A1",
+   "title": "System and methods for a micropayment-enabled marketplace with permission-based, self-service, precision-targeted delivery of advertising, entertainment and informational content and relationship marketing to anonymous internet users",
+   "assignee": "Kublickis Peter J"
+  },
+  {
+   "id": "US7207062B2",
+   "title": "Method and apparatus for protecting web sites from distributed denial-of-service attacks",
+   "assignee": "Lucent Technologies Inc"
+  },
+  {
+   "id": "US7240049B2",
+   "title": "Systems and methods for search query processing using trend analysis",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20070260597A1",
+   "title": "Dynamic search engine results employing user behavior",
+   "assignee": "Mark Cramer"
+  },
+  {
+   "id": "US7430561B2",
+   "title": "Search engine system for locating web pages with product offerings",
+   "assignee": "A9.Com, Inc."
+  },
+  {
+   "id": "US7885901B2",
+   "title": "Method and system for seeding online social network contacts",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US6460036B1",
+   "title": "System and method for providing customized electronic newspapers and target advertisements",
+   "assignee": "Pinpoint Incorporated"
+  },
+  {
+   "id": "US6092049A",
+   "title": "Method and apparatus for efficiently recommending items using automated collaborative filtering and feature-guided automated collaborative filtering",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6314420B1",
+   "title": "Collaborative/adaptive search engine",
+   "assignee": "Lycos, Inc."
+  },
+  {
+   "id": "US5790426A",
+   "title": "Automated collaborative filtering system",
+   "assignee": "Athenium L.L.C."
+  },
+  {
+   "id": "US5974412A",
+   "title": "Intelligent query system for automatically indexing information in a database and automatically categorizing users",
+   "assignee": "Sapient Health Network"
+  },
+  {
+   "id": "US6845370B2",
+   "title": "Advanced information gathering for targeted activities",
+   "assignee": "Accenture Llp"
+  },
+  {
+   "id": "US6606657B1",
+   "title": "System and method for processing and presenting internet usage information",
+   "assignee": "Comverse, Ltd."
+  },
+  {
+   "id": "DE60035324T2",
+   "title": "Monitoring of computer usage",
+   "assignee": "Iontas Ltd., Moville"
+  },
+  {
+   "id": "JP3630057B2",
+   "title": "Data structure construction method for search, apparatus thereof, and machine-readable program recording medium",
+   "assignee": "日本電気株式会社"
+  },
+  {
+   "id": "IL134893A0",
+   "title": "Method and system for locating internet users having similar navigation patterns",
+   "assignee": "Joinweb Inc"
+  },
+  {
+   "id": "US7725525B2",
+   "title": "Method and apparatus for internet-based human network brokering",
+   "assignee": "James Duncan Work"
+  },
+  {
+   "id": "US6732092B2",
+   "title": "Method and system for database queries and information delivery",
+   "assignee": "Client Dynamics, Inc."
+  },
+  {
+   "id": "US6801917B2",
+   "title": "Method and apparatus for partitioning a plurality of items into groups of similar items in a recommender of such items",
+   "assignee": "Koninklijke Philips Electronics N.V."
+  },
+  {
+   "id": "US7567953B2",
+   "title": "System and method for retrieving and organizing information from disparate computer network information sources",
+   "assignee": "Business Objects Americas"
+  },
+  {
+   "id": "US8095589B2",
+   "title": "Clickstream analysis methods and systems",
+   "assignee": "Compete, Inc."
+  },
+  {
+   "id": "US7203909B1",
+   "title": "System and methods for constructing personalized context-sensitive portal pages or views by analyzing patterns of users' information access activities",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7505964B2",
+   "title": "Methods and systems for improving a search ranking using related queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7606798B2",
+   "title": "Methods and systems for improving a search ranking using location awareness",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20050096997A1",
+   "title": "Targeting shoppers in an online shopping environment",
+   "assignee": "Vivek Jain"
+  },
+  {
+   "id": "US20050246391A1",
+   "title": "System & method for monitoring web pages",
+   "assignee": "Gross John N"
+  },
+  {
+   "id": "US7580929B2",
+   "title": "Phrase-based personalization of searches in an information retrieval system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8255413B2",
+   "title": "Method and apparatus for responding to request for information-personalization",
+   "assignee": "Carhamm Ltd., Llc"
+  },
+  {
+   "id": "WO2006021088A1",
+   "title": "Opt-in directory of verified individual profiles",
+   "assignee": "Omnibranch Wireless Solutions, Inc."
+  },
+  {
+   "id": "US8812473B1",
+   "title": "Analysis and reporting of collected search activity data over multiple search engines",
+   "assignee": "Gere Dev. Applications, LLC"
+  },
+  {
+   "id": "US20070005646A1",
+   "title": "Analysis of topic dynamics of web search",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7774335B1",
+   "title": "Method and system for determining interest levels of online content navigation paths",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US7756855B2",
+   "title": "Search phrase refinement by search term replacement",
+   "assignee": "Collarity, Inc."
+  },
+  {
+   "id": "US7693836B2",
+   "title": "Method and apparatus for determining peer groups based upon observed usage patterns",
+   "assignee": "Baynote, Inc."
+  },
+  {
+   "id": "US7617208B2",
+   "title": "User query data mining and related techniques",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20080147659A1",
+   "title": "System and method for determining behavioral similarity between users and user data to identify groups to share user impressions of ratable objects",
+   "assignee": "Ratepoint, Inc."
+  },
+  {
+   "id": "US7734641B2",
+   "title": "Recommendation systems and methods using interest correlation",
+   "assignee": "Peerset, Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US20120089598A1",
+   "title": "Generating Website Profiles Based on Queries from Websites and User Activities on the Search Results"
+  },
+  {
+   "id": "US11816114B1",
+   "title": "Modifying search result ranking based on implicit user feedback"
+  },
+  {
+   "id": "US8321278B2",
+   "title": "Targeted advertisements based on user profiles and page profile"
+  },
+  {
+   "id": "JP5572596B2",
+   "title": "Personalize the ordering of place content in search results"
+  },
+  {
+   "id": "US8645390B1",
+   "title": "Reordering search query results in accordance with search context specific predicted performance functions"
+  },
+  {
+   "id": "US8938463B1",
+   "title": "Modifying search result ranking based on implicit user feedback and a model of presentation bias"
+  },
+  {
+   "id": "US9396238B2",
+   "title": "Systems and methods for determining user preferences"
+  },
+  {
+   "id": "US7440968B1",
+   "title": "Query boosting based on classification"
+  },
+  {
+   "id": "US6718365B1",
+   "title": "Method, system, and program for ordering search results using an importance weighting"
+  },
+  {
+   "id": "US9390143B2",
+   "title": "Recent interest based relevance scoring"
+  },
+  {
+   "id": "US8694511B1",
+   "title": "Modifying search result ranking based on populations"
+  },
+  {
+   "id": "US9443022B2",
+   "title": "Method, system, and graphical user interface for providing personalized recommendations of popular search queries"
+  },
+  {
+   "id": "CN102859516B",
+   "title": "Generating improved document classification data using historical search results"
+  },
+  {
+   "id": "US8645367B1",
+   "title": "Predicting data for document attributes based on aggregated data for repeated URL patterns"
+  },
+  {
+   "id": "US20050222989A1",
+   "title": "Results based personalization of advertisements in a search engine"
+  },
+  {
+   "id": "US7216122B2",
+   "title": "Information processing device and method, recording medium, and program"
+  },
+  {
+   "id": "WO2009140272A2",
+   "title": "Search results with most clicked next objects"
+  },
+  {
+   "id": "US8874570B1",
+   "title": "Search boost vector based on co-visitation information"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8078607B2/en"
+}

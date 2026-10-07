@@ -1,0 +1,1686 @@
+{
+ "id": "US8452766B1",
+ "title": "Detecting query-specific duplicate documents",
+ "abstract": "An improved duplicate detection technique that uses query-relevant information to limit the portion(s) of documents to be compared for similarity is described. Before comparing two documents for similarity, the content of these documents may be condensed based on the query. In one embodiment, query-relevant information or text (also referred to as “snippets”) is extracted from the documents and only the extracted snippets, rather than the entire documents, are compared for purposes of determining similarity.",
+ "inventors": [
+  "Benedict A. Gomes",
+  "Benjamin T. Smith"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2000-02-22",
+ "filing_date": "2012-07-02",
+ "publication_date": "2013-05-28",
+ "status": "Expired - Fee Related",
+ "expiration": "",
+ "cpc": [
+  "G06F17/30696",
+  "G06F16/00",
+  "G06F16/30",
+  "G06F16/33",
+  "G06F16/338",
+  "G06F16/38",
+  "G06F17/30722",
+  "G06F17/2725",
+  "G06F17/273",
+  "G06F40/00",
+  "G06F40/20",
+  "G06F40/205",
+  "G06F40/226",
+  "G06F40/232",
+  "Y10S707/00",
+  "Y10S707/99931",
+  "Y10S707/99933",
+  "Y10S707/99935",
+  "Y10S707/99936",
+  "Y10S707/99937"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer-implemented method comprising: receiving a plurality of search results responsive to a query, wherein the query includes one or more words, wherein each search result identifies a respective document that comprises a plurality of segments, wherein each segment is a distinct sequence of consecutive characters in the respective document; identifying the plurality of segments for each document by sliding a fixed-length window over content of the document, wherein the content of the document encompassed by the window starting at a particular position in the document defines a particular segment in the document, wherein sliding the fixed-length window over the content of the document comprises skipping space characters and characters that would result in a last character of the window splitting a word; for each of the plurality of segments in each of the documents, determining a respective count of occurrences of the one or more words of the query that occur in the segment; for each of the documents, ranking the segments of the document based on the respective counts of the segments; and identifying one or more highest ranked segments for each of the documents as a query-relevant part of the document.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, further comprising sending the search results that identify the documents and the query-relevant parts of the documents to a computing device in a response to the query.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1 wherein each segment is a sentence or a paragraph.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1 wherein sliding the fixed-length window over the content of the document comprises sliding a fixed-length window over content of the document a character at a time.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 1, further comprising determining that a pair of the documents are duplicates based on a comparison of the respective query-relevant parts of the pair of documents.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 5 wherein the respective query-relevant parts of the pair of documents are identical.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 5 wherein the respective query-relevant parts of the pair of documents are similar.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 1 wherein determining a respective count of occurrences of the one or more words of the query that occur in the segment comprises counting each occurrence of any of the one or more words of the query that occur in the segment.",
+   "dependent": true
+  },
+  {
+   "text": "9. The method of claim 1 wherein determining a respective count of occurrences of the one or more words of the query that occur in the segment comprises counting only a first occurrence of any of the one or more words of the query that occur in the segment.",
+   "dependent": true
+  },
+  {
+   "text": "10. A system comprising: one or more computers comprising one or more processors programmed to perform operations comprising: receiving a plurality of search results responsive to a query, wherein the query includes one or more words, wherein each search result identifies a respective document that comprises a plurality of segments, wherein each segment is a distinct sequence of consecutive characters in the respective document; identifying the plurality of segments for each document by sliding a fixed-length window over content of the document, wherein the content of the document encompassed by the window starting at a particular position in the document defines a particular segment in the document, wherein sliding the fixed-length window over the content of the document comprises skipping space characters and characters that would result in a last character of the window splitting a word; for each of the plurality of segments in each of the documents, determining a respective count of occurrences of the one or more words of the query that occur in the segment; for each of the documents, ranking the segments of the document based on the respective counts of the segments; and identifying one or more highest ranked segments for each of the documents as a query-relevant part of the document.",
+   "dependent": false
+  },
+  {
+   "text": "11. The system of claim 10, wherein the operations further comprise sending the search results that identify the documents and the query-relevant parts of the documents to a computing device in a response to the query.",
+   "dependent": true
+  },
+  {
+   "text": "12. The system of claim 10 wherein each segment is a sentence or a paragraph.",
+   "dependent": true
+  },
+  {
+   "text": "13. The system of claim 10 wherein sliding the fixed-length window over the content of the document comprises sliding a fixed-length window over content of the document a character at a time.",
+   "dependent": true
+  },
+  {
+   "text": "14. The system of claim 10 wherein determining a respective count of occurrences of the one or more words of the query that occur in the segment comprises counting each occurrence of any of the one or more words of the query that occur in the segment.",
+   "dependent": true
+  },
+  {
+   "text": "15. The system of claim 10 wherein determining a respective count of occurrences of the one or more words of the query that occur in the segment comprises counting only a first occurrence of any of the one or more words of the query that occur in the segment.",
+   "dependent": true
+  },
+  {
+   "text": "16. A non-transitory storage medium having instructions stored thereon that, when executed by one or more computers, cause the one or more computers to perform operations comprising: receiving a plurality of search results responsive to a query, wherein the query includes one or more words, wherein each search result identifies a respective document that comprises a plurality of segments, wherein each segment is a distinct sequence of consecutive characters in the respective document; identifying the plurality of segments for each document by sliding a fixed-length window over content of the document, wherein the content of the document encompassed by the window starting at a particular position in the document defines a particular segment in the document, wherein sliding the fixed-length window over the content of the document comprises skipping space characters and characters that would result in a last character of the window splitting a word; for each of the plurality of segments in each of the documents, determining a respective count of occurrences of the one or more words of the query that occur in the segment; for each of the documents, ranking the segments of the document based on the respective counts of the segments; and identifying one or more highest ranked segments for each of the documents as a query-relevant part of the document.",
+   "dependent": false
+  }
+ ],
+ "description": "\n## CROSS-REFERENCE TO RELATED APPLICATIONS\n\n\nThis application is a continuation application of and claims priority to U.S. patent application Ser. No. 12/839,164, titled “Detecting Query-Specific Duplicate Documents,” filed Jul. 19, 2010, which is a continuation of U.S. patent application Ser. No. 10/602,965, titled “Detecting Query-Specific Duplicate Documents,” filed Jun. 24, 2003, which is a continuation of U.S. patent application Ser. No. 09/684,542, titled “Detecting Query-Specific Duplicate Documents,” filed Oct. 6, 2000, now U.S. Pat. No. 6,615,209, which claims the benefit under 35 U.S.C. §119(e)(1), of U.S. Patent Application Ser. No. 60/184,126, titled “Method and Apparatus for Detecting Query-Specific Duplicate Documents,” filed on Feb. 22, 2000, all of which are incorporated herein by reference.\n\n\n## §1. BACKGROUND OF THE INVENTION\n\n\n§1.1 Field of the Invention\n\nThe present invention concerns information retrieval in general. More specifically, the present invention concerns detecting and/or removing duplicate information or duplicate content in response to, and based on, an information search query.\n\n§1.2 Related Art\n\n§1.2.1 The Migration from Data Entry, Manipulation and Storage, to Information Access\n\nThe ways in which people use computing machines has evolved over the last 50 or so years. The proliferation of networks, along with the increased availability of inexpensive data storage means, has afforded computer users unprecedented access to a wealth of content. Such content may be presented to a user (or “rendered”) in the form of text, images, audio, video, etc.\n\nAlthough people continue to use computers to enter, manipulate and store information, in view of the foregoing developments, people are using computers (or more generally, information access machines) to access information to an ever increasing extent. Unfortunately, however, the very vastness of available information which has attracted many users, can overwhelm users. Consequently, desired information can become difficult to find.\n\n§1.2.2 Known Techniques for Finding Desired Information\n\nVarious techniques have been employed to help users locate desired information. In the context of the Internet for example, some services have organized content based on a hierarchy of categories. A user may then navigate through a series of hierarchical menus to find content that may be of interest to them. An example of such a service is the YAHOO™ web site on the Internet.\n\nAgain in the context of the Internet for example, some services provide “search engines” which search content or “web sites” pursuant to a user query. In response to a user's query, a rank ordered list, which typically includes brief descriptions of the content, as well as hyper-text links (i.e., text, having associated URLs) to the content is returned. The rank ordering of the list is typically based on a degree of match between words appearing in the query and words appearing in the content.\n\n§1.2.2.1 Automated Indexing and its Perceived Shortcomings\n\nMost search engines perform three main functions: (i) crawling the World Wide Web; (ii) indexing the content of the World Wide Web; and (iii) responding to a search query using the index to generate search results. The crawl operation collects web pages. The indexing operation associates document(s) (e.g., web page(s)) with words or phrases, and also creates an inverted index which associates words or phrases with documents. The search operation then (i) uses that inverted index to find documents (e.g., web pages) containing various words of a search query, and (ii) ranks or orders the documents found in accordance with some heuristic(s). Given the large amount of information available, these three main functions are automated to a large extent.\n\nAlthough it is believed that automating the indexing operation is the only way to make searching a large amount of diverse material feasible, automating indexing operations introduces some challenges. More specifically, one of the problems of automated indexing is that the World Wide Web may include the same information duplicated in different forms or at different places on the World Wide Web. For example, some content is “mirrored” at different sites on the World Wide Web. Such mirroring is used to alleviate potential delays when many users attempt to request the same information at the same time, and/or to minimize network latency (e.g., by caching web pages locally). Some content will have plain text and HTML (hyper-text markup language) versions so that users can render or download the content in a form that they prefer. Finally, some web pages aggregate or incorporate content available from another source on the World Wide Web.\n\nWhen users submit a query to a search engine, most users do not want links to (and descriptions of) web pages that have duplicate information. For example, search engines typically respond to search queries by providing groups of ten results. If pages with duplicate content were returned, many of the results in one group may include the same content. Thus, there is a need for a technique to avoid providing search results to web pages having duplicate content.\n\nSome duplicate avoidance techniques are effected during the automated indexing operation. Similar documents can be flagged by (i) defining a similarity measure between two documents, and (ii) defining the two documents as “duplicates” if the similarity measure exceeds a predetermined threshold.\n\nUnfortunately, however, often duplicate information may be found in documents that are not exactly the same or even very similar. For example: (i) identical content may be presented with different formatting (e.g., plain text versus HTML); (ii) different headers and/or footers may be prepended and/or appended, respectively, to identical content; (iii) hit counters may be appended to identical content; (iv) last modified dates may be appended, to identical content; and (v) one web site may include a copy of content found elsewhere (e.g., as a part of a compilation or aggregation of content, or simply as an insertion). Cases (ii)-(iv) are illustrated by the Venn diagrams of FIGS. 1 and 2. FIG. 1 illustrates the case where a second document merely adds a small amount of information (e.g., a counter, a footer, etc.) to a first document, whereas FIG. 2 illustrates the case where a second document slightly changes some information (e.g., a last modified date) of a first document. The present invention may be used to detect such “duplicates” with slight changes.\n\nFurthermore, the present invention may be used to detect duplicate content within documents that have a lot of different information, such as documents with different formatting codes or documents that aggregate or incorporate other content. Many prior techniques are not well-suited for such cases. For example, assume that documents A and B each contain basic financial information about companies. Assume further that document A has information on 50 companies, while document B has information on 100 companies, at least some of which are the same as those in document A. (For example, document B could be a later, expanded version of document A.) The Venn diagrams of FIGS. 3 and 4 illustrate such examples.\n\nMany known document similarity techniques would not consider documents A and B to be very similar even though they may contain a lot of identical content. A user searching for information about the 50 companies included in document A, however, would likely become frustrated if a search engine provides links not only to document A, but also to other documents (e.g., document B) that contain the same information about the 50 companies. The articles, A. Broder et al, “Syntactic Clustering of the Web,” Proc. 6th International WWW Conference (1997), A. Broder et al, “Filtering Near-Duplicate Documents,” FUN '98 and A. Broder et al, “On the Resemblance and Containment of Documents,” SEQUENCES '98, pp. 21-29 (hereafter referred to as “the Broder articles”) describe a method (hereafter referred to as “the Broder method”) for detecting duplicate documents. The Broder method may be used to find documents that are “roughly the same” and “roughly contained” in each other. More specifically, for each pair of documents, the Broder method generates a number that indicates the extent to which the documents appear to be related. A threshold is then used to determine whether or not the two documents are related enough (or similar enough) to be declared “duplicates”. The Broder method, however, does not consider the specific information that a user is looking for in its analysis.\n\nIn view of the foregoing, there is a need for an improved duplicate detection technique. Such a technique should be automated so that processing a large amount of content from a large number of sources is feasible.\n\n\n## §2. SUMMARY OF THE INVENTION\n\n\nThe present invention provides an improved duplicate detection technique that uses query-relevant information to limit the portion(s) of documents to be compared for similarity. In other words, before comparing two documents for similarity, the content of these documents may be condensed based on the query. In one embodiment, query-relevant part(s) (also referred to as “snippets” in one embodiment) are extracted from the documents and only the extracted query-relevant part(s), rather than the entire documents, are compared for purposes of determining similarity.\n\nAs can be appreciated by the foregoing summary, an improved duplicate detection technique under the present invention is preferably performed after indexing, during the processing of a particular search query. However, in systems in which at least some indexing is performed after receiving (or processing) a query, the present invention may be performed before such indexing.\n\nBy limiting the portion(s) of the documents being compared, a large range of duplicate document types, including those that would be missed by conventional similarity determination techniques, will be detected. Further, since only a portion(s) of the documents are compared, the similarity threshold can be set relatively higher, thereby decreasing the number of documents that would be falsely identified as duplicates if a lower threshold were used.\n\nIn the example set forth above, further assume that the documents A and B included identical information about company X (See the Venn diagrams in FIGS. 5 and 6.), and that a user submitted a query about company X. In accordance with the present invention, documents A and B would be considered duplicates with respect to a query about company X. Referring to FIG. 5, even prior art methods that can determine containment would probably conclude that document B is not “contained” in document A, notwithstanding the fact that both are similar (or even the same) with respect to company X. Referring to FIG. 2, assume that both the first and second documents contain information about company X, albeit different information. The query-specific method of the present invention may find that the two documents are not similar (with respect to company X). On the other hand, most, if not all, known techniques would find these documents similar since such techniques do not consider query-relevant information in their analysis.\n\nNote that aside from documents that match each other exactly, whether or not documents are duplicates is somewhat subjective and application specific. Although the term “duplicates” should be broadly interpreted, it should be understood that one goal of the present invention may be, in the context of a search engine for example, to avoid annoying users with different versions of information that add little or no value to the user once one of the versions is interpreted by the user.\n\n\n## §3. BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nFIG. 1 is a Venn diagram of a second document that includes the contents of a first document and a small amount of additional information.\n\nFIG. 2 is a Venn diagram of first and second documents with a lot of identical content, but each having some content not found in the other.\n\nFIG. 3 is a Venn diagram of first and second documents with some identical content in common.\n\nFIG. 4 is a Venn diagram of first document which includes the contents of a second document, as well as an appreciable amount of additional information.\n\nFIG. 5 is a Venn diagram of first and second documents with some identical content in common, such identical content including information about company X.\n\nFIG. 6 is a Venn diagram of first document which includes the contents of a second document, as well as an appreciable amount of additional information, where the second document, and therefore the first document, includes information about company X.\n\nFIG. 7 is a high-level block diagram of an environment in which at least some aspects of the present invention may be used.\n\nFIG. 8 is a process bubble diagram of an advanced search facility in which at least some aspects of the present invention may be used.\n\nFIG. 9 is a process bubble diagram which illustrates some functions that may be performed by the present invention.\n\nFIG. 10 is a high level flow diagram of an exemplary method that may be used to effect a duplicate removal management process.\n\nFIG. 11 is a high level flow diagram of an exemplary method that may be used to extract a query-relevant portion(s) (e.g., a “snippet(s)”) of a document.\n\nFIG. 12 is a high level flow diagram of another exemplary method that may be used to extract a query-relevant portion(s) (e.g., a “snippet(s)”) of a document.\n\nFIG. 13 is a high-level block diagram of a machine that may be used to effect one or more functions of the present invention.\n\nFIG. 14 is a data messaging diagram that illustrates an example of operations that may be performed by an exemplary embodiment of the present invention.\n\nFIG. 15 illustrates an example of query-relevant parts of candidate results.\n\nFIG. 16 illustrates updated results after query-relevant duplicates have been removed.\n\n\n## §4. DETAILED DESCRIPTION\n\n\nThe present invention involves novel methods, apparatus and data structures for identifying duplicate documents based, at least in part, on a query. In the following, the term “documents” should be interpreted broadly to include content such as web pages, text files, etc. The following description is presented to enable one skilled in the art to make and use the invention, and is provided in the context of particular applications and their requirements. Various modifications to the disclosed embodiments will be apparent to those skilled in the art, and the general principles set forth below may be applied to other embodiments and applications. Thus, the present invention is not intended to be limited to the embodiments shown and the inventors regard their invention as the following disclosed methods, apparatus, articles of manufacturer, and data structures and any other patentable subject matter to the extent that they are patentable.\n\nIn the following, an environment in which the present invention may be employed is introduced in §4.1. Then, functions that may be performed by the present invention are introduced in §4.2. Then, processes, data structures, methods and apparatus that may be used to effect those functions are described in §4.3. Thereafter, an example of how an exemplary system of the present invention may operate is described in §4.4. Finally, some conclusions about the present invention are set forth in §4.5.\n\n§4.1 Exemplary Environment in which Invention May Operate\n\nThe following exemplary embodiment is presented to illustrate an example of utility of the present invention and to illustrate an example of a context in which the present invention may operate. However, the present invention can be used in other environments and its use is not intended to be limited to the exemplary environment 700 and search facility 800 introduced below with reference to FIGS. 7 and 8, respectively.\n\nFIG. 7 is a high-level block diagram of an environment 700 in which at least some aspects of the present invention may be used. This environment 700 may be a network (such as the Internet for example) 760 in which an information access facility (client) 710 is used to render information accessed from one or more content providers (servers) 780. A search facility (server) 730 may be used by the information access facility 710 to search for content of interest.\n\nThe information access facility 710 may include a browsing process 712 which may include a navigation process 714 and a user interface process 716. The browsing process may access the network 760 via input/output interface processes 718. For example, in the context of a personal computer, the browsing process 712 may be a browser (such as “Internet Explorer” from Microsoft Corporation of Redmond, Wash. or “Netscape Navigator” from Netscape Communications, of Mountain View, Calif.) and the input/output interface processes may include a modem or network interface card (or NIC) and networking software. Other examples of possible information access facilities 710 include untethered devices, such as personal digital assistants and mobile telephones for example, set top boxes, kiosks, etc.\n\nEach of the content providers 780 may include stored resources (also referred to as content) 786, a resource retrieval process 784 that accesses and provides content in response to a request, and input/output interface process(es) 782. These processes of the content providers 780 may be effected by computers, such as personal computers or servers for example. Accordingly, the stored resources 786 may be embodied as data stored on some type of storage medium such as a magnetic disk(s), an optical disk(s), etc. The term “document” should be interpreted to include addressable content, such as a web page for example.\n\nThe search facility 730 may perform crawling, indexing/sorting, and query processing functions. These functions may be performed by the same entity or separate entities. Further, these functions may be performed at the same location or at different locations. In any event, at a crawling facility 750, a crawling process 752 gets content from various sources accessible via the network 760, and stores such content, or a form of such content, as indicated by 754. Then, at an automated indexing/sorting facility 740, an automated indexing/sorting process 742 may access the stored content 754 and may generate a content index (e.g., an inverted index, to be described below) and content rankings (e.g., PageRanks, to be described below) 740. Finally, a query processing process 734 accepts queries and returns query results based on the content index (and the content rankings) 740. The crawling, indexing/sorting and query processing functions may be performed by one or more computers.\n\nAlthough the present invention may be used with a number of different types of search engines, the present inventors anticipate that it will be used with an advanced search facility, such as the one presently available from Google, Inc. of Mountain View, Calif. FIG. 8 is a process bubble diagram of such an advanced search facility 800 in which at least some aspects of the present invention may be used.\n\nThe advanced search facility 800 illustrated in FIG. 8 performs three main functions: (i) crawling; (ii) indexing/sorting; and (iii) searching. The horizontal dashed lines divide FIG. 8 into three parts corresponding to these three main functions. More specifically, the first part 750′ corresponds to the crawling function, the second part 740′ corresponds to the indexing/sorting function, and the third part 734′ corresponds to the search (or query processing) function. (Note that an apostrophe “'” following a reference number is used to indicate that the referenced item is merely one example of the item referenced by the number without an apostrophe.) Each of these parts is introduced in more detail below. Before doing so, however, a few distinguishing features of this advanced search facility 800 are introduced.\n\nThe advanced search facility uses the link structure of the World Wide Web to improve search results. In particular, the search facility uses a page rank algorithm to rank the importance of each web page. An exemplary page rank algorithm is described in the article S. Brin and L. Page, “The Anatomy of a Large-Scale Hypertextual Search Engine,” Seventh International World Wide Web Conference, Brisbane, Australia. The search facility may also use other techniques to improve the quality of search results, such as: using anchor text information for a web page; maintaining location information for all hits (so proximity in search may be used); tracking some visual presentation details such as font size of words (so that words in a larger or bolder font may be weighted higher than other words); and maintaining a repository storing the full raw HTML (or other code) of pages. As will become apparent in the following description, the present invention may exploit this repository.\n\nReferring back to FIG. 8, the three main parts of the advanced search engine 800 are now described further.\n\nThe crawling part 750′ may be distributed across a number of machines. A single URLserver (not shown) serves lists of uniform resource locations (“URLs”) 806 to a number of crawlers. Based on this list of URLs 806, the crawling process 802 crawls the network 760′ and gets web pages 808. A pre-indexing process 810 may then generate page rankings 812, as well as a repository 814 from these web pages 808. The page rankings 812 may include a number of URL fingerprint (i.e., a unique value), PageRank value (as introduced above) pairs. The repository 814 may include URL, content type and compressed page triples.\n\nRegarding the indexing/sorting part 740′, the indexing/sorting process 820 may generate a partially sorted forward index 822 from the repository 814. More specifically, this process 820 may decompress each document in the repository 814 and parse it. After each document is parsed, it may then be encoded into the partially sorted forward index 820 by: (i) converting every word into a wordID by using an in-memory hash table—the lexicon; and (ii) translating occurrences of words in the current document into hit lists. To generate the inverted index 826, the indexing/sorting process 820 may then sort the partially sorted forward index 822 by wordID. The indexing/sorting process 820 may also generate page ranks 828 from the citation rankings 812. The page ranks 828 may include document ID, PageRank value pairs.\n\nRegarding the query processing part 734′, the searching processes 830 may be run by a web server and may use a lexicon 832, together with the inverted index 826 and the PageRanks 828 to generate query results in response to a query. The query results may be based on a combination of (i) information derived from PageRanks 828 and (ii) information derived from how closely a particular document matches the terms contained in the query (also referred to as the information retrieval (or “IR”) component). Having described exemplary environments in which the present invention may be used, functions that may be performed by the present invention are now introduced in §4.2 below.\n\n§4.2 Functions which May be Performed by the Present Invention\n\nAt a high level, the present invention may function to detect “duplicate” documents (e.g., web pages). The present invention may do so by using query-relevant information to limit the portion(s) of documents to be compared for similarity. In other words, before comparing two documents for similarity, the content of these documents may be condensed based on the query.\n\nThus, the present invention may further function to “condense” the content of documents based on the query. The present invention may do so by extracting query-relevant information or text (also referred to as “snippets”) from the documents. In such a case, only the extracted snippets, rather than the entire documents, are compared for purposes of determining similarity.\n\nHaving introduced functions that may be performed by the present invention, exemplary processes, data structures, methods and apparatus for effecting these functions are described in §4.3 below.\n\n§4.3 Exemplary Processes, Data Structures, Methods and Apparatus for Effecting Functions that May be Performed by the Present Invention\n\nIn the following, exemplary processes that may be performed by the present invention, and exemplary data structures that may be used by the present invention, are introduced in §4.3.1 with reference to FIG. 9. Then, exemplary methods for removing duplicates is described in §4.3.1.1 with reference to FIGS. 10 through 12. Finally, exemplary apparatus that may be used to effect the exemplary processes and store the exemplary data structures are described in §4.3.2 with reference to FIG. 13.\n\n§4.3.1 Exemplary Processes and Data Structures\n\nFIG. 9 is a process bubble diagram that illustrates some functions that may be performed by the present invention. Basically, a query processing process 734′ may include a search process 830′ and an improved duplicate removal process 920. The search process 830′ generates rank-ordered query results 910 in response to a query. Assuming, for example, the search process 830′ is an advanced searching facility such as the one employed by Google, Inc. of Mountain View, Calif. and introduced in §4.1 above, the search process 830′ may use a content index (an inverted index) 826′, page ranks 828′, a lexicon 832′ and a repository 814′ to generate the rank-ordered query results 910. In such a case, exemplary data structures of the inverted index 826′, the page ranks 828′, the lexicon 832′ and the repository 814′ may be the same as those introduced in §4.1 above. However, the improved duplicate removal process is not limited for use in such a system and can be used in other, alternative, systems.\n\nThe rank-ordered query results 910 define a set of candidate results CR corresponding to a number of documents, from which the improved duplicate removal process 920 generates a set of final query results 940 by removing “duplicate” documents. To reiterate, the improved duplicate removal process 920 detects duplicate documents (e.g., web pages) by using query-relevant information to limit the portion(s) of documents to be compared for similarity. Duplicate documents are then removed (or, more accurately, not added to the final set 940).\n\nAt a high level, in the improved duplicate removal process 920, a duplicate removal management process 930 uses a query-relevant information (e.g., “snippet”) extraction process 934 to extract query-relevant information from documents. This information is referred to as query-relevant part(s) of the results 936. As used below, “the query-relevant part(s)” term is to be interpreted broadly to include some or all query-relevant parts of a document unless specified otherwise. The query-relevant part(s) of an ith document are denoted, collectively, as QRi. The query-relevant information extraction process 934 may operate based on tunable extraction parameter(s) 935 and may accept documents from the repository 814′ (or decompressed documents from an intervening source). The duplicate removal management process 930 then uses a query-dependent information (e.g., snippet) similarity process 932 to determine whether or not a candidate document is “similar” to a document already in the final set 940. This similarity determination is based on the query-relevant part(s) 936 of the documents under consideration, and may consider tunable similarity measure parameter(s) 933. Thus, the query-relevant information similarity process 932 is performed on limited portion(s) of documents (the query-relevant part(s) of the results), rather than being performed on the entire documents.\n\nHaving introduced data structures that may be used by, and processes that may be performed by, the present invention, an exemplary duplicate removal method is described in §4.3.1.1 below with reference to FIG. 10. Exemplary query-relevant information extraction methods are then described in §4.3.1.1.1 below with reference to FIGS. 11 and 12. Exemplary query-relevant information similarity determination methods are then described in §4.3.1.1.2 below. Finally, exemplary apparatus that may be used to effect these processes and store these data structures are described in §4.3.2 below.\n\n§4.3.1.1 Exemplary Duplicate Removal Method\n\nBriefly stated, the improved duplicate removal process 930 extracts, starting with the highest-ranked candidate result CR1, the query-relevant part(s) of the document corresponding to the candidate result, thereby generating a set of one or more query-relevant part(s) (or “snippets”) associated with the original document QRi for each original candidate result CRi. Then, the process 930 adds the most relevant result CR1 to the final result set 940. For each of the remaining candidate results CR2 through CRlast, the query-relevant part(s) QRi of the corresponding (ith) document is compared with the query-relevant part(s) of any of the proceeding documents, QR1 through QRi−1, that were added to the final result set, to determine whether the query-relevant part(s) are so similar as to conclude that the documents to which they correspond are “duplicates”.\n\nComparing the query-relevant part(s) of the current document QRi with the query-relevant part(s) of only those documents in the final set avoids duplicate removal due to “transitive” similarity. That is, suppose QR1 is similar to QR2, QR2 is similar to QR3, but QR1 is not similar to QR3. If the query-relevant part(s) of the current document were compared with the query-relevant part(s) of all preceding documents, the final set would only include CR1, rather than CR1 and CR3.\n\nOnce the query relevant-part(s) QRi of a given ith document is found to be a duplicate of query-relevant part(s) associated with any preceding document in the final set 940, no further comparisons are needed—the candidate result CR associated with the document will not be added to the final set 940. Stated differently, a candidate result is added to the final set 940 only if the query-relevant part(s) QRi of its corresponding document is not found to be similar to the query-relevant part(s) of any and all other documents preceding it, QR1 through QRi−1, and found in the final results set 940.\n\nFIG. 10 is a high level flow diagram of an exemplary duplicate removal management method 930′ which may be used to effect the process 930. An index “i” is initialized and incremented as shown in blocks 1005 and 1010, respectively. The ith candidate result CRi is then accepted, and the query-relevant part(s) QRi of its corresponding document are extracted, as indicated by blocks 1015 and 1020. This extraction act 1020 corresponds to the query-relevant extraction process 934.\n\nA second index “j” is initialized and a next index j is determined (Recall that only the query-relevant part(s) of those documents already in the final set are used.) as shown in blocks 1025 and 1030, respectively. At decision branch point 1035, it is determined whether the second index j is less than the first index i, or whether the second index j is equal to the first index i. If the former is true, a similarity metric is applied to the query-relevant part(s) QRi and QRj of the documents corresponding to candidate results CRi and CRj. Then at decision branch point 1055, it is determined whether or not the query-relevant part(s) QRi and QRj are similar. If not, the method 930 branches back to block 1030. If, on the other hand, the query-relevant part(s) QRi and QRj are similar, then the current candidate result CRi is suppressed (that is, the current candidate result is not added to the final set) as shown in block 1060, and the method 930′ branches back to block 1010 to try a next candidate result CRi+1.\n\nReferring once again to decision branch point 1035, if the first index i is equal to the second index j (which will occur when the query-relevant part(s) QRi were not found to be similar to any of the query-relevant part(s) associated with the preceding candidate documents (QR1 through QRi−1) that are in the final set 940, then the candidate result CRi is added to the set of final results 940 as indicated by block 1040, and the method 930′ proceeds to decision branch point 1070.\n\nAt decision branch point 1070, it is determined whether or not there are enough results in the final set. If not, the method 930′ branches back to block 1010 to test the next candidate result CRi+1. Otherwise, if there are enough results in the final set, the method 930′ is left via RETURN node 1080. The final set may be incrementally updated in groups of a predetermined number (e.g., ten) of results, where a next group of results is determined only if the user requests more results.\n\nActually, since the first candidate result CR1 has the highest rank and is kept even if the query-relevant part(s) QR1 of its corresponding document are similar to the query-relevant part(s) of any other document, it should be simply added to the set of final results 940 before block 1010 or 1005 as indicated by block 1002 depicted with dashed lines. In this case, the index i would be initialized to 1 in step 1005. Further, although the query-relevant part(s) of each document corresponding to each candidate result were determined as needed (Recall block 1020.), the query-relevant part(s) QR1 through QRlast for all of the documents corresponding to all of the candidate results could be determined up-front.\n\nReferring back to block 1020, query-relevant part(s) QRi of the document corresponding to the current candidate result CRi are extracted. Section 4.3.1.1.1 below describes exemplary methods for performing this act. Further, referring back to blocks 1050 and 1055, a similarity metric is applied to the query-relevant part(s) QRj of a document corresponding to a present candidate result and a document corresponding to a previous candidate result QRj. Section 4.3.1.1.2 below describes exemplary methods for performing this act.\n\n§4.3.1.1.1 Exemplary Query-Relevant Information Extraction Methods\n\nMany alternative methods may be used to extract query-relevant part(s) QR from a document corresponding to a candidate result CR. For example, words or sentences surrounding some or all occurrences of query terms or concepts may be extracted. The amount of text extracted influences a subsequent similarity measure. (Hence, tunable parameters 933 and 935 should be adjusted in concert.) In general, the less information extracted, the more similar the documents may be found to be (so the similarity threshold should be set higher), or stated oppositely, the more information extracted, the less similar the documents may be found to be (so the similarity threshold should be set lower).\n\nFIG. 11 is a high level flow diagram of an exemplary method 934′ which may be used to extract query-relevant information (referred to as “segment(s)”, which may be thought of as “candidate snippet(s)”) from a document. This exemplary method 934′ is similar to keyword-in-context summaries that show segments surrounding keyword occurrences. That is, the extraction method 934′ chooses a number of segments (e.g., up to two) that show roughly 100 characters each from the candidate result document. Formatting information and most punctuation may be discarded.\n\nReferring specifically to FIG. 11 now, the method 934′ accepts query “keywords” and the (decompressed) document as shown in block 1105. The term “keywords” may include all words of the search, but preferably does not include so-called “stop words” which are so common that they do not convey much information or that convey some type of Boolean operation (e.g., “the”, “it”, “and”, “or”, “not”, “that”, etc.). As indicated by optional block 1110, formatting codes and/or at least some punctuation may be removed from the decompressed document. A window is defined as a predetermined number (e.g., 100) of characters as shown in block 1115. Alternatively, a window may be defined as a predetermined number (e.g., 15) of words.\n\nIn the following, the window is slid across (or a number of windows are applied over) the decompressed document. In this regard, a window index “k” is initialized as shown in block 1120. Then for each character of the decompressed document the following steps are performed as indicated by loop 1125-1150. In one embodiment, the steps within loop 1125-1150 may be performed for each character of the decompressed document that is not a space and that does not split a word (as characters that are not the first character of a word do). In the alternative where the window is a predetermined number of words, the steps within the loop 1125-1150 may be performed for each word of the decompressed document. In any event, the window index is incremented as indicated by block 1130. At decision branch point 1135, it is determined whether or not the rest of the decompressed document is less than the size of the window (that is, if the window extends beyond the last character (or word) of the decompressed document). If not, the number of keywords in the part of document covered by the current (kth) window (i.e., the segment) is determined as shown in block 1140. This count is saved as a number of hits corresponding to the kth window (or hitsk) as shown in block 1145. The (next) window is then advanced as indicated by loop part 1150 and the method 934′ branches back to loop part 1125.\n\nReferring back to decision branch point 1135, if the size of the rest of the document is less than the size of the window, the method 934′ branches to block 1160 where segments (as defined by the windows) are sorted by the number of hits. Then a predetermined number (e.g., two) of the highest ranking segments (as defined by the windows having the most hits—containing the most keywords) are returned as indicated by block 1165 before the method 934′ is left via RETURN node 1170. These predetermined number of the highest ranking segments define the query-relevant part(s) of the document. Although not shown, the title of the document, if any, may be included in the query-relevant part(s) of the document.\n\nAn alternative query-relevant extraction method exploits the language structure of the document and selects sentences or paragraphs that contain a predetermined number (e.g., one) of the query's keywords. More specifically, the original document is segmented into sentences or paragraphs. Each sentence or paragraph is a “segment” (which may be thought of as a candidate snippet). Every segment that contains a predetermined number (e.g., one) of the keywords is included in the query-relevant part(s) QRi of the document.\n\nReferring specifically to FIG. 12 now, the method 934″ accepts query “keywords” and the (decompressed) document as shown in block 1201. The document is then separated into sentences (or, alternatively, paragraphs) to define segments as indicated by block 1205. As shown in blocks 1210 and 1215, a segment index “j” is initialized and incremented. At decision branch point 1220, it is determined whether or not there are more segments. If not, the method 934″ is left via RETURN node 1270. If, on the other hand, there are more segments, the next (jth) segment is selected. As indicated by blocks 1230 and 1235, keyword index “k” is initialized and incremented. At decision branch point 1240, it is determined whether any more keywords are present in the query. If not, the method 934″ branches back to block 1215 so that further segments, if any, may be processed. If, on the other hand, there are more keywords present in the query, the next (kth) keyword is selected as shown in block 1245. Next, at decision branch point 1250, it is determined whether or not the current (kth) keyword occurs in the current (jth) segment. If so, the current (jth) segment is added to the query-relevant part(s) (QR) as indicated by block 1265 and the method 934″ branches back to step 1215 so that the next segment, if any, can be processed. If, on the other hand, the current keyword does not occur in the current segment, the method 934″ branches back to block 1235 so that the next keyword, if any, can be checked.\n\nIn the foregoing description of method 934″, a segment was added to the query-relevant part QR even if it contained only one occurrence of only one of the keywords. Alternatively, the segment may be added to the query-relevant part QR only if it contains at least a predetermined number of occurrences of any of the keywords (or, alternatively, only if it contains at least a predetermined number of different keywords). This second alternative is indicated by the portions of FIG. 12 illustrated in phantom lines. More specifically, if a current keyword occurs in a current segment, a count corresponding to the current segment is incremented as indicated in block 1255 and the current segment is added to the query-relevant part only if its count is at least a predetermined number as indicated by decision branch point 1260. If, in block 1255, the count associated with the segment were incremented by the number of times the current keyword appeared in the current segment, the first alternative would be effected.\n\nIn other alternative query-relevant information extraction methods, natural language processing techniques may be used to apply a syntactic analysis. (See, e.g., the article, S. Feldman, “NLP Meets the Jabberwocky: Natural Language Processing in Information Retrieval,” Online (May 1999).) For example, a segment may be extracted by determining those sentences in the document that relate to query terms. Thus, rather than simply looking for keyword occurrences, the sentences or paragraphs that have meanings similar to those of the query may be sought. Thus, such techniques can be used to determine whether or not a segment of a candidate query result document is related, to at least a predetermined degree, to the query.\n\nIn most of the foregoing exemplary methods, all segments that are related to the query, at least to a predetermined degree, are extracted. Naturally, the segments could be rank ordered, based on the degree to which they are related to the query or some other ranking criteria, and only a predetermined number of the highest ranking segments would be added to the query-relevant part QR.\n\nHaving described a number of exemplary query-relevant information (e.g., snippet) extraction methods, exemplary query-relevant information (e.g., snippet) similarity determination methods are described in §4.3.1.1.2 below.\n\n§4.3.1.1.2 Exemplary Query-Relevant Information (Snippet) Similarity Determination Method(s)\n\nIn the simplest case, similarity may be determined to exist only if the query-relevant part(s) QR of the two documents under consideration are equal.\n\nAlternatively, edit distance can be used to determine whether or not query-relevant part(s) QR of the two documents under consideration are similar, rather than an equality measure.\n\nIn another alternative, the cosine distance between feature vectors (i.e., a vector in which each word in a lexicon is a dimension and the number of word occurrences is a magnitude of the dimension) of the query-relevant parts can be determined and a threshold (Recall tunable parameter 933.) can be applied. More specifically, a vector is determined for each query-relevant part(s) QR for documents corresponding to each of the candidate results CR. The vector comprises the word frequencies of the query-relevant part(s). For each word that appears in the query-relevant part(s), the corresponding entry in the vector is incremented. After the vector is generated, the vector is normalized. To determine the similarity of two query-relevant part(s) QRi and QRj, the dot product, is determined. The closer the result is to one (Cosine (0)=1), the more similar the two query-relevant parts QR are. This dot product is then compared with a threshold (Recall, e.g., tunable parameter 933.) to determine whether (the query-relevant part(s) of) the documents are similar or not. One disadvantage of this classic information retrieval (IR) approach is that two files with the same words in different orders would appear to be identical.\n\nIn yet another alternative embodiment, the Broder method, introduced in §1.2.2.1 above, may be used to determine similarity. More specifically, a “shingle” is a contiguous sequence in a document. The “w-shingling” of a document is defined as the set of all shingles of the size “w”. The similarity or resemblance of two documents (or query-relevant parts) is based on the magnitude of their intersection divided by the magnitude of their union. Again, the closer the result is to one, the more similar the documents are. This ratio is then compared with a threshold (Recall, e.g., tunable parameter 933.) to determine whether (the query-relevant part(s) of) the documents are similar or not.\n\nAs can be appreciated from the foregoing description, the present invention is more concerned with what is being compared (i.e., query-relevant part(s)) for similarity than how the similarity determination is made. Accordingly, any known, publicly available, and/or proprietary similarity determination method can be used, although some may yield better results than others.\n\n§4.3.2 Exemplary Apparatus\n\nFIG. 13 is high-level block diagram of a machine 1300 which may effect one or more of the processes discussed above. The machine 1300 basically includes a processor(s) 1310, an input/output interface unit(s) 1330, a storage device(s) 1320, and a system bus or network 1340 for facilitating the communication of information among the coupled elements. An input device(s) 1332 and an output device(s) 1334 may be coupled with the input/output interface(s) 1330.\n\nThe processor(s) 1310 may execute machine-executable instructions (e.g., C or C++ running on the Solaris operating system available from Sun Microsystems Inc. of Palo Alto, Calif. or the Linux operating system widely available from a number of vendors such as Red Hat, Inc. of Durham, N.C.) to effect one or more aspects of the present invention. At least a portion of the machine executable instructions may be stored (temporarily or more permanently) on the storage device(s) 1320 and/or may be received from an external source via an input interface unit 1330.\n\nSome aspects of the present invention may be effected in the general context of computer-executable instructions, such as program modules, being executed by a personal computer. However, the methods of the present invention may be effected by (and the data structures of the present invention may be stored on) other apparatus. Program modules may include routines, programs, objects, components, data structures, etc. that perform a task(s) or implement particular abstract data types. Moreover, those skilled in the art will appreciate that at least some aspects of the present invention may be practiced with other configurations, including hand-held devices, multiprocessor systems, microprocessor-based or programmable consumer electronics, network computers, minicomputers, set-top boxes, mainframe computers, and the like. At least some aspects of the present invention may also be practiced in distributed computing environments where tasks are performed by remote processing devices linked through a communications network. In a distributed computing environment, program modules may be located in local and/or remote memory storage devices.\n\nIn one embodiment, the machine 1300 may be one or more conventional personal computers. In this case, the processing unit(s) 1310 may be one or more microprocessors, the bus 1340 may include a system bus that couples various system components including a system memory to the processing unit(s). The system bus 1340 may be any of several types of bus structures including a memory bus or memory controller, a peripheral bus, and a local bus using any of a variety of bus architectures. The storage devices 1320 may include system memory, such as read only memory (ROM) and/or random access memory (RAM). A basic input/output system (BIOS), containing basic routines that help to transfer information between elements within the personal computer, such as during start-up, may be stored in ROM. The storage device(s) 1320 may also include a hard disk drive for reading from and writing to a hard disk, a magnetic disk drive for reading from or writing to a (e.g., removable) magnetic disk, and an optical disk drive for reading from or writing to a removable (magneto-) optical disk such as a compact disk or other (magneto-) optical media. The hard disk drive, magnetic disk drive, and (magneto-) optical disk drive may be coupled with the system bus 1340 by a hard disk drive interface, a magnetic disk drive interface, and an (magneto-) optical drive interface, respectively. The drives and their associated storage media may provide nonvolatile storage of machine-readable instructions, data structures, program modules and other data for the personal computer. Although the exemplary environment described herein employs a hard disk, a removable magnetic disk and a removable optical disk, those skilled in the art will appreciate that other types of storage media (with appropriate interface devices), may be used instead of, or in addition to, the storage devices introduced above.\n\nA user may enter commands and information into the personal computer through input devices 1332, such as a keyboard and pointing device (e.g., a mouse) for example. Other input devices such as a microphone, a joystick, a game pad, a satellite dish, a scanner, or the like, may also (or alternatively) be included. These and other input devices are often connected to the processing unit(s) 1310 through a serial port interface 1330 coupled to the system bus 1340. Input devices may be connected by other interfaces 1330, such as a parallel port, a game port or a universal serial bus (USB). However, in the context of a search facility 730, no input devices, other than those needed to accept queries, and possibly those for system administration and maintenance, are needed.\n\nThe output device(s) 1334 may include a monitor or other type of display device, which may also be connected to the system bus 1340 via an interface 1330, such as a video adapter for example. In addition to (or instead of) the monitor, the personal computer may include other (peripheral) output devices (not shown), such as speakers and printers for example. Again, in the context of a search facility 730, no output devices, other than those needed to communicate query results, and possibly those for system administration and maintenance, are needed.\n\nThe computer may operate in a networked environment which defines logical and/or physical connections to one or more remote computers, such as a remote computer. The remote computer may be another personal computer, a server, a router, a network computer, a peer device or other common network node, and may include many or all of the elements described above relative to the personal computer. The logical and/or physical connections may include a local area network (LAN) and a wide area network (WAN). An intranet and the Internet may be used instead of, or in addition to, such networks.\n\nWhen used in a LAN, the personal computer may be connected to the LAN through a network interface adapter (or “NIC”) 1330. When used in a WAN, such as the Internet, the personal computer may include a modem or other means for establishing communications over the wide area network. In a networked environment, at least some of the program modules depicted relative to the personal computer may be stored in the remote memory storage device. The network connections shown are exemplary and other means of establishing a communications link between the computers may be used.\n\nReferring once again to FIG. 7, the information access facility 710 may be a personal computer, the browsing process 712 may be an Internet browser such as Explorer from Microsoft Corporation or Netscape from Sun Microsystems, and the input/output interface process(es) 718 may include communications software and hardware. Other information access facilities 710 may be untethered devices such as mobile telephones, personal digital assistants, etc., or other information appliances such as set-top boxes, network appliances, etc.\n\n§4.4 Example of Operation of Exemplary Embodiment\n\nAn example of operation of an exemplary embodiment of the present invention is now described with reference to FIGS. 14 through 16. FIG. 14 is a data messaging or communications diagram which illustrates an operation of an exemplary embodiment of the present invention. First, as indicated by communication 1405, a search process 830′ receives a query from a client user interface process 716′. In this example, the query is “muppet faq”. (Referring to FIG. 7, the (entire) browsing process 712, the (client) input/output interface process(es) 718, the network 760, the (search engine) input/output interface process(es) 732, and the (entire) query processing process 734 are not shown in FIG. 14, to simplify the drawing.) The search process 830′ generates results in the normal manner and saves them as rank-ordered results, as indicated by communication 1410. FIG. 15 illustrates these results as they could be rendered to the client user. In accordance with the present invention, however, these ranked results are merely candidate results CR1, CR2, . . . , CR10. The search process 830′ then calls the duplicate removal management process 930 as indicated by communication 1415.\n\nThe duplicate removal management process 930 will then request at least some, if not all, of the candidate results as indicated in communication 1420. The requested results are returned in communication 1425. Since the first candidate result CR1 is the highest ranking, if its query-relevant parts QR1 are “similar” to the query-relevant parts QRi (i≠1), it is still kept as a final result—the ith candidate result CRi is not used. Accordingly, as indicated by communication 1430, the duplicate removal management process 930 may write the first candidate results CRi to the final set 940.\n\nThe duplicate removal management process 930 also calls the query-relevant information (e.g., “snippet”) extraction process 934 as indicated by communication 1435. In response, the query-relevant information extraction process 934 requests 1440 the (decompressed) documents corresponding to the candidate results CR as indicated by communication 1440. The repository 814′, or some other source of (decompressed) documents, returns the requested (decompressed) documents to the query-relevant information extraction process 934 as indicated by communication 1445. The query-relevant information extraction process 934 may determine the query-relevant parts QR of the decompressed documents and save them to 936 as indicated by communication 1450. The query-relevant information extraction process 934 then indicates to the duplicate management process 930 that it is done, as indicated by communication 1455. (Note that although the query-relevant information extraction process 934 has been illustrated as operating on all of the candidate results CR, it can process smaller batches of candidate results CR, or process one candidate result CR at a time.)\n\nThe duplicate removal management process 930 may then call the query dependent similarity process 932 as indicated by communication 1460. In response, the query dependent similarity process 932 may request at least two query-relevant part(s) QR of at least two candidate results for comparison as indicated by communication 1465. These query-relevant part(s) QRs are returned to the query dependent similarity process 932 in communication 1470. Once the query dependent similarity process 932 determines whether or not the two query-relevant part(s) QRs are similar or not, it returns its answer to the duplicate management process 930 as indicated by communication 1475. The communications 1465, 1470, and 1475 may be repeated for each candidate result in the final set (until a similarity is determined). If a “not similar” response is returned for all pairs of the ith query part(s) and query part(s) QR corresponding to candidate results CR already in the final set, the candidate result CR corresponding to the query-relevant part(s) under consideration is written to the final set 940 as indicated by communication 1480. Once, however, a “similar” response is returned, the candidate CR under consideration is removed from consideration.\n\nIn the example illustrated in FIG. 15, an extraction method which extracts titles (See the first line, underlined, of each candidate result CR.) and two snippets (See the second and third lines of each candidate result CR.), and a similarity method which requires an exact match of query-relevant part(s) were used.\n\nReferring to FIG. 15, since the query-relevant part(s) QR7 of candidate results CR7 exactly match the query-relevant parts QR5 of candidate result CR5, the candidate result CR7 will not be part of the final set 940. In this particular example, the candidate results CR5 and CR7 had identical content but different “last update” dates and different “BASE HREF” tags reflecting that they are hosted at different locations. Similarly, since the query-relevant part(s) QR8 of candidate results CR8 exactly match the query-relevant parts QR6 of candidate result CR6, the candidate result CR8 will not be part of the final set 940.\n\nStill referring to FIG. 15, candidate results CR9 and CR10 also reference the same document as candidate results CR5 and CR7. The documents corresponding to CR9 and CR10 contain the same information as those corresponding to CR5 and CR7 except for headers added by the hosting sites. Only one of these two results is saved to the final set 930 (CR9 is saved rather than CR10 since it is slightly more relevant.) to be rendered to the client user.\n\nFIG. 16 illustrates the results as they could be rendered to the client user. Notice that candidate results CR7, CR8, and CR10 did not make the final set. The last three results are other candidate results which ranked lower than CR10.\n\nIn the foregoing example, the snippets rendered to a client user (preceding a URL also rendered to the client user) were the same as those snippets extracted by the query-relevant information (e.g., snippet) extraction process 934.\n\nSlightly modifying the foregoing example, if the query-relevant information extraction method were changed so that only document titles, if they exist, were extracted, a much more aggressive duplicate removal method would result. If this method was used with the candidate results CR1 through CR10 of FIG. 15, candidate results CR7, CR9, and CR10 would not make the final set 940 since they have the same title as candidate result CR6. Similarly, candidate result CR8 would not make the final set 940 since it has the same title as candidate results CR6.\n\nIn another example, if the query-relevant information extraction method were maintained (i.e., title and two snippets), but the similarity method were relaxed such that query-relevant part(s) QRs with no more than five non-intersecting words were deemed similar, then candidate results CR6, CR7, and CR8 would be found to be duplicates of candidate result CR6, and candidate result CR10 would be found to be a duplicate of candidate result CR9.\n\n§4.5 Conclusions\n\nAs can be appreciated from the foregoing, an improved duplicate detection technique is disclosed. This technique may be automated so that processing a large amount of content from a large number of sources is feasible. By limiting the portion(s) of the documents being compared based on a query, a large range of duplicate document types, including those that would be missed by conventional similarity determination techniques, may now be detected. Further, since only a portion(s) of the documents are compared, the similarity threshold can be set relatively higher, thereby decreasing the number of documents that would be falsely identified as duplicates if a lower threshold were used.",
+ "cited_by": [
+  {
+   "id": "US20130132418A1",
+   "title": "Systems, methods and computer program products for discovering a text query from example documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8745062B2",
+   "title": "Systems, methods, and computer program products for fast and scalable proximal search for search queries",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20160299951A1",
+   "title": "Processing a search query and retrieving targeted records from a networked database system",
+   "assignee": "Vinay BAWRI"
+  },
+  {
+   "id": "CN109033457A",
+   "title": "The associated auditing method of Various database and system",
+   "assignee": "广州中赢财富信息科技有限公司"
+  },
+  {
+   "id": "CN109582640A",
+   "title": "A kind of data deduplication storage method, device and storage medium based on sliding window",
+   "assignee": "深圳市酷开网络科技有限公司"
+  },
+  {
+   "id": "US8352400B2",
+   "title": "Adaptive pattern recognition based controller apparatus and method and human-factored interface therefore",
+   "assignee": "Hoffberg Steven M"
+  },
+  {
+   "id": "US7152031B1",
+   "title": "Construction, manipulation, and comparison of a multi-dimensional semantic space",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US7966078B2",
+   "title": "Network media appliance system and method",
+   "assignee": "Steven Hoffberg"
+  },
+  {
+   "id": "US6615209B1",
+   "title": "Detecting query-specific duplicate documents",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US7653530B2",
+   "title": "Method and mechanism for the creation, maintenance, and comparison of semantic abstracts",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US7286977B1",
+   "title": "Intentional-stance characterization of a general content stream or repository",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US7672952B2",
+   "title": "System and method of semantic correlation of rich content",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US20030009345A1",
+   "title": "System and method for communication and processing of legal document based on geographic area",
+   "assignee": "Thorpe Kenneth J."
+  },
+  {
+   "id": "US20100122312A1",
+   "title": "Predictive service systems",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US20090234718A1",
+   "title": "Predictive service systems using emotion detection",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "WO2002037220A2",
+   "title": "Internet contextual communication system",
+   "assignee": "Contextweb"
+  },
+  {
+   "id": "US6978419B1",
+   "title": "Method and apparatus for efficient identification of duplicate and near-duplicate documents and text spans using high-discriminability text fragments",
+   "assignee": "Justsystem Corporation"
+  },
+  {
+   "id": "JP2002259193A",
+   "title": "Information providing server, server information providing method, information providing system, and computer-readable recording medium",
+   "assignee": "Fujitsu Ltd"
+  },
+  {
+   "id": "WO2002082224A2",
+   "title": "System, method, and software for identifying historically related legal opinions",
+   "assignee": "West Publishing Company"
+  },
+  {
+   "id": "US7171415B2",
+   "title": "Distributed information discovery through searching selected registered information providers",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US7099871B2",
+   "title": "System and method for distributed real-time search",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US6934702B2",
+   "title": "Method and system of routing messages in a distributed search network",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US6961723B2",
+   "title": "System and method for determining relevancy of query responses in a distributed network search mechanism",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US6950821B2",
+   "title": "System and method for resolving distributed network search queries to information providers",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US7013303B2",
+   "title": "System and method for multiple data sources to plug into a standardized interface for distributed deep search",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US7899825B2",
+   "title": "Method and apparatus for duplicate detection",
+   "assignee": "SAP America, Inc."
+  },
+  {
+   "id": "US7136845B2",
+   "title": "System and method for query refinement to enable improved searching based on identifying and utilizing popular concepts related to users' queries",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7296019B1",
+   "title": "System and methods for providing runtime spelling analysis and correction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7143362B2",
+   "title": "System and method for visualizing and navigating content in a graphical user interface",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6978264B2",
+   "title": "System and method for performing a search and a browse on a query",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7139756B2",
+   "title": "System and method for detecting duplicate and similar documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6968331B2",
+   "title": "Method and system for improving data quality in large hyperlinked text databases using pagelets and templates",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7853719B1",
+   "title": "Systems and methods for providing runtime universal resource locator (URL) analysis and correction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8495483B1",
+   "title": "Using text surrounding hypertext links when indexing and generating page summaries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7035845B2",
+   "title": "Generic proxy for representing search engine partner",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20030233360A1",
+   "title": "Multiple-item searching method",
+   "assignee": "Chai-Hup Tan"
+  },
+  {
+   "id": "US7082428B1",
+   "title": "Systems and methods for collaborative searching",
+   "assignee": "Bellsouth Intellectual Property Corporation"
+  },
+  {
+   "id": "US7028027B1",
+   "title": "Associating documents with classifications and ranking documents based on classification weights",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "JP3781005B2",
+   "title": "Document extraction apparatus, document extraction program, and document extraction method",
+   "assignee": "セイコーエプソン株式会社"
+  },
+  {
+   "id": "US7380204B2",
+   "title": "Infrastructure for generating web content",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7487185B2",
+   "title": "Technique for changing views of web content",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7783617B2",
+   "title": "Personals advertisement affinities in a networked computer system",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "FR2859341A1",
+   "title": "METHOD FOR CONTROLLING EQUIPMENT CONNECTED TO A HETEROGENEOUS NETWORK AND APPARATUS IMPLEMENTING THE METHOD",
+   "assignee": "Thomson Licensing Sa"
+  },
+  {
+   "id": "US20060036582A1",
+   "title": "Global search with local search",
+   "assignee": "Laust Sondergaard"
+  },
+  {
+   "id": "US7454417B2",
+   "title": "Methods and systems for improving a search ranking using population information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7505964B2",
+   "title": "Methods and systems for improving a search ranking using related queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20050076015A1",
+   "title": "Dynamic query building based on the desired number of results",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7281006B2",
+   "title": "System and method for dividing data into predominantly fixed-sized chunks so that duplicate data chunks may be identified",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7421305B2",
+   "title": "Audio duplicate detector",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8521725B1",
+   "title": "Systems and methods for improved searching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7937340B2",
+   "title": "Automated satisfaction measurement for web search",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8676790B1",
+   "title": "Methods and systems for improving search rankings using advertising data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7302645B1",
+   "title": "Methods and systems for identifying manipulated articles",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7333985B2",
+   "title": "Dynamic content clustering",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050131872A1",
+   "title": "Query recognizer",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7249319B1",
+   "title": "Smartly formatted print in toolbar",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7523109B2",
+   "title": "Dynamic grouping of content including captive data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7890526B1",
+   "title": "Incremental query refinement",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050216823A1",
+   "title": "Assigning textual ads based on article history",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7502773B1",
+   "title": "System and method facilitating page indexing employing reference information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7676553B1",
+   "title": "Incremental web crawler using chunks",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7953631B1",
+   "title": "Paid inclusion listing enhancement",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7516118B1",
+   "title": "Methods and systems for assisted network browsing",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8341017B2",
+   "title": "System and method for optimizing search result listings",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7444327B2",
+   "title": "System and method for automated optimization of search result relevance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050154717A1",
+   "title": "System and method for optimizing paid listing yield",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050165750A1",
+   "title": "Infrequent word index for document indexes",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8375048B1",
+   "title": "Query augmentation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8010459B2",
+   "title": "Methods and systems for rating associated members in a social network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7680770B1",
+   "title": "Automatic generation and recommendation of communities in a social network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8015119B2",
+   "title": "Methods and systems for the display and navigation of a social network",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7293016B1",
+   "title": "Index partitioning based on document relevance for document indexes",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7424467B2",
+   "title": "Architecture for an indexer with fixed width sort and variable width sort",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7707039B2",
+   "title": "Automatic modification of web pages",
+   "assignee": "Exbiblio B.V."
+  },
+  {
+   "id": "US7472113B1",
+   "title": "Query preprocessing and pipelining",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7293005B2",
+   "title": "Pipelined architecture for global analysis and index building",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7499913B2",
+   "title": "Method for handling anchor text",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8442331B2",
+   "title": "Capturing text from rendered documents using supplemental information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8296304B2",
+   "title": "Method, system, and program for handling redirects in a search engine",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8799303B2",
+   "title": "Establishing an interactive environment for rendered documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10635723B2",
+   "title": "Search engines and systems with handheld document data capture devices",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US20060041484A1",
+   "title": "Methods and systems for initiating application processes by data capture from rendered documents",
+   "assignee": "King Martin T"
+  },
+  {
+   "id": "US8521772B2",
+   "title": "Document enhancement system and method",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7812860B2",
+   "title": "Handheld device for capturing text from both a document printed on paper and a document displayed on a dynamic display device",
+   "assignee": "Exbiblio B.V."
+  },
+  {
+   "id": "US8676830B2",
+   "title": "Keyword recommendation for internet search engines",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7554544B2",
+   "title": "Just-in-time user interface layout",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7925657B1",
+   "title": "Methods and systems for adjusting a scoring measure based on query breadth",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20050210009A1",
+   "title": "Systems and methods for intellectual property management",
+   "assignee": "Bao Tran"
+  },
+  {
+   "id": "US20050210008A1",
+   "title": "Systems and methods for analyzing documents over a network",
+   "assignee": "Bao Tran"
+  },
+  {
+   "id": "US7840547B1",
+   "title": "Methods and systems for efficient query rewriting",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7996419B2",
+   "title": "Query rewriting with entity detection",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7536382B2",
+   "title": "Query rewriting with entity detection",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7990556B2",
+   "title": "Association of a portable scanner with input/output and storage devices",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9143638B2",
+   "title": "Data capture from rendered documents using handheld device",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9116890B2",
+   "title": "Triggering actions in response to optically or acoustically capturing keywords from a rendered document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080313172A1",
+   "title": "Determining actions involving captured information and electronic content associated with rendered documents",
+   "assignee": "King Martin T"
+  },
+  {
+   "id": "USRE50599E1",
+   "title": "Search engines and systems with handheld document data capture devices",
+   "assignee": "Kyocera Corporation"
+  },
+  {
+   "id": "US8621349B2",
+   "title": "Publishing techniques for adding value to a rendered document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8793162B2",
+   "title": "Adding information or functionality to a rendered document via association with an electronic counterpart",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8146156B2",
+   "title": "Archive of text captures from rendered documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9008447B2",
+   "title": "Method and system for character recognition",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7894670B2",
+   "title": "Triggering actions in response to optically or acoustically capturing keywords from a rendered document",
+   "assignee": "Exbiblio B.V."
+  },
+  {
+   "id": "US20070300142A1",
+   "title": "Contextual dynamic advertising based upon captured rendered text",
+   "assignee": "King Martin T"
+  },
+  {
+   "id": "US8914383B1",
+   "title": "System and method for providing job recommendations",
+   "assignee": "Monster Worldwide, Inc."
+  },
+  {
+   "id": "US8713418B2",
+   "title": "Adding value to a rendered document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7689585B2",
+   "title": "Reinforced clustering of multi-type data objects for search term suggestion",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7305389B2",
+   "title": "Content propagation for enhanced document retrieval",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7260568B2",
+   "title": "Verifying relevance between keywords and web site contents",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7428529B2",
+   "title": "Term suggestion for multi-sense query",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7366705B2",
+   "title": "Clustering based text classification",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7289985B2",
+   "title": "Enhanced document retrieval",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8620083B2",
+   "title": "Method and system for character recognition",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9460346B2",
+   "title": "Handheld device for capturing text from both a document printed on paper and a document displayed on a dynamic display device",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8489624B2",
+   "title": "Processing techniques for text capture from a rendered document",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US8874504B2",
+   "title": "Processing techniques for visual capture data from a rendered document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7739142B2",
+   "title": "System and method for providing automobile marketing research information",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7349901B2",
+   "title": "Search engine spam detection using external data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050267820A1",
+   "title": "System, method and computer program product for finding customer orientated advertisements",
+   "assignee": "Zhiliang Zheng"
+  },
+  {
+   "id": "US20050267810A1",
+   "title": "System, method and computer program product for organizing items for presentment to a user",
+   "assignee": "Zhiliang Zheng"
+  },
+  {
+   "id": "US20060041478A1",
+   "title": "Universal network market system",
+   "assignee": "Zhiliang Zheng"
+  },
+  {
+   "id": "US20050267809A1",
+   "title": "System, method and computer program product for presenting advertising alerts to a user",
+   "assignee": "Zhiliang Zheng"
+  },
+  {
+   "id": "US8832132B1",
+   "title": "Personalizing search queries based on user membership in social network communities",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "EP1779214A4",
+   "title": "Method and system for automated intelligent electronic advertising",
+   "assignee": "Blake Bookstaff"
+  },
+  {
+   "id": "US7266548B2",
+   "title": "Automated taxonomy generation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8825639B2",
+   "title": "Endorsing search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8005716B1",
+   "title": "Methods and systems for establishing a keyword utilizing path navigation information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7827176B2",
+   "title": "Methods and systems for endorsing local search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7428530B2",
+   "title": "Dispersing search engine results by using page category information",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7293017B2",
+   "title": "Presentation-level content filtering for a search result",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7363296B1",
+   "title": "Generating a subindex with relevant attributes to improve querying",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8346620B2",
+   "title": "Automatic modification of web pages",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7580837B2",
+   "title": "System and method for targeted tuning module of a speech recognition system",
+   "assignee": "At&T Intellectual Property I, L.P."
+  },
+  {
+   "id": "US20060036583A1",
+   "title": "Systems and methods for processing search results",
+   "assignee": "Laust Sondergaard"
+  },
+  {
+   "id": "US20060041476A1",
+   "title": "System and method for providing an expert platform",
+   "assignee": "Zhiliang Zheng"
+  },
+  {
+   "id": "US20060041477A1",
+   "title": "System and method for providing targeted information to users",
+   "assignee": "Zhiliang Zheng"
+  },
+  {
+   "id": "KR100608604B1",
+   "title": "Method and apparatus for searching right objects stored in portable storage device using object identifier",
+   "assignee": "삼성전자주식회사"
+  },
+  {
+   "id": "US7461064B2",
+   "title": "Method for searching documents for ranges of numeric values",
+   "assignee": "International Buiness Machines Corporation"
+  },
+  {
+   "id": "US8364668B2",
+   "title": "User interfaces for a document search engine",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8051096B1",
+   "title": "Methods and systems for augmenting a token lexicon",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7680648B2",
+   "title": "Methods and systems for improving text segmentation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7996208B2",
+   "title": "Methods and systems for selecting a language for text segmentation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7779001B2",
+   "title": "Web page ranking with hierarchical considerations",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8412714B2",
+   "title": "Adaptive processing of top-k queries in nested-structure arbitrary markup language such as XML",
+   "assignee": "At&T Intellectual Property Ii, L.P."
+  },
+  {
+   "id": "US20110029504A1",
+   "title": "Searching and accessing documents on private networks for use with captures from rendered documents",
+   "assignee": "King Martin T"
+  },
+  {
+   "id": "US7242751B2",
+   "title": "System and method for speech recognition-enabled automatic call routing",
+   "assignee": "Sbc Knowledge Ventures, L.P."
+  },
+  {
+   "id": "US10402457B1",
+   "title": "Methods and systems for correlating connections between users and links between articles",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US8843536B1",
+   "title": "Methods and systems for providing relevant advertisements or other content for inactive uniform resource locators using search queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8060405B1",
+   "title": "Methods and systems for correlating connections between users and links between articles",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7751551B2",
+   "title": "System and method for speech-enabled call routing",
+   "assignee": "At&T Intellectual Property I, L.P."
+  },
+  {
+   "id": "US8131726B2",
+   "title": "Generic architecture for indexing document groups in an inverted text index",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "KR100996131B1",
+   "title": "Listing Management System and Methods",
+   "assignee": "야후! 인크."
+  },
+  {
+   "id": "US20060206517A1",
+   "title": "System and method for listing administration",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "WO2006096939A1",
+   "title": "Remote access of heterogeneous data",
+   "assignee": "Kwok Kay Wong"
+  },
+  {
+   "id": "US8375067B2",
+   "title": "Intelligent job matching system and method including negative filtration",
+   "assignee": "Monster Worldwide, Inc."
+  },
+  {
+   "id": "US8433713B2",
+   "title": "Intelligent job matching system and method",
+   "assignee": "Monster Worldwide, Inc."
+  },
+  {
+   "id": "US8527510B2",
+   "title": "Intelligent job matching system and method",
+   "assignee": "Monster Worldwide, Inc."
+  },
+  {
+   "id": "US8417693B2",
+   "title": "Enforcing native access control to indexed documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "AU2006279694B2",
+   "title": "Method and system for placement and pricing of internet-based advertisements or services",
+   "assignee": "Contextweb, Inc."
+  },
+  {
+   "id": "US20070123472A1",
+   "title": "Filtering predictive data",
+   "assignee": "Searete Llc, A Limited Liability Corporation Of The State Of Delaware"
+  },
+  {
+   "id": "US20070055451A1",
+   "title": "Accessing data related to tissue coding",
+   "assignee": "Searete Llc"
+  },
+  {
+   "id": "US10460080B2",
+   "title": "Accessing predictive data",
+   "assignee": "Gearbox, Llc"
+  },
+  {
+   "id": "US7894993B2",
+   "title": "Data accessing techniques related to tissue coding",
+   "assignee": "The Invention Science Fund I, Llc"
+  },
+  {
+   "id": "US20070055547A1",
+   "title": "Data techniques related to tissue coding",
+   "assignee": "Searete Llc, A Limited Liability Corporation Of The State Of Delaware"
+  },
+  {
+   "id": "US20070055546A1",
+   "title": "Data techniques related to tissue coding",
+   "assignee": "Searete Llc, A Limited Liability Corporation Of State Of Delawre"
+  },
+  {
+   "id": "US20070093967A1",
+   "title": "Accessing data related to tissue coding",
+   "assignee": "Searete Llc, A Limited Liability Corporation Of The State Of Delaware"
+  },
+  {
+   "id": "US10016249B2",
+   "title": "Accessing predictive data",
+   "assignee": "Gearbox Llc"
+  },
+  {
+   "id": "US7743007B2",
+   "title": "System for graphical illustration of a first possible outcome of a use of a treatment parameter with respect to body portions based on a first dataset associated with a first predictive basis and for modifying a graphical illustration to illustrate a second possible outcome of a use of a treatment parameter based on a second dataset associated with a second predictive basis",
+   "assignee": "Invention Science Fund I"
+  },
+  {
+   "id": "US20070055548A1",
+   "title": "Accessing data related to tissue coding",
+   "assignee": "Searete Llc, A Limited Liability Corporation Of The State Of Delaware"
+  },
+  {
+   "id": "US20070055450A1",
+   "title": "Data techniques related to tissue coding",
+   "assignee": "Searete Llc, A Limited Liability Corporation Of State Of Delaware"
+  },
+  {
+   "id": "US20070055541A1",
+   "title": "Accessing predictive data",
+   "assignee": "Jung Edward K"
+  },
+  {
+   "id": "US20070055460A1",
+   "title": "Filtering predictive data",
+   "assignee": "Searete Llc, A Limited Liability Corporation Of The State Of Delaware"
+  },
+  {
+   "id": "US20070094250A1",
+   "title": "Using matrix representations of search engine operations to make inferences about documents in a search engine corpus",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20070143255A1",
+   "title": "Method and system for delivering internet content to mobile devices",
+   "assignee": "Webaroo, Inc."
+  },
+  {
+   "id": "US7895223B2",
+   "title": "Generating search results based on determined relationships between data objects and user connections to identified destinations",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US7472131B2",
+   "title": "Method and apparatus for constructing a compact similarity structure and for using the same in analyzing document relevance",
+   "assignee": "Justsystems Evans Research, Inc."
+  },
+  {
+   "id": "US20070162492A1",
+   "title": "Reconstruction of historic business object state",
+   "assignee": "Kritesh Vasing"
+  },
+  {
+   "id": "US8195657B1",
+   "title": "Apparatuses, systems and methods for data entry correlation",
+   "assignee": "Monster Worldwide, Inc."
+  },
+  {
+   "id": "US8391614B2",
+   "title": "Determining near duplicate “noisy” data objects",
+   "assignee": "Equivio Ltd."
+  },
+  {
+   "id": "US20080021854A1",
+   "title": "Search techniques related to tissue coding",
+   "assignee": "Searete Llc, A Limited Liability Corporation Of The State Of Delaware"
+  },
+  {
+   "id": "US20070204118A1",
+   "title": "System and method of managing the memory content of a device",
+   "assignee": "Sbc Knowledge Ventures ,L.P."
+  },
+  {
+   "id": "US7571162B2",
+   "title": "Comparative web search",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8600931B1",
+   "title": "Apparatuses, methods and systems for automated online data submission",
+   "assignee": "Monster Worldwide, Inc."
+  },
+  {
+   "id": "US12314907B2",
+   "title": "Apparatuses, methods and systems for automated online data submission",
+   "assignee": "Monster Worldwide, Inc."
+  },
+  {
+   "id": "US7797319B2",
+   "title": "Systems and methods for data model mapping",
+   "assignee": "Algebraix Data Corporation"
+  },
+  {
+   "id": "US7865503B2",
+   "title": "Systems and methods for data storage and retrieval using virtual data sets",
+   "assignee": "Algebraix Data Corporation"
+  },
+  {
+   "id": "US7613734B2",
+   "title": "Systems and methods for providing data sets using a store of albegraic relations",
+   "assignee": "Xsprada Corporation"
+  },
+  {
+   "id": "US7720806B2",
+   "title": "Systems and methods for data manipulation using multiple storage formats",
+   "assignee": "Algebraix Data Corporation"
+  },
+  {
+   "id": "US7769754B2",
+   "title": "Systems and methods for data storage and retrieval using algebraic optimization",
+   "assignee": "Algebraix Data Corporation"
+  },
+  {
+   "id": "US7877370B2",
+   "title": "Systems and methods for data storage and retrieval using algebraic relations composed from query language statements",
+   "assignee": "Algebraix Data Corporation"
+  },
+  {
+   "id": "US20070288308A1",
+   "title": "Method and system for providing job listing affinity",
+   "assignee": "Yahoo Inc."
+  },
+  {
+   "id": "US8209320B2",
+   "title": "System and method for keyword extraction",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US8732314B2",
+   "title": "Generation of contact information based on associating browsed content to user actions",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US7685201B2",
+   "title": "Person disambiguation using name entity extraction-based clustering",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "EP2067119A2",
+   "title": "Optical scanners, such as hand-held optical scanners",
+   "assignee": "Exbiblio B.V."
+  },
+  {
+   "id": "US8321197B2",
+   "title": "Method and process for performing category-based analysis, evaluation, and prescriptive practice creation upon stenographically written and voice-written text files",
+   "assignee": "Teresa Ruth Gaudet"
+  },
+  {
+   "id": "US20080104502A1",
+   "title": "System and method for providing a change profile of a web page",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8745183B2",
+   "title": "System and method for adaptively refreshing a web page",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20080104257A1",
+   "title": "System and method using a refresh policy for incremental updating of web pages",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8661029B1",
+   "title": "Modifying search result ranking based on implicit user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20140129539A1",
+   "title": "System and method for personalized search",
+   "assignee": "Paul Vincent Hayes"
+  },
+  {
+   "id": "US20170032044A1",
+   "title": "System and Method for Personalized Search While Maintaining Searcher Privacy",
+   "assignee": "Paul Vincent Hayes"
+  },
+  {
+   "id": "US20120130814A1",
+   "title": "System and method for search engine result ranking",
+   "assignee": "Paul Vincent Hayes"
+  },
+  {
+   "id": "US20140188919A1",
+   "title": "Duplicate document detection",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7756798B2",
+   "title": "Extensible mechanism for detecting duplicate search items",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US8938463B1",
+   "title": "Modifying search result ranking based on implicit user feedback and a model of presentation bias",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8694374B1",
+   "title": "Detecting click spam",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7617195B2",
+   "title": "Optimizing the performance of duplicate identification by content",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US9092510B1",
+   "title": "Modifying search result ranking based on a temporal element of user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090018904A1",
+   "title": "System and method for contextual advertising and merchandizing based on user configurable preferences",
+   "assignee": "Ebay Inc."
+  },
+  {
+   "id": "US7877393B2",
+   "title": "Method and system for accessing a file system",
+   "assignee": "Oracle America, Inc."
+  },
+  {
+   "id": "US9323827B2",
+   "title": "Identifying key terms related to similar passages",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8122032B2",
+   "title": "Identifying and linking similar passages in a digital text corpus",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8694511B1",
+   "title": "Modifying search result ranking based on populations",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7827186B2",
+   "title": "Duplicate item detection system and method",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US7779040B2",
+   "title": "System for detecting associations between items",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US8151292B2",
+   "title": "System for remote access to media, and reaction and survey data from viewers of the media",
+   "assignee": "Emsense Corporation"
+  },
+  {
+   "id": "US8909655B1",
+   "title": "Time based ranking",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8271493B2",
+   "title": "Extensible mechanism for grouping search results",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US20090125516A1",
+   "title": "System and method for detecting duplicate content items",
+   "assignee": "Uri Schonfeld"
+  },
+  {
+   "id": "WO2009065149A2",
+   "title": "Navigable website analysis engine",
+   "assignee": "Seoeng Llc"
+  },
+  {
+   "id": "US20090144240A1",
+   "title": "Method and systems for using community bookmark data to supplement internet search results",
+   "assignee": "Yahoo!, Inc."
+  },
+  {
+   "id": "US8862622B2",
+   "title": "Analysis, inference, and visualization of social networks",
+   "assignee": "Sprylogics International Corp."
+  },
+  {
+   "id": "US8131751B1",
+   "title": "Algorithms for selecting subsequences",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090198654A1",
+   "title": "Detecting relevant content blocks in text",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7958136B1",
+   "title": "Systems and methods for identifying similar documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9779390B1",
+   "title": "Apparatuses, methods and systems for advancement path benchmarking",
+   "assignee": "Monster Worldwide, Inc."
+  },
+  {
+   "id": "US7930306B2",
+   "title": "System and method for near and exact de-duplication of documents",
+   "assignee": "Msc Intellectual Properties B.V."
+  },
+  {
+   "id": "US9128945B1",
+   "title": "Query augmentation",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8463770B1",
+   "title": "System and method for conditioning search results",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US8521731B2",
+   "title": "Systems and methods for query expansion in sponsored search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20100082356A1",
+   "title": "System and method for recommending personalized career paths",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "TW201027375A",
+   "title": "Search system, search method and program",
+   "assignee": "Ibm"
+  },
+  {
+   "id": "US8396865B1",
+   "title": "Sharing search engine relevance data between corpora",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8296297B2",
+   "title": "Content analysis and correlation",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US8386475B2",
+   "title": "Attribution analysis and correlation",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US8301622B2",
+   "title": "Identity analysis and correlation",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US8914359B2",
+   "title": "Ranking documents with social tags",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8620900B2",
+   "title": "Method for using dual indices to support query expansion, relevance/non-relevance models, blind/relevance feedback and an intelligent search interface",
+   "assignee": "The Hong Kong Polytechnic University"
+  },
+  {
+   "id": "US8418055B2",
+   "title": "Identifying a document by performing spectral analysis on the contents of the document",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8447066B2",
+   "title": "Performing actions based on capturing information from rendered documents, such as documents under copyright",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "EP2406767A4",
+   "title": "Automatically providing content associated with captured information, such as information captured in real-time",
+   "assignee": "Google Inc"
+  },
+  {
+   "id": "US20100250479A1",
+   "title": "Intellectual property discovery and mapping systems and methods",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US9009146B1",
+   "title": "Ranking search results based on similar queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8447760B1",
+   "title": "Generating a related set of documents for an initial set of documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8498974B1",
+   "title": "Refining search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9117193B2",
+   "title": "Method and system for dynamic detection of affinity between virtual entities",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US8972391B1",
+   "title": "Recent interest based relevance scoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20110106797A1",
+   "title": "Document relevancy operator",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US8874555B1",
+   "title": "Modifying scoring data based on historical changes",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9081799B2",
+   "title": "Using gestalt information to identify locations in printed information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9323784B2",
+   "title": "Image search using text-based elements within the contents of images",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8977574B2",
+   "title": "System for providing graphical illustration of possible outcomes and side effects of the use of treatment parameters with respect to at least one body portion based on datasets associated with predictive bases",
+   "assignee": "The Invention Science Fund I, Llc"
+  },
+  {
+   "id": "US8615514B1",
+   "title": "Evaluating website properties by partitioning user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "JP5656585B2",
+   "title": "Document creation support apparatus, document creation support method, and program",
+   "assignee": "キヤノン株式会社"
+  },
+  {
+   "id": "US8924379B1",
+   "title": "Temporal-based score adjustments",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8959093B1",
+   "title": "Ranking search results based on anchors",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8650195B2",
+   "title": "Region based information retrieval system",
+   "assignee": "Palle M Pedersen"
+  },
+  {
+   "id": "US8661037B2",
+   "title": "System and method for multithreaded text indexing for next generation multi-core architectures",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US9623119B1",
+   "title": "Accentuating search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8832083B1",
+   "title": "Combining user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8346792B1",
+   "title": "Query generation using structural similarity between documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8825641B2",
+   "title": "Measuring duplication in search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9002867B1",
+   "title": "Modifying ranking data based on document changes",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8543577B1",
+   "title": "Cross-channel clusters of information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9886446B1",
+   "title": "Inverted index for text searching within deduplication backup system",
+   "assignee": "Veritas Technologies Llc"
+  },
+  {
+   "id": "US8504673B2",
+   "title": "Traffic like NXDomains",
+   "assignee": "Verisign, Inc."
+  },
+  {
+   "id": "US8583687B1",
+   "title": "Systems and methods for indirect algebraic partitioning",
+   "assignee": "Algebraix Data Corporation"
+  },
+  {
+   "id": "US10007731B2",
+   "title": "Deduplication in search results",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US9183499B1",
+   "title": "Evaluating quality based on neighbor features",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "WO2015013954A1",
+   "title": "Near-duplicate filtering in search engine result page of an online shopping system",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN103455641B",
+   "title": "Crossing repeated retrieval system and method",
+   "assignee": "北大医疗信息技术有限公司"
+  },
+  {
+   "id": "GB2520936A",
+   "title": "Method and system for performing search queries using and building a block-level index",
+   "assignee": "Ibm"
+  },
+  {
+   "id": "US20170330153A1",
+   "title": "Search Extraction Matching, Draw Attention-Fit Modality, Application Morphing, and Informed Apply Apparatuses, Methods and Systems",
+   "assignee": "Monster Worldwide, Inc."
+  },
+  {
+   "id": "GB2527355A",
+   "title": "Identifying items on a second website already browsed at a first website",
+   "assignee": "Ibm"
+  },
+  {
+   "id": "US10963810B2",
+   "title": "Efficient duplicate detection for machine learning data sets",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US10540606B2",
+   "title": "Consistent filtering of machine learning data",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US10102480B2",
+   "title": "Machine learning service",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "JP6507657B2",
+   "title": "Similarity determination apparatus, similarity determination method and similarity determination program",
+   "assignee": "富士通株式会社"
+  },
+  {
+   "id": "US10089382B2",
+   "title": "Transforming a knowledge base into a machine readable format for an automated system",
+   "assignee": "Conduent Business Services, Llc"
+  },
+  {
+   "id": "US10997227B2",
+   "title": "Systems and methods for processing a natural language query in data tables",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US20180276206A1",
+   "title": "System and method for updating a knowledge repository",
+   "assignee": "Hcl Technologies Limited"
+  },
+  {
+   "id": "CN107025218B",
+   "title": "A text deduplication method and device",
+   "assignee": "腾讯科技（深圳）有限公司"
+  },
+  {
+   "id": "JP6664784B2",
+   "title": "Display device",
+   "assignee": "株式会社インタラクティブソリューションズ"
+  },
+  {
+   "id": "CN110737756B",
+   "title": "Method, apparatus, device and medium for determining answer to user input data",
+   "assignee": "百度在线网络技术（北京）有限公司"
+  },
+  {
+   "id": "CN116881299B",
+   "title": "Query task execution method and device, computer equipment and storage medium",
+   "assignee": "北京火山引擎科技有限公司"
+  },
+  {
+   "id": "US20260111578A1",
+   "title": "Document share management",
+   "assignee": "Kyndryl, Inc."
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5222234A",
+   "title": "Combining search criteria to form a single search and saving search results for additional searches in a document interchange system",
+   "assignee": "International Business Machines Corp."
+  },
+  {
+   "id": "US5469354A",
+   "title": "Document data processing method and apparatus for document retrieval",
+   "assignee": "Hitachi, Ltd."
+  },
+  {
+   "id": "US5634051A",
+   "title": "Information management system",
+   "assignee": "Teltech Resource Network Corporation"
+  },
+  {
+   "id": "US5721897A",
+   "title": "Browse by prompted keyword phrases with an improved user interface",
+   "assignee": "Rubinstein; Seymour I."
+  },
+  {
+   "id": "US5794233A",
+   "title": "Browse by prompted keyword phrases",
+   "assignee": "Rubinstein; Seymour I."
+  },
+  {
+   "id": "US5913215A",
+   "title": "Browse by prompted keyword phrases with an improved method for obtaining an initial document set",
+   "assignee": "Seymour I. Rubinstein"
+  },
+  {
+   "id": "US5940842A",
+   "title": "Character string retrieval system having a variable display range",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "GB2335761A",
+   "title": "Information search using user profile",
+   "assignee": "Mitel Corp"
+  },
+  {
+   "id": "US5987460A",
+   "title": "Document retrieval-assisting method and system for the same and document retrieval service using the same with document frequency and term frequency",
+   "assignee": "Hitachi, Ltd."
+  },
+  {
+   "id": "US6081805A",
+   "title": "Pass-through architecture via hash techniques to remove duplicate query results",
+   "assignee": "Netscape Communications Corporation"
+  },
+  {
+   "id": "US6327590B1",
+   "title": "System and method for collaborative ranking of search results employing user and group profiles derived from document collection content analysis",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20020046203A1",
+   "title": "Method and apparatus for providing ratings of web sites over the internet",
+   "assignee": "The Sony Corporation/Sony Electronics Inc."
+  },
+  {
+   "id": "US6526400B1",
+   "title": "Information search apparatus and method",
+   "assignee": "Canon Kabushiki Kaisha"
+  },
+  {
+   "id": "US6547829B1",
+   "title": "Method and system for detecting duplicate documents in web crawls",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6615209B1",
+   "title": "Detecting query-specific duplicate documents",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US7720841B2",
+   "title": "Model-based self-optimizing distributed information management",
+   "assignee": "International Business Machines Corporation"
+  }
+ ],
+ "similar": [
+  {
+   "id": "US8214359B1",
+   "title": "Detecting query-specific duplicate documents"
+  },
+  {
+   "id": "US6658423B1",
+   "title": "Detecting duplicate and near-duplicate files"
+  },
+  {
+   "id": "US10452718B1",
+   "title": "Locating meaningful stopwords or stop-phrases in keyword-based retrieval systems"
+  },
+  {
+   "id": "US8015162B2",
+   "title": "Detecting duplicate and near-duplicate files"
+  },
+  {
+   "id": "US7716216B1",
+   "title": "Document ranking based on semantic distance between terms in a document"
+  },
+  {
+   "id": "AU2010343183B2",
+   "title": "Search suggestion clustering and presentation"
+  },
+  {
+   "id": "US8548972B1",
+   "title": "Near-duplicate document detection for web crawling"
+  },
+  {
+   "id": "US7630973B2",
+   "title": "Method for identifying related pages in a hyperlinked database"
+  },
+  {
+   "id": "US7139756B2",
+   "title": "System and method for detecting duplicate and similar documents"
+  },
+  {
+   "id": "US7424469B2",
+   "title": "System and method for blending the results of a classifier and a search engine"
+  },
+  {
+   "id": "US6374241B1",
+   "title": "Data merging techniques"
+  },
+  {
+   "id": "US20070282829A1",
+   "title": "Pipelined architecture for global analysis and index building"
+  },
+  {
+   "id": "US20050071332A1",
+   "title": "Search query processing to identify related search terms and to correct misspellings of search terms"
+  },
+  {
+   "id": "US20150172299A1",
+   "title": "Indexing and retrieval of blogs"
+  },
+  {
+   "id": "US8423885B1",
+   "title": "Updating search engine document index based on calculated age of changed portions in a document"
+  },
+  {
+   "id": "US8713047B2",
+   "title": "System and method for providing definitions"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8452766B1/en"
+}

@@ -1,0 +1,611 @@
+{
+ "id": "US9189496B2",
+ "title": "Indexing documents according to geographical relevance",
+ "abstract": "A local search engine efficiently indexes documents relevant to a geographical area by indexing, for each document, multiple location identifiers that collectively define an aggregate geographic region. When creating the index, the search engine may determine a set of geographical areas surrounding a geographical area relevant to a document and associate references to the set of geographical areas with the document index.",
+ "inventors": [
+  "Daniel Egnor"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2004-12-30",
+ "filing_date": "2010-06-15",
+ "publication_date": "2015-11-17",
+ "status": "Active",
+ "expiration": "2027-06-27",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/20",
+  "G06F16/29",
+  "G06F17/30241",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/953",
+  "G06F16/9537",
+  "G06F17/00",
+  "G06F17/3087"
+ ],
+ "claims": [
+  {
+   "text": "1. A method comprising: indexing, by one or more processors in one or more computer devices, a plurality of documents in a document index, where indexing each document, of the plurality of documents, includes: extracting, from each document, a geographic location associated with the document, identifying a particular geographic area associated with the geographic location, determining a plurality of geographic areas within a first range of the particular geographic area associated with the document, where the plurality of geographic areas are not associated with the document, and adding a plurality of references to the document to the document index, wherein the plurality of added references respectively reference the document by the particular geographic area and the plurality of geographic areas; receiving, by one or more processors in the one or more computer devices, a search query that includes one or more geographically descriptive terms; determining a search region based on the one or more geographically descriptive terms included in the search query; and identifying one or more documents in the document index based on the search region.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, further comprising: transmitting information regarding the one or more identified documents to a user device from which the search query was received.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, where the particular geographic area and the plurality of geographic areas are associated with a triangular mesh, and where the plurality of references to each document in the document index are associated with areas in the triangular mesh.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, where adding a plurality of references to each document in the document index includes: determining latitude and longitude pairs associated with the particular geographic area associated with each document and the plurality of geographic areas within a first range of the particular geographic area, and forming the plurality of references to each document added to the document index based on the latitude and longitude pairs.",
+   "dependent": true
+  },
+  {
+   "text": "5. A device comprising: one or more memories to store instructions, and one or more processors to execute the instructions to: extract, from a document, information identifying a geographic location; identify a particular geographic region in which the geographic location is located, determine other geographic regions that are at least partially within a circle of a particular radius from the particular geographic region in which the geographic location is located, where the other geographic regions are not associated with the document, add a plurality of references to the document to a document index, where the plurality of added references respectively reference the document by the particular geographic region and the other geographic regions, receive a search query, determine, based on the search query, a search location identifier, and identify the document from the document index based on the search location identifier.",
+   "dependent": false
+  },
+  {
+   "text": "6. The device of claim 5, where the particular geographic region and the other geographic regions are associated with a hierarchical triangular mesh, and where the processor, when determining the search location identifier, is further to: determine the search location identifier based on a portion of the hierarchical triangular mesh associated with the search query.",
+   "dependent": true
+  },
+  {
+   "text": "7. The device of claim 5, where the processor, when determining the search location identifier, is further to: identify a location associated with the search query, and determine the search location identifier based on the location associated with the search query.",
+   "dependent": true
+  },
+  {
+   "text": "8. The device of claim 5, where the processor, when determining the search location identifier, is further to: identify a location associated with the search query, determine a search distance associated with the search query, and determine the search location identifier based on the location and the search distance associated with the search query.",
+   "dependent": true
+  },
+  {
+   "text": "9. A memory device comprising one or more instructions which, when executed by a processor, cause the processor to: extract, from a document, information identifying a geographic location associated with the document; determine a particular geographic area associated with the geographic location; determine a plurality of geographic areas within a first range of the particular geographic location associated with the document, where the plurality of geographic areas are not associated with the document; add a plurality of references to the document to a document index, where the plurality of added references respectively reference the document by the particular geographic area and the plurality of geographic areas; receive a search query that includes one or more geographically descriptive terms; determine a search region based on the one or more geographically descriptive terms included in the search query; and identify the document from the document index based on the search region.",
+   "dependent": false
+  },
+  {
+   "text": "10. The memory device of claim 9, further comprising one or more instructions which, when executed by a processor, cause the processor to: determine other geographic areas to associate with the document, the other geographic areas being located outside of the first range and within from the geographic location associated with the document; and add a plurality of additional references to the document to the document index, where the plurality of additional references respectively reference the document by the geographic areas in the second range.",
+   "dependent": true
+  },
+  {
+   "text": "11. The memory device of claim 9, where the one or more instructions which, when executed by a processor, cause the processor to add a plurality of references to the document to a document index include one or more instructions to: identify latitude and longitude pairs associated, respectively, with the particular geographic area and the plurality of geographic areas, and form, based on the latitude and longitude pairs, the plurality of references to the particular geographic area and the plurality of geographic areas.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## RELATED APPLICATION\n\n\nThis application is a continuation of U.S. application Ser. No. 11/024,790 filed Dec. 30, 2004, the entire disclosure of which is incorporated herein by reference.\n\n\n## BACKGROUND\n\n\nA. Field of the Invention\n\nImplementations described herein relate to search engines and, more particularly, to techniques through which local search engines can efficiently retrieve documents relevant to geographical regions.\n\nB. Description of Related Art\n\nThe World Wide Web (“web”) contains a vast amount of information. Locating a desired portion of the information, however, can be challenging. This problem is compounded because the amount of information on the web and the number of new users inexperienced at web searching are growing rapidly.\n\nSearch engines attempt to return hyperlinks to web pages in which a user is interested. Generally, search engines base their determination of the user's interest on search terms (called a search query) entered by the user. The goal of the search engine is to provide links to high quality, relevant results (e.g., web pages) to the user based on the search query. Typically, the search engine accomplishes this by matching the terms in the search query to a corpus of pre-stored web pages. Web pages that contain the user's search terms are “hits” and are returned to the user as links.\n\nIn an attempt to increase the relevancy and quality of the web pages returned to the user, a search engine may attempt to sort the list of hits so that the most relevant and/or highest quality pages are at the top of the list of hits returned to the user. For example, the search engine may assign a rank or score to each hit, where the score is designed to correspond to the relevance or importance of the web page.\n\nLocal search engines are search engines that attempt to return relevant web pages and/or business listings within a specific geographic region. For a local search, a user may enter a search query and specify a geographic region around which the search query is to be performed. The local search engine may return relevant results, such as relevant web pages pertaining to the geographic region or listings of businesses in the geographic region, to the user.\n\nWith some local search engines, the local geographic region of interest is a region defined by a certain distance or radius from a starting location, such as a certain number of miles from a zip code or street address. Ideally, the local search engine should efficiently locate and return relevant results in the desired geographic region.\n\n\n## SUMMARY OF THE INVENTION\n\n\nOne aspect is directed to a method for indexing a document. The method includes determining a location associated with the document, determining a set of locations surrounding the location associated with the document, and indexing the document to include a reference to the location and the set of locations.\n\nAnother aspect of the invention is directed to yet another method for indexing a document. The method includes identifying a document having relevance to a first geographical area, determining a set of geographical areas surrounding the first geographical area, associating references to the first geographical area and the set of geographical areas with the document, and indexing the document with the associated references.\n\nYet another aspect of the invention is directed to a method of performing a search. The method includes receiving a search query associated with a geographic region, determining a location identifier associated with the geographic region, and performing a search for documents relevant to the search query based on a comparison of the search query and the location identifier to a document index.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nThe accompanying drawings, which are incorporated in and constitute a part of this specification, illustrate an embodiment of the invention and, together with the description, explain the invention. In the drawings,\n\nFIG. 1 is an exemplary diagram of a network in which systems and methods consistent with the principles of the invention may be implemented;\n\nFIG. 2 is an exemplary diagram of a client or server shown in FIG. 1;\n\nFIGS. 3A and 3B are diagrams illustrating a hierarchical triangular mesh (HTM);\n\nFIG. 4 is a flowchart illustrating exemplary operations consistent with aspects of the invention for indexing a document having geographical relevance;\n\nFIG. 5 is a diagram illustrating the operations shown in FIG. 4;\n\nFIGS. 6A and 6B illustrate exemplary documents having geographical relevance;\n\nFIG. 7 is a diagram illustrating another exemplary document having geographical relevance;\n\nFIG. 8 is a flowchart illustrating exemplary operations of a search engine in processing local search queries according to an implementation consistent with aspects of the invention;\n\nFIG. 9 is a flow chart illustrating exemplary operations of a search engine in processing local search queries according to another implementation consistent with aspects of the invention;\n\nFIG. 10 is a diagram of an exemplary HTM grid used to illustrate the acts shown in FIG. 9; and\n\nFIGS. 11 and 12 are exemplary diagrams of a local search user interface that may be presented to a user.\n\n\n## DETAILED DESCRIPTION\n\n\nThe following detailed description of the invention refers to the accompanying drawings. The detailed description does not limit the invention.\n\n\n## Overview\n\n\nA local search engine may generate results for a local search query that are limited to desired geographic regions. The geographic region may be defined, for example, by a certain distance (e.g., 20 miles) from a specified point or region. The search results are efficiently generated by indexing geographically relevant documents based on the contents of the documents and also based on multiple location identifiers. In one implementation, the location identifiers define regularly spaced geographic areas and the documents are indexed such that the multiple location identifiers indexed for each document are selected to define a predetermined range around the region with which the document is associated. This document indexing technique allows for efficient searching by geographical region.\n\n\n## Exemplary Network Overview\n\n\nFIG. 1 is an exemplary diagram of a network 100 in which systems and methods consistent with the principles of the invention may be implemented. Network 100 may include clients 110 connected to a server 120 via a network 140. Network 140 may include a local area network (LAN), a wide area network (WAN), a telephone network, such as the Public Switched Telephone Network (PSTN), an intranet, the Internet, or a combination of networks. Two clients 110 and one server 120 have been illustrated as connected to network 140 for simplicity. In practice, there may be more clients and/or servers. Also, in some instances, a client may perform the functions of a server and a server may perform the functions of a client.\n\nA client 110 may include a device, such as a wireless telephone, a personal computer, a personal digital assistant (PDA), a lap top, or another type of computation or communication device, a thread or process running on one of these devices, and/or an object executable by one of these devices. Server 120 may include a server device that processes, searches, and/or maintains documents. Clients 110 and server 120 may connect to network 140 via wired, wireless, or optical connections.\n\nServer 120 may include a search engine 125 usable by clients 110. Search engine 125 may be a query-based document search engine. Search engine 125 may particularly be designed to return results local to geographic regions. Search engine 125 may respond to user search queries based on documents stored in database 135. The documents stored in database 135 may generally include documents that were determined to be relevant to a particular geographic region. These documents may include, for instance, business listing information of businesses located at specific addresses or web documents that are in some way relevant to a geographic region (e.g., a web document providing a review of a local restaurant).\n\nA document, as the term is used herein, is to be broadly interpreted to include any machine-readable and machine-storable work product. A document may be an e-mail, a business listing, a web site, a file, a combination of files, one or more files with embedded links to other files, a news group posting, etc. In the context of the Internet, a common document is a web page. Web pages often include content and may include embedded information (such as meta information, hyperlinks, etc.) and/or embedded instructions (such as Javascript, etc.).\n\n\n## Exemplary Client/Server Architecture\n\n\nFIG. 2 is an exemplary diagram of a client 110 or server 120, referred to as computing device 200, according to an implementation consistent with the principles of the invention. Computing device 200 may include a bus 210, a processor 220, a main memory 230, a read only memory (ROM) 240, a storage device 250, an input device 260, an output device 270, and a communication interface 280. Bus 210 may include a path that permits communication among the components of computing device 200.\n\nProcessor 220 may include any type of conventional processor, microprocessor, or processing logic that may interpret and execute instructions. Main memory 230 may include a random access memory (RAM) or another type of dynamic storage device that stores information and instructions for execution by processor 220. ROM 240 may include a conventional ROM device or another type of static storage device that stores static information and instructions for use by processor 220. Storage device 250 may include a magnetic and/or optical recording medium and its corresponding drive.\n\nInput device 260 may include a conventional mechanism that permits a user to input information to computing device 200, such as a keyboard, a mouse, a pen, voice recognition and/or biometric mechanisms, etc. Output device 270 may include a conventional mechanism that outputs information to the user, including a display, a printer, a speaker, etc. Communication interface 280 may include any transceiver-like mechanism that enables computing device 200 to communicate with other devices and/or systems. For example, communication interface 280 may include mechanisms for communicating with another device or system via a network, such as network 140.\n\nSearch engine 125 may be stored in a computer-readable medium, such as memory 230. A computer-readable medium may be defined as one or more physical or logical memory devices and/or carrier waves. The software instructions defining search engine 125 may be read into memory 230 from another computer-readable medium, such as data storage device 250, or from another device via communication interface 280. The software instructions contained in memory 230 cause processor 220 to perform processes that will be described later. Alternatively, hardwired circuitry may be used in place of or in combination with software instructions to implement processes consistent with the present invention. Thus, implementations consistent with the principles of the invention are not limited to any specific combination of hardware circuitry and software.\n\n\n## Location Identifiers\n\n\nDocuments in database 135 may each be associated with a geographical region. The geographical region may be specified by a location identifier associated with the document. In one implementation, location identifiers may be derived from a model of the Earth's surface using a hierarchical grid, such as the well known Hierarchical Triangular Mesh (HTM) model. For the reader's convenience, the HTM model will now be briefly described.\n\nThe Hierarchical Triangular Mesh (HTM) is a partitioning scheme to divide the surface of a sphere, such as the Earth, into spherical triangles. It is a hierarchical scheme and the subdivisions have not exactly, but roughly equal areas. FIG. 3A is a diagram illustrating an initial subdivision of a sphere 300 (e.g., the Earth's surface) into eight regions, identified as regions N0, N1, N2, N3 and S0, S1, S2, S3. In FIG. 3A, only regions N0, N1, S0, and S1 are labeled; the other regions correspond to the “back half” of the sphere. These subdivisions are the eight largest equal-sized spherical triangles. Each subdivision may be further subdivided into triangles by connecting the side-midpoints of neighboring sides. FIG. 3B is a diagram illustrating a next subdivision level. As shown in FIG. 3B, subdivision N0 is further divided into four subdivisions, labeled as subdivisions N00, N01, N02, and N03. Although each subdivision is actually formed by arcs on a sphere, for simplicity, the subdivisions in FIG. 3B are shown as line segments of a triangle. As the subdivision size decreases, each subdivision will be more closely triangular in shape.\n\nThe subdivisions can be thought of as child nodes in a tree structure having eight root nodes (N0, N1, N2, N3, S0, S1, S2, and S3) and in which each root node may have four child nodes. The subdivisions may be continued to any level. In the naming scheme shown, at each successive level, the subdivisions are named by adding an additional character to the subdivision label. As an example, consider the node N201102. N2 refers to the root name, and the five succeeding digits (01102) denote which triangle to choose at each level. These subdivision labels may be used as location identifiers associated with geographically relevant documents in database 135.\n\nOne of ordinary skill in the art will recognize that geographic surface modeling techniques other than HTM, or differing implementations of HTM, could be used to implement the location identifiers stored in database 135. For example, other possible subdivision modeling techniques that could alternatively be used include HEALPix (Hierarchical Equal Area isoLatitude Pixelisation), C-Keys, UTM (Universal Transverse Mercator), and other various regional grid systems (such as the United Kingdom's National Grid).\n\n\n## Indexing of Database 135\n\n\nFIG. 4 is a flowchart illustrating exemplary operations consistent with aspects of the invention for indexing a document having geographical relevance.\n\nAs mentioned, database 135 may include an index of documents, such as geographically relevant web documents and business listings. The index may be an index of terms found in the documents and may be formed as an inverted index data structure that stores, for each term, a list of all documents that contain the term.\n\nA geographically relevant document may be identified (act 401). A geographically relevant document, as used herein, generally refers to any document that, in some manner, has been determined to have particular relevance to a geographical location. Business listings, such as yellow page listings, for example, may each be considered to be a geographically relevant document that is relevant to the geographic region defined by the address of the business. Other documents, such as web documents, may also have particular geographical relevance. For example, a business may have a home page, may be the subject of a document that comments on or reviews the business, or may be mentioned by a web page that in some other way relates to the business. The particular geographic location for which a document is associated may be determined in a number of ways, such as from the postal address or from other geographic signals.\n\nThe geographic region associated with the geographically relevant document may next be mapped to its corresponding location identifier (act 402). In other words, the HTM identifier (e.g., N201102) associated with the document is determined. This mapping may be performed by, for example, looking up a postal address or latitude/longitude location of the document in a predefined lookup table that corresponds postal address locations (or latitude/longitude specified locations) to the appropriate HTM identifier.\n\nAdditional location identifiers may be determined for the document. In particular, location identifiers corresponding to surrounding regions within a predetermined range may also be determined (act 403). FIG. 5 is a diagram illustrating an exemplary implementation of act 403. In this example, assume that the predetermined range is chosen to be one mile, which is illustrated by circle 530. Grid 500 represents a portion of the HTM mesh at a particular mesh level, such as a mesh level in which each triangular region represents approximately one square mile. Assume that the document is associated with a business 505 in triangular geographic region 510. As illustrated by circle 530, regions 520-1 through 520-12 at least partially fall within a one mile range of region 510. Accordingly, the geographic regions that are within approximately one mile of the center of region 510 include the geographic regions defined by regions 510 and 520 (illustrated in FIG. 5 in bold).\n\nReturning to FIG. 4, search engine 125 may index each geographically relevant document as if the document included the location identifiers associated with the document's region as well as the surrounding regions identified in act 403 (act 404). In the example of FIG. 5, for instance, the document may be indexed such that the HTM identifiers for all of regions 510 and 520-1 through 520-12 are included in the index for this document. In one implementation, the location identifiers may be associated with special tags in database 135 that indicate they are not part of the original document text.\n\nFIGS. 6A and 6B are diagrams illustrating exemplary documents that may be indexed in database 135 using the operations shown in FIG. 4. FIG. 6A illustrates a business listing 605 for a hypothetical restaurant “Gino's Pizza.” Search engine 125 may index the text of document 605 as well as the location identifiers and potentially other information associated with the document. In this example, category information 610 and location identifiers 615 are also indexed with the document. The first location identifier, HTM region N201301, may refer to the specific geographic region with which Gino's Pizza is located (e.g., region 510 in the example of FIG. 5), while the remaining location identifiers may reference the geographic regions surrounding N201301 (e.g., regions 520 in the example of FIG. 5).\n\nFIG. 6B illustrates a hypothetical web page 620 that includes a review of Gino's Pizza. Web page 620 may be determined to be geographically relevant, as it is primarily about a business at a specific geographic location. Accordingly, web page 620 may also be associated with the same geographical region as Gino's Pizza. Location identifiers 625 may thus be associated with and indexed with web page 620 in a manner similar to location identifiers 615, which are associated with and indexed with business listing 605 such that multiple location identifiers may be associated with document 520.\n\nFor ease of explanation, the exemplary HTM regions shown in FIGS. 5, 6A, and 6B reference fifth level child nodes. In practice, HTM regions that refer to areas appropriate for providing local search results will tend to be at lower node levels.\n\nFIG. 7 is a diagram illustrating indexing of another exemplary document using the operations shown in FIG. 4. The document of FIG. 7 is identical to the document of FIG. 6A, except that two sets of location identifiers, corresponding to two different predetermined ranges, were determined instead of just one set. In this example, location identifiers 710 may be the set of location identifiers determined when the predetermined range is one mile. The second set of location identifiers, labeled as location identifiers 720, may be selected based on another value for the predetermined range, such as five miles. Accordingly, there would be more location identifiers 720 than 710 and location identifiers 710 are a subset of location identifiers 720. Both sets of location identifiers may be independently indexed with the document.\n\nIn one implementation, the location identifiers in sets 710 and 720 may be distinguished from one another during indexing by appending a label to the two sets of location identifiers. In this example, the label “:1” is appended to location identifiers 710 to indicate that they correspond to the one mile identifiers and the label “:5” is appended to location identifiers 720 to indicate that they correspond to the five mile identifiers.\n\n\n## Operation of Search Engine\n\n\nFIG. 8 is a flow chart illustrating exemplary operations of search engine 125 in processing local search queries. Search engine 125 may receive a search query from a user (act 801). The search query may be a local query and may be associated with a geographic area. For instance, the user may search for “coffee shops” and specify that the location is the “Poughkeepsie, N.Y.” area. Search engine 125 may convert the region entered by the user to one or more location identifiers having the format of the location identifiers used when creating the document index stored in database 135 (e.g., HTM identifiers). The location identifier may next be appended to the search query (act 802). For instance, if the search query is “coffee shops” and the corresponding location identifier is determined to be N03013, the modified search query may be “coffee shops N03013.” In implementations in which different sets of location identifiers were identified based on differing predetermined ranges, the modified search query may include the location identifier that corresponds to the range that is to be searched. For example, the modified search query “coffee shops N03013:5” may be used for a local search within a five mile radius.\n\nThe modified search query may then be used to obtain search results in a conventional manner (act 803). For example, search engine 125 may identify documents from the document index that contain the terms in the search query. Alternatively or additionally, search engine 125 might identify documents that contain synonyms of the search terms. Because the modified search query includes the location identifier corresponding to the center of the search region, and the geographically relevant documents are indexed to include the location identifiers of all regions within the predetermined range, the search result will be limited to documents within the predetermined search range. Thus, for the example search “coffee shops N03013:5,” the search results would be documents relevant to coffee shops, such as coffee shop business listings, within five miles of Poughkeepsie, N.Y.\n\nThe search results obtained in act 803 may then be returned to the user (act 804). In one implementation, the results may be displayed as a ranked list of business listings that are relevant to the user query. Each listing may contain information, such as address information for the business associated with the business listing, a telephone number for the business, a link to more information associated with the business, a link to directions to the business, and/or a link to one or more web documents that refer to the business.\n\nFIG. 9 is a flow chart illustrating exemplary operations of search engine 125 in processing local search queries when the selected search range does not match a predetermined indexing range. Search engine 125 may receive a search query from a user (act 901). The search query may be a local query and may be associated with a geographic area and include an indication of the range for which the user would like to search. For instance, the user may search for “coffee shops,” specify that the location is the “Poughkeepsie, N.Y.” area, and specify that the user would like a search radius of three miles.\n\nAssume that the three-mile search range chosen by the user is not one that is specifically indexed in database 135. The pre-indexed range closest to but not greater than the range chosen by the user may be determined (act 902). Assume in this example that the closest pre-indexed range is one mile. That is, a location identifier set was added to the index for a range of one mile. Search engine 125 may next locate the set of regions that are within two miles (three miles−one mile) of the geographic area associated with the search (act 903). FIG. 10 is a diagram of an exemplary HTM grid 1000 illustrating acts 902 and 903. Assume that region 1010 is the region associated with the search, the inner dashed circle represents a one mile radius, and the outer dashed circle represents a two mile radius. Accordingly, for this example, in act 903, search engine 125 may locate the set of regions included in the outer circle.\n\nThe search query may then be modified by appending the location identifiers identified in act 903 to the search query as a logical OR operation (act 904). In the example above, in which the original search query was “coffee shops,” the modified search query may be “coffee shops” plus a logically ORed list of all the location identifiers that correspond to the triangular regions that fall within the outer dashed circle in FIG. 10. The modified search query may then be used to obtain search results in a conventional manner in which the search query is applied to the pre-indexed location identifiers determined in act 902 (act 905). The above “coffee shop” search may thus be applied to the one mile pre-indexed location identifiers.\n\nThe search results obtained in act 905 may then be returned to the user (act 906). In one implementation, the results may be displayed as a ranked list of business listings that are relevant to the user query.\n\nAs an alternate possible variation of the techniques shown in FIG. 9, instead of pre-indexing documents with a number of location identifiers, each document may be indexed with only the location identifier associated with the document. Search queries may then be formulated as performed in act 903, where the range is the whole search region. That is, the query may include a logical OR concatenation of all the location identifiers within the search range. This variation reduces index size and may allow for more flexibility in selecting the region size and shape at query time but increases query complexity.\n\n\n## Example User Interface\n\n\nFIGS. 11 and 12 are exemplary diagrams of a local search user interface that may be presented to a user according to an implementation consistent with the principles of the invention. As shown in FIG. 11, a user interface may be presented relating to local searching. The local search user interface may permit a user to search for business listings in a particular location. To assist the user in searching, the user interface may provide a “What” field and a “Where” field. For example, the user may enter the name of a business (e.g., “Pizza Hut”) or a type of business (e.g., pizza restaurant) in the “What” field. The user may enter the name of a location (e.g., Albany, N.Y.) in the “Where” field. Assume for this example, that the user entered “maternity dress” in the What field and “Fairfax, Va.” in the Where field of the user interface.\n\nIn the manner discussed above, a search engine 125 may perform a search based on the search terms “maternity dress” and “Fairfax Va.” to identify documents associated with businesses relating to the search terms “maternity dress” in the “Fairfax, Va.” location and include the identified documents in a list of search results. The identified documents may be selected from documents that are geographically relevant to a particular geographic region, such as a default region that is 15 miles from an estimated center of the location entered in the “Where” field.\n\nAs further shown in FIG. 12, the local search user interface may present the search results to the user. The user may modify the searched region by selecting a different search range from ranges 1205. Selecting a different range may cause another search to be performed using the selected range.\n\n\n## CONCLUSION\n\n\nA local search engine efficiently indexes documents relevant to a geographical area by indexing, for each document, multiple location identifiers that collectively define an aggregate geographic region. When the index is used to respond to individual search queries, the aggregate geographic region may be efficiently searched by merely adding a location identifier to the search query.\n\nIt will be apparent to one of ordinary skill in the art that aspects of the invention, as described above, may be implemented in many different forms of software, firmware, and hardware in the implementations illustrated in the figures. The actual software code or specialized control hardware used to implement aspects consistent with the present invention is not limiting of the present invention. Thus, the operation and behavior of the aspects were described without reference to the specific software code—it being understood that a person of ordinary skill in the art would be able to design software and control hardware to implement the aspects based on the description herein.\n\nThe foregoing description of preferred embodiments of the present invention provides illustration and description, but is not intended to be exhaustive or to limit the invention to the precise form disclosed. Modifications and variations are possible in light of the above teachings or may be acquired from practice of the invention. For example, although many of the operations described above were described in a particular order, many of the operations are amenable to being performed simultaneously or in different orders.\n\nFurther, certain portions of the invention have been described as an “engine” that performs one or more functions. An engine may include hardware, such as an application specific integrated circuit or a field programmable gate array, software, or a combination of hardware and software.\n\nNo element, act, or instruction used in the present application should be construed as critical or essential to the invention unless explicitly described as such. Also, as used herein, the article “a” is intended to potentially allow for one or more items. Where only one item is intended, the term “one” or similar language is used. Further, the phrase “based on” is intended to mean “based, at least in part, on” unless explicitly stated otherwise. The scope of the invention is defined by the claims and their equivalents.",
+ "cited_by": [
+  {
+   "id": "US20160306823A1",
+   "title": "Computerized system and method for performing a location-based search",
+   "assignee": "Alibaba Group Holding Limited"
+  },
+  {
+   "id": "US20230421559A1",
+   "title": "Utilizing probability data structures to improve access control of documents across geographic regions",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US6711146B2",
+   "title": "Telecommunication system for automatically locating by network connection and selectively delivering calls to mobile client devices",
+   "assignee": "Genesys Telecommunications Laboratories, Inc."
+  },
+  {
+   "id": "CA2400161C",
+   "title": "Spatially coding and displaying information",
+   "assignee": "Metacarta, Inc."
+  },
+  {
+   "id": "US7693752B2",
+   "title": "Mobile commerce framework",
+   "assignee": "Hothand, Inc."
+  },
+  {
+   "id": "US7801897B2",
+   "title": "Indexing documents according to geographical relevance",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060218138A1",
+   "title": "System and method for improving search relevance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060218114A1",
+   "title": "System and method for location based search",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7599916B2",
+   "title": "System and method for personalized search",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060271582A1",
+   "title": "System and method for analyzing raw data files",
+   "assignee": "Caterpillar Inc."
+  },
+  {
+   "id": "AU2006263703A1",
+   "title": "User interface for geographic search",
+   "assignee": "Nokia Corporation"
+  },
+  {
+   "id": "CA2614227A1",
+   "title": "Location sensitive documents",
+   "assignee": "Telezygology Inc."
+  },
+  {
+   "id": "US9411896B2",
+   "title": "Systems and methods for spatial thumbnails and companion maps for media objects",
+   "assignee": "Nokia Technologies Oy"
+  },
+  {
+   "id": "US8015183B2",
+   "title": "System and methods for providing statstically interesting geographical information based on queries to a geographic search engine",
+   "assignee": "Nokia Corporation"
+  },
+  {
+   "id": "US9721157B2",
+   "title": "Systems and methods for obtaining and using information from map images",
+   "assignee": "Nokia Technologies Oy"
+  },
+  {
+   "id": "US20080033935A1",
+   "title": "Systems and methods for presenting results of geographic text searches",
+   "assignee": "Metacarta, Inc."
+  },
+  {
+   "id": "US20080140348A1",
+   "title": "Systems and methods for predictive models using geographic text search",
+   "assignee": "Metacarta, Inc."
+  },
+  {
+   "id": "US11341202B2",
+   "title": "Efficient method of location-based content management and delivery",
+   "assignee": "Craxel, Inc."
+  },
+  {
+   "id": "EP2082293B1",
+   "title": "Method and system for controlling an electrical installation",
+   "assignee": "Siemens Aktiengesellschaft"
+  },
+  {
+   "id": "US8484222B1",
+   "title": "Method and apparatus for identifying a standalone location",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "WO2009075689A2",
+   "title": "Methods of systems of using geographic meta-metadata in information retrieval and document displays",
+   "assignee": "Metacarta, Inc."
+  },
+  {
+   "id": "US8688368B2",
+   "title": "Image-based localization for addresses",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "WO2008128133A1",
+   "title": "Location-based information determination",
+   "assignee": "Pelago, Inc."
+  },
+  {
+   "id": "US20080270375A1",
+   "title": "Local news search engine",
+   "assignee": "France Telecom"
+  },
+  {
+   "id": "IES20070382A2",
+   "title": "A method and apparatus for providing an on-line directory service",
+   "assignee": "Chad Gilmer"
+  },
+  {
+   "id": "US8880583B2",
+   "title": "System and method for permitting geographically-pertinent information to be ranked by users according to users' geographic proximity to information and to each other for affecting the ranking of such information",
+   "assignee": "Nixle, Llc"
+  },
+  {
+   "id": "US8060535B2",
+   "title": "Method and apparatus for information and document management",
+   "assignee": "Siemens Enterprise Communications, Inc."
+  },
+  {
+   "id": "CN101661461B",
+   "title": "Determine the method for core geographic information in document, system",
+   "assignee": "阿里巴巴集团控股有限公司"
+  },
+  {
+   "id": "EP2194466A1",
+   "title": "Method and system for indexing data in a search engine or a database for speed-optimized proximity queries with different radii",
+   "assignee": "SEARCHTEQ GmbH"
+  },
+  {
+   "id": "US20100250562A1",
+   "title": "Recognition of addresses from the body of arbitrary text",
+   "assignee": "Mireo d.o.o."
+  },
+  {
+   "id": "US8521680B2",
+   "title": "Inferring user-specific location semantics from user data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9098171B2",
+   "title": "Navigating a network of options",
+   "assignee": "Someones Group Intellectual Property Holdings Pty"
+  },
+  {
+   "id": "US9563850B2",
+   "title": "Method and interface for displaying locations associated with annotations",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8898173B1",
+   "title": "Ranking location search results based on multiple distance measures",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "CN102456046B",
+   "title": "Method and system for processing geographical position data in file",
+   "assignee": "国际商业机器公司"
+  },
+  {
+   "id": "US20120116872A1",
+   "title": "Selecting Advertisements from One or More Databases for Sending to a Publisher",
+   "assignee": "At&T Intellectual Property I, L.P."
+  },
+  {
+   "id": "US10565610B2",
+   "title": "Ranking advertisements selected from one or more databases by georelevance",
+   "assignee": "Yellowpages.Com Llc"
+  },
+  {
+   "id": "US8352480B2",
+   "title": "Methods, apparatuses and computer program products for converting a geographical database into a map tile database",
+   "assignee": "Nokia Corporation"
+  },
+  {
+   "id": "US8930391B2",
+   "title": "Progressive spatial searching using augmented structures",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8949277B1",
+   "title": "Semantic geotokens",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "WO2012117103A2",
+   "title": "System and method to index and query data from a 3d model",
+   "assignee": "Nhumi Technologies Ag"
+  },
+  {
+   "id": "JP5639549B2",
+   "title": "Information retrieval apparatus, method, and program",
+   "assignee": "日本電信電話株式会社"
+  },
+  {
+   "id": "US8666989B1",
+   "title": "Adaptive distributed indexing of local adverts",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9706352B2",
+   "title": "System and method for determining a boundary of a geographic area",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8958817B1",
+   "title": "Weighted-distance spatial indexing",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "JP5801243B2",
+   "title": "Feature keyword recommendation device, method and program",
+   "assignee": "日本電信電話株式会社"
+  },
+  {
+   "id": "US9361378B2",
+   "title": "Determining reliability of online post",
+   "assignee": "Empire Technology Development Llc"
+  },
+  {
+   "id": "EP4002252A1",
+   "title": "Apparatus, systems, and methods for analyzing movements of target entities",
+   "assignee": "Factual Inc."
+  },
+  {
+   "id": "GB201306937D0",
+   "title": "Methods, devices and computer software for facilitating searching and display of locations relevant to a digital map",
+   "assignee": "Tomtom Int Bv"
+  },
+  {
+   "id": "US9542377B2",
+   "title": "Note browser",
+   "assignee": "Dropbox, Inc."
+  },
+  {
+   "id": "US9407767B2",
+   "title": "Systems and methods for tracking calls responsive to advertisements using back channel messaging and data channel communications",
+   "assignee": "Yp Llc"
+  },
+  {
+   "id": "US8812647B1",
+   "title": "Centralized publisher management",
+   "assignee": "Yp Intellectual Property Llc"
+  },
+  {
+   "id": "US11138243B2",
+   "title": "Indexing geographic data",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10469246B2",
+   "title": "Efficient encrypted data management system and method",
+   "assignee": "Craxel, Inc."
+  },
+  {
+   "id": "WO2019173528A1",
+   "title": "Systems and methods for location representation using a discrete global grid system",
+   "assignee": "Kevin Sahr"
+  },
+  {
+   "id": "US11140128B2",
+   "title": "Hierarchical geographic naming associated to a recursively subdivided geographic grid referencing",
+   "assignee": "Palo Alto Research Center Incorporated"
+  },
+  {
+   "id": "US11669411B2",
+   "title": "Efficient pluggable database recovery with redo filtering in a consolidated database",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "WO2023283520A1",
+   "title": "Transforming relational statements into hierachical data space operations",
+   "assignee": "Craxel, Inc."
+  },
+  {
+   "id": "CN113916197B",
+   "title": "Celestial sphere observation area prediction method and celestial sphere observation system",
+   "assignee": "中国科学院国家天文台"
+  },
+  {
+   "id": "WO2023140966A1",
+   "title": "Organizing information using hierarchical data spaces",
+   "assignee": "Craxel, Inc."
+  },
+  {
+   "id": "US11740788B2",
+   "title": "Composite operations using multiple hierarchical data spaces",
+   "assignee": "Craxel, Inc."
+  },
+  {
+   "id": "US12141167B2",
+   "title": "Executing hierarchical data space operations",
+   "assignee": "Craxel, Inc."
+  },
+  {
+   "id": "CN115269500B",
+   "title": "Ecological environment data storage method, ecological environment data retrieval method and electronic equipment",
+   "assignee": "生态环境部卫星环境应用中心"
+  },
+  {
+   "id": "US12464372B2",
+   "title": "Providing telecommunication network-related resources to geographies based on user mobility systems and methods",
+   "assignee": "T-Mobile Usa, Inc."
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5893093A",
+   "title": "Information search and retrieval with geographical coordinates",
+   "assignee": "The Sabre Group, Inc."
+  },
+  {
+   "id": "US5968109A",
+   "title": "System and method for use and storage of geographic data on physical media",
+   "assignee": "Navigation Technologies Corporation"
+  },
+  {
+   "id": "US6026398A",
+   "title": "System and methods for searching and matching databases",
+   "assignee": "Imarket, Incorporated"
+  },
+  {
+   "id": "WO2000023862A2",
+   "title": "A method and system for providing a web-sharable personal database",
+   "assignee": "Vicinity Corporation"
+  },
+  {
+   "id": "JP2000250842A",
+   "title": "Information retrieval system and information retrieval method",
+   "assignee": "Mitsubishi Electric Corp"
+  },
+  {
+   "id": "JP2000293099A",
+   "title": "Map database",
+   "assignee": "Toyota Motor Corp"
+  },
+  {
+   "id": "EP1072987A1",
+   "title": "Geographic web browser and iconic hyperlink cartography",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "JP2001184359A",
+   "title": "Device and method for retrieving map and recording medium stored with map retrieval control program",
+   "assignee": "Sumitomo Denko Systems Kk"
+  },
+  {
+   "id": "US20010011270A1",
+   "title": "Method and apparatus of expanding web searching capabilities",
+   "assignee": "Martin W. Himmelstein"
+  },
+  {
+   "id": "JP2001216320A",
+   "title": "Service area search system via the Internet",
+   "assignee": "Forseti Llc"
+  },
+  {
+   "id": "JP2001331501A",
+   "title": "Shop retrieval system and method, and display control method",
+   "assignee": "Minolta Co Ltd"
+  },
+  {
+   "id": "WO2002023862A1",
+   "title": "Sharing of protocol processing",
+   "assignee": "Nokia Corporation"
+  },
+  {
+   "id": "US20020057283A1",
+   "title": "Region modeling of mobile services",
+   "assignee": "Prabuddha Biswas"
+  },
+  {
+   "id": "WO2002065331A2",
+   "title": "Information retrieval system and method employing spatially selective features",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "JP2002236732A",
+   "title": "Delivery mediation system",
+   "assignee": "Intec Inc"
+  },
+  {
+   "id": "US20020156779A1",
+   "title": "Internet search engine",
+   "assignee": "Elliott Margaret E."
+  },
+  {
+   "id": "US20020156917A1",
+   "title": "Method for providing an attribute bounded network of computers",
+   "assignee": "Geosign Corporation"
+  },
+  {
+   "id": "JP2002312367A",
+   "title": "Parking area information provision server, and parking area information provision system using it",
+   "assignee": "Js4 Kk"
+  },
+  {
+   "id": "JP2003242151A",
+   "title": "Point information search method and device",
+   "assignee": "Mitsubishi Electric Corp"
+  },
+  {
+   "id": "WO2003079229A1",
+   "title": "Region information search method and region information search device",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US20030204513A1",
+   "title": "System and methodology for providing compact B-Tree",
+   "assignee": "Sybase, Inc."
+  },
+  {
+   "id": "US20040139049A1",
+   "title": "Unified geographic database and method of creating, maintaining and using the same",
+   "assignee": "Wgrs Licensing Company, Llc"
+  },
+  {
+   "id": "US20040148277A1",
+   "title": "System and process for identifying objects and/or points nearby a given object or point",
+   "assignee": "Gray James N."
+  },
+  {
+   "id": "JP2004254024A",
+   "title": "Information server",
+   "assignee": "Ntt Docomo Inc"
+  },
+  {
+   "id": "JP2004280659A",
+   "title": "Address information automatic extraction method, extraction device, position information providing method and providing device",
+   "assignee": "Kddi Corp"
+  },
+  {
+   "id": "US20050097108A1",
+   "title": "Network data model for relational database management system",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US20050262062A1",
+   "title": "Methods and apparatus providing local search engine",
+   "assignee": "Xiongwu Xia"
+  },
+  {
+   "id": "US20050278378A1",
+   "title": "Systems and methods of geographical text indexing",
+   "assignee": "Metacarta, Inc."
+  },
+  {
+   "id": "US20060041375A1",
+   "title": "Automated georeferencing of digitized map images",
+   "assignee": "Geographic Data Technology, Inc."
+  },
+  {
+   "id": "US20060265197A1",
+   "title": "Close-packed uniformly adjacent, multiresolutional overlapping spatial data ordering",
+   "assignee": "Perry Peterson"
+  },
+  {
+   "id": "US7155336B2",
+   "title": "System and method for automatically collecting images of objects at geographic locations and displaying same in online directories",
+   "assignee": "A9.Com, Inc."
+  },
+  {
+   "id": "US7197500B1",
+   "title": "System and method for use and storage of geographic data on physical media",
+   "assignee": "Navteq North America, Llc"
+  },
+  {
+   "id": "US7801897B2",
+   "title": "Indexing documents according to geographical relevance",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "WO2002065337A1",
+   "title": "Information repository",
+   "assignee": "Dxs Limited"
+  }
+ ],
+ "similar": [
+  {
+   "id": "US7801897B2",
+   "title": "Indexing documents according to geographical relevance"
+  },
+  {
+   "id": "US8027988B1",
+   "title": "Category suggestions relating to a search"
+  },
+  {
+   "id": "US8346770B2",
+   "title": "Systems and methods for clustering search results"
+  },
+  {
+   "id": "US7483881B2",
+   "title": "Determining unambiguous geographic references"
+  },
+  {
+   "id": "US8024314B2",
+   "title": "Hybrid location and keyword index"
+  },
+  {
+   "id": "CA2845194C",
+   "title": "Classification of ambiguous geographic references"
+  },
+  {
+   "id": "US8068980B2",
+   "title": "Using boundaries associated with a map view for business location searching"
+  },
+  {
+   "id": "US8046371B2",
+   "title": "Scoring local search results based on location prominence"
+  },
+  {
+   "id": "US20050182770A1",
+   "title": "Assigning geographic location identifiers to web pages"
+  },
+  {
+   "id": "US8595225B1",
+   "title": "Systems and methods for correlating document topicality and popularity"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US9189496B2/en"
+}

@@ -1,0 +1,274 @@
+{
+"US9031929B1": {
+  "relevance": "cao",
+  "mech": "- Google đếm 2 con số cho mỗi site:\n  1. **Số query duy nhất nhắc tới site** (query có tên thương hiệu/tên miền, ví dụ \"tiki tai nghe\", \"thegioididong\") — thể hiện người dùng **chủ động tìm** site.\n  2. **Số query duy nhất mà người dùng click vào một trang của site** — thể hiện site được **tiếp xúc** qua mọi loại query.\n- Điểm chất lượng site ≈ (số 1 − ngưỡng) / (số 2)^k với 0 < k < 1. Site có nhiều người tìm đích danh so với tổng lượng hiển thị/click → điểm cao.\n- Điểm này là tín hiệu **ở cấp site, độc lập với query**, dùng để xếp hạng các trang của site này so với site khác; có thể dùng cả khi quyết định crawl/index.",
+  "seo": "- **Brand search là tín hiệu chất lượng trực tiếp**: site chỉ sống nhờ traffic từ khóa chung, không ai tìm tên thương hiệu → tỷ lệ thấp → điểm site thấp.\n- Giải thích vì sao site nhiều bài nhưng yếu thương hiệu dễ bị ảnh hưởng khi core update, còn site có thương hiệu mạnh thì bền.\n- Mở rộng nội dung ồ ạt (tăng mẫu số) mà không tăng tìm kiếm thương hiệu (tử số) có thể **kéo điểm site xuống**.",
+  "audit": [
+    "GSC → Hiệu suất → lọc query chứa tên thương hiệu/tên miền: tính tỷ lệ click brand / tổng click, theo dõi xu hướng 12–16 tháng",
+    "So sánh số query brand với đối thủ cùng ngành (Google Trends, Ahrefs/Semrush brand keyword volume)",
+    "Kiểm tra site có tên thương hiệu dễ nhớ, xuất hiện nhất quán (logo, title, schema Organization) để người dùng tìm lại được",
+    "Rà các cụm nội dung chỉ nhắm keyword chung mà không có lý do để người dùng quay lại tìm thương hiệu → cân nhắc gộp/xoá",
+    "Đề xuất hoạt động tạo nhu cầu tìm thương hiệu: PR, social, email, video, cộng đồng"
+  ],
+  "leak": "Khớp với ý tưởng tín hiệu cấp site trong leak: `siteAuthority` và nhóm `QualityNsr` (NSR — điểm chất lượng site chuẩn hoá) trong `CompressedQualitySignals`. Navneet Panda (đồng tác giả) chính là người đặt tên cho thuật toán Panda."
+},
+"US8682892B1": {
+  "relevance": "cao",
+  "mech": "- Với mỗi **nhóm tài liệu** (site, subdomain hoặc thư mục), Google đếm:\n  1. **Số link đến độc lập** (independent incoming links) — link từ các nguồn không liên quan/không cùng chủ với nhau.\n  2. **Số reference query** — query nhắm tới nhóm đó (query điều hướng, query chứa tên site).\n- Từ tỷ lệ giữa hai số này tính một **hệ số điều chỉnh riêng cho nhóm** (group-specific modification factor).\n- Khi xếp hạng, điểm ban đầu của mọi trang trong nhóm được nhân với hệ số này → toàn bộ site được nâng hoặc bị giảm cùng lúc. Đây là cơ chế được cho là cốt lõi của **Panda**.",
+  "seo": "- Chất lượng được đánh giá **theo nhóm** → nội dung kém ở một phần site kéo cả site/thư mục đi xuống.\n- Hai trụ cột: **link độc lập thật** (không phải PBN, không cùng mạng) và **nhu cầu tìm kiếm có chủ đích** tới site.\n- Tách nội dung chất lượng thấp sang subdomain/thư mục riêng có thể cô lập ảnh hưởng (vì nhóm có thể là thư mục/subdomain).",
+  "audit": [
+    "Đếm số referring domain thật sự độc lập (loại link từ site cùng chủ, cùng IP/C-class, mạng vệ tinh)",
+    "So sánh số referring domain độc lập với số query brand/điều hướng trong GSC — lệch lớn (nhiều link nhưng không ai tìm thương hiệu) là dấu hiệu rủi ro",
+    "Phân tích traffic theo thư mục/subdomain để phát hiện phần site kéo điểm chung xuống",
+    "Xác định phần nội dung mỏng/kém → cải thiện, noindex hoặc tách khỏi thư mục chính"
+  ],
+  "leak": "Leak có `pandaDemotion`, `babyPandaDemotion`, `babyPandaV2Demotion` trong `CompressedQualitySignals` — xác nhận Panda tồn tại dưới dạng hệ số giảm hạng lưu ở cấp tài liệu/site, đúng như cơ chế 'group-specific modification factor'."
+},
+"US9183499B1": {
+  "relevance": "cao",
+  "mech": "- Google có một **mô hình chất lượng** huấn luyện trên tập site/trang đã biết chất lượng.\n- Với một site/trang mới, mô hình dùng 3 nhóm đầu vào: (1) điểm chất lượng ban đầu của chính nó; (2) **đặc điểm của các 'hàng xóm'** — các site/trang có link với nó (link đến hoặc link đi); (3) đặc điểm riêng không phụ thuộc hàng xóm.\n- Kết quả là điểm chất lượng thứ hai — nghĩa là **chất lượng của khu vực liên kết xung quanh** ảnh hưởng trực tiếp tới điểm của bạn.",
+  "seo": "- Link đến từ site kém và **link ra tới site kém** đều có thể kéo điểm chất lượng xuống ('bad neighborhood').\n- Đặc biệt quan trọng với site mới ít dữ liệu: Google suy chất lượng từ hàng xóm.\n- Củng cố lý do nên liên kết ra các nguồn uy tín và tránh trao đổi link với site rác.",
+  "audit": [
+    "Rà danh sách outbound link: loại/nofollow link tới site spam, site cờ bạc, site bị phạt, domain hết hạn",
+    "Rà backlink profile: tỷ lệ link từ site chất lượng thấp (DR thấp, không traffic, nội dung spin)",
+    "Kiểm tra footer/sidebar link sitewide tới site khác (link đổi, link bán)",
+    "Với site mới: ưu tiên có link từ và link tới các nguồn uy tín trong ngành ngay từ đầu"
+  ],
+  "leak": "Tương ứng khái niệm 'neighborhood' và tier của trang nguồn link: thuộc tính `sourceType` của anchor trong leak phản ánh chất lượng/tier index của trang chứa link."
+},
+"US8818982B1": {
+  "relevance": "cao",
+  "mech": "- Google phân tích **luồng query** (search stream) để tìm liên hệ giữa một tài liệu và các query. Có nhiều cách:\n  1. Với cùng một query, nếu tài liệu được **click nhiều hơn hẳn** các kết quả khác → gán giá trị chất lượng (có tính theo khoảng thời gian, theo địa chỉ mạng của người dùng để chống gian lận).\n  2. Tài liệu có **text nổi bật (title, heading) giống query** trong tập kết quả.\n  3. Nhiều **link có anchor text giống query** trỏ về tài liệu đó hơn các tài liệu khác.\n- Giá trị này được dùng như **chỉ số chất lượng** cho tài liệu ở các lần tìm kiếm sau.",
+  "seo": "- Được chọn nhiều nhất cho một query = tín hiệu chất lượng (không chỉ liên quan) → tiền đề của Navboost.\n- Title/H1 khớp rõ với cách người dùng gõ query và anchor text tự nhiên khớp chủ đề đều góp phần.\n- Có cơ chế theo thời gian và địa chỉ mạng → click ảo/CTR manipulation dễ bị lọc.",
+  "audit": [
+    "GSC: tìm query có vị trí top 5 nhưng CTR thấp hơn trung bình vị trí → tối ưu title/meta để được chọn nhiều hơn",
+    "Kiểm tra title và H1 của trang chủ lực phản ánh đúng query chính (không nhồi, nhưng rõ ràng)",
+    "Phân tích anchor text của backlink: có anchor mô tả đúng chủ đề trang không, hay chỉ URL/\"click here\""
+  ],
+  "leak": "Leak có module Navboost/`QualityNavboostCrapsCrapsData` với `goodClicks`, `badClicks`, `lastLongestClicks`, `unsquashedClicks` — xác nhận dữ liệu click theo query được lưu và dùng. Tác giả Mark Pearson cũng đứng tên các patent về cải thiện tìm kiếm bằng hành vi người dùng."
+},
+"US9195944B1": {
+  "relevance": "cao",
+  "mech": "- Google đo **thời gian từ lúc người dùng click một kết quả tới lúc quay lại trang kết quả** (dwell time) cho nhiều trang của cùng một site.\n- Lấy một đại lượng thống kê trung tâm (trung bình/trung vị) của các số đo này → **điểm chất lượng site**.\n- 'Site' có thể là domain, subdomain, host hoặc **thư mục con**.\n- Điểm dùng để xếp hạng trang của site so với site khác, và để **quyết định crawl, làm mới hoặc index** trang của site.",
+  "seo": "- Dwell time trung bình trên **toàn site** là tín hiệu chất lượng — không chỉ trang đơn lẻ.\n- Trang khiến người dùng bấm vào rồi thoát nhanh về Google (pogo-sticking) kéo điểm cả site/thư mục xuống.\n- Điểm site thấp còn ảnh hưởng tới **crawl/index** → giải thích hiện tượng 'Đã crawl – chưa index' tăng ở site chất lượng thấp.",
+  "audit": [
+    "GA4: so sánh thời gian tương tác trung bình của traffic organic theo thư mục/nhóm trang; tìm nhóm có engagement thấp bất thường",
+    "Kiểm tra trang đầu vào organic: nội dung trả lời ngay ý định tìm kiếm ở màn hình đầu chưa (không intro dài, không quảng cáo che nội dung)",
+    "Rà trang có tỷ lệ thoát/không tương tác cao từ organic → cải thiện hoặc gộp",
+    "GSC → Trang: theo dõi số lượng 'Đã thu thập dữ liệu – hiện chưa được lập chỉ mục' như chỉ báo gián tiếp của chất lượng site"
+  ],
+  "leak": "Khớp với `lastLongestClicks` (click dài nhất/cuối cùng trong phiên) trong dữ liệu Navboost của leak; việc dùng điểm site cho crawl/index khớp với khái niệm tier index trong leak."
+},
+"US9767157B2": {
+  "relevance": "cao",
+  "mech": "- Google có sẵn điểm chất lượng cho nhiều site đã được chấm (baseline).\n- Xây **mô hình cụm từ (phrase model)**: với mỗi cụm từ, xem cụm đó xuất hiện trên bao nhiêu % số trang của site, và các site có tỷ lệ tương tự thường có điểm chất lượng bao nhiêu.\n- Với **site mới** chưa có điểm: đo tỷ lệ xuất hiện các cụm từ trên site → tra mô hình → tính điểm tổng hợp → **dự đoán điểm chất lượng**.\n- Nói cách khác: **cách viết/từ ngữ lặp lại trên site** giống site tốt hay site kém sẽ quyết định điểm dự đoán.",
+  "seo": "- Site mới được Google 'đoán' chất lượng ngay từ nội dung, trước khi có dữ liệu người dùng.\n- Các cụm từ đặc trưng của site kém (boilerplate spam, lời kêu gọi mua bán dày đặc, nội dung spin, AI template lặp lại) xuất hiện trên nhiều trang → điểm dự đoán thấp.\n- Boilerplate lặp lại trên mọi trang (footer dài, đoạn giới thiệu giống nhau) cũng là 'cụm từ có tần suất cao'.",
+  "audit": [
+    "Crawl toàn site (Screaming Frog) và thống kê các đoạn văn/cụm từ lặp lại trên >30% số trang",
+    "Rà nội dung template: đoạn mở đầu/kết giống nhau hàng loạt, câu kêu gọi hành động nhồi từ khoá",
+    "Kiểm tra nội dung AI/spin: văn phong lặp khuôn, cụm sáo rỗng xuất hiện ở hàng trăm trang",
+    "Giảm boilerplate trong main content; đưa thông tin chung vào 1 trang riêng và link tới"
+  ],
+  "leak": "Liên quan nhóm `QualityNsr` (site-level quality) và các điểm nội dung như `keywordStuffingScore`, `gibberishScore` trong leak (cần đối chiếu tên chính xác với tài liệu leak)."
+},
+"US9002832B1": {
+  "relevance": "cao",
+  "mech": "- Mỗi trang có link tới site của bạn đã có **điểm chất lượng riêng**.\n- Google chia các trang này vào các **nhóm chất lượng** theo dải điểm (ví dụ tốt / trung bình / kém), đếm số trang ở mỗi nhóm.\n- **Điểm chất lượng link của site** = (số trang nhóm 1 × trọng số 1 + số trang nhóm 2 × trọng số 2 + …) / tổng số trang link tới.\n- Nếu điểm dưới ngưỡng → **site bị phân loại là site chất lượng thấp**.",
+  "seo": "- Không phải số lượng backlink mà là **tỷ lệ backlink từ trang chất lượng** quyết định.\n- Mua/spam hàng nghìn link rác làm **loãng tỷ lệ** → có thể khiến cả site bị gắn nhãn chất lượng thấp (giống Penguin theo cách tính tỷ lệ).\n- Đây là lý do backlink profile toàn link comment/profile/web 2.0 nguy hiểm.",
+  "audit": [
+    "Xuất toàn bộ backlink (Ahrefs/Semrush/GSC), phân nhóm theo chất lượng trang nguồn: có traffic thật, có index, nội dung liên quan",
+    "Tính tỷ lệ % link từ nhóm tốt/trung bình/kém; cảnh báo nếu nhóm kém chiếm đa số",
+    "Tìm các đợt tăng backlink đột biến từ nguồn rác (negative SEO hoặc dịch vụ link giá rẻ)",
+    "Cân nhắc disavow nhóm link rác rõ ràng; ưu tiên xây link từ trang có traffic thật"
+  ],
+  "leak": "Khớp với `sourceType` của anchor (phản ánh tier chất lượng của trang chứa link: high / medium / low quality) trong leak — Google phân loại link theo chất lượng trang nguồn đúng như patent mô tả."
+},
+"US20190155948A1": {
+  "relevance": "cao",
+  "mech": "- Áp dụng cho **query dạng danh mục** (ví dụ \"quán cà phê đẹp Hà Nội\", \"laptop sinh viên\").\n- Với nhóm kết quả đầu, Google kiểm tra nhóm có đạt **điều kiện chất lượng** hay không — dùng chỉ số chất lượng độc lập với điểm liên quan.\n- Nếu đạt, Google tính điểm chất lượng riêng cho từng kết quả và **xếp hạng lại nhóm đầu theo chất lượng**, không theo độ liên quan nữa.",
+  "seo": "- Khi đã vào nhóm đầu, thứ tự **top 3–5 được quyết định bởi chất lượng** chứ không phải tối ưu từ khoá thêm.\n- Với query danh mục/so sánh, đầu tư chiều sâu (dữ liệu riêng, ảnh thật, đánh giá thật) hiệu quả hơn chỉnh on-page.",
+  "audit": [
+    "Liệt kê query danh mục site đang ở vị trí 4–10; so sánh chất lượng trang với top 3 (độ đầy đủ, dữ liệu gốc, trải nghiệm)",
+    "Với trang danh mục/listing: bổ sung tiêu chí chọn, thông tin so sánh, đánh giá thực tế thay vì chỉ liệt kê",
+    "Ưu tiên nâng chất lượng các trang đã vào top 10 trước khi mở rộng nội dung mới"
+  ],
+  "leak": "Tương ứng khái niệm re-ranking sau bước truy xuất ban đầu (các 'Twiddler' trong leak điều chỉnh thứ hạng sau Mustang/ranking chính)."
+},
+"US10204138B1": {
+  "relevance": "trung bình",
+  "mech": "- Từ log query, Google xem chuỗi query trong một phiên: query đầu (mơ hồ, chất lượng thấp) → query sửa (rõ ràng, mang tính điều hướng).\n- Nếu query sửa có **điểm chất lượng và điểm điều hướng cao**, trang đích điều hướng của nó được **gắn với query đầu**.\n- Lần sau ai gõ query đầu, trang đích đó được coi là liên quan.",
+  "seo": "- Thương hiệu mà người dùng hay gõ tiếp sau một query chung (ví dụ \"máy lọc nước\" → \"kangaroo\") sẽ được gắn vào query chung đó.\n- Nhận diện thương hiệu trong ngành giúp chiếm query chung mà không cần tối ưu trực tiếp.",
+  "audit": [
+    "GSC: xem site có xuất hiện cho query chung của ngành mà nội dung không nhắm trực tiếp không (dấu hiệu được gắn điều hướng)",
+    "Đo mức độ người dùng tìm 'query ngành + tên thương hiệu' (Google Trends, GSC)"
+  ],
+  "leak": ""
+},
+"US9244972B1": {
+  "relevance": "trung bình",
+  "mech": "- Google tìm các **query lai** gồm từ chủ đề + tên trang điều hướng (ví dụ \"wikipedia lịch sử\", \"webmd đau đầu\", \"cafef lãi suất\").\n- Tạo ánh xạ: **trang điều hướng ↔ các chủ đề** mà người dùng gắn với nó; tổng quát hoá sang chủ đề liên quan.\n- Khi có query thông tin về chủ đề đó (không có tên site), ánh xạ này dùng để **chấm điểm các trang của site đó cao hơn**.",
+  "seo": "- Khi người dùng hay tìm \"chủ đề + tên site bạn\", site bạn được coi là nguồn uy tín cho **cả chủ đề** đó → nền tảng của **topical authority** nhìn từ phía người dùng.\n- Mở rộng: authority lan sang chủ đề liên quan (generalize).",
+  "audit": [
+    "GSC: lọc query có tên thương hiệu + từ chủ đề → biết Google/người dùng đang gắn thương hiệu với chủ đề nào",
+    "So sánh chủ đề trong query brand với chủ đề nội dung chủ lực — lệch nhau thì cần định vị lại",
+    "Khuyến khích người dùng tìm theo mẫu 'chủ đề + thương hiệu' (branding nội dung, series có tên riêng)"
+  ],
+  "leak": "Liên quan `siteFocusScore` / `siteRadius` và site embeddings trong leak — đo mức site tập trung vào chủ đề."
+},
+"US9454621B2": {
+  "relevance": "thấp",
+  "mech": "- Khi người dùng đang gõ dở query trong ô tìm kiếm/thanh địa chỉ, Google xác định tập kết quả điều hướng ứng viên, chọn tập con tốt nhất dựa trên nhiều tín hiệu và hiển thị riêng (dạng gợi ý trang web).",
+  "seo": "- Chủ yếu là tính năng giao diện. Gián tiếp: site có thương hiệu mạnh được đề xuất ngay trong ô tìm kiếm → thêm traffic điều hướng.",
+  "audit": [
+    "Kiểm tra gợi ý autocomplete khi gõ tên thương hiệu: có hiện đúng site không, có gợi ý tiêu cực không"
+  ],
+  "leak": ""
+},
+"US8478751B1": {
+  "relevance": "thấp",
+  "mech": "- Trong cùng một phiên, nếu một kết quả đã xuất hiện ở query trước và lại xuất hiện ở query sau (người dùng đã thấy nhưng không chọn), nó có thể bị **hạ xuống dưới một ngưỡng** trong kết quả của query sau để nhường chỗ kết quả mới.",
+  "seo": "- Được hiển thị nhiều lần nhưng không được chọn có thể khiến trang bị đẩy xuống trong phiên → title/snippet hấp dẫn quan trọng.",
+  "audit": [
+    "Tối ưu title và meta description cho các trang có impression cao nhưng CTR thấp"
+  ],
+  "leak": ""
+},
+"US9116945B1": {
+  "relevance": "trung bình",
+  "mech": "- Google thu **đánh giá của con người** (quality rater) cho các cặp query–kết quả.\n- Huấn luyện mô hình thống kê liên hệ đánh giá đó với **tín hiệu khách quan**: thời gian từ lúc hiển thị đến lúc click, kết quả có được click **đầu tiên** không, có kết quả khác được click trước không, v.v.\n- Mô hình dự đoán 'điểm rater' cho cặp mới → dùng để **xếp hạng** hoặc **đánh giá hiệu quả** search engine.",
+  "seo": "- Hướng dẫn Quality Rater Guidelines (E-E-A-T, Needs Met, Page Quality) là **nhãn huấn luyện** cho mô hình → làm theo guideline là tối ưu gián tiếp cho thuật toán.\n- Được click đầu tiên và click nhanh là tín hiệu tương quan với đánh giá tốt.",
+  "audit": [
+    "Chấm điểm trang chủ lực theo Search Quality Rater Guidelines: mục đích trang, E-E-A-T, Needs Met",
+    "Kiểm tra snippet có đủ hấp dẫn để là lựa chọn đầu tiên (title rõ lợi ích, rich result)"
+  ],
+  "leak": "Leak có đề cập hệ thống đánh giá của rater (EWOK) và dữ liệu rater được lưu cho tài liệu — cho thấy đánh giá của con người thực sự được đưa vào hệ thống."
+},
+"US9477714B1": {
+  "relevance": "trung bình",
+  "mech": "- Dành cho tin tức (Google News). Điểm của bài viết dựa trên:\n  - **Độ nguyên bản** (originality): văn bản khác bao nhiêu so với các bài khác.\n  - **Độ kịp thời đưa tin** (recency of coverage): thời điểm đăng so với các nguồn khác.\n  - **Độ tươi** (freshness): khoảng cách giữa thời điểm đăng và thời điểm sự kiện.\n  - Điểm của **cụm tin** chứa bài và số lượng bài trong cụm.\n- Bài vượt ngưỡng điểm mới được hiển thị.",
+  "seo": "- Với site tin tức: **đưa tin sớm và viết nguyên bản** được thưởng; bài viết lại (rewrite) từ nguồn khác bị điểm originality thấp.\n- Áp dụng rộng hơn: nội dung sao chép/tổng hợp lại ít giá trị.",
+  "audit": [
+    "Kiểm tra tỷ lệ bài tin viết lại từ nguồn khác so với bài có thông tin gốc",
+    "Đo độ trễ đưa tin so với đối thủ ở các sự kiện nóng",
+    "Kiểm tra ngày đăng/cập nhật hiển thị rõ và có trong schema (datePublished, dateModified)"
+  ],
+  "leak": "Leak có `OriginalContentScore` — trùng khái niệm độ nguyên bản của nội dung."
+},
+"US8965883B2": {
+  "relevance": "trung bình",
+  "mech": "- Áp dụng cho nội dung người dùng tạo (UGC) — diễn đàn, hỏi đáp, bình luận.\n- Google dựng **đồ thị tương tác giữa người dùng** (ai trả lời bài của ai), gán trọng số chất lượng cho từng tương tác.\n- Tính lặp 2 điểm cho mỗi người: **authority** (chất lượng câu trả lời) và **contributiveness** (chất lượng nội dung đóng góp) — tương tự thuật toán HITS.\n- Điểm này dùng để xếp hạng nội dung UGC.",
+  "seo": "- Với site cộng đồng/forum: chất lượng **thành viên** quyết định chất lượng nội dung trong mắt Google.\n- Liên quan xu hướng Google ưu tiên Reddit/Quora và nội dung thảo luận thực tế.",
+  "audit": [
+    "Site có UGC: kiểm tra cơ chế kiểm duyệt, xếp hạng thành viên, đánh dấu câu trả lời hay",
+    "Rà tỷ lệ thread không có trả lời hoặc toàn spam → noindex hoặc dọn dẹp",
+    "Hiển thị rõ hồ sơ, uy tín của người trả lời"
+  ],
+  "leak": "Leak có `ugcDiscussionEffortScore` — điểm đánh giá công sức/chất lượng của nội dung thảo luận UGC."
+},
+"US20120265757A1": {
+  "relevance": "trung bình",
+  "mech": "- Blog search engine tính điểm = **mức liên quan** × điều chỉnh theo **chất lượng blog**.\n- Chỉ báo **tích cực**: blog có nhiều người đăng ký theo dõi (feed), được nhắc tới/link từ blog khác, có trong danh sách blogroll uy tín…\n- Chỉ báo **tiêu cực**: tần suất đăng bất thường, nội dung trùng lặp, nhiều link tới cùng một trang, bài toàn quảng cáo, kích thước bài bất thường…",
+  "seo": "- Là bản 'checklist' sớm của Google về dấu hiệu blog spam: đăng quá nhiều/đều đặn máy móc, nội dung trùng, link ra tập trung vào 1 trang, nhiều quảng cáo.\n- Vẫn đúng với các site nội dung hàng loạt hiện nay.",
+  "audit": [
+    "Kiểm tra tần suất đăng bài có đột biến bất thường (ví dụ vài trăm bài/ngày từ AI)",
+    "Rà bài có nhiều link ra cùng một trang đích (dấu hiệu bài vệ tinh)",
+    "Rà tỷ lệ quảng cáo/nội dung trên bài; nội dung trùng lặp giữa các bài"
+  ],
+  "leak": ""
+},
+"US8442984B1": {
+  "relevance": "cao",
+  "mech": "- Google tính **điểm chất lượng ban đầu** cho các website từ thuộc tính của site.\n- Chọn mẫu website để **người đánh giá (rater)** chấm — mẫu được chọn có chủ đích: nhiều site ở vùng giữa, ít site ở hai đầu tốt/kém; mỗi rater nhận cả site tốt, kém và trung bình để hiệu chỉnh.\n- Tìm quan hệ giữa điểm rater và **tín hiệu của website** → xây **mô hình**.\n- Áp dụng mô hình cho **mọi website chưa được chấm** → điểm chất lượng dự đoán.",
+  "seo": "- Xác nhận cơ chế: rater không trực tiếp phạt site bạn, nhưng đánh giá của họ **huấn luyện mô hình** chấm mọi site.\n- Site có tín hiệu giống site bị rater đánh giá thấp sẽ bị điểm thấp dù chưa từng được chấm.",
+  "audit": [
+    "Tự chấm site theo Search Quality Rater Guidelines (Page Quality: mục đích, E-E-A-T, chất lượng main content, uy tín site, thông tin về site)",
+    "Kiểm tra các trang 'tin cậy': Giới thiệu, Liên hệ, Chính sách, thông tin tác giả, thông tin doanh nghiệp",
+    "So sánh đặc điểm site với các site cùng ngành đã bị ảnh hưởng bởi core update gần nhất"
+  ],
+  "leak": "Tác giả Corinna Cortes (Google Research) cũng đứng tên patent dự đoán điểm rater (US9116945). Leak xác nhận có dữ liệu đánh giá của rater gắn với tài liệu."
+},
+"US9558233B1": {
+  "relevance": "cao",
+  "mech": "- Chọn tập **seed resource** (trang hạt giống). Điểm seed = số trang có link tới nó **và số lượt người dùng thực sự click vào các link đó**.\n- **Source resource** = trang có link tới seed → điểm source dựa trên điểm các seed mà nó link tới.\n- Trang được source link tới nhận điểm dựa trên điểm của các source.\n- Tức là chất lượng lan truyền **2 bước** từ tập seed, và link được đánh giá bằng **việc có ai click hay không**.",
+  "seo": "- Link **có người click** giá trị hơn link không ai click (link ẩn, footer, bài PBN không traffic).\n- Được link từ các trang **gần** các trang uy tín (trang có link tới nguồn uy tín) có giá trị.\n- Ủng hộ chiến lược link từ trang có traffic thật, vị trí link trong nội dung chính.",
+  "audit": [
+    "Đánh giá backlink theo traffic của trang nguồn (Ahrefs traffic/page), không chỉ DR",
+    "Kiểm tra vị trí link: trong nội dung chính vs footer/sidebar/ẩn",
+    "GA4 → Referral: backlink nào thực sự mang traffic — ưu tiên nhân rộng loại link đó"
+  ],
+  "leak": "Leak có dữ liệu click gắn với anchor/link và `sourceType` theo tier trang nguồn — khớp ý tưởng link được đánh giá theo chất lượng nguồn và mức được sử dụng."
+},
+"US9020927B1": {
+  "relevance": "cao",
+  "mech": "- Với mỗi URL và một query, Google đếm:\n  1. Số lần URL **thắng**: được chọn (hoặc được xem lâu hơn) trong khi các URL khác cùng hiển thị không được chọn.\n  2. Số lần URL **thua**: hiển thị nhưng không được chọn trong khi URL khác được chọn (hoặc bị xem ngắn hơn).\n- **Hệ số điều chỉnh** = dựa trên chênh lệch thắng − thua → cộng/trừ vào điểm của URL cho query đó.",
+  "seo": "- Xếp hạng là **cuộc cạnh tranh trực tiếp** với các kết quả xung quanh trên SERP: thắng click và thắng thời gian đọc so với đối thủ cạnh bên.\n- Cải thiện title/snippet và nội dung **so với top đối thủ cụ thể** hiệu quả hơn tối ưu chung chung.",
+  "audit": [
+    "Với từng query mục tiêu: chụp SERP, so title/snippet của bạn với các kết quả liền kề — kết quả nào hấp dẫn hơn?",
+    "So sánh độ sâu/tốc độ trả lời của trang với đối thủ đứng ngay trên/dưới",
+    "Theo dõi CTR theo vị trí trong GSC; vị trí ổn định nhưng CTR giảm là dấu hiệu đang 'thua' cạnh tranh"
+  ],
+  "leak": "Khớp với `goodClicks`/`badClicks` trong Navboost của leak — click được phân loại tốt/xấu tương đối, không chỉ đếm tuyệt đối."
+},
+"US7971137B2": {
+  "relevance": "trung bình",
+  "mech": "- Phân tích tài liệu (chủ yếu quảng cáo/landing page) thành các phần hình ảnh, văn bản, âm thanh.\n- So với các phần đã được xác định là **gây khó chịu** (ảnh nhấp nháy, âm thanh tự phát, nội dung phản cảm).\n- Chỉ duyệt tài liệu nếu không có phần nào gần giống phần gây khó chịu.",
+  "seo": "- Trải nghiệm gây phiền (quảng cáo tự phát âm thanh, nhấp nháy, pop-up) được Google coi là tín hiệu tiêu cực — liên quan chính sách quảng cáo và page experience.",
+  "audit": [
+    "Kiểm tra trang có quảng cáo tự phát âm thanh/video, banner nhấp nháy, pop-up che nội dung",
+    "Kiểm tra theo Better Ads Standards (đặc biệt trên mobile)"
+  ],
+  "leak": ""
+},
+"US8775924B1": {
+  "relevance": "cao",
+  "mech": "- Google lưu **cơ sở dữ liệu điểm chất lượng nội dung** cho các trang web.\n- Xác định trang có phải: **domain parking** (tên miền đỗ, chỉ chứa quảng cáo), **content farm** (trang trại nội dung — sản xuất hàng loạt nội dung kém), hoặc **link farm** (trang trại link).\n- Nếu điểm dưới ngưỡng → hiển thị cảnh báo cho người dùng lựa chọn: vào trang đó hay chuyển sang trang thay thế liên quan.",
+  "seo": "- Google có phân loại rõ ràng **content farm** và **link farm** ở mức trang/site.\n- Site sản xuất nội dung hàng loạt chất lượng thấp (kể cả bằng AI) có nguy cơ bị xếp vào content farm.",
+  "audit": [
+    "Tự đánh giá: site có đặc điểm content farm không (nhiều chủ đề không liên quan, bài ngắn/nông, sản xuất số lượng lớn, tác giả không rõ)",
+    "Kiểm tra có trang nào chủ yếu chứa link ra (trang 'tài nguyên', 'đối tác' dày đặc link) → dấu hiệu link farm",
+    "Kiểm tra domain phụ/cũ của doanh nghiệp đang để parking — redirect hoặc gỡ"
+  ],
+  "leak": "Tương ứng các cờ `lowQuality` và các điểm spam trong leak; Helpful Content/Scaled content abuse policy là phiên bản hiện đại của khái niệm content farm."
+},
+"US8903812B1": {
+  "relevance": "thấp",
+  "mech": "- Áp dụng cho video. Google tìm tương quan giữa **thời gian xem** và **đánh giá của người dùng** (like/rating), giữa lượt xem và đánh giá, giữa thứ hạng và đánh giá.\n- Tạo hàm dự đoán và hàm phương sai → **tín hiệu chất lượng độc lập với query** cho mỗi video, đưa vào xếp hạng.",
+  "seo": "- Với YouTube/video SEO: watch time và rating là tín hiệu chất lượng lõi. Với web: ý tưởng tương tự áp dụng cho engagement.",
+  "audit": [
+    "Nếu có kênh video: theo dõi thời lượng xem trung bình và tỷ lệ like/dislike của video chủ lực"
+  ],
+  "leak": ""
+},
+"US8078607B2": {
+  "relevance": "thấp",
+  "mech": "- Dành cho **tìm kiếm tuỳ chỉnh** (Custom Search trên website): Google tạo hồ sơ website dựa trên query người dùng gõ trên site và hành vi click, rồi sắp xếp kết quả khác nhau cho từng website khi cùng một query.",
+  "seo": "- Ít liên quan trực tiếp tới xếp hạng organic.",
+  "audit": [],
+  "leak": ""
+},
+"US8060497B1": {
+  "relevance": "thấp",
+  "mech": "- Khung **thử nghiệm thuật toán**: áp dụng nhiều hàm chấm điểm lên cùng kết quả, chọn cặp hàm cho kết quả khác biệt nhiều nhất, hiển thị song song để so sánh (đánh giá bằng rater hoặc thử nghiệm người dùng).",
+  "seo": "- Giải thích vì sao thứ hạng dao động khi Google đang thử nghiệm thuật toán (hai phiên bản kết quả song song). Có Matt Cutts là đồng tác giả.",
+  "audit": [],
+  "leak": ""
+},
+"US8548995B1": {
+  "relevance": "cao",
+  "mech": "- Với một tài liệu, Google tạo **tập tài liệu liên quan** — ví dụ các trang **cùng website**, cùng tác giả, cùng nhà xuất bản.\n- **Nối tất cả trang liên quan thành một 'tài liệu giả' (pseudo-document)** và chấm điểm liên quan cho tài liệu giả này.\n- Điểm cuối = tổng có trọng số của điểm trang đơn lẻ và điểm của tài liệu giả (cả site).",
+  "seo": "- Đây là cơ chế cho **topical authority**: điểm của một trang được cộng thêm theo mức độ **toàn site** liên quan tới query.\n- Site tập trung vào một chủ đề có lợi thế; site đa chủ đề loãng thì trang đơn lẻ khó lên.",
+  "audit": [
+    "Vẽ bản đồ chủ đề toàn site: % nội dung thuộc chủ đề cốt lõi vs chủ đề ngoài lề",
+    "Với chủ đề mục tiêu: site có đủ cụm bài bao phủ (pillar + cluster) chưa",
+    "Cân nhắc xoá/tách nội dung lạc chủ đề làm loãng hồ sơ chủ đề của site"
+  ],
+  "leak": "Khớp với `siteFocusScore`, `siteRadius` và `siteEmbeddings` trong leak — Google đo mức độ tập trung chủ đề của site và khoảng cách của từng trang so với trọng tâm site."
+},
+"US8065296B1": {
+  "relevance": "thấp",
+  "mech": "- Google ghi nhận hành vi người dùng với kết quả tìm kiếm theo thời gian, xây **mô hình chuỗi thời gian** dự đoán hành vi bình thường, so hành vi thực tế với dự đoán để đánh giá chất lượng kết quả trong một giai đoạn; nếu chất lượng thấp hơn kỳ vọng → **tự động gỡ bỏ thay đổi** (ví dụ gỡ một cập nhật thuật toán).",
+  "seo": "- Giải thích việc Google có thể rollback một phần update khi chỉ số hài lòng giảm → biến động thứ hạng sau update đôi khi tự hồi phục.",
+  "audit": [],
+  "leak": ""
+}
+}

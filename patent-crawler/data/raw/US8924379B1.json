@@ -1,0 +1,1476 @@
+{
+ "id": "US8924379B1",
+ "title": "Temporal-based score adjustments",
+ "abstract": "Methods, systems, and apparatus, including computer programs encoded on computer storage media, for determining temporal based score adjustments are provided. One method includes receiving a query and obtaining a score for responsive documents. The method further includes adjusting the scores for the documents according to an age classification for one or more related queries for the documents. Another method includes storing popularity data for queries over time; identifying a query and associated extended queries from the popularity data, and storing time trend data associating the query and one or more periods of time with a respective extended query. Another method includes storing popularity data for queries over time, obtaining scores for documents responsive to a query submitted at a first time, and adjusting the scores for one the documents according to whether the first time is within a popularity change time window for one or more related queries for the documents.",
+ "inventors": [
+  "Hyung-Jin Kim",
+  "Andrei Lopatenko"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2010-03-05",
+ "filing_date": "2010-03-05",
+ "publication_date": "2014-12-30",
+ "status": "Expired - Fee Related",
+ "expiration": "2031-10-14",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/953",
+  "G06F16/9535",
+  "G06F16/30",
+  "G06F16/33",
+  "G06F16/3331",
+  "G06F16/334",
+  "G06F16/335",
+  "G06F16/951",
+  "G06F16/9538"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer-implemented method, comprising: identifying a plurality of documents responsive to a first query, and obtaining a respective score for each document of the plurality of documents, wherein each document is associated with a plurality of previously received related queries for which the document was responsive as a search result, and wherein the related queries match the first query; for each document: determining a respective age classification of each of the related queries associated with the document as new or old depending on whether one or more terms of the respective related query are temporal terms that provide a temporal meaning for the query; and adjusting the score for the document according to the respective age classifications of the related queries associated with the document, wherein adjusting the score for the document comprises: calculating a new count corresponding to a first count of the related queries associated with the document that are classified as new, and calculating an old count corresponding to a second count of the related queries associated with the document that are classified as old; classifying the document as new if the new count satisfies a threshold, otherwise, classifying the document as old if the old count satisfies a threshold; determining a positive adjustment that increases the score by a first factor when the document is a new document, wherein the first factor is determined from the new count; and determining a negative adjustment that decreases the score by a second factor when the document is an old document, wherein the second factor is determined from the old count; and ranking the plurality of documents according to the respective scores for the documents and the adjusted scores.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1 wherein the new count is a weighted count wherein each related query associated with the particular document that is classified as new is weighted by a weight derived from one or more quality of result statistics for the document and the related query.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1 wherein the old count is a weighted count wherein each old query is weighted by a weight derived from one or more quality of result statistics for the document and the old query.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, wherein the temporal terms indicate a request for new information or for old information.",
+   "dependent": true
+  },
+  {
+   "text": "5. A system comprising: one or more computers programmed to perform operations comprising: identifying a plurality of documents responsive to a first query, and obtaining a respective score for each document of the plurality of documents, wherein each document is associated with a plurality of previously received related queries for which the document was responsive as a search result, and wherein the related queries match the first query; for each document: determining a respective age classification of each of the related queries associated with the document as new or old depending on whether one or more terms of the respective related query are temporal terms that provide a temporal meaning for the query; and adjusting the score for the document according to the respective age classifications of the related queries associated with the document, wherein adjusting the score for the document comprises: calculating a new count corresponding to a first count of the related queries associated with the document that are classified as new, and calculating an old count corresponding to a second count of the related queries associated with the document that are classified as old; classifying the document as new if the new count satisfies a threshold; classifying the document as old if the old count satisfies a threshold; determining a positive adjustment that increases the score by a first factor when the document is a new document, wherein the first factor is determined from the new count; and determining a negative adjustment that decreases the score by a second factor when the document is an old document, wherein the second factor is determined from the old count; and ranking the plurality of documents according to the respective adjusted scores for the documents.",
+   "dependent": false
+  },
+  {
+   "text": "6. The system of claim 5 wherein the new count is a weighted count wherein each related query associated with the particular document that is classified as new is weighted by a weight derived from one or more quality of result statistics for the document and the related query.",
+   "dependent": true
+  },
+  {
+   "text": "7. The system of claim 5 wherein the old count is a weighted count wherein each old query is weighted by a weight derived from one or more quality of result statistics for the document and the old query.",
+   "dependent": true
+  },
+  {
+   "text": "8. The system of claim 5, wherein the temporal terms indicate a request for new information or for old information.",
+   "dependent": true
+  },
+  {
+   "text": "9. A computer storage medium encoded with a computer program, the program comprising instructions that when executed by one or more computers cause the one or more computers to perform operations comprising: identifying a plurality of documents responsive to a first query, and obtaining a respective score for each document of the plurality of documents, wherein each document is associated with a plurality of previously received related queries for which the document was responsive as a search result, and wherein the related queries match the first query; for each document: determining a respective age classification of each of the related queries associated with the document as new or old depending on whether one or more terms of the respective related query are temporal terms that provide a temporal meaning for the query; and adjusting the score for document according to the respective age classifications of the related queries associated with the document, wherein adjusting the score for the document comprises: calculating a new count corresponding to a first count of the related queries associated with the document that are classified as new, and calculating an old count corresponding to a second count of the related queries associated with the document that are classified as old; classifying the document as new if the new count satisfies a threshold; classifying the document as old if the old count satisfies a threshold; determining a positive adjustment that increases the score by a first factor when the document is a new document, wherein the first factor is determined from the new count; and determining a negative adjustment that decreases the score by a second factor when the document is an old document, wherein the second factor is determined from the old count; and ranking the plurality of documents according to the respective adjusted scores for the documents.",
+   "dependent": false
+  }
+ ],
+ "description": "\n## BACKGROUND\n\n\nThis specification relates to scoring documents responsive to search queries.\n\nInternet search engines provide information about Internet accessible resources (e.g., Web pages, images, text documents, multimedia content) that are responsive to a user's search query by returning a set of search results in response to the query. A search result includes, for example, a Uniform Resource Locator (URL) and a snippet of information for resources responsive to a query. The search results can be ranked (e.g., in an order) according to scores assigned to the search results by a scoring function.\n\nThe scoring function ranks the search results according to various signals, for example, where (and how often) query terms appear in the search results and how common the query terms are in the search results indexed by the search engine.\n\n\n## SUMMARY\n\n\nIn general, one innovative aspect of the subject matter described in this specification can be embodied in methods that include the actions of receiving a first query; identifying a plurality of documents responsive to the first query, and obtaining a respective score for each document, wherein each document is associated with a plurality of previously received related queries for which the document was responsive; adjusting the score for one or more of the plurality of documents according to an age classification for one or more of the related queries for the document, wherein the age classification is derived from one or more terms in the related queries; and ranking one or more of the plurality of documents according to the respective scores and adjusted scores for the documents. Other embodiments of this aspect include corresponding systems, apparatus, and computer programs recorded on computer storage devices, each configured to perform the operations of the methods.\n\nThese and other embodiments can each optionally include one or more of the following features. Adjusting the score for a particular document in the one or more documents can include determining a score adjustment for the particular document, the determining including: selecting a plurality of matching queries from the plurality of related queries for the particular document, wherein each matching query matches the first query; determining an age classification for each matching query according to any temporal terms of the query and determining an age classification for the particular document according to the classifications of the queries; and determining the score adjustment according to the age classification of the particular document; and adjusting the score for the particular document according to the score adjustment. Determining an age classification for a query can include classifying the query as new if one or more terms of the query are new temporal terms; classifying the query as old if one or more terms of the query are old temporal terms; and otherwise classifying the query as non-temporal. Determining the age classification for the particular document can include calculating a new count corresponding to a number of the matching queries that are classified as new, and calculating an old count corresponding to a number of the matching queries that are classified as old; classifying the document as new if the new count satisfies a threshold; and otherwise, classifying the document as old if the old count satisfies a threshold. The new count can be a weighted count wherein each new query is weighted by a weight derived from one or more quality of result statistics for the document and the query. The old count can be a weighted count wherein each old query is weighted by a weight derived from one or more quality of result statistics for the document and the query.\n\nDetermining the score adjustment can include determining a positive adjustment that increases the score by a factor when the document is a new document. The factor can be determined from the new count. Determining the score adjustment can include determining a negative adjustment that decreases the score by a factor when the document is an old document. The factor can be determined from the old count. The actions can further include determining that the first query is not an old query before determining the adjusted score.\n\nIn general, another innovative aspect of the subject matter described in this specification can be embodied in methods that include the actions of storing popularity data indicating a popularity of queries over time; identifying a first query from the popularity data, the first query comprising one or more terms; selecting one or more extended queries for the first query from the popularity data, each extended query including each term of the first query and one or more additional terms; storing time trend data for the first query for one or more time periods, the time trend data for the first query and a particular period associating the first query and the particular period with one of the extended queries. Other embodiments of this aspect include corresponding systems, apparatus, and computer programs recorded on computer storage devices, each configured to perform the operations of the methods.\n\nThese and other embodiments can each optionally include one or more of the following features. The actions can further include receiving the first query from a user during a first time period; identifying a first extended query associated with the first query and the first time period from the time trend data; and scoring documents responsive to the first query based, at least in part, on the first extended query. Scoring documents responsive to the first query based, at least in part, on the first extended query can include increasing a score of documents that include terms in the first extended query but not in the first query. Scoring documents responsive to the first query based, at least in part, on the first extended query can include increasing a score of documents that are associated with queries that include terms in the first extended query but not in the first query.\n\nIdentifying the first query includes identifying a query that has multiple spikes in popularity as indicated in the popularity data, wherein a spike in popularity occurs when a popularity of the query temporarily increases beyond a threshold amount. The popularity of a query can be derived from a number of times the query is submitted. The popularity of a query can be derived from a number of times users enter the query as a query refinement of an originally submitted query. The actions can further include calculating a popularity score for each of the extended queries for each of the one or more time periods and selecting one of the extended queries to associate with the first query for each of the one or more time periods according to the popularity scores, wherein selecting an extended query for a period includes selecting the extended query with a highest popularity score for the period. The popularity score for an extended query during a first period can be derived by dividing a number of times the extended query was submitted during the first period by the number of times the first query was submitted during the first period. The popularity score for an extended query during a first period can be derived by dividing a number of times the extended query was submitted as a query refinement during the first period by the number of times the first query was submitted during the first period.\n\nIn general, another innovative aspect of the subject matter described in this specification can be embodied in methods that include the actions of storing popularity data for one or more queries, the popularity data indicating changes in popularity of a query over time; receiving a first query submitted at a first time; identifying a plurality of documents responsive to the first query, and obtaining a respective score for each responsive document; adjusting the score for one or more of the plurality of documents according to whether the first time is within a popularity change time window for one or more related queries for the document, wherein the popularity change time window for a query is a reoccurring period of time during which a popularity of the query temporarily changes beyond a threshold amount; and ranking the plurality of documents according to the respective scores and adjusted scores for the documents. Other embodiments of this aspect include corresponding systems, apparatus, and computer programs recorded on computer storage devices, each configured to perform the operations of the methods.\n\nThese and other embodiments can each optionally include one or more of the following features. Adjusting the score for a particular document in the plurality of documents can include determining a score adjustment for the particular document, the determining including: determining that the first time is within one or more relevant popularity change time windows for the particular document, wherein each relevant popularity change time window corresponds to one of the related queries for the particular document; and selecting an appropriate score adjustment according to the popularity change associated with each of the one or more relevant popularity change time windows; and adjusting the score for the particular document according to the score adjustment. One or more of the popularity change time windows can correspond to a temporary spike in popularity for a query. An appropriate score adjustment can be a positive score adjustment that increases the score for the particular document by a factor when the one or more relevant popularity change time windows correspond to a temporary spike in popularity for the query. Each of the popularity change time windows can correspond to a temporary spike in popularity for a query or a temporary dip in popularity for a query. An appropriate score adjustment can be a negative score adjustment that decreases the score for the particular document by a factor when the one or more relevant popularity change time windows correspond to a temporary dip in popularity for the query. The popularity change time window can be a period that re-occurs each calendar year.\n\nParticular embodiments of the subject matter described in this specification can be implemented so as to realize one or more of the following advantages. A search system can identify documents with more recent information from the text of queries associated with the documents. More recent documents can be assigned a higher rank. Documents can be ranked according to the popularity of their associated queries over time, or according to how well the documents satisfy particular queries at particular times.\n\nThe details of one or more embodiments of the subject matter described in this specification are set forth in the accompanying drawings and the description below. Other features, aspects, and advantages of the invention will become apparent from the description, the drawings, and the claims.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nFIG. 1A illustrates an example of two documents and the queries associated with those documents.\n\nFIG. 1B illustrates query popularity over time for the query “how to cook a turkey.”\n\nFIG. 2 illustrates an example search system.\n\nFIG. 3A illustrates example components of an information retrieval system.\n\nFIG. 3B illustrates another example information retrieval system.\n\nFIG. 4 illustrates an example system including a score adjuster that provides score adjustment information to a ranking engine.\n\nFIG. 5 illustrates an example document and example age-classified related queries for the document.\n\nFIG. 6 illustrates an example technique for ranking documents according to adjusted scores determined from an age classification for related queries for the documents.\n\nFIG. 7 illustrates an example system including another score adjuster that provides score adjustment information to a ranking engine.\n\nFIG. 8 illustrates an example technique for ranking documents responsive to a user-submitted query according to whether queries associated with the documents have a popularity time change window that overlaps with the time that the user-submitted query was submitted.\n\nFIG. 9 illustrates an example system that includes another example score adjuster.\n\nFIG. 10 illustrates an example technique for generating time trend data.\n\nFIG. 11 illustrates an example technique for adjusting document scores based on time trend data.\n\nFIG. 12 illustrates an example architecture of a system.\n\nLike reference numbers and designations in the various drawings indicate like elements.\n\n\n## DETAILED DESCRIPTION\n\n\nFIG. 1 illustrates an example of two documents 102 and 104 and the queries associated with those documents. The example documents 102 and 104 are webpages. However, documents can be any type of electronic document, for example, images, multimedia content, or news articles on the Internet. An electronic document (which for brevity will simply be referred to as a document) does not necessarily correspond to a file. A document can be stored in a portion of a file that holds other documents, in a single file dedicated to the document in question, or in multiple coordinated files. Moreover, a document can be stored in a memory without having first been stored in a file.\n\nDocument A 102 includes information on “the Super Race” from 1996. This includes, for example, the dates of the race, where participants should report to start the race each day, and the results of the race. All of the information in document A 102 is about the 1996 race. The document does not have information about more recent versions of the race.\n\nOne way to determine that document A 102 contains old information is to examine queries associated with the document. A query is associated with the document if the user selected (e.g., clicked with a mouse or other input device including oral and tactile input devices) on a search result for the document presented in response to the query. For example, query 106 “Super Race 1996” is associated with document A 102. This means that at least one user submitted the query “Super Race 1996” and then selected a search result for document A 102 when the search result was presented for the query. In some implementations, a user must view the document a threshold amount of time before the query is associated with the document, e.g., the dwell time on the document must exceed a threshold. In some implementations, a document must have been selected a threshold number of times, or by a threshold number of users, to be considered associated with the document.\n\nEach query associated with the document contains one or more terms. These terms can be used to determine whether the document contains old information, or more recent information. For example, terms that are old dates (e.g., “1996” when the year is 2010) or terms that denote old information (e.g., “old,” “previous,” “last year's,” etc.) may indicate that the document contains old information. Similarly, terms that are new dates relative to the time at which the user is submitting the query (e.g., “2010” when the year is 2010) or terms that denote current information or information about something in the future (e.g., “new,” “current” “future,” “today,” etc.) indicate that the document contains more recent information.\n\nFor example, several of the queries associated with document A 102 indicate that the document has old information. Query 106 “Super Race 1996” and query 108 “Super Race Results 1996” both include the date of the race “1996” which is years before the current date of 2010. Queries 110 “Old Super Race Results” and 114 “Super Race Previous Years” both indicate that the content of the document is old because of the words “Old” and “Previous.” While some queries such as 112 “Super Race” and 116 “Super Race Results” do not indicate that the document is old, the majority of the queries associated with document A include terms that indicate that the document is old.\n\nIn contrast, document B 104 contains information on “Cross Country Marathon 2010.” The document includes a link for the current standings in the race, updates on when the marathon will reach particular towns, and the latest pictures from the race. Assuming that we are considering this document in 2010, the document appears to be providing current information about an on-going race.\n\nMuch as the queries associated with document A 102 indicated that document A 102 contained old information, the queries associated with document B 104 indicate that document B 104 has recent information. For example, queries 118 “Current CCM Standings,” 122 “Latest Marathon Results,” 124 “CC Marathon Update,” and 128 “New Marathon Pictures” include the words “Current” “Latest” “Update” and “New,” each of which indicates that the person submitting the query was looking for recent information. Similarly, the query 120 “Marathon 2010” includes the current date 2010. While not all of the queries indicate that the document is new, for example, query 126 “Cross Country Marathon,” the majority of the queries associated with document B do indicate that the document is new.\n\nUsers typically want search engines to provide the search results that are most relevant to a user's query. In general, unless queries explicitly suggest otherwise, a user is looking for the most recent information for the subject of their query. As will be described below, conventional search engines can be modified to use the queries associated with a document to determine an age classification of the document, and rank documents believed to have a new age classification higher than those documents might otherwise be ranked. In some implementations, the age of the document is determined based only on queries that match a user-submitted query. For example, if a user submitted the query “Super Race Results,” the age of document A could be determined from the queries “Super Race Results 1996” 108, “Old Super Race Results” 110, and “Super Race Results” 116, but not consider the other queries associated with document A 102.\n\nFIG. 1B is a graph 150 that illustrates example changes in query popularity over time for the query “how to cook a turkey”. Query popularity is another signal that a search engine can consider when determining whether to promote search results. Some queries have cyclic patterns in their popularity. For example, the query “Easter Bunny” may become more popular around Easter each year, as the Easter Bunny is strongly associated with Easter.\n\nAs shown in FIG. 1B, the popularity of the query “how to cook a turkey” remains relatively constant until time 152, just before November. The query popularity then increases dramatically and stays at the higher peak until time 154, just after the beginning of December, when the query has a decrease in popularity and returns to its previous level of popularity. This temporary increase in popularity can be caused, for example, by search engine users in the United States who are interested in learning how to cook a turkey for the Thanksgiving holiday.\n\nA search engine can consider this temporal signal, for example, to temporarily increase the ranking of search results during a particular time window, when those search results are associated with queries that usually have an increase in popularity during that particular time window, or when the search results include terms in queries that usually have an increase in popularity during that particular time window.\n\nUsers may also select different search results in response to a query at different times of the year. For example, users might normally select search results describing the country Turkey after submitting a search query “Turkey,” but might select search results on how to cook a turkey during November, because users are interested in cooking turkey for Thanksgiving dinner. The search results selected at different times of the year can also be used as a temporal signal.\n\nWhile FIG. 1B illustrates a temporary increase in query popularity, the temporal data could also indicate a decrease in query popularity, in which case, search results could have their rankings decreased during the time window when their related queries have a decrease in popularity.\n\nFIG. 2 illustrates an example search system 200 for identifying search results in response to search queries as can be implemented in an internet, intranet, or other client/server environment. The system 200 is an example of an information retrieval system in which the systems, components and techniques described below can be implemented. Although several components are illustrated, there may be fewer or more components in the system 200. Moreover, the components can be distributed on one or more computing devices connected by one or more networks or other suitable communication mediums.\n\nA user 202 (202 a, 202 b, 202 c) interacts with the system 200 through a client device 204 (204 a, 204 b, 204 c) or other device. For example, the client device 204 can be a computer terminal within a local area network (LAN) or wide area network (WAN). The client device 204 generally includes a random access memory (RAM) 206 (or other memory and/or a storage device) and a processor 208. The processor 208 is structured to process instructions within the system 200. In some implementations, the processor 208 is a single-threaded processor. In other implementations, the processor 208 is a multi-threaded processor. The processor 208 can include multiple processing cores and is structured to process instructions stored in the RAM 206 (or other memory and/or a storage device included with the client device 204) to display graphical information for a user interface.\n\nA user 202 a connects to the search engine 230 within a server system 214 to submit a query 215. When the user 202 a submits the query 215 through an input device attached to a client device 204 a, a client-side query signal 210 a is sent into a network 212 and is forwarded to the server system 214 as a server-side query signal 210 b. Server system 214 can be one or more server devices in one or more locations. A server device 214 includes a memory device 216, which can include the search engine 230 loaded therein. A processor 218 is structured to process instructions within the device 214. These instructions can implement one or more components of the search engine 230. The processor 218 can be a single-threaded processor or a multi-threaded processor, and can include multiple processing cores. The processor 218 can process instructions stored in the memory 216 related to the search engine 230 and can send information to the client device 204, through the network 212, to create a graphical presentation in a user interface of the client device 204 (e.g., a search results web page displayed in a web browser).\n\nThe server-side query signal 210 b is received by the search engine 230. The search engine 230 uses the information within the user query 215 (e.g. query terms) to find relevant documents. The search engine 230 can include an indexing engine 220 that actively searches a corpus (e.g., web pages on the Internet) to index the documents found in that corpus, and the index information for the documents in the corpus can be stored in an index database 222. This index database 222 can be accessed to identify documents related to the user query 215.\n\nThe search engine 230 includes a ranking engine 252 to rank the documents related to the user query 215. The ranking of the documents can be performed using traditional techniques for determining an information retrieval (IR) score for indexed documents in view of a given query. The relevance of a particular document with respect to a particular search term or to other provided information may be determined by any appropriate technique. For example, the general level of back-links to a document that contains matches for a search term may be used to infer a document's relevance. In particular, if a document is linked to (e.g., is the target of a hyperlink) by many other relevant documents (e.g., documents that also contain matches for the search terms), it can be inferred that the target document is particularly relevant. This inference can be made because the authors of the pointing documents presumably point, for the most part, to other documents that are relevant to their audience.\n\nIf the pointing documents are in turn the targets of links from other relevant documents, they can be considered more relevant, and the first document can be considered particularly relevant because it is the target of relevant (or even highly relevant) documents. Such a technique may be the determinant of a document's relevance or one of multiple determinants. Appropriate techniques can also be taken to identify and eliminate attempts to cast false votes so as to artificially drive up the relevance of a page.\n\nTo further improve such traditional document ranking techniques, the ranking engine 252 receives one or more additional signals from a rank modifier engine 256 to assist in determining an appropriate ranking for the documents. The rank modifier engine 256 provides one or more measures of relevance for the documents, which can be used by the ranking engine 252 to improve the search results' ranking provided to the user 202.\n\nThe search engine 230 forwards the final, ranked result list within a server-side search results signal 228 a through the network 212. Exiting the network 212, a client-side search results signal 228 b is received by the client device 204 a where the results are stored within the RAM 206 and/or used by the processor 208 to display the results on an output device for the user 202 a.\n\nThe server system 214 may also maintain one or more user search histories based on the queries it receives from a user and which results a user selected after a search was performed.\n\nFIG. 3A illustrates example components of an information retrieval system. These components include an indexing engine 3010, a scoring engine 3020, a ranking engine 3030, and a rank modifier engine 3070. The indexing engine 3010 functions as described above for the indexing engine 220. The scoring engine 3020 generates scores for document results based on many different features, including content-based features that link a query to document results, and query-independent features that generally indicate the quality of document results. The content-based features include, for example, aspects of document format, such as query matches to title or anchor text in an HTML (Hyper Text Markup Language) page. The query-independent features include, for example, aspects of document cross-referencing of the document or the domain. Moreover, the particular functions used by the scoring engine 3020 can be tuned, to adjust the various feature contributions to the final IR score, using automatic or semi-automatic processes.\n\nThe ranking engine 3030 produces a ranking of document results 3040 for display to a user based on IR scores received from the scoring engine 3020 and one or more signals from the rank modifier engine 3070. The rank modifier engine 3070 provides one or more measures of relevance for the documents, which can be used by the ranking engine 3030 to improve the search results' ranking provided to the user. A tracking component 3050 is used to record information regarding user behavior such as individual user selections of the results presented in the ranking 3040. In some implementations, the tracking component 3050 is embedded JavaScript code included in a web page ranking 3040 that identifies user selections of individual document results and also identifies when the user returns to the results page, thus indicating the amount of time the user spent viewing the selected document result. In other implementations, the tracking component 3050 is a proxy system through which user selections of the document results are routed. The tracking component can also include pre-installed software at the client. Other implementations are also possible, for example, an implementation that uses a feature of a web browser that allows a tag/directive to be included in a page, which requests the browser to connect back to the server with message(s) regarding link(s) clicked by the user.\n\nThe recorded information is stored in result selection logs 3060. In various implementations, the recorded information includes log entries that indicate user interaction with each result document presented for each query submitted. For each user selection of a result document presented for a query, the log entries indicate the query (Q), the document (D), the user's dwell time (T) on the document, the language (L) employed by the user, and the country (C) where the user is likely located (e.g., based on the server used to access the IR system) and a region code (R) identifying the metropolitan area of the user. The log entries can also record information about document impressions. An impression is recorded each time a result document is presented in a results list for the query. Other standards for recording impressions can also be used. For example, an impression can be recorded when a user selects the document, or a document below the document in the result list. An impression can also be recorded when a user selects the document directly above the document in the result list. In some implementations, a weighted count of impressions is calculated for each document presented in response to the query. For example, if a user selects the document or a document below the document in the result list, 1 is added to the weighted count. If a user selects a document above the document, a value of less than 1 is added to the weighted count. The value can be a constant or can be determined, for example, by dividing 1 by the number of documents between the document and the selected document in the search result list.\n\nThe log entries can also record negative information, such as the fact that a document result was presented to a user, but was not selected. Other information such as position(s) of click(s) (i.e., user selection(s)) in the user interface, information about the session (e.g., existence and type of previous clicks, and post-click session activity), IR scores of clicked results, IR scores of all results shown before click, the titles and snippets shown to the user before the click, the user's cookie, cookie age, IP (Internet Protocol) address, user agent of the browser, and so on, can also be recorded.\n\nIn various implementations, the time (T) between the initial click-through to the document result and the user's returning to the main page and clicking on another document result (or submitting a new search query) is also recorded. An assessment is made about the time (T) regarding whether this time indicates a longer view of the document result or a shorter view of the document result, since longer views are generally indicative of quality or relevance for the clicked through result. This assessment about the time (T) can further be made in conjunction with various weighting techniques.\n\nAggregated click data from queries for a given document can be used to generate a quality of result statistic for the document as a search result for the query. In general, the quality of result statistic estimates how responsive users found a given document to be as a search result for a given query. The quality of result statistic can be used to rank or enhance a ranking of the document.\n\nVarious heuristics for calculating the quality of result statistic can be used. For example, a quality of result statistic can be an average of the weighted long clicks for a given document and query pair, a sum of the weighted clicks for a given document and query pair, or a click fraction for a given document and query pair. Various weights are also possible, for example, the clicks can be weighted by the length of the clicks, by how quickly a user clicked on a result, and whether a user clicked on a result first, second, third, etc. Various types of click fractions are possible. For example, in some implementations, the click fraction is calculated by dividing the number of clicks (or the number of weighted clicks) by the number of impressions. In other implementations, the click fraction is calculated by dividing the sum of the weighted clicks by the total number of clicks. In still other implementations, the click fraction is the sum of weighted clicks for the document presented in response to the query divided by sum of weighted clicks for all documents presented in response to the query. Other click fractions are also possible.\n\nThe components shown in FIG. 3A can be combined in various manners and implemented in various system configurations. For example, the scoring engine 3020 and the ranking engine 3030 can be merged into a single ranking engine, such as the ranking engine 252 of FIG. 2. The rank modifier engine 3070 and the ranking engine 3030 can also be merged, and in general, the ranking engine 3030 can include any software component that generates a ranking of document results after a query. Moreover, the ranking engine 3030 can be included in a client system in addition to (or rather than) in a server system.\n\nFIG. 3B illustrates another example information retrieval system. In this system, a server system 3150 includes an indexing engine 3160 and a scoring/ranking engine 3170. A client system 3100 includes a user interface 3110 for presenting a ranking, a tracking component 3120, result selection logs 3121 and a ranking/rank modifier engine 3140. For example, the client system 3100 can include a company's enterprise network and personal computers, in which a browser plug-in incorporates the ranking/rank modifier engine 3140. When an employee in the company initiates a search on the server system 3150, the scoring/ranking engine 3170 can return the search results along with either an initial ranking or the actual IR scores for the results. The browser plug-in then re-ranks the results locally based on tracked page selections for the company-specific user base.\n\nFIG. 4 illustrates an example system 400 including a score adjuster 402 that provides score adjustment information to a ranking engine 404. The score adjuster 402 is an example component of the rank modifier engine 256 described above with reference to FIG. 2.\n\nThe score adjuster 402 receives, for a given query 408, documents 410 responsive to the query. The score adjuster 402 then processes these documents 410 and determines an appropriate score adjustment 412 for one or more of the documents. The ranking engine 404 also receives the documents 410, as well as the score adjustments 412 for one or more of the documents, and generates a ranked list of the documents 414, according to scores for the documents and the score adjustments.\n\nThe score adjuster 402 includes a related query engine 416, a document age classifier 418, and an adjustment engine 420. However, other combinations of components that provide the same, or similar, functionality, can alternatively be used.\n\nThe related query engine 416 identifies related queries 422 associated with each of the documents in the received document-score pairs. To identify these related queries, the related query engine 416 analyzes document-query pair data 424 that stores pairs of documents and queries. Each pair includes a document and a related query of the document. The document-query pair data can be derived from log information generated by a search engine, for example, as described above with reference to FIG. 3A.\n\nIn some implementations, the document-query pair data further includes one or more quality of result statistics for the document and the query, and the related query engine 516 only identifies related queries for which the document has a quality of result statistic that satisfies a threshold.\n\nIn some implementations, the related query engine 416 identifies all queries in a document-query pair for the document being processed as being related queries. In other implementations, the related query engine 416 identifies a subset of the queries as being related queries. The subset can be, for example, queries that match the received query 408. A related query matches the received query 408 when it includes one or more terms that are identical to or substantially identical to one or more of the terms in the received query. Two terms are identical when they are the same term, for example, the term “reading” is identical to the term “reading.” Two terms are substantially identical when they have the same stem form, when they differ in small ways such as slight differences in spelling, or when they are synonyms for each other. For example, the term “reading” is substantially identical to the term “reads,” since both have the same stem form “read.” The term “color” is substantially identical to the term “colour,” since the two terms differ only in small differences in spelling. The term “bike” is substantially identical to the term “bicycle,” since the two terms are synonyms. Other standards for determining when terms are substantially identical can also be used.\n\nIn some implementations, all terms in the received query must be identical or substantially identical to a term in the related query before the two queries are matched. In some implementations, in order for the queries to be matched, the only terms in the related query that are not substantially identical to a term in the received query 408 must be temporal terms. Temporal terms are described in more detail below.\n\nThe document age classifier 418 receives the related queries 422 for each document being processed. The document age classifier 418 then classifies the age of the document from the terms in the related queries.\n\nIn some implementations, the document age classifier 418 determines an age classification 426 for each of the related queries from the terms in the queries, and then determines an age classification for the document from the age classification for the related queries of the document.\n\nThe document age classifier 418 determines an age classification for a query according to one or more terms of the query. In some implementations, the document age classifier 418 classifies each related query as one of: new, old, or non-temporal. A new query is a query that includes one or more new temporal terms, an old query is a query that includes one or more old temporal terms, and all other queries are non-temporal queries. If a query contains both new and old temporal terms, the query can be classified as an old query in some implementations, as a new query in other implementations, and as a non-temporal query in still other implementations. A temporal term is a term that conveys information about the time reference of the query; e.g., is the query asking about new information or old information. The document age classifier 418 can determine whether a given term is a new temporal term or an old temporal term, for example, by comparing the term to a list of new temporal terms and a list of old temporal terms. Each list can include dates and terms that connote the appropriate temporal meaning, for example, as described above with reference to FIG. 1. In some implementations, the document age classifier 418 only considers temporal terms that were not included in the received query 408. For example, if the received query 408 was “new marathon results,” and one of the related queries included the temporal term “new,” the term “new” would not be considered for the purpose of classifying the related query.\n\nOnce each related query is classified, the document age classifier 418 classifiers the document according to the age classifications of the related queries of the document. For example, the document age classifier 418 can generate a new count and/or an old count for the related queries for the document. If the new count satisfies, e.g., exceeds, a first threshold, the document age classifier 418 classifies the document as a new document. In some implementations, the new count divided by the total number of queries associated with the document must also satisfy another threshold, e.g., exceed the other threshold, for the document to be classified as a new document. In some implementations, the old count must also satisfy a second threshold, e.g., be below the second threshold, for the document to be classified as a new document. If the old count satisfies a second threshold, the document age classifier 418 classifies the document as an old document. In some implementations, the old count divided by the total number of queries associated with the document must also satisfy a third threshold, e.g., exceed the third threshold, for the document to be classified as an old document. In some implementations, the new count must also satisfy a fourth threshold, e.g., be below the fourth threshold, for the document to be classified as a new document. If the document is not classified as an old document or a new document, the document age classifier 418 classifies the document as a non-temporal document.\n\nIn some implementations, the new count is the number of related queries that were classified as new queries, and the old count is the number of related queries that were classified as old queries. In other implementations, the new count is a weighted count where each new query and/or each old query is weighted by a quality of result statistic for the document and the related query, or a factor derived from a quality of result statistic for the document and the related query. For example, each query can be weighted by the number of long clicks for the query and the document divided by the total number of long clicks for the query and the document. Other quality of result statistics can also be used. Example quality of result statistics are described in more detail above, with reference to FIG. 3A.\n\nWhile the above describes classifying a document as old, new, or non-temporal, other classification structures can be used. For example, in some implementations documents are classified as old or not-old; in some implementations, documents are classified as new or not-new; and in some implementations, documents are classified according to a more finely grained classification system.\n\nIf the document is classified as a non-temporal document, the score adjuster 402 does not determine an adjusted score for the document. If the document is classified as an old or a new document, the score adjuster 402 sends the age classification 426 to the adjustment engine 420.\n\nThe adjustment engine 420 determines an appropriate score adjustment 412 for the document, and sends the score adjustment 412 to the ranking engine 404. In some implementations, the adjustment engine determines a score adjustment that increases the score by a first predetermined factor when the document is a new document and decreases the score by a second predetermined factor when the document is an old document. The first and second predetermined factors can be the same or different factors and can be determined, for example, empirically. Each factor can be, for example, a fixed amount that is added or subtracted from the score, or a fixed amount that is multiplied by the score, to generate the adjusted score.\n\nIn some implementations, the adjustment engine 420 determines the value of the factor from the new count or the old count generated by the document age classifier 418. For example, if the document is classified as a new document, the adjustment engine 420 can derive an appropriate adjustment factor from the new count of new queries related to the document. Similarly, if the document is classified as an old document, the adjustment engine 420 can derive an appropriate adjustment factor from the old count of old queries related to the document.\n\nIn some implementations, the adjustment engine 420 selects the factor used to adjust the score for a document relative to the score for other documents. For example, the adjustment engine can select the factors so that each new document is scored higher than each old document, but a given new document is not scored higher than another new document that initially had a higher score than the given new document.\n\nThe ranking engine 404 receives the document-score pairs 410 and the document-adjusted score pairs 412 for the documents, and then ranks the documents according to the scores and the score adjustments. The ranking engine 404 applies the score adjustments to the appropriate document scores to determine adjusted scores for the documents, and ranks each document according to the adjusted score for the document if the document has an adjusted score, and otherwise according to the unadjusted score for the document.\n\nFIG. 5 illustrates an example document and example age-classified related queries for the document. Document A 502 has four associated queries: “Marathon 2010” 604, “Current Marathon” 506, “Marathon 1998” 508, and “Marathon Results” 510. Two of the queries are classified as new queries (“Marathon 2010” and “Current Marathon”), one of the queries is classified as an old query (“Marathon 1998”), and one of the queries is classified as non-temporal (“Marathon Results”).\n\nA document age classifier can classify the age of document A 502 based on the classifications of the related queries. For example, if the document age classifier uses an unweighted count, the new count for document A 502 is two, because two related queries are classified as new. The old count for document A 502 is one, because only one related query is classified as old. As another example, if the document age classifier weights the count by a quality of result statistic for each query, the new count is 0.8+0.7=1.5, because new query 504 has a quality of result statistic of 0.8, and new query 506 has a quality of result statistic of 0.7. Therefore, the weighted count is generated by summing the quality of result statistics for the two queries. Similarly, the old count is 0.01, because the query 508 has a quality of result statistic of 0.01.\n\nThe document age classifier can then determine the appropriate classification for document A 502 based on the old and new counts. For example, if the threshold for the new count is 1.4, then document A 502 will be classified as new, because its new count exceeds the threshold.\n\nFIG. 6 illustrates an example technique 600 for ranking documents according to adjusted scores determined from an age classification for related queries for the documents. For convenience, the example technique 600 will be described in reference to a system that performs the technique 600. The system can be, for example, the system 400.\n\nThe system receives a query (602), for example, as described above with reference to FIG. 2. The system identifies documents responsive to the query and obtains a score for each document (604), for example using conventional scoring techniques.\n\nThe system adjusts the score for one or more of the documents according to an age classification for one or more of the related queries for the document (606), for example, as described above with reference to FIG. 4. In some implementations, the system further determines that the received query is not an old query before determining the adjusted score. For example, the system can classify the received query as described above with reference to FIG. 4. If the query is an old query, then the user may not be particularly interested in more recent documents, and therefore no score adjustment is needed.\n\nThe system ranks one or more of the documents according to their respective scores and adjusted scores (608). For example, the system can use the adjusted score for a document if the document has an adjusted score, and otherwise can use the score for the document, as described above with reference to FIG. 4.\n\nIn some implementations, the system then presents the responsive documents according to the determined rank. For example, the system can send the ranked list of search results corresponding to the documents to a user device for presentation to the user.\n\nFIG. 7 illustrates an example system 700 including a score adjuster 702 that provides score adjustment information to a ranking engine 704. The score adjuster 702 is an example component of the rank modifier engine 256 described above with reference to FIG. 2, and can be used instead of or in addition to the score adjuster 402 described above with reference to FIG. 4. The score adjuster 702 determines score adjustments for documents responsive to a submitted query according to whether related queries for the document have a change in popularity during the time the submitted query is submitted.\n\nThe score adjuster 702 receives documents 706 responsive to a submitted query 708. The score adjuster 702 processes the documents 706 to determine an appropriate score adjustment 710 for one or more of the documents.\n\nThe ranking engine 704 receives the documents 706 and score adjustments 710, and generates a ranked list of the documents 712, according to scores for the documents and the score adjustments.\n\nThe score adjuster 702 includes a related query engine 714, a time window engine 716, and a score adjustment engine 718.\n\nThe related query engine 714 identifies related queries 720 associated with each of the documents in the received document-score pairs. To identify these related queries, the related query engine 714 analyzes document-query pair data 722, for example, as described above with reference to FIG. 4. In some implementations, the related query engine 714 identifies all queries in a document-query pair with the document as being related queries. In other implementations, the related query engine 714 identifies a subset of matching queries as the related queries, for example, as described above with reference to FIG. 4. The time window engine 716 receives the related queries 720 for each document.\n\nThe time window engine 716 identifies a popularity time change window for one or more of the related queries from query popularity data 724. The query popularity data 706 is historical data on the number of submissions of queries over time. For example, the query popularity data 706 can be time series data indicating number of submissions of the query over time. Alternatively, the query popularity data 706 can be query log data indicating what queries users submitted at particular times. The query log data is preferably anonymized to protect user privacy. The query popularity data 706 can correspond to historical data from a past few months, a past few years, or an even longer period of time.\n\nThe popularity of a related query is derived from the number of times users submit the related query to a search engine. In some implementations, the popularity is the total number of times user submit the related query to a search engine. In other implementations, the popularity is the number of times users submit the related query to a search engine after submitting the query 708 (e.g., as determined from query log data).\n\nThe time window engine 716 processes the received data for the related queries to determine one or more popularity time change windows for the related queries. A popularity change time window is a re-occurring period of time during which a popularity of a query temporarily changes beyond a threshold amount. The threshold can be determined empirically, for example, so that small background fluctuations in popularity are not identified as popularity time change windows.\n\nFor example, a popularity change time window can correspond to a temporary spike, or a temporary dip in query popularity. In general, the popularity of a query returns to its pre-popularity change time window level at the end of the popularity change time window. For example, in FIG. 1B, the popularity change time window would be the time between time 152 and 154. During that time, the popularity of the query spiked, i.e., temporarily increased from its baseline level before the start of the time change window.\n\nThe time window engine 716 can determine the popularity time change windows for a query from an analysis of the query popularity data 804. For example, the time window engine 716 can analyze the time trend data to identify statistically significant spikes or dips in submissions for a given query. The time during which there is a statistically significant spike or dip in submissions for the query is a popularity time change window. The system can determine statistically significant spikes or dips, for example, using conventional time series analysis techniques.\n\nThe time window engine 716 can also determine whether the popularity time change window corresponds to primarily an increase in or a decrease in popularity. The increase/decrease is measured relative to a baseline level of popularity for the query before the popularity time change window.\n\nIn some implementations, query popularity data 704 from multiple periods is considered by the time window engine 716 when generating the popularity time change window data. For example, the time window engine 716 can consider data from each of several past calendar years. In some implementations, the time window engine 716 aggregates the data over the multiple periods and identifies statistically significant spikes and dips in the aggregate data. For example, the time window engine 716 could aggregate the data for a query for each day of the calendar year (January 1, January 2, January 3, etc.) across multiple years, and then determine spikes and dips in the aggregate data. In other implementations, the time window engine 716 does not aggregate the data over multiple periods, but instead determines popularity time change windows for each period, and then generates an aggregate popularity time change window, for example, during the times that the period-specific time change windows overlap.\n\nThe time window engine 716 determines whether the time the submitted query 708 was submitted is within the time change window for one or more of the related queries, for example, by comparing the time that the submitted query 708 was submitted to the time change window data 724. The time the submitted query was submitted is within a time change window if the time of submission corresponds to the time change window. For example, if the time change window corresponds to the month of January and is based on data from January 2000 to January 2009, and the query is submitted on Jan. 2, 2010, the time the query is submitted corresponds to the time change window because it falls within the time change window. Similarly, if the time change window is the first two weeks of every month, and the query is submitted on the first day of a month, the time the query is submitted corresponds to the time change window.\n\nIf the query 708 was not submitted during the time change window for one of the related queries, the score adjuster 702 does not determine a score adjustment. Otherwise, the score adjuster 702 provides the details of the decision 726 made by the time window engine 716 to the adjustment engine 718 to determine an appropriate score adjustment.\n\nThe adjustment engine 718 determines an appropriate score adjustment 710 for one or more of the documents and sends the score adjustment 710 to the ranking engine 704.\n\nIn some implementations the adjustment engine 718 adjusts the scores according to whether the popularity time change window during which the query 708 was submitted corresponds to an increase in popularity, e.g., a popularity spike, or a decrease in popularity, e.g., a popularity dip.\n\nFor example, in some implementations, the adjustment engine 718 increases the score by a first predetermined factor when the popularity time change window corresponds to an increase in popularity, and decreases the score by a second predetermined factor when the popularity time change window corresponds to a decrease in popularity. The first and second predetermined factors can be the same or different factors and can be determined, for example, empirically. Each factor can be, for example, a fixed amount that is added or subtracted from the score, or a fixed amount that is multiplied by the score, to generate the adjusted score.\n\nAs another example, in other implementations, the adjustment engine 718 determines the value of the factor from other data about the popularity time change window. For example, the factor can have greater magnitude when the popularity time change window is of a shorter length. As another example, the factor can have greater magnitude when the spike or dip in popularity (e.g., the overall change in popularity numbers) has a greater magnitude.\n\nIn some implementations, the adjustment engine 718 determines the value of the factor from the number of relevant popularity time change windows during which the query 708 was submitted. A relevant popularity time change window is a popularity time change window for one of the related queries for the document being scored.\n\nFor example, the factor can have a magnitude derived from the number of relevant popularity time change windows during which the query 708 was submitted. The larger the number of popularity time change windows, the larger the factor. In some implementations, the adjustment engine 718 can sum, average, or otherwise combine a score for each query with a relevant popularity time change window during which the query 708 was submitted. The score for each popularity window can be derived from the magnitude of the change in popularity during the popularity time change window or can be derived from the length of the time change window. For example, the score can have a greater magnitude when the change is greater and a greater magnitude when the length is smaller. The direction of the score, e.g., positive or negative, can be derived from whether the popularity increased or decreased during the time window.\n\nAs another example, the factor can have a magnitude derived from the relative popularity of the relevant queries with popularity time change windows during which the query 708 was submitted. For example, if query popularity is measured by number of times queries are submitted, the score for a relevant query r, for user-submitted query u during time period t can be calculated according to the following formula: score(r)=number of times query r is submitted during time period t/number of times query u is submitted during time period t\n\nAs another example, if query popularity is measured by the number of times users refine their queries from the submitted query to a relevant query, the score for a relevant query r, for a user-submitted query u during time period t can be calculated according to the following formula: score(r)=number of times query refinement r is submitted during time period t/number of times query u is submitted during time period t\n\nA particular query is submitted as a query refinement of another query if a user first submits the other query and then submits the particular query after the other query. In some implementations, the particular query must include one or more terms of the other query to be considered a refinement. For example, “Olympics 2010” is a refinement of “Olympics,” but “Winter competition 2010” is not a refinement of “Olympics.” In some implementations, the particular query must follow the other query within a threshold number of queries or a threshold amount of time of the other query. For example, if a user submitted the query “Olympics” and then submitted the query “Olympics 2010” five seconds later, the query “Olympics 2010” could be identified as a refinement for the query “Olympics.” In some implementations, the user must not select any search results responsive to the other query before submitting the particular query in order for the particular query to be considered a query refinement.\n\nThe ranking engine 704 receives the document-score pairs 706 and the score adjustments 710 for the documents, and ranks the documents according to the scores and score adjustments. The ranking engine 704 generates adjusted scores for documents having score adjustments, and then ranks each document according to the adjusted score for the document if the document has an adjusted score, and otherwise according to the unadjusted score for the document.\n\nFIG. 8 illustrates an example technique 800 for ranking documents responsive to a user-submitted query according to whether queries associated with the documents have a popularity time change window that overlaps with the time that the user-submitted query was submitted. For convenience, the example technique 800 will be described in reference to a system that performs the technique 800. The system can be, for example, the system 700.\n\nThe system stores popularity data for one or more queries (802), for example, as described above with reference to FIG. 7.\n\nThe system receives a query submitted at a particular time (804), for example, as described above with reference to FIG. 2. The system identifies documents responsive to the query and obtains a score for each document (806), for example, as described above with reference to FIG. 2.\n\nThe system adjusts the score for one or more of the plurality of documents according to whether the particular time is within a popularity time change window for one or more related queries for the document (808), for example, as described above with reference to FIG. 7. The popularity time change window is a re-occurring period of time during which a popularity of the query temporarily changes beyond a threshold amount and can be determined, for example, using conventional time series analysis techniques. In some implementations, the system compares a score derived from the popularity of the query, for example, the popularity of the query during a particular time period divided by the average popularity of the query, and compares that score to a threshold to determine whether there is a popularity time change window for the query.\n\nIn some implementations, rather than only adjusting the scores when the change in the popularity of the query exceeds a threshold, the system determines a score adjustment for all documents, where the impact of any one related query on the factor for the document is weighted by a measure of the query popularity, for example, the popularity during a time period corresponding to the current time period divided by the average popularity of the query.\n\nThe system ranks the document according to the scores and adjusted scores (810), for example, as described above with reference to FIG. 7. In some implementations, the system then presents the responsive documents according to the determined rank. For example, the system can send the ranked list of search results corresponding to the documents to a user device for presentation to the user.\n\nFIG. 9 illustrates an example system 900 that includes a score adjuster 902. The score adjuster 902 is an example component of the rank modifier engine 256 described above with reference to FIG. 2, and can be used instead of or in addition to the score adjusters 402 and 702 described above with reference to FIGS. 4 and 7. The score adjuster 902 determines score adjustments for documents responsive to a submitted query according to time trend data 904 generated by a time trend engine 906 from query popularity data 908. The score adjustments are then provided to ranking engine 910.\n\nThe time trend engine 906 receives the query popularity data 908 and processes the query popularity data to build a table storing time trend data 904. The query popularity data 908 is described in more detail above with reference to FIG. 7.\n\nThe time trend engine 906 analyzes the query popularity data 908 to identify one or more recurring queries. Each recurring query is a query that has multiple spikes in popularity over a period time. The period of time can be, for example, a year or a month. Data from multiple periods of time can be aggregated in the query popularity data 908. For example, the data from multiple years can be aggregated by period of time (date, month, etc.), as described above with reference to FIG. 7. A spike in popularity occurs when the popularity of a query temporarily increases beyond a threshold amount.\n\nFor example, the query “playoff schedule” can be associated with spikes in popularity during January, April, and October (corresponding to the playoff season for the National Football League, National Basketball Association, and Major League Baseball, respectively), and therefore can be identified as a recurring query.\n\nThe time trend engine 904 then identifies one or more extended queries for each recurring query. Each extended query includes each term of the recurring query and one or more additional terms. For example, the time trend engine 904 can identify the extended queries “playoff schedule nfl,” “playoff schedule nba,” and “playoff schedule mlb” for the recurring query “playoff schedule.”\n\nThe time trend engine 904 can identify the extended queries using various methods. In some implementations, the extended queries are query refinements of the recurring queries. Query refinements are described in more detail above.\n\nThe time trend engine 904 then adds entries to the time trend data 904 for each of the recurring queries. The time trend engine 904 can generate multiple entries for each recurring query. Each entry corresponds to a recurring query and a particular period of time (e.g., two weeks). The entry associates the recurring query and a particular period of time with one of the extended queries.\n\nThe extended query associated with the recurring query and the period of time is the extended query that is the most popular during the period of time. In some implementations, the time trend engine 904 selects the most popular query by calculating a score for each extended query for the time period, and then selecting the extended query with the highest score. For example, if query popularity is measured by number of times queries are submitted, the score for an extended query e, for recurring query r during time period t can be calculated according to the following formula: score(e)=number of times query e is submitted during time period t/number of times query r is submitted during time period t\n\nAs another example, if query popularity is measured by the number of times users refine their queries to a particular query, the score for an extended query e, for recurring query r during time period t can be calculated according to the following formula: score(e)=number of times query refinement e is submitted during time period t/number of times query r is submitted during time period t\n\nQuery refinements are described in more detail above.\n\nIn some implementations, the entries associate at least some of the recurring queries and time periods with multiple extended queries, for example, when multiple extended queries have a score that is greater than a threshold for the period.\n\nThe score adjuster 902 determines an appropriate score adjustment for documents responsive to a query, and sends the score adjustment to the ranking engine 910 for use in scoring and ranking the documents. In some implementations, the score adjustment is an amount to adjust the score. In other implementations, the score adjustment is information to be used in determining the score. For example, the score adjuster 902 can indicate that the ranking engine should assign higher scores to documents that contain particular terms or that are associated with queries that contain particular terms.\n\nThe score adjuster 902 receives an original query and identifies an entry in the time trend table 908 corresponding to the original query and the time period during which the query was submitted. The entry associates the original query and the time period with an extended query, as described above. The score adjuster 902 then determines an appropriate score adjustment based on the extended query.\n\nIn some implementations, the score adjuster 902 instructs the ranking engine 903 to assign higher scores that it normally would to documents that include terms in the extended query but not in the original query.\n\nIn some implementations, the score adjuster 902 instructs the ranking engine 903 to assign higher scores than it normally would to documents that are associated with queries that include terms in the extended query that are not in the original query. The score adjuster 902 can determine which documents are associated with which queries using document-query pair data, described above with reference to FIG. 4.\n\nIn some implementations, the score adjuster 902 analyzes the documents and/or document-query pair data itself to determine the appropriate score adjustment, and provides the value of the score adjustment to the ranking engine 910. For example, the score adjuster 902 can adjust the scores of documents associated with queries or including terms in the extended query that are not in the original query by a factor derived from the popularity score for the extended query during the time period.\n\nFIG. 10 illustrates an example technique 1000 for generating time trend data. For convenience, the example technique 1000 will be described in reference to a system that performs the technique 1000. The system can be, for example, the system 1000.\n\nThe system stores popularity data indicating a popularity of queries over time (1002), for example, as described above with reference to FIG. 9. The system identifies a first query from the popularity data (1004). In some implementations, the first query is a recurring query, as described above with reference to FIG. 9. The system stores time trend data for the first query for one or more time periods (1006). The data associates the first query and each of the time periods with one of the extended queries. The extended query for a given time period can be selected as described above with reference to FIG. 9.\n\nFIG. 11 illustrates an example technique 1100 for adjusting document scores based on time trend data. For convenience, the example technique 1100 will be described in reference to a system that performs the technique 1100. The system can be, for example, the system 1000.\n\nThe system receives a query from a user during a first time period (1102). For example, the query can be received through a search system, as described above with reference to FIG. 2. The system identifies a first extended query associated with the query and the first time period from the time trend data (1104). For example, the system can retrieve the entry corresponding to the query and the first time period from the time trend data. The system scores documents responsive to the first query based, at least in part, on the first extended query. For example, the system can score the documents using a ranking engine as described above. In some implementations, the system provides additional information to the ranking engine based on the first extended query, for example, as described above with reference to FIG. 9. In some implementations, the system calculates and provides a score adjustment amount to the ranking engine, as described above with reference to FIG. 9.\n\nFIG. 12 illustrates an example architecture of a system 1200. The system 1200 generally consists of a server 1202. The server is optionally connected to one or more client devices 1204 through a network 1206.\n\nThe server 1202 consists of one or more data processing apparatus. While only one data processing apparatus is shown in FIG. 12, multiple data processing apparatus can be used. The server includes various modules, e.g. executable software programs, including a score adjuster 1208 and a search engine 1210. Each module runs as part of the operating system on the server, runs as an application on the server, or runs as part of the operating system and part of an application on the server.\n\nThe score adjuster 1208 determines appropriate score adjustments for documents responsive to a query, for example, as described above with reference to FIGS. 4-11. For example, the score adjuster 1208 can be one or more of the score adjuster 402, the score adjuster 702, and the score adjuster 902 described above with reference to FIGS. 4, 7, and 9.\n\nThe search engine 1210 receives queries from users, processes the queries to identify and rank search results, and presents the ranked search results to users, for example, as described above with reference to FIG. 2.\n\nThe server 1202 can also have hardware or firmware devices including one or more processors 1212, one or more additional devices 1214, computer readable medium 1216, a communication interface 1218, and one or more user interface devices 1220. Each processor 1212 is capable of processing instructions for execution within the server 1202. In some implementations, the processor 1212 is a single-threaded processor. In other implementations, the processor 1212 is a multi-threaded processor. Each processor 1212 is capable of processing instructions stored on the computer readable medium 1216 or on a storage device such as one of the additional devices 1214. The server 1202 uses its communication interface 1218 to communicate with one or more computers, for example, over a network. Examples of user interface devices 1220 include a display, a camera, a speaker, a microphone, a tactile feedback device, a keyboard, and a mouse.\n\nThe server 1202 can store instructions that implement operations associated with the modules described above, for example, on the computer readable medium 1216 or one or more additional devices 1214, for example, one or more of a floppy disk device, a hard disk device, an optical disk device, or a tape device. In some implementations, the server 1202 also stores additional data, for example, associations between documents and queries, on the computer readable medium 1216 or one or more additional devices 1214.\n\nThe client device 1204 is connected to the server 1202 through the network 1206. Users submit search queries to the server 1202, view search results responsive to their queries received from the server, and select search results received from the server 1202 using client devices such as the client device 1204, for example, through a web-browser running on the computer.\n\nEmbodiments of the subject matter and the operations described in this specification can be implemented in digital electronic circuitry, or in computer software, firmware, or hardware, including the structures disclosed in this specification and their structural equivalents, or in combinations of one or more of them. Embodiments of the subject matter described in this specification can be implemented as one or more computer programs, i.e., one or more modules of computer program instructions, encoded on a computer storage medium for execution by, or to control the operation of, data processing apparatus. Alternatively or in addition, the program instructions can be encoded on an artificially-generated propagated signal, e.g., a machine-generated electrical, optical, or electromagnetic signal, that is generated to encode information for transmission to suitable receiver apparatus for execution by a data processing apparatus. A computer storage medium can be, or be included in, a computer-readable storage device, a computer-readable storage substrate, a random or serial access memory array or device, or a combination of one or more of them. Moreover, while a computer storage medium is not a propagated signal, a computer storage medium can be a source or destination of computer program instructions encoded in an artificially-generated propagated signal. The computer storage medium can also be, or be included in, one or more separate physical components or media (e.g., multiple CDs, disks, or other storage devices).\n\nThe operations described in this specification can be implemented as operations performed by a data processing apparatus on data stored on one or more computer-readable storage devices or received from other sources.\n\nThe term “data processing apparatus” encompasses all kinds of apparatus, devices, and machines for processing data, including by way of example a programmable processor, a computer, a system on a chip, or multiple ones, or combinations, of the foregoing The apparatus can include special purpose logic circuitry, e.g., an FPGA (field programmable gate array) or an ASIC (application-specific integrated circuit). The apparatus can also include, in addition to hardware, code that creates an execution environment for the computer program in question, e.g., code that constitutes processor firmware, a protocol stack, a database management system, an operating system, a cross-platform runtime environment, a virtual machine, or a combination of one or more of them. The apparatus and execution environment can realize various different computing model infrastructures, such as web services, distributed computing and grid computing infrastructures.\n\nA computer program (also known as a program, software, software application, script, or code) can be written in any form of programming language, including compiled or interpreted languages, declarative or procedural languages, and it can be deployed in any form, including as a stand-alone program or as a module, component, subroutine, object, or other unit suitable for use in a computing environment. A computer program may, but need not, correspond to a file in a file system. A program can be stored in a portion of a file that holds other programs or data (e.g., one or more scripts stored in a markup language document), in a single file dedicated to the program in question, or in multiple coordinated files (e.g., files that store one or more modules, sub-programs, or portions of code). A computer program can be deployed to be executed on one computer or on multiple computers that are located at one site or distributed across multiple sites and interconnected by a communication network.\n\nThe processes and logic flows described in this specification can be performed by one or more programmable processors executing one or more computer programs to perform actions by operating on input data and generating output. The processes and logic flows can also be performed by, and apparatus can also be implemented as, special purpose logic circuitry, e.g., an FPGA (field programmable gate array) or an ASIC (application-specific integrated circuit).\n\nProcessors suitable for the execution of a computer program include, by way of example, both general and special purpose microprocessors, and any one or more processors of any kind of digital computer. Generally, a processor will receive instructions and data from a read-only memory or a random access memory or both. The essential elements of a computer are a processor for performing actions in accordance with instructions and one or more memory devices for storing instructions and data. Generally, a computer will also include, or be operatively coupled to receive data from or transfer data to, or both, one or more mass storage devices for storing data, e.g., magnetic, magneto-optical disks, or optical disks. However, a computer need not have such devices. Moreover, a computer can be embedded in another device, e.g., a mobile telephone, a personal digital assistant (PDA), a mobile audio or video player, a game console, a Global Positioning System (GPS) receiver, or a portable storage device (e.g., a universal serial bus (USB) flash drive), to name just a few. Devices suitable for storing computer program instructions and data include all forms of non-volatile memory, media and memory devices, including by way of example semiconductor memory devices, e.g., EPROM, EEPROM, and flash memory devices; magnetic disks, e.g., internal hard disks or removable disks; magneto-optical disks; and CD-ROM and DVD-ROM disks. The processor and the memory can be supplemented by, or incorporated in, special purpose logic circuitry.\n\nTo provide for interaction with a user, embodiments of the subject matter described in this specification can be implemented on a computer having a display device, e.g., a CRT (cathode ray tube) or LCD (liquid crystal display) monitor, for displaying information to the user and a keyboard and a pointing device, e.g., a mouse or a trackball, by which the user can provide input to the computer. Other kinds of devices can be used to provide for interaction with a user as well; for example, feedback provided to the user can be any form of sensory feedback, e.g., visual feedback, auditory feedback, or tactile feedback; and input from the user can be received in any form, including acoustic, speech, or tactile input. In addition, a computer can interact with a user by sending documents to and receiving documents from a device that is used by the user; for example, by sending web pages to a web browser on a user's client device in response to requests received from the web browser.\n\nEmbodiments of the subject matter described in this specification can be implemented in a computing system that includes a back-end component, e.g., as a data server, or that includes a middleware component, e.g., an application server, or that includes a front-end component, e.g., a client computer having a graphical user interface or a Web browser through which a user can interact with an implementation of the subject matter described in this specification, or any combination of one or more such back-end, middleware, or front-end components. The components of the system can be interconnected by any form or medium of digital data communication, e.g., a communication network. Examples of communication networks include a local area network (“LAN”) and a wide area network (“WAN”), an inter-network (e.g., the Internet), and peer-to-peer networks (e.g., ad hoc peer-to-peer networks).\n\nThe computing system can include clients and servers. A client and server are generally remote from each other and typically interact through a communication network. The relationship of client and server arises by virtue of computer programs running on the respective computers and having a client-server relationship to each other. In some embodiments, a server transmits data (e.g., an HTML page) to a client device (e.g., for purposes of displaying data to and receiving user input from a user interacting with the client device). Data generated at the client device (e.g., a result of the user interaction) can be received from the client device at the server.\n\nWhile this specification contains many specific implementation details, these should not be construed as limitations on the scope of the invention or of what may be claimed, but rather as descriptions of features specific to particular embodiments of the invention. Certain features that are described in this specification in the context of separate embodiments can also be implemented in combination in a single embodiment. Conversely, various features that are described in the context of a single embodiment can also be implemented in multiple embodiments separately or in any suitable subcombination. Moreover, although features may be described above as acting in certain combinations and even initially claimed as such, one or more features from a claimed combination can in some cases be excised from the combination, and the claimed combination may be directed to a subcombination or variation of a sub combination.\n\nSimilarly, while operations are depicted in the drawings in a particular order, this should not be understood as requiring that such operations be performed in the particular order shown or in sequential order, or that all illustrated operations be performed, to achieve desirable results. In certain circumstances, multitasking and parallel processing may be advantageous. Moreover, the separation of various system components in the embodiments described above should not be understood as requiring such separation in all embodiments, and it should be understood that the described program components and systems can generally be integrated together in a single software product or packaged into multiple software products.\n\nThus, particular embodiments of the invention have been described. Other embodiments are within the scope of the following claims. In some cases, the actions recited in the claims can be performed in a different order and still achieve desirable results. In addition, the processes depicted in the accompanying figures do not necessarily require the particular order shown, or sequential order, to achieve desirable results. In certain implementations, multitasking and parallel processing may be advantageous.",
+ "cited_by": [
+  {
+   "id": "US20100325131A1",
+   "title": "Assigning relevance weights based on temporal dynamics",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20150178407A1",
+   "title": "Constructing queries for execution over multi-dimensional data structures",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9183499B1",
+   "title": "Evaluating quality based on neighbor features",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9390143B2",
+   "title": "Recent interest based relevance scoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9811566B1",
+   "title": "Modifying search result ranking based on implicit user feedback",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9928313B2",
+   "title": "Seasonal query suggestion system and method",
+   "assignee": "Oath Inc."
+  },
+  {
+   "id": "US10339564B2",
+   "title": "System and method for providing an adaptively ordered presentation of objects",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US10795642B2",
+   "title": "Preserving temporal relevance in a response to a query",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10877730B2",
+   "title": "Preserving temporal relevance of content within a corpus",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10936687B1",
+   "title": "Codex search patterns virtual maestro",
+   "assignee": "Richard Paiz"
+  },
+  {
+   "id": "US11048765B1",
+   "title": "Search engine optimizer",
+   "assignee": "Richard Paiz"
+  },
+  {
+   "id": "US11379473B1",
+   "title": "Site rank codex search patterns",
+   "assignee": "Richard Paiz"
+  },
+  {
+   "id": "US11423018B1",
+   "title": "Multivariate analysis replica intelligent ambience evolving system",
+   "assignee": "Richard Paiz"
+  },
+  {
+   "id": "US11741090B1",
+   "title": "Site rank codex search patterns",
+   "assignee": "Richard Paiz"
+  },
+  {
+   "id": "US11809506B1",
+   "title": "Multivariant analyzing replicating intelligent ambience evolving system",
+   "assignee": "Richard Paiz"
+  },
+  {
+   "id": "US12598339B1",
+   "title": "Methods and systems for generating and providing program guides and content",
+   "assignee": "Paramount Global"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5265065A",
+   "title": "Method and apparatus for information retrieval from a database by replacing domain specific stemmed phases in a natural language to create a search query",
+   "assignee": "West Publishing Company"
+  },
+  {
+   "id": "US5488725A",
+   "title": "System of document representation retrieval by successive iterated probability sampling",
+   "assignee": "West Publishing Company"
+  },
+  {
+   "id": "US5696962A",
+   "title": "Method for computerized information retrieval using shallow linguistic analysis",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5920854A",
+   "title": "Real-time document collection search engine with phrase indexing",
+   "assignee": "Infoseek Corporation"
+  },
+  {
+   "id": "US5963940A",
+   "title": "Natural language information retrieval system and method",
+   "assignee": "Syracuse University"
+  },
+  {
+   "id": "US6006222A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6014665A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6026288A",
+   "title": "Communications system with an apparatus for controlling overall power consumption based on received signal strength",
+   "assignee": "Lucent Technologies, Inc."
+  },
+  {
+   "id": "US6067565A",
+   "title": "Technique for prefetching a web page of potential future interest in lieu of continuing a current information download",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6078916A",
+   "title": "Method for organizing information",
+   "assignee": "Culliss; Gary"
+  },
+  {
+   "id": "US6078917A",
+   "title": "System for searching internet using automatic relevance feedback",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6088692A",
+   "title": "Natural language method and system for searching for and ranking relevant documents from a computer database",
+   "assignee": "University Of Central Florida"
+  },
+  {
+   "id": "US6134532A",
+   "title": "System and method for optimal adaptive matching of users to most relevant entity and information in real-time",
+   "assignee": "Aptex Software, Inc."
+  },
+  {
+   "id": "WO2000077689A1",
+   "title": "A process for improving search engine efficiency using user feedback",
+   "assignee": "Triogo, Inc."
+  },
+  {
+   "id": "US6182068B1",
+   "title": "Personalized search methods",
+   "assignee": "Ask Jeeves, Inc."
+  },
+  {
+   "id": "US6182066B1",
+   "title": "Category processing of query topics and electronic document content topics",
+   "assignee": "International Business Machines Corp."
+  },
+  {
+   "id": "US6185559B1",
+   "title": "Method and apparatus for dynamically counting large itemsets",
+   "assignee": "Hitachi America, Ltd."
+  },
+  {
+   "id": "WO2001016807A1",
+   "title": "An internet search system for tracking and ranking selected records from a previous search",
+   "assignee": "Mindcrossing, Inc."
+  },
+  {
+   "id": "US20010000356A1",
+   "title": "Method and apparatus for generating query responses in a computer-based document retrieval system",
+   "assignee": "Woods William A."
+  },
+  {
+   "id": "US6249252B1",
+   "title": "Wireless location using multiple location estimators",
+   "assignee": "Tracbeam Llc"
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "WO2001067297A1",
+   "title": "System and method for computer searching",
+   "assignee": "Tzunami Inc."
+  },
+  {
+   "id": "US6321228B1",
+   "title": "Internet search system for retrieving selected results from a previous search",
+   "assignee": "Powercast Media, Inc."
+  },
+  {
+   "id": "US6327590B1",
+   "title": "System and method for collaborative ranking of search results employing user and group profiles derived from document collection content analysis",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6341283B1",
+   "title": "Apparatus for data decomposition and method and storage medium therefor",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US6353849B1",
+   "title": "System and server for providing customized web information based on attributes of the requestor",
+   "assignee": "Intel Corporation"
+  },
+  {
+   "id": "US20020034292A1",
+   "title": "System and a method to match demand and supply based on geographical location derived from a positioning system",
+   "assignee": "Tuoriniemi Veijo M."
+  },
+  {
+   "id": "US6363378B1",
+   "title": "Ranking of query feedback terms in an information retrieval system",
+   "assignee": "Oracle Corporation"
+  },
+  {
+   "id": "US6370526B1",
+   "title": "Self-adaptive method and system for providing a user-preferred ranking order of object sets",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20020042791A1",
+   "title": "Methods and apparatus for using a modified index to provide search results in response to an ambiguous search query",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020049752A1",
+   "title": "Identifying the items most relevant to a current query based on items selected in connection with similar queries",
+   "assignee": "Dwayne Bowman"
+  },
+  {
+   "id": "US6421675B1",
+   "title": "Search engine",
+   "assignee": "S. L. I. Systems, Inc."
+  },
+  {
+   "id": "US20020103790A1",
+   "title": "Utility for cross platform database query",
+   "assignee": "Wang Shirley S."
+  },
+  {
+   "id": "US20020123988A1",
+   "title": "Methods and apparatus for employing usage statistics in document retrieval",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020133481A1",
+   "title": "Methods and apparatus for providing search results in response to an ambiguous search query",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20020165849A1",
+   "title": "Automatic advertiser notification for a system for providing place and price protection in a search result list generated by a computer network search engine",
+   "assignee": "Singh Narinder Pal"
+  },
+  {
+   "id": "US6480843B2",
+   "title": "Supporting web-query expansion efficiently using multi-granularity indexing and query processing",
+   "assignee": "Nec Usa, Inc."
+  },
+  {
+   "id": "US6490575B1",
+   "title": "Distributed network search engine",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030009399A1",
+   "title": "Method and system to identify discrete trends in time series",
+   "assignee": "Boerner Sean T."
+  },
+  {
+   "id": "US20030018707A1",
+   "title": "Server-side filter for corrupt web-browser cookies",
+   "assignee": "Flocken Philip Andrew"
+  },
+  {
+   "id": "US20030028529A1",
+   "title": "Search engine account monitoring",
+   "assignee": "Cheung Dominic Dough-Ming"
+  },
+  {
+   "id": "US20030037074A1",
+   "title": "System and method for aggregating ranking results from various sources to improve the results of web searching",
+   "assignee": "Ibm Corporation"
+  },
+  {
+   "id": "US6526440B1",
+   "title": "Ranking search results by reranking the results based on local inter-connectivity",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030078914A1",
+   "title": "Search results using editor feedback",
+   "assignee": "Witbrock Michael J."
+  },
+  {
+   "id": "US6560590B1",
+   "title": "Method and apparatus for multiple tiered matching of natural language queries to positions in a text corpus",
+   "assignee": "Kana Software, Inc."
+  },
+  {
+   "id": "US6567103B1",
+   "title": "Graphical search results system and method",
+   "assignee": "Verity, Inc."
+  },
+  {
+   "id": "US20030120654A1",
+   "title": "Metadata search results ranking system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6587848B1",
+   "title": "Methods and apparatus for performing an affinity based similarity search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030135490A1",
+   "title": "Enhanced popularity ranking",
+   "assignee": "Barrett Michael E."
+  },
+  {
+   "id": "US20030149704A1",
+   "title": "Similarity-based search method by relevance feedback",
+   "assignee": "Hitachi, Inc."
+  },
+  {
+   "id": "US6615209B1",
+   "title": "Detecting query-specific duplicate documents",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030167252A1",
+   "title": "Topic identification and use thereof in information retrieval systems",
+   "assignee": "Pliant Technologies, Inc."
+  },
+  {
+   "id": "US6623529B1",
+   "title": "Multilingual electronic document translation, management, and delivery system",
+   "assignee": "David Lakritz"
+  },
+  {
+   "id": "US20030195877A1",
+   "title": "Search query processing to provide category-ranked presentation of search results",
+   "assignee": "Ford James L."
+  },
+  {
+   "id": "US20030204495A1",
+   "title": "Data gathering",
+   "assignee": "Lehnert Bernd R."
+  },
+  {
+   "id": "US20030220913A1",
+   "title": "Techniques for personalized and adaptive search services",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6658423B1",
+   "title": "Detecting duplicate and near-duplicate files",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20030229640A1",
+   "title": "Parallel database query processing for non-uniform data sources via buffered access",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6671681B1",
+   "title": "System and technique for suggesting alternate query expressions based on prior user selections and their query strings",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040006456A1",
+   "title": "Multi-language document search and retrieval system",
+   "assignee": "Wayne Loofbourrow"
+  },
+  {
+   "id": "US20040006740A1",
+   "title": "Information access",
+   "assignee": "Uwe Krohn"
+  },
+  {
+   "id": "US6678681B1",
+   "title": "Information extraction from a database",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040034632A1",
+   "title": "Automatic query refinement",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6701309B1",
+   "title": "Method and system for collecting related queries",
+   "assignee": "Lycos, Inc."
+  },
+  {
+   "id": "US20040059708A1",
+   "title": "Methods and apparatus for serving relevant advertisements",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20040083205A1",
+   "title": "Continuous knowledgebase access improvement systems and methods",
+   "assignee": "Steve Yeager"
+  },
+  {
+   "id": "US20040093325A1",
+   "title": "System and method for location influenced network search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6738764B2",
+   "title": "Apparatus and method for adaptively ranking search results",
+   "assignee": "Verity, Inc."
+  },
+  {
+   "id": "US6754873B1",
+   "title": "Techniques for finding related hyperlinked documents using link-based analysis",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040122811A1",
+   "title": "Method for searching media",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20040119740A1",
+   "title": "Methods and apparatus for displaying and replying to electronic messages",
+   "assignee": "Google, Inc., A Corporation Of The State Of California"
+  },
+  {
+   "id": "WO2004059514A1",
+   "title": "Systems and methods for enabling a user to find information of interest to the user",
+   "assignee": "American Type Culture Collection"
+  },
+  {
+   "id": "US20040153472A1",
+   "title": "Human resource networking system and method thereof",
+   "assignee": "Rieffanaugh Neal King"
+  },
+  {
+   "id": "US20040158560A1",
+   "title": "Systems and methods for query expansion",
+   "assignee": "Ji-Rong Wen"
+  },
+  {
+   "id": "US6792416B2",
+   "title": "Managing results of federated searches across heterogeneous datastores with a federated result set cursor object",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6795820B2",
+   "title": "Metasearch technique that ranks documents obtained from multiple collections",
+   "assignee": "Nextpage, Inc."
+  },
+  {
+   "id": "US20040186996A1",
+   "title": "Unique digital signature",
+   "assignee": "Gibbs Benjamin K."
+  },
+  {
+   "id": "US20040199419A1",
+   "title": "Promoting strategic documents by bias ranking of search results on a web browser",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040215607A1",
+   "title": "Method and system fo blending search engine results from disparate sources into one search result",
+   "assignee": "Travis Robert L."
+  },
+  {
+   "id": "US20050015366A1",
+   "title": "Disambiguation of search phrases using interpretation clusters",
+   "assignee": "Carrasco John Joseph M."
+  },
+  {
+   "id": "US20050027691A1",
+   "title": "System and method for providing a user interface with search query broadening",
+   "assignee": "Sergey Brin"
+  },
+  {
+   "id": "US6853993B2",
+   "title": "System and methods for predicting correct spellings of terms in multiple-term search queries",
+   "assignee": "A9.Com, Inc."
+  },
+  {
+   "id": "US20050033803A1",
+   "title": "Server architecture and methods for persistently storing and serving event data",
+   "assignee": "Vleet Taylor N. Van"
+  },
+  {
+   "id": "US20050050014A1",
+   "title": "Method, device and software for querying and presenting search results",
+   "assignee": "Gosse David B."
+  },
+  {
+   "id": "US20050055345A1",
+   "title": "Similarity search engine for use with relational databases",
+   "assignee": "Infoglide Software Corporation"
+  },
+  {
+   "id": "US20050055342A1",
+   "title": "Method for estimating coverage of Web search engines",
+   "assignee": "Bharat Krishna Asur"
+  },
+  {
+   "id": "US20050060310A1",
+   "title": "Methods and systems for improving a search ranking using population information",
+   "assignee": "Simon Tong"
+  },
+  {
+   "id": "US20050060290A1",
+   "title": "Automatic query routing and rank configuration for search queries in an information retrieval system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050060311A1",
+   "title": "Methods and systems for improving a search ranking using related queries",
+   "assignee": "Simon Tong"
+  },
+  {
+   "id": "US6873982B1",
+   "title": "Ordering of database search results based on user feedback",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20050071741A1",
+   "title": "Information retrieval based on historical data",
+   "assignee": "Anurag Acharya"
+  },
+  {
+   "id": "US6877002B2",
+   "title": "Fuzzy database retrieval",
+   "assignee": "America Online, Inc."
+  },
+  {
+   "id": "US6882999B2",
+   "title": "URL mapping methods and systems",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050102282A1",
+   "title": "Method for personalized search",
+   "assignee": "Greg Linden"
+  },
+  {
+   "id": "US6901402B1",
+   "title": "System for improving the performance of information retrieval-type tasks by identifying the relations of constituents",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20050125376A1",
+   "title": "Methods and systems for providing a response to a query",
+   "assignee": "Andy Curtis"
+  },
+  {
+   "id": "US6912505B2",
+   "title": "Use of product viewing histories of users to identify related products",
+   "assignee": "Amazon.Com, Inc."
+  },
+  {
+   "id": "US20050160083A1",
+   "title": "User-specific vertical search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050192946A1",
+   "title": "Lateral search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050198026A1",
+   "title": "Code, system, and method for generating concepts",
+   "assignee": "Dehlinger Peter J."
+  },
+  {
+   "id": "US6944611B2",
+   "title": "Method and apparatus for digital media management, retrieval, and collaboration",
+   "assignee": "Emotion, Inc."
+  },
+  {
+   "id": "US6944612B2",
+   "title": "Structured contextual clustering method and system in a federated search engine",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20050222987A1",
+   "title": "Automated detection of associations between search criteria and item categories based on collective analysis of user activity data",
+   "assignee": "Vadon Eric R"
+  },
+  {
+   "id": "US20050222998A1",
+   "title": "Apparatus and computerised method for determining constituent words of a compound word",
+   "assignee": "Oce-Technologies B.V."
+  },
+  {
+   "id": "US6954750B2",
+   "title": "Method and system for facilitating the refinement of data queries",
+   "assignee": "Content Analyst Company, Llc"
+  },
+  {
+   "id": "US20050240576A1",
+   "title": "Named URL entry",
+   "assignee": "John Piscitello"
+  },
+  {
+   "id": "US20050240580A1",
+   "title": "Personalization of placed content ordering in search results",
+   "assignee": "Zamir Oren E"
+  },
+  {
+   "id": "US20050256848A1",
+   "title": "System and method for user rank search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6990453B2",
+   "title": "System and methods for recognizing sound and music signals in high noise and distortion",
+   "assignee": "Landmark Digital Services Llc"
+  },
+  {
+   "id": "US20060047643A1",
+   "title": "Method and system for a personalized search engine",
+   "assignee": "Chirag Chaman"
+  },
+  {
+   "id": "US7016939B1",
+   "title": "Intelligent SPAM detection system using statistical analysis",
+   "assignee": "Mcafee, Inc."
+  },
+  {
+   "id": "US20060069667A1",
+   "title": "Content evaluation",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060074903A1",
+   "title": "System and method for ranking search results using click distance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7028027B1",
+   "title": "Associating documents with classifications and ranking documents based on classification weights",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20060089926A1",
+   "title": "Method for re-ranking documents retrieved from a document database",
+   "assignee": "Harris Corporation, Corporation Of The State Of Delaware"
+  },
+  {
+   "id": "US20060095421A1",
+   "title": "Method, apparatus, and program for searching for data",
+   "assignee": "Canon Kabushiki Kaisha"
+  },
+  {
+   "id": "US20060106793A1",
+   "title": "Internet and computer information retrieval and mining with intelligent conceptual filtering, visualization and automation",
+   "assignee": "Ping Liang"
+  },
+  {
+   "id": "US7072886B2",
+   "title": "Method and business process to maintain privacy in distributed recommendation systems",
+   "assignee": "Nokia Corporation"
+  },
+  {
+   "id": "US7085761B2",
+   "title": "Program for changing search results rank, recording medium for recording such a program, and content search processing method",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US20060173830A1",
+   "title": "Information retrieval",
+   "assignee": "Barry Smyth"
+  },
+  {
+   "id": "US20060195443A1",
+   "title": "Information prioritisation system and method",
+   "assignee": "Franklin Gary L"
+  },
+  {
+   "id": "US20060200476A1",
+   "title": "Creating, storing and viewing process models",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060200556A1",
+   "title": "Method and apparatus for identifying, extracting, capturing, and leveraging expertise and knowledge",
+   "assignee": "Scott Brave"
+  },
+  {
+   "id": "US7113939B2",
+   "title": "Architecture to enable search gateways as part of federated search",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7117206B1",
+   "title": "Method for ranking hyperlinked pages using content and connectivity analysis",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US20060230040A1",
+   "title": "Methods and systems for providing a response to a query",
+   "assignee": "Andy Curtis"
+  },
+  {
+   "id": "US7136849B2",
+   "title": "Method systems and computer program products for indicating links to external URLs",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7146361B2",
+   "title": "System, method and computer program product for performing unstructured information management and automatic text analysis, including a search operator functioning as a Weighted AND (WAND)",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20070005575A1",
+   "title": "Prioritizing search results by client search satisfaction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070005588A1",
+   "title": "Determining relevance using queries as surrogate content",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070038659A1",
+   "title": "Scalable user clustering based on set similarity",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20070050339A1",
+   "title": "Biasing queries to determine suggested queries",
+   "assignee": "Richard Kasperski"
+  },
+  {
+   "id": "US20070061211A1",
+   "title": "Preventing mobile communication facility click fraud",
+   "assignee": "Jorey Ramer"
+  },
+  {
+   "id": "US20070061195A1",
+   "title": "Framework for selecting and delivering advertisements over a network based on combined short-term and long-term user behavioral interests",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20070081197A1",
+   "title": "System and method for semantic knowledge retrieval, management, capture, sharing, discovery, delivery and presentation",
+   "assignee": "Nosa Omoigui"
+  },
+  {
+   "id": "US20070106659A1",
+   "title": "Search engine that applies feedback from users to improve search results",
+   "assignee": "Yunshan Lu"
+  },
+  {
+   "id": "US20070112730A1",
+   "title": "Sampling Internet user traffic to improve search results",
+   "assignee": "Antonino Gulli"
+  },
+  {
+   "id": "US7222127B1",
+   "title": "Large scale machine learning systems and methods",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070130370A1",
+   "title": "Portable search engine",
+   "assignee": "Emeka Akaezuwa"
+  },
+  {
+   "id": "US20070156677A1",
+   "title": "Database access system",
+   "assignee": "Alberti Anemometer Llc"
+  },
+  {
+   "id": "US7243102B1",
+   "title": "Machine directed improvement of ranking algorithms",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070192190A1",
+   "title": "Method and system for scoring quality of traffic to network sites",
+   "assignee": "Authenticlick"
+  },
+  {
+   "id": "US7266765B2",
+   "title": "Detection and processing of annotated anchors",
+   "assignee": "Fuji Xerox Co., Ltd."
+  },
+  {
+   "id": "US20070208730A1",
+   "title": "Mining web search user behavior to enhance web search relevance",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070214131A1",
+   "title": "Re-ranking search results based on query log",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070233653A1",
+   "title": "Selecting directly bid upon advertisements for display",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070255689A1",
+   "title": "System and method for indexing web content using click-through features",
+   "assignee": "Gordon Sun"
+  },
+  {
+   "id": "US7293016B1",
+   "title": "Index partitioning based on document relevance for document indexes",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070260597A1",
+   "title": "Dynamic search engine results employing user behavior",
+   "assignee": "Mark Cramer"
+  },
+  {
+   "id": "US20070260596A1",
+   "title": "Behavioral targeting system",
+   "assignee": "Koran Joshua M"
+  },
+  {
+   "id": "US20070266439A1",
+   "title": "Privacy management and transaction system",
+   "assignee": "Harold Kraft"
+  },
+  {
+   "id": "US20070266021A1",
+   "title": "Methods and systems for selecting and presenting content based on dynamically identifying microgenres associated with the content",
+   "assignee": "Murali Aravamudan"
+  },
+  {
+   "id": "US20070288450A1",
+   "title": "Query language determination using query terms and interface language",
+   "assignee": "Datta Ruchira S"
+  },
+  {
+   "id": "US20080010143A1",
+   "title": "Secure and extensible pay per action online advertising",
+   "assignee": "Rob Kniaz"
+  },
+  {
+   "id": "US20080027913A1",
+   "title": "System and method of information retrieval engine evaluation using human judgment input",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20080052273A1",
+   "title": "Apparatus and method for term context modeling for information retrieval",
+   "assignee": "Fuji Xerox Co., Ltd."
+  },
+  {
+   "id": "US20080052219A1",
+   "title": "System for and method of expressive auctions of user events",
+   "assignee": "Combinenet, Inc."
+  },
+  {
+   "id": "US20080059453A1",
+   "title": "System and method for enhancing the result of a query",
+   "assignee": "Raphael Laderman"
+  },
+  {
+   "id": "US20080077570A1",
+   "title": "Full Text Query and Search Systems and Method of Use",
+   "assignee": "Infovell, Inc."
+  },
+  {
+   "id": "US20080082518A1",
+   "title": "Strategy for Providing Query Results Based on Analysis of User Intent",
+   "assignee": "Loftesness David E"
+  },
+  {
+   "id": "US20080091650A1",
+   "title": "Augmented Search With Error Detection and Replacement",
+   "assignee": "Marcus Felipe Fontoura"
+  },
+  {
+   "id": "US20080104043A1",
+   "title": "Server-side match",
+   "assignee": "Ashutosh Garg"
+  },
+  {
+   "id": "US20080114750A1",
+   "title": "Retrieval and ranking of items utilizing similarity",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080114624A1",
+   "title": "Click-fraud protector",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20080114729A1",
+   "title": "Computer-implemented interactive, virtual bookshelf system and method",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7379951B2",
+   "title": "Support for real-time queries concerning current state, data and history of a process",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7382358B2",
+   "title": "System and method for continuous stroke word-based text input",
+   "assignee": "Forword Input, Inc."
+  },
+  {
+   "id": "US20080140699A1",
+   "title": "System and method for generating substitutable queries",
+   "assignee": "Rosie Jones"
+  },
+  {
+   "id": "US7395222B1",
+   "title": "Method and system for identifying expertise",
+   "assignee": "Sotos John G"
+  },
+  {
+   "id": "US20080162475A1",
+   "title": "Click-fraud detection method",
+   "assignee": "Meggs Anthony F"
+  },
+  {
+   "id": "US20080183660A1",
+   "title": "Content identification expansion",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080189269A1",
+   "title": "Relevance-weighted navigation in information access, search and retrieval",
+   "assignee": "Fast Search & Transfer Asa"
+  },
+  {
+   "id": "US20080208825A1",
+   "title": "Methods and systems for providing a response to a query",
+   "assignee": "Andy Curtis"
+  },
+  {
+   "id": "US7426507B1",
+   "title": "Automatic taxonomy generation in search results using phrases",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20080228442A1",
+   "title": "Statistical data inspector",
+   "assignee": "Lisa Ellen Lippincott"
+  },
+  {
+   "id": "US20080256050A1",
+   "title": "System and method for modeling user selection feedback in a search result page",
+   "assignee": "Ruofei Zhang"
+  },
+  {
+   "id": "US7451487B2",
+   "title": "Fraudulent message detection",
+   "assignee": "Sonicwall, Inc."
+  },
+  {
+   "id": "US20080313247A1",
+   "title": "Page Ranking Based on a Behavioral WEB Graph",
+   "assignee": "Brian Galvin"
+  },
+  {
+   "id": "US20080313168A1",
+   "title": "Ranking documents based on a series of document graphs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20090012969A1",
+   "title": "Systems and processes for evaluating webpages",
+   "assignee": "Rail Peter D"
+  },
+  {
+   "id": "US20090055392A1",
+   "title": "Ordering of search results based on language and/or country of the search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090070194A1",
+   "title": "Method of providing estimated cost for keyword advertisement",
+   "assignee": "Nhn Corporation"
+  },
+  {
+   "id": "US7516146B2",
+   "title": "Fast adaptive document filtering",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7526470B1",
+   "title": "System and method for measuring and improving search result relevance based on user satisfaction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7533092B2",
+   "title": "Link-based spam detection",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7533130B2",
+   "title": "User behavior reporting based on pre-aggregated activity data",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20090157643A1",
+   "title": "Semi-supervised part-of-speech tagging",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7552112B2",
+   "title": "Discovering associative intent queries from search web logs",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20090182723A1",
+   "title": "Ranking search results using author extraction",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7565363B2",
+   "title": "Search engine with user activity memory",
+   "assignee": "Anwar Mohammed S"
+  },
+  {
+   "id": "US7566363B2",
+   "title": "Alternative phthalocyanine dyes suitable for use in offset inks",
+   "assignee": "Silverbrook Research Pty Ltd"
+  },
+  {
+   "id": "US7574530B2",
+   "title": "Method and system for web resource location classification and detection",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7584181B2",
+   "title": "Implicit links search enhancement system and method for search engines using implicit links generated by mining user access patterns",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20090228442A1",
+   "title": "Systems and methods for building a document index",
+   "assignee": "Searchme, Inc."
+  },
+  {
+   "id": "US7610282B1",
+   "title": "Rank-adjusted content items",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090287656A1",
+   "title": "Network search engine utilizing client browser favorites",
+   "assignee": "Bennett James D"
+  },
+  {
+   "id": "US7636714B1",
+   "title": "Determining query term synonyms within query context",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7657626B1",
+   "title": "Click fraud detection",
+   "assignee": "Enquisite, Inc."
+  },
+  {
+   "id": "US7680775B2",
+   "title": "Methods and systems for generating query and result-based relevance indexes",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US7693818B2",
+   "title": "UserRank: ranking linked nodes leveraging user logs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100106706A1",
+   "title": "Method and apparatus for identifying related searches in a database search system",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7716225B1",
+   "title": "Ranking documents based on user behavior and/or feature data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20100131563A1",
+   "title": "System and methods for automatic clustering of ranked and categorized search objects",
+   "assignee": "Hongfeng Yin"
+  },
+  {
+   "id": "US7747612B2",
+   "title": "Indication of exclusive items in a result set",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7756887B1",
+   "title": "System and method for modulating search relevancy using pointer activity monitoring",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20100205541A1",
+   "title": "social network driven indexing system for instantly clustering people with concurrent focus on same topic into on-topic chat rooms and/or for generating on-topic search results tailored to user preferences regarding topic",
+   "assignee": "Jeffrey A. Rapaport"
+  },
+  {
+   "id": "US7783632B2",
+   "title": "Using popularity data for ranking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20100228738A1",
+   "title": "Adaptive document sampling for information extraction",
+   "assignee": "Mehta Rupesh R"
+  },
+  {
+   "id": "US7801885B1",
+   "title": "Search engine system and method with user feedback on search results",
+   "assignee": "Neal Akash Verma"
+  },
+  {
+   "id": "US20100241472A1",
+   "title": "Illness specific diagnostic system",
+   "assignee": "David Antonio Hernandez"
+  },
+  {
+   "id": "US7809716B2",
+   "title": "Method and apparatus for establishing relationship between documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7818320B2",
+   "title": "Enhanced search results based on user feedback relating to search result abstracts",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7836058B2",
+   "title": "Web searching",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7844589B2",
+   "title": "Method and apparatus for performing a search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7849089B2",
+   "title": "Method and system for adapting search results to personal information needs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7853557B2",
+   "title": "Method and computer for responding to a query according to the language used",
+   "assignee": "Siebel Systems, Inc."
+  },
+  {
+   "id": "US7877404B2",
+   "title": "Query classification based on query click logs",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7895177B2",
+   "title": "Enabling searching of user ratings and reviews using user profile location, and social networks",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20110064795A1",
+   "title": "Therapeutic vaccine targeted against P-glycoprotein 170 for inhibiting multidrug resistance in the treatment of cancers",
+   "assignee": "Ac Immune Sa"
+  },
+  {
+   "id": "US7925498B1",
+   "title": "Identifying a synonym with N-gram agreement for a query phrase",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7953740B1",
+   "title": "Detection of behavior-based associations between search strings and items",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US7974974B2",
+   "title": "Techniques to perform relative ranking for search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7987185B1",
+   "title": "Ranking custom search results",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8001136B1",
+   "title": "Longest-common-subsequence detection for common synonyms",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8019650B2",
+   "title": "Method and system for producing item comparisons",
+   "assignee": "Amazon Technologies, Inc."
+  },
+  {
+   "id": "US8024330B1",
+   "title": "Collaborative incident alert system for mobile devices",
+   "assignee": "Hector Franco"
+  },
+  {
+   "id": "US8037042B2",
+   "title": "Automated analysis of user search behavior",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8037043B2",
+   "title": "Information retrieval system",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8037086B1",
+   "title": "Identifying common co-occurring elements in lists",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8051061B2",
+   "title": "Cross-lingual query suggestion",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8060497B1",
+   "title": "Framework for evaluating web search scoring functions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8060456B2",
+   "title": "Training a search result ranker with automatically-generated samples",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8065296B1",
+   "title": "Systems and methods for determining a quality of provided items",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8069182B2",
+   "title": "Relevancy-based domain classification",
+   "assignee": "Working Research, Inc."
+  },
+  {
+   "id": "US20110295844A1",
+   "title": "Enhancing freshness of search results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8073772B2",
+   "title": "Systems and methods for processing transactions using multiple budgets",
+   "assignee": "American Express Travel Related Services Company, Inc."
+  },
+  {
+   "id": "US8073263B2",
+   "title": "Multi-classifier selection and monitoring for MMR-based image recognition",
+   "assignee": "Ricoh Co., Ltd."
+  },
+  {
+   "id": "US8086690B1",
+   "title": "Determining geographical relevance of web documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8086599B1",
+   "title": "Method and apparatus for automatically identifying compunds",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8090717B1",
+   "title": "Methods and apparatus for ranking documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8156111B2",
+   "title": "Identifying and expanding implicitly temporally qualified queries",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8412699B1",
+   "title": "Fresh related search suggestions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8458165B2",
+   "title": "System and method for applying ranking SVM in query relaxation",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US8498974B1",
+   "title": "Refining search results",
+   "assignee": "Google Inc."
+  }
+ ],
+ "similar": [
+  {
+   "id": "US11816114B1",
+   "title": "Modifying search result ranking based on implicit user feedback"
+  },
+  {
+   "id": "US8938463B1",
+   "title": "Modifying search result ranking based on implicit user feedback and a model of presentation bias"
+  },
+  {
+   "id": "US8972391B1",
+   "title": "Recent interest based relevance scoring"
+  },
+  {
+   "id": "US20250124076A1",
+   "title": "Query Categorization Based on Image Results"
+  },
+  {
+   "id": "US20230394072A1",
+   "title": "Predictive query completion and predictive search results"
+  },
+  {
+   "id": "US8874555B1",
+   "title": "Modifying scoring data based on historical changes"
+  },
+  {
+   "id": "US8645367B1",
+   "title": "Predicting data for document attributes based on aggregated data for repeated URL patterns"
+  },
+  {
+   "id": "US8738596B1",
+   "title": "Refining search results"
+  },
+  {
+   "id": "US8694511B1",
+   "title": "Modifying search result ranking based on populations"
+  },
+  {
+   "id": "US8615514B1",
+   "title": "Evaluating website properties by partitioning user feedback"
+  },
+  {
+   "id": "US20140149399A1",
+   "title": "Determining user intent from query patterns"
+  },
+  {
+   "id": "US8756220B1",
+   "title": "Modifying search result ranking based on corpus search statistics"
+  },
+  {
+   "id": "US9092510B1",
+   "title": "Modifying search result ranking based on a temporal element of user feedback"
+  },
+  {
+   "id": "US7783632B2",
+   "title": "Using popularity data for ranking"
+  },
+  {
+   "id": "US9740780B1",
+   "title": "Autocompletion using previously submitted query data"
+  },
+  {
+   "id": "US9009146B1",
+   "title": "Ranking search results based on similar queries"
+  },
+  {
+   "id": "US8321278B2",
+   "title": "Targeted advertisements based on user profiles and page profile"
+  },
+  {
+   "id": "US8918417B1",
+   "title": "Generating query refinements from user preference data"
+  },
+  {
+   "id": "US8838587B1",
+   "title": "Propagating query classifications"
+  },
+  {
+   "id": "US8959093B1",
+   "title": "Ranking search results based on anchors"
+  },
+  {
+   "id": "US9218369B2",
+   "title": "Ranking image search results using hover data"
+  },
+  {
+   "id": "US9171045B2",
+   "title": "Recommending queries according to mapping of query communities"
+  },
+  {
+   "id": "US9623119B1",
+   "title": "Accentuating search results"
+  },
+  {
+   "id": "US8838649B1",
+   "title": "Determining reachability"
+  },
+  {
+   "id": "AU2017216516A1",
+   "title": "Predictive query completion and predictive search results"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8924379B1/en"
+}

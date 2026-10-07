@@ -1,0 +1,291 @@
+{
+ "id": "US8713071B1",
+ "title": "Detecting mirrors on the web",
+ "abstract": "A system obtains multiple signals associated with first and second hostnames or subtrees. The system uses the multiple signals to determine whether the first hostname or subtree is a mirror of the second hostname or subtree. The multiple signals may include, for example, a same link structure and/or sitemap for the first and second hostnames or subtrees, duplicate content associated with the first and second hostnames or subtrees, a same Internet Protocol (IP) address or subnet for the first and second hostnames or subtrees, a same owner for the first and second hostnames or subtrees, nearly duplicate content associated with the first and second hostnames or subtrees, similarity between the hostnames of the first and second hostnames or subtrees; and/or an indication that one hostname or subtree of the first and second hostnames or subtrees redirects to the other hostname or subtree.",
+ "inventors": [
+  "Arvind Jain"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2005-08-09",
+ "filing_date": "2011-11-04",
+ "publication_date": "2014-04-29",
+ "status": "Expired - Lifetime",
+ "expiration": "",
+ "cpc": [
+  "H04L67/00",
+  "H04L67/01",
+  "H04L67/10",
+  "H04L67/1095",
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95"
+ ],
+ "claims": [
+  {
+   "text": "1. A computer-implemented method comprising: identifying, by a processor associated with the computer, path components of addresses that are associated with a group of hosts; reversing, by a processor associated with the computer, the path components; sorting, by a processor associated with the computer, the addresses based on the reversed path components; identifying, by a processor associated with the computer, an adjacent pair of addresses from the sorted addresses, the adjacent pair of addresses including: a first address associated with a first host of the group of hosts, and a second address associated with a second host of the group of hosts; identifying, by a processor associated with the computer and based on identifying the adjacent pair of addresses, the first host as a potential mirror of the second host that differs from the first host; determining, by a processor associated with the computer, first information associated with the first host and second information associated with the second host; calculating, by a processor associated with the computer, a score based on the first information and the second information; determining, by a processor associated with the computer, whether to classify the first host as an actual mirror of the second host, the first host being classified as the actual mirror of the second host when the score satisfies a particular threshold value; and storing, by a processor associated with the computer, information identifying whether the first host is the actual mirror of the second host.",
+   "dependent": false
+  },
+  {
+   "text": "2. The computer-implemented method of claim 1, where the first information includes first content associated with the first host, where the second information includes second content associated with the second host, where the method further comprises: determining a content-based similarity of the first host and the second host from the first content and the second content, and where calculating the score comprises: calculating the score based on the content-based similarity.",
+   "dependent": true
+  },
+  {
+   "text": "3. The computer-implemented method of claim 2, where determining the content-based similarity of the first host and the second host further comprises: identifying an amount of common content included in the first content and the second content, and determining the content-based similarity based on the amount of common content.",
+   "dependent": true
+  },
+  {
+   "text": "4. The computer-implemented method of claim 1, where the first information includes a first internet protocol (IP) address associated with the first host, where the second information includes a second IP address associated with the second host, where the method further comprises: comparing the first IP address associated with the first host and the second IP address associated with the second host; and determining an IP-based similarity for the first host and the second host based on comparing the first IP address and the second IP address, and where calculating the score comprises: calculating the score based on the IP-based similarity.",
+   "dependent": true
+  },
+  {
+   "text": "5. The computer-implemented method of claim 1, where the first information includes information identifying a first owner associated with the first host, where the second information includes information identifying a second owner associated with the second host, where the method further comprises: determining an owner-based similarity, associated with the first host and the second host, based on a comparison of the first owner and the second owner, and where calculating the score comprises: calculating the score based on the owner-based similarity.",
+   "dependent": true
+  },
+  {
+   "text": "6. The computer-implemented method of claim 1, where the first information includes a first hostname associated with the first host, where the second information includes a second hostname associated with the second host, where the method further comprises: determining a hostname-based similarity associated with the first host and the second host based on a comparison of the first hostname and the second hostname, and where calculating the score comprises: calculating the score based on the hostname-based similarity.",
+   "dependent": true
+  },
+  {
+   "text": "7. The computer-implemented method of claim 1, where: the first information includes a first sitemap associated with the first host, the second information includes a second sitemap associated with the second host, the score is based on a first similarity between the first sitemap and the second sitemap, the score is a first score, and the method further comprises: identifying a second similarity between the first host and a third host, the third host differing from the first host and the second host; calculating a second score based on the second similarity between the first host and the third host; and identifying the third host as an actual mirror of the second host when both the first score and the second score satisfy the particular threshold value.",
+   "dependent": true
+  },
+  {
+   "text": "8. The computer-implemented method of claim 1, further comprising: indexing information associated with the first host and the second host based on the information identifying whether the first host is the actual mirror of the second host.",
+   "dependent": true
+  },
+  {
+   "text": "9. The computer-implemented method of claim 1, where the first information includes a first sitemap associated with the first host, where the second information includes a second sitemap associated with the second host, and where calculating the score comprises: identifying a similarity between the first sitemap and the second sitemap, and calculating the score based on the similarity between the first sitemap and the second sitemap.",
+   "dependent": true
+  },
+  {
+   "text": "10. A system comprising: one or more devices, at least partially implemented in hardware, configured to: identify path components of addresses that are associated with a group of hosts; reverse the path components, sort the addresses based on the reversed path components; identify an adjacent pair of addresses from the sorted addresses, the adjacent pair of addresses including: a first address associated with a first host of the group of hosts, and a second address associated with a second host of the group of hosts; identify, based on identifying the adjacent pair of addresses, the first host as a potential mirror of the second host that differs from the first host; determine first information that is associated with the first host and second information that is associated with the second host; calculate a score based on the first information and the second information; and determine whether the first host is an actual mirror of the second host based on the score, the first host being the actual mirror of the second host when the score satisfies a particular threshold value.",
+   "dependent": false
+  },
+  {
+   "text": "11. The system of claim 10, where the first information includes first content associated with the first host, where the second information includes second content associated with the second host, and where the one or more devices, when calculating the score, are further configured to: determine a content-based similarity of the first host and the second host from the first content and the second content; and calculate the score based on the content-based similarity.",
+   "dependent": true
+  },
+  {
+   "text": "12. The system of claim 10, where the first information includes a first internet protocol (IP) address associated with the first host, where the second information includes a second IP address associated with the second host, and where the one or more devices, when calculating the score, are further configured to: compare the first IP address associated with the first host and the second IP address associated with the second host; determine an IP-based similarity for the first host and the second host based on a comparison of the first IP address and the second IP address; and calculate the score based on the IP-based similarity.",
+   "dependent": true
+  },
+  {
+   "text": "13. The system of claim 10, where the first information includes information identifying a first owner associated with the first host, where the second information includes information identifying a second owner associated with the second host, and where the one or more devices, when calculating the score, are further configured to: determine an owner-based similarity associated with the first host and the second host based a comparison of the first owner and the second owner; and calculate the score based on the owner-based similarity.",
+   "dependent": true
+  },
+  {
+   "text": "14. The system of claim 10, where the first information includes a first hostname associated with the first host, where the second information includes a second hostname associated with the second host, and where the one or more devices, when calculating the score, are further configured to: determine a hostname-based similarity, associated with the first host and the second host, based on a comparison of the first hostname and the second hostname; and calculate the score based on the hostname-based similarity.",
+   "dependent": true
+  },
+  {
+   "text": "15. The system of claim 10, where the one or more devices are further configured to: index information associated with the first host and the second host based on whether the first host is the actual mirror of the second host.",
+   "dependent": true
+  },
+  {
+   "text": "16. The system of claim 10, where the first information includes a first sitemap associated with the first host, where the second information includes a second sitemap associated with the second host, and where the one or more devices, when calculating the score, are configured to: identify a similarity between the first sitemap and the second sitemap, and calculate the score based on the similarity between the first sitemap and the second sitemap.",
+   "dependent": true
+  },
+  {
+   "text": "17. A non-transitory memory device to store instructions, the instructions comprising: one or more instructions which, when executed by one or more processors, cause the one or more processors to identify path components of addresses that are associated with a group of hosts; one or more instructions which, when executed by the one or more processors, cause the one or more processors to reverse the path components; one or more instructions which, when executed by the one or more processors, cause the one or more processors to sort the addresses based on the reversed path components; one or more instructions which, when executed by the one or more processors, cause the one or more processors to identify an adjacent pair of addresses from the sorted addresses, the adjacent pair of addresses including: a first address associated with a first host of the group of hosts, and a second address associated with a second host of the group of hosts; one or more instructions which, when executed by the one or more processors, cause the one or more processors to identify the first host as a potential mirror of the second host that differs from the first host based on identifying the adjacent pair of addresses; one or more instructions which, when executed by the one or more processors, cause the one or more processors to determine first information associated with the first host and second information associated with the second host; one or more instructions which, when executed by the one or more processors, cause the one or more processors to calculate a score based on the first information and the second information; and one or more instructions which, when executed by the one or more processors, cause the one or more processors to determine whether to classify the first host as an actual mirror of the second host, the first host being classified as the actual mirror of the second host when the score satisfies a particular threshold value.",
+   "dependent": false
+  },
+  {
+   "text": "18. The non-transitory memory device of claim 17, where the first information includes first content associated with the first host, where the second information includes second content associated with the second host, and where the one or more instructions to calculate the score include: one or more instructions to determine a content-based similarity of the first host and the second host based on the first content and the second content; and one or more instructions to calculate the score based on the content-based similarity.",
+   "dependent": true
+  },
+  {
+   "text": "19. The non-transitory memory device of claim 17, where the first information includes a first internet protocol (IP) address associated with the first host, where the second information includes a second IP address associated with the second host, and where the one or more instructions to calculate the score include: one or more instructions to compare the first IP address associated with the first host and the second IP address associated with the second host; one or more instructions to determine an IP-based similarity for the first host and the second host based on comparing the first IP address and the second IP address; and one or more instructions to calculate the score based on the IP-based similarity.",
+   "dependent": true
+  },
+  {
+   "text": "20. The non-transitory memory device of claim 17, where the first information includes information identifying a first owner associated with the first host, where the second information includes information identifying a second owner associated with the second host, and where the one or more instructions to calculate the score include: one or more instructions to determine an owner-based similarity associated with the first host and the second host based a comparison of the first owner and the second owner; and one or more instructions to calculate the score based on the owner-based similarity.",
+   "dependent": true
+  },
+  {
+   "text": "21. The non-transitory memory device of claim 17, where the first information includes a first hostname associated with the first host, where the second information includes a second hostname associated with the second host, and where the one or more instructions to calculate the score include: one or more instructions to determine a hostname-based similarity, associated with the first host and the second host, based on a comparison of the first hostname and the second hostname; and one or more instructions to calculate the score further based on the hostname-based similarity.",
+   "dependent": true
+  },
+  {
+   "text": "22. The non-transitory memory device of claim 17, where the instructions further comprise: one or more instructions to index information associated with the first host and the second host based on whether the first host is the actual mirror of the second host.",
+   "dependent": true
+  },
+  {
+   "text": "23. The non-transitory memory device of claim 17, where the first information includes a first sitemap associated with the first host, where the second information includes a second sitemap associated with the second host, and where the one or more instructions to calculate the score include: one or more instructions to identify a similarity between the first sitemap and the second sitemap, and one or more instructions to calculate the score based on the similarity between the first sitemap and the second sitemap.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## RELATED APPLICATION\n\n\nThis application is a continuation of U.S. patent application Ser. No. 11/199,204, filed Aug. 9, 2005, the contents of which are incorporated herein by reference.\n\n\n## BACKGROUND\n\n\n1. Field of the Invention\n\nImplementations described herein relate generally to information retrieval and, more particularly, to detecting hostnames/subtrees that are mirrors of one another on the web.\n\n2. Description of Related Art\n\nThe World Wide Web (“web”) contains a vast amount of information. A specific item of content on the web may often be accessible at multiple different addresses (e.g., uniform resource locators (URLs)). In some instances, a website has more than one hostname pointing to the same content. For example, the hostnames www.google.com and google.com may both point to the same content. In other instances, multiple names within a host may refer to the same content. For example, www.amazon.com/electronics/apple_ipod.html may refer to the same piece of content as www.amazon.com/products/company/apple/apple_ipod.html. In other instances, all of the content on one website may be the same as the content on another website. For example, all of the content under both www.whitehouse.gov/barney and www.barney.gov may be the same.\n\nWhen multiple hostnames refer to the same content (i.e., the multiple hostnames are “mirrors” of one another), problems can be created for search engines that “crawl” and index content associated with the multiple hostnames. If, for example, a search engine does not recognize two hostnames, that refer to the same content, as being the same, the search engine will crawl and index pages from both hostnames. This wastes crawl bandwidth and index space, and puts twice the crawl load on the website with the two hostnames. Also, multiple hostnames that refer to the same content can create problems in ranking search results. Using existing ranking techniques, a given web page will be more highly ranked among other search results if it is pointed to by a large number of other pages. Therefore, if two hostnames, that refer to the same content, are treated separately for the purpose of ranking, the ranking of each hostname may only actually be about half what it would be if the hostnames were ranked together.\n\n\n## SUMMARY\n\n\nAccording to one aspect, a method may include obtaining multiple signals associated with first and second hostnames or subtrees. The method may further include using the multiple signals to determine whether the first hostname or subtree is a mirror of the second hostname or subtree.\n\nAccording to another aspect, a method may include identifying a pair of hostnames or subtrees as being potentially similar. The method may further include determining whether the pair of hostnames or subtrees are mirrors of one another using multiple signals associated with the pair of hostnames or subtrees.\n\nAccording to a further aspect, a method may include identifying path components associated with hostnames or subtrees and sorting the hostnames or subtrees based on the path components to produce a sorted list. The method may further include comparing sequentially adjacent hostnames or subtrees from the sorted list to identify hostnames or subtrees that are potentially similar.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nThe accompanying drawings, which are incorporated in and constitute a part of this specification, illustrate one or more embodiments of the invention and, together with the description, explain the invention. In the drawings,\n\nFIG. 1 is an exemplary diagram of an overview of an implementation of the invention in which multiple signals associated with a pair of hostnames/subtrees are used to determine whether the hostnames/subtrees are mirrors of one another;\n\nFIG. 2 is an exemplary diagram of a network in which systems and methods consistent with the principles of the invention may be implemented;\n\nFIG. 3 is an exemplary diagram of a client or server of FIG. 2 according to an implementation consistent with the principles of the invention;\n\nFIG. 4 is an exemplary functional block diagram of a portion of the search engine system of FIG. 2 according to an implementation consistent with the principles of the invention;\n\nFIG. 5 is an exemplary functional block diagram of the web crawler engine of FIG. 4 according to an implementation consistent with the principles of the invention;\n\nFIG. 6 is a flowchart of an exemplary process for determining mirrors consistent with principles of the invention; and\n\nFIG. 7 is a diagram of a technique for identifying pairs of hostnames/subtrees that are potentially mirrors consistent with an aspect of the invention.\n\n\n## DETAILED DESCRIPTION\n\n\nThe following detailed description of the invention refers to the accompanying drawings. The same reference numbers in different drawings may identify the same or similar elements. Also, the following detailed description does not limit the invention.\n\nConsistent with aspects of the invention, mirrors (e.g., hostnames or subtrees which refer to the same content) may be identified using multiple different signals associated with hostnames or subtrees. Identification of mirrors on the web enables a search engine to crawl and index only a single unique piece of content and eliminates redundant crawling and indexing effort.\n\nA “document,” as the term is used herein, is to be broadly interpreted to include any machine-readable and machine-storable work product. A document may include, for example, an e-mail, a website, a business listing, a file, a combination of files, one or more files with embedded links to other files, a news group posting, a blog, a web advertisement, a digital map, etc. In the context of the Internet, a common document is a web page. Documents often include textual information and may include embedded information (such as meta information, images, hyperlinks, etc.) and/or embedded instructions (such as Javascript, etc.). A “link,” as the term is used herein, is to be broadly interpreted to include any reference to/from a document from/to another document or another part of the same document.\n\n\n## Overview\n\n\nFIG. 1 illustrates an exemplary overview of an implementation of the invention in which multiple signals associated with a pair of hostnames/subtrees are used to determine whether the hostnames/subtrees are the same (e.g., are mirrors of one another). As shown in FIG. 1, a first hostname/subtree 105 may be identified as being potentially similar to a second hostname/subtree 110. Hostname/subtree 105 and hostname/subtree 110 may identify a corresponding host/server in a network. Alternatively, hostname/subtree 105 and hostname/subtree 110 may each include a respective subtree that identifies a section of a directory hierarchy. Each subtree may start at a particular directory and may include all, or part of, subdirectories and objects below that directory in the directory hierarchy.\n\nMultiple signals 115 may be obtained that are associated with hostnames/ subtrees 105 and 110. The multiple signals 115 may be derived from various sources including, for example, a crawl repository that includes all the documents and links that a search engine discovers when “crawling” sites on the web. The multiple signals 115 may further be derived from hostname-to-IP domain name server (DNS) maps, “who is” databases, and/or any other hostname/subtree specific data that can be obtained. “Who is” databases typically contain nameserver, registrar, and in some cases, full contact information, about a given hostname.\n\nThe signals used to identify whether hostname/subtree 105 and hostname/subtree 110 are the same may include the following:\n\nAfter obtaining the multiple associated signals 115 for hostname/subtree 105 and hostname/subtree 110, then the signals may be processed 120 to determine whether hostname/subtree 105 is the same as hostname/subtree 110 (e.g., a mirror). The identification of hostnames/subtrees as mirrors of one another may be repeated across multiple hostnames/subtrees so that a search engine can eliminate mirrors from the content that it crawls. Through the elimination of mirrors, consistent with aspects of the invention, a search engine may crawl and index only one unique piece of content for each pair of hostnames/subtrees that are the same.\n\n\n## Exemplary Network Configuration\n\n\nFIG. 2 is an exemplary diagram of a network 200 in which systems and methods consistent with the principles of the invention may be implemented. Network 200 may include multiple clients 210 connected to one or more servers 220-230 via a network 240. Two clients 210 and two servers 220-230 have been illustrated as connected to network 240 for simplicity. In practice, there may be more or fewer clients and servers. Also, in some instances, a client may perform some functions of a server and a server may perform some functions of a client.\n\nClients 210 may include client entities. An entity may be defined as a device, such as a personal computer, a wireless telephone, a personal digital assistant (PDA), a lap top, or another type of computation or communication device, a thread or process running on one of these devices, and/or an object executable by one of these devices. Servers 220 and 230 may include server entities that access, fetch, aggregate, process, search, and/or maintain documents in a manner consistent with the principles of the invention. Clients 210 and servers 220 and 230 may connect to network 240 via wired, wireless, and/or optical connections.\n\nIn an implementation consistent with the principles of the invention, server 220 may include a search engine system 225 usable by users at clients 210. Server 220 may implement a data aggregation service by crawling a corpus of documents (e.g., web documents), indexing the documents, and storing information associated with the documents in a repository of documents. The data aggregation service may be implemented in other ways, such as by agreement with the operator(s) of data server(s) 230 to distribute their hosted documents via the data aggregation service. Search engine system 225 may execute a search, received from a user at a client 210, on the corpus of documents stored in the repository of documents.\n\nServer(s) 230 may store or maintain documents that may be crawled by server 220. Such documents may include data related to published news stories, products, images, user groups, geographic areas, or any other type of data. For example, server(s) 230 may store or maintain news stories from any type of news source, such as, for example, the Washington Post, the New York Times, Time magazine, or Newsweek. As another example, server(s) 230 may store or maintain data related to specific products, such as product data provided by one or more product manufacturers. As yet another example, server(s) 230 may store or maintain data related to other types of web documents, such as pages of web sites.\n\nNetwork 240 may include one or more networks of any type, including a local area network (LAN), a wide area network (WAN), a metropolitan area network (MAN), a telephone network, such as the Public Switched Telephone Network (PSTN) or a Public Land Mobile Network (PLMN), an intranet, the Internet, a memory device, or a combination of networks. The PLMN(s) may further include a packet-switched sub-network, such as, for example, General Packet Radio Service (GPRS), Cellular Digital Packet Data (CDPD), or Mobile IP sub-network.\n\nWhile servers 220-230 are shown as separate entities, it may be possible for one of servers 220-230 to perform one or more of the functions of the other one of servers 220-230. For example, it may be possible that servers 220 and 230 are implemented as a single server. It may also be possible for a single one of servers 220 and 230 to be implemented as two or more separate (and possibly distributed) devices.\n\n\n## Exemplary Client/Server Architecture\n\n\nFIG. 3 is an exemplary diagram of a client or server entity (hereinafter called “client/server entity”), which may correspond to one or more of clients 210 and/or servers 220-230, according to an implementation consistent with the principles of the invention. The client/server entity may include a bus 310, a processor 320, a main memory 330, a read only memory (ROM) 340, a storage device 350, an input device 360, an output device 370, and a communication interface 380. Bus 310 may include a path that permits communication among the elements of the client/server entity.\n\nProcessor 320 may include a processor, microprocessor, or processing logic that may interpret and execute instructions. Main memory 330 may include a random access memory (RAM) or another type of dynamic storage device that may store information and instructions for execution by processor 320. ROM 340 may include a ROM device or another type of static storage device that may store static information and instructions for use by processor 320. Storage device 350 may include a magnetic and/or optical recording medium and its corresponding drive.\n\nInput device 360 may include a mechanism that permits an operator to input information to the client/server entity, such as a keyboard, a mouse, a pen, voice recognition and/or biometric mechanisms, etc. Output device 370 may include a mechanism that outputs information to the operator, including a display, a printer, a speaker, etc. Communication interface 380 may include any transceiver-like mechanism that enables the client/server entity to communicate with other devices and/or systems. For example, communication interface 380 may include mechanisms for communicating with another device or system via a network, such as network 240.\n\nThe client/server entity, consistent with the principles of the invention, may perform certain operations or processes, as will be described in detail below. The client/server entity may perform these operations in response to processor 320 executing software instructions contained in a computer-readable medium, such as memory 330. A computer-readable medium may be defined as a physical or logical memory device and/or carrier wave.\n\nThe software instructions may be read into memory 330 from another computer-readable medium, such as data storage device 350, or from another device via communication interface 380. The software instructions contained in memory 330 may cause processor 320 to perform operations or processes that will be described later. Alternatively, hardwired circuitry may be used in place of or in combination with software instructions to implement processes consistent with the principles of the invention. Thus, implementations consistent with the principles of the invention are not limited to any specific combination of hardware circuitry and software.\n\n\n## Exemplary Functional Diagram of Search Engine System\n\n\nFIG. 4 is an exemplary functional block diagram of a portion of search engine system 225 according to an implementation consistent with the principles of the invention. Search engine system 225 may include a web crawler engine 410, an indexing engine 420, and a search engine 430 connected to a database 440. In one implementation, web crawler engine 410, indexing engine 420, and/or search engine 430 may be implemented by software and/or hardware within search engine system 225. In another implementation, web crawler engine 410, indexing engine 420, and/or search engine 430 may be implemented by software and/or hardware within another device or a group of devices separate from or including search engine system 225.\n\nGenerally, web crawler engine 410 may operate from a list of addresses to fetch the corresponding documents from a corpus of documents (e.g., the web). Web crawler engine 410 may determine whether a fetched document is a mirror of a previously-fetched document. When the fetched document is a mirror of a previously-fetched document, web crawler engine 410 may discard the document and not crawl the outgoing links in the document. Additionally, given a link, the document associated with the link may be crawled only if the document is expected not to be a mirror of an existing crawled document. For example, if www.google.com/foo has been crawled, and it is known that www.google.com and google.com are mirrors (i.e., all documents under these hosts are the same), then if a link to google.com is later found in a newly crawled document, there is no need to crawl this link as it is expected to be a mirror of www.google.com. When the fetched document is not a mirror of a previously-fetched document, web crawler engine 410 may extract the addresses (e.g., URLs) associated with the outgoing links in the document and add the addresses to the list of addresses to be crawled. Web crawler engine 410 may also store information associated with the document, such as all or part of the document, in database 440 (e.g., the crawl repository).\n\nIndexing engine 420 may operate upon documents crawled by web crawler engine 410. For example, indexing engine 420 may create an index of the documents and store the index in database 440. Indexing engine 420 may update the index as new documents are crawled and added to database 440.\n\nSearch engine 430 may identify documents that are relevant to a user's search query. For example, search engine 430 may search the index in database 440 based on a search query. Search engine 430 may score or rank documents identified by the search, sort the documents based on their scores, and form search results based on the sorted documents.\n\nDatabase 440 may be embodied within a single memory device or within multiple (possibly distributed) memory devices. Database 440 may store the list of addresses used by web crawler engine 410, information associated with documents crawled by web crawler engine 410, and/or the index generated by indexing engine 420.\n\n\n## Exemplary Functional Diagram of Web Crawler Engine\n\n\nFIG. 5 is an exemplary functional block diagram of web crawler engine 410 according to an implementation consistent with principles of the invention. In one implementation, web crawler engine 410 may be implemented by software and/or hardware within search engine system 225. In another implementation, web crawler engine 410 may be implemented by software and/or hardware within another device or a group of devices separate from or including search engine system 225.\n\nWeb crawler engine 410 may include fetch bots 510, mirror detector 520, content manager 530, and memory 540. A fetch bot 510 may fetch a document from a corpus of documents and provide the fetched document to mirror detector 520. Mirror detector 520 may determine whether the fetched document is a mirror of a previously-fetched document based on information in memory 540. Mirror detector 520 may also determine whether an uncrawled link is a mirror of some other uncrawled link or crawled document.\n\nIn one implementation, mirror detector 520 may retrieve hostnames/subtrees from database 440 and may selectively pair hostnames/subtrees if they are potentially mirrors of one another. Mirror detector 520 may obtain multiple signals associated with each pair of paired hostnames/subtrees from various sources, including, for example, the crawl repository stored in database 440, hostname-to-IP DNS maps, “who is” databases, or other sources of host specific information. Mirror detector 520 may then determine which pairs of hostnames/subtrees are mirrors as described with respect to FIG. 6 below.\n\nWhen mirror detector 520 determines that the fetched document is a mirror of a previously-fetched document, mirror detector 520 may discard the fetched document. When mirror detector 520 determines that the fetched document is not a mirror of a previously-fetched document, mirror detector 520 may provide the fetched document to content manager 530. Alternatively, mirror detector 520 may provide the fetched document to content manager 530 regardless of whether the fetched document is a mirror of a previously-fetched document. Mirror detector 520 may also annotate outgoing links from fetched documents as to whether the outgoing links are expected to be mirrors or not.\n\nWhen the fetched document is a mirror of a previously fetched document and mirror detector 520 provides the fetched document to content manager 530, content manager 530 may ignore the outgoing links in the fetched document. Content manager 530 may further ignore the outgoing links in the fetched document if the outgoing links are expected to be mirrors based on the annotations provided by mirror detector 520. When the fetched document is not a mirror of a previously-fetched document, content manager 530 may parse the fetched document to determine the outgoing links that the fetched document contains. Content manager 530 may add addresses associated with the outgoing links to a list of addresses that it maintains. Content manager 530 may provide addresses from the list to fetch bots 510 as instructions for fetch bots 510 to fetch (i.e., crawl) the corresponding documents. Content manager 530 may also store information associated with the fetched document (e.g., all or part of the fetched document) in database 440 (FIG. 4). Content manager 530 may, for example, store hostnames associated with fetched documents in database 440.\n\n\n## Exemplary Mirror Determination Process\n\n\nFIG. 6 is a flowchart of an exemplary process for determining whether pairs of hostnames/subtrees are mirrors. The process exemplified by FIG. 6 may be implemented by mirror detector 520 of web crawler engine 410.\n\nThe exemplary process may begin with the identification of one or more pairs of hostnames/subtrees as potentially being mirrors (block 600). For computational efficiency, hostnames/subtrees from a group of hostnames/subtrees may be selectively paired. In one implementation, hostnames/subtrees may be selectively paired by reversing the path components of the URLs of the hostnames/subtrees and then sorting the URLs to identify pairwise URLs that have similar sitemaps. For example, as shown at 700 in FIG. 7, given the URLs www.google.com/news/world/index.html, www.google.com/news/asia/tokyo.html, www.google.com/froogle/main.html, google.com/news/world/index.html, google.com/news/asia/tokyo.html and google.com/froogle/main.html, the path components of the URLs can be reversed, as shown at 710 in FIG. 7, to produce the following reversed URLs: index.html/world/news/www.google.com, tokyo.html/asia/news/www.google.com, main.html/froogle/www.google.com, index/html/world/news/google.com, tokyo.html/asia/news/google.com and main.html/froogle/google.com. As shown in FIG. 7 at 720, the reversed URLs may be sorted based on their reversed path components, with URLs having similar path components being sorted sequentially adjacent to one another within a sorted list:\n\nMultiple signals associated with each pair of hostnames/subtrees may be obtained (block 610). The multiple signals for each pair of hostnames/subtrees may be obtained from various sources, including, for example, a crawl repository, hostname-to-IP DNS maps, “who is” databases, or other sources of host specific information. The signals associated with each pair of hostnames may include multiple ones of the following:\n\nA determination may be made whether each pair of hostnames/subtrees is a mirror using the obtained multiple signals associated with each pair of hostnames/subtrees (block 620). The determination may be performed using a function and/or an algorithm to assign weights to each of the multiple signals. The assigned weights may be then be used to calculate a confidence level that indicates whether the two hostnames/subtrees are mirrors. The calculated confidence levels may be used to determine which pairs of hostnames/subtrees are mirrors. The following pseudo-code represents one exemplary algorithm for assigning weights to the multiple signals, and using the assigned weights to calculate a confidence level that indicates whether two hostnames/subtrees are mirrors:\n\nThe determinations whether given pairs of hostnames/subtrees are mirrors may further be used to determine whether other hostnames/subtrees are mirrors (block 630). Various techniques may be employed to use the determinations whether given pairs of hostnames/subtrees are mirrors to ascertain whether other hostnames/subtrees are mirrors. For example, if hostnames/subtrees A and B are determined to be mirrors, and hostnames/subtrees B and C are determined to be mirrors, transitive closure can be performed to identify hostnames/subtrees A, B and C as mirrors.\n\nOnce a given hostname/subtree has been determined to be a mirror of another hostname/subtree, the given hostname/subtree can be excluded from subsequent search engine crawling and indexing, thus, reducing crawl bandwidth demand, reducing wasted space in the index, and reducing crawl load on the website having the two hostnames/subtrees that are mirrors.\n\n\n## CONCLUSION\n\n\nThe foregoing description of implementations consistent with principles of the invention provides illustration and description, but is not intended to be exhaustive or to limit the invention to the precise form disclosed. Modifications and variations are possible in light of the above teachings, or may be acquired from practice of the invention. For example, while a series of acts has been described with regard to FIG. 6, the order of the acts may be modified in other implementations consistent with the principles of the invention. Further, non-dependent acts may be performed in parallel.\n\nIt will be apparent to one of ordinary skill in the art that aspects of the invention, as described above, may be implemented in many different forms of software, firmware, and hardware in the implementations illustrated in the figures. The actual software code or specialized control hardware used to implement aspects consistent with the principles of the invention is not limiting of the invention. Thus, the operation and behavior of the aspects have been described without reference to the specific software code, it being understood that one of ordinary skill in the art would be able to design software and control hardware to implement the aspects based on the description herein.\n\nNo element, act, or instruction used in the present application should be construed as critical or essential to the invention unless explicitly described as such. Also, as used herein, the article “a” is intended to include one or more items. Where only one item is intended, the term “one” or similar language is used. Further, the phrase “based on” is intended to mean “based, at least in part, on” unless explicitly stated otherwise.",
+ "cited_by": [
+  {
+   "id": "US20140366141A1",
+   "title": "Apparatus, System, and Method for Reconciling Network Discovered Hosts Across Time",
+   "assignee": "Digital Defense Incorporated"
+  },
+  {
+   "id": "US8983970B1",
+   "title": "Ranking content using content and content authors",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8577866B1",
+   "title": "Classifying content",
+   "assignee": "Googe Inc."
+  },
+  {
+   "id": "WO2010035392A1",
+   "title": "Gui evaluation system, gui evaluation method, and gui evaluation program",
+   "assignee": "日本電気株式会社"
+  },
+  {
+   "id": "US10108525B2",
+   "title": "Optimizing automated interactions with web applications",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "CN111404765B",
+   "title": "Message processing method, device, equipment and computer readable storage medium",
+   "assignee": "中国移动通信有限公司研究院"
+  },
+  {
+   "id": "CN112291089A",
+   "title": "Application system identification and definition method based on flow",
+   "assignee": "全知科技(杭州)有限责任公司"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US6092100A",
+   "title": "Method for intelligently resolving entry of an incorrect uniform resource locator (URL)",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6286006B1",
+   "title": "Method and apparatus for finding mirrored hosts by analyzing urls",
+   "assignee": "Alta Vista Company"
+  },
+  {
+   "id": "US20020087588A1",
+   "title": "Method and apparatus for automatically synchronizing data from a host computer to two or more backup data storage locations",
+   "assignee": "Mcbride Stephen Larry"
+  },
+  {
+   "id": "US6487555B1",
+   "title": "Method and apparatus for finding mirrored hosts by analyzing connectivity and IP addresses",
+   "assignee": "Alta Vista Company"
+  },
+  {
+   "id": "US6507854B1",
+   "title": "Enhanced network caching and mirroring system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6598051B1",
+   "title": "Web page connectivity server",
+   "assignee": "Altavista Company"
+  },
+  {
+   "id": "US20050097185A1",
+   "title": "Localization link system",
+   "assignee": "Simon Gibson"
+  },
+  {
+   "id": "US6954456B2",
+   "title": "Method for content-aware redirection and content renaming",
+   "assignee": "At & T Corp."
+  },
+  {
+   "id": "US20060059163A1",
+   "title": "System, method and apparatus for traffic mirror setup, service and security in communication networks",
+   "assignee": "Enterasys Networks, Inc."
+  },
+  {
+   "id": "US7165216B2",
+   "title": "Systems and methods for converting legacy and proprietary documents into extended mark-up language format",
+   "assignee": "Xerox Corporation"
+  }
+ ],
+ "similar": [
+  {
+   "id": "KR100974906B1",
+   "title": "Systems and methods for identifying trusted documents with respect to location"
+  },
+  {
+   "id": "US8548972B1",
+   "title": "Near-duplicate document detection for web crawling"
+  },
+  {
+   "id": "CA2845194C",
+   "title": "Classification of ambiguous geographic references"
+  },
+  {
+   "id": "US8452799B2",
+   "title": "Query rewriting with entity detection"
+  },
+  {
+   "id": "US8108383B2",
+   "title": "Enhanced search results"
+  },
+  {
+   "id": "US8082244B2",
+   "title": "Systems and methods for determining document freshness"
+  },
+  {
+   "id": "US8332426B2",
+   "title": "Indentifying referring expressions for concepts"
+  },
+  {
+   "id": "US8548995B1",
+   "title": "Ranking of documents based on analysis of related documents"
+  },
+  {
+   "id": "US9569504B1",
+   "title": "Deriving and using document and site quality signals from search query streams"
+  },
+  {
+   "id": "US11361036B2",
+   "title": "Using historical information to improve search across heterogeneous indices"
+  },
+  {
+   "id": "US20150161179A1",
+   "title": "Automatic determination of whether a document includes an image gallery"
+  },
+  {
+   "id": "RU2339078C2",
+   "title": "Designation of web-pages for identification of geographical positions"
+  },
+  {
+   "id": "US7886032B1",
+   "title": "Content retrieval from sites that use session identifiers"
+  },
+  {
+   "id": "US20080010252A1",
+   "title": "Bookmarks and ranking"
+  },
+  {
+   "id": "US8661069B1",
+   "title": "Predictive-based clustering with representative redirect targets"
+  },
+  {
+   "id": "US9424340B1",
+   "title": "Detection of proxy pad sites"
+  },
+  {
+   "id": "US8521746B1",
+   "title": "Detection of bounce pad sites"
+  },
+  {
+   "id": "US8055626B1",
+   "title": "Detecting mirrors on the web"
+  },
+  {
+   "id": "WO2007070844A1",
+   "title": "Ranking academic event related search results using event member metrics"
+  },
+  {
+   "id": "US7680760B2",
+   "title": "System and method for labeling a document"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8713071B1/en"
+}

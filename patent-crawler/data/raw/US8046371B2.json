@@ -1,0 +1,885 @@
+{
+ "id": "US8046371B2",
+ "title": "Scoring local search results based on location prominence",
+ "abstract": "A system may identify a first document associated with a geographic location within a geographical area and identify a second document associated with a geographic location outside the geographical area. The system may also assign a first score to the first document based on a first scoring function and assign a second score to the second document based on a second scoring function.",
+ "inventors": [
+  "Brian O'Clair",
+  "Daniel Egnor",
+  "Lawrence E Greenfield"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2005-05-27",
+ "filing_date": "2010-09-29",
+ "publication_date": "2011-10-25",
+ "status": "Expired - Lifetime",
+ "expiration": "",
+ "cpc": [
+  "G06Q30/00",
+  "G06Q30/02",
+  "G06Q30/0201",
+  "G06Q30/0204",
+  "G06Q30/0205",
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/953",
+  "G06F16/9537"
+ ],
+ "claims": [
+  {
+   "text": "1. A method performed by one or more server devices, comprising: receiving, by a processor associated with the one or more server devices, a search query; identifying, using a processor associated with the one or more server devices, a geographical area and a location within the geographical area; identifying, using a processor associated with the one or more server devices, a first document that is associated with a first geographic location and that is related to the search query, where the first geographic location is located within the geographical area; identifying, using a processor associated with the one or more server devices, a second document that is associated with a second geographic location and that is related to the search query, where the second geographic location is located outside of the geographical area; assigning, using a processor associated with the one or more server devices, a first score to the first document using a location prominence factor, where the location prominence factor does not include a measure of distance or a measure of relevancy of the first document to the search query; assigning, using a processor associated with the one or more server devices, a second score to the second document using a measure of distance between the second geographic location and the location within the geographical area, and not using the location prominence factor; and presenting, by a processor associated with the one or more server devices, information associated with the first and second documents based on the first and second scores, respectively.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, where identifying the geographical area includes: identifying the geographical area from information included in the search query.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, where identifying the geographical area includes: determining that a map is being accessed via a map window on a client device from which the search query is received, and using a visible area within the map window as the geographical area.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, further comprising: determining the location prominence factor based on a score associated with a document that is identified as authoritative for a business associated with the first document.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 1, further comprising: determining the location prominence factor based on a total number of documents referring to a business associated with the first document.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 1, further comprising: determining the location prominence factor based on a score of a document referring to a business associated with the first document.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 1, further comprising: determining the location prominence factor based on a total number of documents with reviews of a business associated with the first document.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 1, further comprising: determining the location prominence factor based on a quantity of documents that mention a business associated with the first document.",
+   "dependent": true
+  },
+  {
+   "text": "9. The method of claim 1, further comprising: determining the location prominence factor based on a combination of two or more factors of: a score associated with a document that is identified as authoritative for a business associated with the first document, a total number of documents referring to the business, a score of a document referring to the business, or a total number of documents with reviews of the business.",
+   "dependent": true
+  },
+  {
+   "text": "10. The method of claim 9, where determining the location prominence factor includes: assigning a first weight to a first factor, of the two or more factors, to form a weighted first factor, assigning a second weight to a second factor, of the two or more factors, to form a weighted second factor, and determining the location prominence factor based on a combination of the weighted first factor and the weighted second factor.",
+   "dependent": true
+  },
+  {
+   "text": "11. The method of claim 1, where assigning the first score to the first document includes: determining a measure of distance between the first geographic location and the location within the geographical area, and using a combination of the measure of distance, between the first geographic location and the location within the geographical area, and the location prominence factor to generate the first score.",
+   "dependent": true
+  },
+  {
+   "text": "12. The method of claim 1, further comprising: receiving a plurality of user-selected factors to use for the location prominence factor; and using the plurality of user-selected factors to generate the first score assigned to the first document.",
+   "dependent": true
+  },
+  {
+   "text": "13. The method of claim 1, further comprising: providing an option to turn off the location prominence factor; receiving selection of the option; and assigning, in response to receiving the selection of the option, the first score to the first document using a measure of distance between the first geographic location and the location within the geographical area, and not using the location prominence factor.",
+   "dependent": true
+  },
+  {
+   "text": "14. The method of claim 1, further comprising: determining the location prominence factor based on a combination of two or more factors of: a score associated with a document that is identified as authoritative for a business associated with the first document, a total number of documents referring to the business, a score of a document referring to the business, a total number of documents with reviews of the business, a numeric score of a review of the business, a function of a plurality of scores of reviews of the business, a type of document containing a review of the business, a type of language used in a review of the business, user logs relating to user interactions with the document, financial data associated with the business, or a number of years that the business has been operational.",
+   "dependent": true
+  },
+  {
+   "text": "15. A system, comprising: one or more computer devices to: receive a search query; identify an area for the search query; identify a first document that is related to the search query and that is associated with a first geographic location located within the area; identify a second document that is related to the search query and that is associated with a second geographic location located outside of the area; assign a first score to the first document using a plurality of first factors, where none of the plurality of first factors corresponds to a measure of distance or a measure of relevancy of the first document to the search query; assign a second score to the second document using a measure of distance, between the second geographic location and a location within the area, and not using any of the plurality of first factors; rank the first document and the second document based on the first score and the second score, respectively; and present information regarding the ranked first and second documents.",
+   "dependent": false
+  },
+  {
+   "text": "16. The system of claim 15, where the plurality of first factors includes a combination of two or more of: a score associated with a document that is identified as authoritative for a business associated with the first document, a total number of documents referring to the business, a score of a document referring to the business, or a total number of documents with reviews of the business.",
+   "dependent": true
+  },
+  {
+   "text": "17. The system of claim 15, where, when assigning the first score to the first document, the one or more computer devices are to: assign a first weight to a first factor, of the plurality of first factors, to form a weighted first factor, assign a second weight to a second factor, of the plurality of first factors, to form a weighted second factor, and generate the first score based on a combination of the weighted first factor and the weighted second factor.",
+   "dependent": true
+  },
+  {
+   "text": "18. The system of claim 15, where, when assigning the first score to the first document, the one or more computer devices are to: determine a measure of distance between the first geographic location and a location within the area, and use a combination of the measure of distance, between the first geographic location and the location within the area, and the plurality of first factors to generate the first score.",
+   "dependent": true
+  },
+  {
+   "text": "19. The system of claim 15, where the one or more computer devices are further to: receive a plurality of user-selected factors to use as the plurality of first factors; and use the plurality of user-selected factors to generate the first score assigned to the first document.",
+   "dependent": true
+  },
+  {
+   "text": "20. The system of claim 15, where the one or more computer devices are to: provide an option to turn off use of the plurality of first factors; receive selection of the option; and assign, in response to receiving the selection of the option, the first score to the first document using a measure of distance between the first geographic location and a location within the area, and not using the plurality of first factors.",
+   "dependent": true
+  },
+  {
+   "text": "21. The system of claim 15, where the plurality of first factors include a combination of two or more of: a score associated with a document that is identified as authoritative for a business associated with the first document, a total number of documents referring to the business, a score of a document referring to the business, a total number of documents with reviews of the business, a numeric score of a review of the business, a function of a plurality of scores of reviews of the business, a type of document containing a review of the business, a type of language used in a review of the business, user logs relating to user interactions with the document, financial data associated with the business, or a number of years that the business has been operational.",
+   "dependent": true
+  },
+  {
+   "text": "22. A computer-readable memory device that stores instructions executable by at least one processor, the computer-readable memory device comprising: one or more instructions to identify a first document and a second document; one or more instructions to determine that the first document is associated with a first geographic location that is located within a particular geographical area; one or more instructions to determine that the second document is associated with a second geographic location that is located outside of the particular geographical area; one or more instructions to generate a first score for the first document using a combination of two or more of the following factors: a score associated with a particular document that is identified as authoritative for a business associated with the document, a total number of documents referring to the business, a score of a particular document referring to the business, a total number of documents with reviews of the business, a numeric score of a review of the business, a function of a plurality of scores of reviews of the business, a type of document containing a review of the business, a type of language used in a review of the business, user logs relating to user interactions with the document, financial data associated with the business, or a number of years that the business has been operational; one or more instructions to generate a second score for the second document using a measure of distance, between the second geographic location and a location within the particular geographical area, and not using any of the two or more factors; and one or more instructions to rank the first document and the second document based on the first score and the second score, respectively.",
+   "dependent": false
+  },
+  {
+   "text": "23. The computer-readable memory device of claim 22, where the one or more instructions to generate the first score for the first document include: one or more instructions to assign a first weight to a first factor, of the two or more factors, to form a weighted first factor, one or more instructions to assign a second weight to a second factor, of the two or more factors, to form a weighted second factor, and one or more instructions to determine the first score, for the first document, based on a combination of the weighted first factor and the weighted second factor.",
+   "dependent": true
+  },
+  {
+   "text": "24. The computer-readable memory device of claim 22, where the one or more instructions to generate the first score for the first document include: one or more instructions to determine a measure of distance between the first geographic location and a location within the particular geographical area, and one or more instructions to determine the first score for the first document as a function of the measure of distance and the two or more factors.",
+   "dependent": true
+  },
+  {
+   "text": "25. The computer-readable memory device of claim 22, further comprising: one or more instructions to receive a plurality of user-selected factors as the two or more factors; and one or more instructions to use the plurality of user-selected factors to generate the first score for the first document.",
+   "dependent": true
+  },
+  {
+   "text": "26. The computer-readable memory device of claim 22, further comprising: one or more instructions to provide an option to turn off use of the two or more factors in generating the first score for the first document; one or more instructions to receive selection of the option; and one or more instructions to assign, in response to receiving the selection of the option, the first score to the first document using a measure of distance between the first geographic location and a location within the particular geographical area, and not using the two or more factors.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## RELATED APPLICATION\n\n\nThis application is a continuation of application Ser. No. 11/138,670, filed May 27, 2005 now U.S. Pat No. 7,822,751, the disclosure of which is incorporated herein by reference.\n\n\n## BACKGROUND\n\n\n1. Field of the Invention\n\nImplementations described herein relate generally to information retrieval and, more particularly, to the scoring of local search results based on location prominence.\n\n2. Description of Related Art\n\nThe World Wide Web (“web”) contains a vast amount of information. Locating a desired portion of the information, however, can be challenging. This problem is compounded because the amount of information on the web and the number of new users inexperienced at web searching are growing rapidly.\n\nSearch engines attempt to return hyperlinks to web pages in which a user is interested. Generally, search engines base their determination of the user's interest on search terms (called a search query) entered by the user. The goal of the search engine is to provide links to high quality, relevant results (e.g., web pages) to the user based on the search query. Typically, the search engine accomplishes this by matching the terms in the search query to a corpus of pre-stored web pages. Web pages that contain the user's search terms are “hits” and are returned to the user as links.\n\nLocal search engines are search engines that attempt to return business listings and/or relevant web pages within a specific geographical area. For a local search, a user may enter a search query and specify a geographical area near which the search query is to be performed. The local search engine returns relevant results, such as listings of businesses in the geographical area and/or relevant web pages pertaining to the geographical area, to the user.\n\nWhen scoring the results, a local search engine may identify a location within the geographical area. This identified location may be associated with the location of city hall, downtown, or a geographic center of the area. The local search engine identifies all business listings and/or web pages within a predetermined radius of the identified location. The local search engine may then identify those business listings and/or web pages that match the search query. The identified business listings and/or web pages are assigned scores according to their distance from the identified location and ranked based on their scores. If the user does not live near the identified location or is not interested in business listings and/or web pages near the identified location, the search results are not meaningful to the user.\n\nOther local search engines may rank business listings and/or web pages alphabetically or alphabetically by town. Oftentimes, this type of ranking is not meaningful to the user.\n\n\n## SUMMARY\n\n\nAccording to one aspect, a system may include means for identifying a first document associated with a geographic location within an area, means for identifying a second document associated with a geographic location outside the area, means for assigning a first score to the first document based on a first scoring function, and means for assigning a second score to the second document based on a second scoring function.\n\nAccording to another aspect, a method may include receiving a search query, identifying a geographical area, identifying a document associated with a geographic location within the geographical area that is related to the search query, and assigning a score to the document based on a factor unrelated to the search query and unrelated to the geographical area.\n\nAccording to yet another aspect, a system may include a memory to store instructions and a processor to execute the instructions to represent a geographical area by a set of postal codes allocated to the geographical area, determine a postal code associated with a document, determine whether the postal code is included in the set of postal codes associated with the geographical area, score the document based on a first scoring function when the postal code is included in the set of postal codes associated with the geographical area, and score the document based on a second scoring function when the postal code is not included in the set of postal codes allocated to the geographical area.\n\nAccording to a further aspect, a system may include a memory to store instructions and a processor to execute the instructions to represent a geographical area by a set of latitude and longitude coordinates associated with the geographical area, determine a latitude and longitude coordinate associated with a document, determine whether the latitude and longitude coordinate is included in the set of latitude and longitude coordinates associated with the geographical area, score the document based on a first scoring function when the latitude and longitude coordinate is included in the set of latitude and longitude coordinates associated with the geographical area, and score the document based on a second scoring function when the latitude and longitude coordinate is not included in the set of latitude and longitude coordinates associated with the geographical area.\n\nAccording to another aspect, a method may include assigning a score to a document based on a combination of two or more of a score associated with another document that is identified as authoritative for the document, a total number of documents referring to a business associated with the document, a highest score associated with the documents referring to the business, a total number of documents with reviews of the business, or a number of information documents that mention the business, and using the score to rank the document.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nThe accompanying drawings, which are incorporated in and constitute a part of this specification, illustrate an embodiment of the invention and, together with the description, explain the invention. In the drawings,\n\nFIGS. 1A and 1B illustrate a concept consistent with principles of the invention;\n\nFIG. 2 is an exemplary diagram of a network in which systems and methods consistent with the principles of the invention may be implemented;\n\nFIG. 3 is an exemplary diagram of a client or server of FIG. 2 according to an implementation consistent with the principles of the invention;\n\nFIGS. 4A and 4B are flowcharts of exemplary processing for performing a local search according to an implementation consistent with the principles of the invention; and\n\nFIGS. 5-11 are diagrams of an exemplary local search that may be performed according to an implementation consistent with the principles of the invention.\n\n\n## DETAILED DESCRIPTION\n\n\nThe following detailed description of the invention refers to the accompanying drawings. The same reference numbers in different drawings may identify the same or similar elements. Also, the following detailed description does not limit the invention.\n\n\n## Overview\n\n\nA local search system, consistent with the principles of the invention, may identify documents relevant to a geographical area based on their location prominence. Location prominence may refer to a score generated for a document based on one or more factors unrelated to the geographical area with which the document is associated, the searches performed by users, and/or the search queries provided by the users. As a result, the local search system may present search results that are more meaningful to the users.\n\nFIGS. 1A and 1B illustrate a concept consistent with the principles of the invention. Assume that a user has performed a search for pizza restaurants in the Washington, D.C. area. FIG. 1A shows search results scored based on an existing technique. According to the existing technique, the search result documents are scored based on their distance from a particular location in Washington, D.C. The lettered markers in FIG. 1A represent geographic locations associated with the documents and their scores, where marker A is scored the highest due to being closest to the particular location in Washington, D.C.\n\nFIG. 1B shows search results scored based on a technique consistent with the principles of the invention. According to this technique, the search result documents are scored based on their location prominence instead of, or in addition to, their distance from a particular location in Washington, D.C. The lettered markers in FIG. 1B represent geographic locations associated with the documents and their scores, where marker A has obtained the highest location prominence score. Location prominence may use factors that are intended to convey the “best” documents for the geographical area rather than documents based solely on their distance from a particular location within the geographical area.\n\nA “document,” as the term is used herein, is to be broadly interpreted to include any machine-readable and machine-storable work product. A document may include, for example, a web site, a file, a combination of files, one or more files with embedded links to other files, a news group posting, a blog, a web advertisement, an e-mail, etc. In the context of local search, a common document is a business listing or a web page. Web pages often include textual information and may include embedded information (such as meta information, images, hyperlinks, etc.) and/or embedded instructions (such as Javascript, etc.). A “link,” as the term is used herein, is to be broadly interpreted to include any reference to/from a document from/to another document or another part of the same document.\n\n\n## Exemplary Network Configuration\n\n\nFIG. 2 is an exemplary diagram of a network 200 in which systems and methods consistent with the principles of the invention may be implemented. Network 200 may include multiple clients 210 connected to multiple servers 220-240 via a network 250. Two clients 210 and three servers 220-240 have been illustrated as connected to network 250 for simplicity. In practice, there may be more or fewer clients and servers. Also, in some instances, a client may perform the functions of a server and a server may perform the functions of a client.\n\nClients 210 may include client entities. An entity may be defined as a device, such as a personal computer, a wireless telephone, a personal digital assistant (PDA), a lap top, or another type of computation or communication device, a thread or process running on one of these devices, and/or an object executable by one of these devices. Servers 220-240 may include server entities that gather, process, search, and/or maintain documents in a manner consistent with the principles of the invention.\n\nIn an implementation consistent with the principles of the invention, server 220 may include a local search system 225 usable by clients 210. Server 220 may crawl a corpus of documents (e.g., web documents), index the documents, and store information associated with the documents in a repository of documents. Server 220 may, alternatively or additionally, gather information regarding businesses, index this information, and store it in a repository. Servers 230 and 240 may store or maintain documents that may be crawled or analyzed by server 220.\n\nWhile servers 220-240 are shown as separate entities, it may be possible for one or more of servers 220-240 to perform one or more of the functions of another one or more of servers 220-240. For example, it may be possible that two or more of servers 220-240 are implemented as a single server. It may also be possible for a single one of servers 220-240 to be implemented as two or more separate (and possibly distributed) devices.\n\nNetwork 250 may include a local area network (LAN), a wide area network (WAN), a telephone network, such as the Public Switched Telephone Network (PSTN), an intranet, the Internet, a memory device, or a combination of networks. Clients 210 and servers 220-240 may connect to network 250 via wired, wireless, and/or optical connections.\n\n\n## Exemplary Client/Server Architecture\n\n\nFIG. 3 is an exemplary diagram of a client or server entity (hereinafter called “client/server entity”), which may correspond to one or more of clients 210 and/or servers 220-240, according to an implementation consistent with the principles of the invention. The client/server entity may include a bus 310, a processor 320, a main memory 330, a read only memory (ROM) 340, a storage device 350, an input device 360, an output device 370, and a communication interface 380. Bus 310 may include a path that permits communication among the elements of the client/server entity.\n\nProcessor 320 may include a conventional processor, microprocessor, or processing logic that interprets and executes instructions. Main memory 330 may include a random access memory (RAM) or another type of dynamic storage device that may store information and instructions for execution by processor 320. ROM 340 may include a conventional ROM device or another type of static storage device that may store static information and instructions for use by processor 320. Storage device 350 may include a magnetic and/or optical recording medium and its corresponding drive.\n\nInput device 360 may include a conventional mechanism that permits an operator to input information to the client/server entity, such as a keyboard, a mouse, a pen, voice recognition and/or biometric mechanisms, etc. Output device 370 may include a conventional mechanism that outputs information to the operator, including a display, a printer, a speaker, etc. Communication interface 380 may include any transceiver-like mechanism that enables the client/server entity to communicate with other devices and/or systems. For example, communication interface 380 may include mechanisms for communicating with another device or system via a network, such as network 250.\n\nAs will be described in detail below, the client/server entity, consistent with the principles of the invention, may perform certain document processing-related operations. The client/server entity may perform these operations in response to processor 320 executing software instructions contained in a computer-readable medium, such as memory 330. A computer-readable medium may be defined as a physical or logical memory device and/or carrier wave.\n\nThe software instructions may be read into memory 330 from another computer-readable medium, such as data storage device 350, or from another device via communication interface 380. The software instructions contained in memory 330 may cause processor 320 to perform processes that will be described later. Alternatively, hardwired circuitry may be used in place of or in combination with software instructions to implement processes consistent with the principles of the invention. Thus, implementations consistent with the principles of the invention are not limited to any specific combination of hardware circuitry and software.\n\n\n## Exemplary Processing\n\n\nFIGS. 4A and 4B are flowcharts of exemplary processing for performing a local search according to an implementation consistent with the principles of the invention. In one implementation, the processing of FIGS. 4A and 4B may be performed by one or more software and/or hardware components within server 220. In another implementation, the processing may be performed by one or more software and/or hardware components within another device or a group of devices separate from or including server 220.\n\nProcessing may begin with the receipt of a search query (block 410) (FIG. 4A). In one implementation, a user may use a web browser associated with a client 210 to provide the search query. Assume that the search query relates to a local search. For example, the search query may include one or more search terms relating to a business listing. The search query may also optionally include information regarding a geographical area.\n\nA broad area may be identified as being associated with the search query (block 420). The phrase “broad area” is intended to refer, for example, to any geographic location that is specified as an incomplete postal address (i.e., less than a full postal address). For example, any geographic location that is identified by less than a street name and street number can be considered a broad area. Accordingly, a broad area may include a city, a zip code, a street, a city block, a state, a country, a district, a county, a metropolitan area, a large area (e.g., Lake Tahoe area), a combination of areas (e.g., Sunnyvale and Mountain View), etc.\n\nWhen the search query includes information regarding a geographical area, then the broad area may be identified from the search query. For example, if a search query includes the phrase “Mountain View,” then the broad area may be identified as “Mountain View.” A set of “zcodes” may be identified that correspond to the broad area. A “zcode” may refer to a postal code, such as a U.S. Postal Service zip code in the United States or something similar to a zip code outside the United States.\n\nThe set of zcodes corresponding to the broad area may include those zip codes that have been allocated to the geographical area associated with the broad area. For the Mountain View example above, assume that the set of zcodes includes the zip codes 94039, 94040, 94041, 94042, and 94043. To compress space, the zcode sets may be stored as a series of ranges. In the case of Mountain View, the zcode set may be stored as 94039:5, which corresponds to the zip code range of 94039 to 94043. If a zip code is unallocated to any other broad area, then it may be added to the range of a surrounding or adjacent zcode set. For example, if the zip code 94044 is unallocated, then it may be added to the Mountain View zcode set.\n\nWhen the search query does not include information regarding a geographical area, then the broad area may be identified in another way. For example, when the user is accessing a map, the entire visible map area within the map window may be considered the broad area. In one implementation, the user may access a web site associated with a map provider, such as Google maps. The user might zoom in or zoom out on the map, move the map left or right, and/or provide an identifier relating to a geographical area of interest, as necessary, so that the broad area is within the map window. The interface provided by the map provider may also permit the user to enter the search query identified previously.\n\nThe latitude and longitude of the map window may define the broad area. For example, suppose that the upper corner of the map window is at latitude 37.557800, longitude −122.276031 and the lower corner of the map window is at latitude 38.557800, longitude −123.276031. The map window is then a box of height equal to a latitude of 1 and width equal to a longitude of 1.\n\nA search area associated with the broad area may then be identified (block 430). In one implementation, a location within the broad area may be determined. This location may be associated with the location of city hall, a downtown area, a geographic center, or some other location within the broad area. A circle with a predetermined radius (e.g., 30 miles, 45 miles, 90 miles, etc.) may effectively be drawn around this location. The area of this circle may constitute the search area.\n\nDocuments that fall within the search area may be identified (block 440). For example, a corpus of documents may be searched to determine whether the documents fall within the search area. Each of the documents may be associated with a particular postal address and/or a latitude and longitude coordinate. A document's postal address and/or latitude and longitude coordinate may be used to determine whether it is located within a geographical area corresponding to the search area.\n\nA relevant set of the identified documents may be determined based on the search query (block 450). For example, the documents that contain the term(s) of the search query in their title, content, and/or category string may be included in the relevant set. When the search query includes multiple terms, documents that contain the terms as a phrase, include all of the terms, but not necessarily together, contain less than all of the terms, or synonyms of the terms may be included in the relevant set.\n\nIt may then be determined for each document in the relevant set whether the document falls within the broad area (block 460) (FIG. 4B). As explained previously, each of the documents may be associated with a particular postal address and/or a latitude and longitude coordinate. When the broad area corresponds to a set of zcodes, it may be determined whether the zip code of the postal address associated with the document is included in the set of zcodes. When the document's zip code is included in the set of zcodes, then the document falls within the broad area. When the broad area corresponds to the visible area of a map window, it may be determined whether the latitude and longitude coordinate associated with the document is included within the latitude and longitude coordinates of the map window. When the document's latitude and longitude coordinate is included within the latitude and longitude coordinates of the map window, then the document falls within the broad area.\n\nWhen the document does not fall within the broad area (block 460—NO), then a distance score associated with the document may be determined (block 470). In one implementation, the distance score associated with a document may be determined based on the distance the postal address and/or the latitude and longitude coordinate associated with the document is from the location within the broad area (e.g., the location representing the middle of the search area). As explained above, this location may be associated with the location of city hall, a downtown area, a geographic center, or some other location within the broad area. The distance score may have a value between zero and one depending on the distance from the location.\n\nWhen the document falls within the broad area (block 460—YES), then a location prominence score associated with the document may be determined (block 470). The location prominence score may be based on a set of factors that are unrelated to the geographical area over which the user is searching. In one implementation, the set of factors may include one or more of the following factors: (1) a score associated with an authoritative document; (2) the total number of documents referring to a business associated with the document; (3) the highest score of documents referring to the business; (4) the number of documents with reviews of the business; and (5) the number of information documents that mention the business. In other implementations, the set of factors may include additional or different factors.\n\nThe score associated with an authoritative document may be used as a factor in determining the location prominence score for a document. An authoritative document may refer to a document that is identified as being authoritative for the business associated with the document for which the location prominence score is being determined. For example, a group of documents may refer to a business by mentioning the name of the business, the address of the business, and/or a telephone number associated with the business. One of the documents in the group may be more authoritative for the business than the other documents. For example, a document corresponding to the home page of a restaurant may be considered more authoritative for that restaurant than a document corresponding to a review of the restaurant. In one implementation, the link-based score of the authoritative document may be used as a factor in determining the location prominence score for a document associated with the business.\n\nThe total number of documents referring to a business associated with a document may be used as a factor in determining the location prominence score for the document. As explained above, a group of documents may refer to a business by mentioning the name of the business, the address of the business, and/or a telephone number associated with the business. In one implementation, the total number of these referring documents may be used as a factor in determining the location prominence score of a document associated with the business.\n\nThe highest score of documents referring to a business associated with a document may be used as a factor in determining the location prominence score for the document. As explained above, a group of documents may refer to a business by mentioning the name of the business, the address of the business, and/or a telephone number associated with the business. Each of these referring documents may have an associated link-based score. In one implementation, the highest link-based score of these referring documents may be used as a factor in determining the location prominence score of a document associated with the business.\n\nThe number of documents with reviews of a business associated with a document may be used as a factor in determining the location prominence score for the document. Reviews for businesses can appear in a number of documents, such as newspapers, magazines, web pages, and blogs. In one implementation, the number of documents with reviews of a business may be used as a factor in determining the location prominence score of a document associated with the business.\n\nThe number of information documents that mention a business associated with a document may be used as a factor in determining the location prominence score for the document. An information document may refer to a document that provides important information about a business, such as the address, telephone number, and/or hours of operation of the business, reviews and/or atmosphere of the business, whether the business accepts credit cards, etc. Examples of information documents may include Dine.com, Citysearch, and Zagat.com. In one implementation, the total number of information documents mentioning a business may be used as a factor in determining the location prominence score of a document associated with the business.\n\nIn one implementation, the location prominence score for a document may be determined by combining the above-identified factors. The factors may be combined and/or weighted in any manner. For example, the factors may be “squashed” and linearly combined. Squashing is a function that prevents one large signal from dominating the others. Some of the factors may also be normalized, if necessary, to have values between zero and one.\n\nOptionally, the location prominence score for a document may be combined with a distance score for the document, where the combined scores will also be referred to herein as the location prominence score. As explained above, the distance score associated with a document may be determined based on the distance the postal address and/or the latitude and longitude coordinate associated with the document is from the location within the broad area (e.g., the location representing the middle of the search area). This factor may provide a better user experience by presenting the user with documents associated with businesses that are closer together rather than scattered apart.\n\nIn one implementation, the location prominence score (with or without the combined distance score) may be combined with a minimal value (e.g., one). This minimal value may ensure that documents that fall within the broad area are scored higher than documents that do not fall within the broad area. This may also ensure that the user is provided with relevant results in the geographical area of interest.\n\nIt may be possible to calculate the location prominence scores for documents in a document corpus beforehand. The location prominence scores may then be stored in a memory as metadata associated with the documents. In this case, determining the location prominence score for a document may include reading the score from memory.\n\nThe documents in the relevant set may then be presented based on their scores (block 490). For example, the documents may be sorted based on their scores. The sorted documents may then be presented possibly alongside a map that identifies a location associated with at least some of these documents.\n\n\n## Example\n\n\nFIGS. 5-11 are diagrams of an exemplary local search that may be performed according to an implementation consistent with the principles of the invention. As shown in FIG. 5, a user enters a search for “pizza” in the “Washington D.C.” area via a local search engine interface. In this case, the user enters a search query and provides information regarding a geographical area. Alternatively, as shown in FIG. 6, the user enters a search for “pizza” while accessing a map of the Washington, D.C. area via a map provider interface. In this case, the user may first access a map of an area of interest to the user. The user may then perform a search relating to this area of interest.\n\nAs shown in FIG. 7, a broad area may be identified as being associated with the search query. As described previously, the broad area may be identified from the search query (e.g., as shown in FIG. 5) or from the current map window accessed by the user (e.g., as shown in FIG. 6).\n\nA search area associated with the broad area may then be identified. As shown in FIG. 7, a location within the broad area may be determined (shown as an “O” in FIG. 7). A circle with a predetermined radius may effectively be drawn around this location. The area of this circle may constitute the search area.\n\nAs shown in FIG. 8, a corpus of documents may be searched to identify documents that fall within the search area. Some of the documents identified by the search may fall within the broad area and others may fall outside the broad area.\n\nAs shown in FIG. 9, the documents within the search area may be filtered based on the search query and documents that contain the term(s) of the search query in their title, content, and/or category string may be included in a relevant set of documents. The documents that contain the term(s) of the search query are identified in FIG. 9 with an “X.”\n\nAs shown in FIG. 10, documents that are located within the broad area may be scored differently from documents outside the broad area. Documents located within the broad area may be scored based on location prominence, as described above. Documents located outside the broad area may be scored based on distance, as also described above. The documents may be sorted and presented to the user in an order based on their scores.\n\nAs shown in FIG. 11, the scored documents may be presented alongside a map window containing a map of the broad area, the search area, or a portion of the broad area and/or search area. For each document, there may be provided the name of the corresponding business, a link to information associated with the business (e.g., a business listing), and possibly other information, such as an address of the business and/or a telephone number associated with the business. It may be beneficial to provide further information, such as business hours, a link for directions, a link to reviews of the business, and other information that a user might find useful.\n\nFor at least some of the documents, a marker may be placed within the map window to show the location of the corresponding document. Optionally, if the user selects or places a cursor over one of the markers, more detailed information regarding the associated business may be presented.\n\nAs further shown in FIG. 11, a link 1100 may be provided to toggle on and off the location prominence feature. For example, if the user selects link 1100 when it says “Turn Off Location Prominence,” then the location prominence feature may be turned off—meaning that all of the documents in the relevant set of documents are scored based on distance and none of them are scored based on location prominence. Alternatively, if the user selects link 1100 when it says “Turn On Location Prominence” (not shown), then the location prominence feature may be turned on—meaning that the documents in the relevant set of documents are scored based on location prominence as described above.\n\nIn another implementation, a more detailed interface may permit a user to do more than just turn on or off the location prominence feature. For example, the interface may permit the user to set his own function of various factors or to exclude certain factors. For example, the user might specify that he does not want information from Zagat.com to be used in determining the location prominence score.\n\n\n## CONCLUSION\n\n\nSystems and methods consistent with the principles of the invention may identify documents relevant to a geographical area based on their location prominence instead of, or in addition to, their distance from a location within the geographical area. As a result, the systems and methods may present search results that are more meaningful to the users performing the searches.\n\nThe foregoing description of preferred embodiments of the present invention provides illustration and description, but is not intended to be exhaustive or to limit the invention to the precise form disclosed. Modifications and variations are possible in light of the above teachings or may be acquired from practice of the invention.\n\nFor example, while a series of acts has been described with regard to FIGS. 4A and 4B, the order of the acts may be modified in other implementations consistent with the principles of the invention. Further, non-dependent acts may be performed in parallel.\n\nAlso, exemplary user interfaces have been described with respect to FIGS. 5, 6, and 11. In other implementations consistent with the principles of the invention, the user interfaces may include more, fewer, or different pieces of information.\n\nFurther, it has been described that a location prominence score may be generated based on a set of factors that includes one or more of the following factors: a score associated with an authoritative document, the total number of documents referring to a business associated with the document, the highest score of documents referring to the business, the number of documents with reviews of the business, and the number of information documents that mention the business. In another implementation, the set of factors may include additional or different factors.\n\nFor example, one factor may relate to the numeric scores of the reviews (e.g., how many stars or thumbs up/down). Another factor might relate to some function (e.g., an average) of all the scores of the reviews. Yet another factor might relate to the type of document containing the review (e.g., a restaurant blog, Zagat.com, Citysearch, or Michelin). A further factor might relate to the types of language used in the reviews (e.g., noisy, friendly, dirty, best). Another factor might be derived from user logs, such as what businesses users frequently click on to get detailed information and/or for what businesses they obtain driving directions. Yet another factor might relate to financial data about the businesses, such as the annual revenue associated with the business and/or how many employees the business has. Another factor might relate to the number of years the business has been around or how long the business has been in the various listings. Yet other factors will be apparent to one skilled in the art.\n\nIt may also be possible to use the factors to train a model using machine learning techniques. The model may be used, for example, to determine the probability that a user might select a particular document in the search results.\n\nIt will be apparent to one of ordinary skill in the art that aspects of the invention, as described above, may be implemented in many different forms of software, firmware, and hardware in the implementations illustrated in the figures. The actual software code or specialized control hardware used to implement aspects consistent with the principles of the invention is not limiting of the invention. Thus, the operation and behavior of the aspects were described without reference to the specific software code—it being understood that one of ordinary skill in the art would be able to design software and control hardware to implement the aspects based on the description herein.\n\nNo element, act, or instruction used in the present application should be construed as critical or essential to the invention unless explicitly described as such. Also, as used herein, the article “a” is intended to include one or more items. Where only one item is intended, the term “one” or similar language is used. Further, the phrase “based on” is intended to mean “based, at least in part, on” unless explicitly stated otherwise.",
+ "cited_by": [
+  {
+   "id": "US8959082B2",
+   "title": "Context-sensitive query enrichment",
+   "assignee": "Elwha Llc"
+  },
+  {
+   "id": "US9262541B2",
+   "title": "Distance based search ranking demotion",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10340034B2",
+   "title": "Evidence-based healthcare information management protocols",
+   "assignee": "Elwha Llc"
+  },
+  {
+   "id": "US10402927B2",
+   "title": "Evidence-based healthcare information management protocols",
+   "assignee": "Elwha Llc"
+  },
+  {
+   "id": "US10475142B2",
+   "title": "Evidence-based healthcare information management protocols",
+   "assignee": "Elwha Llc"
+  },
+  {
+   "id": "US10528913B2",
+   "title": "Evidence-based healthcare information management protocols",
+   "assignee": "Elwha Llc"
+  },
+  {
+   "id": "WO2020010145A1",
+   "title": "Method, system, and apparatus for rapid geographic search in an actor-based geographic search network",
+   "assignee": "Groupon, Inc."
+  },
+  {
+   "id": "US10552461B2",
+   "title": "System and method for scoring the geographic relevance of answers in a deep question answering system based on geographic context of a candidate answer",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10552581B2",
+   "title": "Evidence-based healthcare information management protocols",
+   "assignee": "Elwha Llc"
+  },
+  {
+   "id": "US10559380B2",
+   "title": "Evidence-based healthcare information management protocols",
+   "assignee": "Elwha Llc"
+  },
+  {
+   "id": "US10679309B2",
+   "title": "Evidence-based healthcare information management protocols",
+   "assignee": "Elwha Llc"
+  },
+  {
+   "id": "US10698966B2",
+   "title": "Search result prioritization based on device location",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10902342B2",
+   "title": "System and method for scoring the geographic relevance of answers in a deep question answering system based on geographic context of an input question",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7418402B2",
+   "title": "Method and system for providing local information over a network",
+   "assignee": "First Aura, Llc"
+  },
+  {
+   "id": "US8675995B2",
+   "title": "Precisely locating features on geospatial imagery",
+   "assignee": "Terrago Technologies, Inc."
+  },
+  {
+   "id": "US8953887B2",
+   "title": "Processing time-based geospatial data",
+   "assignee": "Terrago Technologies, Inc."
+  },
+  {
+   "id": "US7574530B2",
+   "title": "Method and system for web resource location classification and detection",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7822751B2",
+   "title": "Scoring local search results based on location prominence",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060282455A1",
+   "title": "System and method for ranking web content",
+   "assignee": "It Interactive Services Inc."
+  },
+  {
+   "id": "US8959084B2",
+   "title": "Identifying locations",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8041648B2",
+   "title": "Retail location services",
+   "assignee": "Allstate Insurance Company"
+  },
+  {
+   "id": "US8219535B1",
+   "title": "Retail deployment model",
+   "assignee": "Allstate Insurance Company"
+  },
+  {
+   "id": "CA2541763A1",
+   "title": "Retail deployment model",
+   "assignee": "Sharon Rossmark"
+  },
+  {
+   "id": "US7606875B2",
+   "title": "Detecting serving area of a web resource",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "EP1840511B1",
+   "title": "Methods and apparatus for retrieving and displaying map-related data for visually displayed maps of mobile communication devices",
+   "assignee": "BlackBerry Limited"
+  },
+  {
+   "id": "US8666821B2",
+   "title": "Selecting advertisements based on serving area and map area",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7650431B2",
+   "title": "Serving locally relevant advertisements",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7685119B2",
+   "title": "System and method for query expansion",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8005822B2",
+   "title": "Location in search queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "JP5056160B2",
+   "title": "Marketing support processing method, apparatus and program",
+   "assignee": "富士通株式会社"
+  },
+  {
+   "id": "US7895177B2",
+   "title": "Enabling searching of user ratings and reviews using user profile location, and social networks",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US8626789B2",
+   "title": "Geocoding using information retrieval",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US8880583B2",
+   "title": "System and method for permitting geographically-pertinent information to be ranked by users according to users' geographic proximity to information and to each other for affecting the ranking of such information",
+   "assignee": "Nixle, Llc"
+  },
+  {
+   "id": "US9178848B1",
+   "title": "Identifying affiliated domains",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "KR101504763B1",
+   "title": "System and method for providing article information in local area network",
+   "assignee": "삼성전자주식회사"
+  },
+  {
+   "id": "US8312010B1",
+   "title": "Local business ranking using mapping information",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20090094117A1",
+   "title": "Natural targeted advertising engine",
+   "assignee": "Jon Scott Zaccagnino"
+  },
+  {
+   "id": "US20090094212A1",
+   "title": "Natural local search engine",
+   "assignee": "Jon Scott Zaccagnino"
+  },
+  {
+   "id": "US8090714B2",
+   "title": "User interface and method in a local search system with location identification in a request",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US20090132512A1",
+   "title": "Search system and method for conducting a local search",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US20090132645A1",
+   "title": "User interface and method in a local search system with multiple-field comparison",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US20090132505A1",
+   "title": "Transformation in a system and method for conducting a search",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US20090132484A1",
+   "title": "User interface and method in a local search system having vertical context",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US20090132929A1",
+   "title": "User interface and method for a boundary display on a map",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US20090132573A1",
+   "title": "User interface and method in a local search system with search results restricted by drawn figure elements",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US7809721B2",
+   "title": "Ranking of objects using semantic and nonsemantic features in a system and method for conducting a search",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US20090132513A1",
+   "title": "Correlation of data in a system and method for conducting a search",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US8145703B2",
+   "title": "User interface and method in a local search system with related search results",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US8732155B2",
+   "title": "Categorization in a system and method for conducting a search",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US20090132927A1",
+   "title": "User interface and method for making additions to a map",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US20090132236A1",
+   "title": "Selection or reliable key words from unreliable sources in a system and method for conducting a search",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US7921108B2",
+   "title": "User interface and method in a local search system with automatic expansion",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US20090132572A1",
+   "title": "User interface and method in a local search system with profile page",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US20090132514A1",
+   "title": "method and system for building text descriptions in a search database",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US20090132485A1",
+   "title": "User interface and method in a local search system that calculates driving directions without losing search results",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US20090132486A1",
+   "title": "User interface and method in local search system with results that can be reproduced",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US20090234848A1",
+   "title": "System and method for ranking search results",
+   "assignee": "Andy Leff"
+  },
+  {
+   "id": "US8670617B2",
+   "title": "Systems and methods for linking content to individual image features",
+   "assignee": "Terrago Technologies, Inc."
+  },
+  {
+   "id": "US8788490B1",
+   "title": "Link based locale identification for domains and domain content",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8463774B1",
+   "title": "Universal scores for location search queries",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8180771B2",
+   "title": "Search activity eraser",
+   "assignee": "Iac Search & Media, Inc."
+  },
+  {
+   "id": "US8103667B2",
+   "title": "Ranking results of multiple intent queries",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "CN103488680B",
+   "title": "Fallen into a trap several purpose methods in Database Systems",
+   "assignee": "国际商业机器公司"
+  },
+  {
+   "id": "US20120278171A1",
+   "title": "System and method of providing information based on street address",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9870572B2",
+   "title": "System and method of providing information based on street address",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US20150261858A1",
+   "title": "System and method of providing information based on street address",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8060497B1",
+   "title": "Framework for evaluating web search scoring functions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8635228B2",
+   "title": "Dynamically linking relevant documents to regions of interest",
+   "assignee": "Terrago Technologies, Inc."
+  },
+  {
+   "id": "US8856115B1",
+   "title": "Framework for suggesting search terms",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9734251B2",
+   "title": "Locality-sensitive search suggestions",
+   "assignee": "Excalibur Ip, Llc"
+  },
+  {
+   "id": "US8855930B2",
+   "title": "Method of generating a route",
+   "assignee": "Tomtom International B.V."
+  },
+  {
+   "id": "US8898173B1",
+   "title": "Ranking location search results based on multiple distance measures",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10037357B1",
+   "title": "Selecting between global and location-specific search results",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US8504393B2",
+   "title": "Systems and methods for grid-based insurance rating",
+   "assignee": "State Farm Mutual Automobile Insurance Company"
+  },
+  {
+   "id": "US8694489B1",
+   "title": "Map spam detection",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20120130917A1",
+   "title": "Adjustable priority retailer ranking system",
+   "assignee": "Nils Forsblom"
+  },
+  {
+   "id": "US8407215B2",
+   "title": "Text analysis to identify relevant entities",
+   "assignee": "Sap Ag"
+  },
+  {
+   "id": "US20120158712A1",
+   "title": "Inferring Geographic Locations for Entities Appearing in Search Queries",
+   "assignee": "Sushrut Karanjkar"
+  },
+  {
+   "id": "US8688696B2",
+   "title": "Multi-part search result ranking",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20130035853A1",
+   "title": "Prominence-Based Generation and Rendering of Map Features",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8612414B2",
+   "title": "Grouped search query refinements",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8880496B2",
+   "title": "Map-based selection of query component",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US9706352B2",
+   "title": "System and method for determining a boundary of a geographic area",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "JP5806971B2",
+   "title": "Region estimation apparatus, method, and program",
+   "assignee": "日本電信電話株式会社"
+  },
+  {
+   "id": "US8671106B1",
+   "title": "Indicators for entities corresponding to search suggestions",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "KR101699918B1",
+   "title": "Ranking nearby destinations based on visit likelihoods and predicting future visits to places from location history",
+   "assignee": "구글 인코포레이티드"
+  },
+  {
+   "id": "JP5944770B2",
+   "title": "Destination proposal system, destination proposal method, and program",
+   "assignee": "株式会社デンソーアイティーラボラトリ"
+  },
+  {
+   "id": "US9030499B2",
+   "title": "Custom labeling of a map based on content",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US10373202B2",
+   "title": "Selection of region-specific brand pages based on location information of social networking system users",
+   "assignee": "Facebook, Inc."
+  },
+  {
+   "id": "EP2782058A1",
+   "title": "Information system to obtain an exposition rating of a geographical area",
+   "assignee": "Valuetainment AG"
+  },
+  {
+   "id": "US10262373B2",
+   "title": "Systems and methods for grid-based insurance rating",
+   "assignee": "State Farm Mutual Automobile Insurance Company"
+  },
+  {
+   "id": "US20150127254A1",
+   "title": "Apparatus and method for providing search service",
+   "assignee": "Naver Corporation"
+  },
+  {
+   "id": "US10317238B2",
+   "title": "Navigation system with ranking mechanism and method of operation thereof",
+   "assignee": "Telenav, Inc."
+  },
+  {
+   "id": "US9547989B2",
+   "title": "Reporting road event data and sharing with other vehicles",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9619523B2",
+   "title": "Using geographic familiarity to generate search results",
+   "assignee": "Microsoft Technology Licensing, Llc"
+  },
+  {
+   "id": "US9747346B1",
+   "title": "Attention spots in a map interface",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "KR20180122358A",
+   "title": "Systems and methods for correlating various location data for data security",
+   "assignee": "비자 인터내셔날 써비스 어쏘시에이션"
+  },
+  {
+   "id": "US10713305B1",
+   "title": "Method and system for document search in structured document repositories",
+   "assignee": "EMC IP Holding Company LLC"
+  },
+  {
+   "id": "US11144186B2",
+   "title": "Content object layering for user interfaces",
+   "assignee": "Verizon Media Inc."
+  },
+  {
+   "id": "GB2621334A",
+   "title": "Method for citation identification",
+   "assignee": "Citeab Ltd"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5930474A",
+   "title": "Internet organizer for accessing geographically and topically based information",
+   "assignee": "Z Land Llc"
+  },
+  {
+   "id": "US5983227A",
+   "title": "Dynamic page generator",
+   "assignee": "Yahoo, Inc."
+  },
+  {
+   "id": "WO2001027805A2",
+   "title": "Index cards on network hosts for searching, rating, and ranking",
+   "assignee": "360 Powered Corporation"
+  },
+  {
+   "id": "JP2001216322A",
+   "title": "Search display system, search display method and data display method",
+   "assignee": "Just Syst Corp"
+  },
+  {
+   "id": "WO2001063479A1",
+   "title": "Spatially coding and displaying information",
+   "assignee": "Metacarta, Inc."
+  },
+  {
+   "id": "WO2001065410A2",
+   "title": "Search engine for spatial data indexing",
+   "assignee": "Geocontent, Inc."
+  },
+  {
+   "id": "US6393415B1",
+   "title": "Adaptive partitioning techniques in performing query requests and request routing",
+   "assignee": "Verizon Laboratories Inc."
+  },
+  {
+   "id": "US20020129014A1",
+   "title": "Systems and methods of retrieving relevant information",
+   "assignee": "Kim Brian S."
+  },
+  {
+   "id": "US20020156779A1",
+   "title": "Internet search engine",
+   "assignee": "Elliott Margaret E."
+  },
+  {
+   "id": "US20030033299A1",
+   "title": "System and method for integrating off-line ratings of Businesses with search engines",
+   "assignee": "Neelakantan Sundaresan"
+  },
+  {
+   "id": "US20030061211A1",
+   "title": "GIS based search engine",
+   "assignee": "Shultz Troy L."
+  },
+  {
+   "id": "US6625595B1",
+   "title": "Method and system for selectively presenting database results in an information retrieval system",
+   "assignee": "Bellsouth Intellectual Property Corporation"
+  },
+  {
+   "id": "JP2003271660A",
+   "title": "INFORMATION PROCESSING METHOD AND INFORMATION PROCESSING APPARATUS, PROGRAM OF THE METHOD AND RECORDING MEDIUM RECORDING THE PROGRAM",
+   "assignee": "Nippon Telegr & Teleph Corp"
+  },
+  {
+   "id": "EP1359519A2",
+   "title": "Information providing apparatus and method",
+   "assignee": "Pioneer Corporation"
+  },
+  {
+   "id": "US6659873B1",
+   "title": "Game system, game device capable of being used in the game system, and computer-readable memory medium",
+   "assignee": "Konami Co., Ltd."
+  },
+  {
+   "id": "US20040034635A1",
+   "title": "Method and system for identifying and matching companies to business event information",
+   "assignee": "Czarnecki David Anthony"
+  },
+  {
+   "id": "US6697799B1",
+   "title": "Automated classification of items using cascade searches",
+   "assignee": "Requisite Technology, Inc."
+  },
+  {
+   "id": "US6778980B1",
+   "title": "Techniques for improved searching of electronically stored information",
+   "assignee": "Drugstore.Com"
+  },
+  {
+   "id": "US6823333B2",
+   "title": "System, method and apparatus for conducting a keyterm search",
+   "assignee": "The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration"
+  },
+  {
+   "id": "US20040243569A1",
+   "title": "Technique for ranking records of a database",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US20050015466A1",
+   "title": "Peer-to-peer automated anonymous asynchronous file sharing",
+   "assignee": "Tripp Gary W."
+  },
+  {
+   "id": "US20050015307A1",
+   "title": "Method and system of providing location sensitive business information to customers",
+   "assignee": "Simpson Todd Garrett"
+  },
+  {
+   "id": "US20050060290A1",
+   "title": "Automatic query routing and rank configuration for search queries in an information retrieval system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "WO2005024667A1",
+   "title": "Determining and/or using location information in an ad system",
+   "assignee": "Google, Inc."
+  },
+  {
+   "id": "US20050065916A1",
+   "title": "Methods and systems for improving a search ranking using location awareness",
+   "assignee": "Xianping Ge"
+  },
+  {
+   "id": "US20050065959A1",
+   "title": "Systems and methods for clustering search results",
+   "assignee": "Adam Smith"
+  },
+  {
+   "id": "US20050108213A1",
+   "title": "Geographical location extraction",
+   "assignee": "Whereonearth Limited"
+  },
+  {
+   "id": "US6904429B2",
+   "title": "Information retrieval apparatus and information retrieval method",
+   "assignee": "Kabushiki Kaisha Toshiba"
+  },
+  {
+   "id": "US20050182770A1",
+   "title": "Assigning geographic location identifiers to web pages",
+   "assignee": "Rasmussen Lars E."
+  },
+  {
+   "id": "US20050192946A1",
+   "title": "Lateral search",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20050240580A1",
+   "title": "Personalization of placed content ordering in search results",
+   "assignee": "Zamir Oren E"
+  },
+  {
+   "id": "US20050283473A1",
+   "title": "Apparatus, method and system of artificial intelligence for data searching applications",
+   "assignee": "Armand Rousso"
+  },
+  {
+   "id": "US7043492B1",
+   "title": "Automated classification of items using classification mappings",
+   "assignee": "Requisite Technology, Inc."
+  },
+  {
+   "id": "US20060149734A1",
+   "title": "Location extraction",
+   "assignee": "Daniel Egnor"
+  },
+  {
+   "id": "US20060184523A1",
+   "title": "Search methods and associated systems",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060271531A1",
+   "title": "Scoring local search results based on location prominence",
+   "assignee": "O'clair Brian"
+  },
+  {
+   "id": "US7185088B1",
+   "title": "Systems and methods for removing duplicate search engine results",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7249126B1",
+   "title": "Systems and methods for dynamically updating relevance of a selected item",
+   "assignee": "Shopping.Com"
+  }
+ ],
+ "similar": [
+  {
+   "id": "US7822751B2",
+   "title": "Scoring local search results based on location prominence"
+  },
+  {
+   "id": "KR100814667B1",
+   "title": "Systems and methods for clustering search results"
+  },
+  {
+   "id": "US8068980B2",
+   "title": "Using boundaries associated with a map view for business location searching"
+  },
+  {
+   "id": "US7483881B2",
+   "title": "Determining unambiguous geographic references"
+  },
+  {
+   "id": "US6934634B1",
+   "title": "Address geocoding"
+  },
+  {
+   "id": "US8108383B2",
+   "title": "Enhanced search results"
+  },
+  {
+   "id": "US8027988B1",
+   "title": "Category suggestions relating to a search"
+  },
+  {
+   "id": "US9189496B2",
+   "title": "Indexing documents according to geographical relevance"
+  },
+  {
+   "id": "US10691765B1",
+   "title": "Personalized search results"
+  },
+  {
+   "id": "JP2007520788A",
+   "title": "Assigning geographic location identifiers to web pages"
+  },
+  {
+   "id": "US20090222440A1",
+   "title": "Search engine for carrying out a location-dependent search"
+  },
+  {
+   "id": "US8122013B1",
+   "title": "Title based local search ranking"
+  },
+  {
+   "id": "US8595225B1",
+   "title": "Systems and methods for correlating document topicality and popularity"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8046371B2/en"
+}

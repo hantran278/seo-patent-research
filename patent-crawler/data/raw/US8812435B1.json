@@ -1,0 +1,1641 @@
+{
+ "id": "US8812435B1",
+ "title": "Learning objects and facts from documents",
+ "abstract": "A system, method, and computer program product for learning objects and facts from documents. A source object and a source document are selected and a title pattern and a contextual pattern are identified based on the source object and the source document. A set of documents matching the title pattern and the contextual pattern are selected. For each document in the selected set, a name and one or more facts are identified by applying the title pattern and the contextual pattern to the document. Objects are identified or created based on the identified names and associated with the identified facts.",
+ "inventors": [
+  "Shubin Zhao"
+ ],
+ "assignee_original": "Google LLC",
+ "assignee_current": "Google LLC",
+ "priority_date": "2007-11-16",
+ "filing_date": "2007-11-16",
+ "publication_date": "2014-08-19",
+ "status": "Active",
+ "expiration": "2028-02-29",
+ "cpc": [
+  "G06F16/00",
+  "G06F16/90",
+  "G06F16/95",
+  "G06F16/958",
+  "G06F16/953",
+  "G06F16/9535",
+  "G06F16/30",
+  "G06F16/31"
+ ],
+ "claims": [
+  {
+   "text": "1. A method for learning objects and facts from documents, comprising: on a computer system having one or more processors and memory storing one or more programs for execution by the one or more processors, without user intervention: selecting a source object from a plurality of objects stored in a fact repository, the source object having an object name and an attribute-value pair; selecting a source document from a plurality of documents based on a determination that a title of the source document includes the object name of the source object; and content of the source document includes an attribute and a value related to the attribute-value pair of the source object; identifying a title pattern for the title of the source document based on a first syntax of (i) the title of the source document, and (ii) the object name of the source object within the title of the source document; identifying a contextual pattern for the content of the source document based on a second syntax of (i) the attribute and (ii) the value related to the attribute-value pair of the source object, the contextual pattern being a structural pattern in which one or more attribute-value pairs, including the attribute-value pair of the source object, are presented; selecting a second document from the plurality of documents based on a determination that (i) the contextual pattern is found in the second document and (ii) a title of the second document matches the title pattern; identifying a new object name and a new attribute-value pair from the second document by applying the title pattern and the contextual pattern identified from the source document to the second document; and storing into the fact repository the new attribute-value pair and a new object having the new object name.",
+   "dependent": false
+  },
+  {
+   "text": "2. The method of claim 1, wherein the first syntax specifies a first sequence of symbols and non-symbol characters that identifies the object name within the title of the source document.",
+   "dependent": true
+  },
+  {
+   "text": "3. The method of claim 1, wherein selecting the source document from the plurality of documents further comprises selecting a source of the attribute-value pair of the source object as the source document.",
+   "dependent": true
+  },
+  {
+   "text": "4. The method of claim 1, wherein selecting the source document from the plurality of documents further comprises: obtaining a search result including documents containing the object name and the attribute-value pair of the source object; and selecting the source document from the search result.",
+   "dependent": true
+  },
+  {
+   "text": "5. The method of claim 1, wherein selecting the second document further comprises selecting a set of documents from the plurality of documents, each document in the selected set matching the title pattern and the contextual pattern, the method further comprising: repeating the operation of identifying the new object name and the new attribute-value pair for each of the documents in the selected set.",
+   "dependent": true
+  },
+  {
+   "text": "6. The method of claim 5, wherein the documents in the selected set are from a same domain as the source document.",
+   "dependent": true
+  },
+  {
+   "text": "7. The method of claim 5, wherein the documents in the selected set include the source document.",
+   "dependent": true
+  },
+  {
+   "text": "8. The method of claim 1, wherein identifying the new object name and the new attribute-value pair further comprises: matching an attribute of the new attribute-value pair with a white attribute list; responsive to a match, determining that the new attribute-value pair is a valid attribute-value pair; and responsive to no match, determining that the new attribute-value pair is an invalid attribute-value pair.",
+   "dependent": true
+  },
+  {
+   "text": "9. The method of claim 1, wherein storing the new attribute-value pair and the new object having the new object name further comprises: identifying the new object associated with the new object name; and associating the new attribute-value pair with the new object.",
+   "dependent": true
+  },
+  {
+   "text": "10. The method of claim 9, wherein identifying the new object associated with the new object name comprises: responsive to an existing object comprising the new object name, identifying the existing object as the new object; and responsive to no existing object comprising the new object name: creating an object, assigning the new object name to the object, and identifying the object as the new object.",
+   "dependent": true
+  },
+  {
+   "text": "11. The method of claim 1, wherein the plurality of documents comprise a web page.",
+   "dependent": true
+  },
+  {
+   "text": "12. The method of claim 1, wherein the source document and the second document share (i) a same title pattern for their respective title, and (ii) a same contextual pattern for their respective content.",
+   "dependent": true
+  },
+  {
+   "text": "13. The method of claim 1, wherein title of the source document includes (i) a prefix section, (ii) the object name of the source object, and (iii) a suffix section; and identifying the title pattern for the title of the source document based on structural arrangement the object name of the source object includes: identifying the title pattern for the title of the source document based on structural arrangement of (i) the prefix section, (ii) the object name of the source object, and (iii) the suffix section within the title of the source document.",
+   "dependent": true
+  },
+  {
+   "text": "14. The method of claim 1, wherein identifying the title pattern for the title of the source document based on structural arrangement the object name of the source object includes: identifying, within the title of the source document, a substring corresponding to the object name of the source object; and determining, position of the substring relative to one or more other strings in the title of the source document.",
+   "dependent": true
+  },
+  {
+   "text": "15. A system for learning objects and facts from document, the system comprising: a processor; memory; and one or more programs for execution by the processor, wherein the one or more programs including instructions for, without user intervention: selecting a source object from a plurality of objects stored in a fact repository, the source object having an object name and an attribute-value pair; selecting a source document from a plurality of documents based on a determination that a title of the source document includes the object name of the source object; and content of the source document includes an attribute and a value related to the attribute-value pair of the source object; identifying a title pattern for the title of the source document based on a first syntax of (i) the title of the source document, and (ii) the object name of the source object within the title of the source document; identifying a contextual pattern for the content of the source document based on a second syntax of (i) the attribute and (ii) the value related to the attribute-value pair of the source object, the contextual pattern being a structural pattern in which one or more attribute-value pairs, including the attribute-value pair of the source object, are presented; selecting a second document from the plurality of documents based on a determination that (i) the contextual pattern is found in the second document and (ii) a title of the second document matches the title pattern; identifying a new object name and a new attribute-value pair from the second document by applying the title pattern and the contextual pattern identified from the source document to the second document; and storing into the fact repository the new attribute-value pair and a new object having the new object name.",
+   "dependent": false
+  },
+  {
+   "text": "16. The system of claim 15, wherein the first syntax specifies a first sequence of symbols and non-symbol characters that identifies the object name within the title of the source document.",
+   "dependent": true
+  },
+  {
+   "text": "17. The system of claim 15, wherein selecting the second document further comprises selecting a set of documents from the plurality of documents, each document in the selected set matching the title pattern and the contextual pattern, the method further comprising: repeating the operation of identifying the new object name and the new attribute-value pair for each of the documents in the selected set.",
+   "dependent": true
+  },
+  {
+   "text": "18. A non-transitory computer readable storage medium storing one or more programs configured for execution by a computer, the one or more programs comprising instructions for, without user intervention: selecting a source object from a plurality of objects stored in a fact repository, the source object having an object name and an attribute-value pair; selecting a source document from a plurality of documents based on a determination that a title of the source document includes the object name of the source object; and content of the source document includes an attribute and a value related to the attribute-value pair of the source object; identifying a title pattern for the title of the source document based on a first syntax of (i) the title of the source document, and (ii) the object name of the source object within the title of the source document; identifying a contextual pattern for the content of the source document based on a second syntax of (i) the attribute and (ii) the value related to the attribute-value pair of the source object, the contextual pattern being a structural pattern in which one or more attribute-value pairs, including the attribute-value pair of the source object, are presented; selecting a second document from the plurality of documents based on a determination that (i) the contextual pattern is found in the second document and (ii) a title of the second document matches the title pattern; identifying a new object name and a new attribute-value pair from the second document by applying the title pattern and the contextual pattern identified from the source document to the second document; and storing into the fact repository the new attribute-value pair and a new object having the new object name.",
+   "dependent": false
+  },
+  {
+   "text": "19. The non-transitory computer readable storage medium of claim 18, wherein the first syntax specifies a first sequence of symbols and non-symbol characters that identifies the object name within the title of the source document.",
+   "dependent": true
+  },
+  {
+   "text": "20. The non-transitory computer readable storage medium of claim 18, wherein the instructions for selecting the second document further comprises instructions for selecting a set of documents from the plurality of documents, each document in the selected set matching the title pattern and the contextual pattern, the one or more computer programs further comprising: instructions for repeating the operation of identifying the new object name and the new attribute-value pair for each of the documents in the selected set.",
+   "dependent": true
+  }
+ ],
+ "description": "\n## CROSS-REFERENCE TO RELATED PATENT APPLICATIONS\n\n\nThis application is related to U.S. Utility patent application Ser. No. 11/394,610, entitled “Determining Document Subject by Using Title and Anchor Text of Related Documents,” by Shubin Zhao, filed on Mar. 31, 2006, the disclosure of which is hereby incorporated by reference in its entirety.\n\n\n## TECHNICAL FIELD\n\n\nThe disclosed embodiments relate generally to fact databases. More particularly, the disclosed embodiments relate to learning objects and facts from documents.\n\n\n## BACKGROUND\n\n\nAs computers and networks gain popularity, web-based computer documents (“documents”) become a vast source of factual information. Users may look to these documents to get answers to factual questions, such as “what is the capital of Poland” or “what is the birth date of George Washington.” The factual information included in these documents may be extracted and stored in a fact database.\n\nDocuments are often generated based on a template. For example, titles of the documents in the wikipedia.org website often follow a pattern of “[SUBJECT]—Wikipedia, the free encyclopedia,” where the section in square bracket is substituted with the subject of the 24207/11661/DOCS/1631371.6 page. These documents also often represent facts in a structured format. For example, documents in the wikipedia.org website frequently list facts in a table format.\n\nConventionally, objects (or entities) and related facts described in documents are identified and extracted (or learned) by human editors. This approach is insufficient for mass fact extraction because the vast volume of documents and the rapid increase in the number of available documents make it impractical for human editors to perform the task on any meaningful scale.\n\nBased on the above, there is a need for a way to automatically identify objects and facts in documents.\n\n\n## SUMMARY\n\n\nThe above and other needs are met by systems, methods, and computer program products that learn objects and facts from documents. Embodiments of the methods comprise selecting a source object and a source document and identifying a title pattern and a contextual pattern based on the source object and the source document. A set of documents matching the title pattern and the contextual pattern are selected. For each document in the selected set, a name and one or more facts are identified by applying the title pattern and the contextual pattern to the document. Objects are identified or created based on the identified names and associated with the identified facts.\n\n\n## BRIEF DESCRIPTION OF THE DRAWINGS\n\n\nFIG. 1 shows a system architecture adapted to support one embodiment.\n\nFIGS. 2( a)-2(d) are block diagrams illustrating embodiments of a data structure for facts within a repository of FIG. 1.\n\nFIG. 2( e) is a block diagram illustrating an embodiment of an alternative data structure for facts and objects.\n\nFIG. 3 is a flowchart of an exemplary method for learning objects and facts from a plurality of documents in accordance with one embodiment.\n\nFIG. 4 is a flowchart illustrating a process to identify a set of documents matching a title pattern and a contextual pattern in accordance with one embodiment.\n\nFIG. 5 illustrates an example of learning objects and facts from a plurality of documents in accordance with one embodiment.\n\n\n## DESCRIPTION OF EMBODIMENTS\n\n\nEmbodiments are now described with reference to the figures where like reference numbers indicate identical or functionally similar elements.\n\nSystem Architecture and Data Structure\n\nFIG. 1 shows a system architecture 100 adapted to support one embodiment. FIG. 1 shows components used to add facts into, and retrieve facts from a repository 115. The system architecture 100 includes a network 104, through which any number of document hosts 102 communicate with a data processing system 106, along with any number of object requesters 152, 154.\n\nDocument hosts 102 store documents and provide access to documents. A document is comprised of any machine-readable data including any combination of text, graphics, multimedia content, etc. A document may be encoded in a markup language, such as Hypertext Markup Language (HTML), i.e., a web page, in an interpreted language (e.g., JavaScript) or in any other computer readable or executable format. A document can include one or more hyperlinks to other documents. A typical document will include one or more facts within its content. The facts describe entities, such as real-world or fictional people, places, or things.\n\nA document stored in a document host 102 may be located and/or identified by a Uniform Resource Locator (URL), or Web address, or any other appropriate form of identification and/or location. A document host 102 is implemented by a computer system, and typically includes a server adapted to communicate over the network 104 via networking protocols (e.g., TCP/IP), as well as application and presentation protocols (e.g., HTTP, HTML, SOAP, D-HTML, JAVA®). The documents stored by a host 102 are typically held in a file directory, a database, or other data repository. A host 102 can be implemented in any computing device (e.g., from a PDA or personal computer, a workstation, mini-computer, or mainframe, to a cluster or grid of computers), as well as in any processor architecture or operating system.\n\nFIG. 1 shows components used to manage facts in a fact repository 115. The data processing system 106 includes one or more importers 108, one or more janitors 110, a build engine 112, a service engine 114, and a fact repository 115 (also called simply a “repository”). Each of the foregoing is implemented, in one embodiment, as software modules (or programs) executed by the processor 116. Importers 108 operate to process documents received from the document hosts, read the data content of documents, and extract facts (as operationally and programmatically defined within the data processing system 106) from such documents. The importers 108 also determine the subject or subjects (i.e., the entity or entities) with which the facts are associated, and extract such facts into individual items of data, for storage in the repository 115. In one embodiment, there are different types of importers 108 for different types of documents, for example, dependent on the format or document type.\n\nJanitors 110 operate to process facts extracted by the importer 108. This processing can include but is not limited to, data cleansing, object merging, and fact induction. In one embodiment, there are a number of different janitors 110 that perform different types of data management operations on the facts. For example, one janitor 110 may traverse some set of facts in the repository 115 to find duplicate facts (that is, facts that convey the same factual information) and merge them. Another janitor 110 may also normalize facts into standard formats. Another janitor 110 may also remove unwanted facts from the repository 115, such as facts related to pornographic content. Other types of janitors 110 may be implemented, depending on the types of data management functions desired, such as translation, compression, spelling or grammar correction, and the like.\n\nVarious janitors 110 act on facts to normalize attribute names and values, and delete duplicate and near-duplicate facts so an object does not have redundant information. For example, we might find on one page that Britney Spears' birthday is “Dec. 2, 1981” while on another page that her date of birth is “Dec. 2, 1981.” Birthday and Date of Birth might both be rewritten as “Birthdate” by one janitor and then another janitor might notice that Dec. 2, 1981 and Dec. 2, 1981 are different forms of the same date. It would choose the preferred form, remove the other fact and combine the source lists for the two facts. As a result, one source page for this fact will contain an exact match of the fact while another source page will contain text that is considered synonymous with the fact.\n\nThe build engine 112 builds and manages the repository 115. The service engine 114 is an interface for querying the repository 115. The service engine 114's main function is to process queries, score matching objects, and return them to the caller but it is also used by the janitor 110.\n\nThe repository 115 stores factual information about entities. The information is extracted from a plurality of documents that are located on document hosts 102. A document from which a particular fact may be extracted is a source document (or “source”) of that particular fact. In other words, a source of a fact includes that fact (or a synonymous fact) within its contents.\n\nThe repository 115 contains one or more facts. In one embodiment, the facts are logically organized into “objects,” and each object contains a collection of facts associated with a single entity (i.e., real-world or fictional person, place, or thing). Each fact is associated with exactly one object. One implementation for this association includes in each fact an object ID that uniquely identifies the associated object. In this manner, any number of facts may be associated with an individual object, by including the object ID for that object in the facts. In one embodiment, objects themselves are not physically stored in the repository 115, but rather are defined by the set or group of facts with the same associated object ID, as described below. Further details about facts in the repository 115 are described below, in relation to FIGS. 2( a)-2(d).\n\nSome embodiments operate on the facts and/or objects in different orders than described above. For example, in one embodiment the importer 108 provides facts directly to the build engine 112 and/or repository 115. The janitors 110, in turn, operate on the facts and/or objects in the repository 115. It should also be appreciated that in practice at least some of the components of the data processing system 106 will be distributed over multiple computers, communicating over a network. For example, the repository 115 may be deployed over multiple servers. As another example, the janitors 110 may be located on any number of different computers. For convenience of explanation, however, the components of the data processing system 106 are discussed as though they were implemented on a single computer.\n\nIn another embodiment, some or all of document hosts 102 are located on the data processing system 106 instead of being coupled to the data processing system 106 by a network. For example, the importer 108 may import facts from a database that is a part of or associated with the data processing system 106.\n\nFIG. 1 also includes components to access the repository 115 on behalf of one or more object requesters 152, 154. Object requesters are entities that request objects from the repository 115. Object requesters 152, 154 may be understood as clients of the system 106, and can be implemented in any computer device or architecture. As shown in FIG. 1, a first object requester 152 is located remotely from system 106, while a second object requester 154 is located in the data processing system 106. For example, in a computer system hosting a blog, the blog may include a reference to an object whose facts are in the repository 115. An object requester 152, such as a browser displaying the blog, will access data processing system 106 so that the information of the facts associated with the object can be displayed as part of the blog web page. As a second example, a janitor 110 or other entity considered to be part of data processing system 106 can function as an object requester 154, requesting the facts of objects from the repository 115.\n\nFIG. 1 shows that the data processing system 106 includes a memory 107 and one or more processors 116. The memory 107 includes the importers 108, janitors 110, build engine 112, service engine 114, and requester 154, each of which is preferably implemented as instructions stored in memory 107 and executable by processor 116. Memory 107 also includes the repository 115. The repository 115 can be stored in a memory of one or more computer systems or in a type of memory such as a disk. FIG. 1 also includes a computer readable storage medium 118 containing, for example, at least one of importers 108, janitors 110, the build engine 112, the service engine 114, the requester 154, and at least some portions of the repository 115. FIG. 1 also includes one or more input/output devices 120 that allow data to be input and output to and from the data processing system 106. It will be understood that embodiments of the data processing system 106 also include standard software components such as operating systems and the like and further include standard hardware components not shown in the figure for clarity of example.\n\nFIG. 2( a) shows an example format of a data structure for facts within the repository 115, according to some embodiments. As described above, the repository 115 includes facts 204 describing entities such as real-world and fictional people, places, and things. Each fact 204 includes a unique identifier for that fact, such as a fact ID 210. Each fact 204 includes at least an attribute 212 and a value 214. For example, a fact associated with the entity George Washington may include an attribute of “date of birth” and a value of “Feb. 22, 1732.” In one embodiment, all facts are stored as alphanumeric characters since they are extracted from web pages. In another embodiment, facts also can store binary data values. Other embodiments, however, may store fact values as mixed types, or in encoded formats.\n\nAs described above, each fact is associated with an object ID 209 that identifies the object with which the fact is associated. Thus, each fact that describes the same entity (such as George Washington), will have the same object ID 209. In one embodiment, the objects are logical concepts that exist as a collection of facts having the same object ID. In another embodiment, objects are stored as units of data in memory, and include references (for example, pointers or IDs) to the facts associated with the object. The logical data structure of a fact can take various forms; in general, a fact is represented by a tuple that includes a fact ID, an attribute, a value, and an object ID. The storage implementation of a fact can be in any underlying physical data structure.\n\nFIG. 2( b) shows an example of facts having respective fact IDs of 10, 20, and 30 in the repository 115. Facts 10 and 20 are associated with an object identified by object ID “1.” Fact 10 has an attribute of “Name” and a value of “China.” Fact 20 has an attribute of “Category” and a value of “Country.” Thus, the object identified by object ID “1” has a name fact 205 with a value of “China” and a category fact 206 with a value of “Country.” Fact 30 208 has an attribute of “Property” and a value of “Bill Clinton was the 42nd President of the United States from 1993 to 2001.” Thus, the object identified by object ID “2” has a property fact with a fact ID of 30 and a value of “Bill Clinton was the 42nd President of the United States from 1993 to 2001.” In the illustrated embodiment, each fact has one attribute and one value. The number of facts associated with an object is not limited; thus while only two facts are shown for the “China” object, in practice there may be dozens, even hundreds of facts associated with a given object. Also, the value fields of a fact need not be limited in size or content. For example, a fact about the economy of “China” with an attribute of “Economy” would have a value including several paragraphs of text, numbers, and perhaps even tables of figures. This content can be formatted, for example, in a markup language. For example, a fact having an attribute “original html” might have a value of the original html text taken from the source web page.\n\nAlso, while the illustration of FIG. 2( b) shows the explicit coding of object ID, fact ID, attribute, and value, in practice the content of the fact can be implicitly coded as well (e.g., the first field being the object ID, the second field being the fact ID, the third field being the attribute, and the fourth field being the value). Other fields include but are not limited to: the language used to state the fact (English, etc.), how important the fact is, the source of the fact, a confidence value for the fact, and so on.\n\nFIG. 2( c) shows an example object reference table 210 that is used in some embodiments. Not all embodiments include an object reference table. The object reference table 210 functions to efficiently maintain the associations between object IDs and fact IDs. In the absence of an object reference table 210, it is also possible to find all facts for a given object ID by querying the repository 115 to find all facts with a particular object ID. While FIGS. 2( b) and 2(c) illustrate the object reference table 210 with explicit coding of object and fact IDs, the table also may contain just the ID values themselves in column or pair-wise arrangements.\n\nFIG. 2( d) shows an example of a data structure for facts within the repository 115, according to some embodiments, showing an extended format of facts. In this example, the fields include an object reference link 216 to another object. The object reference link 216 can be an object ID of another object in the repository 115, or a reference to the location (e.g., table row) for the object in the object reference table 210. The object reference link 216 allows facts to have as values other objects. For example, for an object associated with the entity “United States,” there may be a fact with the attribute of “president” and the value of “George W. Bush,” with “George W. Bush” being an object having its own facts in the repository 115. In some embodiments, the value field 214 stores the name of the linked object and the link 216 stores the object identifier of the linked object. Thus, this “president” fact would include the value 214 of “George W. Bush”, and an object reference link 216 that contains the object ID for the “George W. Bush” object. In some other embodiments, facts 204 do not include a link field 216 because the value 214 of a fact 204 may store a link to another object.\n\nEach fact 204 also may include one or more metrics 218. A metric provides an indication of the quality of the fact. In some embodiments, the metrics include a confidence level and an importance level. The confidence level indicates the likelihood that the fact is correct. The importance level indicates the relevance of the fact to the object, compared to other facts for the same object. The importance level may optionally be viewed as a measure of how vital a fact is to an understanding of the entity associated with the object.\n\nEach fact 204 includes a list of one or more sources 220 that include the fact and from which the fact was extracted. Each source may be identified by a URL, or Web address, or any other appropriate form of identification and/or location, such as a unique document identifier.\n\nThe facts illustrated in FIG. 2( d) include an agent field 222 that identifies the importer 108 that extracted the fact. For example, the importer 108 may be a specialized importer that extracts facts from a specific source (e.g., the pages of a particular web site, or family of web sites) or type of source (e.g., web pages that present factual information in tabular form), or an importer 108 that extracts facts from free text in documents throughout the Web, and so forth.\n\nSome embodiments include one or more specialized facts, such as a name fact 207 and a property fact 208. A name fact 207 is a fact that conveys a name for the entity associated with the object in which the fact is included. A name fact 207 includes an attribute 224 of “name” and a value, which is the name of the associated entity. For example, for an object associated with country Spain, a name fact would have the value “Spain.” A name fact 207, being a special instance of a general fact 204, includes the same fields as any other fact 204; it has an attribute, a value, a fact ID, metrics, sources, etc. The attribute 224 of a name fact 207 indicates that the fact is a name fact, and the value is the actual name. The name may be a string of characters. An object may have one or more associated name facts, as many entities can have more than one name. For example, an object associated with Spain may have associated name facts conveying the country's common name “Spain” and the official name “Kingdom of Spain.” As another example, an object associated with the U.S. Patent and Trademark Office may have associated name facts conveying the agency's acronyms “PTO” and “USPTO” as well as the official name “United States Patent and Trademark Office.” If an object does have more than one associated name fact, one of the name facts may be designated as a primary name and other name facts may be designated as secondary names, either implicitly or explicitly. The name facts associated with an object are also called synonymous names of the object.\n\nA property fact 208 is a fact that conveys a statement about the entity associated with the object. Property facts are generally used for summary information about an object. A property fact 208, being a special instance of a general fact 204, also includes the same fields (such as attribute, value, fact ID, etc.) as other facts 204. The attribute field 226 of a property fact 208 indicates that the fact is a property fact (e.g., attribute is “property”) and the value is a string of text that conveys the statement of interest. For example, for the object associated with Bill Clinton, the value of a property fact may be the text string “Bill Clinton was the 42nd President of the United States from 1993 to 2001.” Some objects may have one or more associated property facts while other objects may have no associated property facts. It should be appreciated that the data structures shown in FIGS. 2( a)-2(d) and described above are merely exemplary. The data structure of the repository 115 may take on other forms. Other fields may be included in facts and some of the fields described above may be omitted. Additionally, each object may have additional special facts aside from name facts and property facts, such as facts conveying a type or category (for example, person, place, movie, actor, organization, etc.) for categorizing the entity associated with the object. In some embodiments, an object's name(s) and/or properties may be represented by special records that have a different format than the general fact records 204.\n\nAs described previously, a collection of facts is associated with an object ID of an object. An object may become a null or empty object when facts are disassociated from the object. A null object can arise in a number of different ways. One type of null object is an object that has had all of its facts (including name facts) removed, leaving no facts associated with its object ID. Another type of null object is an object that has all of its associated facts other than name facts removed, leaving only its name fact(s). Alternatively, the object may be a null object only if all of its associated name facts are removed. A null object represents an entity or concept for which the data processing system 106 has no factual information and, as far as the data processing system 106 is concerned, does not exist. In some embodiments, facts of a null object may be left in the repository 115, but have their object ID values cleared (or have their importance set to a negative value). However, the facts of the null object are treated as if they were removed from the repository 115. In some other embodiments, facts of null objects are physically removed from the repository 115.\n\nFIG. 2( e) is a block diagram illustrating an alternate data structure 290 for facts and objects in accordance with embodiments of the invention. In this data structure, an object 290 contains an object ID 292 and references or points to facts 294. Each fact includes a fact ID 295, an attribute 297, and a value 299. In this embodiment, an object 290 actually exists in memory 107.\n\nAs described above, an object may explicitly exist in the repository 115, or it may exist merely as a collection of facts with a common object ID. Reference is made to particular objects for the purposes of illustration; one of skill in the art will recognize that the systems and methods described herein are applicable to a variety of implementations and that such references are not limiting. When reference is made to a fact being associated with an object, it should be understood that in at least one embodiment a fact is associated with an object by sharing a common object ID with other facts. For example, a fact could be associated with an object of a given type by sharing a common object ID at least with a type fact indicating the given type (or as another example, with a category fact indicating a particular category of object). Furthermore, in various embodiments, facts and objects can be stored in a variety of structures, such as fact and/or object repositories. When reference is made herein to the repository 115, it should be understood that various embodiments may store facts and/or objects in a variety of data structures.\n\nOverview of Methodology\n\nReferring now to FIG. 3, there is shown a flow diagram illustrating a method 300 for learning (or extracting) objects and facts from a plurality of documents in accordance with one embodiment. Other embodiments perform steps of the method 300 in different orders and/or perform different or additional steps than the ones shown in FIG. 3. The steps of the process illustrated in FIG. 3 may be implemented in software, hardware, or a combination of hardware and software.\n\nIn one embodiment, the steps of the method 300 may be performed by one or more importers 108 as shown in FIG. 1, although one skilled in the art will recognize that the method could be performed by systems having different architectures as well. The importers 108 can perform multiple instances of the steps of the method 300 concurrently and/or perform steps in parallel.\n\nThe flowchart shown in FIG. 3 will now be described in detail. The process commences with a plurality of objects and a plurality of documents. The plurality of objects can be objects in the fact repository 115. The plurality of documents can be documents in the document hosts 102.\n\nAs described above in relation to FIGS. 2( a)-2(e), an object is associated with one or more facts. Each fact has an attribute and a value (hereinafter called an “attribute-value pair”). For example, an object representing Canada can have a fact with an attribute “name” and a value of the attribute “Canada”. A fact with the attribute “name” is called a name fact, and its value is called an object name. The object representing Canada can also have a fact with an attribute-value pair of “Capital-Ottawa”, wherein “Capital” is the attribute and “Ottawa” is the value.\n\nAs described above, a document may be encoded in a markup language, such as the Hypertext Markup Language (HTML), i.e., a web page, in an interpreted language (e.g., JavaScript) or in any other computer readable or executable format. A document can have one or more titles. One example is a web page encoded in HTML with content about the first President of the United States, George Washington.\n\nThe importer 108 selects 310 a source object from the plurality of objects. In one embodiment, the importer 108 gives priority to objects associated with more facts when selecting 310 the source object. In another embodiment, each of the plurality of objects has equal chance of being selected 310.\n\nThe importer 108 selects 320 a source document associated with a fact of the source object from the plurality of documents. As described above in relation to FIG. 2( d), each fact includes a list of sources 220 from which the fact was extracted. In one embodiment, the importer 108 selects 320 the source document from sources of a fact associated with the source object. In one embodiment, the importer 108 gives priority to documents from reputable websites (e.g., the Encyclopedia Britannica Online) when selecting 320 the source document.\n\nAlternatively, the importer 108 searches for documents containing an object name of the source object and one or more of its facts (or attribute-value pairs) in the plurality of documents. The importer 108 then selects 320 the source document from the search result. For example, for an object with object name “China” and attribute-value pair “Capital-Beijing,” the importer 108 can search for documents containing “China,” “Capital,” and “Beijing.” The importer 108 may specify search criteria such as whether the object name matches document titles and whether the rest of the search terms match document contents. The search may be performed using a search engine, such as a Web search engine.\n\nThe importer 108 identifies 330 a title pattern and a contextual pattern based on the source document and the source object. The title pattern is intended to reflect a relationship between a title of the source document (hereinafter called “the document title”) and the object name of the source object (“the source object name”). In one embodiment, the importer 108 determines whether the document title contains the source object name as a substring. A substring is a contiguous sequence of characters taken from a string. If the document title does not contain the source object name as a substring, the importer 108 repeats the above process and selects 320 another document as the source document.\n\nThe importer 108 identifies 330 the title pattern by comparing the document title with the source object name. In one embodiment, a title pattern comprises a prefix section, a body section, and a suffix section. A title pattern can be expressed as “%[PREFIX SECTION]% && %[SUFFIX SECTION]%”, where “&&” represents the source object name. For example, the title pattern of a document title “Summary for Microsoft CP—Yahoo! Finance” and an object name “Microsoft CP” is “%Summary for% && %—Yahoo! Finance%”. In this example, the prefix section is “Summary for” and the suffix section is “—Yahoo! Finance”. The body section of the document title is the same as the object name, “Microsoft CP.”\n\nThe contextual pattern is a structural pattern in which the source document displays (or presents) facts (or attribute-value pairs). For example, a document can display facts of an object in a table (the contextual pattern) such that the attribute-value pair for a fact appears in the same row. In one embodiment, the importer 108 identifies 330 the contextual pattern by identifying language markups (e.g., HTML markups (or tags)) that define the structural pattern. For example, a web page may contain a list of attributes and values with HTML markup as the following:\n\nThe importer 108 can identify 330 the contextual pattern in the source document by matching attribute-value pairs of the source object with content of the source document. The contextual pattern contains the HTML markup (or tag) sequence associated with the matching attribute-value. For example, for an attribute-value pair “Capital-Beijing,” the importer 108 may identify 330 the following contextual pattern in the above web page: “ $$ ££ ”. In this example, “$$” indicates a text block for an attribute and “££” indicates a text block of a corresponding value. The importer 108 may identify 330 multiple contextual patterns in a source document, with each pattern corresponding with a fact of the source object.\n\nThe importer 108 selects 340 a set of documents from the plurality of documents based on the title pattern and the contextual pattern. One embodiment of the process for the importer 108 to select 340 the set of documents is further illustrated in the flowchart shown in FIG. 4. For each of the plurality of documents, the importer 108 starts the process by applying 410 the title pattern to a title of the document. If the importer 108 determines 420 that the title does not match the title pattern, it determines that the document should not be added to the set and repeats the process for the next document. Otherwise, the importer 108 applies 430 the contextual pattern to the content of the document. If the importer 108 determines 440 that there is no match for the contextual pattern, it determines that the document should not be added to the set and repeats the process for the next document. If a title of the document matches the title pattern and the content of the document matches the contextual pattern, the importer 108 adds 450 the document to the set.\n\nIn one embodiment, the importer 108 only examines documents within the same domain as the source document when selecting 340 the set of documents. A domain is a group of computers and devices that share a common part of an Internet Protocol (IP) address that identifies (or locates) an organization (or entity) on the Internet. All documents from computers and devices in the group are said to be from the same domain. Documents from the same domain may be stored in one or multiple document hosts 102. The set of documents can include the source document.\n\nLimiting the set of documents to be within the same domain as the source document can be advantageous, especially when the size of the plurality of documents is large. The computational cost of comparing documents with the title pattern and the contextual pattern can become unmanageable as the number of documents grows. Also, because documents within the same domain as the source document are more likely to share the same style as the source document, they are more likely to match the title pattern and the contextual pattern than documents from other domains.\n\nAs described above, the importer 108 can identify 330 multiple contextual patterns. In one embodiment, the importer 108 adds 450 a document into the set of documents as long as the document matches the title pattern and any one of the multiple contextual patterns. In another embodiment, the importer 108 adds 450 a document into the set only when the document matches the title pattern and all of the identified contextual patterns.\n\nReferring back to FIG. 3, for each document in the selected set, the importer 108 identifies 350 a name and one or more attribute-value pairs from the document. The importer 108 identifies 350 the name by applying the title pattern to the title of the document. The importer 108 identifies 350 one or more attribute-value pairs by applying the contextual pattern to the content of the document.\n\nThe identified name tends to be an object name for an object (or entity) described in the document. As described above, the source document contains facts of the source object, and therefore describes the source object. Further, the source object name can be extracted from a title of the source document using the title pattern. Because the title pattern also matches titles of the documents in the selected set, it follows that these documents tend to follow a consistent naming convention (or protocol or standard). For example, titles of web pages containing company profile in Yahoo! finance website follow a common pattern of “%COMPANY NAME% Company Profile—Yahoo! Finance”. Therefore, the name identified by applying the title pattern to a title of the document tends to be an object name for an object described in the document.\n\nSimilarly, the identified attribute-value pairs tend to be facts for the object described in the document. As described above, the source document contains facts of the source object matching the contextual pattern. Same as the source document, documents in the selected set match the title pattern and the contextual pattern. Therefore, these documents tend to share a style or format (e.g., displaying facts in a table or list). Because facts of the source object can be extracted from the source document using the contextual pattern, it follows that the attribute-value pairs identified by applying the contextual pattern to content of the document tend to be facts for the object described in the document.\n\nThe importer 108 can repeatedly apply the contextual pattern to content of the document to identify 350 (or extract or learn) attribute-value pairs. For example, if the contextual pattern identifies a table entry, the importer 108 may extract attribute-value pairs from that table entry and nearby table entries that match the contextual pattern. In one embodiment, the importer 108 extracts attribute-value pairs that are proximate to each other. By applying such a limitation, the importer 108 can be sure that the identified attribute-value pairs are likely from the same structure (e.g., the same table or list). Alternatively, the importer 108 can parse the document to identify 350 attribute-value pairs from all structures that match the contextual pattern.\n\nIn one embodiment, the importer 108 examines the quality of the identified attribute-value pairs by matching their attributes with a group of valid attributes (called “a white attribute list”). The identified contextual pattern may be general (e.g., a table row, a list item), and therefore the attribute-value pairs identified by applying the general contextual pattern may be over-inclusive. If the match fails to meet a certain threshold value (percentage or absolute value), the importer 108 determines that the identified attribute-value pairs are low in quality, and may disregard them entirely or only keep those that match. The white attribute list may include attributes identified in the source document and/or attributes collected from other sources (e.g., compiled by human editors). Similarly, the importer 108 may match the identified attribute-value pairs with a group of invalid attributes (called “a black attribute list”), and disregard them if the match exceeds a certain threshold value.\n\nFor each document in the selected set, the importer 108 associates 360 the attribute-value pairs identified in the document with an object with the identified name. In one embodiment, the importer 108 creates a new object, assigns the new object with the identified name, and associates 360 it with the identified attribute-value pairs. The importer 108 then passes the newly created object to a janitor 110 to incorporate the object into the fact repository 115. In one embodiment, the janitor 110 searches in the fact repository 115 for an object associated with the identified name. If no such object exists, the janitor 110 adds the newly created object into the fact repository 115. Otherwise, the janitor 110 merges the newly created object with the existing object in the fact repository 115. If the janitor 110 determines that the existing object does not contain some of the attribute-value pairs identified in the document, it adds these attribute-value pairs into the fact repository 115 and associates 360 them with the existing object. If the existing object and the newly created object contain duplicated attribute-value pairs (e.g., same attribute and same value), the janitor 110 can optionally add the document as a source of this fact of the existing object. If the existing object and the newly created object contain inconsistent attribute-value pairs (e.g., same attribute but different value), the janitor 110 can determine a confidence value for each of the attribute-value pairs, and set the one with higher value as the value of the fact for the existing object. In other embodiments, the importer 108 only creates a new object if no object associated with the identified name is located in the fact repository 115.\n\nIn one embodiment, the fact repository 115 can have objects associated with the same object name (or name fact value). For example, two objects can both have the name “New York,” one representing the New York City and the other representing a movie with the title “New York.” In order to locate the right object as described in the document, and not an object that happens to share the same object name, the janitor 110 searches in the fact repository 115 for an object associated with the identified name and at least one identified attribute-value pair, and merges the newly created object with the object found in the manner detailed above.\n\nIt is noted that in alternative embodiments, the importer 108 (or the janitor 110) may apply some normalization rules to the identified names to standardize its format before identifying corresponding objects. The importer 108 may also apply these normalization rules to the identified attribute-value pairs before associating 360 them with objects. Examples of the normalization rules include removal of punctuation, such as removing commas in a string, conversion of uppercase characters in a string to corresponding lowercase characters, such as from “America” to “america,” and stop word removal, such as removing stop words such as “the” and “of” from a string. For example, after applying the above normalization rules, an object name of “Charles Chaplin” becomes “charles chaplin”.\n\nIn one embodiment, the importer 108 (or the janitor 110) compares the identified names with content of a black list. The black list contains texts that are not entity names (e.g., adjectives such as “beautiful”, and stop words such as “the”). Therefore, if there are matches between the identified name and the black list, the importer 108 determines that this name is not a valid entity name, and therefore does not create an object for it.\n\nIn one embodiment, the importer 108 (or the janitor 110) compares the learned object names with content of a white list. The white list contains some entity names (e.g., “United Nation,” “John Lennon”). The white list can be compiled by human editors or extracted from reputable sources (e.g., the Encyclopedia Britannica Online). Therefore, if there are matches between the identified name and the white list, the importer 108 determines that the identified name is a proper object name.\n\nThe importer 108 can repeat the process described above for a different source object and/or a different source document. As a result, the importer 108 can learn objects and associated facts from the plurality of documents.\n\nExample Process\n\nThe method 300 is further illustrated by an example shown in FIG. 5. As illustrated in FIG. 5, an object O1 has an attribute-value pair of “name-George Washington,” and an attribute-value pair of “Born-Feb. 22, 1732.” The source of both facts (or attribute-pairs) is “http://en.wikipedia.org/wiki/George_washington.”\n\nFIG. 5 also shows a plurality of documents D1-D5. Documents D1-D5 are all from Wikipedia.org domain 501. Document D1 (hereinafter called “D1”) is entitled “George Washington—Wikipedia, the free encyclopedia.” Content of D1 includes the following structured text:\n\nBorn Feb. 22, 1732 Died Dec. 14, 1799 Spouse Martha Dandridge Custis Washington Document D2 (“D2”) is entitled “Canada—Wikipedia, the free encyclopedia.” Content of D2 includes the following structured text:\n\nCapital Ottawa Area 9,984,670 km2 GDP $1.105 trillion Document D3 (“D3”) is entitled “Help:Contents—Wikipedia, the free encyclopedia” and does not contain text structured as displayed above. Document D4 (“D4”) is entitled “Isaac Asimov—Wikipedia, the free encyclopedia.” Content of D4 includes the following structured text:\n\nBorn Jan. 2, 1920 Died Apr. 6, 1992 Document D5 (“D5”) is entitled “Fundraising—Wikimedia Foundation” and does not contain text structured as displayed above.\n\nContent of documents D1-D5 can be organized in HTML structures such as tables and lists in order to be displayed as structured text as illustrated in FIG. 5. For example, the HTML source code of D1 may contain the following:\n\nThe importer 108 selects 310 object O1 as the source object. Because the source of both facts associated with O1 is “http://en.wikipedia.org/wiki/George_washington,” the URL of D1, the importer 108 selects 320 D1 as the source document.\n\nThe importer 108 identifies 330 a title pattern by comparing the title of the source document D1 (“George Washington—Wikipedia, the free encyclopedia”) with the object name of the source object O1 (“George Washington”). The importer 108 determines that the prefix section of the title pattern is empty and the suffix section is “—Wikipedia, the free encyclopedia”. Therefore, the identified title pattern is “%% && %—Wikipedia, the free encyclopedia %”.\n\nThe importer 108 identifies 330 a contextual pattern by matching an attribute-value pair of the source object O1 (Born-Feb. 22, 1732) with the content of the source document D1 (“ . . . Born Feb. 22, 1732 . . . ”). The importer 108 identifies 330 the following contextual pattern: “$$££”.\n\nThe importer 108 selects 340 a set of documents based on the identified title pattern (“%% && %—Wikipedia, the free encyclopedia %”) and the identified contextual pattern (“$$££”). The importer 108 applies 410 the title pattern to titles of D1-D5 and determines 420 that titles of D1-D4 match with the title pattern. The importer 108 applies 430 the contextual pattern to contents of D1-D4, and determines 440 that the contents of D1, D2, and D4 match with the contextual pattern. As a result, the importer 108 adds 450 D1, D2, and D4 to the selected set of documents. It is noted that the selected set includes the source document D1.\n\nThe importer 108 applies the identified title pattern (“%% && %—Wikipedia, the free encyclopedia %”) and contextual pattern (“$$££”) to each document in the selected set (D1, D2, and D4) to identify 350 names and attribute-value pairs. For D1, the importer 108 identifies 350 the name “George Washington” and attribute value pairs “Born-Feb. 22, 1732,” “Died-Dec. 14, 1799,” and “Spouse-Martha Dandridge Custis Washington.” For D2, the importer 108 identifies the name “Canada” and attribute-value pairs “Capital-Ottawa,” “Area-9,984,670 km2,” and “GDP-$1.105 trillion.” Similarly, for D4, the importer 108 identifies the name “Isaac Asimov” and attribute-value pairs “Born-Jan. 2, 1920” and “Died-Apr. 6, 1992.”\n\nThe importer 108 (or the janitor 110) identifies (or creates) objects with the identified names and associates 360 the identified attribute-value pairs with the objects. For D1, because O1 is already associated with the attribute-value pair “Born-Feb. 22, 1732,” the importer 108 (or the janitor 110) associates 360 the attribute-value pairs “Died-Dec. 14, 1799” and “Spouse-Martha Dandridge Custis Washington” with O1 and adds D1 as their source. For D2, the importer 108 (or the janitor 110) creates an object with object name “Canada,” associates 360 it with attribute-value pairs “Capital-Ottawa,” “Area-9,984,670 km2,” and “GDP-$1.105 trillion,” and adds D2 as their source. Similarly, for D4, the importer 108 (or the janitor 110) creates an object with object name “Isaac Asimov,” associates 360 it with attribute-value pairs “Born-Jan. 2, 1920” and “Died-Apr. 6, 1992,” and adds D4 as their source.\n\n\n## Alternative Embodiments\n\n\nIn one embodiment, instead of selecting 320 a source document based on facts of the identified source object, the importer 108 can first select a source document and then select a source object based on the subject of the source document. For example, the importer 108 can first identify a title pattern of the selected source document, determine an object name based on the document title and the title pattern, and select a source object associated with the object name. The importer 108 can then identify 330 a contextual pattern as described above. If the importer 108 fails to select such a source object or fails to identify 330 a contextual pattern, it can repeat the process and select a different source document.\n\nThe importer 108 can identify a title pattern of the source document by analyzing the document title of the source document and anchor texts of documents linking to the source document. Detailed description and embodiments of identifying a title pattern for the source document can be found in U.S. patent application Ser. No. 11/394,610, entitled “Determining Document Subject by Using Title and Anchor Text of Related Documents,” filed on Mar. 31, 2006, the disclosure of which is hereby incorporated by reference in its entirety.\n\nIt is noted that the importer 108 can identify 330 more than one contextual pattern for the source document and the source object. For example, some of the attribute-value pairs may be in a list in the source document, and others may be in a table in the source document. In some embodiments, the importer 108 can select 340 a set of documents for each of the identified contextual patterns.\n\nIt should be appreciated that the process described above may be performed at another time for other purposes, such as learning images and other media data from semi-structured text and verifying the quality of the plurality of documents. The process may be performed as needed or at scheduled intervals. Furthermore, the process may be performed for other objects in the fact repository 115.\n\nReference in the specification to “one embodiment” or to “an embodiment” means that a particular feature, structure, or characteristic described in connection with the embodiments is included in at least one embodiment of the invention. The appearances of the phrase “in one embodiment” in various places in the specification are not necessarily all referring to the same embodiment.\n\nSome portions of the above are presented in terms of algorithms and symbolic representations of operations on data bits within a computer memory. These algorithmic descriptions and representations are the means used by those skilled in the data processing arts to most effectively convey the substance of their work to others skilled in the art. An algorithm is here, and generally, conceived to be a self-consistent sequence of steps (instructions) leading to a desired result. The steps are those requiring physical manipulations of physical quantities. Usually, though not necessarily, these quantities take the form of electrical, magnetic or optical signals capable of being stored, transferred, combined, compared and otherwise manipulated. It is convenient at times, principally for reasons of common usage, to refer to these signals as bits, values, elements, symbols, characters, terms, numbers, or the like. Furthermore, it is also convenient at times, to refer to certain arrangements of steps requiring physical manipulations of physical quantities as modules or code devices, without loss of generality.\n\nIt should be borne in mind, however, that all of these and similar terms are to be associated with the appropriate physical quantities and are merely convenient labels applied to these quantities. Unless specifically stated otherwise as apparent from the following discussion, it is appreciated that throughout the description, discussions utilizing terms such as “processing” or “computing” or “calculating” or “determining” or “displaying” or “determining” or the like, refer to the action and processes of a computer system, or similar electronic computing device, that manipulates and transforms data represented as physical (electronic) quantities within the computer system memories or registers or other such information storage, transmission or display devices.\n\nCertain aspects of the present invention include process steps and instructions described herein in the form of an algorithm. It should be noted that the process steps and instructions of the present invention can be embodied in software, firmware or hardware, and when embodied in software, can be downloaded to reside on and be operated from different platforms used by a variety of operating systems.\n\nThe present invention also relates to an apparatus for performing the operations herein. This apparatus may be specially constructed for the required purposes, or it may comprise a general-purpose computer selectively activated or reconfigured by a computer program stored in the computer. Such a computer program may be stored in a computer readable storage medium, such as, but is not limited to, any type of disk including floppy disks, optical disks, CD-ROMs, magnetic-optical disks, read-only memories (ROMs), random access memories (RAMs), EPROMs, EEPROMs, magnetic or optical cards, application specific integrated circuits (ASICs), or any type of media suitable for storing electronic instructions, and each coupled to a computer system bus. Furthermore, the computers referred to in the specification may include a single processor or may be architectures employing multiple processor designs for increased computing capability.\n\nThe algorithms and displays presented herein are not inherently related to any particular computer or other apparatus. Various general-purpose systems may also be used with programs in accordance with the teachings herein, or it may prove convenient to construct more specialized apparatus to perform the required method steps. The required structure for a variety of these systems will appear from the description below. In addition, the present invention is not described with reference to any particular programming language. It will be appreciated that a variety of programming languages may be used to implement the teachings of the present invention as described herein, and any references below to specific languages are provided for disclosure of enablement and best mode of the present invention.\n\nWhile the invention has been particularly shown and described with reference to a preferred embodiment and several alternate embodiments, it will be understood by persons skilled in the relevant art that various changes in form and details can be made therein without departing from the spirit and scope of the invention.\n\nFinally, it should be noted that the language used in the specification has been principally selected for readability and instructional purposes, and may not have been selected to delineate or circumscribe the inventive subject matter. Accordingly, the disclosure of the present invention is intended to be illustrative, but not limiting, of the scope of the invention, which is set forth in the following claims.",
+ "cited_by": [
+  {
+   "id": "US20130173643A1",
+   "title": "Providing information management",
+   "assignee": "Ahmed K. Ezzat"
+  },
+  {
+   "id": "US9558186B2",
+   "title": "Unsupervised extraction of facts",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US9760570B2",
+   "title": "Finding and disambiguating references to entities on web pages",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20180025080A1",
+   "title": "Testing pairings to determine whether they are publically known",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10255271B2",
+   "title": "Disambiguation of the meaning of terms based on context pattern detection",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US10268965B2",
+   "title": "Dictionary enhancement technique for business name categorization",
+   "assignee": "Yardi Systems, Inc."
+  },
+  {
+   "id": "US10275708B2",
+   "title": "Criteria enhancement technique for business name categorization",
+   "assignee": "Yardi Systems, Inc."
+  },
+  {
+   "id": "US10275841B2",
+   "title": "Apparatus and method for efficient business name categorization",
+   "assignee": "Yardi Systems, Inc."
+  },
+  {
+   "id": "US10274983B2",
+   "title": "Extended business name categorization apparatus and method",
+   "assignee": "Yardi Systems, Inc."
+  },
+  {
+   "id": "US10459955B1",
+   "title": "Determining geographic locations for place names",
+   "assignee": "Google Llc"
+  },
+  {
+   "id": "US11216718B2",
+   "title": "Energy management system",
+   "assignee": "Yardi Systems, Inc."
+  },
+  {
+   "id": "US12135737B1",
+   "title": "Graphical user interface and pipeline for text analytics",
+   "assignee": "Sas Institute Inc."
+  },
+  {
+   "id": "US10740408B2",
+   "title": "Method and system for generating an architecture document for describing a system framework",
+   "assignee": "Accenture Global Solutions Limited"
+  },
+  {
+   "id": "KR20190040046A",
+   "title": "Information collection system, information collection method and recording medium",
+   "assignee": "닛본 덴끼 가부시끼가이샤"
+  },
+  {
+   "id": "US10944569B2",
+   "title": "Comparison and validation of digital content using contextual analysis",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US11455855B2",
+   "title": "Content validation document transmission",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20210149881A1",
+   "title": "Method and system for identifying information objects using deep ai-based knowledge objects",
+   "assignee": "Ghangorcloud, Inc"
+  }
+ ],
+ "cites": [
+  {
+   "id": "US5010478A",
+   "title": "Entity-attribute value database system with inverse attribute for selectively relating two different entities",
+   "assignee": "Deran Roger L"
+  },
+  {
+   "id": "US5133075A",
+   "title": "Method of monitoring changes in attribute values of object in an object-oriented database",
+   "assignee": "Hewlett-Packard Company"
+  },
+  {
+   "id": "US5347653A",
+   "title": "System for reconstructing prior versions of indexes using records indicating changes between successive versions of the indexes",
+   "assignee": "Digital Equipment Corporation"
+  },
+  {
+   "id": "US5440730A",
+   "title": "Time index access structure for temporal databases having concurrent multiple versions",
+   "assignee": "Bell Communications Research, Inc."
+  },
+  {
+   "id": "US5475819A",
+   "title": "Distributed configuration profile for computing system",
+   "assignee": "Digital Equipment Corporation"
+  },
+  {
+   "id": "US5519608A",
+   "title": "Method for extracting from a text corpus answers to questions stated in natural language by using linguistic analysis and hypothesis generation",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5546507A",
+   "title": "Apparatus and method for generating a knowledge base",
+   "assignee": "Unisys Corporation"
+  },
+  {
+   "id": "US5560005A",
+   "title": "Methods and systems for object-based relational distributed databases",
+   "assignee": "Actamed Corp."
+  },
+  {
+   "id": "US5574898A",
+   "title": "Dynamic software version auditor which monitors a process to provide a list of objects that are accessed",
+   "assignee": "Atria Software, Inc."
+  },
+  {
+   "id": "US5675785A",
+   "title": "Data warehouse which is accessed by a user using a schema of virtual tables",
+   "assignee": "Hewlett-Packard Company"
+  },
+  {
+   "id": "US5680622A",
+   "title": "System and methods for quickly detecting shareability of symbol and type information in header files",
+   "assignee": "Borland International, Inc."
+  },
+  {
+   "id": "US5694590A",
+   "title": "Apparatus and method for the detection of security violations in multilevel secure databases",
+   "assignee": "The Mitre Corporation"
+  },
+  {
+   "id": "US5701470A",
+   "title": "System and method for space efficient object locking using a data subarray and pointers",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US5717951A",
+   "title": "Method for storing and retrieving information on a magnetic storage medium via data blocks of variable sizes",
+   "assignee": "Yabumoto; Kan W."
+  },
+  {
+   "id": "US5717911A",
+   "title": "Relational database system and method with high availability compliation of SQL programs",
+   "assignee": "Tandem Computers, Inc."
+  },
+  {
+   "id": "US5724571A",
+   "title": "Method and apparatus for generating query responses in a computer-based document retrieval system",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US5778373A",
+   "title": "Integration of an information server database schema by generating a translation map from exemplary files",
+   "assignee": "At&T Corp"
+  },
+  {
+   "id": "US5778378A",
+   "title": "Object oriented information retrieval framework mechanism",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5787413A",
+   "title": "C++ classes for a digital library",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5793966A",
+   "title": "Computer system and computer-implemented process for creation and maintenance of online services",
+   "assignee": "Vermeer Technologies, Inc."
+  },
+  {
+   "id": "US5802299A",
+   "title": "Interactive system for authoring hypertext document collections",
+   "assignee": "Microtouch Systems, Inc."
+  },
+  {
+   "id": "US5815415A",
+   "title": "Computer system for portable persistent modeling",
+   "assignee": "Bentley Systems, Incorporated"
+  },
+  {
+   "id": "US5819265A",
+   "title": "Processing names in a text",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5819210A",
+   "title": "Method of lazy contexted copying during unification",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US5822743A",
+   "title": "Knowledge-based information retrieval system",
+   "assignee": "1215627 Ontario Inc."
+  },
+  {
+   "id": "US5838979A",
+   "title": "Process and tool for scalable automated data field replacement",
+   "assignee": "Peritus Software Services, Inc."
+  },
+  {
+   "id": "US5909689A",
+   "title": "Automatic update of file versions for files shared by several computers which record in respective file directories temporal information for indicating when the files have been created",
+   "assignee": "Sony Corporation"
+  },
+  {
+   "id": "US5920859A",
+   "title": "Hypertext document retrieval system and method",
+   "assignee": "Idd Enterprises, L.P."
+  },
+  {
+   "id": "US5943670A",
+   "title": "System and method for categorizing objects in combined categories",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US5956718A",
+   "title": "Method and apparatus for moving subtrees in a distributed network directory",
+   "assignee": "Novell, Inc."
+  },
+  {
+   "id": "US5974254A",
+   "title": "Method for detecting differences between graphical programs",
+   "assignee": "National Instruments Corporation"
+  },
+  {
+   "id": "US5987460A",
+   "title": "Document retrieval-assisting method and system for the same and document retrieval service using the same with document frequency and term frequency",
+   "assignee": "Hitachi, Ltd."
+  },
+  {
+   "id": "US6006221A",
+   "title": "Multilingual document retrieval system and method using semantic vector matching",
+   "assignee": "Syracuse University"
+  },
+  {
+   "id": "US6018741A",
+   "title": "Method and system for managing objects in a dynamic inheritance tree",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6038560A",
+   "title": "Concept knowledge base search and retrieval system",
+   "assignee": "Oracle Corporation"
+  },
+  {
+   "id": "US6044366A",
+   "title": "Use of the UNPIVOT relational operator in the efficient gathering of sufficient statistics for data mining",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6052693A",
+   "title": "System for assembling large databases through information extracted from text sources",
+   "assignee": "Harlequin Group Plc"
+  },
+  {
+   "id": "US6064952A",
+   "title": "Information abstracting method, information abstracting apparatus, and weighting method",
+   "assignee": "Matsushita Electric Industrial Co., Ltd."
+  },
+  {
+   "id": "US6073130A",
+   "title": "Method for improving the results of a search in a structured database",
+   "assignee": "At&T Corp."
+  },
+  {
+   "id": "US6078918A",
+   "title": "Online predictive memory",
+   "assignee": "Trivada Corporation"
+  },
+  {
+   "id": "US6112210A",
+   "title": "Apparatus and method for null representation in database object storage",
+   "assignee": "Oracle Corporation"
+  },
+  {
+   "id": "US6112203A",
+   "title": "Method for ranking documents in a hyperlinked environment using connectivity and selective content analysis",
+   "assignee": "Altavista Company"
+  },
+  {
+   "id": "US6122647A",
+   "title": "Dynamic generation of contextual links in hypertext documents",
+   "assignee": "Perspecta, Inc."
+  },
+  {
+   "id": "US6134555A",
+   "title": "Dimension reduction using association rules for data mining application",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6202065B1",
+   "title": "Information search and retrieval with geographical coordinates",
+   "assignee": "Travelocity.Com Lp"
+  },
+  {
+   "id": "US6212526B1",
+   "title": "Method for apparatus for efficient mining of classification models from databases",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6240546B1",
+   "title": "Identifying date fields for runtime year 2000 system solution process, method and article of manufacture",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6263328B1",
+   "title": "Object oriented query model and process for complex heterogeneous database queries",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6263358B1",
+   "title": "Scheduler for a software system having means for allocating tasks",
+   "assignee": "British Telecommunications Public Limited Company"
+  },
+  {
+   "id": "US6266805B1",
+   "title": "Visualization in a modular software system",
+   "assignee": "British Telecommunications Plc"
+  },
+  {
+   "id": "US6285999B1",
+   "title": "Method for node ranking in a linked database",
+   "assignee": "The Board Of Trustees Of The Leland Stanford Junior University"
+  },
+  {
+   "id": "US6289338B1",
+   "title": "Database analysis using a probabilistic ontology",
+   "assignee": "Manning & Napier Information Services"
+  },
+  {
+   "id": "US20010021935A1",
+   "title": "Network based classified information systems",
+   "assignee": "Mills Dudley John"
+  },
+  {
+   "id": "US6311194B1",
+   "title": "System and method for creating a semantic web and its applications in browsing, searching, profiling, personalization and advertising",
+   "assignee": "Taalee, Inc."
+  },
+  {
+   "id": "US6314555B1",
+   "title": "Software system generation",
+   "assignee": "British Telecommunications Public Limited Company"
+  },
+  {
+   "id": "US6327574B1",
+   "title": "Hierarchical models of consumer attributes for targeting content in a privacy-preserving manner",
+   "assignee": "Encirq Corporation"
+  },
+  {
+   "id": "US6349275B1",
+   "title": "Multiple concurrent language support system for electronic catalogue using a concept based knowledge representation",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20020022956A1",
+   "title": "System and method for automatically classifying text",
+   "assignee": "Igor Ukrainczyk"
+  },
+  {
+   "id": "US20020038307A1",
+   "title": "Systems and methods for knowledge discovery in spatial data",
+   "assignee": "Zoran Obradovic"
+  },
+  {
+   "id": "US20020042707A1",
+   "title": "Grammar-packaged parsing",
+   "assignee": "Gang Zhao"
+  },
+  {
+   "id": "US6377943B1",
+   "title": "Initial ordering of tables for database queries",
+   "assignee": "Oracle Corp."
+  },
+  {
+   "id": "US6397228B1",
+   "title": "Data enhancement techniques",
+   "assignee": "Verizon Laboratories Inc."
+  },
+  {
+   "id": "US20020065845A1",
+   "title": "Information retrieval system",
+   "assignee": "Eiichi Naito"
+  },
+  {
+   "id": "JP2002157276A",
+   "title": "Problem solving support method and system",
+   "assignee": "Hitachi Software Eng Co Ltd"
+  },
+  {
+   "id": "US20020073115A1",
+   "title": "RDL search engine",
+   "assignee": "Davis Russell T."
+  },
+  {
+   "id": "US20020083039A1",
+   "title": "Hierarchical data-driven search and navigation system and method for information retrieval",
+   "assignee": "Ferrari Adam J."
+  },
+  {
+   "id": "US20020087567A1",
+   "title": "Unified binary model and methodology for knowledge representation and for data and information mining",
+   "assignee": "Israel Spiegler"
+  },
+  {
+   "id": "US20020107861A1",
+   "title": "System and method for collecting, associating, normalizing and presenting product and vendor information on a distributed network",
+   "assignee": "Kerry Clendinning"
+  },
+  {
+   "id": "US6438543B1",
+   "title": "System and method for cross-document coreference",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20020147738A1",
+   "title": "Method and appratus for finding patent-relevant web documents",
+   "assignee": "Reader Scot A."
+  },
+  {
+   "id": "US6470330B1",
+   "title": "Database system with methods for estimation and usage of index page cluster ratio (IPCR) and data page cluster ratio (DPCR)",
+   "assignee": "Sybase, Inc."
+  },
+  {
+   "id": "US6473898B1",
+   "title": "Method for compiling and selecting data attributes",
+   "assignee": "Pcorder.Com, Inc."
+  },
+  {
+   "id": "US20020169770A1",
+   "title": "Apparatus and method that categorize a collection of documents into a hierarchy of categories that are defined by the collection of documents",
+   "assignee": "Kim Brian Seong-Gon"
+  },
+  {
+   "id": "US20020174099A1",
+   "title": "Minimal identification",
+   "assignee": "Anthony Raj"
+  },
+  {
+   "id": "JP2002540506A",
+   "title": "Glamor template query system",
+   "assignee": "アスク ジーヴス インコーポレイテッド"
+  },
+  {
+   "id": "US6487495B1",
+   "title": "Navigation applications using related location-referenced keywords",
+   "assignee": "Navigation Technologies Corporation"
+  },
+  {
+   "id": "US20020178448A1",
+   "title": "Method and system for registering a user preference",
+   "assignee": "Te Kiefte Jan Benjamin"
+  },
+  {
+   "id": "US20020194172A1",
+   "title": "System and method for searching extended regular expressions",
+   "assignee": "Schreiber Robert Walter"
+  },
+  {
+   "id": "US6502102B1",
+   "title": "System, method and article of manufacture for a table-driven automated scripting architecture",
+   "assignee": "Accenture Llp"
+  },
+  {
+   "id": "US20030018652A1",
+   "title": "Apparatus and accompanying methods for visualizing clusters of data and hierarchical cluster classifications",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6519631B1",
+   "title": "Web-based information retrieval",
+   "assignee": "Atomica Corporation"
+  },
+  {
+   "id": "US20030058706A1",
+   "title": "Tree system diagram output method, computer program and recording medium",
+   "assignee": "Hiroyuki Okamoto"
+  },
+  {
+   "id": "US20030069880A1",
+   "title": "Natural language query processing",
+   "assignee": "Ask Jeeves, Inc."
+  },
+  {
+   "id": "US20030078902A1",
+   "title": "Method, system, and program for maintaining a database of data objects",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US6556991B1",
+   "title": "Item name normalization",
+   "assignee": "E-Centives, Inc."
+  },
+  {
+   "id": "US20030088607A1",
+   "title": "Method and device for scheduling, generating and processing a document comprising blocks of information",
+   "assignee": "Herve Ruellan"
+  },
+  {
+   "id": "US6567936B1",
+   "title": "Data clustering using error-tolerant frequent item sets",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US6565610B1",
+   "title": "Method and system for text placement when forming maps",
+   "assignee": "Navigation Technologies Corporation"
+  },
+  {
+   "id": "US6567846B1",
+   "title": "Extensible user interface for a distributed messaging framework in a computer network",
+   "assignee": "E.Piphany, Inc."
+  },
+  {
+   "id": "US20030097357A1",
+   "title": "System and method for manipulating content in a hierarchical data-driven search and navigation system",
+   "assignee": "Ferrari Adam J."
+  },
+  {
+   "id": "US6572661B1",
+   "title": "System and method for automated annotation of files",
+   "assignee": "Cisco Technology, Inc."
+  },
+  {
+   "id": "US6578032B1",
+   "title": "Method and system for performing phrase/word clustering and cluster merging",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20030120644A1",
+   "title": "Method, apparatus, and computer program product for locating data in large datasets",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20030120675A1",
+   "title": "Application instantiation based upon attributes and values stored in a meta data repository, including tiering of application layers, objects, and components",
+   "assignee": "Siebel Systems, Inc."
+  },
+  {
+   "id": "US6584646B2",
+   "title": "Tilt hinge for office automation equipment",
+   "assignee": "Katoh Electrical Machinery Co., Ltd."
+  },
+  {
+   "id": "US20030126102A1",
+   "title": "Probabilistic record linkage model derived from training data",
+   "assignee": "Choicemaker Technologies, Inc."
+  },
+  {
+   "id": "US20030126152A1",
+   "title": "Export engine which builds relational database directly from object model",
+   "assignee": "Rajak Surendra Kumar"
+  },
+  {
+   "id": "US20030149567A1",
+   "title": "Method and system for using natural language in computer resource utilization analysis via a communications network",
+   "assignee": "Tony Schmitz"
+  },
+  {
+   "id": "US20030149699A1",
+   "title": "Upward and downward compatible data processing system",
+   "assignee": "Tsao Sheng A."
+  },
+  {
+   "id": "US6606659B1",
+   "title": "System and method for controlling access to internet sites",
+   "assignee": "Websense, Inc."
+  },
+  {
+   "id": "US6606625B1",
+   "title": "Wrapper induction by hierarchical data analysis",
+   "assignee": "University Of Southern California"
+  },
+  {
+   "id": "US20030154071A1",
+   "title": "Process for the document management and computer-assisted translation of documents utilizing document corpora constructed by intelligent agents",
+   "assignee": "Shreve Gregory M."
+  },
+  {
+   "id": "US6609123B1",
+   "title": "Query engine and method for querying data using metadata model",
+   "assignee": "Cognos Incorporated"
+  },
+  {
+   "id": "US20030167163A1",
+   "title": "Inferring hierarchical descriptions of a set of documents",
+   "assignee": "Nec Research Institute, Inc."
+  },
+  {
+   "id": "US20030177110A1",
+   "title": "Profile information recommendation method, program and apparatus",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US20030182310A1",
+   "title": "Method and apparatus for sociological data mining",
+   "assignee": "Elizabeth Charnock"
+  },
+  {
+   "id": "JP2003281173A",
+   "title": "Information collection system, information collection method, and program for causing computer to execute information collection",
+   "assignee": "Toshiba Corp"
+  },
+  {
+   "id": "US20030195872A1",
+   "title": "Web-based information content analyzer and information dimension dictionary",
+   "assignee": "Paul Senn"
+  },
+  {
+   "id": "US20030195877A1",
+   "title": "Search query processing to provide category-ranked presentation of search results",
+   "assignee": "Ford James L."
+  },
+  {
+   "id": "US20030196052A1",
+   "title": "Method, system, and program for grouping objects",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6636742B1",
+   "title": "Tracking of mobile terminal equipment in a mobile communications system",
+   "assignee": "Sonera Oyj"
+  },
+  {
+   "id": "US20030204481A1",
+   "title": "Method and system for visually constructing XML schemas using an object-oriented model",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6643641B1",
+   "title": "Web search engine with graphic snapshots",
+   "assignee": "Russell Snyder"
+  },
+  {
+   "id": "US20030208354A1",
+   "title": "Method for named-entity recognition and verification",
+   "assignee": "Industrial Technology Research Institute"
+  },
+  {
+   "id": "US6665659B1",
+   "title": "Methods and apparatus for distributing and using metadata via the internet",
+   "assignee": "James D. Logan"
+  },
+  {
+   "id": "US6665666B1",
+   "title": "System, method and program product for answering questions using a search engine",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6665837B1",
+   "title": "Method for identifying related pages in a hyperlinked database",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US20040003067A1",
+   "title": "System and method for enabling a user interface with GUI meta data",
+   "assignee": "Daniel Ferrin"
+  },
+  {
+   "id": "US6675159B1",
+   "title": "Concept-based search and retrieval system",
+   "assignee": "Science Applic Int Corp"
+  },
+  {
+   "id": "US20040015481A1",
+   "title": "Patent data mining",
+   "assignee": "Kenneth Zinda"
+  },
+  {
+   "id": "US6684205B1",
+   "title": "Clustering hypertext with applications to web searching",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040024739A1",
+   "title": "System and method for implementing a knowledge management system",
+   "assignee": "Kanisa Inc."
+  },
+  {
+   "id": "US6693651B2",
+   "title": "Customer self service iconic interface for resource search results display and selection",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6704726B1",
+   "title": "Query processing method",
+   "assignee": "Amouroux Remy"
+  },
+  {
+   "id": "US20040059726A1",
+   "title": "Context-sensitive wordless search",
+   "assignee": "Jeff Hunter"
+  },
+  {
+   "id": "US20040064447A1",
+   "title": "System and method for management of synonymic searching",
+   "assignee": "Simske Steven J."
+  },
+  {
+   "id": "US20040069880A1",
+   "title": "Ultra fine dead sea mineral compound and method of manufacture",
+   "assignee": "Morris Samelson"
+  },
+  {
+   "id": "US20040088292A1",
+   "title": "Global query correlation attributes",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6738767B1",
+   "title": "System and method for discovering schematic structure in hypertext documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6745189B2",
+   "title": "System and method for enabling multi-indexing of objects",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040107125A1",
+   "title": "Business alliance identification in a web architecture",
+   "assignee": "Accenture Llp"
+  },
+  {
+   "id": "US6754873B1",
+   "title": "Techniques for finding related hyperlinked documents using link-based analysis",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20040122844A1",
+   "title": "Method, system, and program for use of metadata to create multidimensional cubes in a relational database",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040123240A1",
+   "title": "Automatic completion of dates",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040122846A1",
+   "title": "Fact verification system",
+   "assignee": "Ibm Corporation"
+  },
+  {
+   "id": "US20040128624A1",
+   "title": "System and methods for an architectural framework for design of an adaptive, personalized, interactive content delivery system",
+   "assignee": "Sbc Technology Resources, Inc."
+  },
+  {
+   "id": "US6763496B1",
+   "title": "Method for promoting contextual information to display pages containing hyperlinks",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20040143600A1",
+   "title": "Content aggregation method and apparatus for on-line purchasing system",
+   "assignee": "Musgrove Timothy Allen"
+  },
+  {
+   "id": "US20040153456A1",
+   "title": "Method and apparatus to visually present discussions for data mining purposes",
+   "assignee": "Elizabeth Charnock"
+  },
+  {
+   "id": "US20040167907A1",
+   "title": "Visualization of integrated structured data and extracted relational facts from free text",
+   "assignee": "Attensity Corporation"
+  },
+  {
+   "id": "US20040177080A1",
+   "title": "System and method for unknown type serialization",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20040177015A1",
+   "title": "System and method for extracting content for submission to a search engine",
+   "assignee": "Yaron Galai"
+  },
+  {
+   "id": "US20040199923A1",
+   "title": "Method, system and software for associating atributes within digital media presentations",
+   "assignee": "Russek David J."
+  },
+  {
+   "id": "US6804667B1",
+   "title": "Filter for checking for duplicate entries in database",
+   "assignee": "Ncr Corporation"
+  },
+  {
+   "id": "US6820093B2",
+   "title": "Method for verifying record code prior to an action based on the code",
+   "assignee": "Hyperphrase Technologies, Llc"
+  },
+  {
+   "id": "US6820081B1",
+   "title": "System and method for evaluating a structured message store for message redundancy",
+   "assignee": "Attenex Corporation"
+  },
+  {
+   "id": "US6823495B1",
+   "title": "Mapping tool graphical user interface",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20040243614A1",
+   "title": "Method, system, and apparatus for validation",
+   "assignee": "Dictaphone Corporation"
+  },
+  {
+   "id": "US20040243552A1",
+   "title": "Method, system, and apparatus for viewing data",
+   "assignee": "Dictaphone Corporation"
+  },
+  {
+   "id": "US6832218B1",
+   "title": "System and method for associating search results",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20040255237A1",
+   "title": "Document search engine including highlighting of confident results",
+   "assignee": "Simon Tong"
+  },
+  {
+   "id": "US20040260979A1",
+   "title": "Information mining system",
+   "assignee": "Hiroyuki Kumai"
+  },
+  {
+   "id": "US20040268237A1",
+   "title": "Leveraging markup language data for semantically labeling text strings and data and for providing actions based on semantically labeled text strings and data",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20040267700A1",
+   "title": "Systems and methods for personal ubiquitous information retrieval and reuse",
+   "assignee": "Dumais Susan T."
+  },
+  {
+   "id": "US6845354B1",
+   "title": "Information retrieval system with a neuro-fuzzy structure",
+   "assignee": "Institute For Information Industry"
+  },
+  {
+   "id": "US6850896B1",
+   "title": "Method and system for managing and providing sales data using world wide web",
+   "assignee": "Market-Touch Corporation"
+  },
+  {
+   "id": "US20050055365A1",
+   "title": "Scalable data extraction techniques for transforming electronic documents into queriable archives",
+   "assignee": "I.V. Ramakrishnan"
+  },
+  {
+   "id": "US6868411B2",
+   "title": "Fuzzy text categorizer",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US6873982B1",
+   "title": "Ordering of database search results based on user feedback",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6873993B2",
+   "title": "Indexing method and apparatus",
+   "assignee": "Canon Kabushiki Kaisha"
+  },
+  {
+   "id": "US20050076012A1",
+   "title": "Personalized searchable library with highlighting capabilities",
+   "assignee": "Udi Manber"
+  },
+  {
+   "id": "US20050080613A1",
+   "title": "System and method for processing text utilizing a suite of disambiguation techniques",
+   "assignee": "Matthew Colledge"
+  },
+  {
+   "id": "US20050086211A1",
+   "title": "System and method for searching, finding and contacting dates on the Internet in instant messaging networks and/or in other methods that enable immediate finding and creating immediate contact",
+   "assignee": "Yaron Mayer"
+  },
+  {
+   "id": "US20050086222A1",
+   "title": "Semi-automatic construction method for knowledge base of encyclopedia question answering system",
+   "assignee": "Wang Ji H."
+  },
+  {
+   "id": "US20050086251A1",
+   "title": "Methods and systems for assigning an attribute value to an object",
+   "assignee": "Michael Hatscher"
+  },
+  {
+   "id": "US6886010B2",
+   "title": "Method for data and text mining and literature-based discovery",
+   "assignee": "The United States Of America As Represented By The Secretary Of The Navy"
+  },
+  {
+   "id": "US20050097150A1",
+   "title": "Data aggregation",
+   "assignee": "Mckeon Adrian J."
+  },
+  {
+   "id": "US20050108630A1",
+   "title": "Extraction of facts from text",
+   "assignee": "Wasson Mark D."
+  },
+  {
+   "id": "US6901403B1",
+   "title": "XML presentation of general-purpose data sources",
+   "assignee": "Quovadx, Inc."
+  },
+  {
+   "id": "US6904429B2",
+   "title": "Information retrieval apparatus and information retrieval method",
+   "assignee": "Kabushiki Kaisha Toshiba"
+  },
+  {
+   "id": "US20050125311A1",
+   "title": "System and method for automated part-number mapping",
+   "assignee": "Ghassan Chidiac"
+  },
+  {
+   "id": "US20050149576A1",
+   "title": "Systems and methods for direct navigation to specific portion of target document",
+   "assignee": "Google Inc. A Delaware Corporation"
+  },
+  {
+   "id": "US20050149851A1",
+   "title": "Generating hyperlinks and anchor text in HTML and non-HTML documents",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20050188217A1",
+   "title": "Network security system",
+   "assignee": "Ghanea-Hercock Robert A."
+  },
+  {
+   "id": "US20050187923A1",
+   "title": "Intelligent search and retrieval system and method",
+   "assignee": "Dow Jones Reuters Business Interactive, Llc"
+  },
+  {
+   "id": "US6957213B1",
+   "title": "Method of utilizing implicit references to answer a query",
+   "assignee": "Inquira, Inc."
+  },
+  {
+   "id": "US20050240615A1",
+   "title": "Techniques for identifying mergeable data",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US6963880B1",
+   "title": "Schema evolution of complex objects",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US6965900B2",
+   "title": "Method and apparatus for electronically extracting application specific multidimensional information from documents selected from a set of documents electronically extracted from a library of electronically searchable documents",
+   "assignee": "X-Labs Holdings, Llc"
+  },
+  {
+   "id": "US20050256825A1",
+   "title": "Viewing annotations across multiple applications",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20060036504A1",
+   "title": "Dynamically classifying items for international delivery",
+   "assignee": "Allocca William W"
+  },
+  {
+   "id": "US7003719B1",
+   "title": "System, method, and software for inserting hyperlinks into documents",
+   "assignee": "West Publishing Company, Dba West Group"
+  },
+  {
+   "id": "US7003506B1",
+   "title": "Method and system for creating an embedded search link document",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7003522B1",
+   "title": "System and method for incorporating smart tags in online content",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060041597A1",
+   "title": "Information retrieval systems with duplicate document detection and presentation functions",
+   "assignee": "West Services, Inc."
+  },
+  {
+   "id": "US7007228B1",
+   "title": "Encoding geographic coordinates in a fuzzy geographic address",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20060047691A1",
+   "title": "Creating a document index from a flex- and Yacc-generated named entity recognizer",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20060047838A1",
+   "title": "Inferring server state in a stateless communication protocol",
+   "assignee": "Abhishek Chauhan"
+  },
+  {
+   "id": "US20060053175A1",
+   "title": "System and method for creating, editing, and utilizing one or more rules for multi-relational ontology creation and maintenance",
+   "assignee": "Biowisdom Limited"
+  },
+  {
+   "id": "US20060053171A1",
+   "title": "System and method for curating one or more multi-relational ontologies",
+   "assignee": "Biowisdom Limited"
+  },
+  {
+   "id": "US7013308B1",
+   "title": "Knowledge storage and retrieval system and method",
+   "assignee": "Semscript Ltd."
+  },
+  {
+   "id": "US20060064411A1",
+   "title": "Search engine using user intent",
+   "assignee": "William Gross"
+  },
+  {
+   "id": "US7020662B2",
+   "title": "Method and system for determining a directory entry's class of service based on the value of a specifier in the entry",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US20060074824A1",
+   "title": "Prediction by collective likelihood from emerging patterns",
+   "assignee": "Jinyan Li"
+  },
+  {
+   "id": "US20060074910A1",
+   "title": "Systems and methods of retrieving topic specific information",
+   "assignee": "Become, Inc."
+  },
+  {
+   "id": "US20060085465A1",
+   "title": "Method(s) for updating database object metadata",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US7043521B2",
+   "title": "Search agent for searching the internet",
+   "assignee": "Rockwell Electronic Commerce Technologies, Llc"
+  },
+  {
+   "id": "US7051023B2",
+   "title": "Systems and methods for generating concept units from search queries",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US20060112110A1",
+   "title": "System and method for automating data normalization using text analytics",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20060136585A1",
+   "title": "Resource reconciliation",
+   "assignee": "Bmc Software, Inc."
+  },
+  {
+   "id": "US20060143603A1",
+   "title": "Data object association based on graph theory techniques",
+   "assignee": "Wolfgang Kalthoff"
+  },
+  {
+   "id": "US20060143227A1",
+   "title": "System and method for persisting software objects",
+   "assignee": "Helm Martin W"
+  },
+  {
+   "id": "US20060152755A1",
+   "title": "Method, system and program product for managing document summary information",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7080085B1",
+   "title": "System and method for ensuring referential integrity for heterogeneously scoped references in an information management system",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7080073B1",
+   "title": "Method and apparatus for focused crawling",
+   "assignee": "Firstrain, Inc."
+  },
+  {
+   "id": "US20060167991A1",
+   "title": "Buddy list filtering",
+   "assignee": "Heikes Brian D"
+  },
+  {
+   "id": "US7100082B2",
+   "title": "Check creation and maintenance for product knowledge management",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US20060224582A1",
+   "title": "User interface for facts query engine with snippets from information sources that include query terms and answer terms",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20060242180A1",
+   "title": "Extracting data from semi-structured text documents",
+   "assignee": "Graf James A"
+  },
+  {
+   "id": "US20060238919A1",
+   "title": "Adaptive data cleaning",
+   "assignee": "The Boeing Company"
+  },
+  {
+   "id": "US20060248456A1",
+   "title": "Assigning a publication date for at least one electronic document",
+   "assignee": "Ibm Corporation"
+  },
+  {
+   "id": "US20060248045A1",
+   "title": "Information access using ontologies",
+   "assignee": "Kinor Technologies Inc."
+  },
+  {
+   "id": "US20060259462A1",
+   "title": "System and Methodology for Real-time Content Aggregation and Syndication",
+   "assignee": "Sybase, Inc."
+  },
+  {
+   "id": "US7143099B2",
+   "title": "Historical data warehousing system",
+   "assignee": "Amdocs Software Systems Limited"
+  },
+  {
+   "id": "US7146536B2",
+   "title": "Fact collection for product knowledge management",
+   "assignee": "Sun Microsystems, Inc."
+  },
+  {
+   "id": "US20060277169A1",
+   "title": "Using the quantity of electronically readable text to generate a derivative attribute for an electronic file",
+   "assignee": "Lunt Tracy T"
+  },
+  {
+   "id": "US20060288268A1",
+   "title": "Method for extracting, interpreting and standardizing tabular data from unstructured documents",
+   "assignee": "Rage Frameworks, Inc."
+  },
+  {
+   "id": "US20060293879A1",
+   "title": "Learning facts from semi-structured text",
+   "assignee": "Shubin Zhao"
+  },
+  {
+   "id": "US7158980B2",
+   "title": "Method and apparatus for computerized extracting of scheduling information from a natural language e-mail",
+   "assignee": "Acer Incorporated"
+  },
+  {
+   "id": "US20070005639A1",
+   "title": "Categorization including dependencies between different category systems",
+   "assignee": "Xerox Corporation"
+  },
+  {
+   "id": "US20070005593A1",
+   "title": "Attribute-based data retrieval and association",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7162499B2",
+   "title": "Linked value replication",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070016890A1",
+   "title": "Configurator using structure to provide a user interface",
+   "assignee": "Stephan Brunner"
+  },
+  {
+   "id": "US20070038610A1",
+   "title": "System and method for knowledge retrieval, management, delivery and presentation",
+   "assignee": "Nosa Omoigui"
+  },
+  {
+   "id": "US7181471B1",
+   "title": "Fact data unifying method and apparatus",
+   "assignee": "Fujitsu Limited"
+  },
+  {
+   "id": "US20070055656A1",
+   "title": "Knowledge repository",
+   "assignee": "Semscript Ltd."
+  },
+  {
+   "id": "US7194380B2",
+   "title": "Classification using probability estimate re-sampling",
+   "assignee": "Chordiant Software Europe Limited"
+  },
+  {
+   "id": "US7197449B2",
+   "title": "Method for extracting name entities and jargon terms using a suffix tree data structure",
+   "assignee": "Intel Corporation"
+  },
+  {
+   "id": "US20070073768A1",
+   "title": "Interactive system for building and sharing one's own databank of wisdom bytes, such as words of wisdom, basic truths and/or facts and and feats, in one or more languages",
+   "assignee": "Goradia Gautam D"
+  },
+  {
+   "id": "US20070094246A1",
+   "title": "System and method for searching dates efficiently in a collection of web documents",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US20070100814A1",
+   "title": "Apparatus and method for detecting named entity",
+   "assignee": "Samsung Electronics Co., Ltd."
+  },
+  {
+   "id": "US7216073B2",
+   "title": "Dynamic natural language understanding",
+   "assignee": "Intelligate, Ltd."
+  },
+  {
+   "id": "US20070130123A1",
+   "title": "Content matching",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US20070143282A1",
+   "title": "Anchor text summarization for corroboration",
+   "assignee": "Betz Jonathan T"
+  },
+  {
+   "id": "US7260573B1",
+   "title": "Personalizing anchor text scores in a search engine",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20070198481A1",
+   "title": "Automatic object reference identification and linking in a browseable fact repository",
+   "assignee": "Hogue Andrew W"
+  },
+  {
+   "id": "US20070198598A1",
+   "title": "Modular architecture for entity normalization",
+   "assignee": "Betz Jonathan T"
+  },
+  {
+   "id": "US20070198451A1",
+   "title": "Support for object search",
+   "assignee": "Kehlenbeck Alexander P"
+  },
+  {
+   "id": "US20070198503A1",
+   "title": "Browseable fact repository",
+   "assignee": "Hogue Andrew W"
+  },
+  {
+   "id": "US20070198600A1",
+   "title": "Entity normalization via name normalization",
+   "assignee": "Betz Jonathan T"
+  },
+  {
+   "id": "US20070198480A1",
+   "title": "Query language",
+   "assignee": "Hogue Andrew W"
+  },
+  {
+   "id": "US20070198577A1",
+   "title": "ID persistence through normalization",
+   "assignee": "Betz Jonathan T"
+  },
+  {
+   "id": "US7263565B2",
+   "title": "Bus system and integrated circuit having an address monitor unit",
+   "assignee": "Renesas Technology Corp."
+  },
+  {
+   "id": "US20070203867A1",
+   "title": "Data object visualization",
+   "assignee": "Hogue Andrew W"
+  },
+  {
+   "id": "US7277879B2",
+   "title": "Concept navigation in data storage systems",
+   "assignee": "Electronic Data Systems Corporation"
+  },
+  {
+   "id": "US20070271268A1",
+   "title": "Architecture for an indexer",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7302646B2",
+   "title": "Information rearrangement method, information processing apparatus and information processing system, and storage medium and program transmission apparatus therefor",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7305380B1",
+   "title": "Systems and methods for performing in-context searching",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US20080071739A1",
+   "title": "Using anchor text to provide context",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7363312B2",
+   "title": "Combining data descriptions",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US20080104019A1",
+   "title": "Associating Geographic-Related Information with Objects",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7398461B1",
+   "title": "Method for ranking web page search results",
+   "assignee": "Overture Services, Inc."
+  },
+  {
+   "id": "US7409381B1",
+   "title": "Index to a semi-structured database",
+   "assignee": "British Telecommunications Public Limited Company"
+  },
+  {
+   "id": "US7412078B2",
+   "title": "System for automatic recognizing license number of other vehicles on observation vehicles and method thereof",
+   "assignee": "Hyunjae Tech Co., Ltd."
+  },
+  {
+   "id": "US7472182B1",
+   "title": "Data collection policy for storage devices",
+   "assignee": "Emc Corporation"
+  },
+  {
+   "id": "US20090006359A1",
+   "title": "Automatically finding acronyms and synonyms in a corpus",
+   "assignee": "Oracle International Corporation"
+  },
+  {
+   "id": "US7483829B2",
+   "title": "Candidate synonym support device for generating candidate synonyms that can handle abbreviations, mispellings, and the like",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7493317B2",
+   "title": "Result-based triggering for presentation of online content",
+   "assignee": "Omniture, Inc."
+  },
+  {
+   "id": "US7493308B1",
+   "title": "Searching documents using a dimensional database",
+   "assignee": "A9.Com, Inc."
+  },
+  {
+   "id": "US20090119255A1",
+   "title": "Methods of Systems Using Geographic Meta-Metadata in Information Retrieval and Document Displays",
+   "assignee": "Metacarta, Inc."
+  },
+  {
+   "id": "US7644076B1",
+   "title": "Clustering strings using N-grams",
+   "assignee": "Teradata Us, Inc."
+  },
+  {
+   "id": "US7685201B2",
+   "title": "Person disambiguation using name entity extraction-based clustering",
+   "assignee": "Microsoft Corporation"
+  },
+  {
+   "id": "US7698303B2",
+   "title": "System for categorizing and normalizing knowledge data based on user's affinity to knowledge",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7716225B1",
+   "title": "Ranking documents based on user behavior and/or feature data",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US7747571B2",
+   "title": "Methods, systems, and computer program products for implementing logical and physical data models",
+   "assignee": "At&T Intellectual Property, I,L.P."
+  },
+  {
+   "id": "US7756823B2",
+   "title": "Dynamic reference repository",
+   "assignee": "Lockheed Martin Corporation"
+  },
+  {
+   "id": "US7797282B1",
+   "title": "System and method for modifying a training set",
+   "assignee": "Hewlett-Packard Development Company, L.P."
+  },
+  {
+   "id": "US7885918B2",
+   "title": "Creating a taxonomy from business-oriented metadata content",
+   "assignee": "International Business Machines Corporation"
+  },
+  {
+   "id": "US7917154B2",
+   "title": "Determining mobile content for a social network based on location and time",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "US7953720B1",
+   "title": "Selecting the best answer to a fact query from among a set of potential answers",
+   "assignee": "Google Inc."
+  },
+  {
+   "id": "US8024281B2",
+   "title": "Alpha node hashing in a rule engine",
+   "assignee": "Red Hat, Inc."
+  },
+  {
+   "id": "US8108501B2",
+   "title": "Searching and route mapping based on a social network, location, and time",
+   "assignee": "Yahoo! Inc."
+  },
+  {
+   "id": "JP5174020B2",
+   "title": "Shiso's fresh and natural distilled spirits and method for producing the same",
+   "assignee": "サントリーホールディングス株式会社"
+  }
+ ],
+ "similar": [
+  {
+   "id": "US20140372478A1",
+   "title": "Learning Objects And Facts From Documents"
+  },
+  {
+   "id": "US8825471B2",
+   "title": "Unsupervised extraction of facts"
+  },
+  {
+   "id": "US7792837B1",
+   "title": "Entity name recognition"
+  },
+  {
+   "id": "US9092495B2",
+   "title": "Automatic object reference identification and linking in a browseable fact repository"
+  },
+  {
+   "id": "US10223406B2",
+   "title": "Entity normalization via name normalization"
+  },
+  {
+   "id": "US7966291B1",
+   "title": "Fact-based object merging"
+  },
+  {
+   "id": "US9760570B2",
+   "title": "Finding and disambiguating references to entities on web pages"
+  },
+  {
+   "id": "US7774328B2",
+   "title": "Browseable fact repository"
+  },
+  {
+   "id": "US8954426B2",
+   "title": "Query language"
+  },
+  {
+   "id": "US20120124053A1",
+   "title": "Annotation Framework"
+  },
+  {
+   "id": "US8347202B1",
+   "title": "Determining geographic locations for place names in a fact repository"
+  },
+  {
+   "id": "US20140359409A1",
+   "title": "Learning Synonymous Object Names from Anchor Texts"
+  },
+  {
+   "id": "US9785686B2",
+   "title": "Corroborating facts in electronic documents"
+  },
+  {
+   "id": "US7464090B2",
+   "title": "Object categorization for information extraction"
+  },
+  {
+   "id": "US7672971B2",
+   "title": "Modular architecture for entity normalization"
+  },
+  {
+   "id": "US9208229B2",
+   "title": "Anchor text summarization for corroboration"
+  },
+  {
+   "id": "CN114443928B",
+   "title": "Web text data crawler method and system"
+  },
+  {
+   "id": "US7590628B2",
+   "title": "Determining document subject by using title and anchor text of related documents"
+  },
+  {
+   "id": "US7739212B1",
+   "title": "System and method for updating facts in a fact repository"
+  }
+ ],
+ "source_url": "https://patents.google.com/patent/US8812435B1/en"
+}

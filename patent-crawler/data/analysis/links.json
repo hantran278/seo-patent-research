@@ -1,0 +1,227 @@
+{
+"US6285999B1": {
+  "relevance": "cao",
+  "mech": "- **PageRank gốc** (Larry Page, Stanford, cấp phép độc quyền cho Google).\n- Điểm của một trang = tổng điểm của các trang link tới nó, mỗi trang nguồn **chia đều điểm cho số link ra** của nó.\n- Thêm hằng số 'nhảy ngẫu nhiên' (damping ~0.85): người lướt web có xác suất bỏ đi và nhảy tới trang bất kỳ.\n- Ý tưởng: link = phiếu bầu; phiếu từ trang quan trọng nặng hơn; trang có càng nhiều link ra thì mỗi link càng ít giá trị.",
+  "seo": "- Nền tảng của mọi khái niệm 'link juice': chất lượng trang nguồn > số lượng link.\n- Trang nguồn có hàng trăm link ra (trang directory, footer sitewide) chia rất ít giá trị cho mỗi link.\n- Link nội bộ cũng tuân theo cơ chế này → cấu trúc link nội bộ quyết định PageRank phân phối trong site.",
+  "audit": [
+    "Đánh giá backlink theo sức mạnh trang nguồn (UR/PA) và số link ra trên trang nguồn",
+    "Phân tích PageRank nội bộ (Screaming Frog 'Link Score' hoặc Sitebulb): trang quan trọng có nhận đủ link nội bộ không",
+    "Tìm trang mồ côi (không có link nội bộ trỏ tới) và trang quá sâu (>3 click từ trang chủ)"
+  ],
+  "leak": "Leak xác nhận PageRank vẫn tồn tại dưới nhiều dạng: `pagerank`, `PageRank_NS` (nearest seed — PageRank tính theo khoảng cách từ tập seed), `homepagePagerankNs` (PageRank trang chủ dùng làm tín hiệu cho trang mới). `toolbarPagerank` cũng còn trong tài liệu."
+},
+"US6799176B1": {
+  "relevance": "trung bình",
+  "mech": "- Biến thể PageRank: tính **xác suất người tìm kiếm tới được mỗi tài liệu sau khi đi theo một số link**, và chấm điểm theo xác suất đó.\n- Bản mô tả cho phép gán **trọng số khác nhau cho từng link** theo mức quan trọng (không nhất thiết chia đều).",
+  "seo": "- Tiền đề cho việc link có trọng số khác nhau (vị trí, ngữ cảnh) → phát triển thành Reasonable Surfer.",
+  "audit": [],
+  "leak": "Xem `PageRank_NS` trong leak."
+},
+"US7269587B1": {
+  "relevance": "trung bình",
+  "mech": "- Mô tả toán học PageRank: vector xác suất ban đầu p0, ma trận chuyển tiếp A (xác suất đi từ trang i sang trang j), lặp pn = Aⁿp0 tới trạng thái dừng.\n- Rank của trang k = thành phần thứ k của vector hội tụ — xác suất một 'người lướt ngẫu nhiên' đang ở trang đó.",
+  "seo": "- Cùng ý nghĩa với PageRank gốc. Điểm đáng chú ý: vector khởi đầu p0 có thể **không đều** (thiên về một số trang) → tiền đề cho PageRank cá nhân hoá và PageRank theo seed tin cậy.",
+  "audit": [],
+  "leak": ""
+},
+"US7716225B1": {
+  "relevance": "cao",
+  "mech": "- **Reasonable Surfer**: thay vì coi mọi link trên trang ngang nhau, Google huấn luyện mô hình dự đoán **xác suất một link được người dùng click**.\n- Đặc trưng dùng cho mô hình: **vị trí link** (trong nội dung chính hay footer/sidebar), **cỡ chữ, màu sắc**, anchor text dài/ngắn, anchor có mang tính thương mại, số từ, link có trùng domain không, chủ đề trang nguồn và đích có khớp không…\n- Dữ liệu huấn luyện: hành vi điều hướng thật của người dùng.\n- Trọng số link = xác suất được click → rank của trang đích tính theo trọng số này.",
+  "seo": "- Link **trong nội dung chính, nổi bật, liên quan** có giá trị cao hơn nhiều so với link footer, sidebar, link chìm trong 'bài tài trợ' cuối trang.\n- Link nội bộ trong phần thân bài tới trang quan trọng hiệu quả hơn link menu/footer.\n- Mua link đặt ở footer/sidebar sitewide gần như vô giá trị (và dễ bị phát hiện).",
+  "audit": [
+    "Phân loại backlink theo vị trí: trong nội dung (contextual) / sidebar / footer / comment / profile",
+    "Kiểm tra link nội bộ tới trang chủ lực: có nằm trong thân bài với anchor mô tả rõ không",
+    "Rà footer/menu quá nhiều link (mega menu hàng trăm link) làm loãng trọng số",
+    "Kiểm tra link tới trang quan trọng có bị đặt ở vị trí khó thấy (chữ nhỏ, màu nhạt, ẩn trong tab) không"
+  ],
+  "leak": "Leak có các thuộc tính của anchor: `fontsize`, vị trí/ngữ cảnh (`context2`), `sourceType`, `isLocal`… — cho thấy Google lưu đặc trưng hình thức của từng link đúng như mô hình Reasonable Surfer."
+},
+"US9165040B1": {
+  "relevance": "cao",
+  "mech": "- Chọn tập **seed page** — trang tin cậy, được chọn thủ công hoặc theo tiêu chí, có nhiều link ra tốt (ví dụ trang lớn, danh bạ uy tín).\n- Mỗi link được gán **'độ dài'**: link từ trang có càng nhiều link ra thì càng dài (tức giá trị thấp hơn).\n- Tính **khoảng cách ngắn nhất** từ các seed tới mỗi trang (theo seed gần thứ k, để tránh phụ thuộc 1 seed).\n- Điểm xếp hạng dựa trên khoảng cách: **càng gần các trang tin cậy càng tốt**.",
+  "seo": "- Đây được cho là PageRank hiện đại (PageRank_NS — nearest seed). Không phải số link, mà là **bạn cách các trang uy tín bao nhiêu bước**.\n- Một link từ site uy tín trong ngành (báo lớn, .gov, .edu, hiệp hội) giá trị hơn nhiều link từ site vô danh.\n- Link từ site nằm ngoài 'vùng tin cậy' (mạng PBN khép kín) gần như không có giá trị.",
+  "audit": [
+    "Liệt kê các nguồn uy tín nhất trong ngành (báo lớn, cơ quan nhà nước, hiệp hội, trường đại học, Wikipedia) và kiểm tra site đã có link từ nhóm này hoặc từ site được nhóm này link tới chưa",
+    "Đánh giá 'khoảng cách' gián tiếp: backlink đến từ site có được chính các nguồn uy tín link tới không",
+    "Ưu tiên chiến dịch PR/link từ nguồn gần seed thay vì số lượng lớn link từ site nhỏ"
+  ],
+  "leak": "Leak có `PageRank_NS` (Nearest Seed) — xác nhận Google dùng PageRank tính theo khoảng cách tới tập seed, đúng như patent này."
+},
+"US10270791B1": {
+  "relevance": "trung bình",
+  "mech": "- Google lưu **xác suất chuyển tiếp** giữa các 'entity tìm kiếm': query, tài liệu, phiên tìm kiếm, thời điểm, anchor, domain — mỗi xác suất là độ mạnh quan hệ theo lịch sử tìm kiếm.\n- Ứng dụng: (1) query tăng đột biến → tìm query liên quan về thời gian → **ưu tiên tài liệu mới**; (2) phiên bị đánh dấu spam → tính **điểm spam** cho query/phiên khác qua xác suất chuyển tiếp.",
+  "seo": "- Phát hiện spam bằng quan hệ giữa phiên, query, anchor, domain → các chiến dịch thao túng (click ảo, query ảo, anchor ảo) có thể bị phát hiện theo cụm.\n- Khi chủ đề 'nóng', nội dung mới được ưu tiên.",
+  "audit": [
+    "Không dùng dịch vụ click/traffic ảo, tìm kiếm thương hiệu ảo — có thể bị liên kết thành cụm spam"
+  ],
+  "leak": ""
+},
+"US8825645B1": {
+  "relevance": "cao",
+  "mech": "- Google xác định **nhóm tài liệu có liên kết/cùng chủ** (affiliated) — cùng chủ sở hữu, cùng người kiểm soát.\n- Khi nhiều trang trong cùng nhóm cùng link tới một trang đích, Google **chỉ lấy giá trị lớn nhất** (điểm/số link ra) trong nhóm, thay vì cộng dồn.\n- Kết quả: 10 site của cùng một chủ link tới bạn ≈ giá trị của **1 site**.",
+  "seo": "- Vô hiệu hoá **PBN và mạng site vệ tinh** cùng chủ: nhiều link từ cùng một thực thể không cộng dồn.\n- Link từ nhiều **chủ sở hữu độc lập** mới tạo ra giá trị.",
+  "audit": [
+    "Nhóm backlink theo chủ sở hữu/dấu hiệu chung: cùng IP/C-class, cùng WHOIS, cùng Google Analytics/AdSense ID, cùng theme/footer",
+    "Đếm số 'chủ sở hữu độc lập' thay vì số referring domain",
+    "Nếu có mạng site vệ tinh của chính doanh nghiệp: đánh giá lại giá trị thực và rủi ro"
+  ],
+  "leak": ""
+},
+"US10210256B2": {
+  "relevance": "cao",
+  "mech": "- Khi crawl trang nguồn, Google lấy **anchor text và văn bản xung quanh link (annotation text** — trong một khoảng cách nhất định quanh link).\n- Các từ này được **index cho cả trang đích**, không chỉ trang nguồn.\n- Lợi ích: mô tả của người khác về trang đích thường chính xác hơn chính trang đó; index được cả ảnh/video/file ít chữ; thậm chí **index trang đích trước khi crawl nó**.",
+  "seo": "- Anchor text và **đoạn văn bao quanh link** giúp trang đích xếp hạng cho từ khoá đó — kể cả khi trang đích không chứa từ khoá.\n- Link nội bộ với anchor mô tả rõ là cách đơn giản để củng cố chủ đề trang đích.\n- Giải thích vì sao ảnh/PDF có thể xếp hạng nhờ văn bản của trang link tới.",
+  "audit": [
+    "Phân tích phân bố anchor text của backlink: tỷ lệ brand / URL / chủ đề / chung chung ('xem thêm')",
+    "Rà anchor text link nội bộ: tránh 'click here', 'xem thêm'; dùng anchor mô tả nội dung trang đích",
+    "Kiểm tra đoạn văn quanh link nội bộ/backlink có liên quan chủ đề trang đích không"
+  ],
+  "leak": "Leak có module anchor chi tiết (`AnchorsAnchor`: `text`, `context2` — văn bản quanh link, `fontsize`, `sourceType`…) — khớp với việc index annotation text quanh link."
+},
+"US8595270B2": {
+  "relevance": "trung bình",
+  "mech": "- Khi kết quả tìm kiếm có đoạn văn liên quan query nằm ở giữa trang, Google tạo **anchor nhân tạo** (không có sẵn trong trang) gắn vào URL kết quả.\n- Người dùng bấm vào sẽ nhảy thẳng tới đoạn đó — tiền thân của **Scroll to Text Fragment** (#:~:text=) trên featured snippet.",
+  "seo": "- Google hiểu và trỏ tới **từng đoạn** trong trang → cấu trúc đoạn rõ ràng, mỗi đoạn trả lời một ý giúp được chọn làm snippet/passage.",
+  "audit": [
+    "GSC: kiểm tra URL có đoạn #:~:text= trong báo cáo (dấu hiệu được hiển thị dạng featured snippet)",
+    "Đảm bảo nội dung quan trọng không bị ẩn trong tab/accordion cần JS để mở"
+  ],
+  "leak": ""
+},
+"US8719276B1": {
+  "relevance": "cao",
+  "mech": "- Gom các node (site) thành **cụm có liên kết** — cùng chủ sở hữu hoặc cùng người kiểm soát.\n- Link từ node trong cùng cụm tới node khác trong cụm: **giá trị phiếu bầu bị chia cho số node trong cụm**.\n- Ngoài ra, lượng rank một node truyền cho node khác bị **giới hạn trần** → không node nào ảnh hưởng quá mức.",
+  "seo": "- Link giữa các site cùng hệ sinh thái (site công ty mẹ – con, mạng vệ tinh) bị giảm giá trị mạnh.\n- Một backlink cực mạnh cũng có giới hạn → cần **đa dạng nguồn** thay vì trông vào 1–2 link lớn.",
+  "audit": [
+    "Liệt kê các site thuộc cùng chủ/hệ sinh thái đang link qua lại; không tính chúng là backlink độc lập khi đánh giá",
+    "Kiểm tra mức phụ thuộc: bao nhiêu % sức mạnh link đến từ top 5 referring domain"
+  ],
+  "leak": ""
+},
+"US8762225B1": {
+  "relevance": "thấp",
+  "mech": "- Dành cho tìm kiếm sách: điểm tài liệu dựa trên danh sách bán chạy (theo khu vực người tìm), số bản phát hành, doanh số của nhà xuất bản/tác giả, hành vi người dùng, và **điểm link của trang web liên quan** (trang của tác giả/NXB).",
+  "seo": "- Tín hiệu ngoài web (doanh số, độ nổi tiếng) có thể được dùng cho entity. Điểm link của website chính thức truyền sang entity liên quan.",
+  "audit": [],
+  "leak": ""
+},
+"US8768932B1": {
+  "relevance": "thấp",
+  "mech": "- Khi người dùng chọn thuộc tính để sắp xếp (giá, rating, ngày, kích thước…), Google tính điểm kết hợp giữa giá trị thuộc tính và điểm liên quan; chia kết quả thành nhóm theo ngưỡng liên quan rồi xếp hạng trong nhóm.",
+  "seo": "- Liên quan tới kết quả sắp xếp theo thuộc tính (Shopping, lọc theo giá/ngày) → dữ liệu có cấu trúc (giá, rating, ngày) phải chính xác.",
+  "audit": [
+    "Kiểm tra schema Product/Offer/AggregateRating đầy đủ và đúng giá trị"
+  ],
+  "leak": ""
+},
+"US8086594B1": {
+  "relevance": "thấp",
+  "mech": "- Thuộc hệ thống phrase-based indexing. Điểm liên quan của tài liệu được tính theo **hai nhánh**: một nhánh dựa trên phrase (cụm từ) và cách tách cụm của query (phrasification), nhánh còn lại dựa trên các yếu tố khác; kết hợp lại khi xếp hạng.",
+  "seo": "- Xem nhóm [[Độ liên quan chủ đề & phrase-based indexing]]. Nằm trong nhóm link do được tìm thấy qua truy vấn anchor/link.",
+  "audit": [],
+  "leak": ""
+},
+"US6754873B1": {
+  "relevance": "trung bình",
+  "mech": "- Tìm trang **liên quan** tới một trang X: lấy các trang link tới X (backlink), rồi xem các trang đó còn link tới những trang nào khác (**co-citation**).\n- Giá trị link bị giảm nếu nhiều trang nguồn **cùng host**, và chia theo số link ra của trang nguồn.\n- Trang được đồng trích dẫn nhiều nhất = trang liên quan (tính năng 'related:' cũ).",
+  "seo": "- **Co-citation**: được nhắc/link cùng với các đối thủ uy tín trong cùng một trang giúp Google xếp bạn vào cùng nhóm chủ đề/ngành.\n- Link từ nhiều trang cùng host bị giảm giá trị.",
+  "audit": [
+    "Tìm các trang 'top X', bài so sánh, danh sách nhà cung cấp trong ngành đang link tới đối thủ nhưng chưa có bạn → mục tiêu outreach",
+    "Kiểm tra backlink tập trung quá nhiều từ một host (hàng trăm link từ cùng site)"
+  ],
+  "leak": ""
+},
+"US8959093B1": {
+  "relevance": "cao",
+  "mech": "- Khi trang A và trang B cùng xuất hiện trong kết quả của một query, và **A có link tới B**, Google tính chỉ số chất lượng kết quả cho B dựa trên **dữ liệu click của A cho query đó** (và dữ liệu click của chính B).\n- Tức là **hành vi người dùng trên trang nguồn truyền qua link** sang trang đích.",
+  "seo": "- Link từ một trang **đang xếp hạng và được click nhiều cho cùng query** có giá trị đặc biệt cao cho query đó.\n- Chiến lược: xin link từ các trang đang đứng top cho từ khoá mục tiêu (không chỉ từ site có DR cao).",
+  "audit": [
+    "Với từ khoá mục tiêu: liệt kê các trang đang xếp hạng top 20 không phải đối thủ trực tiếp (bài blog, hướng dẫn, danh sách) → mục tiêu xin link",
+    "Kiểm tra các backlink hiện có: trang nguồn có đang xếp hạng/traffic cho từ khoá liên quan không"
+  ],
+  "leak": "Khớp với việc leak lưu dữ liệu Navboost theo cặp query–tài liệu; Navboost được xác nhận trong vụ kiện DOJ là tín hiệu xếp hạng quan trọng."
+},
+"US6526440B1": {
+  "relevance": "trung bình",
+  "mech": "- (Krishna Bharat — tác giả thuật toán **Hilltop**) Lấy tập kết quả ban đầu cho query, rồi đếm xem mỗi tài liệu được **các tài liệu khác trong chính tập kết quả đó** link tới bao nhiêu → điểm 'local'.\n- Điều chỉnh lại thứ hạng: tài liệu được nhiều kết quả liên quan khác trích dẫn được ưu tiên.",
+  "seo": "- **Link từ trang cùng chủ đề (cũng xếp hạng cho query đó)** có giá trị vượt trội so với link từ trang không liên quan — cơ sở của 'relevant links'.",
+  "audit": [
+    "Tỷ lệ backlink từ site/trang cùng chủ đề ngành so với tổng số",
+    "Tìm các trang đang xếp hạng cho cụm từ khoá chính và kiểm tra ai trong số đó link tới bạn/đối thủ"
+  ],
+  "leak": ""
+},
+"US7260573B1": {
+  "relevance": "thấp",
+  "mech": "- Với mỗi tài liệu, tìm các trang nguồn link tới nó có **anchor text khớp query**; tính điểm quan trọng **cá nhân hoá** của từng trang nguồn theo tham số người dùng; cộng dồn thành điểm anchor text cá nhân hoá rồi kết hợp với điểm nội dung.",
+  "seo": "- Anchor text khớp query là yếu tố xếp hạng; giá trị anchor phụ thuộc độ quan trọng của trang nguồn.",
+  "audit": [],
+  "leak": ""
+},
+"US8386495B1": {
+  "relevance": "trung bình",
+  "mech": "- Đồ thị gồm **trang** và **query**: cạnh trang→trang là link, cạnh query→trang là **click từ kết quả tìm kiếm**.\n- Điểm trang = tổng hợp điểm các trang link tới nó **và** điểm các query dẫn click tới nó (một dạng PageRank mở rộng với click).",
+  "seo": "- Giá trị của trang đến từ cả link lẫn **lưu lượng tìm kiếm thực** → trang có traffic organic ổn định tích luỹ 'uy tín' như có thêm backlink.",
+  "audit": [
+    "Xác định trang có traffic organic cao nhất → dùng làm nguồn link nội bộ tới trang cần đẩy"
+  ],
+  "leak": ""
+},
+"US8577893B1": {
+  "relevance": "cao",
+  "mech": "- (Anna Patterson, Paul Haahr) Với mỗi link, Google phân tích **đoạn văn bên trái và bên phải link**, tìm các **từ hiếm** (tần suất thấp trong kho tài liệu).\n- Từ hiếm hai bên tạo thành **mã ngữ cảnh (context identifier)** của link → dùng để xếp hạng trang đích.\n- Có thể dùng để phát hiện nhiều link có cùng ngữ cảnh (link spam dạng template).",
+  "seo": "- **Ngữ cảnh quanh link quan trọng**, không chỉ anchor: link nằm trong đoạn văn đúng chủ đề (có thuật ngữ chuyên ngành) giá trị hơn link trong câu chung chung.\n- Hàng loạt link có cùng đoạn văn bao quanh (guest post template, footer mẫu) dễ bị nhận diện.",
+  "audit": [
+    "Kiểm tra mẫu backlink: đoạn văn quanh link có cụ thể, chứa thuật ngữ ngành không, hay là câu mẫu lặp lại",
+    "Với link nội bộ: đặt link trong câu có ngữ cảnh chuyên môn, không chỉ danh sách 'bài liên quan'"
+  ],
+  "leak": "Khớp với thuộc tính `context2` của anchor trong leak (hash các từ quanh link)."
+},
+"US8127220B1": {
+  "relevance": "thấp",
+  "mech": "- (Dean, Silverstein, Page) Chấm điểm từng link trong một trang, rồi sắp xếp lại, làm nổi bật hoặc **xoá link có điểm dưới ngưỡng** trước khi hiển thị cho người dùng (ví dụ trong trình duyệt/toolbar).",
+  "seo": "- Google có khả năng chấm điểm chất lượng từng link ra trên trang.",
+  "audit": [],
+  "leak": ""
+},
+"US7213198B1": {
+  "relevance": "thấp",
+  "mech": "- Hai trang được coi là **tương tự** nếu có nhiều trang cùng link tới cả hai (co-citation), điểm tỷ lệ nghịch với tổng số backlink của chúng; gom các trang tương tự thành nhóm chủ đề.",
+  "seo": "- Củng cố vai trò của co-citation: được link cùng các trang cùng chủ đề giúp Google phân loại bạn vào đúng nhóm.",
+  "audit": [],
+  "leak": ""
+},
+"US8166046B1": {
+  "relevance": "thấp",
+  "mech": "- Dành cho quảng cáo dạng link từ khoá: chấm điểm và chọn từ khoá làm link, thay thế từ khoá thuộc danh sách hạn chế của publisher.",
+  "seo": "- Không liên quan trực tiếp tới xếp hạng organic.",
+  "audit": [],
+  "leak": ""
+},
+"US8732187B1": {
+  "relevance": "thấp",
+  "mech": "- Với đối tượng không có link (ví dụ **hình ảnh**), Google tạo **link ảo** dựa trên mức tương đồng nội dung (xác suất người xem ảnh A chọn ảnh B), rồi chạy thuật toán kiểu PageRank để chấm chất lượng (VisualRank).",
+  "seo": "- Image SEO: ảnh 'trung tâm' — giống nhiều ảnh khác trong cùng chủ đề — được điểm cao; ảnh độc đáo nhưng lạc đề thì thấp.",
+  "audit": [
+    "Ảnh sản phẩm/chủ đề chính nên rõ ràng, đúng chủ thể, đặt trong trang có văn bản liên quan"
+  ],
+  "leak": ""
+},
+"US7028029B2": {
+  "relevance": "thấp",
+  "mech": "- Tối ưu tính toán PageRank: sau vài vòng lặp, các trang đã hội tụ được 'đóng băng' để giảm chi phí, tiếp tục lặp cho phần còn lại.",
+  "seo": "- Kỹ thuật hạ tầng, không có hàm ý SEO trực tiếp.",
+  "audit": [],
+  "leak": ""
+},
+"US9208229B2": {
+  "relevance": "trung bình",
+  "mech": "- Khi anchor text của link trỏ tới một tài liệu **khớp tên của một entity** trong kho fact, tài liệu đó được dùng để **chứng thực hoặc bác bỏ** các fact về entity.\n- Anchor text là cách Google xác định 'tài liệu này nói về entity nào'.",
+  "seo": "- Backlink với anchor là **tên thương hiệu/tên entity** giúp Google gắn trang với entity trong Knowledge Graph.\n- Trang 'Giới thiệu' được link bằng tên thương hiệu → nguồn fact cho Knowledge Panel.",
+  "audit": [
+    "Kiểm tra tỷ lệ anchor chứa tên thương hiệu/tên doanh nghiệp chính xác",
+    "Đảm bảo trang Giới thiệu chứa fact rõ ràng (tên, năm thành lập, địa chỉ, người sáng lập) nhất quán với các nguồn khác"
+  ],
+  "leak": ""
+}
+}
